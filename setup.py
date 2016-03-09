@@ -6,7 +6,7 @@ setup(
     # GETTING-STARTED: set your app name:
     name='Contakto App',
     # GETTING-STARTED: set your app version:
-    version='1.1',
+    version='1.2',
     # GETTING-STARTED: set your app description:
     description='Interview system',
     # GETTING-STARTED: set author name (your name):
