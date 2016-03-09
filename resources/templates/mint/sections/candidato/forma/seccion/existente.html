@@ -1,0 +1,51 @@
+<div class="modal fade" id="existenciaCandidato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Candidato existente</h4>
+	  </div>
+	  <div class="modal-body">
+		<div class="result">
+			<div>
+				<p>El siguientes candidato fue registrado previamente con la información capturada.</p>
+				<p>Puedes seleccionarlo para crear una nueva inestigación o editar una de sus investigaciones registradas previamente</p>
+			</div>
+			<ul>
+				<li class="list-group-item"  ng-repeat="candidato in candidatos_existentes">
+					<div class=row>
+							<div class="col-md-8">
+								<p><strong>{[{ candidato.datos_generales.nombre }]}</strong></p>
+							</div>
+							<div class="col-md-4">
+								<p class="pull-right"><a href="/candidato/{[{ candidato.datos_generales.id }]}/investigacion/nueva" class="btn btn-primary btn-xs" href="">Nueva investigación</a></p>
+							</div>
+						</div>
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="inv in candidato.investigaciones">
+									<div class=row>
+										<div class="col-md-8">
+											<p class="pull-left">{[{ inv.compania }]}
+											</p>
+										</div>
+										<div class="col-md-4">
+											<p class="pull-right"><a href="/candidato/investigacion/{[{inv.id}]}/editar" class="btn btn-default btn-xs">Ir a investigación</a>
+											</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="unset_candidato_existente()">Regresar</button>
+	  </div>
+	</div>
+  </div>
+</div>

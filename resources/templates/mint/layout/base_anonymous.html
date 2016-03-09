@@ -1,0 +1,18 @@
+<html lang="sp">
+<head>
+	<title>{{title}}</title>
+	<meta name="author" value="http://mintitmedia.com">
+	<meta name="description" value="">
+	<meta naem="viewport" content="width=device-width, initial-scale=1">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/anonymous_screen.css' %}">
+</head>
+<body>
+	<div class="container">
+	{% block site_wrapper %}{% endblock %}
+	</div>
+
+	<script type="text/javascript" src="{% static 'js/functions.js' %}"></script>
+</body>
+</html>

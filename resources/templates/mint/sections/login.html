@@ -1,0 +1,24 @@
+{% extends 'layout/base_anonymous.html' %}
+
+{% load staticfiles %}
+
+{% block site_wrapper %}
+
+	<form class="form-signin" role="form" action="/login" method="post">{% csrf_token %}
+
+		<center>
+			<img src="{%static 'media/logo_black.png' %}" />
+		</center>
+		{% if next %} <input type="hidden" name="next" value="{{next}}"> {% endif %}
+		<h2 class="form-signin-heading">Ingresar al sistema</h2>
+		<input type="text" name="username" class="form-control" placeholder="usuario" required autofocus>
+		<input type="password" name="password" class="form-control" placeholder="contraseña	" required>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+				
+		{% if state %}
+			<br />
+			<p class="text-danger">{{ state }}</p>
+		{% endif %}
+	</form>
+
+{% endblock %}

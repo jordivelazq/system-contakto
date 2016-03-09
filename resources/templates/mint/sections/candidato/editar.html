@@ -1,0 +1,60 @@
+{% extends 'layout/base.html' %}
+{% load fe_extras %}
+{% block side_content %}
+	{% include 'sections/candidato/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+{% autoescape off %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				{% if msg %}
+					<div id="msg" class="alert alert-{{status}}">
+						{% for m in msg %}
+							- {{m}} <br />
+						{% endfor %}
+					</div>
+				{% else %}
+					<div id="msg"></div>
+				{% endif %}
+			</div>
+		</div>	
+{% endautoescape %}
+
+<div ng-controller="CandidatoCTRL">
+	{% include 'sections/candidato/seccion/candidato_header.html' %}
+	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab">
+		<input type="hidden" id="investigacion_id" value="{{ investigacion_id }}" />		
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-md-8">
+			{% include 'sections/candidato/seccion/menu_trayectoria.html' %}	
+			</div>
+			{% if request.user.is_staff %}
+				<div class="col-md-4 text-right">
+					<button type="submit" name="guardar" class="btn btn-primary ">
+						Guardar <span class="glyphicon glyphicon-save"></span>
+					</button>
+				</div>
+			{% endif %}
+		</div>		
+		<input type="hidden" name="action" id="action"/>
+		<div class="tab-content">
+			<div class="tab-pane active" id="info-personal">
+				{% include 'sections/candidato/forma/seccion/informacion_personal.html' %}
+				<br />				
+			</div>
+		</div>		
+	</form>
+	
+	<p class="text-right">
+		{% if request.user.is_superuser %}	
+			<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar investigación <span class="glyphicon glyphicon-trash"></span></a>
+		{% endif %}
+	</p>
+	
+	{% include 'sections/candidato/forma/seccion/existente.html' %}
+	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+	{% include 'sections/candidato/seccion/empresa_select_forma_modal.html' %}
+</div>	
+{% endblock %}

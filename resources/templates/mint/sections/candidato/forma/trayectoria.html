@@ -1,0 +1,21 @@
+<form role="form" action="#" method="post" id="form_candidato_crear">
+	{% csrf_token %}	
+	<div class="row">
+		<div class="col-md-2 col-md-offset-8">
+			<button type="submit" name="cancelar" class="btn btn-danger form-control">Regresar <span class="glyphicon glyphicon-"></span></button>
+		</div>
+		<div class="col-md-2">
+			<button type="submit" name="guardar" class="btn btn-primary form-control">Guardar <span class="glyphicon glyphicon-save"></span></button><br /><br />
+		</div>
+	</div>
+	{% include 'sections/candidato/forma/seccion/trayectoria_laboral.html' %}
+	<br />
+	{% include 'sections/candidato/forma/seccion/evaluacion.html' %}
+
+	<br />
+	<div class="row">
+		<div class="col-md-3 col-md-offset-9">
+			<a href="/candidato/investigacion/{{investigacion_id}}/borrar/trayectoria/{{trayectoria_id}}" class="btn btn-danger form-control btn_eliminar">Eliminar de trayectoria <span class="glyphicon glyphicon-trash"></span></a>
+		</div>
+	</div>
+</form>

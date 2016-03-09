@@ -1,0 +1,127 @@
+{% extends 'layout/base.html' %}
+
+{% block site_wrapper %}
+{% autoescape off %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div id="msg"></div>
+			</div>
+		</div>	
+{% endautoescape %}
+
+<h1 class="page-header">{{title}}</h1>
+
+{% if error_msg %}
+<div class="row">
+	<div class="col-md-7 col-md-offset-1">
+		<p class="alert alert-danger">{{ error_msg }}</p>
+	</div>
+</div>
+{% endif %}
+
+<span class="clearfix"></span>
+<form role="form" action="{{url}}" method="post" novalidate ng-non-bindable>{% csrf_token %}
+	<div class="row">
+		<div class="col-md-2">
+			{% if delete_contact_enable %}
+		<a href="/empresa/{{company.id}}/contacto/{{contacto.id}}/borrar" class="btn btn-danger btn_eliminar form-control" title="eliminar">Eliminar</a>
+		{% endif %}
+		</div>
+		{% if boton_capturar_otro %}
+		<div class="col-md-3">
+			<button name="guargar_capturar_otro" type="submit" class="btn btn-primary form-control" title="guardar">Guardar y capturar otro <span class="glyphicon glyphicon-save"></span></button>
+		</div>
+		{% endif %}
+		<div class="col-md-2">
+			<button type="submit" class="btn btn-primary form-control" title="guardar">Guardar <span class="glyphicon glyphicon-save"></span></button>
+		</div>
+		<div class="col-md-2">
+			<a href="{{boton_cancelar_url}}" class="btn btn-default form-control">Cancelar</span></a>
+		</div>
+	</div>
+ 
+	<div class="row">
+		<div class="col-md-9">
+			{{ form.nombre.label_tag }}
+			<div class="text-danger">{{ form.nombre.errors }}</div>
+			{{ form.nombre }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-9">
+			{{ form.puesto.label_tag }}
+			<div class="text-danger">{{ form.puesto.errors }}</div>
+			{{ form.puesto }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			{{ form.telefono.label_tag }}
+			<div class="text-danger">{{ form.telefono.errors }}</div>
+			{{ form.telefono }}
+		</div>
+		<div class="col-md-3">
+			{{ form.telefono_celular.label_tag }}
+			<div class="text-danger">{{ form.telefono_celular.errors }}</div>
+			{{ form.telefono_celular }}
+		</div>
+		<div class="col-md-3">
+			{{ form.telefono_otro.label_tag }}
+			<div class="text-danger">{{ form.telefono_otro.errors }}</div>
+			{{ form.telefono_otro }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			{{ form.email.label_tag }}
+			<div class="text-danger">{{ form.email.errors }}</div>
+			{{ form.email }}
+		</div>
+		<div class="col-md-4 col-md-offset-1">
+			{{ form.email_alt.label_tag }}
+			<div class="text-danger">{{ form.email_alt.errors }}</div>
+			{{ form.email_alt }}
+		</div>
+	</div>
+
+	{% if user.is_superuser %}
+	<div class="row">
+		<div class="col-md-3">
+			<label>Contraseña:</label>
+			<input id="password" name="password" type="password" class="form-control" />
+		</div>
+		<div class="col-md-9">
+			<br><br>
+			<span>({{pwd_label_text}})</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-9"><hr /></div>
+	</div>
+	<div class="row">
+		<div class="col-md-9"><h4>Cobranza</h4></div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			{{ form.costo_inv_laboral.label_tag }}
+			<div class="text-danger">{{ form.costo_inv_laboral.errors }}</div>
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				{{ form.costo_inv_laboral }}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			{{ form.costo_inv_completa.label_tag }}
+			<div class="text-danger">{{ form.costo_inv_completa.errors }}</div>
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				{{ form.costo_inv_completa }}
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	
+</form>
+{% endblock %}

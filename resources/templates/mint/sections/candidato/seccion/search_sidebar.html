@@ -1,0 +1,95 @@
+<div id="sidebar" ng-controller="SearchCandidatoCTRL">
+	{% if request.user.is_staff %}
+		<div class="sidebar-title">
+			<h4 class="page-header">
+				Candidatos
+				<a href="/candidato/nuevo" title="candidato nuevo" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+			</h4>
+		</div>
+	{% endif %}
+	<div class="" id="filters_accordion">
+	  <div class="">
+	    <div class="">
+	      <h6 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#filters_accordion" href="#collapseOne">
+	          Filtros <span id="filter-icon" class="pull-right glyphicon glyphicon-chevron-down"></span>
+	        </a>
+	      </h6>
+	    </div>
+	    <div id="collapseOne" class="panel-collapse collapse">
+	    	<br />
+			<div class="">
+				<div class="form-group">
+					<input type="text" class="form-control" id="search_nombre" placeholder="Nombre" ng-model="search_nombre">
+				</div>
+				{% if request.user.is_staff %}
+				<div class="form-group">
+					<div ng-click="open_empresa_modal()" class="input-group">
+						<input id="compania_id" type="hidden" value="{[{compania_id}]}">
+						<input placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
+						<span class="input-group-addon glyphicon glyphicon-search"></span> 
+					</div>
+				</div>
+				{% endif %}
+				{% if request.user.is_superuser %}
+				<div class="form-group">		
+					<select class="form-control" id="agente_select" name="agente_select" ng-model="agente_select">
+						<option value="" selected="selected">-Agente-</option>
+						{% for agt in agentes_select %}
+							<option value="{{agt.id}}">{{agt.username|title}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				<div class="form-group">		
+					<select class="form-control" id="status_select" name="status_select" ng-model="status_select">
+						<option value="">Todos</option>
+						{% for id,status in status_select %}
+							<option value="{{id}}">{{status}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div id="daterange-inputs-sidebar" class="form-group">
+					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio"><span class="float-left daterange-separator">&nbsp;a&nbsp;</span><input class="form-control sidebar-date-input " type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
+				</div>
+				<div id="botones-sidebar" class="form-group">
+					<span class="pull-right">
+						<button type="button" class="btn btn-default btn-sm" ng-click=" limpiar_filtros();"> Limpiar </button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="search();"> Buscar </button>
+					</span>
+				</div>
+				<br />
+			</div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div >
+		<hr>
+		
+		<div id="search-status" class=""></div>
+		<div id="search-msg" class=""></div>
+		<div id="lista-candidatos-sidebar">
+			<ul class="list-group">
+				<li ng-click="load_candidato(c.id)" class="list-group-item {[{c.id|setClass}]}" ng-repeat="c in candidatos">
+					<strong>{[{c.nombre}]}</strong> <small>({[{c.id}]})</small>
+						<p class="text-right"><small>{[{c.empresa}]}
+						</small></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+			var filtros_json = {% if filtros_json %}
+									{	'nombre': '{{filtros_json.nombre|safe}}',
+										'compania_id':'{{filtros_json.compania_id|safe}}',
+										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
+										'agente_id':'{{filtros_json.agente_id|safe}}',
+										'status_id':'{{filtros_json.status_id|safe}}',
+										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
+										'fecha_final':'{{filtros_json.fecha_final|safe}}' 	}
+								{% else %}''{% endif %} ;
+			var candidato_seleccionado_id = {% if investigacion %}'{{investigacion.id}}'{% else %}''{% endif %}
+</script>

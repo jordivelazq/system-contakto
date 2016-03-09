@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">Contakto Uno</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<p class="greeting-msg">Hola {% if request.user.is_staff %}{{ request.user.username|title }}!{% else %}{{ request.user.email }}{% endif %}</p>
+				</li>
+				<li class="{% if page == 'candidatos' %}active{% endif %}">
+					<a href="/candidatos">Candidatos</a>
+				</li>
+				{% if request.user.is_superuser %}
+					<li class="{% if page == 'agentes' %}active{% endif %}">
+						<a href="/agentes" title="agentes">Agentes</a>
+					</li>
+					
+					<li class="{% if page == 'cobranza' %}active{% endif %}">
+						<a href="/cobranza" title="cobranza">Cobranza</a>
+					</li>
+				{% endif %}
+				{% if request.user.is_staff %}
+					<li class="{% if page == 'empresas' %}active{% endif %}">
+						<a href="/empresas" title="empresas">Empresas</a>
+					</li><li class="{% if page == 'reportes' %}active{% endif %}">
+						<a href="/estatus" title="reportes">Estatus</a>
+					</li>
+				{% endif %}
+				{% if request.user.is_superuser %}
+				<li class="{% if page == 'bitacora' %}active{% endif %}">
+					<a href="/bitacora" title="bitacora">Bitácora</a>
+				</li>
+				{% endif %}
+				<li>
+					<a href="/logout" title="logout">Logout</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

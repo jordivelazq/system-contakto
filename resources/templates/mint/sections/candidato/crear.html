@@ -1,0 +1,59 @@
+{% extends 'layout/base.html' %}
+
+{% block side_content %}
+
+	{% include 'sections/candidato/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+{% autoescape off %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				{% if msg %}
+					<div id="msg" class="alert alert-{{status}}">
+						{% for m in msg %}
+							- {{m}} <br />
+						{% endfor %}
+					</div>
+				{% else %}
+					<div id="msg"></div>
+				{% endif %}
+			</div>
+		</div>	
+{% endautoescape %}
+<div ng-controller="CandidatoCTRL">
+	
+	<h3>Registrar Candidato <small>Información Personal</small></h3>
+	<form role="form" action="/candidato/nuevo" method="post" id="form_candidato_crear">
+		{% csrf_token %}
+		<input type="hidden" name="action" id="action"/>
+		<div class="tab-content">
+			<div class="tab-pane active" id="info-personal">
+				{% include 'sections/candidato/forma/seccion/informacion_personal.html' %}
+				<br />
+				<div class="row">
+					<div class="col-md-3 col-md-offset-3">
+						<button name="guardar_empezar_inv" type="submit" class="btn btn-default form-control">Guardar y cargar investigación</button><br /><br />
+					</div>
+					<div class="col-md-3">
+						<button name="guardar_solo" type="submit" class="btn btn-default form-control" ng-disabled="saving_enabled">Solo guardar</button><br /><br />
+					</div>
+					<div class="col-md-3">
+						<button name="guardar_crear_otro" type="submit" class="btn btn-primary form-control">Guardar y crear otro candidato</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-9">
+						<button name="cancelar" type="submit" class="btn btn-danger form-control">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- Modal -->
+	{% include 'sections/candidato/forma/seccion/existente.html' %}
+	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+	{% include 'sections/candidato/seccion/empresa_select_forma_modal.html' %}
+</div>
+{% endblock %}

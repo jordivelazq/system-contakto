@@ -1,0 +1,53 @@
+{% load fe_extras %}
+<div class="row" id="panel_header_status">
+	<div class="col-md-8">
+		<h3>
+			{{investigacion.candidato}} <span class="small-id">({{investigacion.id}})</span> / {{investigacion.compania}} 
+			<small>({{ investigacion.status_general|investigacion_status_gral }})</small>
+		</h3>
+	</div>
+	<div class="col-md-4">
+		<div class="row">
+			<div class="col-md-6">
+				Estatus de Inv. Laboral:
+			</div>
+			<div class="col-md-6">
+				{{status_list.investigacion|investigacion_status}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				Entrevista autorizada:
+			</div>
+			<div class="col-md-6">
+				{{status_list.entrevista_autorizada|entrevista_status_autorizada}}				
+			</div>
+		</div>
+		{% if status_list.entrevista_autorizada == 1 %}
+		<div class="row">
+			<div class="col-md-6">
+				Entrevistador:
+			</div>
+			<div class="col-md-6">
+				{{datos_entrevista.entrevistador}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				Fecha/Hora:
+			</div>
+			<div class="col-md-6">
+				{{datos_entrevista.fecha|date:"d/m/y"}} {{datos_entrevista.hora|date:"g:i"}}
+			</div>
+		</div>
+		{% endif %}
+		<div class="row">
+			<div class="col-md-6">
+				Resultado de Inv. Laboral:
+			</div>
+			<div class="col-md-6">
+				{{status_list.investigacion_resultado|investigacion_resultado}}
+			</div>
+		</div>
+	</div>
+</div>

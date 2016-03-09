@@ -1,0 +1,59 @@
+{% extends 'layout/base.html' %}
+{% load fe_extras %}
+{% block side_content %}
+	{% include 'sections/candidato/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+{% include 'sections/candidato/seccion/candidato_header.html' %}
+
+<div ng-controller="formaConEmpresaCTRL">
+	<div>		
+		{% include 'sections/candidato/seccion/menu_trayectoria.html' %}
+
+		<!-- Versión Solo Empresa -->
+		<form role="form" action="#" method="post" id="form_candidato_crear">
+			{% csrf_token %}
+			<h4>Nueva Investigación Laboral</h4>
+			<br />
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<div ng-click="open_empresa_modal()" class="input-group">
+							<input id="id_trayectoria-compania" name="trayectoria-compania" type="hidden" value="{[{compania_trayectoria}]}">
+							<input id="id_trayectoria-compania-nombre" name="trayectoria-compania-nombre" placeholder="Empresa" readonly="readonly" ng-model="compania_nombre_trayectoria" type="text" class="form-control">
+							<span class="input-group-addon glyphicon glyphicon-search"></span> 
+						</div>
+						<div id="nueva_empresa_data">
+							<input id="empresa_id" type="hidden" value="{{empresa_id}}"/>
+							<input id="empresa_nombre" type="hidden" value="{{empresa_creada.nombre}}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						{{ formTrayectoria.compania.errors }}
+					</div>
+				</div>
+				<div class="col-md-2">
+					<a href="/empresa/nueva/ref/{{investigacion.id}}" class="btn btn-default form-control">Crear empresa <span class="glyphicon glyphicon-plus"></span></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2 col-md-offset-2">
+					<button type="submit" name="guardar_solo" class="btn btn-default form-control">Solo Guardar</button>
+				</div>	
+				<div class="col-md-2">
+					<button type="submit" name="guardar_capturar" class="btn btn-primary form-control">Guardar y Capturar</button>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2 col-md-offset-4">
+					<button type="submit" name="cancelar" class="btn btn-danger form-control">Cancelar</button>
+				</div>
+			</div>
+		</form>	
+	</div>
+{% include 'sections/candidato/seccion/empresa_select_forma_modal.html' %}
+{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+</div>
+{% endblock %}

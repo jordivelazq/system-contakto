@@ -1,0 +1,5 @@
+/* line 1, ../sass/chrome.sass */
+.input-group-addon, .input-group-btn, .input-group .form-control {
+  margin-top: 1px;
+  margin-bottom: -1px;
+}

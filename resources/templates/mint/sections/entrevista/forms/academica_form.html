@@ -1,0 +1,92 @@
+{% load fe_extras %}
+<form action="#" method="post">{% csrf_token %}
+	{% if request.user.is_staff %}	
+		<div class="row">
+			<div class="col-md-2 col-md-offset-10">
+				<button class="btn btn-lrg btn-primary" type="submit">Guardar cambios <span class="glyphicon glyphicon-save"></span></button>
+			</div>
+		</div>
+	{% endif %}
+	{{ gradosescolaridad_formset.management_form }}
+	<div class="row">
+		<div class="col-xs-1 text-center"><label><small>ESCOLARIDAD</small></label></div>
+		<div class="col-xs-5 text-center"><label><small>INSTITUCIÓN</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>LUGAR (CIUDAD)</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>AÑOS</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>CERTIFICADO</small></label></div>
+	</div>
+	<div class="row">
+		<div class="col-xs-10">
+			<hr class="thin-separator" />
+		</div>
+	</div>
+	{% for form in gradosescolaridad_formset %}
+		{{ form.id }}
+		<div class="row">
+			<div class="col-xs-1">
+				<label><small>{{ form.instance.grado|entrevista_grado_academico }}:</small></label>
+			</div>
+			<div class="col-xs-5">
+				<div class="text-danger">
+					{{form.institucion.errors}}
+				</div>
+				{{form.institucion}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.ciudad.errors}}
+				</div>
+				{{form.ciudad}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.anos.errors}}
+				</div>
+				{{form.anos}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.certificado.errors}}
+				</div>
+				{{form.certificado}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10">
+				<hr class="thin-separator" />
+			</div>
+		</div>
+	{% endfor %}
+
+	<br />
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="text-danger">{{ otro_idioma_form.idioma.errors }}</div>
+			<label>Dominio de otro idioma:</label>
+			{{ otro_idioma_form.idioma }}
+		</div>
+		<div class="col-xs-3">
+			<div class="text-danger">{{ otro_idioma_form.porcentaje.errors }}</div>
+			<label>Porcentaje:</label>
+			{{ otro_idioma_form.porcentaje }}
+		</div>
+		<div class="col-xs-3">
+			<div class="text-danger">{{ academica_form.cedula_profesional.errors }}</div>
+			<label>Cédula profesional:</label>
+			{{ academica_form.cedula_profesional }}
+		</div>
+		<div class="col-xs-3">
+			<div class="text-danger">{{ academica_form.cedula_prof_ano_exp.errors }}</div>
+			<label>Año de expedición:</label>
+			{{ academica_form.cedula_prof_ano_exp }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="text-danger">{{ academica_form.estudios_actuales.errors }}</div>
+			<label>Estudia actualmente (institución, qué estudia, horarios, días):</label>
+			{{ academica_form.estudios_actuales }}
+		</div>
+	</div>
+</form>

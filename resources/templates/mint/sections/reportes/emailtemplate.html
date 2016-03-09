@@ -1,0 +1,52 @@
+{% load fe_extras %}
+<table border="1px" align="left" width="100%" cellpadding="3px" cellspacing="3px">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Fecha de Recibido</th>
+			<th>Cliente</th>
+			<th>Nombre/Apellido</th>
+			<th>Puesto</th>
+			<th>Ciudad</th>
+			<th>Status</th>
+			<th class="wide-th">Investigación Laboral </th>
+			<th>Observaciones de Inv. Laboral</th>
+			<th>Calificación Final</th>
+		</tr>
+
+	</thead>
+	<tbody>
+	{% for inv in investigaciones %}
+	<tr valign="top">
+		<td>{{ inv.id }}</td>
+		<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
+		<td>{{ inv.compania.nombre }}</td>
+		<td>{{ inv.candidato.nombre }}</td>
+		<td>{{ inv.puesto }}</td>
+		<td>{{ inv.ciudad }}</td>
+		<td>{{ inv.status|investigacion_status }}</td>
+		<td>
+			{% for t in inv.trayectoria %}
+				<small>
+					<p>
+						<strong>{{t.compania}}</strong><br />
+						<ul>
+							<li>Puesto: {{t.puesto_final|default:'---'}}</li>
+							<li>Periodos: {{t.periodo_alta}}-{{t.periodo_baja}}</li>
+							<li>Motivo de baja: {{t.motivo_salida|motivo_salida|default:'---'}}</li>
+							<li>Cardex: {{t.cardex|default:'---'}}</li>
+							<li>Obs.: {{t.observaciones_generales|default:'---'}}</li>
+						</ul>
+					</p>
+				</small>
+				{% if not forloop.last %}
+				<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
+		</td>
+		<td>{{ inv.observaciones_generales|default:'---' }}</td>
+		<td>{{ inv.resultado|investigacion_resultado }}</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>

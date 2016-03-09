@@ -1,0 +1,76 @@
+<div id="sidebar" ng-controller="SearchCobranzaCTRL">		
+	<div class="" id="filters_accordion">
+	  <div class="">
+	    <div class="">
+	      <h6 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#filters_accordion" href="#collapseOne">
+	          Filtros <span id="filter-icon" class="pull-right glyphicon glyphicon-chevron-up"></span>
+	        </a>
+	      </h6>
+	    </div>
+	    <div id="collapseOne" class="panel-collapse collapse in">
+	    	<br />
+	    		<div id="msg-search"></div>
+				<div class="form-group">
+					<div ng-click="open_empresa_modal()" class="input-group">
+						<input id="compania_id" type="hidden" value="{[{compania_id}]}">
+						<input placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
+						<span class="input-group-addon glyphicon glyphicon-search"></span> 
+					</div>
+				</div>
+
+				<div class="form-group" id="panel_empresa_contacto">
+					<select class="form-control" id="empresa_contacto" name="empresa_contacto" ng-model="empresa_contacto" ng-change="selectContacto()">
+						<option value="">Todos</option>
+						<option ng-selected="{[{row.pk == contacto_id}]}" 
+							ng-repeat="row in empresa_contactos" value="{[{row.pk}]}">
+							{[{row.fields.nombre}]}
+						</option>
+					</select>
+				</div>
+
+				<div class="form-group" id="panel_factura">
+					<select class="form-control" id="folio_factura" name="folio_factura" ng-model="factura_folio_ng">
+						<option value="">Todos</option>
+						<option value="por-facturar">Por facturar</option>
+						<option ng-selected="{[{row == factura_folio_ng}]}" 
+							ng-repeat="row in folios_facturas" value="{[{row}]}">
+							{[{row}]}
+						</option>
+					</select>
+				</div>
+				<div class="form-group">		
+					<select class="form-control" id="status_select" name="status_select" ng-model="status_select">
+						<option value="-1">Todos</option>
+						{% for id,status in status_select %}
+							<option value="{{id}}">{{status}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div id="botones-sidebar" class="form-group">
+					<span class="pull-right">
+						<button type="button" class="btn btn-default btn-sm" ng-click="limpiar_filtros();"> Limpiar </button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="search();"> Buscar </button>
+					</span>
+				</div>
+				<br />
+			
+	    </div>
+	  </div>
+	</div>
+	<div>
+		<hr>
+		
+	</div>
+</div>
+<script type="text/javascript">
+			var filtros_json = {% if filtros_json %}
+									{	
+										'compania_id':'{{filtros_json.compania_id|safe}}',
+										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
+										'contacto_id':'{{filtros_json.contacto_id|safe}}',
+										'status_id':'{{filtros_json.status_id|safe}}',
+										'factura_folio':'{{filtros_json.factura_folio|safe}}'
+									}
+								{% else %}''{% endif %}
+</script>

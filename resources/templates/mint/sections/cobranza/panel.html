@@ -1,0 +1,113 @@
+{% extends 'layout/base.html' %}
+{% load fe_extras %}
+
+{% block side_content %}
+	{% include 'sections/cobranza/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+{% autoescape off %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div id="msg"></div>
+			</div>
+		</div>	
+{% endautoescape %}
+
+<div ng-controller="CobranzaCTRL">
+<h1 class="page-header">
+	Cobranza 
+	<span id="msg"></span>
+</h1>
+<div class="row">
+	<div class="col-md-4">
+		{% if recientes %}<h2><em><small>Últimos modificados...</small></em></h2>{% endif %}
+	</div>
+	<div class="col-md-6 col-md-offset-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <span class="badge">{[{selection.length}]}</span> Registros seleccionados - Monto Total:  <span><strong>$ {[{sum_montos}]}</strong></span> pesos
+			</div>
+			<div class="panel-body">
+				<form action="#" method="post" id="cobranza-form">
+					{% csrf_token %}
+					<input id="selection_json" name="selection_json" type="hidden" value="" />
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" name="num_factura" class="form-control" placeholder="# Factura" ng-model="num_factura" />
+						</div>
+						<div class="col-md-6">
+							<button name="agregar_factura" type="submit" class="form-control btn btn-primary btn_agregrar_factura" ng-disabled="!selection.length || !num_factura.length" >Agregar # de factura</button>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-6">
+						</div>
+						<div class="col-md-6">
+							<button name="quitar_factura" type="submit" class="form-control btn btn-danger btn_quitar_factura" ng-disabled="!selection.length" >Quitar # de factura</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="row placeholders">
+	    <div class="table-responsive">
+			{% if cobranza|length %}
+			<table class="table table-striped" >
+				<thead>
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">Fecha de Creación</th>
+						<th class="text-center">Nombre/Apellido</th>
+						<th class="text-center">Ciudad</th>
+						<th class="text-center">Cliente</th>
+						<th class="text-center">Solicitante</th>
+						<th class="text-center">Tipo inv.</th>
+						<th class="text-center">Costo</th>
+						<th class="text-center">Folio</th>
+						<th class="text-center"><input ng-model="select_all" type="checkbox" ng-click="toggleSelectAll($event)" /></th>
+					</tr>
+				</thead>
+				<tbody id="cobranza-table">
+				{% for cob in cobranza %}
+				<tr>
+					<td class="text-left">{{ cob.investigacion.id }}</td>
+					<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/M/y" }}</td>
+					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar" title="Ir a investigacion de {{ cob.investigacion.candidato.nombre }}">{{ cob.investigacion.candidato.nombre }}</a></td>
+					<td class="text-center">{{ cob.ciudad }}</td>
+					<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
+					<td class="text-center">{{ cob.investigacion.contacto.nombre }}</td>
+					<td class="text-center">
+						{% if cob.investigacion.tipo_investigacion_status %}{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}{% else %}<small class="text-danger"><strong>REQUERIDO</strong></small>{% endif %}
+					</td>
+					<td class="text-center">
+					 	{% if cob.monto %}$ <span ng-class="{monto_activo: selection.indexOf('{{cob.id}}') > -1}">{{ cob.monto }}</span>{% else %}<small class="text-danger"><strong>REQUERIDO</strong></small>{% endif %}
+					</td>
+					<td class="text-center">
+						{% if cob.folio %}{{ cob.folio }}{% else %}---{% endif %}
+					</td>
+					<td class="text-center">
+						{% if cob.investigacion.tipo_investigacion_status and cob.monto %}
+							<input class="active" value="{{cob.id}}" type="checkbox" ng-checked="(selection.indexOf('{{cob.id}}') > -1) || select_all" ng-click="toggleSelection('{{cob.id}}')"  />
+						{% else %}
+							<input type="checkbox" disabled/>
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+				<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% if selection_be %}
+	
+{% endif %}
+{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+{% endblock %}

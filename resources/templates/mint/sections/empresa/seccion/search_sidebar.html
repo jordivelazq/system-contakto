@@ -1,0 +1,53 @@
+<div id="sidebar" ng-controller="SearchEmpresaCTRL">	
+	<div class="sidebar-title">
+		<h4 class="page-header">
+			Empresas 
+			<a href="/empresa/nueva" title="empresa nueva" class="btn btn-default btn-sm"><span class="glyphicon glyphicon glyphicon-plus"></span></a>
+		</h4>
+	</div>
+	<div class="" id="filters_accordion">
+	  <div class="">
+	  	<h6 class="panel-title">Filtros</h6> 
+	    <!-- <div class="">
+	      <h6 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#filters_accordion" href="#collapseOne">
+	          Filtros <span id="filter-icon" class="pull-right glyphicon glyphicon-chevron-up"></span>
+	        </a>
+	      </h6>
+	    </div> -->
+	    <div id="collapseOne" class="panel-collapse collapse in">
+	    	<br />
+	    		<div id="msg-search"></div>
+				
+				<div class="form-group">
+					<div class="">
+						<input placeholder="Nombre de empresa" ng-model="compania_nombre" type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<input id="es_cliente" class="" ng-model="es_cliente" type="checkbox" />
+					<label for="es_cliente">Solo clientes</label>
+				</div>
+				<div id="botones-sidebar" class="form-group">
+					<span class="pull-right">
+						<button type="button" class="btn btn-default btn-sm" ng-click=" limpiar_filtros();"> Limpiar </button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="search();"> Buscar </button>
+					</span>
+				</div>
+				<br />
+			
+	    </div>
+	  </div>
+	</div>
+	<div>
+		<hr>
+		
+	</div>
+</div>
+<script type="text/javascript">
+			var filtros_json = {% if filtros_json %}
+									{	
+										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
+										'es_cliente':'{{filtros_json.es_cliente|safe}}', 	}
+								{% else %}''{% endif %}
+</script>
