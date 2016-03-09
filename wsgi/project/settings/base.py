@@ -1,6 +1,6 @@
 import os
-
-SITE_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../')
+BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -51,8 +51,8 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(SITE_ROOT, 'resources/media')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'resources/media')
+print 'MEDIA_ROOT', MEDIA_ROOT
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -62,18 +62,19 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(SITE_ROOT, 'resources/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'resources/static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
+print 'STATIC_URL', STATIC_URL
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SITE_ROOT, 'resources'),
+    os.path.join(BASE_DIR, 'resources'),
 )
 
 # List of finder classes that know how to find static files in
@@ -105,16 +106,16 @@ MIDDLEWARE_CLASSES = (
     'debug_panel.middleware.DebugPanelMiddleware',
 )
 
-ROOT_URLCONF = 'contakto.urls'
+ROOT_URLCONF = 'project.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'contakto.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SITE_ROOT, 'resources/templates/mint'),
+    os.path.join(BASE_DIR, 'resources/templates/mint'),
 )
 
 INSTALLED_APPS = (
@@ -177,6 +178,3 @@ AUTHENTICATION_BACKENDS = (
 )
 
 EXT_RESEARCH_WHITELIST = ('.xlsx', '.xls')
-
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_API_KEY = "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"
