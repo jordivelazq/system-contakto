@@ -1,7 +1,7 @@
 from fabric.api import local
 
 def update():
-    local('git checkout master')
+    local('git checkout develop')
     local('git pull origin develop')
 
 def deploy():
