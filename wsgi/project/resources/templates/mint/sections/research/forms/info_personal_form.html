@@ -1,0 +1,30 @@
+<form action="#" method="post">{% csrf_token %}
+	<div class="row">
+		<div class="col-md-12">
+			<input class="btn btn-lrg btn-primary" type="submit" value="Guardar cambios" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Datos</h2>
+			{% for field in infopersonal_form %}
+				<div class="form-group">
+					<div class="text-danger">{{field.errors}}</div>
+					{{field.label_tag}}
+					{{field}}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="col-md-4">
+			<h2>Historial en empresa</h2>
+			{{ historialempresa_formset.management_form }}
+			{% for form in historialempresa_formset %}
+				<h2><small>{{ form.instance.categoria|title }}</small></h2>
+				{{ form.as_p }}
+				
+			{% endfor %}
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</form>

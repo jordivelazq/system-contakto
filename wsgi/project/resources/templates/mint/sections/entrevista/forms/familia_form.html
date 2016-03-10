@@ -1,0 +1,74 @@
+<form action="#" method="post">{% csrf_token %}
+	{% if request.user.is_staff %}
+		<div class="row">
+			<div class="col-md-2 col-md-offset-10">
+				<button class="btn btn-lrg btn-primary" type="submit">Guardar cambios <span class="glyphicon glyphicon-save"></span></button>
+			</div>
+		</div>
+	{% endif %}
+	<br />
+	{{ marcofamiliar_formset.management_form }}
+	<div class="row">
+		<div class="col-xs-1 text-center"><label><small>PARENTESCO</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>NOMBRE</small></label></div>
+		<div class="col-xs-1 text-center"><label><small>EDAD</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>OCUPACIÓN</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>EMPRESA</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>RESIDENCIA</small></label></div>
+		<div class="col-xs-2 text-center"><label><small>TELÉFONO</small></label></div>
+	</div>
+	<div class="row">
+		<div class="col-xs-10">
+			<hr class="thin-separator" />
+		</div>
+	</div>
+	{% for form in marcofamiliar_formset %}
+		{{ form.id }}
+		<div class="row">
+			<div class="col-xs-1">
+				<label>{{ form.instance.tipo|title }}:</label>
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.nombre.errors}}
+				</div>
+				{{form.nombre}}
+			</div>
+			<div class="col-xs-1">
+				<div class="text-danger">
+					{{form.edad.errors}}
+				</div>
+				{{form.edad}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.ocupacion.errors}}
+				</div>
+				{{form.ocupacion}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.empresa.errors}}
+				</div>
+				{{form.empresa}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.residencia.errors}}
+				</div>
+				{{form.residencia}}
+			</div>
+			<div class="col-xs-2">
+				<div class="text-danger">
+					{{form.telefono.errors}}
+				</div>
+				{{form.telefono}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10">
+				<hr class="thin-separator" />
+			</div>
+		</div>
+	{% endfor %}
+</form>

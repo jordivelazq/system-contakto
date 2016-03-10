@@ -1,0 +1,34 @@
+{% extends 'layout/base.html' %}
+
+{% block side_content %}
+	{% include 'sections/bitacora/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+<div class="row placeholders">
+    <div class="table-responsive">
+    	{% if bitacoras|length %}
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th>Usuario</th>
+				<th>Acción</th>
+				<th>Fecha</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for bitacora in bitacoras %}
+			<tr>
+				<td>{{ bitacora.user }}</td>
+				<td>{{ bitacora.action }}</td>
+				<td>{{ bitacora.datetime }}</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+		<div class="bg-info">No hay actividad registrada</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

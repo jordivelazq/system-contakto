@@ -1,0 +1,40 @@
+/* line 11, ../sass/mixins.sass */
+.placeholders::-webkit-input-placeholder, input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #6d6d6d;
+  font-family: "Times New Roman", serif;
+  font-weight: normal;
+  font-size: 16px;
+  font-style: italic;
+}
+/* line 13, ../sass/mixins.sass */
+.placeholders:-moz-placeholder, input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #6d6d6d;
+  font-family: "Times New Roman", serif;
+  font-weight: normal;
+  font-size: 16px;
+  font-style: italic;
+}
+/* line 15, ../sass/mixins.sass */
+.placeholders::-moz-placeholder, input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #6d6d6d;
+  font-family: "Times New Roman", serif;
+  font-weight: normal;
+  font-size: 16px;
+  font-style: italic;
+}
+/* line 17, ../sass/mixins.sass */
+.placeholders.placeholder, input.placeholder, textarea.placeholder {
+  color: #6d6d6d;
+  font-family: "Times New Roman", serif;
+  font-weight: normal;
+  font-size: 16px;
+  font-style: italic;
+}
+/* line 19, ../sass/mixins.sass */
+.placeholders:-ms-input-placeholder, input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #6d6d6d;
+  font-family: "Times New Roman", serif;
+  font-weight: normal;
+  font-size: 16px;
+  font-style: italic;
+}

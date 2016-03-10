@@ -1,0 +1,221 @@
+<form action="#" method="post">{% csrf_token %}
+	<div>
+
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.nombre.errors }}</div>
+				{{ candidato_form.nombre.label_tag }}
+				{{ candidato_form.nombre }}
+			</div>
+
+			{% if request.user.is_staff %}
+				<div class="col-md-2 col-md-offset-8">
+					<button class="btn btn-lrg btn-primary" type="submit">Guardar cambios <span class="glyphicon glyphicon-save"></span></button>
+				</div>
+			{% endif %}
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-2">
+				<h5><strong>DOMICILIO</strong></h5>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="text-danger">{{ direccion_form.calle.errors }}</div>
+				{{ direccion_form.calle.label_tag }}
+				{{ direccion_form.calle }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ direccion_form.colonia.errors }}</div>
+				{{ direccion_form.colonia.label_tag }}
+				{{ direccion_form.colonia }}
+			</div>
+
+			<div class="col-md-2">
+				<div class="text-danger">{{ direccion_form.ciudad.errors }}</div>
+				{{ direccion_form.ciudad.label_tag }}
+				{{ direccion_form.ciudad }}
+			</div>
+			<div class="col-md-2">
+				<div class="text-danger">{{ direccion_form.estado.errors }}</div>
+				{{ direccion_form.estado.label_tag }}
+				{{ direccion_form.estado }}
+			</div>
+			<div class="col-md-2">
+				<div class="text-danger">{{ direccion_form.cp.errors }}</div>
+				{{ direccion_form.cp.label_tag }}
+				{{ direccion_form.cp }}
+			</div>		
+		</div>
+		<hr class="thin-separator" />
+		<div class="row">
+			<div class="col-md-2">
+				<h5><strong>TELÉFONOS</strong></h5>
+			</div>
+		</div>
+		<div class="row">
+			{{ tel_formset.management_form }}
+				{% for form in tel_formset %}
+					<div class="col-md-3">
+						<h5>{{ form.instance.categoria|title }}</h5>
+						{{ form.id }}
+						<div class="text-danger">
+							{{form.numero.errors}}
+						</div>
+						<label>Número:</label>
+						{{form.numero}}
+						{% if form.instance.categoria == 'recado' or form.instance.categoria == 'otro' %}
+						<div class="text-danger">
+							{{form.parentesco.errors}}
+						</div>
+						<label>Parentesco:</label>
+						{{form.parentesco}}
+						{% endif %}
+					</div>
+				{% endfor %}
+		</div>
+
+		<hr class="thin-separator" />
+		<div class="row">
+			<div class="col-md-4">
+				<div class="text-danger">{{ origen_form.lugar.errors }}</div>
+				{{ origen_form.lugar.label_tag }}
+				{{ origen_form.lugar }}
+			</div>
+			<div class="col-md-4">
+				<div class="text-danger">{{ origen_form.fecha.errors }}</div>
+				{{ origen_form.fecha.label_tag }}
+				{{ origen_form.fecha }}
+			</div>
+			<div class="col-md-4">
+				<div class="text-danger">{{ origen_form.nacionalidad.errors }}</div>
+				{{ origen_form.nacionalidad.label_tag }}
+				{{ origen_form.nacionalidad }}
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.rfc.errors }}</div>
+				{{ candidato_form.rfc.label_tag }}
+				{{ candidato_form.rfc }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.curp.errors }}</div>
+				{{ candidato_form.curp.label_tag }}
+				{{ candidato_form.curp }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.ife.errors }}</div>
+				{{ candidato_form.ife.label_tag }}
+				{{ candidato_form.ife }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.smn.errors }}</div>
+				{{ candidato_form.smn.label_tag }}
+				{{ candidato_form.smn }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="text-danger">{{ licencia_form.tipo.errors }}</div>
+				{{ licencia_form.tipo.label_tag }}
+				{{ licencia_form.tipo }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ licencia_form.numero.errors }}</div>
+				{{ licencia_form.numero.label_tag }}
+				{{ licencia_form.numero }}
+			</div>
+			<div class="col-md-6">
+				<div class="text-danger">{{ candidato_form.pasaporte.errors }}</div>
+				{{ candidato_form.pasaporte.label_tag }}
+				{{ candidato_form.pasaporte }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.nss.errors }}</div>
+				{{ candidato_form.nss.label_tag }}
+				{{ candidato_form.nss }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.estado_civil.errors }}</div>
+				{{ candidato_form.estado_civil.label_tag }}
+				{{ candidato_form.estado_civil }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.fecha_matrimonio.errors }}</div>
+				{{ candidato_form.fecha_matrimonio.label_tag }}
+				{{ candidato_form.fecha_matrimonio }}
+			</div>
+			<div class="col-md-3">
+				<div class="text-danger">{{ candidato_form.religion.errors }}</div>
+				{{ candidato_form.religion.label_tag }}
+				{{ candidato_form.religion }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="text-danger">{{ candidato_form.tiempo_radicando.errors }}</div>
+				{{ candidato_form.tiempo_radicando.label_tag }}
+				{{ candidato_form.tiempo_radicando }}
+			</div>
+			<div class="col-md-6">
+				<div class="text-danger">{{ candidato_form.medio_utilizado.errors }}</div>
+				{{ candidato_form.medio_utilizado.label_tag }}
+				{{ candidato_form.medio_utilizado }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="text-danger">{{ candidato_form.dependientes_economicos.errors }}</div>
+				{{ candidato_form.dependientes_economicos.label_tag }}
+				{{ candidato_form.dependientes_economicos }}
+			</div>
+		</div>
+
+		<hr />
+		{{ pv_formset.management_form }}
+		{% for form in pv_formset %}
+			{{ form.id }}
+			<div class="row">
+				<div class="col-md-2">
+					<h4>{{ form.instance.categoria_viv|title }}</h4>
+				</div>	
+				<div class="col-md-2">
+					<div class="text-danger">{{ form.activo.errors }}</div>
+					{{ form.activo.label_tag }}
+					{{ form.activo }}
+				</div>
+				<div class="col-md-2">
+					<div class="text-danger">{{ form.numero_credito.errors }}</div>
+					{{ form.numero_credito.label_tag }}
+					{{ form.numero_credito }}
+				</div>
+				<div class="col-md-2">
+					<div class="text-danger">{{ form.fecha_tramite.errors }}</div>
+					{{ form.fecha_tramite.label_tag }}
+					{{ form.fecha_tramite }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ form.uso.errors }}</div>
+					{{ form.uso.label_tag }}
+					{{ form.uso }}
+				</div>
+			</div>
+			{% if not forloop.last %}
+			<hr class="thin-separator" />
+			{% endif %}
+		{% endfor %}
+	
+	</div>
+</form>

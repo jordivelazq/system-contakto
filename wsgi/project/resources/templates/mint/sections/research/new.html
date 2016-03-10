@@ -1,0 +1,37 @@
+{% extends 'layout/base.html' %}
+
+{% block site_wrapper %}
+<h1>Crear investigación</h1>
+<h2>Importar archivo</h2>
+<p>Un vez que hayas verficado el archivo de excel y la información esté en el formato adecuado
+	lo siguiente es capturar esa información en el sistema.
+</p>
+<p>Para esto solo necesitas seleccionar el archivo y dar click en "Importar".</p>
+
+<p> Ya que la información se encuentre en el sistema la podrás modificar si es necesario.</p>
+
+{% if pre_candidato.errors %}
+<div class="alert alert-danger">
+	<p><strong>Errores en lectura de archivo:</strong></p>
+	{% for error in pre_candidato.errors %}
+		<p>{{ error }}</p>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% if candidato.errors %}
+<div class="alert alert-danger">
+	<p><strong>Errores al guardar información:</strong></p>
+	{% for error in candidato.errors %}
+		<p>{{ error }}</p>
+	{% endfor %}
+</div>
+{% endif %}
+
+<form class="form-horizontal" role="form" action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+	{{form}}
+	<div class="form-group pull-right">
+		<button type="submit" class="btn btn-primary" title="Importar">Importar</button>
+	</div>
+</form>
+{% endblock %}

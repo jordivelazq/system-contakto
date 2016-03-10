@@ -1,0 +1,239 @@
+<div class="row">
+	<div class="col-md-2">
+		<label for="id_candidato-nss">Nss</label>
+		{{ formCandidato.nss }}
+		{{ formCandidato.nss.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_candidato-nombre">Candidato *</label>
+		{{ formCandidato.nombre }}
+		{{ formCandidato.nombre.errors }}
+	</div>
+	<div {% if request.user.is_staff %}ng-click="open_empresa_modal()"{% endif %} class="col-md-2">
+	    <label for="id_investigacion-compania">Cliente (Empresa)</label>
+		<input id="id_investigacion-compania" name="investigacion-compania" type="hidden" value="{[{compania}]}">
+		<div class="input-group">
+			<input id="id_investigacion-compania-nombre" name="investigacion-compania-nombre" placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
+			<span class="input-group-addon glyphicon glyphicon-search"></span>
+		</div>
+		{{ formInvestigacion.compania.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_companiacliente-contacto">Quién envia *</label>
+			<select class="form-control" id="id_investigacion-contacto" name="investigacion-contacto" 
+			ng-model="contacto" >
+				<option value="">---------</option>
+				<option ng-repeat="contacto in contacto_data" value="{[{ contacto.id }]}">{[{ contacto.nombre }]}</option>
+			</select>
+		{{ formInvestigacion.contacto.errors }}
+		<input type="hidden" name="contacto_id" id="contacto_id" value="{{formInvestigacion.contacto.value}}">
+	</div>
+	<div class="col-md-2 {% if not request.user.is_superuser %}hidden-element{% endif %}">
+		<label for="id_investigacion-agente">Agente *</label> <br />
+		{{ formInvestigacion.agente }}
+		{{ formInvestigacion.agente.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_investigacion-fecha_recibido">Fecha recibido</label>
+		{{ formInvestigacion.fecha_recibido }}
+		{{ formInvestigacion.fecha_recibido.errors }}
+	</div>
+</div>
+<hr class="thin-separator"/>
+
+<div class="row">
+	<div class="col-md-3">
+		<label for="id_investigacion-puesto">Puesto *</label>
+		{{ formInvestigacion.puesto }}
+		{{ formInvestigacion.puesto.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_telefono1-numero">Tel. Casa</label>
+		{{ formTelefono1.numero }}
+		{{ formTelefono1.numero.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_telefono2-numero">Tel. Celular</label>
+		{{ formTelefono2.numero }}
+		{{ formTelefono1.numero.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_telefono3-numero">Tel. Recados</label>
+		{{ formTelefono3.numero }}
+		{{ formTelefono1.numero.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_candidato-email">Email</label>
+		{{ formCandidato.email }}
+		{{ formCandidato.email.errors }}
+	</div>
+</div>
+<hr class="thin-separator"/>
+
+<div class="row">
+	<div class="col-md-2">
+		<label for="id_origen-fecha">Fecha de Nacimiento</label>
+
+		<!-- <input class="form-control" id="id_origen-fecha" name="origen-fecha" type="text"/> -->
+		
+		{{ formOrigen.fecha }}
+		{{ formOrigen.fecha.errors }}
+	</div>
+	<div class="col-md-1">
+		{{ formCandidato.edad.errors }}
+		<label for="id_candidato-edad">Edad</label>
+		{{ formCandidato.edad }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_origen-lugar">Lugar de nacimiento</label>
+		{{ formOrigen.lugar }}
+		{{ formOrigen.lugar.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_origen-nacionalidad">Nacionalidad</label>
+		{{ formOrigen.nacionalidad }}
+		{{ formOrigen.nacionalidad.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_candidato-curp">Curp</label>
+		{{ formCandidato.curp }}
+		{{ formCandidato.curp.errors }}
+	</div>
+</div>
+<hr class="thin-separator"/>
+
+<div class="row">
+	<div class="col-md-3"><h5><strong>DOMICILIO ACTUAL</strong></h5></div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<label for="id_direccion-calle">Calle y #</label>
+		{{ formDireccion.calle }}
+		{{ formDireccion.calle.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_direccion-colonia">Colonia</label>
+		{{ formDireccion.colonia }}
+		{{ formDireccion.colonia.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_direccion-cp">Cp</label>
+		{{ formDireccion.cp }}
+		{{ formDireccion.cp.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_direccion-ciudad">Ciudad</label>
+		{{ formDireccion.ciudad }}
+		{{ formDireccion.ciudad.errors }}
+	</div>
+
+	<div class="col-md-2">
+		<label for="id_direccion-estado">Estado</label>
+		{{ formDireccion.estado }}
+		{{ formDireccion.estado.errors }}
+	</div>
+</div>
+<hr class="thin-separator"/>
+
+<div class="row">
+	<div class="col-md-3">
+		<label for="id_prestacion_vivienda_infonavit-activo">Infonavit vigente</label>
+		{{ formPrestacionViviendaInfonavit.activo }}
+		{{ formPrestacionViviendaInfonavit.activo.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_prestacion_vivienda_fonacot-activo">Fonacot vigente</label>
+		{{ formPrestacionViviendaFonacot.activo }}
+		{{ formPrestacionViviendaFonacot.activo.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_legalidad-sindicato">Afiliado a sindicato</label>
+		{{ formLegalidad.afiliado_sindicato }}
+		{{ formLegalidad.afiliado_sindicato.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_legalidad-demandas">Demandas Laborales</label>
+		{{ formLegalidad.demandas }}
+		{{ formLegalidad.demandas.errors }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<label for="id_prestacion_vivienda_infonavit-numero_credito"># de crédito Infonavit</label>
+		{{ formPrestacionViviendaInfonavit.numero_credito }}
+		{{ formPrestacionViviendaInfonavit.numero_credito.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_prestacion_vivienda_fonacot-numero_credito"># de crédito Fonacot</label>
+		{{ formPrestacionViviendaFonacot.numero_credito }}
+		{{ formPrestacionViviendaFonacot.numero_credito.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_legalidad-sindicato">Nombre:</label>
+		{{ formLegalidad.sindicato }}
+		{{ formLegalidad.sindicato.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_legalidad-antecedentes_penales">Antecedentes penales</label>
+		{{ formLegalidad.antecedentes_penales }}
+		{{ formLegalidad.antecedentes_penales.errors }}
+	</div>
+</div>
+<hr class="thin-separator"/>
+
+<div class="row">
+	<div class="col-md-4">
+		<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
+		{{ formInvestigacion.laboro_anteriormente }}
+		{{ formInvestigacion.laboro_anteriormente.errors }}
+	</div>
+	<div class="col-md-4">
+		<label for="id_investigacion-laboro_anteriormente">Familiar laborando en la empresa</label>
+		{{ formInvestigacion.familiar_laborando }}
+		{{ formInvestigacion.familiar_laborando.errors }}
+	</div>
+	<div class="col-md-4">
+		<label for="id_candidato-malos_terminos">Ha salido en malos términos</label>
+		{{ formCandidato.malos_terminos }}
+		{{ formCandidato.malos_terminos.errors }}
+	</div>
+</div>
+<hr class="thin-separator"/>
+
+<div class="row">
+	<div class="col-md-3 col-md-offset-1">
+		<label for="id_seguro-ultimas_aportaciones">Últimas aportaciones al SS</label>
+		{{ formSeguro.ultimas_aportaciones }}
+		{{ formSeguro.ultimas_aportaciones.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_seguro-registro_completo">Registro completo</label>
+		{{ formSeguro.registro_completo }}
+		{{ formSeguro.registro_completo.errors }}
+	</div>
+	<div class="col-md-3">
+		<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
+		{{ formSeguro.verificado_enburo }}
+		{{ formSeguro.verificado_enburo.errors }}
+	</div>
+	<!-- <div class="col-md-3">
+		<label for="id_investigacion-ciudad">Ciudad * (?? no aparece en el PS)</label>
+		{{ formInvestigacion.ciudad }}
+		{{ formInvestigacion.ciudad.errors }}
+	</div> -->
+</div>
+<hr class="thin-separator"/>
+
+<!-- <div class="row">
+	<div class="col-md-3">
+		<label for="id_candidato-nss">Estatus candidato</label>
+		{{ formInvestigacion.status }}
+		{{ formInvestigacion.status.errors }}
+	</div>
+	<div class="col-md-9">
+		<label for="id_investigacion-observaciones">Observaciones candidato</label>
+		{{ formInvestigacion.observaciones }}
+		{{ formInvestigacion.observaciones.errors }}
+	</div>
+</div> -->

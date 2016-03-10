@@ -1,0 +1,53 @@
+{% extends 'layout/base.html' %}
+
+{% block side_content %}
+	{% include 'sections/empresa/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+{% autoescape off %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div id="msg"></div>
+			</div>
+		</div>	
+{% endautoescape %}
+<h1 class="page-header">
+	<small><a href="/empresa/{{company.id}}/editar">{{ company.nombre }}</a></small> Contactos
+	<a href="/empresa/{{company.id}}/contacto/nuevo" title="empresa nueva" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-plus"></span></a>
+	<span id="msg"></span>
+</h1>
+<div class="row placeholders">
+    <div class="table-responsive">
+		{% if contactos|length %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Email</th>
+					<th>Teléfono</th>
+					<th>Celular</th>
+					<th>Otro teléfono</th>
+					<th>Editar</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for contacto in contactos %}
+				<tr>
+					<td>{{ contacto.nombre }}</td>
+					<td>{{ contacto.email|default:'---' }}</td>
+					<td>{{ contacto.telefono|default:'---' }}</td>
+					<td>{{ contacto.telefono_celular|default:'---' }}</td>
+					<td>{{ contacto.telefono_otro|default:'---' }}</td>
+					<td><a href="/empresa/{{company.id}}/contacto/{{contacto.id}}/editar" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+		<div class="bg-info">No hay contactos registrados</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

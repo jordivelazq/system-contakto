@@ -1,0 +1,74 @@
+<div id="sidebar" ng-controller="SearchAgenteCTRL">
+	<div class="sidebar-title">
+		<h4 class="page-header">
+			Agentes 
+	<a href="/agente/nuevo" title="Crear Agente" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+		</h4>
+	</div>	
+	<div class="" id="filters_accordion">
+	  <div class="">
+	  	<h6 class="panel-title">Filtros</h6>
+	    <div id="collapseOne" class="panel-collapse collapse in">
+	    		<div id="msg-search"></div>
+				<div id="lista-agentes-sidebar">
+					<ul class="list-group">
+						{% for a in users %}
+							<li ng-click="select_agente_radio({{a.id}})" class="list-group-item">
+								<div class="row">
+									<div class="col-md-9 opcion-agente">
+										<input type="radio" ng-model="agente_radio" value="{{a.id}}">
+										<strong>{{a.username}}</strong>
+										<p><small>{{a.first_name}} {{a.last_name}}
+										</small></p>
+									</div>
+									<div class="col-md-3">
+										<a href="/agente/{{a.id}}/editar" title="Editar agente"><span class="glyphicon glyphicon-edit"></span></a>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="form-group">
+					<div ng-click="open_empresa_modal()" class="input-group">
+						<input id="compania_id" type="hidden" value="{[{compania_id}]}">
+						<input placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
+						<span class="input-group-addon glyphicon glyphicon-search"></span> 
+					</div>
+				</div>
+				<div class="form-group">		
+					<select class="form-control" id="status_select" name="status_select" ng-model="status_select">
+						<!-- <option value="" selected="selected">-Estatus-</option> -->
+						{% for id,status in status_select %}
+							<option value="{{id}}">{{status}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div id="daterange-inputs-sidebar" class="form-group">
+					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio"><span class="float-left daterange-separator">&nbsp;a&nbsp;</span><input class="form-control sidebar-date-input" type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
+				</div>
+				<div id="botones-sidebar" class="form-group">
+					<span class="pull-right">
+						<button type="button" class="btn btn-default btn-sm" ng-click=" limpiar_filtros();"> Limpiar </button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click=" validate_search();"> Buscar </button>
+					</span>
+				</div>
+				<br />
+	    </div>
+	  </div>
+	</div>
+	<div>
+		<hr>
+	</div>
+</div>
+<script type="text/javascript">
+			var filtros_json = {% if filtros_json %}
+									{	
+										'compania_id':'{{filtros_json.compania_id|safe}}',
+										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
+										'agente_id':'{{filtros_json.agente_id|safe}}',
+										'status_id':'{{filtros_json.status_id|safe}}',
+										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
+										'fecha_final':'{{filtros_json.fecha_final|safe}}' 	}
+								{% else %}''{% endif %}
+</script>

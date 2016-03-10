@@ -1,0 +1,67 @@
+<form action="#" method="post">{% csrf_token %}
+	{% if request.user.is_staff %}
+		<div class="row">
+			<div class="col-md-2 col-md-offset-10">
+				<button class="btn btn-lrg btn-primary" type="submit">Guardar cambios <span class="glyphicon glyphicon-save"></span></button>
+			</div>
+		</div>
+	{% endif %}
+	{{ referencias_formset.management_form }}
+	{% for form in referencias_formset %}
+		<h2><small>Referencia {{ forloop.counter }}</small></h2>
+		{{ form.id }}
+		<div class="row">
+			<div class="col-md-9">
+				<div class="text-danger">{{ form.nombre.errors }}</div>
+				<label>Nombre:</label>
+				{{ form.nombre }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="text-danger">{{ form.domicilio.errors }}</div>
+				<label>Domicilio:</label>
+				{{ form.domicilio }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="text-danger">{{ form.telefono.errors }}</div>
+				<label>Teléfono:</label>
+				{{ form.telefono }}
+			</div>
+			<div class="col-md-4 col-md-offset-1">
+				<div class="text-danger">{{ form.tiempo_conocido.errors }}</div>
+				<label>Tiempo de conocerlo:</label>
+				{{ form.tiempo_conocido }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="text-danger">{{ form.parentesco.errors }}</div>
+				<label>Parentesco:</label>
+				{{ form.parentesco }}
+			</div>
+			<div class="col-md-4 col-md-offset-1">
+				<div class="text-danger">{{ form.ocupacion.errors }}</div>
+				<label>Ocupación:</label>
+				{{ form.ocupacion }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="text-danger">{{ form.lugares_labor_evaluado.errors }}</div>
+				<label>En qué lugares conoce que ha laborado el evaluado:</label>
+				{{ form.lugares_labor_evaluado }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="text-danger">{{ form.opinion.errors }}</div>
+				<label>Opinión sobre el candidato:</label>
+				{{ form.opinion }}
+			</div>
+		</div>
+	{% endfor %}
+
+</form>

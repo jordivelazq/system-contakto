@@ -1,0 +1,111 @@
+{% extends 'layout/base.html' %}
+
+{% block site_wrapper %}
+<h1 class="page-header">{{title}}</h1>
+<p class="{{msg_class}}">{{ state }}</p>
+<span class="clearfix"></span>
+<form role="form" action="{{url}}" method="post" novalidate ng-non-bindable>{% csrf_token %}
+	<div class="row">
+		<div class="col-md-2 col-md-offset-{% if boton_captura_contactos %}3{% else %}6{% endif %}">
+			{% if delete_company_enable %}
+			<a href="/empresa/{{compania_id}}/borrar" class="btn btn-danger btn_eliminar form-control" title="eliminar">Eliminar</a>
+			{% endif %}
+		</div>
+		<div class="col-md-2">
+			<button name="guargar_only" type="submit" class="btn btn-primary form-control" title="guardar">Guardar <span class="glyphicon glyphicon-save"></span></button>
+		</div>
+		{% if boton_captura_contactos %}
+		<div class="col-md-3">
+			<button name="guargar_capt_contactos" type="submit" class="btn btn-primary form-control" title="guardar">Capturar contactos <span class="glyphicon glyphicon-save"></span></button>
+		</div>
+		{% endif %}
+		<div class="col-md-2">
+			<a href="{{boton_cancelar_url}}" class="btn btn-default form-control">Cancelar</a>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-4">
+			<div class="text-danger">{{form.razon_social.errors}}</div>
+			{{form.razon_social.label_tag}}
+			{{form.razon_social}}
+		</div>
+		<div class="col-md-4">
+			<div class="text-danger">{{form.nombre.errors}}</div>
+			{{form.nombre.label_tag}}
+			{{form.nombre}}
+		</div>
+		<div class="col-md-4">
+			<div class="text-danger">{{form.role.errors}}</div>
+			{{form.role.label_tag}}
+			{{form.role}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="text-danger">{{form.sucursal.errors}}</div>
+			{{form.sucursal.label_tag}}
+			{{form.sucursal}}
+		</div>
+		<div class="col-md-3">
+			<div class="text-danger">{{form.ciudad.errors}}</div>
+			{{form.ciudad.label_tag}}
+			{{form.ciudad}}
+		</div>
+		<div class="col-md-3">
+			<div class="text-danger">{{form.telefono.errors}}</div>
+			{{form.telefono.label_tag}}
+			{{form.telefono}}
+		</div>
+		<div class="col-md-3">
+			<div class="text-danger">{{form.telefono_alt.errors}}</div>
+			{{form.telefono_alt.label_tag}}
+			{{form.telefono_alt}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="text-danger">{{form.email.errors}}</div>
+			{{form.email.label_tag}}
+			{{form.email}}
+		</div>
+		<div class="col-md-3">
+			<div class="text-danger">{{form.referencia_correo.errors}}</div>
+			{{form.referencia_correo.label_tag}}
+			{{form.referencia_correo}}
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-7">
+			<div class="text-danger">{{form.rfc_direccion.errors}}</div>
+			{{form.rfc_direccion.label_tag}}
+			{{form.rfc_direccion}}
+		</div>
+		<div class="col-md-3">
+			<div class="text-danger">{{form.rfc.errors}}</div>
+			{{form.rfc.label_tag}}
+			{{form.rfc}}
+		</div>
+		<div class="col-md-2">
+			<div class="text-danger">{{form.es_cliente.errors}}</div>
+			{{form.es_cliente.label_tag}}
+			{{form.es_cliente}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="text-danger">{{form.notas.errors}}</div>
+			{{form.notas.label_tag}}
+			{{form.notas}}
+		</div>
+	</div>
+	
+	<hr />
+
+
+	
+</form>
+{% endblock %}

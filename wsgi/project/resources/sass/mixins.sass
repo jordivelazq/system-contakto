@@ -1,0 +1,26 @@
+// Mixins ---------------------------------------------------------------
+ 
+=placeholder-style
+	color: #6d6d6d
+	font-family: 'Times New Roman', serif
+	font-weight: normal
+	font-size: 16px
+	font-style: italic
+ 
+=apply-placeholders
+	&::-webkit-input-placeholder
+		+placeholder-style
+	&:-moz-placeholder
+		+placeholder-style
+	&::-moz-placeholder
+		+placeholder-style
+	&.placeholder
+		+placeholder-style
+	&:-ms-input-placeholder
+		+placeholder-style
+
+.placeholders
+	+apply-placeholders
+ 
+input, textarea
+	@extend .placeholders

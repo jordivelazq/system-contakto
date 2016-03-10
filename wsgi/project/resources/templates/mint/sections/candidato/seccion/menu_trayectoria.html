@@ -1,0 +1,21 @@
+<ul class="nav nav-pills">
+	<li {% if not seccion %}class="active"{% endif %}>
+		<a href="/candidato/investigacion/{{investigacion_id}}/{% if request.user.is_staff %}editar{% else %}ver{% endif %}">Info. Personal</a>
+	</li>
+	<li {% if seccion == 'trayectoria' %}class="active"{% endif %}>
+		<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria">Inv. Laboral</a>
+	</li>
+	<li {% if seccion == 'entrevista' %}class="active"{% endif %}>
+		<a href="/candidato/investigacion/{{investigacion_id}}/entrevista">Entrevista</a>
+	</li>	
+	<li {% if seccion == 'adjuntos' %}class="active"{% endif %}>
+		<a href="/candidato/investigacion/{{investigacion_id}}/adjuntos">Adjuntos</a>
+	</li>
+	<li {% if seccion == 'reporte' %}class="active"{% endif %}>
+		<a href="/candidato/investigacion/{{investigacion_id}}/reporte">Reporte</a>
+	</li>
+	<li {% if seccion == 'observaciones' %}class="active"{% endif %}>
+		<a href="/candidato/investigacion/{{investigacion_id}}/observaciones">Estatus Generales</a>
+	</li>
+</ul>
+<br />

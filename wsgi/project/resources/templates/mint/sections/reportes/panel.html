@@ -1,0 +1,106 @@
+{% extends 'layout/base.html' %}
+{% load fe_extras %}
+
+{% block side_content %}
+	{% include 'sections/reportes/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block extra_javascript %}
+var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />");
+{% endblock %}
+
+{% block site_wrapper %}
+<div ng-controller="ReporteCTRL">
+	<div class="page-header">
+		<h3>{% if compania and contacto %}
+				Reporte de 
+				{% if compania %} 
+					{{compania}} 
+				{% endif %} 
+				{% if contacto %}
+					<small>{{contacto}}</small>
+				{% endif %}
+			{% endif %}
+		</h3>
+		{% if contacto_id and investigaciones|length %}
+		<div class="form-group pull-right" id="panel_enviar_reporte">
+			<span id="msg_enviar_reporte"></span>
+			<a href="" class="btn btn-default" ng-click="send_email_reporte()">Enviar Reporte</a>
+		</div>
+		{% endif %}
+	</div>
+	{% if dest_list and contacto_id and investigaciones|length %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-6">
+				<div class="alert alert-warning">
+					<p>El reporte se enviará a las siguientes direcciones:</p>
+					<ul>
+						{% for d in dest_list %}
+							<li><strong>{{d}}</strong> {% if forloop.last %}(admin){% elif not forloop.first and not forloop.last %}(agente){% endif %}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	<div class="row placeholders">
+	    <div class="table-responsive">
+			{% if investigaciones|length %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">Fecha de Recibido</th>
+						<th class="text-left">Cliente</th>
+						<th class="text-left">Nombre/Apellido</th>
+						<th class="text-left">Puesto</th>
+						<th class="text-left">Ciudad</th>
+						<th class="text-center">Status</th>
+						<th class="text-center wide-th">Investigación Laboral</th>
+						<th class="text-center">Observaciones de Inv. Laboral</th>
+						<th class="text-center">Calificación Final</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for inv in investigaciones %}
+				<tr>
+					<td class="text-center">{{ inv.id }}</td>
+					<td class="text-center">{{ inv.fecha_recibido|date:"d/M/y" }}</td>
+					<td class="text-left">{{ inv.compania.nombre }}</td>
+					<td class="text-left">{{ inv.candidato.nombre }}</td>
+					<td class="text-left">{{ inv.puesto }}</td>
+					<td class="text-left">{{ inv.ciudad }}</td>
+					<td class="text-center">{{ inv.status|investigacion_status }}</td>
+					<td class="text-left">
+						{% for t in inv.trayectoria %}
+							<small>
+								<p>
+									<strong>{{t.compania}}</strong><br />
+									<ul>
+										<li>Puesto: {{t.puesto_final|default:'---'}}</li>
+										<li>Periodos: {{t.periodo_alta}}-{{t.periodo_baja}}</li>
+										<li>Motivo de baja: {{t.motivo_salida|motivo_salida|default:'---'}}</li>
+										<li>Cardex: {{t.cardex|default:'---'}}</li>
+										<li>Obs.: {{t.observaciones_generales|default:'---'}}</li>
+									</ul>
+								</p>
+							</small>
+							{% if not forloop.last %}
+							<hr class="thin-separator" />
+							{% endif %}
+						{% endfor %}
+					</td>
+					<td class="text-left">{{ inv.observaciones_generales|default:'---' }}</td>
+					<td class="text-center">{{ inv.resultado|investigacion_resultado }}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
+		{% endif %}
+		</div>
+	</div>
+</div>
+{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+{% endblock %}

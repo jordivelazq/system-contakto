@@ -1,0 +1,336 @@
+
+<div class="row">
+	<div {% if request.user.is_staff %}ng-click="open_empresa_modal()"{% endif %} class="col-md-4">
+		<label>Empresa</label>
+		<div class="input-group">
+			<input id="id_trayectoria-compania" name="trayectoria-compania" type="hidden" value="{[{compania_trayectoria}]}">
+			<input id="id_trayectoria-compania-nombre" name="trayectoria-compania-nombre" readonly="readonly" ng-model="compania_nombre_trayectoria" type="text" class="form-control">
+			<span class="input-group-addon glyphicon glyphicon-search"></span>
+		</div>
+	</div>	
+	<div class="col-md-3">
+		{{ formTrayectoria.aparece_nss.errors }}
+		<label for="id_trayectoria1-aparece_nss">Aparece en NSS</label>
+		{{ formTrayectoria.aparece_nss }}
+	</div>
+
+	<div class="col-md-5">
+		<div class="row">
+			<div class="col-md-12">
+			<label for="id_trayectoria1-aportaciones_fecha_inicial">Fechas de Aportaciones</label>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-md-6"><label>Del:</label></div>
+			<div class="col-md-6"><label>Al:</label></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				{{ formTrayectoria.aportaciones_fecha_inicial.errors }}
+				{{ formTrayectoria.aportaciones_fecha_inicial }}
+			</div>
+			<div class="col-md-6">
+				{{ formTrayectoria.aportaciones_fecha_final.errors }}
+				{{ formTrayectoria.aportaciones_fecha_final }}
+			</div>
+		</div>	
+	</div>
+	
+</div>
+<div class="row">
+	<div class="col-md-4">
+		{{ formTrayectoria.reporta_candidato.errors }}
+		<label for="id_trayectoria1-reporta_candidato">Reporta candidato</label>
+		{{ formTrayectoria.reporta_candidato }}
+	</div>
+	<div class="col-md-4">
+		{{ formTrayectoria.carta_laboral.errors }}
+		<label for="id_trayectoria1-carta_laboral">Carta laboral</label>
+		{{ formTrayectoria.carta_laboral }}
+	</div>
+	<div class="col-md-4">
+		{{ formTrayectoria.carta_laboral_expide.errors }}
+		<label for="id_trayectoria1-carta_laboral_expide">Expide</label>
+		{{ formTrayectoria.carta_laboral_expide }}
+	</div>
+</div>
+
+<hr/>
+	<div class="company_info_block">
+		<div class="row">
+			<div class="col-md-2 col-md-offset-1">
+				<dl>
+					<dt>Razón social</dt>
+					<dd>{{trayectoria_empresa.compania.razon_social}}</dd>
+				</dl>
+			</div>
+			<div class="col-md-2">
+				<dl>
+					<dt>Nombre comercial</dt>
+					<dd>{{trayectoria_empresa.compania.nombre}}</dd>
+				</dl>
+			</div>
+			<div class="col-md-2">
+				<dl>
+					<dt>Giro</dt>
+					<dd>{{trayectoria_empresa.compania.role}}</dd>
+				</dl>
+			</div>
+			<div class="col-md-2">
+				<dl>
+					<dt>Referencia por correo</dt>
+					<dd>{% if trayectoria_empresa.compania.referencia_correo %}Sí{% else %}No{% endif %}</dd>
+				</dl>
+			</div>
+			{% if request.user.is_staff %}
+				<div class="col-md-1">
+					<a href="/empresa/{{trayectoria_empresa.compania.id}}/editar/ref/{{investigacion_id}}/{{trayectoria_id}}" class="btn btn-default" data-ng-click="onClickEditarDatosEmpresa($event)">Editar datos de empresa <span class="glyphicon glyphicon-edit"></span></a>
+				</div>
+			{% endif %}
+		</div>
+		<div class="row">
+			<div class="col-md-2 col-md-offset-1">
+				<dl>
+					<dt>Sucursal</dt>
+					<dd>{{trayectoria_empresa.compania.sucursal}}</dd>
+				</dl>
+			</div>
+			<div class="col-md-2">
+				<dl>
+					<dt>Ciudad</dt>
+					<dd>{{trayectoria_empresa.compania.ciudad}}</dd>
+				</dl>
+			</div>
+			<div class="col-md-2">
+				<dl>
+					<dt>Teléfonos</dt>
+					<dd>{{trayectoria_empresa.compania.telefono}}
+					{% if trayectoria_empresa.compania.telefono_alt %} / {{ trayectoria_empresa.compania.telefono_alt }}{% endif %}</dd>
+				</dl>
+			</div>
+			<div class="col-md-2">
+				<dl>
+					<dt>Correo</dt>
+					<dd>{{trayectoria_empresa.compania.email}}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+<hr/>
+
+<div class="row">
+	<div class="col-md-7">
+		<div class="row">
+			<div class="col-md-5 col-md-offset-2 text-center">
+				<label>Inicial</label>
+			</div>
+			<div class="col-md-5 text-center">
+				<label>Final</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label>Puesto</label>
+			</div>
+			<div class="col-md-5">
+				{{ formTrayectoria.puesto_inicial.errors }}
+				{{ formTrayectoria.puesto_inicial }}
+			</div>
+			<div class="col-md-5">
+				{{ formTrayectoria.puesto_final.errors }}
+				{{ formTrayectoria.puesto_final }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5 col-md-offset-2 text-center">
+				<label>Inicial</label>
+			</div>
+			<div class="col-md-5 text-center">
+				<label>Final</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label>Sueldo</label>
+			</div>
+			<div class="col-md-5">
+				{{ formTrayectoria.sueldo_inicial.errors }}
+				{{ formTrayectoria.sueldo_inicial }}
+			</div>
+			<div class="col-md-5">
+				{{ formTrayectoria.sueldo_final.errors }}
+				{{ formTrayectoria.sueldo_final }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5 col-md-offset-2 text-center">
+				<label>Del:</label>
+			</div>
+			<div class="col-md-5 text-center">
+				<label>Al:</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label>Fechas laboradas</label>
+			</div>
+			<div class="col-md-5">
+				{{ formTrayectoria.periodo_alta.errors }}
+				{{ formTrayectoria.periodo_alta }}
+			</div>
+			<div class="col-md-5">
+				{{ formTrayectoria.periodo_baja.errors }}
+				{{ formTrayectoria.periodo_baja }}
+			</div>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="row">
+			<div class="col-md-12">
+				{{ formTrayectoria.funciones.errors }}
+				<label>Funciones y/o responsabilidades</label>
+				{{ formTrayectoria.funciones }}
+			</div>
+		</div>
+		<hr class="thin-separator" />
+		<div class="row">
+			<div class="col-md-12">
+				{{ formTrayectoria.cumplio_objetivos.errors }}
+				<label>Especificar si cumplió los objetivos del puesto</label>
+				{{ formTrayectoria.cumplio_objetivos }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-2">
+		{{ formTrayectoria.no_personas_cargo.errors }}
+		<label for="id_trayectoria1-no_personas_cargo">Personas a cargo (#)</label>
+		{{ formTrayectoria.no_personas_cargo }}
+	</div>
+	<div class="col-md-2">
+		{{ formTrayectoria.manejo_valores.errors }}
+		<label for="id_trayectoria1-manejo_valores">Manejo de valores</label>
+		{{ formTrayectoria.manejo_valores }}
+	</div>
+	<div class="col-md-3">
+		{{ formTrayectoria.motivo_salida.errors }}
+		<label for="id_trayectoria1-motivo_salida">Motivo de salida</label>
+		{{ formTrayectoria.motivo_salida }}
+	</div>
+	<div class="col-md-3">
+		{{ formTrayectoria.afiliado_sindicato.errors }}
+		<label for="id_trayectoria1-afiliado_sindicato">Afiliado a sindicato</label>
+		{{ formTrayectoria.afiliado_sindicato }}
+	</div>
+	<div class="col-md-2">
+		{{ formTrayectoria.recontratable.errors }}
+		<label for="id_trayectoria1-recontratable">Recontratable</label>
+		{{ formTrayectoria.recontratable }}
+	</div>
+</div>
+<hr class="thin-separator" />
+<div class="row">
+	<div class="col-md-4">
+		{{ formTrayectoria.jefe_inmediato.errors }}
+		<label for="id_trayectoria1-jefe_inmediato">Jefe inmediato</label>
+		{{ formTrayectoria.jefe_inmediato }}
+
+		{{ formTrayectoria.jefe_inmediato_puesto.errors }}
+		<label for="id_trayectoria1-jefe_inmediato_puesto">Puesto de jefe inmediato</label>
+		{{ formTrayectoria.jefe_inmediato_puesto }}
+	</div>
+	<div class="col-md-8">
+		{{ formOpinionJefe.opinion.errors }}
+		<label for="id_opinion_jefe-opinion">Opinión de Jefe Inmediato</label>
+		{{ formOpinionJefe.opinion }}
+	</div>
+</div>
+<hr class="thin-separator" />
+<div class="row">
+	<div class="col-md-12">
+		{{ formOpinionRH.opinion.errors }}
+		<label for="id_opinion_jefe-opinion">Opinión de RH</label>
+		{{ formOpinionRH.opinion }}
+	</div>
+</div>
+<hr class="thin-separator" />
+<div class="row">
+	<div class="col-md-3">
+		{{ formInformante1.nombre.errors }}
+		<label for="id_informante1-nombre">Nombre informante 1</label>
+		{{ formInformante1.nombre }}
+	</div>
+	<div class="col-md-3">
+		{{ formInformante1.puesto.errors }}
+		<label for="id_informante1-puesto">Puesto informante 1</label>
+		{{ formInformante1.puesto }}
+	</div>
+	<div class="col-md-3">
+		{{ formInformante2.nombre.errors }}
+		<label for="id_informante2-nombre">Nombre informante 2</label>
+		{{ formInformante2.nombre }}
+	</div>
+	<div class="col-md-3">
+		{{ formInformante2.puesto.errors }}
+		<label for="id_informante2-puesto">Puesto informante 2</label>
+		{{ formInformante2.puesto }}
+	</div>
+</div>
+<hr class="thin-separator" />
+
+<br />
+<div class="text-center"><h4>EVALUACIÓN</h4></div>
+<div class="row">
+	<div class="col-md-3 col-md-offset-2">
+		<label class="pull-right">Actitudes y aptitudes</label>
+	</div>
+	{% for radio in formEvaluacion.productividad %}
+		<div class="col-md-1">
+			<div class="text-center"><strong>{{ radio.choice_label }}</strong></div>
+		</div>	
+	{% endfor %}
+</div>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<hr class="thin-separator" />
+	</div>
+</div>
+{% for field in formEvaluacion %}
+	<div class="row">
+		<div class="col-md-3 col-md-offset-2">
+			<label class="pull-right">{{ field.label_tag }}</label>
+		</div>	
+		{% for radio in field %}
+			<div class="col-md-1">
+				<div class="text-center">
+					<div class="">{{ radio.tag }}</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endfor %}
+
+<div class="row">
+	<div class="col-md-12">
+		{{ formTrayectoria.observaciones_generales.errors }}
+		<label for="id_trayectoria1-observaciones_generales">Observaciones generales</label>
+		{{ formTrayectoria.observaciones_generales }}
+	</div>
+</div>
+{% if request.user.is_staff %}
+	<hr class="thin-separator" />
+	<div class="row">
+		<div class="col-md-3">
+			{{ formTrayectoria.terminada.errors }}
+			<label for="id_trayectoria1-terminada">Terminada</label>
+			{{ formTrayectoria.terminada }}
+		</div>
+		<div class="col-md-3">
+			{{ formTrayectoria.visible_en_status.errors }}
+			<label for="id_trayectoria1-visible_en_status">Visible en estatus</label>
+			{{ formTrayectoria.visible_en_status }}
+		</div>
+	</div>
+{% endif %}

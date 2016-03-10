@@ -1,0 +1,47 @@
+<div id="sidebar" ng-controller="SearchBitacoraCTRL">
+	<div class="sidebar-title">
+		<h4 class="page-header">
+			Bitácora 
+		</h4>
+	</div>	
+	<div class="" id="filters_accordion">
+	  <div class="">
+	  	<h6 class="panel-title">Filtros</h6>
+	  	<br/>
+	    <div id="collapseOne" class="panel-collapse collapse in">
+	    		<div id="msg-search"></div>
+				<div id="select-agentes-sidebar">
+					<div class="form-group">
+						<select class="form-control" id="status_select" name="status_select" ng-model="agente_select">
+							<option value="" selected="selected">-Agente-</option>
+							{% for a in agentes_select %}
+								<option value="{{a.id}}">{{a.first_name}} {{a.last_name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div id="daterange-inputs-sidebar" class="form-group">
+					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio"><span class="float-left daterange-separator">&nbsp;a&nbsp;</span><input class="form-control sidebar-date-input" type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
+				</div>
+				<div id="botones-sidebar" class="form-group">
+					<span class="pull-right">
+						<button type="button" class="btn btn-default btn-sm" ng-click=" limpiar_filtros();"> Limpiar </button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="search();"> Buscar </button>
+					</span>
+				</div>
+				<br />
+	    </div>
+	  </div>
+	</div>
+	<div>
+		<hr>
+	</div>
+</div>
+<script type="text/javascript">
+			var filtros_json = {% if filtros_json %}
+									{	
+										'agente_id':'{{filtros_json.agente_id|safe}}',
+										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
+										'fecha_final':'{{filtros_json.fecha_final|safe}}' 	}
+								{% else %}''{% endif %}
+</script>
