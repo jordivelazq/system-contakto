@@ -14,3 +14,4 @@ smtpapi==0.3.1
 South==1.0.2
 sqlparse==0.1.15
 xlrd==0.9.3
+MySQL-python==1.2.5
