@@ -2,7 +2,7 @@
 
 # documentacion de libreria xlrd:
 # https://secure.simplistix.co.uk/svn/xlrd/trunk/xlrd/doc/xlrd.html?p=4966
-
+from django.conf import settings
 import os
 import datetime
 import xlrd
@@ -26,9 +26,10 @@ class PreCandidato(object):
 		'''
 		try:
 			f = EntrevistaFile.objects.filter(id=file_id)
-			self.workbook = xlrd.open_workbook('./resources/media/' + str(f[0].record))
+			self.workbook = xlrd.open_workbook(settings.MEDIA_ROOT + '/' + str(f[0].record))
 			self.worksheet = self.workbook.sheet_by_index(sheet_index)
 		except Exception, e:
+			print "Exception leerArchivo", e
 			self.errors.append('Archivo no encontrado o corrupto')
 			return 0
 		return 1
