@@ -10,4 +10,4 @@ ADD . /code
 
 EXPOSE 8000
 
-CMD [ "python", "/code/wsgi/project/manage.py", "runserver", "0.0.0.0:8000", "--insecure" ]
+CMD [ "gunicorn", "--chdir", "wsgi/project", "project.wsgi:application", "--bind", "0.0.0.0:8000"]
