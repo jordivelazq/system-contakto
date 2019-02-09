@@ -1,10 +1,6 @@
 from fabric.api import local
 
-def update():
-    local('git checkout develop')
-    local('git pull origin develop')
-
 def deploy():
-    local('git add .')
-    local('git commit -m "deploy"')
-    local('git push openshift HEAD:master')
+    local('docker build -t garciadiazjaime/admin-contakto .')
+    local('docker push garciadiazjaime/admin-contakto')
+    local('echo "docker pull garciadiazjaime/admin-contakto"')
