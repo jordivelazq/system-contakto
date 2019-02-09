@@ -429,7 +429,7 @@ class EntrevistaReferencia(models.Model):
 
 class EntrevistaDocumentoCotejado(models.Model):
 	person = models.ForeignKey(EntrevistaPersona)
-	tipo = models.CharField(max_length=20)
+	tipo = models.CharField(max_length=255)
 	estatus = models.BooleanField(default=False)
 	observaciones = models.TextField(max_length=500, blank=True, null=True) #Solo se usa para el tipo 'motivos_falta_docs'
 
