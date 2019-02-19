@@ -9,3 +9,4 @@
 contakto
 secrets.txt
 wsgi/project/resources/media/xls
+.DS_Store

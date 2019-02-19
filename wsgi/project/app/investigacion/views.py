@@ -1366,7 +1366,7 @@ def exportar_pdf(request, investigacion_id, tipo_reporte):
 			row_y = start_y*inch
 			c.setFont("Helvetica", 9)
 			if informantes:
-				if informantes[x]:
+				if x < len(informantes):
 					c.drawString(-0.25*inch, row_y, unicode(informantes[x].nombre.upper()) if informantes[x].nombre else '---')
 					c.drawString(4*inch, row_y, unicode(informantes[x].puesto.upper()) if informantes[x].puesto else '---')
 			else:	
