@@ -22,14 +22,14 @@ class AdjuntosForm(ModelForm):
 			if f:
 				ext = f.name.split('.')[len(f.name.split('.'))-1] if len(f.name.split('.')) > 1 else ''
 				if ext.lower() not in doc_file_types:
-					raise ValidationError('Error por extensión de archivos. Usar xlsx, xls, doc, docx, pdf para documentos y .jpg, .png, .bmp para imágenes')
+					raise ValidationError('Error por extensión de archivos. Usar xlsx, xls, doc, docx, pdf para documentos y .jpg')
 
 		for name in img_file_names:
 			f = self.cleaned_data[name]
 			if f:
 				ext = f.name.split('.')[len(f.name.split('.'))-1] if len(f.name.split('.')) > 1 else ''
 				if ext.lower() not in img_file_types:
-					raise ValidationError('Error por extensión de archivos. Usar xlsx, xls, doc, docx, pdf para documentos y .jpg, .png, .bmp para imágenes')
+					raise ValidationError('Error por extensión de archivos. Usar xlsx, xls, doc, docx, pdf para documentos y .jpg')
 
 		return self.cleaned_data
 

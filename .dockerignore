@@ -5,3 +5,4 @@ docs
 node_modules
 npm-debug.log
 wsgi/project/resources/media/xls
+wsgi/project/resources/media/adj
