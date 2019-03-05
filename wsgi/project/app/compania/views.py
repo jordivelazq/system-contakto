@@ -14,6 +14,7 @@ from app.compania.forms import CompaniaForm, ContactoForm
 from django.db.models import Q
 import json
 
+
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def panel(request):
@@ -219,8 +220,9 @@ def contacto_editar(request, compania_id, contacto_id):
 			elif len(p):
 				new_user = User(email=new_email)
 				new_user.set_password(p)
+				new_user.username = new_email
 				new_user.save()
-				new_user.username = "contacto_"+str(new_user.id)
+
 				new_user.groups.add(Group.objects.get(name='contactos'))
 				new_user.save()
 

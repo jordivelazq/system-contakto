@@ -30,6 +30,24 @@ docker run -d -p 49164:8000 garciadiazjaime/admin-contakto
 docker push garciadiazjaime/admin-contakto
 docker pull garciadiazjaime/admin-contakto
 
+### Setup
+
+- Create `contactos` Group.
+This group will be assigned to Company contacts with restricted access to the system:
+  
+
 ### Deploy
 
 `fab deploy`
+
+### Debug
+
+- Import pdb
+
+`import pdb`
+
+- Add tracer
+
+`pdb.set_trace()`
+
+The application will stop righ where the tracer has been added.
