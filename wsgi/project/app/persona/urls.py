@@ -39,6 +39,7 @@ urlpatterns = patterns('',
 	#Reporte
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/reporte$', 'app.persona.views.ver_reporte', name='ver_reporte'),
 	url(r'^investigacion/exportar/(?P<investigacion_id>[^/]+)/(?P<tipo_reporte>[-\w]+)$', 'app.investigacion.views.exportar_pdf', name='exportar_pdf'),
+		url(r'^investigacion/exportar/html/(?P<investigacion_id>[^/]+)/(?P<tipo_reporte>[-\w]+)$', 'app.investigacion.views.exportar_html', name='exportar_html'),
 
 	#Adjuntos
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/adjuntos/$', 'app.adjuntos.views.panel_adjuntos', name='panel_adjuntos'),

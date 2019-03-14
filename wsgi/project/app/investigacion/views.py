@@ -1524,3 +1524,7 @@ def exportar_pdf(request, investigacion_id, tipo_reporte):
 
 	c.save()
 	return response
+
+@csrf_exempt
+def exportar_html(request, investigacion_id, tipo_reporte):
+	return render_to_response('sections/reportes/compacto.html', locals(), context_instance=RequestContext(request))

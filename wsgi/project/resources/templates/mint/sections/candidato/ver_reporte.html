@@ -29,6 +29,8 @@
 				</div>
 				<div id="exportar-pdf" class="col-xs-2">
 					<a class="btn btn-default {% if not tiene_trayectoria %}disabled{% endif %}" href="/candidato/investigacion/exportar/{{investigacion.id}}/compacto">Generar PDF <span class="glyphicon glyphicon-export"></span></a>
+					<br />
+					<a class="btn btn-default {% if not tiene_trayectoria %}disabled{% endif %}" href="/candidato/investigacion/exportar/html/{{investigacion.id}}/compacto">Generar PDF/HTML <span class="glyphicon glyphicon-export"></span></a>
 				</div>
 			</div>
 			<div class="row">

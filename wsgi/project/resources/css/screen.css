@@ -19,7 +19,7 @@ body {
 /* line 16, ../sass/screen.sass */
 .sub-header {
   padding-bottom: 10px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
 }
 
 /* line 20, ../sass/screen.sass */
@@ -40,8 +40,8 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
-    background-color: whitesmoke;
-    border-right: 1px solid #eeeeee;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
   }
 }
 /* line 38, ../sass/screen.sass */
@@ -57,7 +57,7 @@ body {
 }
 /* line 47, ../sass/screen.sass */
 .nav-sidebar > .active > a {
-  color: white;
+  color: #fff;
   background-color: #428bca;
 }
 
@@ -145,15 +145,15 @@ body {
 }
 /* line 109, ../sass/screen.sass */
 #lista-candidatos-sidebar li:hover {
-  background-color: #eeeeee;
+  background-color: #eee;
 }
 /* line 111, ../sass/screen.sass */
 #lista-candidatos-sidebar li:active {
-  background-color: #dddddd;
+  background-color: #ddd;
 }
 /* line 114, ../sass/screen.sass */
 #lista-candidatos-sidebar .active {
-  background-color: #428bca;
+  background-color: #428BCA;
 }
 
 /* line 117, ../sass/screen.sass */
@@ -171,7 +171,7 @@ body {
 }
 /* line 127, ../sass/screen.sass */
 #lista-agentes-sidebar li a {
-  color: #999999;
+  color: #999;
 }
 
 /* line 131, ../sass/screen.sass */
@@ -201,7 +201,7 @@ body {
 
 /* line 147, ../sass/screen.sass */
 .greeting-msg {
-  color: #428bca;
+  color: #428BCA;
   padding-top: 15px;
   padding-right: 15px;
 }
@@ -216,13 +216,13 @@ body {
 #status_block {
   float: right;
   margin-top: 15px;
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #CCC;
 }
 
 /* line 161, ../sass/screen.sass */
 .company_info_block {
   padding-top: 15px;
-  background-color: #eeeeee;
+  background-color: #EEE;
 }
 
 /* line 165, ../sass/screen.sass */
