@@ -21,111 +21,117 @@ body
   height: calc(100% - 100px)
   padding: 10px 10px 50px 10px
 
+  .background-2 
+    border: solid 10px $primary-color
+    height: 100%
+    padding: 20px 20px 0 20px
+    position: relative
+
 .background-2 
   border: solid 10px $primary-color
-  height: 100%
+  height: calc(100% - 40px)
   padding: 20px 20px 0 20px
   position: relative
 
-  .header 
-    border-bottom: 3px solid black
-    position: relative
+.header 
+  border-bottom: 3px solid black
+  position: relative
 
-    h1 
-      text-transform: uppercase
+  h1 
+    text-transform: uppercase
 
-    img 
-      position: absolute
-      bottom: 5px
-      right: 0
-
-  .company
-    h2
-      border-radius: 20px
-      background: $primary-color
-      color: white
-      margin: 100px 0 0 100px
-      padding: 5px 50px
-      width: 300px
-    
-    table
-      margin: 20px 0 0 60px
-      th
-        text-align: right
-        font-weight: normal
-        padding-right: 10px
-      
-      td
-        background: $gray-a
-        padding: 5px 40px 5px 10px
-        font-weight: bold
-  
-  .candidate
-    margin: 40px 0 0 140px
-
-    thead
-      th
-        background: #555
-        color: white
-        padding: 5px 0
-    tbody
-      th
-        text-align: right
-        font-weight: normal
-        padding-right: 10px
-      td
-        background: $gray-a
-        padding: 5px 40px 5px 10px
-        font-weight: bold
-
-  .results
-    margin: 40px 0 0 140px
-
-    h3
-      background: $primary-color
-      color: white
-      margin: 0  0 0 100px
-      padding: 5px 20px
-      display: inline-block
-    
-    table
-      margin: 0 0 0 100px
-      border-spacing: 5px
-
-      tr
-        margin: 5px 0
-
-      th
-        background: $gray-a
-        padding: 8px
-        font-weight: bold
-      
-      td
-        font-weight: bold
-  
-  .footer
+  img 
     position: absolute
-    bottom: 0px
-    right: 20px
-    font-size: 0.9em
-    text-align: right
-    width: calc(100% - 40px)
+    bottom: 5px
+    right: 0
 
-    p
-      font-style: italic
-
-    strong
-      font-style: normal
-
-    .agent
-      border: 2px solid $primary-color
-      border-radius: 10px
+.company
+  h2
+    border-radius: 20px
+    background: $primary-color
+    color: white
+    margin: 100px 0 0 100px
+    padding: 5px 50px
+    width: 300px
+  
+  table
+    margin: 20px 0 0 60px
+    th
+      text-align: right
+      font-weight: normal
+      padding-right: 10px
+    
+    td
       background: $gray-a
-      display: inline-block
-      padding: 5px 50px
+      padding: 5px 40px 5px 10px
+      font-weight: bold
 
-    hr
-      background: black
-      height: 3px
-      margin: 10px 0 0 0
-      display: block
+.candidate
+  margin: 40px 0 0 140px
+
+  thead
+    th
+      background: #555
+      color: white
+      padding: 5px 0
+  tbody
+    th
+      text-align: right
+      font-weight: normal
+      padding-right: 10px
+    td
+      background: $gray-a
+      padding: 5px 40px 5px 10px
+      font-weight: bold
+
+.results
+  margin: 40px 0 0 140px
+
+  h3
+    background: $primary-color
+    color: white
+    margin: 0  0 0 100px
+    padding: 5px 20px
+    display: inline-block
+  
+  table
+    margin: 0 0 0 100px
+    border-spacing: 5px
+
+    tr
+      margin: 5px 0
+
+    th
+      background: $gray-a
+      padding: 8px
+      font-weight: bold
+    
+    td
+      font-weight: bold
+
+.footer
+  position: absolute
+  bottom: 0px
+  right: 20px
+  font-size: 0.9em
+  text-align: right
+  width: calc(100% - 40px)
+
+  p
+    font-style: italic
+
+  strong
+    font-style: normal
+
+  .agent
+    border: 2px solid $primary-color
+    border-radius: 10px
+    background: $gray-a
+    display: inline-block
+    padding: 5px 50px
+
+  hr
+    background: black
+    height: 3px
+    margin: 10px 0 0 0
+    display: block

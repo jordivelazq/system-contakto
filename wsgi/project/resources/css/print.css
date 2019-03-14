@@ -25,31 +25,40 @@ body {
   height: calc(100% - 100px);
   padding: 10px 10px 50px 10px;
 }
-
 /* line 24, ../sass/print.sass */
-.background-2 {
+.background-1 .background-2 {
   border: solid 10px #8A0000;
   height: 100%;
   padding: 20px 20px 0 20px;
   position: relative;
 }
+
 /* line 30, ../sass/print.sass */
-.background-2 .header {
+.background-2 {
+  border: solid 10px #8A0000;
+  height: calc(100% - 40px);
+  padding: 20px 20px 0 20px;
+  position: relative;
+}
+
+/* line 36, ../sass/print.sass */
+.header {
   border-bottom: 3px solid black;
   position: relative;
 }
-/* line 34, ../sass/print.sass */
-.background-2 .header h1 {
+/* line 40, ../sass/print.sass */
+.header h1 {
   text-transform: uppercase;
 }
-/* line 37, ../sass/print.sass */
-.background-2 .header img {
+/* line 43, ../sass/print.sass */
+.header img {
   position: absolute;
   bottom: 5px;
   right: 0;
 }
-/* line 43, ../sass/print.sass */
-.background-2 .company h2 {
+
+/* line 49, ../sass/print.sass */
+.company h2 {
   border-radius: 20px;
   background: #8A0000;
   color: white;
@@ -57,77 +66,80 @@ body {
   padding: 5px 50px;
   width: 300px;
 }
-/* line 51, ../sass/print.sass */
-.background-2 .company table {
+/* line 57, ../sass/print.sass */
+.company table {
   margin: 20px 0 0 60px;
 }
-/* line 53, ../sass/print.sass */
-.background-2 .company table th {
+/* line 59, ../sass/print.sass */
+.company table th {
   text-align: right;
   font-weight: normal;
   padding-right: 10px;
 }
-/* line 58, ../sass/print.sass */
-.background-2 .company table td {
+/* line 64, ../sass/print.sass */
+.company table td {
   background: #DDD;
   padding: 5px 40px 5px 10px;
   font-weight: bold;
 }
-/* line 63, ../sass/print.sass */
-.background-2 .candidate {
+
+/* line 69, ../sass/print.sass */
+.candidate {
   margin: 40px 0 0 140px;
 }
-/* line 67, ../sass/print.sass */
-.background-2 .candidate thead th {
+/* line 73, ../sass/print.sass */
+.candidate thead th {
   background: #555;
   color: white;
   padding: 5px 0;
 }
-/* line 72, ../sass/print.sass */
-.background-2 .candidate tbody th {
+/* line 78, ../sass/print.sass */
+.candidate tbody th {
   text-align: right;
   font-weight: normal;
   padding-right: 10px;
 }
-/* line 76, ../sass/print.sass */
-.background-2 .candidate tbody td {
+/* line 82, ../sass/print.sass */
+.candidate tbody td {
   background: #DDD;
   padding: 5px 40px 5px 10px;
   font-weight: bold;
 }
-/* line 81, ../sass/print.sass */
-.background-2 .results {
+
+/* line 87, ../sass/print.sass */
+.results {
   margin: 40px 0 0 140px;
 }
-/* line 84, ../sass/print.sass */
-.background-2 .results h3 {
+/* line 90, ../sass/print.sass */
+.results h3 {
   background: #8A0000;
   color: white;
   margin: 0 0 0 100px;
   padding: 5px 20px;
   display: inline-block;
 }
-/* line 91, ../sass/print.sass */
-.background-2 .results table {
+/* line 97, ../sass/print.sass */
+.results table {
   margin: 0 0 0 100px;
   border-spacing: 5px;
 }
-/* line 95, ../sass/print.sass */
-.background-2 .results table tr {
+/* line 101, ../sass/print.sass */
+.results table tr {
   margin: 5px 0;
 }
-/* line 98, ../sass/print.sass */
-.background-2 .results table th {
+/* line 104, ../sass/print.sass */
+.results table th {
   background: #DDD;
   padding: 8px;
   font-weight: bold;
 }
-/* line 103, ../sass/print.sass */
-.background-2 .results table td {
+/* line 109, ../sass/print.sass */
+.results table td {
   font-weight: bold;
 }
-/* line 106, ../sass/print.sass */
-.background-2 .footer {
+
+/* line 112, ../sass/print.sass */
+.footer {
   position: absolute;
   bottom: 0px;
   right: 20px;
@@ -135,24 +147,24 @@ body {
   text-align: right;
   width: calc(100% - 40px);
 }
-/* line 114, ../sass/print.sass */
-.background-2 .footer p {
+/* line 120, ../sass/print.sass */
+.footer p {
   font-style: italic;
 }
-/* line 117, ../sass/print.sass */
-.background-2 .footer strong {
+/* line 123, ../sass/print.sass */
+.footer strong {
   font-style: normal;
 }
-/* line 120, ../sass/print.sass */
-.background-2 .footer .agent {
+/* line 126, ../sass/print.sass */
+.footer .agent {
   border: 2px solid #8A0000;
   border-radius: 10px;
   background: #DDD;
   display: inline-block;
   padding: 5px 50px;
 }
-/* line 127, ../sass/print.sass */
-.background-2 .footer hr {
+/* line 133, ../sass/print.sass */
+.footer hr {
   background: black;
   height: 3px;
   margin: 10px 0 0 0;
