@@ -1,5 +1,6 @@
 $primary-color: #8A0000
 $gray-a: #DDD
+$gray-b: #999
 
 @page 
   margin: 0
@@ -7,6 +8,7 @@ $gray-a: #DDD
 body 
   margin: 0
   padding: 0
+  font-size: 14px
   -webkit-print-color-adjust: exact !important
 
 .page-break 
@@ -18,19 +20,16 @@ body
 
 .background-1 
   border: solid 20px $primary-color
-  height: calc(100% - 100px)
-  padding: 10px 10px 50px 10px
+  height: calc(100% - 85px)
+  padding: 15px 15px 30px 15px
 
   .background-2 
-    border: solid 10px $primary-color
     height: 100%
-    padding: 20px 20px 0 20px
-    position: relative
 
 .background-2 
   border: solid 10px $primary-color
-  height: calc(100% - 40px)
-  padding: 20px 20px 0 20px
+  height: calc(100% - 20px)
+  padding: 0px 10px 0 10px
   position: relative
 
 .header 
@@ -39,75 +38,12 @@ body
 
   h1 
     text-transform: uppercase
+    margin: 10px 0
 
   img 
     position: absolute
     bottom: 5px
     right: 0
-
-.company
-  h2
-    border-radius: 20px
-    background: $primary-color
-    color: white
-    margin: 100px 0 0 100px
-    padding: 5px 50px
-    width: 300px
-  
-  table
-    margin: 20px 0 0 60px
-    th
-      text-align: right
-      font-weight: normal
-      padding-right: 10px
-    
-    td
-      background: $gray-a
-      padding: 5px 40px 5px 10px
-      font-weight: bold
-
-.candidate
-  margin: 40px 0 0 140px
-
-  thead
-    th
-      background: #555
-      color: white
-      padding: 5px 0
-  tbody
-    th
-      text-align: right
-      font-weight: normal
-      padding-right: 10px
-    td
-      background: $gray-a
-      padding: 5px 40px 5px 10px
-      font-weight: bold
-
-.results
-  margin: 40px 0 0 140px
-
-  h3
-    background: $primary-color
-    color: white
-    margin: 0  0 0 100px
-    padding: 5px 20px
-    display: inline-block
-  
-  table
-    margin: 0 0 0 100px
-    border-spacing: 5px
-
-    tr
-      margin: 5px 0
-
-    th
-      background: $gray-a
-      padding: 8px
-      font-weight: bold
-    
-    td
-      font-weight: bold
 
 .footer
   position: absolute
@@ -135,3 +71,157 @@ body
     height: 3px
     margin: 10px 0 0 0
     display: block
+  
+  i
+    display: inline-block
+    background: $primary-color
+    border-radius: 20px
+    color: white
+    width: 20px
+    height: 20px
+    text-align: center
+    position: relative
+    top: -2px
+    line-height: 20px
+
+.cover-page
+  .company
+    h2
+      border-radius: 20px
+      background: $primary-color
+      color: white
+      margin: 100px 0 0 100px
+      padding: 5px 50px
+      width: 300px
+    
+    table
+      margin: 20px 0 0 60px
+      th
+        text-align: right
+        font-weight: normal
+        padding-right: 10px
+      
+      td
+        background: $gray-a
+        padding: 5px 40px 5px 10px
+        font-weight: bold
+
+  .candidate
+    margin: 40px 0 0 140px
+
+    thead
+      th
+        background: $gray-b
+        color: white
+        padding: 5px 0
+    tbody
+      th
+        text-align: right
+        font-weight: normal
+        padding-right: 10px
+      td
+        background: $gray-a
+        padding: 5px 40px 5px 10px
+        font-weight: bold
+
+  .results
+    margin: 40px 0 0 140px
+
+    h2
+      background: $primary-color
+      color: white
+      margin: 0  0 0 100px
+      padding: 5px 20px
+      display: inline-block
+    
+    table
+      margin: 0 0 0 100px
+      border-spacing: 5px
+
+      tr
+        margin: 5px 0
+
+      th
+        background: $gray-a
+        padding: 8px
+        font-weight: bold
+      
+      td
+        font-weight: bold
+
+.laboral-study-page
+  h3
+    background: $primary-color
+    color: white
+    padding: 5px 0
+    text-align: center
+  
+  table
+    width: 100%
+
+    th
+      font-weight: normal
+
+    td
+      background: $gray-a
+      padding: 5px
+      font-weight: bold
+  
+  .general-observations
+    div
+      background: $gray-a
+      height: 55%
+      border-radius: 20px
+
+  .work-reference
+    table
+      border-collapse: separate
+
+      th
+        font-weight: bold
+        text-align: left
+
+      td
+        text-align: center
+        padding: 0 10px
+      
+      .big
+        width: 50%
+        text-align: left
+  
+  .company
+    table
+      border-spacing: 10px
+    
+    td
+      width: 30%
+  
+  .resume
+    table
+      border-collapse: separate
+      text-align: center
+
+      th
+        background: $gray-b
+        padding: 5px
+
+      td
+        background: none
+        padding: 0
+
+      table
+        border-spacing: 0
+
+        th
+          background: none
+
+        td
+          background: $gray-a
+    
+    .table-border
+      border: 3px solid $primary-color
+      width: 100%
+      th
+        font-size: 7px
+
+

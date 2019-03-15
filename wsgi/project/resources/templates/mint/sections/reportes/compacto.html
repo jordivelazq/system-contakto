@@ -1,18 +1,12 @@
 {% extends 'layout/base_print.html' %}
 
 {% block site_wrapper %}
+
 {% include 'sections/reportes/cover.html' %}
 
-<section>
-  <div class="background-2">
-    <div class="header">
-      <h1>Estudio Laboral 1</h1>
-      <img src="/media/login_logo.png" />
-      <div class="clear-fix"></div>
-    </div>
-  </div>
-</section>
-<div class="page-break"></div>
+{% include 'sections/reportes/laboral-general.html' %}
+
+{% include 'sections/reportes/laboral-detail.html' %}
 
 <section>
   <h1>Estudio Laboral 3</h1>
