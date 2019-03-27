@@ -51,3 +51,24 @@ This group will be assigned to Company contacts with restricted access to the sy
 `pdb.set_trace()`
 
 The application will stop righ where the tracer has been added.
+
+
+### Reset DB
+
+- Copy Password (copy it)
+`echo $MYSQL_PASSWORD`
+
+- Dump DB
+`mysqldump -u $MYSQL_USER -h $HOSTNAME -p db_contakto > db_contakto.sql`
+
+- Copy DB Out of container
+`docker cp mysql-contakto:/db_contakto.sql ./`
+
+- Copy DB from server to local folder
+`scp [user:ip]:/root/container-nginx/db_contakto.sql docs`
+
+- Create DB locally
+`create database db_contakto;`
+
+- Load DB from sql file
+`mysql -uroot db_contakto < docs/db_contakto.sql`
