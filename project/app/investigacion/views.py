@@ -1527,4 +1527,23 @@ def exportar_pdf(request, investigacion_id, tipo_reporte):
 
 @csrf_exempt
 def exportar_html(request, investigacion_id, tipo_reporte):
+	investigacion = Investigacion.objects.get(pk=investigacion_id)
+	candidato = investigacion.candidato
+	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil][1]
+
+	
+	telefonos = candidato.telefono_set.all()
+	tel_movil = telefonos.filter(categoria='movil')[0] if telefonos.filter(categoria='movil').count() else ''
+	tel_casa = telefonos.filter(categoria='casa')[0] if telefonos.filter(categoria='casa').count() else ''
+	tel_recado = telefonos.filter(categoria='recado')[0] if telefonos.filter(categoria='recado').count() else ''
+
+	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
+	domicilio = candidato.direccion_set.all()[0]
+	
+	origen = candidato.origen_set.all()[0]
+	fecha_nacimiento = origen.fecha.strftime("%d/%b/%Y") if origen.fecha else ''
+	
+	legalidad = candidato.legalidad_set.all()
+	seguro = candidato.seguro_set.all()
+
 	return render_to_response('sections/reportes/compacto.html', locals(), context_instance=RequestContext(request))

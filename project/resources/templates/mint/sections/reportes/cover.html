@@ -3,20 +3,20 @@
     <div class="background-2">
       <div class="header">
         <h1>Estudio Laboral</h1>
-        <img src="/media/login_logo.png" />
+        <img src="/media/logo-nuevo.png" />
         <div class="clear-fix"></div>
       </div>
 
       <div class="company">
-        <h2>CONTAKTO UNO S.C.</h2>
+        <h2>{{ investigacion.compania }}</h2>
         <table>
           <tr>
             <th>SOLICITANTE</th>
-            <td>MARIANA M. MARTINEZ ARELLANO</td>
+            <td>{{ investigacion.contacto}}</td>
           </tr>
           <tr>
-            <th>FECHA</th>
-            <td>04 DE MARZO DE 2019</td>
+            <th>FECHA DE SOLICITUD</th>
+            <td>{{ investigacion.fecha_registro}}</td>
           </tr>
         </table>
       </div>
@@ -24,24 +24,24 @@
       <div class="candidate">
         <table>
           <thead>
-            <th colspan="2">JOSÉ MARTIN PÁEZ AGUILAR</th>
+            <th colspan="2">{{ candidato }}</th>
           </thead>
           <tbody>
             <tr>
               <th>PUESTO</th>
-              <td>AUXILIAR DE RECLUTAMIENTO</td>
+              <td>{{ investigacion.puesto }}</td>
             </tr>
             <tr>
               <th>EDAD</th>
-              <td>22 AÑOS</td>
+              <td>{{ candidato.edad }} años</td>
             </tr>
             <tr>
               <th>EMAIL</th>
-              <td>paez.aguilar97@gmail.com</td>
+              <td class="lowercase">{{ candidato.email}}</td>
             </tr>
             <tr>
               <th>TELÉFONO</th>
-              <td>664 793 9339</td>
+              <td>{{ tel_movil }}</td>
             </tr>
           </tbody>
         </table>
@@ -51,15 +51,15 @@
         <h2>RESULTADO</h2>
         <table>
           <tr>
-            <th>X</th>
+            <th>{% if investigacion.resultado == "1" %}X{% else %}&nbsp;{% endif %}</th>
             <td>VIABLE</td>
           </tr>
           <tr>
-            <th>&nbsp;</th>
+            <th>{% if investigacion.resultado == "2" %}X{% else %}&nbsp;{% endif %}</th>
             <td>NO VIABLE</td>
           </tr>
           <tr>
-            <th>&nbsp;</th>
+            <th>{% if investigacion.resultado == "3" %}X{% else %}&nbsp;{% endif %}</th>
             <td>A RESERVAS</td>
           </tr>
         </table>
@@ -67,13 +67,13 @@
 
       <div class="footer">
         <p>
-          Fecha de entrega: <strong>06 de marzo de 2019</strong>
+          Fecha de entrega: <strong>{{ investigacion.fecha_recibido }}</strong>
         </p>
         <div class="agent">
-          <strong>ALDAIR CORTES /</strong> reclutamiento@contakto.mx
+          <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}
         </div>
         <hr />
-        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / CLIENTE</span>
+        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
       </div>
     </div>
   </div>

@@ -11,6 +11,8 @@ html, body
   margin: 0
   padding: 0
   font-size: 14px
+  font-family: Trebuchet MS
+  text-transform: uppercase
   -webkit-print-color-adjust: exact !important
 
 .page-break 
@@ -19,6 +21,9 @@ html, body
 
 .clear-fix 
   clear: both
+
+.lowercase
+  text-transform: lowercase
 
 .background-1 
   border: solid 20px $primary-color
@@ -46,6 +51,7 @@ html, body
     position: absolute
     bottom: 5px
     right: 0
+    width: 180px
 
 .footer
   position: absolute
@@ -94,7 +100,7 @@ html, body
       color: white
       margin: 100px 0 0 100px
       padding: 5px 50px
-      width: 300px
+      display: inline-block
     
     table
       margin: 20px 0 0 60px
@@ -130,6 +136,7 @@ html, body
     margin: 40px 0 0 140px
 
     h2
+      border-radius: 20px
       background: $primary-color
       color: white
       margin: 0  0 0 100px
@@ -157,6 +164,7 @@ html, body
     color: white
     padding: 5px 0
     text-align: center
+    margin: 6px 0
   
   table
     width: 100%
@@ -174,14 +182,11 @@ html, body
       background: $gray-a
       height: 55%
       border-radius: 20px
+      padding: 20px
 
   .work-reference
     table
       border-collapse: separate
-
-      th
-        font-weight: bold
-        text-align: left
 
       td
         text-align: center
@@ -197,6 +202,9 @@ html, body
     
     td
       width: 30%
+
+    h3
+      border-radius: 20px
   
   .resume
     table

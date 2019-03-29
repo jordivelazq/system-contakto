@@ -17,9 +17,9 @@
           <th>PARENTESCO</th>
         </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+          <td>{{tel_casa|default:""}}</td>
+          <td>{{tel_movil|default:""}}</td>
+          <td>{{tel_recado|default:""}}</td>
           <td>&nbsp;</td>
         </tr>
       </table>
@@ -34,9 +34,9 @@
           <th>ESTADO CIVIL</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+          <td colspan="2">{{fecha_nacimiento|default:""}}</td>
+          <td>{{origen.nacionalidad|default:""}}</td>
+          <td>{{estado_civil|default:""}}</td>
         </tr>
         <tr>
           <th colspan="2">CURP</th>
@@ -44,20 +44,20 @@
           <th>RFC</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+          <td colspan="2">{{candidato.curp|default:""}}</td>
+          <td>{{candidato.nss|default:""}}</td>
+          <td>{{ candidato.rfc|default:"" }}</td>
         </tr>
       </table>
     </div>
 
     <div class="general-observations">
       <h3>OBSERVACIONES SOBRE LA INVESTIGACIÓN</h3>
-      <div></div>
+      <div>{% if investigacion.observaciones_generales %}{{investigacion.observaciones_generales}}{% endif %}</div>
     </div>
 
     <div class="footer">
-      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / CLIENTE</span>
+      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
       <i>2</i>
     </div>
   </div>
