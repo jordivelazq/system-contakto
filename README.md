@@ -12,17 +12,17 @@ BE
 * Create your branch (**topics/feature**)
 * Install python packages (`$ pip install -r requirements.txt`)
 * Run server
-`./wsgi/project/manage.py runserver`
+`./project/manage.py runserver`
 
 ### NOTES:
 * To improve speed when generating sprites, install oily (gem install oily_png) (http://compass-style.org/help/tutorials/spriting/)
 
 
 ### Migrate DB
-`./wsgi/project/manage.py syncdb`
-`./wsgi/project/manage.py migrate`
-./wsgi/project/manage.py migrate persona
-./wsgi/project/manage.py migrate
+`./project/manage.py syncdb`
+`./project/manage.py migrate`
+./project/manage.py migrate persona
+./project/manage.py migrate
 
 
 docker build -t garciadiazjaime/admin-contakto .

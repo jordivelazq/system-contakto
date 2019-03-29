@@ -4,5 +4,5 @@ bower_components
 docs
 node_modules
 npm-debug.log
-wsgi/project/resources/media/xls
-wsgi/project/resources/media/adj
+project/resources/media/xls
+project/resources/media/adj

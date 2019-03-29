@@ -8,8 +8,9 @@
 .vscode
 contakto
 secrets.txt
-wsgi/project/resources/media/xls
-wsgi/project/resources/media/adj
+project/resources/media/xls
+
+project/resources/media/adj
 .DS_Store
 .sass-cache/
 docs/
