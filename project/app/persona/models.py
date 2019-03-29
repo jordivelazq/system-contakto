@@ -189,8 +189,8 @@ class TrayectoriaLaboral(models.Model):
 	puesto_final = models.CharField(max_length=140, null=True, blank=True)
 	periodo_alta = models.CharField(max_length=140, null=True, blank=True)
 	periodo_baja = models.CharField(max_length=140, null=True, blank=True)
-	sueldo_inicial = models.CharField(max_length=140, null=True, blank=True)
 
+	sueldo_inicial = models.CharField(max_length=140, null=True, blank=True)
 	sueldo_final = models.CharField(max_length=140, null=True, blank=True) #NUEVO
 
 	funciones = models.TextField(null=True, blank=True)
@@ -532,12 +532,12 @@ class AspectoCandidato(models.Model):
 	estatus = models.CharField(max_length=140)
 
 	def __unicode__(self):
-			return '%s, %s' % (self.tipo, self.estatus)
+		return '%s, %s' % (self.tipo, self.estatus)
 
 # Datos del word
 class Evaluacion(models.Model):
 	EVALUACION_OPCIONES = (
-	    ('1', 'Excelente'),
+		('1', 'Excelente'),
 		('2', 'Bueno'),
 		('3', 'Regular'),
 		('4', 'Malo'),
@@ -562,7 +562,7 @@ class Evaluacion(models.Model):
 
 class Opinion(models.Model):
 	OPINION_OPCIONES = (
-	    ('1', 'Jefe'),
+		('1', 'Jefe'),
 		('2', 'Recursos Humanos'),
 	)
 	evaluacion = models.ForeignKey(Evaluacion)

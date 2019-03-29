@@ -1542,8 +1542,5 @@ def exportar_html(request, investigacion_id, tipo_reporte):
 	
 	origen = candidato.origen_set.all()[0]
 	fecha_nacimiento = origen.fecha.strftime("%d/%b/%Y") if origen.fecha else ''
-	
-	legalidad = candidato.legalidad_set.all()
-	seguro = candidato.seguro_set.all()
 
 	return render_to_response('sections/reportes/compacto.html', locals(), context_instance=RequestContext(request))

@@ -1,8 +1,10 @@
+{% load app_filters %}
+{% for ref in trayectoria %}
 <section class="laboral-study-page">
   <div class="background-2">
     <div class="header">
       <h1>Estudio Laboral</h1>
-      <img src="/media/login_logo.png" />
+      <img src="/media/logo-nuevo.png" />
       <div class="clear-fix"></div>
     </div>
 
@@ -14,20 +16,20 @@
             AFILIACIÓN AL IMSS
           </th>
           <td>
-            SI
+            {{ref.aparece_nss|activo_opciones}}
           </td>
           <th>
             REPORTA CANDIDATO
           </th>
           <td>
-            SI
+            {{ref.reporta_candidato|activo_opciones}}
           </td>
           <th>
             CARTA LABORAL
           </th>
           <td class="big">
             FECHA: <Br />
-            QUIEN EXPIDE:
+            QUIEN EXPIDE: {{ref.carta_laboral_expide}}
           </td>
         </tr>
       </table>
@@ -38,21 +40,21 @@
       <table>
         <tr>
           <th>RAZÓN SOCIAL:</th>
-          <td>LABOMEX MBP</td>
+          <td>{{ref.compania.razon_social}}</td>
           <th>SUCURSAL Y/O UBICACIÓN</th>
-          <td>TIJUANA BAJA CALIFORNIA.</td>
+          <td>{{ref.compania.sucursal}} / {{ref.compania.ciudad}}</td>
         </tr>
         <tr>
           <th>NOMBRE COMERCIAL:</th>
-          <td>LABOMEX</td>
+          <td>{{ref.compania}}</td>
           <th>GIRO</th>
-          <td>MAQUILADORA</td>
+          <td>{{ref.role|default:"&nbsp;"}}</td>
         </tr>
         <tr>
           <th>TELÉFONO</th>
-          <td>664 637 9412</td>
+          <td>{{ref.telefono|default:"&nbsp;"}}</td>
           <th>EMAIL</th>
-          <td>NO PROPORCIONARON</td>
+          <td>{{ref.email|default:"&nbsp;"}}</td>
         </tr>
       </table>
     </div>
@@ -68,9 +70,9 @@
             <table>
               <tr>
                 <th>INGRESO:</th>
-                <td>06/12/2018</td>
+                <td>{{ref.periodo_alta}}</td>
                 <th>EGRESO</th>
-                <td>28/01/2019</td>
+                <td>{{ref.periodo_baja}}</td>
               </tr>
             </table>
           </td>
@@ -78,9 +80,9 @@
             <table>
               <tr>
                 <th>INICIAL:</th>
-                <td>ENSAMBLADOR</td>
+                <td>{{ref.puesto_inicial}}</td>
                 <th>FINAL:</th>
-                <td>ENSAMBLADOR</td>
+                <td>{{ref.puesto_final}}</td>
               </tr>
             </table>
           </td>
@@ -95,7 +97,7 @@
           <td>
             <table>
               <tr>
-                <td>NO ESPECIFICARON</td>
+                <td>{{ref.funciones}}</td>
               </tr>
             </table>
           </td>
@@ -112,9 +114,9 @@
             <table>
               <tr>
                 <th>INICIAL</th>
-                <td>$5,600 MXN</td>
+                <td>{{ref.sueldo_inicial}}</td>
                 <th>FINAL</th>
-                <td>$5,600 MXN</td>
+                <td>{{ref.sueldo_final}}</td>
               </tr>
             </table>
           </td>
@@ -122,9 +124,9 @@
             <table>
               <tr>
                 <th>NÚMERO</th>
-                <td>0</td>
+                <td>{{ref.no_personas_cargo}}</td>
                 <th>PUESTOS</th>
-                <td>NO APLICA</td>
+                <td>**NO APLICA**</td>
               </tr>
             </table>
           </td>
@@ -140,9 +142,9 @@
             <table>
               <tr>
                 <th>NOMBRE</th>
-                <td>GUADALUPE</td>
+                <td>{{ref.jefe_inmediato}}</td>
                 <th>PUESTO</th>
-                <td>SUPERVISORA</td>
+                <td>{{ref.jefe_inmediato_puesto}}</td>
               </tr>
             </table>
           </td>
@@ -158,9 +160,9 @@
             <table>
               <tr>
                 <th>SEÑALADO POR LA EMPRESA:</th>
-                <td>RENUNCIA VOLUNTARIA</td>
+                <td>{{ref.getMotivoSalida}}</td>
                 <th>SEÑALADO POR EL CANDIDATO:</th>
-                <td>RENUNCIA VOLUNTARIA</td>
+                <td>**RENUNCIA VOLUNTARIA**</td>
               </tr>
             </table>
           </td>
@@ -178,9 +180,9 @@
             <table>
               <tr>
                 <th>SI</th>
-                <td>&nbsp;&nbsp;</td>
+                <td>{% if ref.manejo_valores == 1 %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>X</td>
+                <td>{% if ref.manejo_valores == 2 %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
@@ -188,9 +190,9 @@
             <table>
               <tr>
                 <th>SI</th>
-                <td>X</td>
+                <td>{% if ref.recontratable == 'SI' %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>&nbsp;&nbsp;</td>
+                <td>{% if ref.recontratable == 'NI' %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
@@ -198,9 +200,9 @@
             <table>
               <tr>
                 <th>SI</th>
-                <td>&nbsp;&nbsp;</td>
+                <td>{% if ref.afiliado_sindicato == 1 %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>X</td>
+                <td>{% if ref.afiliado_sindicato == 2 %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
@@ -228,17 +230,17 @@
                 <th>SOLUCIÓN DE PROBLEMAS</th>
               </tr>
               <tr>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
-                <td>B</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"productividad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"adaptabilidad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"puntualidad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"asistencia"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"disponibilidad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"responsabilidad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"relacion_companeros"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"compromiso"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"honestidad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"toma_decisiones"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"solucion_problemas"}}</td>
               </tr>
             </table>
           </td>
@@ -254,7 +256,7 @@
             <table>
               <tr>
                   <th>OPINIÓN:</th>
-                  <td>NO SE OBTUVO INFORMACIÓN DEL JEFE INMEDIATO</td>
+                  <td>{{ref|get_opinion:"2"|default:"&nbsp;"}}</td>
               </tr>
             </table>
           </td>
@@ -264,9 +266,9 @@
             <table>
               <tr>
                 <th>NOMBRE DEL INFORMANTE</th>
-                <td>NO SE OBTUVO INFORMACIÓN</td>
+                <td>{{ref|get_informante:1|default:"&nbsp;"}}</td>
                 <th>PUESTO</th>
-                <td>NO SE OBTUVO INFORMACIÓN</td>
+                <td>{{ref|get_informante_puesto:1|default:"&nbsp;"}}</td>
               </tr>
             </table>
           </td>
@@ -276,9 +278,9 @@
             <table>
               <tr>
                 <th>TELÉFONO</th>
-                <td>NO DATO</td>
+                <td>**NO DATO**</td>
                 <th>EMAIL:</th>
-                <td>NO DATO</td>
+                <td>**NO DATO**</td>
               </tr>
             </table>
           </td>
@@ -294,7 +296,7 @@
               <table>
                 <tr>
                     <th>OPINIÓN:</th>
-                    <td>NO SE OBTUVO INFORMACIÓN DEL JEFE INMEDIATO</td>
+                    <td>{{ref|get_opinion:"1"|default:"&nbsp;"}}</td>
                 </tr>
               </table>
             </td>
@@ -304,9 +306,9 @@
               <table>
                 <tr>
                   <th>NOMBRE DEL INFORMANTE</th>
-                  <td>NO SE OBTUVO INFORMACIÓN</td>
+                  <td>{{ref|get_informante:0|default:"&nbsp;"}}</td>
                   <th>PUESTO</th>
-                  <td>NO SE OBTUVO INFORMACIÓN</td>
+                  <td>{{ref|get_informante_puesto:0|default:"&nbsp;"}}</td>
                 </tr>
               </table>
             </td>
@@ -316,9 +318,9 @@
               <table>
                 <tr>
                   <th>TELÉFONO</th>
-                  <td>NO DATO</td>
+                  <td>**NO DATO**</td>
                   <th>EMAIL:</th>
-                  <td>NO DATO</td>
+                  <td>**NO DATO**</td>
                 </tr>
               </table>
             </td>
@@ -328,9 +330,10 @@
     </div>
 
     <div class="footer">
-      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / CLIENTE</span>
+        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
       <i>3</i>
     </div>
   </div>
 </section>
 <div class="page-break"></div>
+{% endfor %}
