@@ -9,11 +9,19 @@
 
     <div class="work-reference">
       <h3>ARCHIVOS ADJUNTOS</h3>
+      <table>
+        {% if adjuntos.adj2 %}
+        <tr>
+          <th>{{adjuntos|verbose_name:'adj2'}} </th>
+          <th><img src="{{adjuntos_baseurl}}/{{adjuntos.adj2}}"></th>
+        </tr>
+        {% endif %}
+      </table>
     </div>
 
     <div class="footer">
-        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
-        <i>{{trayectoria|length|print_page_number:3}}</i>
+      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+      <i>{{trayectoria|length|print_page_number:3}}</i>
     </div>
   </div>
 </section>

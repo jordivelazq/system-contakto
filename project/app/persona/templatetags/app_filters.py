@@ -52,3 +52,7 @@ def get_informante_puesto(trayectoria, index):
 @register.filter(name='print_page_number')
 def print_page_number(number, base):
   return base + number
+
+@register.filter(name='verbose_name')
+def verbose_name(instance, field_name):
+  return instance._meta.get_field(field_name).verbose_name.title()

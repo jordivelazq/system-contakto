@@ -1543,4 +1543,7 @@ def exportar_html(request, investigacion_id, tipo_reporte):
 	origen = candidato.origen_set.all()[0]
 	fecha_nacimiento = origen.fecha.strftime("%d/%b/%Y") if origen.fecha else ''
 
+	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
+	adjuntos_baseurl = settings.MEDIA_URL
+
 	return render_to_response('sections/reportes/compacto.html', locals(), context_instance=RequestContext(request))
