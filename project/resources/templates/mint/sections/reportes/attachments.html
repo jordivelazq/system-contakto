@@ -1,3 +1,4 @@
+{% load app_filters %}
 <section class="laboral-study-page">
   <div class="background-2">
     <div class="header">
@@ -12,7 +13,7 @@
 
     <div class="footer">
         <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
-      <i>4</i>
+        <i>{{trayectoria|length|print_page_number:3}}</i>
     </div>
   </div>
 </section>

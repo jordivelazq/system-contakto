@@ -48,3 +48,7 @@ def get_informante_puesto(trayectoria, index):
       return informantes[index].puesto
 
   return ""
+
+@register.filter(name='print_page_number')
+def print_page_number(number, base):
+  return base + number

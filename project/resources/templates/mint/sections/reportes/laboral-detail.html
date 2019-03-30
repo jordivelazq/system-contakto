@@ -12,24 +12,38 @@
       <h3>REFERENCIA LABORAL</h3>
       <table>
         <tr>
-          <th>
-            AFILIACIÓN AL IMSS
-          </th>
-          <td>
-            {{ref.aparece_nss|activo_opciones}}
+          <td class="no-bg no-padding">
+            <table>
+              <tr>
+                <th>
+                  AFILIACIÓN AL IMSS
+                </th>
+                <td>
+                  {{ref.aparece_nss|activo_opciones}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  REPORTA CANDIDATO
+                </th>
+                <td>
+                  {{ref.reporta_candidato|activo_opciones}}
+                </td>
+              </tr>
+            </table>
           </td>
-          <th>
-            REPORTA CANDIDATO
-          </th>
-          <td>
-            {{ref.reporta_candidato|activo_opciones}}
-          </td>
-          <th>
-            CARTA LABORAL
-          </th>
-          <td class="big">
-            FECHA: <Br />
-            QUIEN EXPIDE: {{ref.carta_laboral_expide}}
+          <td class="no-bg no-padding">
+            <table>
+              <tr>
+                <th>
+                  CARTA LABORAL
+                </th>
+                <td colspan="3">
+                  FECHA: <Br />
+                  QUIEN EXPIDE: {{ref.carta_laboral_expide}}
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
       </table>
@@ -70,9 +84,9 @@
             <table>
               <tr>
                 <th>INGRESO:</th>
-                <td>{{ref.periodo_alta}}</td>
+                <td>{{ref.periodo_alta|default:""}}</td>
                 <th>EGRESO</th>
-                <td>{{ref.periodo_baja}}</td>
+                <td>{{ref.periodo_baja|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -80,9 +94,9 @@
             <table>
               <tr>
                 <th>INICIAL:</th>
-                <td>{{ref.puesto_inicial}}</td>
+                <td>{{ref.puesto_inicial|default:""}}</td>
                 <th>FINAL:</th>
-                <td>{{ref.puesto_final}}</td>
+                <td>{{ref.puesto_final|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -97,7 +111,7 @@
           <td>
             <table>
               <tr>
-                <td>{{ref.funciones}}</td>
+                <td>{{ref.funciones|default:"&nbsp;"}}</td>
               </tr>
             </table>
           </td>
@@ -114,9 +128,9 @@
             <table>
               <tr>
                 <th>INICIAL</th>
-                <td>{{ref.sueldo_inicial}}</td>
+                <td colspan="2">{{ref.sueldo_inicial|default:""}}</td>
                 <th>FINAL</th>
-                <td>{{ref.sueldo_final}}</td>
+                <td colspan="2">{{ref.sueldo_final|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -124,7 +138,7 @@
             <table>
               <tr>
                 <th>NÚMERO</th>
-                <td>{{ref.no_personas_cargo}}</td>
+                <td>{{ref.no_personas_cargo|default:""}}</td>
                 <th>PUESTOS</th>
                 <td>**NO APLICA**</td>
               </tr>
@@ -142,9 +156,9 @@
             <table>
               <tr>
                 <th>NOMBRE</th>
-                <td>{{ref.jefe_inmediato}}</td>
+                <td>{{ref.jefe_inmediato|default:""}}</td>
                 <th>PUESTO</th>
-                <td>{{ref.jefe_inmediato_puesto}}</td>
+                <td>{{ref.jefe_inmediato_puesto|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -230,7 +244,7 @@
                 <th>SOLUCIÓN DE PROBLEMAS</th>
               </tr>
               <tr>
-                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"productividad"}}</td>
+                <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"productividad"|default:"&nbsp;"}}</td>
                 <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"adaptabilidad"}}</td>
                 <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"puntualidad"}}</td>
                 <td>{{ref.evaluacion_set.all|first|evaluacion_opciones:"asistencia"}}</td>
@@ -255,14 +269,14 @@
           <td>
             <table>
               <tr>
-                  <th>OPINIÓN:</th>
-                  <td>{{ref|get_opinion:"2"|default:"&nbsp;"}}</td>
+                <th>OPINIÓN:</th>
+                <td colspan="3">{{ref|get_opinion:"2"|default:"&nbsp;"}}</td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td> 
+          <td>
             <table>
               <tr>
                 <th>NOMBRE DEL INFORMANTE</th>
@@ -288,50 +302,50 @@
       </table>
 
       <table class="table-border">
-          <tr>
-            <th>DETALLES JEFE INMEDIATO</th>
-          </tr>
-          <tr>
-            <td>
-              <table>
-                <tr>
-                    <th>OPINIÓN:</th>
-                    <td>{{ref|get_opinion:"1"|default:"&nbsp;"}}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td> 
-              <table>
-                <tr>
-                  <th>NOMBRE DEL INFORMANTE</th>
-                  <td>{{ref|get_informante:0|default:"&nbsp;"}}</td>
-                  <th>PUESTO</th>
-                  <td>{{ref|get_informante_puesto:0|default:"&nbsp;"}}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <table>
-                <tr>
-                  <th>TELÉFONO</th>
-                  <td>**NO DATO**</td>
-                  <th>EMAIL:</th>
-                  <td>**NO DATO**</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
+        <tr>
+          <th>DETALLES JEFE INMEDIATO</th>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th>OPINIÓN:</th>
+                <td colspan="3">{{ref|get_opinion:"1"|default:"&nbsp;"}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th>NOMBRE DEL INFORMANTE</th>
+                <td>{{ref|get_informante:0|default:"&nbsp;"}}</td>
+                <th>PUESTO</th>
+                <td>{{ref|get_informante_puesto:0|default:"&nbsp;"}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th>TELÉFONO</th>
+                <td>**NO DATO**</td>
+                <th>EMAIL:</th>
+                <td>**NO DATO**</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
 
     </div>
 
     <div class="footer">
-        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
-      <i>3</i>
+      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+      <i>{{forloop.counter0|print_page_number:3}}</i>
     </div>
   </div>
 </section>

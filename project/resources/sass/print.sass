@@ -15,6 +15,9 @@ html, body
   text-transform: uppercase
   -webkit-print-color-adjust: exact !important
 
+table
+  table-layout: fixed
+
 .page-break 
   display: block
   page-break-before: always
@@ -42,6 +45,7 @@ html, body
 .header 
   border-bottom: 3px solid black
   position: relative
+  margin-bottom: 3px
 
   h1 
     text-transform: uppercase
@@ -85,12 +89,12 @@ html, body
     background: $primary-color
     border-radius: 20px
     color: white
-    width: 20px
-    height: 20px
+    width: 18px
+    height: 18px
     text-align: center
     position: relative
     top: -2px
-    line-height: 20px
+    line-height: 18px
 
 .cover-page
   .company
@@ -164,7 +168,7 @@ html, body
     color: white
     padding: 5px 0
     text-align: center
-    margin: 6px 0
+    margin: 0 0 3px 0
   
   table
     width: 100%
@@ -185,21 +189,12 @@ html, body
       padding: 20px
 
   .work-reference
-    table
-      border-collapse: separate
-
-      td
-        text-align: center
-        padding: 0 10px
-      
-      .big
-        width: 50%
-        text-align: left
+    .no-bg
+      background: none
+    .no-padding
+      padding: 0
   
   .company
-    table
-      border-spacing: 10px
-    
     td
       width: 30%
 
