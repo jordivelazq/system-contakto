@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <th>FECHA DE SOLICITUD</th>
-            <td>{{ investigacion.fecha_registro}}</td>
+            <td>{{ investigacion.fecha_registro|date:"d/b/Y"}}</td>
           </tr>
         </table>
       </div>
@@ -67,7 +67,7 @@
 
       <div class="footer">
         <p>
-          Fecha de entrega: <strong>{{ investigacion.fecha_recibido }}</strong>
+          Fecha de entrega: <strong>{{ investigacion.fecha_recibido|date:"d/b/Y" }}</strong>
         </p>
         <div class="agent">
           <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}

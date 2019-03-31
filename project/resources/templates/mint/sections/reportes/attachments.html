@@ -13,7 +13,7 @@
         {% if adjuntos.adj2 %}
         <tr>
           <th>{{adjuntos|verbose_name:'adj2'}} </th>
-          <th><img src="{{adjuntos_baseurl}}/{{adjuntos.adj2}}"></th>
+          <th><img src="{{adjuntos_baseurl}}{{adjuntos.adj2}}"></th>
         </tr>
         {% endif %}
       </table>

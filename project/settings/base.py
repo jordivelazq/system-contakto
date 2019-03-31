@@ -41,7 +41,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'resources/media')
-print 'MEDIA_ROOT', MEDIA_ROOT
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -56,7 +56,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'resources/static')
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-print 'STATIC_URL', STATIC_URL
+
 
 # Additional locations of static files
 STATICFILES_DIRS = (
