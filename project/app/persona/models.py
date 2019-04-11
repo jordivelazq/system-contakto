@@ -2,6 +2,7 @@
 
 from django.db import models
 from app.compania.models import Compania
+from django.core.exceptions import ValidationError
 
 ACTIVO_OPCIONES = (
 		(0, 'Sí/No'),
@@ -48,6 +49,14 @@ class File(models.Model):
 	record = models.FileField(verbose_name="Archivo", upload_to="xls")
 	fecha_registro = models.DateField(auto_now=True)
 
+def validate_nss(nss):
+	if nss != '' and len(nss) != 11:
+		raise ValidationError('NSS debe tener 11 caracteres')
+
+def validate_curp(curp):
+	if curp != '' and len(curp) != 18:
+		raise ValidationError('CURP debe tener 18 caracteres')
+
 class Persona(models.Model):
 	EDOCIVIL_OPCIONES = (
 	    (0, 'Soltero(a)'),
@@ -56,10 +65,10 @@ class Persona(models.Model):
 	)
 	EDAD_CHOICES = [(i,i) for i in range(15, 76)]
 	nombre = models.CharField(max_length=140)
-	nss = models.CharField(max_length=30, blank=True, null=True) #validación de único desde views para aceptar valores vacios
+	nss = models.CharField(max_length=30, blank=True, null=True, validators=[validate_nss]) #validación de único desde views para aceptar valores vacios
 	email = models.EmailField(max_length=140, blank=True, null=True)
 	edad = models.IntegerField( blank=True, null=True) #choices=EDAD_CHOICES,
-	curp = models.CharField(max_length=30, blank=True, null=True) #validación de único desde views para aceptar valores vacios
+	curp = models.CharField(max_length=30, blank=True, null=True, validators=[validate_curp]) #validación de único desde views para aceptar valores vacios
 	malos_terminos = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 
 	# datos extras del excel

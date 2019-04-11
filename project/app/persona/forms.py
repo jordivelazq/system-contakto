@@ -2,7 +2,6 @@
 from app.persona.models import *
 from django import forms
 from django.forms import ModelForm
-from django.core.exceptions import ValidationError
 
 
 class FormaController():
@@ -41,18 +40,6 @@ class CandidatoAltaForm(ModelForm):
 			if field_name in ('nss', 'curp'):
 				field.widget.attrs['ng-change'] = 'validate_candidate()'
 				field.widget.attrs['ng-model'] = field_name
-
-	def clean_nss(self):
-		nss = self.cleaned_data['nss'].strip()
-		if nss != '' and len(nss) != 11:
-				raise ValidationError('NSS debe tener 11 caracteres')
-		return nss
-
-	def clean_curp(self):
-		curp = self.cleaned_data['curp'].strip()
-		if curp != '' and len(curp) != 18:
-				raise ValidationError('CURP debe tener 18 caracteres')
-				
 
 class TrayectoriaForm(ModelForm):
 	'''

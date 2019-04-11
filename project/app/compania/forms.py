@@ -2,7 +2,6 @@
 from app.compania.models import *
 from django import forms
 from django.forms import ModelForm
-from django.core.exceptions import ValidationError
 
 
 class CompaniaAltaForm(ModelForm):
@@ -28,12 +27,6 @@ class CompaniaForm(ModelForm):
 				field.widget.attrs['class'] = 'form-control'
 				if 'telefono' in field_name and not field_name is "telefono_alt":
 					field.widget.attrs['class'] = 'form-control phone'
-
-	def clean_rfc(self):
-		rfc = self.cleaned_data['rfc'].strip()
-		if rfc != '' and len(rfc) != 13:
-				raise ValidationError('RFC debe tener 13 caracteres')
-		return rfc
 
 class ContactoForm(ModelForm):
 	class Meta:
