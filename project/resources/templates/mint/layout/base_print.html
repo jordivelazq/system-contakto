@@ -5,8 +5,13 @@
 	<meta naem="viewport" content="width=device-width, initial-scale=1">
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/print.css' %}">
+	<script>
+		function onLoad() {
+			window.print();
+		}
+	</script>
 </head>
-<body>
+<body onload="onLoad()">
 	{% block site_wrapper %}{% endblock %}
 </body>
 </html>

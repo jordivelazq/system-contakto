@@ -10,41 +10,48 @@ html, body {
   font-family: Trebuchet MS;
   text-transform: uppercase;
   -webkit-print-color-adjust: exact !important;
+  display: none;
 }
 
-/* line 18, ../sass/print.sass */
+@media print {
+  /* line 20, ../sass/print.sass */
+  html, body {
+    display: block;
+  }
+}
+/* line 23, ../sass/print.sass */
 table {
   table-layout: fixed;
 }
 
-/* line 21, ../sass/print.sass */
+/* line 26, ../sass/print.sass */
 .page-break {
   display: block;
   page-break-before: always;
 }
 
-/* line 25, ../sass/print.sass */
+/* line 30, ../sass/print.sass */
 .clear-fix {
   clear: both;
 }
 
-/* line 28, ../sass/print.sass */
+/* line 33, ../sass/print.sass */
 .lowercase {
   text-transform: lowercase;
 }
 
-/* line 31, ../sass/print.sass */
+/* line 36, ../sass/print.sass */
 .background-1 {
   border: solid 20px #8A0000;
   height: calc(100% - 85px);
   padding: 15px 15px 30px 15px;
 }
-/* line 36, ../sass/print.sass */
+/* line 41, ../sass/print.sass */
 .background-1 .background-2 {
   height: 100%;
 }
 
-/* line 39, ../sass/print.sass */
+/* line 44, ../sass/print.sass */
 .background-2 {
   border: solid 10px #8A0000;
   height: calc(100% - 20px);
@@ -52,18 +59,18 @@ table {
   position: relative;
 }
 
-/* line 45, ../sass/print.sass */
+/* line 50, ../sass/print.sass */
 .header {
   border-bottom: 3px solid black;
   position: relative;
   margin-bottom: 3px;
 }
-/* line 50, ../sass/print.sass */
+/* line 55, ../sass/print.sass */
 .header h1 {
   text-transform: uppercase;
   margin: 10px 0;
 }
-/* line 54, ../sass/print.sass */
+/* line 59, ../sass/print.sass */
 .header img {
   position: absolute;
   bottom: 5px;
@@ -71,7 +78,7 @@ table {
   width: 180px;
 }
 
-/* line 60, ../sass/print.sass */
+/* line 65, ../sass/print.sass */
 .footer {
   position: absolute;
   bottom: 0px;
@@ -80,15 +87,15 @@ table {
   text-align: right;
   width: calc(100% - 40px);
 }
-/* line 68, ../sass/print.sass */
+/* line 73, ../sass/print.sass */
 .footer p {
   font-style: italic;
 }
-/* line 71, ../sass/print.sass */
+/* line 76, ../sass/print.sass */
 .footer strong {
   font-style: normal;
 }
-/* line 74, ../sass/print.sass */
+/* line 79, ../sass/print.sass */
 .footer .agent {
   border: 2px solid #8A0000;
   border-radius: 10px;
@@ -96,14 +103,14 @@ table {
   display: inline-block;
   padding: 5px 50px;
 }
-/* line 81, ../sass/print.sass */
+/* line 86, ../sass/print.sass */
 .footer hr {
   background: black;
   height: 3px;
   margin: 10px 0 0 0;
   display: block;
 }
-/* line 87, ../sass/print.sass */
+/* line 92, ../sass/print.sass */
 .footer i {
   display: inline-block;
   background: #8A0000;
@@ -117,7 +124,7 @@ table {
   line-height: 18px;
 }
 
-/* line 101, ../sass/print.sass */
+/* line 106, ../sass/print.sass */
 .cover-page .company h2 {
   border-radius: 20px;
   background: #8A0000;
@@ -126,49 +133,49 @@ table {
   padding: 5px 50px;
   display: inline-block;
 }
-/* line 109, ../sass/print.sass */
+/* line 114, ../sass/print.sass */
 .cover-page .company table {
   margin: 20px 0 0 60px;
 }
-/* line 111, ../sass/print.sass */
+/* line 116, ../sass/print.sass */
 .cover-page .company table th {
   text-align: right;
   font-weight: normal;
   padding-right: 10px;
 }
-/* line 116, ../sass/print.sass */
+/* line 121, ../sass/print.sass */
 .cover-page .company table td {
   background: #D9D9D9;
   padding: 5px 40px 5px 10px;
   font-weight: bold;
 }
-/* line 121, ../sass/print.sass */
+/* line 126, ../sass/print.sass */
 .cover-page .candidate {
   margin: 40px 0 0 140px;
 }
-/* line 125, ../sass/print.sass */
+/* line 130, ../sass/print.sass */
 .cover-page .candidate thead th {
   background: #404040;
   color: white;
   padding: 5px 0;
 }
-/* line 130, ../sass/print.sass */
+/* line 135, ../sass/print.sass */
 .cover-page .candidate tbody th {
   text-align: right;
   font-weight: normal;
   padding-right: 10px;
 }
-/* line 134, ../sass/print.sass */
+/* line 139, ../sass/print.sass */
 .cover-page .candidate tbody td {
   background: #D9D9D9;
   padding: 5px 40px 5px 10px;
   font-weight: bold;
 }
-/* line 139, ../sass/print.sass */
+/* line 144, ../sass/print.sass */
 .cover-page .results {
   margin: 40px 0 0 140px;
 }
-/* line 142, ../sass/print.sass */
+/* line 147, ../sass/print.sass */
 .cover-page .results h2 {
   border-radius: 20px;
   background: #8A0000;
@@ -177,27 +184,31 @@ table {
   padding: 5px 20px;
   display: inline-block;
 }
-/* line 150, ../sass/print.sass */
+/* line 155, ../sass/print.sass */
 .cover-page .results table {
   margin: 0 0 0 100px;
   border-spacing: 5px;
 }
-/* line 154, ../sass/print.sass */
+/* line 159, ../sass/print.sass */
 .cover-page .results table tr {
   margin: 5px 0;
 }
-/* line 157, ../sass/print.sass */
+/* line 162, ../sass/print.sass */
 .cover-page .results table th {
   background: #D9D9D9;
   padding: 8px;
   font-weight: bold;
 }
-/* line 162, ../sass/print.sass */
+/* line 167, ../sass/print.sass */
 .cover-page .results table td {
   font-weight: bold;
 }
 
-/* line 166, ../sass/print.sass */
+/* line 173, ../sass/print.sass */
+.laboral-study-page.laboral-general table th {
+  text-align: center;
+}
+/* line 176, ../sass/print.sass */
 .laboral-study-page h3 {
   background: #8A0000;
   color: white;
@@ -205,81 +216,85 @@ table {
   text-align: center;
   margin: 0 0 3px 0;
 }
-/* line 173, ../sass/print.sass */
+/* line 183, ../sass/print.sass */
 .laboral-study-page table {
   width: 100%;
 }
-/* line 176, ../sass/print.sass */
+/* line 186, ../sass/print.sass */
 .laboral-study-page table th {
   font-weight: normal;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 10px;
 }
-/* line 179, ../sass/print.sass */
+/* line 192, ../sass/print.sass */
 .laboral-study-page table td {
   background: #D9D9D9;
   padding: 5px;
   font-weight: bold;
+  font-size: 12px;
 }
-/* line 185, ../sass/print.sass */
+/* line 199, ../sass/print.sass */
 .laboral-study-page .general-observations div {
   background: #D9D9D9;
   height: 55%;
   border-radius: 20px;
   padding: 20px;
 }
-/* line 192, ../sass/print.sass */
+/* line 206, ../sass/print.sass */
 .laboral-study-page .work-reference .no-bg {
   background: none;
 }
-/* line 194, ../sass/print.sass */
+/* line 208, ../sass/print.sass */
 .laboral-study-page .work-reference .no-padding {
   padding: 0;
 }
-/* line 197, ../sass/print.sass */
+/* line 211, ../sass/print.sass */
 .laboral-study-page .work-reference img {
   width: 200px;
   height: auto;
 }
-/* line 202, ../sass/print.sass */
+/* line 216, ../sass/print.sass */
 .laboral-study-page .company td {
   width: 30%;
 }
-/* line 205, ../sass/print.sass */
+/* line 219, ../sass/print.sass */
 .laboral-study-page .company h3 {
   border-radius: 20px;
 }
-/* line 209, ../sass/print.sass */
+/* line 223, ../sass/print.sass */
 .laboral-study-page .resume table {
   border-collapse: separate;
   text-align: center;
 }
-/* line 213, ../sass/print.sass */
+/* line 227, ../sass/print.sass */
 .laboral-study-page .resume table th {
   background: #BFBFBF;
   padding: 5px;
 }
-/* line 217, ../sass/print.sass */
+/* line 231, ../sass/print.sass */
 .laboral-study-page .resume table td {
   background: none;
   padding: 0;
 }
-/* line 221, ../sass/print.sass */
+/* line 235, ../sass/print.sass */
 .laboral-study-page .resume table table {
   border-spacing: 0;
 }
-/* line 224, ../sass/print.sass */
+/* line 238, ../sass/print.sass */
 .laboral-study-page .resume table table th {
   background: none;
 }
-/* line 227, ../sass/print.sass */
+/* line 241, ../sass/print.sass */
 .laboral-study-page .resume table table td {
   background: #D9D9D9;
 }
-/* line 230, ../sass/print.sass */
+/* line 244, ../sass/print.sass */
 .laboral-study-page .resume .table-border {
   border: 3px solid #8A0000;
   width: 100%;
 }
-/* line 233, ../sass/print.sass */
+/* line 247, ../sass/print.sass */
 .laboral-study-page .resume .table-border th {
   font-size: 7px;
 }

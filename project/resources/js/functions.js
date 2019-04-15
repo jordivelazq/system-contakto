@@ -132,6 +132,10 @@ $(document).ready(function() {
 
     formatCurrencyFields();
 
+    if ($('#id_investigacion-tipo_investigacion_texto').length) {
+        CKEDITOR.replace( 'id_investigacion-tipo_investigacion_texto' );
+    }
+
 });
 
 function get_currentpage() {
