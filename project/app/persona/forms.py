@@ -152,10 +152,21 @@ class LegalidadAltaForma(ModelForm, FormaController):
 
 	class Meta:
 		model = Legalidad
-		fields = ['demandas', 'antecedentes_penales', 'sindicato', 'afiliado_sindicato']
+		fields = ['antecedentes_penales', 'sindicato', 'afiliado_sindicato']
 
 	def __init__(self, *args, **kwargs):
 		super(LegalidadAltaForma, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
+class DemandaAltaForma(ModelForm, FormaController):
+
+	class Meta:
+		model = Demanda
+		fields = ['tiene_demanda', 'empresa', 'motivo', 'ubicacion', 'fecha', 'audiencias', 'conclusion']
+	
+	def __init__(self, *args, **kwargs):
+		super(DemandaAltaForma, self).__init__(*args, **kwargs)
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 

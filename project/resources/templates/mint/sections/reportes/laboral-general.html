@@ -1,3 +1,4 @@
+{% load app_filters %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
     <div class="header">
@@ -29,25 +30,57 @@
       <h3>DATOS GENERALES</h3>
       <table>
         <tr>
-          <th colspan="2">FECHA DE NACIMIENTO</th>
-          <th>NACIONALIDAD</th>
-          <th>ESTADO CIVIL</th>
+          <th colspan="4">FECHA DE NACIMIENTO</th>
+          <th colspan="2">NACIONALIDAD</th>
+          <th colspan="2">ESTADO CIVIL</th>
         </tr>
         <tr>
-          <td colspan="2">{{fecha_nacimiento|default:""}}</td>
-          <td>{{origen.nacionalidad|default:""}}</td>
-          <td>{{estado_civil|default:""}}</td>
+          <td colspan="4">{{fecha_nacimiento|default:""}}</td>
+          <td colspan="2">{{origen.nacionalidad|default:""}}</td>
+          <td colspan="2">{{estado_civil|default:""}}</td>
         </tr>
         <tr>
-          <th colspan="2">CURP</th>
-          <th>NSS</th>
-          <th>RFC</th>
+          <th colspan="4">CURP</th>
+          <th colspan="2">NSS</th>
+          <th colspan="2">RFC</th>
         </tr>
         <tr>
-          <td colspan="2">{{candidato.curp|default:""}}</td>
-          <td>{{candidato.nss|default:""}}</td>
-          <td>{{ candidato.rfc|default:"" }}</td>
+          <td colspan="4">{{candidato.curp|default:""}}</td>
+          <td colspan="2">{{candidato.nss|default:""}}</td>
+          <td colspan="2">{{ candidato.rfc|default:"" }}</td>
         </tr>
+        <tr>
+          <th colspan="4">HA LLEVADO UN PROCESO DE DEMANDA LABORAL</th>
+          <th>SI</th>
+          <td>{{demanda.tiene_demanda|activo_opciones_con_x:1}}</td>
+          <th>NO</th>
+          <td>{{demanda.tiene_demanda|activo_opciones_con_x:2}}</td>
+        </tr>
+        {% if demanda.tiene_demanda == 1 %}
+        <tr>
+          <th colspan="8">EN CASO DE QUE SÍ, ESPECIFIQUE LO SIGUIENTE:</th>
+        </tr>
+        <tr>
+          <th colspan="2">NOMBRE DE LA EMRPRESA</th>
+          <th colspan="2">MOTIVO PROCESO DE DEMANDA</th>
+          <th colspan="2">ENTIDAD FEDERATIVA</th>
+          <th colspan="2">AÑO</th>
+        </tr>
+        <tr>
+          <td colspan="2">{{demanda.empresa}}</td>
+          <td colspan="2">{{demanda.motivo}}</td>
+          <td colspan="2">{{demanda.ubicacion}}</td>
+          <td colspan="2">{{demanda.fecha}}</td>
+        </tr>
+        <tr>
+          <th colspan="4">NÚMERO DE AUDIENCIAS</th>
+          <th colspan="4">CÓMO FINALIZÓ EL PROCESO Y A FAVOR DE QUIÉN</th>
+        </tr>
+        <tr>
+          <td colspan="4">{{demanda.audiencias}}</td>
+          <td colspan="4">{{demanda.conclusion}}</td>
+        </tr>
+        {% endif %}
       </table>
     </div>
 

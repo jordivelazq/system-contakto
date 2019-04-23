@@ -72,3 +72,8 @@ The application will stop righ where the tracer has been added.
 
 - Load DB from sql file
 `mysql -uroot db_contakto < docs/db_contakto.sql`
+
+
+### Migrations
+
+Follow steps found on this [tutorial](https://south.readthedocs.io/en/latest/tutorial/part1.html) to create/run migrations.

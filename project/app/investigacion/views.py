@@ -1546,4 +1546,6 @@ def exportar_html(request, investigacion_id, tipo_reporte):
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL
 
+	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
+
 	return render_to_response('sections/reportes/compacto.html', locals(), context_instance=RequestContext(request))

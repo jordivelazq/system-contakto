@@ -151,11 +151,6 @@
 		{{ formLegalidad.afiliado_sindicato }}
 		{{ formLegalidad.afiliado_sindicato.errors }}
 	</div>
-	<div class="col-md-3">
-		<label for="id_legalidad-demandas">Demandas Laborales</label>
-		{{ formLegalidad.demandas }}
-		{{ formLegalidad.demandas.errors }}
-	</div>
 </div>
 
 <div class="row">
@@ -180,8 +175,9 @@
 		{{ formLegalidad.antecedentes_penales.errors }}
 	</div>
 </div>
-<hr class="thin-separator"/>
 
+
+<hr class="thin-separator"/>
 <div class="row">
 	<div class="col-md-4">
 		<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
@@ -217,23 +213,7 @@
 		{{ formSeguro.verificado_enburo }}
 		{{ formSeguro.verificado_enburo.errors }}
 	</div>
-	<!-- <div class="col-md-3">
-		<label for="id_investigacion-ciudad">Ciudad * (?? no aparece en el PS)</label>
-		{{ formInvestigacion.ciudad }}
-		{{ formInvestigacion.ciudad.errors }}
-	</div> -->
 </div>
-<hr class="thin-separator"/>
+<br />
 
-<!-- <div class="row">
-	<div class="col-md-3">
-		<label for="id_candidato-nss">Estatus candidato</label>
-		{{ formInvestigacion.status }}
-		{{ formInvestigacion.status.errors }}
-	</div>
-	<div class="col-md-9">
-		<label for="id_investigacion-observaciones">Observaciones candidato</label>
-		{{ formInvestigacion.observaciones }}
-		{{ formInvestigacion.observaciones.errors }}
-	</div>
-</div> -->
+{% include 'sections/candidato/forma/seccion/demandas.html' %}

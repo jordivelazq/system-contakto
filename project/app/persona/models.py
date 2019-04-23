@@ -238,11 +238,20 @@ class Legalidad(models.Model):
 	persona = models.ForeignKey(Persona)
 	sindicato = models.CharField(max_length=500, null=True, blank=True)
 	afiliado_sindicato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	demandas = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 	antecedentes_penales = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	def __unicode__(self):
 		return '%s, %s' % (self.persona, self.sindicato)
+
+class Demanda(models.Model):
+	persona = models.ForeignKey(Persona)
+	tiene_demanda = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
+	empresa = models.CharField(max_length=500, null=True, blank=True)
+	motivo = models.CharField(max_length=500, null=True, blank=True)
+	ubicacion = models.CharField(max_length=500, null=True, blank=True)
+	fecha = models.CharField(max_length=500, null=True, blank=True)
+	audiencias = models.CharField(max_length=500, null=True, blank=True)
+	conclusion = models.CharField(max_length=500, null=True, blank=True)
 
 class Seguro(models.Model):
 	persona = models.ForeignKey(Persona)

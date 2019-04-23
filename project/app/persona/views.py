@@ -89,6 +89,7 @@ def crear(request):
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_fonacot')
 		formLegalidad = LegalidadAltaForma(request.POST, prefix='legalidad')
+		formDemanda = DemandaAltaForma(request.POST, prefix='demanda')
 		formSeguro = SeguroAltaForma(request.POST, prefix='seguro')
 
 		if not formOrigen.is_valid():
@@ -114,6 +115,9 @@ def crear(request):
 
 		if not formLegalidad.is_valid():
 			formLegalidad.set_is_valid(False)
+		
+		if not formDemanda.is_valid():
+			formDemanda.set_is_valid(False)
 
 		if not formSeguro.is_valid():
 			formSeguro.set_is_valid(False)
@@ -167,6 +171,10 @@ def crear(request):
 			legalidad.persona = investigacion.candidato
 			legalidad.save()
 
+			demanda = formDemanda.save(commit=False)
+			demanda.persona = investigacion.candidato
+			demanda.save()
+
 			seguro = formSeguro.save(commit=False)
 			seguro.persona = investigacion.candidato
 			seguro.save()
@@ -200,6 +208,7 @@ def crear(request):
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
 		formLegalidad = LegalidadAltaForma(prefix='legalidad')
+		formDemanda = DemandaAltaForma(prefix='demanda')
 		formSeguro = SeguroAltaForma(prefix='seguro')
 		
 	return render_to_response('sections/candidato/crear.html', locals(), context_instance=RequestContext(request))
@@ -236,6 +245,7 @@ def editar(request, investigacion_id):
 	infonavit = investigacion.candidato.prestacionvivienda_set.filter(categoria_viv='infonavit')
 	fonacot = investigacion.candidato.prestacionvivienda_set.filter(categoria_viv='fonacot')
 	legalidad = investigacion.candidato.legalidad_set.all()
+	demanda = investigacion.candidato.demanda_set.all()
 	seguro = investigacion.candidato.seguro_set.all()	
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion) # NOTA: Pasar esto a PersonaService.get_status_list
 
@@ -336,6 +346,17 @@ def editar(request, investigacion_id):
 				legalidad.save()
 			else:
 				msg_param = ''
+
+		####################### Demanda
+		formDemanda = DemandaAltaForma(request.POST, prefix='demanda', instance=demanda[0]) if demanda else DemandaAltaForma(request.POST, prefix='demanda')
+		if has_info(request.POST, prefix='demanda', investigacion=investigacion):
+			if formDemanda.is_valid():
+				demanda = formDemanda.save(commit=False)
+				demanda.persona = investigacion.candidato
+				demanda.save()
+			else:
+				msg_param = ''
+
 		####################### Seguro #######################
 		formSeguro = SeguroAltaForma(request.POST, prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(request.POST, prefix='seguro')
 		if has_info(request.POST, prefix='seguro', investigacion=investigacion):
@@ -372,6 +393,7 @@ def editar(request, investigacion_id):
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
 		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
+		formDemanda = DemandaAltaForma(prefix='demanda', instance=demanda[0]) if demanda else DemandaAltaForma(prefix='demanda')
 		formSeguro = SeguroAltaForma(prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
 		
 		# FORMAS QUE FALTAN POR EDITAR

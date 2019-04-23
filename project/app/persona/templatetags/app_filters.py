@@ -12,6 +12,12 @@ def activo_opciones(value):
     return "no"
   return ""
 
+@register.filter(name='activo_opciones_con_x')
+def activo_opciones(value, flag):
+  if value == flag:
+    return "X"
+  return ""
+
 @register.filter(name='evaluacion_opciones')
 def evaluacion_opciones(evaluacion, tipo):
   value = getattr(evaluacion, tipo)

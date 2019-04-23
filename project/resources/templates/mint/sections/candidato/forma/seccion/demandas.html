@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">DEMANDAS LABORALES</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="id_legalidad-demandas"></label>
+          {{ formDemanda.tiene_demanda }}
+          {{ formDemanda.tiene_demanda.errors }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+            En caso de que sí, especifique lo siguiente:
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label for="id_legalidad-demandas">Nombre de la empresa</label>
+          {{ formDemanda.empresa }}
+          {{ formDemanda.empresa.errors }}
+        </div>
+        <div class="col-md-3">
+          <label for="id_legalidad-demandas">Motivo proceso de demanda</label>
+          {{ formDemanda.motivo }}
+          {{ formDemanda.motivo.errors }}
+        </div>
+        <div class="col-md-3">
+          <label for="id_legalidad-demandas">Entidad Federativa</label>
+          {{ formDemanda.ubicacion }}
+          {{ formDemanda.ubicacion.errors }}
+        </div>
+        <div class="col-md-3">
+          <label for="id_legalidad-demandas">Año</label>
+          {{ formDemanda.fecha }}
+          {{ formDemanda.fecha.errors }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="id_legalidad-demandas">Número de audiencias</label>
+          {{ formDemanda.audiencias }}
+          {{ formDemanda.audiencias.errors }}
+        </div>
+        <div class="col-md-6">
+          <label for="id_legalidad-demandas">Cómo finalizó el proceso y a favor de quién</label>
+          {{ formDemanda.conclusion }}
+          {{ formDemanda.conclusion.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
