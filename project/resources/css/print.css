@@ -10,7 +10,6 @@ html, body {
   font-family: Trebuchet MS;
   text-transform: uppercase;
   -webkit-print-color-adjust: exact !important;
-  display: none;
 }
 
 @media print {
@@ -270,31 +269,41 @@ table {
 /* line 228, ../sass/print.sass */
 .laboral-study-page .resume table th {
   background: #BFBFBF;
+  text-align: center;
   padding: 5px;
 }
-/* line 232, ../sass/print.sass */
+/* line 233, ../sass/print.sass */
+.laboral-study-page .resume table th.background-white {
+  background: white;
+}
+/* line 236, ../sass/print.sass */
 .laboral-study-page .resume table td {
   background: none;
   padding: 0;
 }
-/* line 236, ../sass/print.sass */
+/* line 240, ../sass/print.sass */
+.laboral-study-page .resume table td.background-dark-gray {
+  background: #D9D9D9;
+}
+/* line 243, ../sass/print.sass */
 .laboral-study-page .resume table table {
   border-spacing: 0;
 }
-/* line 239, ../sass/print.sass */
+/* line 246, ../sass/print.sass */
 .laboral-study-page .resume table table th {
   background: none;
 }
-/* line 242, ../sass/print.sass */
+/* line 249, ../sass/print.sass */
 .laboral-study-page .resume table table td {
   background: #D9D9D9;
 }
-/* line 245, ../sass/print.sass */
+/* line 252, ../sass/print.sass */
 .laboral-study-page .resume .table-border {
-  border: 3px solid #8A0000;
+  border: 2px solid #8A0000;
+  margin: 2px 0;
   width: 100%;
 }
-/* line 248, ../sass/print.sass */
+/* line 256, ../sass/print.sass */
 .laboral-study-page .resume .table-border th {
   font-size: 7px;
 }
