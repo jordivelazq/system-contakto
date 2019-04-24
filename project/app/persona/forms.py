@@ -67,6 +67,17 @@ class TrayectoriaForm(ModelForm):
 			if not field_name in ('terminada', 'visible_en_status'):
 				field.widget.attrs['class'] = field.widget.attrs['class'] + ' form-control' if 'class' in field.widget.attrs else 'form-control'
 
+class CartaLaboralForma(ModelForm, FormaController):
+
+	class Meta:
+		model = CartaLaboral
+		fields = ['tiene_carta', 'expide', 'fecha']
+
+	def __init__(self, *args, **kwargs):
+		super(CartaLaboralForma, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
 class TrayectoriaFormSoloCompania(ModelForm):
 
 	class Meta:  

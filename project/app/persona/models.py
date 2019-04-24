@@ -243,6 +243,11 @@ class TrayectoriaLaboral(models.Model):
 			return self.opinion_set.filter(categoria=1)[0]
 		return None
 
+class CartaLaboral(models.Model):
+	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral)
+	tiene_carta = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
+	expide = models.CharField(max_length=140, null=True, blank=True)
+	fecha = models.CharField(max_length=140, null=True, blank=True)
 
 class Legalidad(models.Model):
 	persona = models.ForeignKey(Persona)

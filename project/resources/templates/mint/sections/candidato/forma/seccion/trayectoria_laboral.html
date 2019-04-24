@@ -43,15 +43,30 @@
 		<label for="id_trayectoria1-reporta_candidato">Reporta candidato</label>
 		{{ formTrayectoria.reporta_candidato }}
 	</div>
-	<div class="col-md-4">
-		{{ formTrayectoria.carta_laboral.errors }}
-		<label for="id_trayectoria1-carta_laboral">Carta laboral</label>
-		{{ formTrayectoria.carta_laboral }}
+</div>
+
+<br />
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Carta Laboral</h3>
 	</div>
-	<div class="col-md-4">
-		{{ formTrayectoria.carta_laboral_expide.errors }}
-		<label for="id_trayectoria1-carta_laboral_expide">Expide</label>
-		{{ formTrayectoria.carta_laboral_expide }}
+	<div class="panel-body">
+		<div class="col-md-4">
+			{{ formCartaLaboral.tiene_carta.errors }}
+			<label for="id_trayectoria1-carta_laboral">Carta laboral</label>
+			{{ formCartaLaboral.tiene_carta }}
+		</div>
+		<div class="col-md-4">
+			{{ formCartaLaboral.expide.errors }}
+			<label for="id_trayectoria1-carta_laboral_expide">Fecha en la que se expide</label>
+			{{ formCartaLaboral.expide }}
+		</div>
+		<div class="col-md-4">
+			{{ formCartaLaboral.fecha.errors }}
+			<label for="id_trayectoria1-carta_laboral_expide">Nombre y puesto de quien expide</label>
+			{{ formCartaLaboral.fecha }}
+		</div>
 	</div>
 </div>
 
@@ -203,31 +218,84 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-2">
-		{{ formTrayectoria.no_personas_cargo.errors }}
-		<label for="id_trayectoria1-no_personas_cargo">Personas a cargo (#)</label>
-		{{ formTrayectoria.no_personas_cargo }}
+<br />
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Datos Generales</h3>
 	</div>
-	<div class="col-md-2">
-		{{ formTrayectoria.manejo_valores.errors }}
-		<label for="id_trayectoria1-manejo_valores">Manejo de valores</label>
-		{{ formTrayectoria.manejo_valores }}
-	</div>
-	<div class="col-md-3">
-		{{ formTrayectoria.motivo_salida.errors }}
-		<label for="id_trayectoria1-motivo_salida">Motivo de salida</label>
-		{{ formTrayectoria.motivo_salida }}
-	</div>
-	<div class="col-md-3">
-		{{ formTrayectoria.afiliado_sindicato.errors }}
-		<label for="id_trayectoria1-afiliado_sindicato">Afiliado a sindicato</label>
-		{{ formTrayectoria.afiliado_sindicato }}
-	</div>
-	<div class="col-md-2">
-		{{ formTrayectoria.recontratable.errors }}
-		<label for="id_trayectoria1-recontratable">Recontratable</label>
-		{{ formTrayectoria.recontratable }}
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-2">
+				{{ formTrayectoria.no_personas_cargo.errors }}
+				<label for="id_trayectoria1-no_personas_cargo">Personas a cargo (#)</label>
+				{{ formTrayectoria.no_personas_cargo }}
+			</div>
+			<div class="col-md-2">
+					{{ formTrayectoria.manejo_valores.errors }}
+					<label for="id_trayectoria1-manejo_valores">Puestos</label>
+					{{ formTrayectoria.manejo_valores }}
+				</div>
+			<div class="col-md-2">
+				{{ formTrayectoria.manejo_valores.errors }}
+				<label for="id_trayectoria1-manejo_valores">Manejo de valores</label>
+				{{ formTrayectoria.manejo_valores }}
+			</div>
+
+			<div class="col-md-3">
+				{{ formTrayectoria.terminada.errors }}
+				{{ formTrayectoria.terminada }}
+				<label for="id_trayectoria1-terminada">MERCANCÍA</label>
+			</div>
+			<div class="col-md-3">
+				{{ formTrayectoria.terminada.errors }}
+				{{ formTrayectoria.terminada }}
+				<label for="id_trayectoria1-terminada">DOCUMENTOS</label>
+			</div>
+			<div class="col-md-3">
+				{{ formTrayectoria.terminada.errors }}
+				{{ formTrayectoria.terminada }}
+				<label for="id_trayectoria1-terminada">INFORMACIÓN</label>
+			</div>
+			<div class="col-md-3">
+				{{ formTrayectoria.terminada.errors }}
+				{{ formTrayectoria.terminada }}
+				<label for="id_trayectoria1-terminada">EFECTIVO</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				{{ formTrayectoria.motivo_salida.errors }}
+				<label for="id_trayectoria1-motivo_salida">Motivo de salida</label>
+				{{ formTrayectoria.motivo_salida }}
+			</div>
+			<div class="col-md-3">
+				{{ formTrayectoria.motivo_salida.errors }}
+				<label for="id_trayectoria1-motivo_salida">Motivo de salida señalado por el candidato</label>
+				{{ formTrayectoria.motivo_salida }}
+			</div>
+			<div class="col-md-3">
+				{{ formTrayectoria.afiliado_sindicato.errors }}
+				<label for="id_trayectoria1-afiliado_sindicato">Afiliado a sindicato</label>
+				{{ formTrayectoria.afiliado_sindicato }}
+			</div>
+			<div class="col-md-3">
+				{{ formTrayectoria.afiliado_sindicato.errors }}
+				<label for="id_trayectoria1-afiliado_sindicato">Nombre del sindicato</label>
+				{{ formTrayectoria.afiliado_sindicato }}
+			</div>
+			<div class="col-md-2">
+				{{ formTrayectoria.recontratable.errors }}
+				<label for="id_trayectoria1-recontratable">Recontratable</label>
+				{{ formTrayectoria.recontratable }}
+			</div>
+			<div class="col-md-2">
+				{{ formTrayectoria.recontratable.errors }}
+				<label for="id_trayectoria1-recontratable">Motivo</label>
+				{{ formTrayectoria.recontratable }}
+			</div>
+		</div>
 	</div>
 </div>
 
