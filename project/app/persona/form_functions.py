@@ -37,11 +37,11 @@ def has_info_trayectoria(data, prefix, trayectoria):
 	if trayectoria:
 		if prefix=='evaluacion' and trayectoria.evaluacion_set.all().count():
 			return True
-		elif prefix=='opinion_jefe' and trayectoria.evaluacion_set.all().count():
-			if trayectoria.evaluacion_set.all()[0].opinion_set.filter(categoria='1').count():
+		elif prefix=='opinion_jefe' and trayectoria.opinion_set.all().count():
+			if trayectoria.opinion_set.filter(categoria=1).count():
 				return True
-		elif prefix=='opinion_rh' and trayectoria.evaluacion_set.all().count():
-			if trayectoria.evaluacion_set.all()[0].opinion_set.filter(categoria='2').count():
+		elif prefix=='opinion_rh' and trayectoria.opinion_set.all().count():
+			if trayectoria.opinion_set.filter(categoria=2).count():
 				return True
 		elif prefix=='informante1' and trayectoria.evaluacion_set.all().count():
 			if trayectoria.evaluacion_set.all()[0].informante_set.all().count():

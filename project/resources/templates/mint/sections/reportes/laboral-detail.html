@@ -270,7 +270,7 @@
             <table>
               <tr>
                 <th>OPINIÓN:</th>
-                <td colspan="3">{{ref|get_opinion:"2"|default:"&nbsp;"}}</td>
+                <td colspan="3">{{ref.opinion_rh.opinion}}</td>
               </tr>
             </table>
           </td>
@@ -280,9 +280,9 @@
             <table>
               <tr>
                 <th>NOMBRE DEL INFORMANTE</th>
-                <td>{{ref|get_informante:1|default:"&nbsp;"}}</td>
+                <td>{{ref.opinion_rh.nombre}}</td>
                 <th>PUESTO</th>
-                <td>{{ref|get_informante_puesto:1|default:"&nbsp;"}}</td>
+                <td>{{ref.opinion_rh.puesto}}</td>
               </tr>
             </table>
           </td>
@@ -292,9 +292,9 @@
             <table>
               <tr>
                 <th>TELÉFONO</th>
-                <td>**NO DATO**</td>
+                <td>{{ref.opinion_rh.telefono}}</td>
                 <th>EMAIL:</th>
-                <td>**NO DATO**</td>
+                <td>{{ref.opinion_rh.email}}</td>
               </tr>
             </table>
           </td>
@@ -310,7 +310,7 @@
             <table>
               <tr>
                 <th>OPINIÓN:</th>
-                <td colspan="3">{{ref|get_opinion:"1"|default:"&nbsp;"}}</td>
+                <td colspan="3">{{ref.opinion_jefe.opinion}}</td>
               </tr>
             </table>
           </td>
@@ -320,9 +320,9 @@
             <table>
               <tr>
                 <th>NOMBRE DEL INFORMANTE</th>
-                <td>{{ref|get_informante:0|default:"&nbsp;"}}</td>
+                <td>{{ref.opinion_jefe.nombre}}</td>
                 <th>PUESTO</th>
-                <td>{{ref|get_informante_puesto:0|default:"&nbsp;"}}</td>
+                <td>{{ref.opinion_jefe.puesto}}</td>
               </tr>
             </table>
           </td>
@@ -332,9 +332,9 @@
             <table>
               <tr>
                 <th>TELÉFONO</th>
-                <td>**NO DATO**</td>
+                <td>{{ref.opinion_jefe.telefono}}</td>
                 <th>EMAIL:</th>
-                <td>**NO DATO**</td>
+                <td>{{ref.opinion_jefe.email}}</td>
               </tr>
             </table>
           </td>

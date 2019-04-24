@@ -185,7 +185,7 @@ class OpinionAltaForma(ModelForm):
 
 	class Meta:
 		model = Opinion
-		exclude = ['evaluacion', 'categoria']
+		fields = ['opinion', 'nombre', 'puesto', 'telefono', 'email']
 
 	def __init__(self, *args, **kwargs):
 		super(OpinionAltaForma, self).__init__(*args, **kwargs)

@@ -230,55 +230,80 @@
 		{{ formTrayectoria.recontratable }}
 	</div>
 </div>
-<hr class="thin-separator" />
-<div class="row">
-	<div class="col-md-4">
-		{{ formTrayectoria.jefe_inmediato.errors }}
-		<label for="id_trayectoria1-jefe_inmediato">Jefe inmediato</label>
-		{{ formTrayectoria.jefe_inmediato }}
 
-		{{ formTrayectoria.jefe_inmediato_puesto.errors }}
-		<label for="id_trayectoria1-jefe_inmediato_puesto">Puesto de jefe inmediato</label>
-		{{ formTrayectoria.jefe_inmediato_puesto }}
+<br />
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">JEFE INMEDIATO</h3>
 	</div>
-	<div class="col-md-8">
-		{{ formOpinionJefe.opinion.errors }}
-		<label for="id_opinion_jefe-opinion">Opinión de Jefe Inmediato</label>
-		{{ formOpinionJefe.opinion }}
-	</div>
-</div>
-<hr class="thin-separator" />
-<div class="row">
-	<div class="col-md-12">
-		{{ formOpinionRH.opinion.errors }}
-		<label for="id_opinion_jefe-opinion">Opinión de RH</label>
-		{{ formOpinionRH.opinion }}
-	</div>
-</div>
-<hr class="thin-separator" />
-<div class="row">
-	<div class="col-md-3">
-		{{ formInformante1.nombre.errors }}
-		<label for="id_informante1-nombre">Nombre informante 1</label>
-		{{ formInformante1.nombre }}
-	</div>
-	<div class="col-md-3">
-		{{ formInformante1.puesto.errors }}
-		<label for="id_informante1-puesto">Puesto informante 1</label>
-		{{ formInformante1.puesto }}
-	</div>
-	<div class="col-md-3">
-		{{ formInformante2.nombre.errors }}
-		<label for="id_informante2-nombre">Nombre informante 2</label>
-		{{ formInformante2.nombre }}
-	</div>
-	<div class="col-md-3">
-		{{ formInformante2.puesto.errors }}
-		<label for="id_informante2-puesto">Puesto informante 2</label>
-		{{ formInformante2.puesto }}
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-4">
+				{{ formOpinionJefe.nombre.errors }}
+				<label for="id_trayectoria1-jefe_inmediato">Nombre</label>
+				{{ formOpinionJefe.nombre }}
+		
+				{{ formOpinionJefe.puesto.errors }}
+				<label for="id_trayectoria1-jefe_inmediato_puesto">Puesto</label>
+				{{ formOpinionJefe.puesto }}
+			</div>
+			<div class="col-md-8">
+				{{ formOpinionJefe.opinion.errors }}
+				<label for="id_opinion_jefe-opinion">Opinión</label>
+				{{ formOpinionJefe.opinion }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				{{ formOpinionJefe.telefono.errors }}
+				<label for="id_trayectoria1-jefe_inmediato">Teléfono</label>
+				{{ formOpinionJefe.telefono }}
+			</div>
+			<div class="col-md-4">
+				{{ formOpinionJefe.email.errors }}
+				<label for="id_trayectoria1-jefe_inmediato">Email</label>
+				{{ formOpinionJefe.email }}
+			</div>
+		</div>
 	</div>
 </div>
-<hr class="thin-separator" />
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">RH</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-4">
+				{{ formOpinionRH.nombre.errors }}
+				<label for="id_trayectoria1-jefe_inmediato">Nombre</label>
+				{{ formOpinionRH.nombre }}
+		
+				{{ formOpinionRH.puesto.errors }}
+				<label for="id_trayectoria1-jefe_inmediato_puesto">Puesto</label>
+				{{ formOpinionRH.puesto }}
+			</div>
+			<div class="col-md-8">
+				{{ formOpinionRH.opinion.errors }}
+				<label for="id_opinion_jefe-opinion">Opinión</label>
+				{{ formOpinionRH.opinion }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				{{ formOpinionRH.telefono.errors }}
+				<label for="id_trayectoria1-jefe_inmediato">Teléfono</label>
+				{{ formOpinionRH.telefono }}
+			</div>
+			<div class="col-md-4">
+				{{ formOpinionRH.email.errors }}
+				<label for="id_trayectoria1-jefe_inmediato">Email</label>
+				{{ formOpinionRH.email }}
+			</div>
+		</div>
+	</div>
+</div>
 
 <br />
 <div class="text-center"><h4>EVALUACIÓN</h4></div>

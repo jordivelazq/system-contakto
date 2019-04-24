@@ -520,8 +520,8 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	investigacion = Investigacion.objects.get(id=investigacion_id)
 	trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(pk=trayectoria_id)
 	evaluacion = trayectoria_empresa.evaluacion_set.all()
-	opinion_jefe = trayectoria_empresa.evaluacion_set.all()[0].opinion_set.filter(categoria='1') if evaluacion else None 
-	opinion_rh = evaluacion[0].opinion_set.filter(categoria='2') if evaluacion else None
+	opinion_jefe = trayectoria_empresa.opinion_set.filter(categoria=1) if evaluacion else None 
+	opinion_rh = trayectoria_empresa.opinion_set.filter(categoria=2) if evaluacion else None
 
 	informantes = evaluacion[0].informante_set.all() if evaluacion else None
 	informante1 = informantes[0] if informantes else None
@@ -556,8 +556,8 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		if has_info_trayectoria(request.POST, prefix='opinion_jefe', trayectoria=trayectoria_empresa):
 			if formOpinionJefe.is_valid():
 				opinion_jefe = formOpinionJefe.save(commit=False)
-				opinion_jefe.evaluacion = evaluacion
-				opinion_jefe.categoria = '1'
+				opinion_jefe.trayectoriaLaboral = trayectoria_empresa
+				opinion_jefe.categoria = 1
 				opinion_jefe.save()
 			else:
 				exito = False
@@ -567,8 +567,8 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		if has_info_trayectoria(request.POST, prefix='opinion_rh', trayectoria=trayectoria_empresa):
 			if formOpinionRH.is_valid():
 				opinion_rh = formOpinionRH.save(commit=False)
-				opinion_rh.evaluacion = evaluacion
-				opinion_rh.categoria = '2'
+				opinion_rh.trayectoriaLaboral = trayectoria_empresa
+				opinion_rh.categoria = 2
 				opinion_rh.save()
 			else:
 				exito = False

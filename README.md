@@ -77,3 +77,10 @@ The application will stop righ where the tracer has been added.
 ### Migrations
 
 Follow steps found on this [tutorial](https://south.readthedocs.io/en/latest/tutorial/part1.html) to create/run migrations.
+
+ie.
+- Create migration
+`./project/manage.py schemamigration persona --auto`
+
+- Run migration
+`./project/manage.py migrate persona`

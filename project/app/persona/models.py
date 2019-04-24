@@ -232,6 +232,16 @@ class TrayectoriaLaboral(models.Model):
 			if option[0] == self.motivo_salida:
 				return option[1].decode('utf-8').upper()
 		return ''
+	
+	def opinion_rh(self):
+		if self.opinion_set.filter(categoria=2).count():
+			return self.opinion_set.filter(categoria=2)[0]
+		return None
+	
+	def opinion_jefe(self):
+		if self.opinion_set.filter(categoria=1).count():
+			return self.opinion_set.filter(categoria=1)[0]
+		return None
 
 
 class Legalidad(models.Model):
@@ -580,15 +590,19 @@ class Evaluacion(models.Model):
 
 class Opinion(models.Model):
 	OPINION_OPCIONES = (
-		('1', 'Jefe'),
-		('2', 'Recursos Humanos'),
+		(1, 'Jefe'),
+		(2, 'Recursos Humanos'),
 	)
-	evaluacion = models.ForeignKey(Evaluacion)
-	categoria = models.CharField(max_length=20, choices=OPINION_OPCIONES)
+	trayectoriaLaboral = models.ForeignKey(TrayectoriaLaboral)
+	categoria = models.IntegerField(default=0, choices=OPINION_OPCIONES)
 	opinion = models.TextField(null=True, blank=True)
+	nombre = models.CharField(max_length=140, null=True, blank=True)
+	puesto = models.CharField(max_length=140, null=True, blank=True)
+	telefono = models.CharField(max_length=140, null=True, blank=True)
+	email = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):
-		return  '%s' % (self.evaluacion)
+		return  '%s' % (self.trayectoriaLaboral)
 
 class Informante(models.Model):
 	evaluacion = models.ForeignKey(Evaluacion)
