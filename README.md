@@ -84,3 +84,9 @@ ie.
 
 - Run migration
 `./project/manage.py migrate persona`
+
+### Compass
+
+- Watch sass files
+`compass watch project`
+
