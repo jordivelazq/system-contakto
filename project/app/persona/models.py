@@ -249,6 +249,22 @@ class CartaLaboral(models.Model):
 	expide = models.CharField(max_length=140, null=True, blank=True)
 	fecha = models.CharField(max_length=140, null=True, blank=True)
 
+class DatosGenerales(models.Model):
+	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral)
+	num_personas = models.CharField(max_length=140, null=True, blank=True)
+	puestos = models.CharField(max_length=140, null=True, blank=True)
+	tiene_valores = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
+	motivo_salida = models.CharField(max_length=140, null=True, blank=True)
+	motivo_salida_candidato = models.CharField(max_length=140, null=True, blank=True)
+	tiene_sindicato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
+	nombre_sindicato = models.CharField(max_length=140, null=True, blank=True)
+	es_recontratable = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
+	recontratable_motivo = models.CharField(max_length=140, null=True, blank=True)
+	tiene_mercancia = models.BooleanField(default=False)
+	tiene_informacion = models.BooleanField(default=False)
+	tiene_documentos = models.BooleanField(default=False)
+	tiene_efectivo = models.BooleanField(default=False)
+
 class Legalidad(models.Model):
 	persona = models.ForeignKey(Persona)
 	sindicato = models.CharField(max_length=500, null=True, blank=True)

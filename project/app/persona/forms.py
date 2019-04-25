@@ -78,6 +78,18 @@ class CartaLaboralForma(ModelForm, FormaController):
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 
+class DatosGeneralesForma(ModelForm, FormaController):
+
+	class Meta:
+		model = DatosGenerales
+		fields = ['num_personas', 'puestos', 'tiene_valores', 'motivo_salida', 'motivo_salida_candidato', 'tiene_sindicato', 'nombre_sindicato', 'es_recontratable', 'recontratable_motivo', 'tiene_mercancia', 'tiene_informacion', 'tiene_documentos', 'tiene_efectivo']
+
+	def __init__(self, *args, **kwargs):
+		super(DatosGeneralesForma, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			if not field_name in ('tiene_mercancia', 'tiene_informacion', 'tiene_documentos', 'tiene_efectivo'):
+				field.widget.attrs['class'] = 'form-control'
+
 class TrayectoriaFormSoloCompania(ModelForm):
 
 	class Meta:  

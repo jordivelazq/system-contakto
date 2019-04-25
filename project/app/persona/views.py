@@ -523,6 +523,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	opinion_jefe = trayectoria_empresa.opinion_set.filter(categoria=1) if evaluacion else None 
 	opinion_rh = trayectoria_empresa.opinion_set.filter(categoria=2) if evaluacion else None
 	carta_laboral = trayectoria_empresa.cartalaboral if hasattr(trayectoria_empresa, 'cartalaboral') else None
+	datos_generales = trayectoria_empresa.datosgenerales if hasattr(trayectoria_empresa, 'datosgenerales') else None
 
 	informantes = evaluacion[0].informante_set.all() if evaluacion else None
 	informante1 = informantes[0] if informantes else None
@@ -548,6 +549,15 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 			carta_laboral = formCartaLaboral.save(commit=False)
 			carta_laboral.trayectoriaLaboral = trayectoria_empresa
 			carta_laboral.save()
+		else:
+			exito = False
+		
+		############## Datos Generales
+		formDatosGenerales = DatosGeneralesForma(request.POST, instance=datos_generales)
+		if formDatosGenerales.is_valid():
+			datos_generales = formDatosGenerales.save(commit=False)
+			datos_generales.trayectoriaLaboral = trayectoria_empresa
+			datos_generales.save()
 		else:
 			exito = False
 
@@ -605,6 +615,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	else:
 		formTrayectoria = TrayectoriaForm(prefix='trayectoria', instance=trayectoria_empresa)
 		formCartaLaboral = CartaLaboralForma(instance=carta_laboral) if carta_laboral else CartaLaboralForma()
+		formDatosGenerales = DatosGeneralesForma(instance=datos_generales) if datos_generales else DatosGeneralesForma()
 		formEvaluacion = EvaluacionForm(prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
 		
 		#formEvaluacion = EvaluacionForm(prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')

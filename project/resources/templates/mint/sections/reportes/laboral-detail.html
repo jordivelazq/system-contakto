@@ -138,9 +138,9 @@
             <table>
               <tr>
                 <th>NÚMERO</th>
-                <td>{{ref.no_personas_cargo|default:""}}</td>
+                <td>{{ref.datosgenerales.num_personas}}</td>
                 <th>PUESTOS</th>
-                <td>**NO APLICA**</td>
+                <td>{{ref.datosgenerales.puestos}}</td>
               </tr>
             </table>
           </td>
@@ -174,9 +174,9 @@
             <table>
               <tr>
                 <th>SEÑALADO POR LA EMPRESA:</th>
-                <td>{{ref.getMotivoSalida}}</td>
+                <td>{{ref.datosgenerales.motivo_salida}}</td>
                 <th>SEÑALADO POR EL CANDIDATO:</th>
-                <td>**RENUNCIA VOLUNTARIA**</td>
+                <td>{{ref.datosgenerales.motivo_salida_candidato}}</td>
               </tr>
             </table>
           </td>
@@ -194,9 +194,9 @@
             <table>
               <tr>
                 <th>SI</th>
-                <td>{% if ref.manejo_valores == 1 %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.datosgenerales.tiene_valores == 1 %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>{% if ref.manejo_valores == 2 %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.datosgenerales.tiene_valores == 2 %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
@@ -204,9 +204,9 @@
             <table>
               <tr>
                 <th>SI</th>
-                <td>{% if ref.recontratable == 'SI' %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.datosgenerales.es_recontratable == 1 %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>{% if ref.recontratable == 'NI' %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.datosgenerales.es_recontratable == 2 %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
@@ -214,12 +214,43 @@
             <table>
               <tr>
                 <th>SI</th>
-                <td>{% if ref.afiliado_sindicato == 1 %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.datosgenerales.tiene_sindicato == 1 %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>{% if ref.afiliado_sindicato == 2 %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.sgenerales.tiene_sindicato == 2 %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
+        </tr>
+
+        <tr>
+          <td class="normal-font">TIPO DE VALORES</td>
+          <td class="normal-font">MOTIVO</td>
+          <td class="normal-font">NOMBRE DEL SINDICATO</td>
+        </tr>
+        <tr>
+          <th>
+            {% if ref.datosgenerales.tiene_mercancia %}
+            MERCANCIA
+            {% endif %}
+
+            {% if ref.datosgenerales.tiene_informacion %}
+            INFORMACIÓN
+            {% endif %}
+
+            {% if ref.datosgenerales.tiene_documentos %}
+            DOCUMENTOS
+            {% endif %}
+
+            {% if ref.datosgenerales.tiene_efectivo %}
+            EFECTIVO
+            {% endif %}
+          </th>
+          <th>
+            {{ref.datosgenerales.recontratable_motivo}}
+          </th>
+          <th>
+            {{ref.datosgenerales.nombre_sindicato}}
+          </th>
         </tr>
       </table>
 
