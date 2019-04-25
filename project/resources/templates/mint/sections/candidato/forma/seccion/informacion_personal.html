@@ -10,13 +10,18 @@
 		{{ formCandidato.nombre.errors }}
 	</div>
 	<div {% if request.user.is_staff %}ng-click="open_empresa_modal()"{% endif %} class="col-md-2">
-	    <label for="id_investigacion-compania">Cliente (Empresa)</label>
+		<label for="id_investigacion-compania">Cliente (Empresa)</label>
 		<input id="id_investigacion-compania" name="investigacion-compania" type="hidden" value="{[{compania}]}">
 		<div class="input-group">
 			<input id="id_investigacion-compania-nombre" name="investigacion-compania-nombre" placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
 			<span class="input-group-addon glyphicon glyphicon-search"></span>
 		</div>
 		{{ formInvestigacion.compania.errors }}
+	</div>
+	<div class="col-md-2">
+		<label for="id_investigacion-compania">Sucursal</label>
+		{{ formSucursal.sucursal }}
+		{{ formSucursal.sucursal.errors }}
 	</div>
 	<div class="col-md-2">
 		<label for="id_companiacliente-contacto">Quién envia *</label>

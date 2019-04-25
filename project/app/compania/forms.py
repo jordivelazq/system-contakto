@@ -28,6 +28,26 @@ class CompaniaForm(ModelForm):
 				if 'telefono' in field_name and not field_name is "telefono_alt":
 					field.widget.attrs['class'] = 'form-control phone'
 
+class CompaniaSucursalForm(forms.Form):
+	
+	def __init__(self, compania, *args, **kwargs):
+		super(CompaniaSucursalForm, self).__init__(*args, **kwargs)
+		self.fields['sucursal'] = forms.ChoiceField(
+			choices=[(item.nombre, str(item.nombre)) for item in Sucursales.objects.filter(compania=compania)]
+		)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
+class SucursalesForm(ModelForm):
+	class Meta:
+		model = Sucursales
+		fields = ['nombre', 'ciudad', 'telefono', 'email']
+
+	def __init__(self, *args, **kwargs):
+		super(SucursalesForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
 class ContactoForm(ModelForm):
 	class Meta:
 		model = Contacto

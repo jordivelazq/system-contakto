@@ -10,7 +10,7 @@ from django.contrib.auth.models import User, Group
 from app.investigacion.models import Investigacion
 from app.bitacora.models import Bitacora
 from app.compania.models import Compania, Contacto
-from app.compania.forms import CompaniaForm, ContactoForm
+from app.compania.forms import CompaniaForm, ContactoForm, SucursalesForm
 from django.db.models import Q
 import json
 
@@ -45,6 +45,13 @@ def nueva(request, investigacion_id=''):
 		form = CompaniaForm(request.POST)
 		if form.is_valid():
 			emp_nueva = form.save()
+
+			formSucursales = SucursalesForm(request.POST, prefix='sucursales')
+			if formSucursales.is_valid():
+				sucursales = formSucursales.save(commit=False)
+				sucursales.compania = emp_nueva
+				sucursales.save()
+
 			b = Bitacora(action='empresas-creada: ' + unicode(request.POST.get('name')), user=request.user)
 			b.save()
 			if investigacion_id:
@@ -59,15 +66,17 @@ def nueva(request, investigacion_id=''):
 				return HttpResponseRedirect('/empresas/exito')
 	else:
 		form = CompaniaForm()
+		formSucursales = SucursalesForm(prefix='sucursales')
 	return render_to_response('sections/empresa/form.html', locals(), context_instance=RequestContext(request))
 
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
-	company = Compania.objects.filter(id=compania_id)
+	company = Compania.objects.get(id=compania_id)
+	sucursales = company.sucursales_set.all()
 	page = 'empresas'
-	title = 'Editar empresa: ' + str(company[0])
+	title = 'Editar empresa: ' + str(company)
 
 	boton_cancelar_url = '/candidato/investigacion/'+str(investigacion_id)+'/editar/trayectoria/'+str(trayectoria_id) if investigacion_id and trayectoria_id else '/empresas'
 
@@ -77,7 +86,13 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 	# variable to determin if we can delete company, it helps to show 'delete' btn
 	delete_company_enable = True
 	if request.POST:
-		form = CompaniaForm(request.POST, instance=company[0])
+		formSucursales = SucursalesForm(request.POST, prefix='sucursales', instance=sucursales[0]) if sucursales else SucursalesForm(request.POST, prefix='sucursales')
+		if formSucursales.is_valid():
+			sucursales = formSucursales.save(commit=False)
+			sucursales.compania = company
+			sucursales.save()
+
+		form = CompaniaForm(request.POST, instance=company)
 		if form.is_valid():
 			form.save()
 			b = Bitacora(action='empresas-editada: ' + unicode(request.POST.get('name')), user=request.user)
@@ -87,7 +102,8 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 			else:
 				return HttpResponseRedirect('/empresas/exito')
 	else:
-		form = CompaniaForm(instance=company[0])
+		form = CompaniaForm(instance=company)
+		formSucursales = SucursalesForm(instance=sucursales[0], prefix='sucursales') if sucursales else SucursalesForm(prefix='sucursales')
 	return render_to_response('sections/empresa/form.html', locals(), context_instance=RequestContext(request))
 	
 @login_required(login_url='/login', redirect_field_name=None)

@@ -11,6 +11,10 @@
         <h2>{{ investigacion.compania }}</h2>
         <table>
           <tr>
+            <th>ZONA</th>
+            <td>{{ investigacion.compania.sucursal}}</td>
+          </tr>
+          <tr>
             <th>SOLICITANTE</th>
             <td>{{ investigacion.contacto}}</td>
           </tr>
@@ -23,10 +27,11 @@
 
       <div class="candidate">
         <table>
-          <thead>
-            <th colspan="2">{{ candidato }}</th>
-          </thead>
           <tbody>
+            <tr>
+              <th><strong>CANDIDATO</strong></th>
+              <td class="header-2">{{ candidato }}</td>
+            </tr>
             <tr>
               <th>PUESTO</th>
               <td>{{ investigacion.puesto }}</td>
@@ -34,14 +39,6 @@
             <tr>
               <th>EDAD</th>
               <td>{{ candidato.edad }} años</td>
-            </tr>
-            <tr>
-              <th>EMAIL</th>
-              <td class="lowercase">{{ candidato.email}}</td>
-            </tr>
-            <tr>
-              <th>TELÉFONO</th>
-              <td>{{ tel_movil }}</td>
             </tr>
           </tbody>
         </table>
@@ -70,7 +67,7 @@
           Fecha de entrega: <strong>{{ investigacion.fecha_recibido|date:"d/b/Y" }}</strong>
         </p>
         <div class="agent">
-          <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}
+          Ejecutivo RRHH Contakto: <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}
         </div>
         <hr />
         <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>

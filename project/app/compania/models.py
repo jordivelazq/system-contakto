@@ -36,6 +36,13 @@ class Compania(models.Model):
 	class Meta:
 		verbose_name = 'Compañia'
 
+class Sucursales(models.Model):
+	compania = models.ForeignKey(Compania)
+	nombre = models.CharField(max_length=140, verbose_name='Sucursal', blank=True, null=True)
+	ciudad = models.CharField(max_length=140, verbose_name='Ciudad', blank=True, null=True)
+	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)
+	email = models.EmailField(max_length=140, verbose_name='Correo', blank=True, null=True)
+
 class Contacto(models.Model):
 	compania = models.ForeignKey(Compania, related_name='compania_contacto')
 
