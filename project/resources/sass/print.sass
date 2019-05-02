@@ -14,7 +14,7 @@ html, body
   font-family: Trebuchet MS
   text-transform: uppercase
   -webkit-print-color-adjust: exact !important
-  display: none
+  // display: none
 
 @media print
   html, body
@@ -169,8 +169,18 @@ table
 .laboral-study-page
   &.laboral-general
     table
-      th
+      th, td
         text-align: center
+
+        &.text-right
+          text-align: right
+
+        &.text-left
+          text-align: left
+    
+    .general-info
+      strong
+        font-size: 1.3em
 
   h3
     background: $primary-color
@@ -203,7 +213,7 @@ table
   .general-observations
     div
       background: $gray-a
-      height: 55%
+      min-height: 48%
       border-radius: 20px
       padding: 20px
 

@@ -24,8 +24,8 @@
           <td>&nbsp;</td>
         </tr>
         <tr>
-          <th>EMAIL</th>
-          <td colspan="3">{{ candidato.email}}</td>
+          <th class="text-right">EMAIL</th>
+          <td class="text-left" colspan="3">{{ candidato.email}}</td>
         </tr>
       </table>
     </div>
@@ -53,8 +53,9 @@
           <td colspan="2">{{candidato.nss|default:""}}</td>
           <td colspan="2">{{ candidato.rfc|default:"" }}</td>
         </tr>
+        <tr><th colspan="8">&nbsp;</th></tr>
         <tr>
-          <th colspan="4">HA LLEVADO UN PROCESO DE DEMANDA LABORAL</th>
+          <th colspan="4"><strong>HA LLEVADO UN PROCESO DE DEMANDA LABORAL</strong></th>
           <th>SI</th>
           <td>{{demanda.tiene_demanda|activo_opciones_con_x:1}}</td>
           <th>NO</th>
@@ -71,7 +72,7 @@
           <th colspan="2">AÑO</th>
         </tr>
         <tr>
-          <td colspan="2">{{demanda.empresa}}</td>
+          <td colspan="2">{{demanda.empresa|default:"&nbsp;"}}</td>
           <td colspan="2">{{demanda.motivo}}</td>
           <td colspan="2">{{demanda.ubicacion}}</td>
           <td colspan="2">{{demanda.fecha}}</td>
@@ -81,7 +82,7 @@
           <th colspan="4">CÓMO FINALIZÓ EL PROCESO Y A FAVOR DE QUIÉN</th>
         </tr>
         <tr>
-          <td colspan="4">{{demanda.audiencias}}</td>
+          <td colspan="4">{{demanda.audiencias|default:"&nbsp;"}}</td>
           <td colspan="4">{{demanda.conclusion}}</td>
         </tr>
         {% endif %}
