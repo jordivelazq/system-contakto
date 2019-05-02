@@ -1541,7 +1541,7 @@ def exportar_html(request, investigacion_id, tipo_reporte):
 	domicilio = candidato.direccion_set.all()[0]
 	
 	origen = candidato.origen_set.all()[0]
-	fecha_nacimiento = origen.fecha.strftime("%d/%b/%Y") if origen.fecha else ''
+	fecha_nacimiento = origen.fecha
 
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL

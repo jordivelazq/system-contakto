@@ -1,0 +1,23 @@
+{% load app_filters %}
+<section class="laboral-study-page">
+  <div class="background-2">
+    <div class="header">
+      <h1>Estudio Laboral</h1>
+      <img src="/media/logo-nuevo.png" />
+      <div class="clear-fix"></div>
+    </div>
+
+    <div class="work-reference">
+      <h3>{{adjuntos|verbose_name:'adj7'}}</h3>
+      {% if adjuntos.adj7 %}
+      <img src="{{adjuntos_baseurl}}{{adjuntos.adj7}}" />
+      {% endif %}
+    </div>
+
+    <div class="footer">
+      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+      <i>{{trayectoria|length|print_page_number:3}}</i>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>

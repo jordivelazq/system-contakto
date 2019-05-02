@@ -1,3 +1,4 @@
+{% load app_filters %}
 <section class="cover-page">
   <div class="background-1">
     <div class="background-2">
@@ -20,7 +21,7 @@
           </tr>
           <tr>
             <th>FECHA DE SOLICITUD</th>
-            <td>{{ investigacion.fecha_registro|date:"d/b/Y"}}</td>
+            <td>{{ investigacion.fecha_recibido|date:"d/M/Y"|localize_month}}</td>
           </tr>
         </table>
       </div>
@@ -64,7 +65,7 @@
 
       <div class="footer">
         <p>
-          Fecha de entrega: <strong>{{ investigacion.fecha_recibido|date:"d/b/Y" }}</strong>
+          Fecha de entrega: <strong>{{ investigacion.fecha_registro|date:"d/M/Y"|localize_month }}</strong>
         </p>
         <div class="agent">
           Ejecutivo RRHH Contakto: <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}

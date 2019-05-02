@@ -32,3 +32,10 @@ def print_page_number(number, base):
 @register.filter(name='verbose_name')
 def verbose_name(instance, field_name):
   return instance._meta.get_field(field_name).verbose_name.title()
+
+@register.filter(name='localize_month')
+def localize_month(instance):
+    months = [ ('JAN', 'ENE'), ('APR', 'ABR'), ('AUG', 'AGO'), ('DEC', 'DIC')]
+    for en, es in months:
+      instance = instance.upper().replace(en, es)
+    return instance
