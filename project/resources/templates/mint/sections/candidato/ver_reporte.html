@@ -28,7 +28,7 @@
 					<label>Reporte de datos generales y trayectoria laboral </label>
 				</div>
 				<div id="exportar-pdf" class="col-xs-2">
-					<a class="btn btn-default {% if not tiene_trayectoria %}disabled{% endif %}" href="/candidato/investigacion/exportar/html/{{investigacion.id}}/compacto" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+					<a class="btn btn-default {% if not tiene_trayectoria %}disabled{% endif %}" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 				</div>
 			</div>
 			<div class="row">
@@ -48,7 +48,7 @@
 					<label>Reporte completo de investigación </label>
 				</div>
 				<div id="exportar-pdf" class="col-xs-3">
-					<a class="btn btn-default {% if not tiene_trayectoria or not tiene_entrevista %}disabled{% endif %}" href="/candidato/investigacion/exportar/{{investigacion.id}}/completo">Generar <span class="glyphicon glyphicon-export"></span></a>
+					<a class="btn btn-default {% if not tiene_trayectoria or not tiene_entrevista %}disabled{% endif %}" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 				</div>
 			</div>
 		</div>

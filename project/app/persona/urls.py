@@ -38,8 +38,8 @@ urlpatterns = patterns('',
 
 	#Reporte
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/reporte$', 'app.persona.views.ver_reporte', name='ver_reporte'),
-	url(r'^investigacion/exportar/(?P<investigacion_id>[^/]+)/(?P<tipo_reporte>[-\w]+)$', 'app.investigacion.views.exportar_pdf', name='exportar_pdf'),
-		url(r'^investigacion/exportar/html/(?P<investigacion_id>[^/]+)/(?P<tipo_reporte>[-\w]+)$', 'app.investigacion.views.exportar_html', name='exportar_html'),
+		url(r'^investigacion/exportar/reporte-laboral/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_laboral', name='print_reporte_laboral'),
+		url(r'^investigacion/exportar/reporte-socioeconomico/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_socioeconomico', name='print_reporte_socioeconomico'),
 
 	#Adjuntos
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/adjuntos/$', 'app.adjuntos.views.panel_adjuntos', name='panel_adjuntos'),

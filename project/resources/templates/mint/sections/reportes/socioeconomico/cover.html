@@ -1,0 +1,99 @@
+{% load app_filters %}
+<section class="cover-page">
+  <div class="background-1">
+    <div class="background-2">
+      <div class="header">
+        <h1>Estudio Socioeconómico</h1>
+        <img src="/media/logo-nuevo.png" />
+        <div class="clear-fix"></div>
+      </div>
+
+      <div class="company">
+        <h2>{{ investigacion.compania }}</h2>
+        <table>
+          <tr>
+            <th>ZONA</th>
+            <td colspan="3">{{ investigacion.compania.sucursal}}</td>
+          </tr>
+          <tr>
+            <th>SOLICITANTE</th>
+            <td colspan="3">{{ investigacion.contacto}}</td>
+          </tr>
+          <tr>
+            <th>FECHA DE SOLICITUD</th>
+            <td>{{ investigacion.fecha_recibido|date:"d/M/Y"|localize_month}}</td>
+            <th>Hora</th>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="candidate socioeconomico">
+        {% if adjuntos.adj2 %}
+        <img src="{{adjuntos_baseurl}}{{adjuntos.adj2}}" />
+        {% endif %}
+        <table>
+          <tbody>
+            <tr>
+              <th><strong>CANDIDATO</strong></th>
+              <td colspan="2" class="header-2">{{ candidato }}</td>
+            </tr>
+            <tr>
+              <th>PUESTO</th>
+              <td colspan="2">{{ investigacion.puesto }}</td>
+            </tr>
+            <tr>
+              <th>EDAD</th>
+              <td colspan="2">{{ candidato.edad }} años</td>
+            </tr>
+            <tr>
+              <th></th>
+              <th class="smaller">GESTOR <br /> ENTREVISTADOR</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th></th>
+              <th class="smaller">FECHA DE <br /> ENTREVISTA</th>
+              <td></td>
+            </tr>
+            <tr>
+              <th></th>
+              <th class="smaller">HORA DE <br />ENTREVISTA</th>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="results">
+        <h2>RESULTADO</h2>
+        <table>
+          <tr>
+            <th>{% if investigacion.resultado == "1" %}X{% else %}&nbsp;{% endif %}</th>
+            <td>VIABLE</td>
+          </tr>
+          <tr>
+            <th>{% if investigacion.resultado == "2" %}X{% else %}&nbsp;{% endif %}</th>
+            <td>NO VIABLE</td>
+          </tr>
+          <tr>
+            <th>{% if investigacion.resultado == "3" %}X{% else %}&nbsp;{% endif %}</th>
+            <td>A RESERVAS</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footer">
+        <p>
+          Fecha de entrega: <strong>{{ investigacion.fecha_registro|date:"d/M/Y"|localize_month }}</strong>
+        </p>
+        <div class="agent">
+          Ejecutivo RRHH Contakto: <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}
+        </div>
+        <hr />
+        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>
