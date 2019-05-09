@@ -89,4 +89,3 @@ ie.
 
 - Watch sass files
 `compass watch project`
-

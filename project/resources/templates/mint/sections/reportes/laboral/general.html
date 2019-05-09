@@ -53,40 +53,9 @@
           <td colspan="2">{{candidato.nss|default:""}}</td>
           <td colspan="2">{{ candidato.rfc|default:"" }}</td>
         </tr>
-        <tr><th colspan="8">&nbsp;</th></tr>
-        <tr>
-          <th colspan="4"><strong>HA LLEVADO UN PROCESO DE DEMANDA LABORAL</strong></th>
-          <th>SI</th>
-          <td>{{demanda.tiene_demanda|activo_opciones_con_x:1}}</td>
-          <th>NO</th>
-          <td>{{demanda.tiene_demanda|activo_opciones_con_x:2}}</td>
-        </tr>
-        {% if demanda.tiene_demanda == 1 %}
-        <tr>
-          <th colspan="8">EN CASO DE QUE SÍ, ESPECIFIQUE LO SIGUIENTE:</th>
-        </tr>
-        <tr>
-          <th colspan="2">NOMBRE DE LA EMRPRESA</th>
-          <th colspan="2">MOTIVO PROCESO DE DEMANDA</th>
-          <th colspan="2">ENTIDAD FEDERATIVA</th>
-          <th colspan="2">AÑO</th>
-        </tr>
-        <tr>
-          <td colspan="2">{{demanda.empresa|default:"&nbsp;"}}</td>
-          <td colspan="2">{{demanda.motivo}}</td>
-          <td colspan="2">{{demanda.ubicacion}}</td>
-          <td colspan="2">{{demanda.fecha}}</td>
-        </tr>
-        <tr>
-          <th colspan="4">NÚMERO DE AUDIENCIAS</th>
-          <th colspan="4">CÓMO FINALIZÓ EL PROCESO Y A FAVOR DE QUIÉN</th>
-        </tr>
-        <tr>
-          <td colspan="4">{{demanda.audiencias|default:"&nbsp;"}}</td>
-          <td colspan="4">{{demanda.conclusion}}</td>
-        </tr>
-        {% endif %}
       </table>
+      <tr><th colspan="8">&nbsp;</th></tr>
+      {% include 'sections/reportes/compartido/demanda.html' %}
     </div>
 
     <div class="general-observations">
