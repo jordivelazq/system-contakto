@@ -1570,7 +1570,6 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL
-	print "perro:  ", adjuntos_baseurl, adjuntos.adj2
 
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 

@@ -1,0 +1,101 @@
+{% load app_filters %}
+<section class="laboral-study-page laboral-general">
+  <div class="background-2">
+    <div class="header">
+      <h1>Estudio Laboral</h1>
+      <img src="/media/logo-nuevo.png" />
+      <div class="clear-fix"></div>
+    </div>
+
+    {% include 'sections/reportes/compartido/datos-contacto.html' %}
+
+    <div class="general-info">
+      <h3>DATOS GENERALES</h3>
+      <table>
+        <tr>
+          <th colspan="2">CALLE</th>
+          <th>NUM EXT/INT</th>
+          <th colspan="3">COLONIA/FRACCIONAMIENTO</th>
+          <th colspan="2">CIUDAD</th>
+          <th>ESTADO</th>
+          <th>CÓDIGO POSTAL</th>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+          <td></td>
+          <td colspan="3"></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th colspan="2">LUGAR DE NACIMIENTO</th>
+          <th colspan="2">FECHA DE NACIMIENTO</th>
+          <th colspan="2">NACIONALIDAD</th>
+          <th colspan="2">CURP</th>
+          <th colspan="2">NSS</th>
+        </tr>
+        <tr>
+          <td colspan="2">{{origen.nacionalidad|default:""}}</td>
+          <td colspan="2">{{fecha_nacimiento|date:"d/M/Y"|localize_month}}</td>
+          <td colspan="2">{{estado_civil|default:""}}</td>
+          <td colspan="2">{{candidato.curp|default:""}}</td>
+          <td colspan="2">{{candidato.nss|default:""}}</td>
+        </tr>
+        <tr>
+          <th colspan="2">RFC</th>
+          <th colspan="2">FOLIO INE</th>
+          <th>TIPO DE LICENCIA</th>
+          <th>No. LICENCIA</th>
+          <th colspan="2">No. CARTILLA SMN</th>
+          <th colspan="2">No. PASAPORTE / VISA</th>
+        </tr>
+        <tr>
+          <td colspan="2">{{ candidato.rfc|default:"" }}</td>
+          <td colspan="2">&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <th colspan="4">ESTADO CIVIL</th>
+          <th colspan="4">FECHA DE MATRIMONIO</th>
+          <th colspan="2">RELIGIÓN</th>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+          <td colspan="4"></td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <th colspan="5">TIEMPO RADICANDO EN LA CIUDAD</th>
+          <th colspan="5">MEDIO DE TRANSPORTE</th>
+        </tr>
+        <tr>
+          <td colspan="5">&nbsp;</td>
+          <td colspan="5"></td>
+        </tr>
+        <tr>
+          <th colspan="5">¿CÓMO TE ENTERASTE DE LA VACANTE?</th>
+          <th colspan="5">TIEMPO DE TRAYECTO AL LUGAR DE TRABAJO</th>
+        </tr>
+        <tr>
+          <td colspan="5">&nbsp;</td>
+          <td colspan="5"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="demandas">
+      <h4>DEMANDAS LABORALES</h4>
+      {% include 'sections/reportes/compartido/demanda.html' %}
+    </div>
+
+    <div class="footer">
+      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+      <i>2</i>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>
