@@ -14,7 +14,7 @@ html, body
   font-family: Trebuchet MS
   text-transform: uppercase
   -webkit-print-color-adjust: exact !important
-  // display: none
+  display: none
 
 @media print
   html, body
@@ -221,7 +221,6 @@ table
     th
       font-weight: normal
       text-align: right
-      padding-right: 10px
       font-size: 10px
 
     td
@@ -309,3 +308,17 @@ table
       .title
         background: $gray-b
         color: white
+
+  .info-economica
+    table
+      td
+        text-align: right
+      
+      tr.total
+        td,th
+          font-weight: bold
+          font-size: 0.8em
+
+        td
+          background: $gray-b
+
