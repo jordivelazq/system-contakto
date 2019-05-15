@@ -2,6 +2,7 @@ $primary-color: #8A0000
 $gray-a: #D9D9D9
 $gray-b: #BFBFBF
 $gray-c: #404040
+$gray-d: #888
 
 @page 
   margin: 0
@@ -14,7 +15,7 @@ html, body
   font-family: Trebuchet MS
   text-transform: uppercase
   -webkit-print-color-adjust: exact !important
-  display: none
+  // display: none
 
 @media print
   html, body
@@ -46,6 +47,9 @@ table
   height: calc(100% - 20px)
   padding: 0px 10px 0 10px
   position: relative
+
+.border-red
+  border: 3px solid $primary-color
 
 .header 
   border-bottom: 3px solid black
@@ -322,3 +326,10 @@ table
         td
           background: $gray-b
 
+  .mensual
+    h4
+      margin-bottom: 0
+      background-color: $gray-d
+    
+    .title
+      background-color: $gray-b
