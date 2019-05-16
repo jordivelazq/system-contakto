@@ -1,0 +1,93 @@
+<section class="laboral-study-page laboral-general">
+    <div class="background-2">
+      {% include 'sections/reportes/socioeconomico/header.html' %}
+
+      <h3>CONCLUSIÓN DE ESTUDIO SOCIOECONÓMICO</h3>
+
+      <div class="conclusion">
+        <p></p>
+
+        <table>
+          <tr>
+            <td class="no-bg">
+              <h3>RESULTADO DE <br />INVESTIGACIÓN LABORAL</h3>
+            </td>
+            <td width="50" class="no-bg"></td>
+            <td class="no-bg">
+              <h3>RESULTADO DE VISITA <br /> DOMICILIARIA</h3>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="no-bg align-top">
+              <div class="square">
+                <div>{% if investigacion.resultado == "1" %}X{% else %}&nbsp;{% endif %}</div>
+                <span>VIABLE</span>
+              </div>
+              <div class="square">
+                <div>{% if investigacion.resultado == "2" %}X{% else %}&nbsp;{% endif %}</div>
+                <span>NO VIABLE</span>
+              </div>
+              <div class="square">
+                <div>{% if investigacion.resultado == "3" %}X{% else %}&nbsp;{% endif %}</div>
+                <span>A RESERVAS</span>
+              </div>
+            </td>
+
+            <td class="no-bg"></td>
+
+            <td class="no-bg">
+              <h4>CALIFICACIÓN DEL 1 AL 100%</h4>
+              <table>
+                <tr>
+                  <td colspan="2" class="title">ASPECTO DEL HOGAR</td>
+                </tr>
+                <tr>
+                  <th>ORDEN</th>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>LIMPIEZA</th>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>CONSERVACIÓN</th>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+
+              <table>
+                <tr>
+                  <td colspan="2" class="title">PERSONAL</td>
+                </tr>
+                <tr>
+                  <th>DISPONIBILIDAD</th>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>PUNTUALIDAD</th>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>APARIENCIA FÍSICA</th>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>COLABORACIÓN</th>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>ACTITUD</th>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      {% include 'sections/reportes/seccion/footer.html' %}
+    </div>
+  </section>
+  <div class="page-break"></div>
+  

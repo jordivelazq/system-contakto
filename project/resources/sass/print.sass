@@ -2,6 +2,7 @@ $primary-color: #8A0000
 $gray-a: #D9D9D9
 $gray-b: #BFBFBF
 $gray-c: #404040
+$gray-d: #888
 
 @page 
   margin: 0
@@ -46,6 +47,12 @@ table
   height: calc(100% - 20px)
   padding: 0px 10px 0 10px
   position: relative
+
+.border-red
+  border: 3px solid $primary-color
+
+.align-top
+  vertical-align: top
 
 .header 
   border-bottom: 3px solid black
@@ -322,3 +329,76 @@ table
         td
           background: $gray-b
 
+  .mensual
+    h4
+      margin-bottom: 0
+      background-color: $gray-d
+    
+    .title
+      background-color: $gray-b
+
+  .domicilio
+    > div
+      display: flex
+      > div
+        flex: 1
+        height: 300px
+
+      strong
+        text-align: center
+        display: block
+        margin-top: 12px
+      
+      &.center
+        display: block
+        border-top: 3px solid $gray-d
+      
+      .border-top
+        border-right: 3px solid $gray-d
+        border-bottom: 3px solid $gray-d
+      
+      .border-bottom
+        border-bottom: 3px solid $gray-d
+      
+      .border-left
+        border-left: 3px solid $gray-d
+  
+  .entrevistador, .croquis-domicilio
+    height: 380px
+
+  .dommicilio-referencia
+    background: $gray-a
+    height: 100px
+    border-radius: 12px
+    display: flex
+    
+    p
+      margin: auto auto
+  
+  .conclusion
+    p
+      background: $gray-a
+      height: 400px
+      border-radius: 12px
+    
+    .square
+      display: flex
+      align-items: center
+      margin-left: 40%
+
+      div
+        width: 40px
+        height: 40px
+        background-color: $gray-a
+        margin-bottom: 6px
+      
+      span
+        margin: 0 0 6px 12px
+    
+    .title
+      background-color: $gray-b
+    
+    table
+      th
+        text-align: right
+        padding-right: 12px
