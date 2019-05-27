@@ -7,7 +7,7 @@
 			<input id="id_trayectoria-compania-nombre" name="trayectoria-compania-nombre" readonly="readonly" ng-model="compania_nombre_trayectoria" type="text" class="form-control">
 			<span class="input-group-addon glyphicon glyphicon-search"></span>
 		</div>
-	</div>	
+	</div>
 	<div class="col-md-3">
 		{{ formTrayectoria.aparece_nss.errors }}
 		<label for="id_trayectoria1-aparece_nss">Aparece en NSS</label>
@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col-md-12">
 			<label for="id_trayectoria1-aportaciones_fecha_inicial">Fechas de Aportaciones</label>
-			</div>	
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6"><label>Del:</label></div>
@@ -33,9 +33,9 @@
 				{{ formTrayectoria.aportaciones_fecha_final.errors }}
 				{{ formTrayectoria.aportaciones_fecha_final }}
 			</div>
-		</div>	
+		</div>
 	</div>
-	
+
 </div>
 <div class="row">
 	<div class="col-md-4">
@@ -58,14 +58,14 @@
 			{{ formCartaLaboral.tiene_carta }}
 		</div>
 		<div class="col-md-4">
-			{{ formCartaLaboral.expide.errors }}
+			{{ formCartaLaboral.fecha.errors }}
 			<label for="id_trayectoria1-carta_laboral_expide">Fecha en la que se expide</label>
-			{{ formCartaLaboral.expide }}
+			{{ formCartaLaboral.fecha }}
 		</div>
 		<div class="col-md-4">
-			{{ formCartaLaboral.fecha.errors }}
+			{{ formCartaLaboral.expide.errors }}
 			<label for="id_trayectoria1-carta_laboral_expide">Nombre y puesto de quien expide</label>
-			{{ formCartaLaboral.fecha }}
+			{{ formCartaLaboral.expide }}
 		</div>
 	</div>
 </div>
@@ -311,7 +311,7 @@
 				{{ formOpinionJefe.nombre.errors }}
 				<label for="id_trayectoria1-jefe_inmediato">Nombre</label>
 				{{ formOpinionJefe.nombre }}
-		
+
 				{{ formOpinionJefe.puesto.errors }}
 				<label for="id_trayectoria1-jefe_inmediato_puesto">Puesto</label>
 				{{ formOpinionJefe.puesto }}
@@ -347,7 +347,7 @@
 				{{ formOpinionRH.nombre.errors }}
 				<label for="id_trayectoria1-jefe_inmediato">Nombre</label>
 				{{ formOpinionRH.nombre }}
-		
+
 				{{ formOpinionRH.puesto.errors }}
 				<label for="id_trayectoria1-jefe_inmediato_puesto">Puesto</label>
 				{{ formOpinionRH.puesto }}
@@ -382,7 +382,7 @@
 	{% for radio in formEvaluacion.productividad %}
 		<div class="col-md-1">
 			<div class="text-center"><strong>{{ radio.choice_label }}</strong></div>
-		</div>	
+		</div>
 	{% endfor %}
 </div>
 <div class="row">
@@ -394,7 +394,7 @@
 	<div class="row">
 		<div class="col-md-3 col-md-offset-2">
 			<label class="pull-right">{{ field.label_tag }}</label>
-		</div>	
+		</div>
 		{% for radio in field %}
 			<div class="col-md-1">
 				<div class="text-center">
