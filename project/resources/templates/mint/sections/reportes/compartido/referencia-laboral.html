@@ -62,7 +62,7 @@
           <th>NOMBRE COMERCIAL:</th>
           <td>{{ref.compania}}</td>
           <th>GIRO</th>
-          <td>{{ref.role|default:"&nbsp;"}}</td>
+          <td>{{ref.compania.role|default:"&nbsp;"}}</td>
         </tr>
         <tr>
           <th>TELÉFONO</th>
@@ -156,9 +156,9 @@
             <table>
               <tr>
                 <th>NOMBRE</th>
-                <td>{{ref.jefe_inmediato|default:""}}</td>
+                <td>{{ref.opinion_jefe.nombre|default:""}}</td>
                 <th>PUESTO</th>
-                <td>{{ref.jefe_inmediato_puesto|default:""}}</td>
+                <td>{{ref.opinion_jefe.puesto|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -216,7 +216,7 @@
                 <th>SI</th>
                 <td>{% if ref.datosgenerales.tiene_sindicato == 1 %}X{% else %}&nbsp;{% endif %}</td>
                 <th>NO</th>
-                <td>{% if ref.sgenerales.tiene_sindicato == 2 %}X{% else %}&nbsp;{% endif %}</td>
+                <td>{% if ref.datosgenerales.tiene_sindicato == 2 %}X{% else %}&nbsp;{% endif %}</td>
               </tr>
             </table>
           </td>
@@ -375,7 +375,7 @@
       <table class="table-border">
         <tr>
           <th class="background-white">OBSERVACIONES DE EJECUTIVA DE RRHH</th>
-          <td class="background-dark-gray">{{ref.observaciones_generales}}</td>
+          <td colspan="3" class="background-dark-gray">{{ref.observaciones_generales}}</td>
         </tr>
       </table>
 
