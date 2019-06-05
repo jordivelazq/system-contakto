@@ -60,7 +60,7 @@
 
     <div class="general-observations">
       <h3>OBSERVACIONES SOBRE LA INVESTIGACIÓN</h3>
-      <div class="center-text preserve-white-space">{% if investigacion.observaciones_generales %}{{investigacion.observaciones_generales}}{% endif %}</div>
+      <div>{% if investigacion.observaciones_generales %}{{investigacion.observaciones_generales|print_text|safe}}{% endif %}</div>
     </div>
 
     <div class="footer">

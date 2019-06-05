@@ -59,7 +59,7 @@ class Investigacion(models.Model):
 	observaciones_generales = models.TextField(max_length=200, blank=True, null=True)
 	
 	tipo_investigacion_status = models.IntegerField(max_length=140, choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
-	tipo_investigacion_texto = models.TextField(max_length=200, blank=True, null=True)
+	tipo_investigacion_texto = models.TextField(max_length=2000, blank=True, null=True)
 
 	#Historia en empresa
 	laboro_anteriormente = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)

@@ -39,3 +39,8 @@ def localize_month(instance):
     for en, es in months:
       instance = instance.upper().replace(en, es)
     return instance
+
+@register.filter(name='print_text')
+def print_text(instance):
+  value = instance.replace('.', '<br /><br />')
+  return value
