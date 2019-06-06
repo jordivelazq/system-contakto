@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -544,7 +543,6 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		exito = True
 		if 'cancelar' in request.POST:
 			return HttpResponseRedirect('/candidato/investigacion/' + str(investigacion_id) + '/trayectoria')
-		all_forms_valid = True
 		
 		formTrayectoria = TrayectoriaForm(request.POST, prefix='trayectoria', instance=trayectoria_empresa)
 		if formTrayectoria.is_valid(): 
@@ -617,7 +615,6 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 
 		b = Bitacora(action='trayectoria-editar: ' + str(trayectoria_empresa), user=request.user)
 		b.save()
-
 		if exito:
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/editar/trayectoria/'+trayectoria_id+'/exito')
 

@@ -179,20 +179,10 @@ class TrayectoriaLaboral(models.Model):
 	persona = models.ForeignKey(Persona)
 	compania = models.ForeignKey(Compania)
 	aparece_nss = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	# aparece_nss_ano = models.CharField(max_length=140, null=True, blank=True)
 	aportaciones_fecha_inicial = models.DateField(null=True, blank=True)
 	aportaciones_fecha_final = models.DateField(null=True, blank=True)
 
 	reporta_candidato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	carta_laboral = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	carta_laboral_expide = models.CharField(max_length=140, null=True, blank=True)
-
-	# razon = models.CharField(max_length=140, null=True, blank=True)
-	# nombre = models.CharField(max_length=140, null=True, blank=True)
-	# giro = models.CharField(max_length=140, null=True, blank=True)
-	# telefonos = models.CharField(max_length=140, null=True, blank=True)
-	# ciudad = models.CharField(max_length=140, null=True, blank=True)
-	# sucursal = models.CharField(max_length=140, null=True, blank=True)
 
 	puesto_inicial = models.CharField(max_length=140, null=True, blank=True)
 	puesto_final = models.CharField(max_length=140, null=True, blank=True)
@@ -207,16 +197,10 @@ class TrayectoriaLaboral(models.Model):
 	cumplio_objetivos = models.TextField(null=True, blank=True)#NUEVO
 
 	motivo_salida = models.CharField(max_length=140, choices=SALIDA_OPCIONES, null=True, blank=True)
-	# motivo_salida_explicacion = models.CharField(max_length=240, null=True, blank=True)
-	# cardex = models.TextField(max_length=140, null=True, blank=True)
 	jefe_inmediato = models.CharField(max_length=140, null=True, blank=True)
 	jefe_inmediato_puesto = models.CharField(max_length=140, null=True, blank=True)
 	no_personas_cargo = models.CharField(max_length=140, null=True, blank=True)
-	manejo_valores = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 	recontratable = models.CharField(max_length=140, null=True, blank=True)
-	# solicitud_correo = models.CharField(max_length=140, null=True, blank=True)
-
-	afiliado_sindicato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	terminada = models.BooleanField(default=False)
 	visible_en_status = models.BooleanField(default=True)
