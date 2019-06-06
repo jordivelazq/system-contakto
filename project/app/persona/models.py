@@ -197,8 +197,6 @@ class TrayectoriaLaboral(models.Model):
 	cumplio_objetivos = models.TextField(null=True, blank=True)#NUEVO
 
 	motivo_salida = models.CharField(max_length=140, choices=SALIDA_OPCIONES, null=True, blank=True)
-	jefe_inmediato = models.CharField(max_length=140, null=True, blank=True)
-	jefe_inmediato_puesto = models.CharField(max_length=140, null=True, blank=True)
 	no_personas_cargo = models.CharField(max_length=140, null=True, blank=True)
 	recontratable = models.CharField(max_length=140, null=True, blank=True)
 
