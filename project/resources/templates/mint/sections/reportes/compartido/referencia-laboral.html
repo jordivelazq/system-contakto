@@ -56,7 +56,11 @@
           <th>RAZÓN SOCIAL:</th>
           <td>{{ref.compania.razon_social}}</td>
           <th>SUCURSAL Y/O UBICACIÓN</th>
-          <td>{{ref.compania.sucursal}} / {{ref.compania.ciudad}}</td>
+          <td>
+            {% with ref.compania.sucursales_set.all|first as sucursal %}
+            {{sucursal}} / {{sucursal.ciudad}}
+            {% endwith %}
+          </td>
         </tr>
         <tr>
           <th>NOMBRE COMERCIAL:</th>

@@ -23,8 +23,6 @@ class Compania(models.Model):
 	notas = models.TextField(verbose_name='Notas', blank=True, null=True) #CHECK
 	es_cliente = models.BooleanField(default=False, verbose_name='Es cliente') #CHECK
 	razon_social = models.CharField(max_length=140, verbose_name='Razón social', blank=True, null=True)  #CHECK
-	sucursal = models.CharField(max_length=140, verbose_name='Sucursal', blank=True, null=True)  #CHECK
-	ciudad = models.CharField(max_length=140, verbose_name='Ciudad', blank=True, null=True)  #CHECK
 	referencia_correo = models.IntegerField(default=0, verbose_name='Referencia por correo', choices=ACTIVO_OPCIONES, blank=True, null=True)
 
 	fecha_creacion = models.DateField(auto_now=True)
@@ -42,6 +40,9 @@ class Sucursales(models.Model):
 	ciudad = models.CharField(max_length=140, verbose_name='Ciudad', blank=True, null=True)
 	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)
 	email = models.EmailField(max_length=140, verbose_name='Correo', blank=True, null=True)
+
+	def __unicode__(self):
+		return u'%s' % (self.nombre)
 
 class Contacto(models.Model):
 	compania = models.ForeignKey(Compania, related_name='compania_contacto')
