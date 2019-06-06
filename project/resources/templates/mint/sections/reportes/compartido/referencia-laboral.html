@@ -69,10 +69,12 @@
           <td>{{ref.compania.role|default:"&nbsp;"}}</td>
         </tr>
         <tr>
+          {% with ref.compania.sucursales_set.all|first as sucursal %}
           <th>TELÉFONO</th>
-          <td>{{ref.telefono|default:"&nbsp;"}}</td>
+          <td>{{sucursal.telefono|default:"&nbsp;"}}</td>
           <th>EMAIL</th>
-          <td>{{ref.email|default:"&nbsp;"}}</td>
+          <td>{{sucursal.email|default:"&nbsp;"}}</td>
+          {% endwith %}
         </tr>
       </table>
     </div>
