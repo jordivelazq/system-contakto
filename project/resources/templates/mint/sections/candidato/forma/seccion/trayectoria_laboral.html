@@ -104,31 +104,32 @@
 			{% endif %}
 		</div>
 		<div class="row">
+			{% with trayectoria_empresa.compania.sucursales_set.all|first as sucursal %}
 			<div class="col-md-2 col-md-offset-1">
 				<dl>
 					<dt>Sucursal</dt>
-					<dd>{{trayectoria_empresa.compania.sucursal}}</dd>
+					<dd>{{sucursal}}</dd>
 				</dl>
 			</div>
 			<div class="col-md-2">
 				<dl>
 					<dt>Ciudad</dt>
-					<dd>{{trayectoria_empresa.compania.ciudad}}</dd>
+					<dd>{{sucursal.ciudad}}</dd>
 				</dl>
 			</div>
 			<div class="col-md-2">
 				<dl>
-					<dt>Teléfonos</dt>
-					<dd>{{trayectoria_empresa.compania.telefono}}
-					{% if trayectoria_empresa.compania.telefono_alt %} / {{ trayectoria_empresa.compania.telefono_alt }}{% endif %}</dd>
+					<dt>Teléfono</dt>
+					<dd>{{sucursal.telefono}}</dd>
 				</dl>
 			</div>
 			<div class="col-md-2">
 				<dl>
 					<dt>Correo</dt>
-					<dd>{{trayectoria_empresa.compania.email}}</dd>
+					<dd>{{sucursal.email}}</dd>
 				</dl>
 			</div>
+			{% endwith %}
 		</div>
 	</div>
 <hr/>
