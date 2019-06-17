@@ -155,15 +155,7 @@ class Origen(models.Model):
 
 class InfoPersonal(models.Model):
 	persona = models.ForeignKey(Persona)
-	objetivo_personal = models.CharField(max_length=500)
-	objetivo_en_empresa = models.CharField(max_length=500)
-	cualidades = models.CharField(max_length=500)
-	defectos = models.CharField(max_length=500)
-	trabajo_que_desarrolla = models.CharField(max_length=500)
 	tatuajes = models.CharField(max_length=500)
-
-	def __unicode__(self):
-		return  '%s,%s' % (self.objetivo_personal, self.objetivo_en_empresa)
 
 class TrayectoriaLaboral(models.Model):
 	SALIDA_OPCIONES = (

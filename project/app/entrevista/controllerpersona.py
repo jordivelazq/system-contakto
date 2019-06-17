@@ -147,11 +147,6 @@ class ControllerPersona(object):
 		'''
 		try:
 			EntrevistaInfoPersonal(	persona=candidato,
-							objetivo_personal=info_personal['objetivo_personal'],
-							objetivo_en_empresa=info_personal['objetivo_en_empresa'],
-							cualidades=info_personal['cualidades'],
-							defectos=info_personal['defectos'],
-							trabajo_que_desarrolla=info_personal['trabajo_que_desarrolla'],
 							antecedentes_penales=info_personal['antecedentes_penales'],
 							tatuajes=info_personal['tatuajes'] ).save()
 

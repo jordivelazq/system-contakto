@@ -159,8 +159,6 @@ class PreCandidato(object):
 				'familiar_en_empresa': {}
 			}
 		try:
-			data['objetivo_personal'] = self.get_cell_value(rowx=24, colx=7)
-			data['objetivo_en_empresa'] = self.get_cell_value(rowx=25, colx=8)
 			data['trabajo_anterior_en_empresa']['tiene'] = self.get_cell_value(rowx=26, colx=15)
 			data['trabajo_anterior_en_empresa']['periodo'] = self.get_cell_value(rowx=26, colx=23)
 			data['trabajo_anterior_en_empresa']['puesto'] = self.get_cell_value(rowx=26, colx=33)
@@ -169,10 +167,7 @@ class PreCandidato(object):
 			data['familiar_en_empresa']['nombre'] = self.get_cell_value(rowx=27, colx=24)
 			data['familiar_en_empresa']['puesto'] = self.get_cell_value(rowx=27, colx=36)
 			data['familiar_en_empresa']['sucursal'] = self.get_cell_value(rowx=27, colx=42)
-			data['cualidades'] = self.get_cell_value(rowx=28, colx=4)
-			data['defectos'] = self.get_cell_value(rowx=28, colx=24)
-			data['trabajo_que_desarrolla'] = self.get_cell_value(rowx=29, colx=14)
-			data['antecedentes_penales'] = self.get_cell_value(rowx=29, colx=28)
+			data['antecedentes_penales'] = self.get_cell_value(rowx=29, colx=14)
 			data['tatuajes'] = self.get_cell_value(rowx=30, colx=21)
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos personales, revisar formato.')

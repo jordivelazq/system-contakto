@@ -145,16 +145,8 @@ class EntrevistaOrigen(models.Model):
 '''
 class EntrevistaInfoPersonal(models.Model):
 	persona = models.ForeignKey(EntrevistaPersona)
-	objetivo_personal = models.CharField(verbose_name='Objetivo personal', max_length=500)
-	objetivo_en_empresa = models.CharField(verbose_name='Objetivo en la empresa', max_length=500, null=True, blank=True)
-	cualidades = models.CharField(max_length=500, null=True, blank=True)
-	defectos = models.CharField(max_length=500, null=True, blank=True)
-	trabajo_que_desarrolla = models.CharField(verbose_name='Tipo de trabajo que le gusta desarrollar', max_length=500, null=True, blank=True)
 	antecedentes_penales = models.CharField(verbose_name='Demandas Laborales y/o Antecedentes Penales', max_length=500, null=True, blank=True)
 	tatuajes = models.CharField(verbose_name='Cuenta con algún tatuaje o arete:(Cuantos y en que parte del cuerpo)', max_length=500, null=True, blank=True)
-
-	def __unicode__(self):
-		return  '%s,%s' % (self.objetivo_personal, self.objetivo_en_empresa)
 
 
 class EntrevistaHistorialEnEmpresa(models.Model):
