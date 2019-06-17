@@ -67,6 +67,7 @@ class ControllerPersona(object):
 		try:
 			candidato.investigacion = investigacion	
 			candidato.nombre = datos_generales['nombre']
+			candidato.email = datos_generales['email']
 			candidato.edad = datos_generales['edad']
 			candidato.rfc = datos_generales['rfc']
 			candidato.curp = datos_generales['curp']
@@ -79,6 +80,8 @@ class ControllerPersona(object):
 			candidato.religion = datos_generales['religion']
 			candidato.tiempo_radicando = datos_generales['tiempo_radicando']
 			candidato.medio_utilizado = datos_generales['medio_utilizado']
+			candidato.referencia_vacante = datos_generales['referencia_vacante']
+			candidato.tiempo_transporte = datos_generales['tiempo_transporte']
 			candidato.dependientes_economicos = datos_generales['dependientes_economicos']
 		except Exception, e:
 			self.errors.append('Error en registro de datos generales.')
@@ -97,12 +100,11 @@ class ControllerPersona(object):
 				EntrevistaTelefono(persona=candidato, categoria='movil', numero=datos_generales['telefono']['movil'], parentesco='').save()
 			if datos_generales['telefono']['recados']['numero'] :
 				EntrevistaTelefono(persona=candidato, categoria='recado', numero=datos_generales['telefono']['recados']['numero'], parentesco=datos_generales['telefono']['recados']['parentesco']).save()
-			if datos_generales['telefono']['otro']['numero'] :
-				EntrevistaTelefono(persona=candidato, categoria='otro', numero=datos_generales['telefono']['otro']['numero'], parentesco=datos_generales['telefono']['otro']['parentesco']).save()
 
 			#Asignar datos 'domicilio'
 			EntrevistaDireccion(	persona=candidato, 
 									calle=datos_generales['direccion']['calle'],
+									num=datos_generales['direccion']['num'],
 									ciudad=datos_generales['direccion']['ciudad'], 
 									colonia=datos_generales['direccion']['colonia'],
 									cp=datos_generales['direccion']['cp'],
@@ -158,12 +160,14 @@ class ControllerPersona(object):
 											categoria='trabajo',
 											tiene=info_personal['trabajo_anterior_en_empresa']['tiene'],
 											puesto=info_personal['trabajo_anterior_en_empresa']['puesto'],
+											sucursal=info_personal['trabajo_anterior_en_empresa']['sucursal'],
 											periodo=info_personal['trabajo_anterior_en_empresa']['periodo']).save()
 
 			EntrevistaHistorialEnEmpresa(	persona=candidato,
 											categoria='familiar',
 											tiene=info_personal['familiar_en_empresa']['tiene'],
 											puesto=info_personal['familiar_en_empresa']['puesto'],
+											sucursal=info_personal['familiar_en_empresa']['sucursal'],
 											nombre=info_personal['familiar_en_empresa']['nombre']).save()
 		except Exception, e:
 			self.errors.append('Error en registro de información personal.')

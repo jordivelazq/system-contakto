@@ -8,6 +8,7 @@ import datetime
 import xlrd
 import codecs
 import json
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "contakto.settings")
 
 from app.entrevista.models import EntrevistaFile
@@ -64,6 +65,7 @@ class PreCandidato(object):
 		try:
 			try:
 				data['fecha'] =  self.get_cell_value(rowx=1, colx=32)
+				data['fecha_hora'] = self.get_cell_value(rowx=1, colx=38)
 			except Exception, e:
 				self.errors.append('Fecha de investigación inválida')
 			
@@ -87,7 +89,6 @@ class PreCandidato(object):
 		data = {
 			'telefono': {
 				'recados': {},
-				'otro': {}
 			},
 			'direccion': {},
 			'origen': {},
@@ -98,15 +99,14 @@ class PreCandidato(object):
 		try:
 			data['nombre'] = self.get_cell_value(rowx=4, colx=9)
 			data['edad'] = self.get_cell_value(rowx=4, colx=35)
+			data['email'] = self.get_cell_value(rowx=6, colx=35)
 			
 			data['telefono']['casa'] = self.get_cell_value(rowx=5, colx=25)
 			data['telefono']['movil'] = self.get_cell_value(rowx=5, colx=35)
 			data['telefono']['recados']['numero'] = self.get_cell_value(rowx=6, colx=25)
 			data['telefono']['recados']['parentesco'] = self.get_cell_value(rowx=7, colx=25)
-			data['telefono']['otro']['numero'] = self.get_cell_value(rowx=6, colx=35)
-			data['telefono']['otro']['parentesco'] = self.get_cell_value(rowx=7, colx=35)
-
 			data['direccion']['calle'] = self.get_cell_value(rowx=12, colx=0)
+			data['direccion']['num'] = self.get_cell_value(rowx=12, colx=8)
 			data['direccion']['colonia'] = self.get_cell_value(rowx=12, colx=10)
 			data['direccion']['ciudad'] = self.get_cell_value(rowx=12, colx=21)
 			data['direccion']['estado'] = self.get_cell_value(rowx=12, colx=29)
@@ -132,6 +132,8 @@ class PreCandidato(object):
 			data['religion'] = self.get_cell_value(rowx=16, colx=37)
 			data['tiempo_radicando'] = self.get_cell_value(rowx=17, colx=11)
 			data['medio_utilizado'] = self.get_cell_value(rowx=17, colx=31)
+			data['referencia_vacante'] = self.get_cell_value(rowx=18, colx=9)
+			data['tiempo_transporte'] = self.get_cell_value(rowx=18, colx=36)
 			data['dependientes_economicos'] = self.get_cell_value(rowx=22, colx=8)
 
 			data['infonavit']['activo'] = self.get_cell_value(rowx=18, colx=9)
@@ -162,9 +164,11 @@ class PreCandidato(object):
 			data['trabajo_anterior_en_empresa']['tiene'] = self.get_cell_value(rowx=26, colx=15)
 			data['trabajo_anterior_en_empresa']['periodo'] = self.get_cell_value(rowx=26, colx=23)
 			data['trabajo_anterior_en_empresa']['puesto'] = self.get_cell_value(rowx=26, colx=33)
+			data['trabajo_anterior_en_empresa']['sucursal'] = self.get_cell_value(rowx=26, colx=39)
 			data['familiar_en_empresa']['tiene'] = self.get_cell_value(rowx=27, colx=17)
 			data['familiar_en_empresa']['nombre'] = self.get_cell_value(rowx=27, colx=24)
 			data['familiar_en_empresa']['puesto'] = self.get_cell_value(rowx=27, colx=36)
+			data['familiar_en_empresa']['sucursal'] = self.get_cell_value(rowx=27, colx=42)
 			data['cualidades'] = self.get_cell_value(rowx=28, colx=4)
 			data['defectos'] = self.get_cell_value(rowx=28, colx=24)
 			data['trabajo_que_desarrolla'] = self.get_cell_value(rowx=29, colx=14)

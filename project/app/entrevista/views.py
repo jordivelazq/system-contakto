@@ -124,7 +124,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		direccion = EntrevistaDireccion.objects.get(persona=candidato)
 		origen = EntrevistaOrigen.objects.get(persona=candidato)
 		licencia = EntrevistaLicencia.objects.get(persona=candidato)
-		prestaciones_vivienda = EntrevistaPrestacionVivienda.objects.filter(persona=candidato)
 
 		TelefonoFormSet = modelformset_factory(EntrevistaTelefono, extra=0, exclude=('persona', 'categoria',))
 		PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
@@ -135,15 +134,13 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			direccion_form = EntrevistaDireccionForm(request.POST, instance=direccion)
 			origen_form = EntrevistaOrigenForm(request.POST, instance=origen, prefix='origen')
 			licencia_form = EntrevistaLicenciaForm(request.POST, instance=licencia)
-			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones')
 
-			if candidato_form.is_valid() and tel_formset.is_valid() and direccion_form.is_valid() and origen_form.is_valid() and licencia_form.is_valid() and pv_formset.is_valid():
+			if candidato_form.is_valid() and tel_formset.is_valid() and direccion_form.is_valid() and origen_form.is_valid() and licencia_form.is_valid():
 				candidato_form.save()
 				tel_formset.save()
 				direccion_form.save()
 				origen_form.save()
 				licencia_form.save()
-				pv_formset.save()
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			candidato_form = EntrevistaPersonaForm(instance=candidato)
@@ -151,7 +148,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			direccion_form = EntrevistaDireccionForm(instance=direccion)
 			origen_form = EntrevistaOrigenForm(instance=origen, prefix='origen')
 			licencia_form = EntrevistaLicenciaForm(instance=licencia)
-			pv_formset = PrestacionViviendaFormSet(queryset=prestaciones_vivienda, prefix='prestaciones')
 
 	#INFO PERSONAL
 	elif seccion_entrevista == 'info-personal':
@@ -264,6 +260,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		deudas = EntrevistaDeudaActual.objects.filter(person=candidato)
 		ingresos = EntrevistaEconomica.objects.filter(person=candidato, tipo='ingreso')
 		egresos = EntrevistaEconomica.objects.filter(person=candidato, tipo='egreso')
+		prestaciones_vivienda = EntrevistaPrestacionVivienda.objects.filter(persona=candidato)
 
 		IngresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto',), form=MoneyFormatEntrevistaEconomicaForm)
 		EgresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto',), form=MoneyFormatEntrevistaEconomicaForm)
@@ -273,8 +270,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		BienesRaicesFormset = modelformset_factory(EntrevistaBienesRaices, extra=0, exclude=('person',), form=EntrevistaBienesRaicesForm)
 		SeguroFormset = modelformset_factory(EntrevistaSeguro, extra=0, exclude=('person',))
 		DeudaActualFormset = modelformset_factory(EntrevistaDeudaActual, extra=0, form=EntrevistaDeudaActualForm)
+		PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
 
 		if request.method == 'POST' and not is_usuario_contacto:
+			candidato_form = EntrevistaPersonaForm(request.POST, instance=candidato) # A form bound to the POST data
 			tarjetas_formset = TarjetaCreditoComercialFormset(request.POST, prefix='tarjetas')
 			cuentas_deb_formset = CuentaDebitoFormset(request.POST, prefix='cuentas_deb')
 			autos_formset = AutomovilFormset(request.POST, prefix='autos')
@@ -283,8 +282,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			deudas_formset = DeudaActualFormset(request.POST, prefix='deudas')
 			ingresos_formset = IngresosFormset(request.POST, prefix='ingresos')
 			egresos_formset = EgresosFormset(request.POST, prefix='egresos')
+			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones')
 
-			if tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid() and ingresos_formset.is_valid() and egresos_formset.is_valid():
+			if candidato_form.is_valid() and tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid() and ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
+				candidato_form.save()
 				tarjetas_formset.save()
 				cuentas_deb_formset.save()
 				autos_formset.save()
@@ -293,8 +294,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				deudas_formset.save()
 				ingresos_formset.save()
 				egresos_formset.save()
+				pv_formset.save()
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
+			candidato_form = EntrevistaPersonaForm(instance=candidato)
 			tarjetas_formset = TarjetaCreditoComercialFormset(queryset=tarjetas, prefix='tarjetas')
 			cuentas_deb_formset = CuentaDebitoFormset(queryset=cuentas_deb, prefix='cuentas_deb')
 			autos_formset = AutomovilFormset(queryset=autos, prefix='autos')
@@ -303,6 +306,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			deudas_formset = DeudaActualFormset(queryset=deudas, prefix='deudas')
 			ingresos_formset = IngresosFormset(queryset=ingresos, prefix='ingresos')
 			egresos_formset = EgresosFormset(queryset=egresos, prefix='egresos')
+			pv_formset = PrestacionViviendaFormSet(queryset=prestaciones_vivienda, prefix='prestaciones')
 
 	#REFERENCIAS
 	elif seccion_entrevista == 'referencias':

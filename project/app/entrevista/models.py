@@ -19,6 +19,7 @@ class EntrevistaFile(models.Model):
 class EntrevistaPersona(models.Model):
 	investigacion = models.ForeignKey(Investigacion)
 	nombre = models.CharField(max_length=140)
+	email = models.CharField(max_length=140, blank=True, null=True)
 	nss = models.CharField(verbose_name='NSS (IMSS)', max_length=30, blank=True, null=True)
 	edad = models.CharField(max_length=140, blank=True, null=True)
 	curp = models.CharField(verbose_name='CURP', max_length=30, blank=True, null=True)
@@ -31,6 +32,8 @@ class EntrevistaPersona(models.Model):
 	religion = models.CharField(verbose_name='Religión', max_length=140)
 	tiempo_radicando = models.CharField(verbose_name='Tiempo radicando en la ciudad', max_length=140, blank=True, null=True)
 	medio_utilizado = models.CharField(verbose_name='Medio que utiliza para transporte', max_length=140, blank=True, null=True)
+	referencia_vacante = models.CharField(verbose_name='Medio por el qué se enteró de la vacante', max_length=140, blank=True, null=True)
+	tiempo_transporte = models.CharField(verbose_name='Tiempo de trayecto al lugar de trabajo', max_length=140, blank=True, null=True)
 	fecha_registro = models.DateField(auto_now=True)
 	activa = models.BooleanField(default=True)
 	dependientes_economicos = models.TextField(max_length=200, blank=True, null=True)
@@ -41,9 +44,9 @@ class EntrevistaPersona(models.Model):
 class EntrevistaInvestigacion(models.Model):
 	RESULTADO_OPCIONES = (
 		('0', 'Por evaluar'),
-	    ('1', 'Viable'),
-	    ('2', 'Con reservas'),
-	    ('3', 'No viable'),
+		('1', 'Viable'),
+		('2', 'Con reservas'),
+		('3', 'No viable'),
 	)
 	agente = models.ForeignKey(User)
 	persona = models.ForeignKey(EntrevistaPersona)
@@ -94,7 +97,8 @@ class EntrevistaTelefono(models.Model):
 
 class EntrevistaDireccion(models.Model):
 	persona = models.ForeignKey(EntrevistaPersona)
-	calle = models.CharField(verbose_name='Calle / Num ext-int', max_length=140, null=True, blank=True)
+	calle = models.CharField(verbose_name='Calle', max_length=140, null=True, blank=True)
+	num = models.CharField(verbose_name='Num ext-int', max_length=140, null=True, blank=True)
 	ciudad = models.CharField(verbose_name='Ciudad', max_length=140, null=True, blank=True)
 	colonia = models.CharField(verbose_name='Colonia o fraccionamiento', max_length=140, null=True, blank=True)
 	cp = models.CharField(verbose_name='Código Postal', max_length=140, null=True, blank=True)
@@ -164,6 +168,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	puesto = models.CharField(max_length=500, null=True, blank=True)
 	periodo = models.CharField(max_length=500, null=True, blank=True)	#Solo para categ. trabajo
 	nombre = models.CharField(max_length=140, null=True, blank=True)	#Solo para cate. familiar
+	sucursal = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):
 		return '%s, %s' % (self.categoria, self.puesto)

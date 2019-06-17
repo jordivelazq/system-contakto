@@ -131,16 +131,7 @@ $(document).ready(function () {
   });
 
   formatCurrencyFields();
-
-  loadGrammarChecker()
-
 });
-
-// function loadGrammarChecker() {
-//   if ($('#id_investigacion-tipo_investigacion_texto').length) {
-//     CKEDITOR.replace('id_investigacion-tipo_investigacion_texto');
-//   }
-// }
 
 function get_currentpage() {
   var loc = window.location;

@@ -7,32 +7,62 @@
 			</div>
 		</div>
 	{% endif %}
+	<br />
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="text-danger">{{ candidato_form.dependientes_economicos.errors }}</div>
+					{{ candidato_form.dependientes_economicos.label_tag }}
+					{{ candidato_form.dependientes_economicos }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ pv_formset.management_form }}
+	{% for form in pv_formset %}
+	<div class="panel panel-default">
+		{{ form.id }}
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ form.instance.categoria_viv|title }}</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="text-danger">{{ form.activo.errors }}</div>
+					{{ form.activo.label_tag }}
+					{{ form.activo }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ form.numero_credito.errors }}</div>
+					{{ form.numero_credito.label_tag }}
+					{{ form.numero_credito }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ form.fecha_tramite.errors }}</div>
+					{{ form.fecha_tramite.label_tag }}
+					{{ form.fecha_tramite }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ form.uso.errors }}</div>
+					{{ form.uso.label_tag }}
+					{{ form.uso }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
 	<div class="row">
 		<div class="col-xs-3">
-			<h4>INGRESOS</h4>
-			{{ ingresos_formset.management_form }}
-			{% for form in ingresos_formset %}
-					{{ form.id }}
-				<div class="row">
-					<div class="col-xs-6" >
-						<label>{{form.instance.concepto|clean_type}}:</label>
-					</div>
-					<div class="col-xs-6">
-						<div class="text-danger">{{ form.monto.errors }}</div>
-						{{form.monto}}
-					</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">INGRESOS</h3>
 				</div>
-				<hr  class="thin-separator" />
-			{% endfor %}
-		</div>
-		<div class="col-xs-8 col-xs-offset-1">
-			<div class="row">
-				<h4>EGRESOS</h4>
-			</div>
-			<div class="row">
-				<div class="col-xs-6">
-					{{ egresos_formset.management_form }}
-					{% for form in egresos_formset %}
+				<div class="panel-body">
+					{{ ingresos_formset.management_form }}
+					{% for form in ingresos_formset %}
 							{{ form.id }}
 						<div class="row">
 							<div class="col-xs-6" >
@@ -43,312 +73,341 @@
 								{{form.monto}}
 							</div>
 						</div>
-						{% if forloop.counter == 7 %}<!--  Ajuste para hacer 2 columnas con este formset (egresos) -->
-							</div>
-							<div class="col-xs-6">
-						{% else %}
-							<hr  class="thin-separator" />
-						{% endif %}
+						<hr  class="thin-separator" />
 					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">EGRESOS</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-6">
+							{{ egresos_formset.management_form }}
+							{% for form in egresos_formset %}
+									{{ form.id }}
+								<div class="row">
+									<div class="col-xs-6" >
+										<label>{{form.instance.concepto|clean_type}}:</label>
+									</div>
+									<div class="col-xs-6">
+										<div class="text-danger">{{ form.monto.errors }}</div>
+										{{form.monto}}
+									</div>
+								</div>
+								{% if forloop.counter == 7 %}<!--  Ajuste para hacer 2 columnas con este formset (egresos) -->
+									</div>
+									<div class="col-xs-6">
+								{% else %}
+									<hr  class="thin-separator" />
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<hr />
+	<br />
 	
-	<div class="row">
-		<div class="text-center">
-			<h3>TARJETAS DE CRÉDITO</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">TARJETAS DE CRÉDITO</h3>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-3 text-center">
-			<label>INSTITUCIÓN</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>CRÉDITO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>PAGO MÍNIMO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>SALDO ACTUAL</label>
-		</div>
-	</div>
-	{{ tarjetas_formset.management_form }}
-	{% for form in tarjetas_formset %}
-		{{ form.id }}
-		<div class="row">
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.institucion.errors }}</div>
-				{{ form.institucion }}
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 text-center">
+					<label>INSTITUCIÓN</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>CRÉDITO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>PAGO MÍNIMO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>SALDO ACTUAL</label>
+				</div>
 			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.limite_credito.errors }}</div>
-				{{ form.limite_credito }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.pago_minimo.errors }}</div>
-				{{ form.pago_minimo }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.saldo_actual.errors }}</div>
-				{{ form.saldo_actual }}
-			</div>
-		</div>
-		{% if not forloop.last %}
-			<hr class="thin-separator" />
-		{% endif %}
-	{% endfor %}
-	
-	<hr class="thin-separator"/>
 
-	<div class="row">
-		<div class="text-center">
-			<h3>CUENTAS DE DÉBITO</h3>
+			{{ tarjetas_formset.management_form }}
+			{% for form in tarjetas_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.institucion.errors }}</div>
+						{{ form.institucion }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.limite_credito.errors }}</div>
+						{{ form.limite_credito }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.pago_minimo.errors }}</div>
+						{{ form.pago_minimo }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.saldo_actual.errors }}</div>
+						{{ form.saldo_actual }}
+					</div>
+				</div>
+				{% if not forloop.last %}
+					<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-3 text-center">
-			<label>INSTITUCIÓN</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>SALDO MENSUAL</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>ANTIGÜEDAD</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>AHORRO</label>
-		</div>
-	</div>
-	{{ cuentas_deb_formset.management_form }}
-	{% for form in cuentas_deb_formset %}
-		{{ form.id }}
-		<div class="row">
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.institucion.errors }}</div>
-				{{ form.institucion }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.saldo_mensual.errors }}</div>
-				{{ form.saldo_mensual }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.antiguedad.errors }}</div>
-				{{ form.antiguedad }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.ahorro.errors }}</div>
-				{{ form.ahorro }}
-			</div>
-		</div>
-		{% if not forloop.last %}
-			<hr class="thin-separator" />
-		{% endif %}
-	{% endfor %}
-	
-	<hr class="thin-separator"/>
 
-	<div class="row">
-		<div class="text-center">
-			<h3>AUTOMÓVILES</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">CUENTAS DE DÉBITO</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 text-center">
+					<label>INSTITUCIÓN</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>SALDO MENSUAL</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>ANTIGÜEDAD</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>AHORRO</label>
+				</div>
+			</div>
+			{{ cuentas_deb_formset.management_form }}
+			{% for form in cuentas_deb_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.institucion.errors }}</div>
+						{{ form.institucion }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.saldo_mensual.errors }}</div>
+						{{ form.saldo_mensual }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.antiguedad.errors }}</div>
+						{{ form.antiguedad }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.ahorro.errors }}</div>
+						{{ form.ahorro }}
+					</div>
+				</div>
+				{% if not forloop.last %}
+					<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-3 text-center">
-			<label>MARCA</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>MODELO Y AÑO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>LIQUIDADO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>VALOR COMERCIAL (M.N.)</label>
-		</div>
-	</div>
-	{{ autos_formset.management_form }}
-	{% for form in autos_formset %}
-		{{ form.id }}
-		<div class="row">
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.marca.errors }}</div>
-				{{ form.marca }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.modelo_ano.errors }}</div>
-				{{ form.modelo_ano }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.liquidacion.errors }}</div>
-				{{ form.liquidacion }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.valor_comercial.errors }}</div>
-				{{ form.valor_comercial }}
-			</div>
-		</div>
-		{% if not forloop.last %}
-			<hr class="thin-separator" />
-		{% endif %}
-	{% endfor %}
-	
-	<hr class="thin-separator"/>
 
-	<div class="row">
-		<div class="text-center">
-			<h3>BIENES RAÍCES</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">AUTOMÓVILES</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 text-center">
+					<label>MARCA</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>MODELO Y AÑO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>LIQUIDADO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>VALOR COMERCIAL (M.N.)</label>
+				</div>
+			</div>
+			{{ autos_formset.management_form }}
+			{% for form in autos_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.marca.errors }}</div>
+						{{ form.marca }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.modelo_ano.errors }}</div>
+						{{ form.modelo_ano }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.liquidacion.errors }}</div>
+						{{ form.liquidacion }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.valor_comercial.errors }}</div>
+						{{ form.valor_comercial }}
+					</div>
+				</div>
+				{% if not forloop.last %}
+					<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-3 text-center">
-			<label>TIPO DE INMUEBLE</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>UBICACIÓN (DIRECCIÓN COMPLETA)</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>LIQUIDADO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>VALOR COMERCIAL (M.N.)</label>
-		</div>
-	</div>
-	{{ bienesraices_formset.management_form }}
-	{% for form in bienesraices_formset %}
-		{{ form.id }}
-		<div class="row">
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.tipo_inmueble.errors }}</div>
-				{{ form.tipo_inmueble }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.ubicacion.errors }}</div>
-				{{ form.ubicacion }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.liquidacion.errors }}</div>
-				{{ form.liquidacion }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.valor_comercial.errors }}</div>
-				{{ form.valor_comercial }}
-			</div>
-		</div>
-		{% if not forloop.last %}
-			<hr class="thin-separator" />
-		{% endif %}
-	{% endfor %}
-	
-	<hr class="thin-separator"/>
 
-	<div class="row">
-		<div class="text-center">
-			<h3>SEGUROS</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">BIENES RAÍCES</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 text-center">
+					<label>TIPO DE INMUEBLE</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>UBICACIÓN (DIRECCIÓN COMPLETA)</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>LIQUIDADO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>VALOR COMERCIAL (M.N.)</label>
+				</div>
+			</div>
+			{{ bienesraices_formset.management_form }}
+			{% for form in bienesraices_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.tipo_inmueble.errors }}</div>
+						{{ form.tipo_inmueble }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.ubicacion.errors }}</div>
+						{{ form.ubicacion }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.liquidacion.errors }}</div>
+						{{ form.liquidacion }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.valor_comercial.errors }}</div>
+						{{ form.valor_comercial }}
+					</div>
+				</div>
+				{% if not forloop.last %}
+					<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-3 text-center">
-			<label>EMPRESA</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>TIPO DE SEGURO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>FORMA DE PAGO</label>
-		</div>
-		<div class="col-xs-3 text-center">
-			<label>VIGENCIA</label>
-		</div>
-	</div>
-	{{ seguros_formset.management_form }}
-	{% for form in seguros_formset %}
-		{{ form.id }}
-		<div class="row">
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.empresa.errors }}</div>
-				{{ form.empresa }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.tipo.errors }}</div>
-				{{ form.tipo }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.forma_pago.errors }}</div>
-				{{ form.forma_pago }}
-			</div>
-			<div class="col-xs-3">
-				<div class="text-danger">{{ form.vigencia.errors }}</div>
-				{{ form.vigencia }}
-			</div>
-		</div>
-		{% if not forloop.last %}
-			<hr class="thin-separator" />
-		{% endif %}
-	{% endfor %}
-	
-	<hr class="thin-separator"/>
 
-	<div class="row">
-		<div class="text-center">
-			<h3>DEUDAS ACTUALES</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">SEGUROS</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 text-center">
+					<label>EMPRESA</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>TIPO DE SEGURO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>FORMA DE PAGO</label>
+				</div>
+				<div class="col-xs-3 text-center">
+					<label>VIGENCIA</label>
+				</div>
+			</div>
+			{{ seguros_formset.management_form }}
+			{% for form in seguros_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.empresa.errors }}</div>
+						{{ form.empresa }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.tipo.errors }}</div>
+						{{ form.tipo }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.forma_pago.errors }}</div>
+						{{ form.forma_pago }}
+					</div>
+					<div class="col-xs-3">
+						<div class="text-danger">{{ form.vigencia.errors }}</div>
+						{{ form.vigencia }}
+					</div>
+				</div>
+				{% if not forloop.last %}
+					<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-2 text-center">
-			<label>FECHA OTORGAMIENTO</label>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">DEUDAS ACTUALES</h3>
 		</div>
-		<div class="col-xs-2 text-center">
-			<label>TIPO</label>
-		</div>
-		<div class="col-xs-2 text-center">
-			<label>INSTITUCIÓN</label>
-		</div>
-		<div class="col-xs-2 text-center">
-			<label>CANTIDAD TOTAL</label>
-		</div>
-		<div class="col-xs-2 text-center">
-			<label>SALDO ACTUAL</label>
-		</div>
-		<div class="col-xs-2 text-center">
-			<label>PAGO MENSUAL</label>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-2 text-center">
+					<label>FECHA OTORGAMIENTO</label>
+				</div>
+				<div class="col-xs-2 text-center">
+					<label>TIPO</label>
+				</div>
+				<div class="col-xs-2 text-center">
+					<label>INSTITUCIÓN</label>
+				</div>
+				<div class="col-xs-2 text-center">
+					<label>CANTIDAD TOTAL</label>
+				</div>
+				<div class="col-xs-2 text-center">
+					<label>SALDO ACTUAL</label>
+				</div>
+				<div class="col-xs-2 text-center">
+					<label>PAGO MENSUAL</label>
+				</div>
+			</div>
+			{{ deudas_formset.management_form }}
+			{% for form in deudas_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-xs-2">
+						<div class="text-danger">{{ form.fecha_otorgamiento.errors }}</div>
+						{{ form.fecha_otorgamiento }}
+					</div>
+					<div class="col-xs-2">
+						<div class="text-danger">{{ form.tipo.errors }}</div>
+						{{ form.tipo }}
+					</div>
+					<div class="col-xs-2">
+						<div class="text-danger">{{ form.institucion.errors }}</div>
+						{{ form.institucion }}
+					</div>
+					<div class="col-xs-2">
+						<div class="text-danger">{{ form.cantidad_total.errors }}</div>
+						{{ form.cantidad_total }}
+					</div>
+					<div class="col-xs-2">
+						<div class="text-danger">{{ form.saldo_actual.errors }}</div>
+						{{ form.saldo_actual }}
+					</div>
+					<div class="col-xs-2">
+						<div class="text-danger">{{ form.pago_mensual.errors }}</div>
+						{{ form.pago_mensual }}
+					</div>
+				</div>
+				{% if not forloop.last %}
+					<hr class="thin-separator" />
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	{{ deudas_formset.management_form }}
-	{% for form in deudas_formset %}
-		{{ form.id }}
-		<div class="row">
-			<div class="col-xs-2">
-				<div class="text-danger">{{ form.fecha_otorgamiento.errors }}</div>
-				{{ form.fecha_otorgamiento }}
-			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">{{ form.tipo.errors }}</div>
-				{{ form.tipo }}
-			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">{{ form.institucion.errors }}</div>
-				{{ form.institucion }}
-			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">{{ form.cantidad_total.errors }}</div>
-				{{ form.cantidad_total }}
-			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">{{ form.saldo_actual.errors }}</div>
-				{{ form.saldo_actual }}
-			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">{{ form.pago_mensual.errors }}</div>
-				{{ form.pago_mensual }}
-			</div>
-		</div>
-		{% if not forloop.last %}
-			<hr class="thin-separator" />
-		{% endif %}
-	{% endfor %}
-	
 </form>

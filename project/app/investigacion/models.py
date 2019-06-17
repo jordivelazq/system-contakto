@@ -20,19 +20,19 @@ class Investigacion(models.Model):
 	)
 	RESULTADO_OPCIONES = (
 		('0', 'Por evaluar'),
-	    ('1', 'Viable'),
-	    ('2', 'No viable'),
-	    ('3', 'Con reservas'),
+		('1', 'Viable'),
+		('2', 'No viable'),
+		('3', 'Con reservas'),
 	)
 	STATUS_OPCIONES = (
-	    ('0', 'En Investigación'),
-	    ('1', 'Pdt. por Cliente'),
-	    ('2', 'Inv. Terminada'),
+		('0', 'En Investigación'),
+		('1', 'Pdt. por Cliente'),
+		('2', 'Inv. Terminada'),
 	)
 	STATUS_GRAL_OPCIONES = (
-	    ('0', 'Abierto'),
-	    ('1', 'Pdt. por Cliente'),
-	    ('2', 'Cerrada'),
+		('0', 'Abierto'),
+		('1', 'Pdt. por Cliente'),
+		('2', 'Cerrada'),
 	)
 	
 	agente = models.ForeignKey(User)
