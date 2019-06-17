@@ -60,8 +60,6 @@ def panel(request):
 		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
 		i.entrevista = i.entrevistapersona_set.all()[0].entrevistainvestigacion_set.all()[0] if i.entrevistapersona_set.all().count() else None
 		i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
-		for t in i.trayectoria:
-			t.cardex = t.evaluacion_set.all()[0].opinion_set.filter(categoria=2)[0].opinion if t.evaluacion_set.all()[0].opinion_set.filter(categoria=2).count() else None
 			
 	return render_to_response('sections/reportes/panel.html', locals())
 
