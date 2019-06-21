@@ -136,15 +136,15 @@ class PreCandidato(object):
 			data['tiempo_transporte'] = self.get_cell_value(rowx=18, colx=36)
 			data['dependientes_economicos'] = self.get_cell_value(rowx=22, colx=8)
 
-			data['infonavit']['activo'] = self.get_cell_value(rowx=18, colx=9)
-			data['infonavit']['numero'] = self.get_cell_value(rowx=18, colx=23)
-			data['infonavit']['fecha_tramite'] = self.get_cell_value(rowx=18, colx=37)
-			data['infonavit']['uso'] = self.get_cell_value(rowx=19, colx=11)
+			data['infonavit']['activo'] = self.get_cell_value(rowx=130, colx=7)
+			data['infonavit']['numero'] = self.get_cell_value(rowx=130, colx=16)
+			data['infonavit']['fecha_tramite'] = self.get_cell_value(rowx=130, colx=29)
+			data['infonavit']['uso'] = self.get_cell_value(rowx=130, colx=37)
 			
-			data['fonacot']['activo'] = self.get_cell_value(rowx=20, colx=9)
-			data['fonacot']['numero'] = self.get_cell_value(rowx=20, colx=23)
-			data['fonacot']['fecha_tramite'] = self.get_cell_value(rowx=20, colx=37)
-			data['fonacot']['uso'] = self.get_cell_value(rowx=21, colx=11)
+			data['fonacot']['activo'] = self.get_cell_value(rowx=131, colx=7)
+			data['fonacot']['numero'] = self.get_cell_value(rowx=131, colx=16)
+			data['fonacot']['fecha_tramite'] = self.get_cell_value(rowx=131, colx=29)
+			data['fonacot']['uso'] = self.get_cell_value(rowx=131, colx=37)
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos generales, revisar formato.')
 		
@@ -159,15 +159,18 @@ class PreCandidato(object):
 				'familiar_en_empresa': {}
 			}
 		try:
-			data['trabajo_anterior_en_empresa']['tiene'] = self.get_cell_value(rowx=26, colx=15)
-			data['trabajo_anterior_en_empresa']['periodo'] = self.get_cell_value(rowx=26, colx=23)
+			data['trabajo_anterior_en_empresa']['tiene'] = self.get_cell_value(rowx=26, colx=9)
+			data['trabajo_anterior_en_empresa']['periodo'] = self.get_cell_value(rowx=26, colx=16)
+			data['trabajo_anterior_en_empresa']['motivo_salida'] = self.get_cell_value(rowx=26, colx=24)
 			data['trabajo_anterior_en_empresa']['puesto'] = self.get_cell_value(rowx=26, colx=33)
 			data['trabajo_anterior_en_empresa']['sucursal'] = self.get_cell_value(rowx=26, colx=39)
-			data['familiar_en_empresa']['tiene'] = self.get_cell_value(rowx=27, colx=17)
-			data['familiar_en_empresa']['nombre'] = self.get_cell_value(rowx=27, colx=24)
-			data['familiar_en_empresa']['puesto'] = self.get_cell_value(rowx=27, colx=36)
-			data['familiar_en_empresa']['sucursal'] = self.get_cell_value(rowx=27, colx=42)
-			data['antecedentes_penales'] = self.get_cell_value(rowx=29, colx=14)
+
+			data['familiar_en_empresa']['tiene'] = self.get_cell_value(rowx=27, colx=9)
+			data['familiar_en_empresa']['nombre'] = self.get_cell_value(rowx=27, colx=16)
+			data['familiar_en_empresa']['puesto'] = self.get_cell_value(rowx=27, colx=33)
+			data['familiar_en_empresa']['sucursal'] = self.get_cell_value(rowx=27, colx=39)
+
+			data['antecedentes_penales'] = self.get_cell_value(rowx=29, colx=8)
 			data['tatuajes'] = self.get_cell_value(rowx=30, colx=21)
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos personales, revisar formato.')

@@ -68,8 +68,8 @@ class EntrevistaInvestigacion(models.Model):
 '''
 class EntrevistaCita(models.Model):
 	investigacion = models.ForeignKey(Investigacion)
-	fecha_entrevista = models.DateField(blank=True, null=True)
-	hora_entrevista = models.TimeField(blank=True, null=True)
+	fecha_entrevista = models.CharField(max_length=200, blank=True, null=True)
+	hora_entrevista = models.CharField(max_length=200, blank=True, null=True)
 	entrevistador = models.CharField(max_length=200, blank=True, null=True)
 	autorizada = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	observaciones = models.TextField(max_length=500, null=True, blank=True)
@@ -161,6 +161,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	periodo = models.CharField(max_length=500, null=True, blank=True)	#Solo para categ. trabajo
 	nombre = models.CharField(max_length=140, null=True, blank=True)	#Solo para cate. familiar
 	sucursal = models.CharField(max_length=140, null=True, blank=True)
+	motivo_salida = models.CharField(max_length=140, null=True, blank=True) #Solo para categ. trabajo
 
 	def __unicode__(self):
 		return '%s, %s' % (self.categoria, self.puesto)

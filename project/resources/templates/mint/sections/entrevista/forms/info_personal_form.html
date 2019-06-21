@@ -51,10 +51,6 @@
 						<label>Puesto:</label>
 						<div class="text-danger">{{form.puesto.errors}}</div>
 						{{form.puesto}}
-	
-						<label>Sucursal:</label>
-						<div class="text-danger">{{form.sucursal.errors}}</div>
-						{{form.sucursal}}
 						
 						{% if form.instance.categoria == 'trabajo' %}
 							<label>Periodo:</label>
@@ -66,6 +62,16 @@
 							<label>Nombre:</label>
 							<div class="text-danger">{{form.nombre.errors}}</div>
 							{{form.nombre}}
+						{% endif %}
+						
+						<label>Sucursal:</label>
+						<div class="text-danger">{{form.sucursal.errors}}</div>
+						{{form.sucursal}}
+						
+						{% if form.instance.categoria == 'trabajo' %}
+							<label>Motivo de Salida:</label>
+							<div class="text-danger">{{form.motivo_salida.errors}}</div>
+							{{form.motivo_salida}}
 						{% endif %}
 	
 					</div>

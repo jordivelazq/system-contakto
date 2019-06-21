@@ -4,6 +4,7 @@ from app.investigacion.models import Investigacion
 from app.compania.models import *
 from app.entrevista.services import EntrevistaService
 
+
 class ControllerPersona(object):
 	'''
 		Clase auxiliar para realizar el guardado en la base de datos sobre la infromación extraida del usuario 
@@ -56,7 +57,7 @@ class ControllerPersona(object):
 		#Asignar info cuadro evaluación
 		self.setCuadroEvaluacion(candidato, data['candidato']['cuadro_evaluacion'])
 		#Crear registro de investigacion
-		self.setInvestigacion(candidato, data['investigacion'], archivo_id, user)
+		self.setInvestigacion(investigacion, candidato, data['investigacion'], archivo_id, user)
 
 		return candidato.id
 
@@ -154,6 +155,7 @@ class ControllerPersona(object):
 			EntrevistaHistorialEnEmpresa(	persona=candidato,
 											categoria='trabajo',
 											tiene=info_personal['trabajo_anterior_en_empresa']['tiene'],
+											motivo_salida=info_personal['trabajo_anterior_en_empresa']['motivo_salida'],
 											puesto=info_personal['trabajo_anterior_en_empresa']['puesto'],
 											sucursal=info_personal['trabajo_anterior_en_empresa']['sucursal'],
 											periodo=info_personal['trabajo_anterior_en_empresa']['periodo']).save()
@@ -204,7 +206,7 @@ class ControllerPersona(object):
 											frecuencia_alcohol=actividades_habitos['frecuencia_alcohol'],
 											frecuencia_otras_sust=actividades_habitos['frecuencia_otras_sust']).save()
 		except Exception, e:
-			self.errors.append('Error en registro de datos generales.')
+			self.errors.append('Error en registro de actividades y hábitos.')
 
 		return	
 
@@ -437,7 +439,7 @@ class ControllerPersona(object):
 
 		return
 
-	def setInvestigacion(self, candidato, data_investigacion, archivo_id, user):
+	def setInvestigacion(self, investigacion, candidato, data_investigacion, archivo_id, user):
 		try:
 			#Determinar valor de 'resultado'
 			resultado = '0'#'por evaluar'
@@ -449,7 +451,7 @@ class ControllerPersona(object):
 				resultado = '2'#'con reservas'
 
 			#Guardar registro Investigación
-			entrevista = EntrevistaInvestigacion(agente=user,
+			EntrevistaInvestigacion(agente=user,
 										persona = candidato,
 										empresa_contratante = data_investigacion['empresa'],
 										puesto = data_investigacion['puesto'],
@@ -458,8 +460,9 @@ class ControllerPersona(object):
 										resultado = resultado,
 										archivo = archivo_id
 									).save()
+			EntrevistaCita(investigacion=investigacion, fecha_entrevista=data_investigacion['fecha'], hora_entrevista=data_investigacion['fecha_hora']).save()
 		except Exception, e:
-			self.errors.append('Error en registro de conclusiones.')
+			self.errors.append('Error en registro de investigación.')
 
 		return
 

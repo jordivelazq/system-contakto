@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -350,7 +349,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			investigacion_form = EntrevistaInvestigacionForm(instance=entrevista_investigacion, prefix='investigacion')
 
 	elif seccion_entrevista == 'cita':
-		entrevista_cita = investigacion.entrevistacita_set.all()[0]
+		entrevista_cita = investigacion.entrevistacita_set.all().order_by('-id')[0]
 		admin = 1 if request.user.is_superuser else 0
 
 		if request.method == 'POST' and not is_usuario_contacto:
