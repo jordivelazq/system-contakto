@@ -255,6 +255,7 @@ class ControllerPersona(object):
 											sector_socioeconomico = situacion_vivienda['sector_socioeconomico'],
 											personas_viven_con_evaluado = situacion_vivienda['personas_viven_con_evaluado'],
 											conservacion = situacion_vivienda['conservacion'],
+											domicilio_anterior = situacion_vivienda['domicilio_anterior'],
 											tamano_aprox_mts2 = situacion_vivienda['tamano_aprox_mts2']).save()
 			
 			EntrevistaPropietarioVivienda(	person = candidato,

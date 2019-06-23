@@ -315,6 +315,7 @@ class PreCandidato(object):
 			data['personas_viven_con_evaluado'] = self.get_cell_value(rowx=61,colx=12)
 			data['conservacion'] = self.get_cell_value(rowx=62,colx=10)
 			data['tamano_aprox_mts2'] = self.get_cell_value(rowx=62,colx=34)
+			data['domicilio_anterior'] = self.get_cell_value(rowx=63,colx=20)
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos de vivienda, revisar formato.')
 

@@ -254,6 +254,7 @@ class EntrevistaSituacionVivienda(models.Model):
 	personas_viven_con_evaluado = models.CharField(max_length=50, null=True, blank=True)
 	conservacion = models.CharField(max_length=200, null=True, blank=True)
 	tamano_aprox_mts2 = models.CharField(max_length=50, null=True, blank=True)
+	domicilio_anterior = models.CharField(max_length=500, null=True, blank=True)
 
 	def __unicode__(self):
 		return '%s, %s' % (self.tiempo_radicando, self.conservacion)
