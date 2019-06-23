@@ -200,8 +200,10 @@ class ControllerPersona(object):
 		'''
 		try:
 			EntrevistaActividadesHabitos(	persona=candidato,
-											tiempo_libre=actividades_habitos['tiempo_libre'],
-											extras=actividades_habitos['extras'],
+											inactividad_laboral=actividades_habitos['inactividad_laboral'],
+											inactividad_laboral_actividad=actividades_habitos['inactividad_laboral_actividad'],
+											negocios=actividades_habitos['negocios'],
+											negocios_actividad=actividades_habitos['negocios_actividad'],
 											frecuencia_tabaco=actividades_habitos['frecuencia_tabaco'],
 											frecuencia_alcohol=actividades_habitos['frecuencia_alcohol'],
 											frecuencia_otras_sust=actividades_habitos['frecuencia_otras_sust']).save()

@@ -206,8 +206,10 @@ class PreCandidato(object):
 		'''
 		data = {}
 		try:
-			data['tiempo_libre'] = self.get_cell_value(rowx=39,colx=9)
-			data['extras'] = self.get_cell_value(rowx=39,colx=29)
+			data['inactividad_laboral'] = self.get_cell_value(rowx=39,colx=9)
+			data['inactividad_laboral_actividad'] = self.get_cell_value(rowx=39,colx=29)
+			data['negocios'] = self.get_cell_value(rowx=41,colx=12)
+			data['negocios_actividad'] = self.get_cell_value(rowx=41,colx=29)
 			data['frecuencia_tabaco'] = self.get_cell_value(rowx=40,colx=16)
 			data['frecuencia_alcohol'] = self.get_cell_value(rowx=40,colx=24)
 			data['frecuencia_otras_sust'] = self.get_cell_value(rowx=40,colx=35)

@@ -191,7 +191,10 @@ class EntrevistaSalud(models.Model):
 
 class EntrevistaActividadesHabitos(models.Model):
 	persona = models.ForeignKey(EntrevistaPersona)
-	tiempo_libre = models.CharField(max_length=140, null=True, blank=True)
+	inactividad_laboral = models.CharField(max_length=140, null=True, blank=True)
+	inactividad_laboral_actividad = models.CharField(max_length=500, null=True, blank=True)
+	negocios = models.CharField(max_length=140, null=True, blank=True)
+	negocios_actividad = models.CharField(max_length=500, null=True, blank=True)
 	extras = models.CharField(max_length=140, null=True, blank=True)
 	frecuencia_tabaco = models.CharField(max_length=140, null=True, blank=True)
 	frecuencia_alcohol = models.CharField(max_length=140, null=True, blank=True)
