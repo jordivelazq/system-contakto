@@ -220,7 +220,10 @@ class ControllerPersona(object):
 			EntrevistaAcademica(	person = candidato,
 									cedula_profesional = info_academica['cedula_profesional'],
 									cedula_prof_ano_exp = info_academica['cedula_prof_ano_exp'],
-									estudios_actuales = info_academica['estudios_actuales']).save()
+									estudios_institucion = info_academica['estudios_institucion'],
+									estudios_que = info_academica['estudios_que'],
+									estudios_horarios = info_academica['estudios_horarios'],
+									estudios_dias = info_academica['estudios_dias']).save()
 
 
 			for grado in EntrevistaGradoEscolaridad.GRADO_OPCIONES:
@@ -232,7 +235,9 @@ class ControllerPersona(object):
 											certificado = info_academica[grado[0]]['certificado']).save()
 
 			EntrevistaOtroIdioma(	person = candidato,
-									porcentaje = info_academica['otro_idioma']['porcentaje'],
+									hablado = info_academica['otro_idioma']['hablado'],
+									leido = info_academica['otro_idioma']['leido'],
+									escuchado = info_academica['otro_idioma']['escuchado'],
 									idioma = info_academica['otro_idioma']['idioma']).save()
 		except Exception, e:
 			self.errors.append('Error en registro de información académica.')

@@ -195,13 +195,9 @@ class EntrevistaActividadesHabitos(models.Model):
 	inactividad_laboral_actividad = models.CharField(max_length=500, null=True, blank=True)
 	negocios = models.CharField(max_length=140, null=True, blank=True)
 	negocios_actividad = models.CharField(max_length=500, null=True, blank=True)
-	extras = models.CharField(max_length=140, null=True, blank=True)
 	frecuencia_tabaco = models.CharField(max_length=140, null=True, blank=True)
 	frecuencia_alcohol = models.CharField(max_length=140, null=True, blank=True)
 	frecuencia_otras_sust = models.CharField(max_length=140, null=True, blank=True)
-
-	def __unicode__(self):
-		return '%s' % (self.tiempo_libre)
 
 '''
 	Modelos información Académica
@@ -211,7 +207,10 @@ class EntrevistaAcademica(models.Model):
 	person = models.ForeignKey(EntrevistaPersona)
 	cedula_profesional = models.CharField(max_length=200, null=True, blank=True)
 	cedula_prof_ano_exp = models.CharField(max_length=200, null=True, blank=True)
-	estudios_actuales = models.CharField(max_length=200, null=True, blank=True)
+	estudios_institucion = models.CharField(max_length=200, null=True, blank=True)
+	estudios_que = models.CharField(max_length=200, null=True, blank=True)
+	estudios_horarios = models.CharField(max_length=200, null=True, blank=True)
+	estudios_dias = models.CharField(max_length=200, null=True, blank=True)
 	
 	def __unicode__(self):
 		return '%s' % (self.estudios_actuales)
@@ -236,11 +235,13 @@ class EntrevistaGradoEscolaridad(models.Model):
 
 class EntrevistaOtroIdioma(models.Model):
 	person = models.ForeignKey(EntrevistaPersona)
-	porcentaje = models.CharField(max_length=140, null=True, blank=True)
+	hablado = models.CharField(max_length=140, null=True, blank=True)
+	leido = models.CharField(max_length=140, null=True, blank=True)
+	escuchado = models.CharField(max_length=140, null=True, blank=True)
 	idioma = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s' % (self.idioma, self.porcentaje)
+		return '%s, %s' % (self.idioma)
 
 '''
 	Modelos Situacion Vivienda

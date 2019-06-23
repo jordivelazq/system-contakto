@@ -256,12 +256,17 @@ class PreCandidato(object):
 			data['otro_grado']['anos'] = self.get_cell_value(rowx=50,colx=30)
 			data['otro_grado']['certificado'] = self.get_cell_value(rowx=50,colx=35)
 
-			data['otro_idioma']['idioma'] = self.get_cell_value(rowx=51,colx=9)
-			data['otro_idioma']['porcentaje'] = self.get_percentage(rowx=51,colx=20)
+			data['otro_idioma']['idioma'] = self.get_cell_value(rowx=51,colx=7)
+			data['otro_idioma']['hablado'] = self.get_percentage(rowx=51,colx=14)
+			data['otro_idioma']['leido'] = self.get_percentage(rowx=51,colx=18)
+			data['otro_idioma']['escuchado'] = self.get_percentage(rowx=51,colx=23)
 
 			data['cedula_profesional'] = self.get_cell_value(rowx=51,colx=32)
 			data['cedula_prof_ano_exp'] = self.get_cell_value(rowx=51,colx=40)
-			data['estudios_actuales'] = self.get_cell_value(rowx=52,colx=21)
+			data['estudios_institucion'] = self.get_cell_value(rowx=52,colx=9)
+			data['estudios_que'] = self.get_cell_value(rowx=52,colx=21)
+			data['estudios_horarios'] = self.get_cell_value(rowx=52,colx=30)
+			data['estudios_dias'] = self.get_cell_value(rowx=52,colx=37)
 
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos académicos, revisar formato.')
