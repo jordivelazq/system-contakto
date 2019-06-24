@@ -13,7 +13,11 @@
         <table>
           <tr>
             <th>ZONA</th>
-            <td>{{ investigacion.compania.sucursal}}</td>
+            <td>
+              {% with investigacion.compania.sucursales_set.all|first as sucursal %}
+              {{ sucursal}}
+              {% endwith %}
+            </td>
           </tr>
           <tr>
             <th>SOLICITANTE</th>

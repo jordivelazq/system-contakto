@@ -19,7 +19,7 @@
                   AFILIACIÓN AL IMSS
                 </th>
                 <td>
-                  {{ref.aparece_nss|activo_opciones}}
+                  {{ref.aparece_nss|activo_opciones|default:'&nbsp;'}}
                 </td>
               </tr>
               <tr>
@@ -39,8 +39,12 @@
                   CARTA LABORAL
                 </th>
                 <td colspan="3">
+                  {% if ref.cartalaboral.fecha %}
                   FECHA: {{ref.cartalaboral.fecha}} <Br />
                   QUIEN EXPIDE: {{ref.cartalaboral.expide}}
+                  {% else %}
+                  NO <br /><br />
+                  {% endif %}
                 </td>
               </tr>
             </table>
@@ -381,7 +385,7 @@
       <table class="table-border">
         <tr>
           <th class="background-white">OBSERVACIONES DE EJECUTIVA DE RRHH</th>
-          <td class="background-dark-gray">{{ref.observaciones_generales}}</td>
+          <td colspan="3" class="background-dark-gray">{{ref.observaciones_generales}}</td>
         </tr>
       </table>
 
