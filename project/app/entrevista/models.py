@@ -164,7 +164,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	motivo_salida = models.CharField(max_length=140, null=True, blank=True) #Solo para categ. trabajo
 
 	def __unicode__(self):
-		return '%s, %s' % (self.categoria, self.puesto)
+		return '%s' % (self.tiene)
 	
 
 '''
@@ -187,7 +187,7 @@ class EntrevistaSalud(models.Model):
 	institucion_medica = models.CharField(max_length=200, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s' % (self.enfermedades_mayor_frecuencia, self.enfermedades_familiares)
+		return '%s' % (self.peso_kg)
 
 class EntrevistaActividadesHabitos(models.Model):
 	persona = models.ForeignKey(EntrevistaPersona)
@@ -211,13 +211,10 @@ class EntrevistaAcademica(models.Model):
 	estudios_que = models.CharField(max_length=200, null=True, blank=True)
 	estudios_horarios = models.CharField(max_length=200, null=True, blank=True)
 	estudios_dias = models.CharField(max_length=200, null=True, blank=True)
-	
-	def __unicode__(self):
-		return '%s' % (self.estudios_actuales)
 
 class EntrevistaGradoEscolaridad(models.Model):
 	GRADO_OPCIONES = (
-	    ('primaria' , 'Primaria'),
+		('primaria' , 'Primaria'),
 		('secundaria' , 'Secundaria'),
 		('preparatoria' , 'Preparatoria'),
 		('profesional' , 'Profesional'),
@@ -231,7 +228,7 @@ class EntrevistaGradoEscolaridad(models.Model):
 	certificado = models.CharField(max_length=200, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s' % (self.grado, self.institucion)
+		return '%s' % (self.grado)
 
 class EntrevistaOtroIdioma(models.Model):
 	person = models.ForeignKey(EntrevistaPersona)
@@ -241,7 +238,7 @@ class EntrevistaOtroIdioma(models.Model):
 	idioma = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s' % (self.idioma)
+		return '%s' % (self.idioma)
 
 '''
 	Modelos Situacion Vivienda

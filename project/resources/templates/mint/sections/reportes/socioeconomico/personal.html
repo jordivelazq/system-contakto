@@ -14,11 +14,11 @@
           <th colspan="2">SUCURSAL Y/O CIUDAD</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
+          <td colspan="2">{{historial_en_empresa}}</td>
+          <td colspan="2">{{historial_en_empresa.puesto}}</td>
+          <td colspan="2">{{historial_en_empresa.periodo}}</td>
+          <td colspan="2">{{historial_en_empresa.motivo_salida|default:''}}</td>
+          <td colspan="2">{{historial_en_empresa.sucursal}}</td>
         </tr>
 
         <tr>
@@ -29,11 +29,11 @@
           <th colspan="2">SUCURSAL Y/O CIUDAD</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
+          <td colspan="2">{{historial_familiar_en_empresa}}</td>
+          <td colspan="2">{{historial_familiar_en_empresa.nombre}}</td>
+          <td colspan="2">{{historial_familiar_en_empresa.puesto}}</td>
+          <td colspan="2">*REVISAR*</td>
+          <td colspan="2">{{historial_familiar_en_empresa.sucursal}}</td>
         </tr>
 
         <tr>
@@ -41,30 +41,30 @@
           <th colspan="5">CUENTA CON ALGÚN TATUAJE O ARETE (ESPECIFICAR CANTIDAD Y ÁREA DEL CUERPO)</th>
         </tr>
         <tr>
-          <td colspan="5">&nbsp;</td>
-          <td colspan="5"></td>
+          <td colspan="5">{{info_personal.antecedentes_penales}}</td>
+          <td colspan="5">{{info_personal.tatuajes}}</td>
         </tr>
 
         <tr>
-          <th>PESO (KG)</th>
-          <th>ESTATURA (MTS)</th>
-          <th>SALUD FÍSICA </th>
-          <th>SALUD VISUAL</th>
-          <th>EMBARAZO (# MESES)</th>
+          <th colspan="2">PESO (KG)</th>
+          <th colspan="2">ESTATURA (MTS)</th>
+          <th colspan="2">SALUD FÍSICA </th>
+          <th colspan="2">SALUD VISUAL</th>
+          <th colspan="2">EMBARAZO (# MESES)</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
+          <td colspan="2">{{salud}}</td>
+          <td colspan="2">{{salud.estatura_mts}}</td>
+          <td colspan="2">{{salud.salud_fisica}}</td>
+          <td colspan="2">{{salud.salud_visual}}</td>
+          <td colspan="2">{{salud.embarazo_meses}}</td>
         </tr>
 
         <tr>
           <th colspan="10">EJERCICIO QUE PRACTICA Y CON QUÉ FRECUENCIA LO HACE</th>
         </tr>
         <tr>
-          <td colspan="10">&nbsp;</td>
+          <td colspan="10">{{salud.ejercicio_tipo_frecuencia}}</td>
         </tr>
 
         <tr>
@@ -72,8 +72,8 @@
           <th colspan="5">INTERVENCIONES QUIRÚRGICAS</th>
         </tr>
         <tr>
-          <td colspan="5">&nbsp;</td>
-          <td colspan="5"></td>
+          <td colspan="5">{{salud.accidentes}}</td>
+          <td colspan="5">{{salud.intervenciones_quirurgicas}}</td>
         </tr>
 
         <tr>
@@ -81,8 +81,8 @@
           <th colspan="5">HA ESTADO BAJO TRATAMIENTO MÉDICO O PSICOLÓGICO</th>
         </tr>
         <tr>
-          <td colspan="5">&nbsp;</td>
-          <td colspan="5"></td>
+          <td colspan="5">{{salud.enfermedades_familiares}}</td>
+          <td colspan="5">{{salud.tratamiento_medico_psicologico}}</td>
         </tr>
 
         <tr>
@@ -90,8 +90,8 @@
           <th colspan="5">INSTITUCIÓN MÉDICA A LA QUE ACUDE</th>
         </tr>
         <tr>
-          <td colspan="5">&nbsp;</td>
-          <td colspan="5"></td>
+          <td colspan="5">{{salud.enfermedades_mayor_frecuencia}}</td>
+          <td colspan="5">{{salud.institucion_medica}}</td>
         </tr>
 
       </table>
@@ -107,22 +107,19 @@
           <th>PERIODOS</th>
           <th>EXHIBE CERTIFICADO</th>
         </tr>
+        {% for grado in info_academica_grados %}
         <tr>
-          <td>&nbsp;</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{grado}}</td>
+          <td>{{grado.institucion}}</td>
+          <td>{{grado.ciudad}}</td>
+          <td>{{grado.anos}}</td>
+          <td>{{grado.certificado}}</td>
         </tr>
-
-        <tr>
-          <th>OTRA</th>
-          <td colspan="4">&nbsp;</td>
-        </tr>
+        {% endfor %}
 
         <tr>
           <th>CEDULA PROFESIONAL</th>
-          <td colspan="4">&nbsp;</td>
+          <td colspan="4">{{info_academica.cedula_profesional}}</td>
         </tr>
       </table>
       <table>
@@ -133,10 +130,10 @@
           <th>ESCRITO <small>(PORCENTAJE)</small></th>
         </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{info_academica_idioma}}</td>
+          <td>{{info_academica_idioma.hablado|default:"&nbsp;"}}</td>
+          <td>{{info_academica_idioma.leido|default:""}}</td>
+          <td>{{info_academica_idioma.escuchado|default:""}}</td>
         </tr>
       </table>
       <table>
@@ -144,9 +141,13 @@
           <th colspan="2"></th>
           <th colspan="2"><strong>¿ESTUDIA ACTUALMENTE?</strong></th>
           <th>SÍ</th>
-          <td></td>
+          <td>
+            {% if info_academica.estudios_institucion %}X{% endif %}
+          </td>
           <th>NO</th>
-          <td></td>
+          <td>
+            {% if not info_academica.estudios_institucion %}X{% endif %}
+          </td>
         </tr>
         <tr>
           <th colspan="8">EN CASO DE QUE SÍ, RESPONDA LO SIGUIENTE:</th>
@@ -158,10 +159,10 @@
           <th colspan="2">DÍAS</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
+          <td colspan="2">{{info_academica.estudios_institucion|default:'&nbsp;'}}</td>
+          <td colspan="2">{{info_academica.estudios_que|default:''}}</td>
+          <td colspan="2">{{info_academica.estudios_horarios|default:''}}</td>
+          <td colspan="2">{{info_academica.estudios_dias|default:''}}</td>
         </tr>
       </table>
     </div>

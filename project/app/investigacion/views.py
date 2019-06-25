@@ -57,4 +57,16 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
+	entrevista_persona = investigacion.entrevistapersona_set.all()[0]
+	historial_en_empresa = entrevista_persona.entrevistahistorialenempresa_set.filter(categoria='trabajo')[0]
+	historial_familiar_en_empresa = entrevista_persona.entrevistahistorialenempresa_set.filter(categoria='familiar')[0]
+	info_personal = entrevista_persona.entrevistainfopersonal_set.all()[0]
+	salud = entrevista_persona.entrevistasalud_set.all()[0]
+
+	#ADADEMICA
+	info_academica = entrevista_persona.entrevistaacademica_set.all()[0]
+	info_academica_grados = entrevista_persona.entrevistagradoescolaridad_set.all()
+	info_academica_idioma = entrevista_persona.entrevistaotroidioma_set.all()[0]
+
+
 	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))
