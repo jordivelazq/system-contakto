@@ -173,18 +173,18 @@
         <tr>
           <th colspan="2">CADA CUÁNTO TIEMPO CONSUME</th>
           <th>TABACO</th>
-          <td>&nbsp;</td>
+          <td>{{actividades_habitos.frecuencia_tabaco}}</td>
           <th>ALCOHOL</th>
-          <td>&nbsp;</td>
+          <td>{{frecuencia_tabaco.frecuencia_alcohol}}</td>
           <th>OTRAS</th>
-          <td>&nbsp;</td>
+          <td>{{frecuencia_tabaco.frecuencia_otras_sust}}</td>
         </tr>
 
         <tr>
           <th colspan="2">RELIGIÓN</th>
-          <td colspan="2">&nbsp;</td>
+          <td colspan="2">{{entrevista_persona.religion}}</td>
           <th colspan="2">CADA CUANTO TIEMPO LA PRACTICA Y EN QUÉ HORARIOS</th>
-          <td colspan="2">&nbsp;</td>
+          <td colspan="2">**REVISAR**</td>
         </tr>
       </table>
 
@@ -200,8 +200,8 @@
                 <th>ACTIVIDAD QUE REALIZÓ</th>
               </tr>
               <tr>
-                <td>&nbsp;</td>
-                <td></td>
+                <td>{{actividades_habitos.inactividad_laboral|default:"&nbsp;"}}</td>
+                <td>{{actividades_habitos.inactividad_laboral_actividad|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -217,8 +217,8 @@
                 <th>ACTIVIDADES A LAS QUE SE DEDICÓ</th>
               </tr>
               <tr>
-                <td>&nbsp;</td>
-                <td></td>
+                <td>{{actividades_habitos.negocios|default:"&nbsp;"}}</td>
+                <td>{{actividades_habitos.negocios_actividad|default:""}}</td>
               </tr>
             </table>
           </td>
@@ -226,7 +226,7 @@
       </table>
     </div>
 
-    {% include 'sections/reportes/seccion/footer.html' %}
+    {% include 'sections/reportes/seccion/footer.html' with page='3' %}
   </div>
 </section>
 <div class="page-break"></div>

@@ -16,7 +16,7 @@
         <p>PEQUEÑA DESCRIPCIÓN DE LA FORMA DE LLEGAR AL DOMICILIO.</p>
       </div>
 
-      {% include 'sections/reportes/seccion/footer.html' %}
+      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:8 %}
     </div>
   </section>
   <div class="page-break"></div>

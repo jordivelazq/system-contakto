@@ -21,12 +21,12 @@
           <th>CÓDIGO POSTAL</th>
         </tr>
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td></td>
-          <td colspan="3"></td>
-          <td colspan="2"></td>
-          <td></td>
-          <td></td>
+          <td colspan="2">{{domicilio.calle}}</td>
+          <td>**REVISAR**</td>
+          <td colspan="3">{{domicilio.colonia}}</td>
+          <td colspan="2">{{domicilio.ciudad}}</td>
+          <td>{{domicilio.estado}}</td>
+          <td>{{domicilio.cp}}</td>
         </tr>
         <tr>
           <th colspan="2">LUGAR DE NACIMIENTO</th>
@@ -51,12 +51,12 @@
           <th colspan="2">No. PASAPORTE / VISA</th>
         </tr>
         <tr>
-          <td colspan="2">{{ candidato.rfc|default:"" }}</td>
-          <td colspan="2">&nbsp;</td>
-          <td></td>
-          <td></td>
-          <td colspan="2"></td>
-          <td colspan="2"></td>
+          <td colspan="2">{{ entrevista_persona.rfc }}</td>
+          <td colspan="2">{{entrevista_persona.ife}}</td>
+          <td>{{licencia.tipo}}</td>
+          <td>{{licencia.numero}}</td>
+          <td colspan="2">{{entrevista_persona.smn}}</td>
+          <td colspan="2">{{entrevista_persona.pasaporte}}</td>
         </tr>
         <tr>
           <th colspan="4">ESTADO CIVIL</th>
@@ -64,25 +64,25 @@
           <th colspan="2">RELIGIÓN</th>
         </tr>
         <tr>
-          <td colspan="4">&nbsp;</td>
-          <td colspan="4"></td>
-          <td colspan="2"></td>
+          <td colspan="4">{{entrevista_persona.estado_civil}}</td>
+          <td colspan="4">{{entrevista_persona.fecha_matrimonio}}</td>
+          <td colspan="2">{{entrevista_persona.religion}}</td>
         </tr>
         <tr>
           <th colspan="5">TIEMPO RADICANDO EN LA CIUDAD</th>
           <th colspan="5">MEDIO DE TRANSPORTE</th>
         </tr>
         <tr>
-          <td colspan="5">&nbsp;</td>
-          <td colspan="5"></td>
+          <td colspan="5">{{entrevista_persona.tiempo_radicando}}</td>
+          <td colspan="5">{{entrevista_persona.medio_utilizado}}</td>
         </tr>
         <tr>
           <th colspan="5">¿CÓMO TE ENTERASTE DE LA VACANTE?</th>
           <th colspan="5">TIEMPO DE TRAYECTO AL LUGAR DE TRABAJO</th>
         </tr>
         <tr>
-          <td colspan="5">&nbsp;</td>
-          <td colspan="5"></td>
+          <td colspan="5">{{entrevista_persona.referencia_vacante}}</td>
+          <td colspan="5">{{entrevista_persona.tiempo_transporte}}</td>
         </tr>
       </table>
     </div>
@@ -92,10 +92,7 @@
       {% include 'sections/reportes/compartido/demanda.html' %}
     </div>
 
-    <div class="footer">
-      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
-      <i>2</i>
-    </div>
+    {% include 'sections/reportes/seccion/footer.html' with page='2' %}
   </div>
 </section>
 <div class="page-break"></div>

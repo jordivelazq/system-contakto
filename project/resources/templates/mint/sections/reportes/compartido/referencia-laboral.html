@@ -391,10 +391,8 @@
 
     </div>
 
-    <div class="footer">
-      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
-      <i>{{forloop.counter0|print_page_number:3}}</i>
-    </div>
+    {% include 'sections/reportes/seccion/footer.html' with page=forloop.counter0|print_page_number:page %}
+
   </div>
 </section>
 <div class="page-break"></div>

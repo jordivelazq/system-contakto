@@ -58,10 +58,12 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
 	entrevista_persona = investigacion.entrevistapersona_set.all()[0]
+	licencia = entrevista_persona.entrevistalicencia_set.all()[0]
 	historial_en_empresa = entrevista_persona.entrevistahistorialenempresa_set.filter(categoria='trabajo')[0]
 	historial_familiar_en_empresa = entrevista_persona.entrevistahistorialenempresa_set.filter(categoria='familiar')[0]
 	info_personal = entrevista_persona.entrevistainfopersonal_set.all()[0]
 	salud = entrevista_persona.entrevistasalud_set.all()[0]
+	actividades_habitos = entrevista_persona.entrevistaactividadeshabitos_set.all()[0]
 
 	#ADADEMICA
 	info_academica = entrevista_persona.entrevistaacademica_set.all()[0]
