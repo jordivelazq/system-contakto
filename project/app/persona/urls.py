@@ -11,9 +11,6 @@ urlpatterns = patterns('',
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/ver$', 'app.persona.views.editar', name='editar_persona'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/editar/exito$', 'app.persona.views.editar', name='editar_persona'),
 
-
-	url(r'^(?P<candidato_id>[^/]+)/investigacion/nueva$', 'app.persona.views.nueva_investigacion_candidato', name='nueva_investigacion_candidato'),
-
 	#Trayectoria
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/trayectoria/nueva$', 'app.persona.views.nueva_trayectoria', name='nueva_trayectoria'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/trayectoria/nueva/empresa/(?P<empresa_id>[^/]+)$', 'app.persona.views.nueva_trayectoria', name='nueva_trayectoria'),

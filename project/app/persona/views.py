@@ -664,7 +664,7 @@ def observaciones(request, investigacion_id):
 	investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=investigacion_id)
 	contacto = investigacion.contacto
 	status_list = PersonaService.get_status_list(investigacion_id)	
-	entrevista = EntrevistaCita.objects.get(investigacion=investigacion)
+	entrevista = EntrevistaCita.objects.filter(investigacion=investigacion).order_by('-id')[0]
 
 	tipo_inv_actual = investigacion.tipo_investigacion_status
 	cobranza = investigacion.cobranza_set.all()[0]
@@ -750,51 +750,6 @@ def ver_reporte(request, investigacion_id):
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
 	return render_to_response('sections/candidato/ver_reporte.html', locals(), context_instance=RequestContext(request))
-
-'''
-	Funcion para captura de nueva investigación de candidato existente
-'''
-@login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
-def nueva_investigacion_candidato(request, candidato_id):
-	try:
-		candidato = Persona.objects.get(pk=candidato_id)
-	except Exception, e:
-		return HttpResponseRedirect('/candidato/nuevo')
-	
-	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-
-	if request.method == 'POST':
-		formInvestigacion = InvestigacionAltaForm(request.POST, prefix='investigacion')
-
-		if formInvestigacion.is_valid():
-			investigacion = formInvestigacion.save(commit=False)
-			investigacion.candidato = candidato
-			investigacion.status_general = '0'
-			investigacion.status_active = True
-			investigacion.save()
-
-			#Registro en EntrevistaCita para datos de cita
-			EntrevistaCita(investigacion=investigacion).save()
-
-			### Crear registro cobranza:
-			Cobranza(investigacion=investigacion).save()
-
-			b = Bitacora(action='investigacion-crear: ' + str(investigacion), user=request.user)
-			b.save()
-			if 'guardar_crear_otro' in request.POST:
-				return HttpResponseRedirect('/candidato/nuevo')
-			elif 'guardar_solo' in request.POST:
-				return HttpResponseRedirect('/candidatos')
-			elif 'guardar_empezar_inv' in request.POST:
-				return HttpResponseRedirect('/candidato/investigacion/' + str(investigacion.id) + '/editar')
-			else:
-				return HttpResponseRedirect('/candidatos')
-	else:
-		formInvestigacion = InvestigacionAltaForm(prefix='investigacion')
-	
-	return render_to_response('sections/candidato/forma/agregar_inv.html', locals(), context_instance=RequestContext(request))
-
 
 '''
 	Función que verifica la existencia de uno o más candidatos con los datos enviados por POST (AJAX)
