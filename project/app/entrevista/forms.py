@@ -128,7 +128,7 @@ class EntrevistaPersonaForm(ModelForm):
 class EntrevistaDireccionForm(ModelForm):
 
 	class Meta:
-		exclude = ('persona',)
+		exclude = ('persona', 'investigacion')
 		model = EntrevistaDireccion
 
 	def __init__(self, *args, **kwargs):

@@ -48,7 +48,7 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	tel_recado = telefonos.filter(categoria='recado')[0] if telefonos.filter(categoria='recado').count() else ''
 
 	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
-	domicilio = candidato.direccion_set.all()[0]
+	domicilio = investigacion.entrevistadireccion_set.all()[0]
 	
 	origen = candidato.origen_set.all()[0]
 	fecha_nacimiento = origen.fecha

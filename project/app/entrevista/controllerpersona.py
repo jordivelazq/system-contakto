@@ -35,7 +35,7 @@ class ControllerPersona(object):
 			return
 
 		#Asignar el resto de los datos generales
-		self.setExtraGralData(candidato, data['candidato']['datos_generales'])
+		self.setExtraGralData(candidato, investigacion, data['candidato']['datos_generales'])
 		#Asignar iformación personal
 		self.setInfoPersonal(candidato, data['candidato']['info_personal'])
 		#Asignar información salud
@@ -89,7 +89,7 @@ class ControllerPersona(object):
 
 		return
 
-	def setExtraGralData(self, candidato, datos_generales):
+	def setExtraGralData(self, candidato, investigacion, datos_generales):
 		'''
 			Asignar datos generales EXTRA a candidato
 		'''
@@ -103,13 +103,14 @@ class ControllerPersona(object):
 				EntrevistaTelefono(persona=candidato, categoria='recado', numero=datos_generales['telefono']['recados']['numero'], parentesco=datos_generales['telefono']['recados']['parentesco']).save()
 
 			#Asignar datos 'domicilio'
-			EntrevistaDireccion(	persona=candidato, 
-									calle=datos_generales['direccion']['calle'],
-									num=datos_generales['direccion']['num'],
-									ciudad=datos_generales['direccion']['ciudad'], 
-									colonia=datos_generales['direccion']['colonia'],
-									cp=datos_generales['direccion']['cp'],
-									estado=datos_generales['direccion']['estado']).save()
+			entrevista_direccion, created = EntrevistaDireccion.objects.get_or_create(investigacion=investigacion, persona=candidato)
+			entrevista_direccion.calle = datos_generales['direccion']['calle']
+			entrevista_direccion.num = datos_generales['direccion']['num']
+			entrevista_direccion.ciudad = datos_generales['direccion']['ciudad']
+			entrevista_direccion.colonia = datos_generales['direccion']['colonia']
+			entrevista_direccion.cp = datos_generales['direccion']['cp']
+			entrevista_direccion.estado = datos_generales['direccion']['estado']
+			entrevista_direccion.save()
 
 			#Asignar datos 'origen'
 			EntrevistaOrigen( 	persona=candidato,

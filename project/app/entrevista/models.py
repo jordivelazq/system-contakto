@@ -97,6 +97,7 @@ class EntrevistaTelefono(models.Model):
 		return self.numero
 
 class EntrevistaDireccion(models.Model):
+	investigacion = models.ForeignKey(Investigacion)
 	persona = models.ForeignKey(EntrevistaPersona)
 	calle = models.CharField(verbose_name='Calle', max_length=140, null=True, blank=True)
 	num = models.CharField(verbose_name='Num ext-int', max_length=140, null=True, blank=True)
