@@ -48,6 +48,7 @@ class EntrevistaInvestigacion(models.Model):
 		('2', 'Con reservas'),
 		('3', 'No viable'),
 	)
+	investigacion = models.ForeignKey(Investigacion)
 	agente = models.ForeignKey(User)
 	persona = models.ForeignKey(EntrevistaPersona)
 	empresa_contratante = models.CharField(max_length=140, blank=True, null=True) #models.ForeignKey(Compania, null=True, blank=True)

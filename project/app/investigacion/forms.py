@@ -67,7 +67,7 @@ class InvestigacionStatusForm(ModelForm):
 	
 	class Meta:
 		model = Investigacion
-		fields = ('status', 'resultado', 'conclusiones', 'status_general', 'tipo_investigacion_status', 'tipo_investigacion_texto')
+		fields = ('status', 'resultado', 'conclusiones', 'status_general', 'tipo_investigacion_status', 'tipo_investigacion_texto', 'fecha_entrega')
 
 	def __init__(self, *args, **kwargs):
 		super(InvestigacionStatusForm, self).__init__(*args, **kwargs)

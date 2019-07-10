@@ -1,0 +1,25 @@
+{% load app_filters %}
+
+<div class="company">
+  <h2>{{ investigacion.compania }}</h2>
+  <table>
+    <tr>
+      <th>ZONA</th>
+      <td colspan="3">
+        {% with investigacion.compania.sucursales_set.all|first as sucursal %}
+        {{ sucursal}}
+        {% endwith %}
+      </td>
+    </tr>
+    <tr>
+      <th>SOLICITANTE</th>
+      <td colspan="3">{{ investigacion.contacto}}</td>
+    </tr>
+    <tr>
+      <th>FECHA DE SOLICITUD</th>
+      <td>{{ investigacion.fecha_recibido|date:"d/M/Y"|localize_month}}</td>
+      <th>HORA</th>
+      <td>{{ investigacion.hora_recibido|default:"&nbsp;"}}</td>
+    </tr>
+  </table>
+</div>

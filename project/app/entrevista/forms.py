@@ -92,7 +92,6 @@ class EntrevistaInvestigacionForm(ModelForm):
 class EntrevistaCitaForm(ModelForm):
 	autorizada = forms.ChoiceField(choices=ACTIVO_OPCIONES, initial='0', label='Entrevista autorizada')
 	entrevistador = forms.CharField(label='Enviado a ejecutivo:', required=False)
-	fecha_entrevista = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',])
 
 	class Meta:  
 		model = EntrevistaCita

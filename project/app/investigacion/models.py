@@ -40,8 +40,10 @@ class Investigacion(models.Model):
 	compania = models.ForeignKey(Compania)
 	contacto = models.ForeignKey(Contacto)
 	fecha_recibido = models.DateField(blank=True, null=True)
+	hora_recibido = models.CharField(max_length=30, blank=True, null=True)
+	fecha_entrega = models.DateField(blank=True, null=True)
 	puesto = models.CharField(max_length=140)
-	# ciudad = models.CharField(max_length=140)
+
 	observaciones = models.TextField(max_length=200, blank=True, null=True)
 	entrevista = models.DateTimeField(blank=True, null=True)
 	fecha_registro = models.DateField(auto_now_add=True)

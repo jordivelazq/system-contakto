@@ -1,8 +1,8 @@
 from django import template
+import datetime
+from app.persona.models import Evaluacion
 
 register = template.Library()
-
-from app.persona.models import Evaluacion
 
 @register.filter(name='activo_opciones')
 def activo_opciones(value):
@@ -44,3 +44,10 @@ def localize_month(instance):
 def print_text(instance):
   value = instance.replace('.', '<br /><br />')
   return value
+
+@register.filter(name='parse_date')
+def parse_date(date_string, format):
+  try:
+    return datetime.datetime.strptime(date_string, format)
+  except:
+    return date_string

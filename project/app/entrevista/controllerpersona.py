@@ -459,16 +459,20 @@ class ControllerPersona(object):
 				resultado = '2'#'con reservas'
 
 			#Guardar registro Investigación
-			EntrevistaInvestigacion(agente=user,
-										persona = candidato,
-										empresa_contratante = data_investigacion['empresa'],
-										puesto = data_investigacion['puesto'],
-										fecha_recibido = data_investigacion['fecha'],
-										conclusiones = data_investigacion['conclusiones'],
-										resultado = resultado,
-										archivo = archivo_id
-									).save()
-			EntrevistaCita(investigacion=investigacion, fecha_entrevista=data_investigacion['fecha'], hora_entrevista=data_investigacion['fecha_hora']).save()
+			entrevista_investigacion, created = EntrevistaInvestigacion.objects.get_or_create(investigacion=investigacion, agente=user, persona=candidato)
+			entrevista_investigacion.empresa_contratante = data_investigacion['empresa']
+			entrevista_investigacion.puesto = data_investigacion['puesto']
+			entrevista_investigacion.fecha_recibido = data_investigacion['fecha']
+			entrevista_investigacion.conclusiones = data_investigacion['conclusiones']
+			entrevista_investigacion.resultado = resultado
+			entrevista_investigacion.archivo = archivo_id
+			entrevista_investigacion.save()
+
+			entrevista_cita, created = EntrevistaCita.objects.get_or_create(investigacion=investigacion)
+			entrevista_cita.fecha_entrevista = data_investigacion['fecha']
+			entrevista_cita.hora_entrevista = data_investigacion['fecha_hora']
+			entrevista_cita.save()
+
 		except Exception, e:
 			self.errors.append('Error en registro de investigación.')
 

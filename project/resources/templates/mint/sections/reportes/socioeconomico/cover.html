@@ -8,25 +8,7 @@
         <div class="clear-fix"></div>
       </div>
 
-      <div class="company">
-        <h2>{{ investigacion.compania }}</h2>
-        <table>
-          <tr>
-            <th>ZONA</th>
-            <td colspan="3">{{ investigacion.compania.sucursal}}</td>
-          </tr>
-          <tr>
-            <th>SOLICITANTE</th>
-            <td colspan="3">{{ investigacion.contacto}}</td>
-          </tr>
-          <tr>
-            <th>FECHA DE SOLICITUD</th>
-            <td>{{ investigacion.fecha_recibido|date:"d/M/Y"|localize_month}}</td>
-            <th>Hora</th>
-            <td></td>
-          </tr>
-        </table>
-      </div>
+      {% include 'sections/reportes/compartido/cover-company.html' %}
 
       <div class="candidate socioeconomico">
         {% if adjuntos.adj2 %}
@@ -49,17 +31,23 @@
             <tr>
               <th></th>
               <th class="smaller">GESTOR <br /> ENTREVISTADOR</th>
-              <td></td>
+              <td>
+                {{entrevista_cita.entrevistador|default:"&nbsp;"}}
+              </td>
             </tr>
             <tr>
               <th></th>
               <th class="smaller">FECHA DE <br /> ENTREVISTA</th>
-              <td></td>
+              <td>
+                {{entrevista_cita.fecha_entrevista|parse_date:'%d/%m/%Y'|date:"d/M/Y"|localize_month}}
+              </td>
             </tr>
             <tr>
               <th></th>
               <th class="smaller">HORA DE <br />ENTREVISTA</th>
-              <td></td>
+              <td>
+                {{entrevista_cita.hora_entrevista}}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -83,16 +71,7 @@
         </table>
       </div>
 
-      <div class="footer">
-        <p>
-          Fecha de entrega: <strong>{{ investigacion.fecha_registro|date:"d/M/Y"|localize_month }}</strong>
-        </p>
-        <div class="agent">
-          Ejecutivo RRHH Contakto: <strong>{{ investigacion.agente }} /</strong> {{ investigacion.agente.email }}
-        </div>
-        <hr />
-        <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
-      </div>
+      {% include 'sections/reportes/compartido/cover-footer.html' %}
     </div>
   </div>
 </section>

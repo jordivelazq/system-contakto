@@ -8,6 +8,7 @@ from django.conf import settings
 
 from app.persona.models import Persona
 from app.investigacion.models import Investigacion
+from app.entrevista.models import EntrevistaInvestigacion
 
 @csrf_exempt
 def print_reporte_laboral(request, investigacion_id):
@@ -58,6 +59,10 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
 	entrevista_persona = investigacion.entrevistapersona_set.all()[0]
+
+	entrevista_investigacion = investigacion.entrevistainvestigacion_set.all()[0]
+	entrevista_cita = investigacion.entrevistacita_set.all()[0]
+
 	licencia = entrevista_persona.entrevistalicencia_set.all()[0]
 	historial_en_empresa = entrevista_persona.entrevistahistorialenempresa_set.filter(categoria='trabajo')[0]
 	historial_familiar_en_empresa = entrevista_persona.entrevistahistorialenempresa_set.filter(categoria='familiar')[0]

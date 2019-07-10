@@ -740,7 +740,6 @@ class PreCandidato(object):
 		return unicode(return_value)
 
 	def get_percentage(self, rowx, colx):
-		print 'get_percentage'
 		'''
 			Función para obtener el dato de la celda en valores tipo porcentaje, que pueden ser string, int o float
 			cell_type

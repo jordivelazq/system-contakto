@@ -24,7 +24,7 @@ $(document).ready(function () {
     }
   });
 
-  $('#id_investigacion-fecha_recibido, #id_fecha_entrevista, #id_trayectoria-aportaciones_fecha_inicial, #id_trayectoria-aportaciones_fecha_final, #id_trayectoria-periodo_alta, #id_trayectoria-periodo_baja, #id_deudas-0-fecha_otorgamiento, #id_deudas-1-fecha_otorgamiento').each(function () {
+  $('#id_investigacion-fecha_recibido, #id_fecha_entrevista, #id_trayectoria-aportaciones_fecha_inicial, #id_trayectoria-aportaciones_fecha_final, #id_trayectoria-periodo_alta, #id_trayectoria-periodo_baja, #id_deudas-0-fecha_otorgamiento, #id_deudas-1-fecha_otorgamiento, #id_entrevista-fecha_entrevista, #id_investigacion-fecha_entrega').each(function () {
     if (typeof $(this) != 'undefined') {
       $(this).datepicker({
         format: 'dd/mm/yyyy'
