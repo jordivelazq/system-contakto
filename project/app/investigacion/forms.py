@@ -63,7 +63,8 @@ class InvestigacionForm(ModelForm):
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 
-class InvestigacionStatusForm(ModelForm):	
+class InvestigacionStatusForm(ModelForm):
+	fecha_entrega = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',])
 	
 	class Meta:
 		model = Investigacion
