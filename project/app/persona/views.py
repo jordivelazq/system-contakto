@@ -373,11 +373,6 @@ def editar(request, investigacion_id):
 		if formInvestigacion.is_valid():
 			investigacion = formInvestigacion.save()
 
-			formSucursal = CompaniaSucursalForm(investigacion.compania, request.POST, prefix='compania_sucursal')
-			if request.POST['compania_sucursal-sucursal']:
-				investigacion.compania.sucursal = request.POST['compania_sucursal-sucursal']
-				investigacion.compania.save()
-
 			investigacion.status_active = True
 			investigacion.save()
 		else:
