@@ -57,27 +57,43 @@
 		{{ formInvestigacion.puesto }}
 		{{ formInvestigacion.puesto.errors }}
 	</div>
-	<div class="col-md-2">
-		<label for="id_telefono1-numero">Tel. Casa</label>
-		{{ formTelefono1.numero }}
-		{{ formTelefono1.numero.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_telefono2-numero">Tel. Celular</label>
-		{{ formTelefono2.numero }}
-		{{ formTelefono1.numero.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_telefono3-numero">Tel. Recados</label>
-		{{ formTelefono3.numero }}
-		{{ formTelefono1.numero.errors }}
-	</div>
 	<div class="col-md-3">
 		<label for="id_candidato-email">Email</label>
 		{{ formCandidato.email }}
 		{{ formCandidato.email.errors }}
 	</div>
 </div>
+
+<br />
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">TELÉFONOS</h3>
+	</div>
+	<div class="panel-body">
+		<div class="col-md-2">
+			<label for="id_telefono1-numero">Tel. Casa</label>
+			{{ formTelefono1.numero }}
+			{{ formTelefono1.numero.errors }}
+		</div>
+		<div class="col-md-2">
+			<label for="id_telefono2-numero">Tel. Celular</label>
+			{{ formTelefono2.numero }}
+			{{ formTelefono1.numero.errors }}
+		</div>
+		<div class="col-md-2">
+			<label for="id_telefono3-numero">Tel. Recados</label>
+			{{ formTelefono3.numero }}
+			{{ formTelefono3.numero.errors }}
+		</div>
+		<div class="col-md-2">
+			<label for="id_telefono3-numero">Parentesco</label>
+			{{ formTelefono3.parentesco }}
+			{{ formTelefono3.parentesco.errors }}
+		</div>
+	</div>
+</div>
+
 <hr class="thin-separator"/>
 
 <div class="row">

@@ -3,7 +3,6 @@ from app.persona.models import *
 from django import forms
 from django.forms import ModelForm
 
-
 class FormaController():
 	has_info = False
 	is_valid = True
@@ -140,13 +139,15 @@ class TelefonoForm(ModelForm, FormaController):
 
 	class Meta:
 		model = Telefono
-		exclude = ['persona', 'parentesco', 'categoria']
+		fields = ['numero', 'parentesco']
 
 	def __init__(self, *args, **kwargs):
 		super(TelefonoForm, self).__init__(*args, **kwargs)
-		self.fields['numero'].widget.attrs.update({'class': 'phone'})
+
 		for field_name, field in self.fields.items():
-			field.widget.attrs['class'] += ' form-control'
+			field.widget.attrs['class'] = ' form-control'
+		
+		self.fields['numero'].widget.attrs['class'] += ' phone'
 
 class PrestacionViviendaForma(ModelForm, FormaController):
 
