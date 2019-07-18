@@ -1,66 +1,88 @@
-<div class="row">
-	<div class="col-md-2">
-		<label for="id_candidato-nss">Nss</label>
-		{{ formCandidato.nss }}
-		{{ formCandidato.nss.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_candidato-nombre">Candidato *</label>
-		{{ formCandidato.nombre }}
-		{{ formCandidato.nombre.errors }}
-	</div>
-	<div {% if request.user.is_staff %}ng-click="open_empresa_modal()"{% endif %} class="col-md-2">
-		<label for="id_investigacion-compania">Cliente (Empresa)</label>
-		<input id="id_investigacion-compania" name="investigacion-compania" type="hidden" value="{[{compania}]}">
-		<div class="input-group">
-			<input id="id_investigacion-compania-nombre" name="investigacion-compania-nombre" placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
-			<span class="input-group-addon glyphicon glyphicon-search"></span>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3">
+				<label for="id_candidato-nss">Nss</label>
+				{{ formCandidato.nss }}
+				{{ formCandidato.nss.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_candidato-nss">RFC</label>
+				{{ formCandidato.rfc }}
+				{{ formCandidato.rfc.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_candidato-nombre">Candidato *</label>
+				{{ formCandidato.nombre }}
+				{{ formCandidato.nombre.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_candidato-email">Email</label>
+				{{ formCandidato.email }}
+				{{ formCandidato.email.errors }}
+			</div>
 		</div>
-		{{ formInvestigacion.compania.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_investigacion-compania">Sucursal</label>
-		{{ formSucursal.sucursal }}
-		{{ formSucursal.sucursal.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_companiacliente-contacto">Quién envia *</label>
-			<select class="form-control" id="id_investigacion-contacto" name="investigacion-contacto" 
-			ng-model="contacto" >
-				<option value="">---------</option>
-				<option ng-repeat="contacto in contacto_data" value="{[{ contacto.id }]}">{[{ contacto.nombre }]}</option>
-			</select>
-		{{ formInvestigacion.contacto.errors }}
-		<input type="hidden" name="contacto_id" id="contacto_id" value="{{formInvestigacion.contacto.value}}">
-	</div>
-	<div class="col-md-2 {% if not request.user.is_superuser %}hidden-element{% endif %}">
-		<label for="id_investigacion-agente">Agente *</label> <br />
-		{{ formInvestigacion.agente }}
-		{{ formInvestigacion.agente.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_investigacion-fecha_recibido">Fecha recibido</label>
-		{{ formInvestigacion.fecha_recibido }}
-		{{ formInvestigacion.fecha_recibido.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_investigacion-hora_recibido">Hora recibido</label>
-		{{ formInvestigacion.hora_recibido }}
-		{{ formInvestigacion.hora_recibido.errors }}
 	</div>
 </div>
-<hr class="thin-separator"/>
 
-<div class="row">
-	<div class="col-md-3">
-		<label for="id_investigacion-puesto">Puesto *</label>
-		{{ formInvestigacion.puesto }}
-		{{ formInvestigacion.puesto.errors }}
+<br />
+
+<div class="panel panel-default">
+	<div class="panel-body">
+			<div class="row">
+				<div {% if request.user.is_staff %}ng-click="open_empresa_modal()"{% endif %} class="col-md-3">
+					<label for="id_investigacion-compania">Cliente (Empresa)</label>
+					<input id="id_investigacion-compania" name="investigacion-compania" type="hidden" value="{[{compania}]}">
+					<div class="input-group">
+						<input id="id_investigacion-compania-nombre" name="investigacion-compania-nombre" placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
+						<span class="input-group-addon glyphicon glyphicon-search"></span>
+					</div>
+					{{ formInvestigacion.compania.errors }}
+				</div>
+				<div class="col-md-3">
+					<label for="id_investigacion-compania">Sucursal</label>
+					{{ formSucursal.sucursal }}
+					{{ formSucursal.sucursal.errors }}
+				</div>
+				<div class="col-md-3">
+					<label for="id_companiacliente-contacto">Quién envia *</label>
+						<select class="form-control" id="id_investigacion-contacto" name="investigacion-contacto" 
+						ng-model="contacto" >
+							<option value="">---------</option>
+							<option ng-repeat="contacto in contacto_data" value="{[{ contacto.id }]}">{[{ contacto.nombre }]}</option>
+						</select>
+					{{ formInvestigacion.contacto.errors }}
+					<input type="hidden" name="contacto_id" id="contacto_id" value="{{formInvestigacion.contacto.value}}">
+				</div>
+				<div class="col-md-3 {% if not request.user.is_superuser %}hidden-element{% endif %}">
+					<label for="id_investigacion-agente">Agente *</label> <br />
+					{{ formInvestigacion.agente }}
+					{{ formInvestigacion.agente.errors }}
+				</div>
+			</div>
 	</div>
-	<div class="col-md-3">
-		<label for="id_candidato-email">Email</label>
-		{{ formCandidato.email }}
-		{{ formCandidato.email.errors }}
+</div>
+
+<br />
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3">
+				<label for="id_investigacion-puesto">Puesto *</label>
+				{{ formInvestigacion.puesto }}
+				{{ formInvestigacion.puesto.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_investigacion-fecha_recibido">Fecha recibido</label>
+				{{ formInvestigacion.fecha_recibido }}
+				{{ formInvestigacion.fecha_recibido.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_investigacion-hora_recibido">Hora recibido</label>
+				{{ formInvestigacion.hora_recibido }}
+				{{ formInvestigacion.hora_recibido.errors }}
+			</div>
+		</div>
 	</div>
 </div>
 
