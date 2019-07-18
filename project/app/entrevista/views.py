@@ -30,6 +30,7 @@ import json
 from django.db.models import Q
 from django.forms import ModelForm, Textarea
 
+
 '''
 	Entrevista (Excel)
 '''
@@ -57,7 +58,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
-
 	if not investigacion.entrevistapersona_set.all().count():
 		if not seccion_entrevista == 'cita':
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/cita')
@@ -170,16 +170,19 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	elif seccion_entrevista == 'salud':
 		salud = EntrevistaSalud.objects.get(persona=candidato)
 		actividades = EntrevistaActividadesHabitos.objects.get(persona=candidato)
-
+	
 		if request.method == 'POST' and not is_usuario_contacto:
+			candidato_form = EntrevistaSaludPersonaForm(request.POST, instance=candidato) # A form bound to the POST data
 			salud_form = EntrevistaSaludForm(request.POST, instance=salud, prefix='salud')
 			actividades_form = EntrevistaActividadesHabitosForm(request.POST, instance=actividades, prefix='actividades')
-
-			if salud_form.is_valid() and actividades_form.is_valid():
+			
+			if candidato_form.is_valid() and salud_form.is_valid() and actividades_form.is_valid():
+				candidato_form.save()
 				salud_form.save()
 				actividades_form.save()
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
+			candidato_form = EntrevistaSaludPersonaForm(instance=candidato)
 			salud_form = EntrevistaSaludForm(instance=salud, prefix='salud')
 			actividades_form = EntrevistaActividadesHabitosForm(instance=actividades, prefix='actividades')
 

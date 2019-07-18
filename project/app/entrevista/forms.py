@@ -125,6 +125,17 @@ class EntrevistaPersonaForm(ModelForm):
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 
+class EntrevistaSaludPersonaForm(ModelForm):
+	
+	class Meta:  
+		model = EntrevistaPersona
+		fields = ('religion', 'religion_tiempo')
+
+	def __init__(self, *args, **kwargs):
+		super(EntrevistaSaludPersonaForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
 class EntrevistaDireccionForm(ModelForm):
 
 	class Meta:

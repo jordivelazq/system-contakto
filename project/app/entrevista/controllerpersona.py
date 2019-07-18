@@ -79,6 +79,7 @@ class ControllerPersona(object):
 			candidato.estado_civil = datos_generales['estado_civil']
 			candidato.fecha_matrimonio = datos_generales['fecha_matrimonio']
 			candidato.religion = datos_generales['religion']
+			candidato.religion_tiempo = datos_generales['religion_tiempo']
 			candidato.tiempo_radicando = datos_generales['tiempo_radicando']
 			candidato.medio_utilizado = datos_generales['medio_utilizado']
 			candidato.referencia_vacante = datos_generales['referencia_vacante']

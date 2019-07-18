@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # documentacion de libreria xlrd:
 # https://secure.simplistix.co.uk/svn/xlrd/trunk/xlrd/doc/xlrd.html?p=4966
 from django.conf import settings
@@ -128,8 +127,8 @@ class PreCandidato(object):
 			data['nss'] = self.get_cell_value(rowx=16, colx=4)
 			data['estado_civil'] = self.get_cell_value(rowx=16, colx=15)
 			data['fecha_matrimonio'] = self.get_cell_value(rowx=16, colx=29)
-			
-			data['religion'] = self.get_cell_value(rowx=16, colx=37)
+			data['religion'] = self.get_cell_value(rowx=38, colx=6)
+			data['religion_tiempo'] = self.get_cell_value(rowx=38, colx=25)
 			data['tiempo_radicando'] = self.get_cell_value(rowx=17, colx=11)
 			data['medio_utilizado'] = self.get_cell_value(rowx=17, colx=31)
 			data['referencia_vacante'] = self.get_cell_value(rowx=18, colx=9)

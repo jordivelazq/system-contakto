@@ -80,6 +80,20 @@
 					{{ salud_form.institucion_medica }}
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-xs-5">
+					<div class="text-danger">{{ candidato_form.religion.errors }}</div>
+					<label>Religión:</label>
+					{{ candidato_form.religion }}
+				</div>
+				<div class="col-xs-5">
+					<div class="text-danger">{{ candidato_form.religion_tiempo.errors }}</div>
+					<label>Horarios y días en los que las practica:</label>
+					{{ candidato_form.religion_tiempo }}
+				</div>
+			</div>
+
 		</div>
 	</div>
 
