@@ -166,6 +166,7 @@ class ControllerPersona(object):
 											tiene=info_personal['familiar_en_empresa']['tiene'],
 											puesto=info_personal['familiar_en_empresa']['puesto'],
 											sucursal=info_personal['familiar_en_empresa']['sucursal'],
+											parentesco=info_personal['familiar_en_empresa']['parentesco'],
 											nombre=info_personal['familiar_en_empresa']['nombre']).save()
 		except Exception, e:
 			self.errors.append('Error en registro de información personal.')

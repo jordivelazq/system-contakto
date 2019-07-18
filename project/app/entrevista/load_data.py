@@ -167,8 +167,9 @@ class PreCandidato(object):
 
 			data['familiar_en_empresa']['tiene'] = self.get_cell_value(rowx=27, colx=9)
 			data['familiar_en_empresa']['nombre'] = self.get_cell_value(rowx=27, colx=16)
-			data['familiar_en_empresa']['puesto'] = self.get_cell_value(rowx=27, colx=33)
-			data['familiar_en_empresa']['sucursal'] = self.get_cell_value(rowx=27, colx=39)
+			data['familiar_en_empresa']['puesto'] = self.get_cell_value(rowx=27, colx=24)
+			data['familiar_en_empresa']['sucursal'] = self.get_cell_value(rowx=27, colx=39)	
+			data['familiar_en_empresa']['parentesco'] = self.get_cell_value(rowx=27, colx=33)
 
 			data['antecedentes_penales'] = self.get_cell_value(rowx=29, colx=8)
 			data['tatuajes'] = self.get_cell_value(rowx=30, colx=21)

@@ -164,6 +164,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	nombre = models.CharField(max_length=140, null=True, blank=True)	#Solo para cate. familiar
 	sucursal = models.CharField(max_length=140, null=True, blank=True)
 	motivo_salida = models.CharField(max_length=140, null=True, blank=True) #Solo para categ. trabajo
+	parentesco = models.CharField(max_length=140, null=True, blank=True)	#Solo para cate. familiar
 
 	def __unicode__(self):
 		return '%s' % (self.tiene)

@@ -73,6 +73,12 @@
 							<div class="text-danger">{{form.motivo_salida.errors}}</div>
 							{{form.motivo_salida}}
 						{% endif %}
+
+						{% if form.instance.categoria == 'familiar' %}
+							<label>Parentesco:</label>
+							<div class="text-danger">{{form.parentesco.errors}}</div>
+							{{form.parentesco}}
+						{% endif %}
 	
 					</div>
 				{% endfor %}
