@@ -659,7 +659,7 @@ def observaciones(request, investigacion_id):
 	investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=investigacion_id)
 	contacto = investigacion.contacto
 	status_list = PersonaService.get_status_list(investigacion_id)	
-	entrevista = EntrevistaCita.objects.filter(investigacion=investigacion).order_by('-id')[0]
+	entrevista = EntrevistaCita.objects.filter(investigacion=investigacion).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=investigacion).count() else None
 
 	tipo_inv_actual = investigacion.tipo_investigacion_status
 	cobranza = investigacion.cobranza_set.all()[0]
