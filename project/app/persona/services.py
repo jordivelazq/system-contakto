@@ -110,5 +110,5 @@ class PersonaService:
 		status_list = {}
 		status_list['investigacion'] = investigacion.status
 		status_list['investigacion_resultado'] = investigacion.resultado
-		status_list['entrevista_autorizada'] = investigacion.entrevistacita_set.all()[0].autorizada		
+		status_list['entrevista_autorizada'] = investigacion.entrevistacita_set.all()[0].autorizada if investigacion.entrevistacita_set.all().count() > 0 else None
 		return status_list	

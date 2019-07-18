@@ -6,7 +6,11 @@ class EntrevistaService:
 	@staticmethod
 	def getDatosEntrevista(investigacion, entrevista = False):
 		response = {}
-		data = investigacion.entrevistacita_set.all()[0] if not entrevista else entrevista
+		data = None
+		if not entrevista and investigacion.entrevistacita_set.all().count() > 0:
+			data = investigacion.entrevistacita_set.all()[0]
+		elif entrevista:
+			data = entrevista
 		if data:
 			response = {
 				'entrevistador': data.entrevistador,
