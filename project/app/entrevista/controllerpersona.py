@@ -408,15 +408,18 @@ class ControllerPersona(object):
 		'''
 		try:
 			for ref in referencias:
-				EntrevistaReferencia(	person = candidato,
-										nombre = ref['nombre'],
-										domicilio = ref['domicilio'],
-										telefono = ref['telefono'],
-										tiempo_conocido = ref['tiempo_conocido'],
-										parentesco = ref['parentesco'],
-										ocupacion = ref['ocupacion'],
-										lugares_labor_evaluado = ref['lugares_labor_evaluado'],
-										opinion = ref['opinion']).save()
+				entrevista_referencia, created = EntrevistaReferencia.objects.get_or_create(person=candidato, tipo=ref['tipo'])
+				entrevista_referencia.nombre = ref['nombre']
+				entrevista_referencia.domicilio = ref['domicilio']
+				entrevista_referencia.telefono = ref['telefono']
+				entrevista_referencia.tiempo_conocido = ref['tiempo_conocido']
+				entrevista_referencia.parentesco = ref['parentesco']
+				entrevista_referencia.ocupacion = ref['ocupacion']
+				entrevista_referencia.lugares_labor_evaluado = ref['lugares_labor_evaluado']
+				entrevista_referencia.tipo = ref['tipo']
+				entrevista_referencia.opinion = ref['opinion']
+				entrevista_referencia.save()
+
 		except Exception, e:
 			self.errors.append('Error en registro de referencias.')
 

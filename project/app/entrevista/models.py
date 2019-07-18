@@ -414,6 +414,11 @@ class EntrevistaDeudaActual(models.Model):
 	Modelos Referencias
 '''
 class EntrevistaReferencia(models.Model):
+	REFERENCIA_TIPO_OPCIONES = (
+		('vecinal' , 'vecinal'),
+		('personal' , 'personal'),
+		('personal_opcional' , 'personal_opcional')
+	)
 	person = models.ForeignKey(EntrevistaPersona)
 	nombre = models.CharField(max_length=140, blank=True, null=True)
 	domicilio = models.CharField(max_length=200, blank=True, null=True)
@@ -423,6 +428,7 @@ class EntrevistaReferencia(models.Model):
 	ocupacion = models.CharField(max_length=140, blank=True, null=True)
 	lugares_labor_evaluado = models.CharField(max_length=200, blank=True, null=True)
 	opinion = models.TextField(max_length=500, blank=True, null=True)
+	tipo = models.CharField(max_length=20, choices=REFERENCIA_TIPO_OPCIONES, default='')
 
 	def __unicode__(self):
 		return '%s, %s' % (self.nombre, self.parentesco)

@@ -641,18 +641,32 @@ class PreCandidato(object):
 				'parentesco': self.get_cell_value(rowx=140,colx=4),
 				'ocupacion': self.get_cell_value(rowx=140,colx=22),
 				'lugares_labor_evaluado': self.get_cell_value(rowx=141,colx=18),
-				'opinion': self.get_cell_value(rowx=143,colx=0)
+				'opinion': self.get_cell_value(rowx=143,colx=0),
+				'tipo': 'vecinal'
 			})
 
 			data.append({
-					'nombre': self.get_cell_value(rowx=157,colx=3),
-					'domicilio': self.get_cell_value(rowx=158,colx=4),
-					'telefono': self.get_cell_value(rowx=159,colx=4),
-					'tiempo_conocido': self.get_cell_value(rowx=159,colx=26),
-					'parentesco': self.get_cell_value(rowx=160,colx=4),
-					'ocupacion': self.get_cell_value(rowx=160,colx=22),
-					'lugares_labor_evaluado': self.get_cell_value(rowx=161,colx=18),
-					'opinion': self.get_cell_value(rowx=163,colx=0)
+					'nombre': self.get_cell_value(rowx=150,colx=3),
+					'domicilio': self.get_cell_value(rowx=151,colx=4),
+					'telefono': self.get_cell_value(rowx=152,colx=4),
+					'tiempo_conocido': self.get_cell_value(rowx=152,colx=26),
+					'parentesco': self.get_cell_value(rowx=153,colx=4),
+					'ocupacion': self.get_cell_value(rowx=153,colx=22),
+					'lugares_labor_evaluado': self.get_cell_value(rowx=154,colx=18),
+					'opinion': self.get_cell_value(rowx=155,colx=0),
+					'tipo': 'personal'
+				})
+			
+			data.append({
+					'nombre': self.get_cell_value(rowx=163,colx=3),
+					'domicilio': self.get_cell_value(rowx=164,colx=4),
+					'telefono': self.get_cell_value(rowx=165,colx=4),
+					'tiempo_conocido': '',
+					'parentesco': self.get_cell_value(rowx=166,colx=4),
+					'ocupacion': '',
+					'lugares_labor_evaluado': '',
+					'opinion': '',
+					'tipo': 'personal_opcional'
 				})
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos de referencias, revisar formato.')

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import pdb
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -75,5 +75,6 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	info_academica_grados = entrevista_persona.entrevistagradoescolaridad_set.all() if entrevista_persona.entrevistagradoescolaridad_set.all().count() else None
 	info_academica_idioma = entrevista_persona.entrevistaotroidioma_set.all()[0] if entrevista_persona.entrevistaotroidioma_set.all().count() else None
 
+	referencias = entrevista_persona.entrevistareferencia_set.all() if entrevista_persona.entrevistareferencia_set.all().count() else None
 
 	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))

@@ -5,80 +5,60 @@
     <div>
       <h3>REFERENCIAS VECINALES Y PERSONALES</h3>
 
-      <h4>REFERENCIA VECINAL (OBLIGATORIA)</h4>
-      <table>
-        <tr>
-          <th>NOMBRE COMPLETO</th>
-          <td colspan="2">&nbsp;</td>
-          <th>TELÉFONO (CON LADA)</th>
-          <td>&nbsp;</td>
-        </tr>
+      {% for referencia in referencias %}
+        {% if referencia.tipo == "vecinal" %}
+        <h4>REFERENCIA VECINAL (OBLIGATORIA)</h4>
+        {% elif referencia.tipo = "personal" %}
+        <h4>REFERENCIA PERSONAL (OBLIGATORIA)</h4>
+        {% else %}
+        <h4>REFERENCIA PERSONAL (OPCIONAL)</h4>
+        {% endif %}
+        {% if referencia.tipo == "vecinal" or referencia.tipo = "personal" %}
+        <table>
+          <tr>
+            <th>NOMBRE COMPLETO</th>
+            <td colspan="2">{{referencia.nombre}}</td>
+            <th>TELÉFONO (CON LADA)</th>
+            <td>{{referencia.telefono}}</td>
+          </tr>
 
-        <tr>
-          <th>DOMICILIO COMPLETO</th>
-          <td colspan="2">&nbsp;</td>
-          <th>PARENTESCO</th>
-          <td>&nbsp;</td>
-        </tr>
+          <tr>
+            <th>DOMICILIO COMPLETO</th>
+            <td colspan="2">{{referencia.domicilio}}</td>
+            <th>PARENTESCO</th>
+            <td>{{referencia.parentesco}}</td>
+          </tr>
 
-        <tr>
-          <th>OCUPACIÓN (CARGO Y EMPRESA)</th>
-          <td colspan="2">&nbsp;</td>
-          <th>TIEMPO DE CONOCER AL EVALUADO</th>
-          <td>&nbsp;</td>
-        </tr>
+          <tr>
+            <th>OCUPACIÓN (CARGO Y EMPRESA)</th>
+            <td colspan="2">{{referencia.ocupacion}}</td>
+            <th>TIEMPO DE CONOCER AL EVALUADO</th>
+            <td>{{referencia.tiempo_conocido}}</td>
+          </tr>
 
-        <tr>
-          <th>COMO CONOCIÓ AL EVALUADO</th>
-          <td colspan="4">&nbsp;</td>
-        </tr>
-      </table>
-      
-      <h4>REFERENCIA PERSONAL (OBLIGATORIA)</h4>
-      <table>
-        <tr>
-          <th>NOMBRE COMPLETO</th>
-          <td colspan="2">&nbsp;</td>
-          <th>TELÉFONO (CON LADA)</th>
-          <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-          <th>DOMICILIO COMPLETO</th>
-          <td colspan="2">&nbsp;</td>
-          <th>PARENTESCO</th>
-          <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-          <th>OCUPACIÓN (CARGO Y EMPRESA)</th>
-          <td colspan="2">&nbsp;</td>
-          <th>TIEMPO DE CONOCER AL EVALUADO</th>
-          <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-          <th>COMO CONOCIÓ AL EVALUADO</th>
-          <td colspan="4">&nbsp;</td>
-        </tr>
-      </table>
-
-      <h4>REFERENCIA PERSONAL (OPCIONAL)</h4>
-      <table>
-        <tr>
-          <th>NOMBRE COMPLETO</th>
-          <td colspan="2">&nbsp;</td>
-          <th>TELÉFONO (CON LADA)</th>
-          <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-          <th>DOMICILIO COMPLETO</th>
-          <td colspan="2">&nbsp;</td>
-          <th>PARENTESCO</th>
-          <td>&nbsp;</td>
-        </tr>
-      </table>
+          <tr>
+            <th>COMO CONOCIÓ AL EVALUADO</th>
+            <td colspan="4">{{referencia.lugares_labor_evaluado}}</td>
+          </tr>
+        </table>
+        {% else %}
+          <table>
+            <tr>
+              <th>NOMBRE COMPLETO</th>
+              <td colspan="2">{{referencia.nombre}}</td>
+              <th>TELÉFONO (CON LADA)</th>
+              <td>{{referencia.telefono}}</td>
+            </tr>
+    
+            <tr>
+              <th>DOMICILIO COMPLETO</th>
+              <td colspan="2">{{referencia.domicilio}}</td>
+              <th>PARENTESCO</th>
+              <td>{{referencia.parentesco}}</td>
+            </tr>
+          </table>
+        {% endif %}
+      {% endfor %}
     </div>
 
     <div class="info-economica">
