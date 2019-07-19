@@ -79,4 +79,11 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	marco_familiar = entrevista_persona.entrevistamiembromarcofamiliar_set.all() if entrevista_persona.entrevistamiembromarcofamiliar_set.all().count() else None
 
+	# vivienda
+	situacion_vivienda = entrevista_persona.entrevistasituacionvivienda_set.get()
+	propietario_vivienda = entrevista_persona.entrevistapropietariovivienda_set.get()
+	caracteristicas_vivienda = entrevista_persona.entrevistacaractaristicasvivienda_set.get()
+	tipo_inmueble_vivienda = entrevista_persona.entrevistatipoinmueble_set.get()
+	distribucion_vivienda = entrevista_persona.entrevistadistribuciondimensiones_set.get()
+
 	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))

@@ -43,9 +43,9 @@
           <th>RENTA MENSUAL</th>
         </tr>
         <tr>
-          <td colspan="4"></td>
-          <td></td>
-          <td>MXN</td>
+          <td colspan="4">{{propietario_vivienda.nombre}}</td>
+          <td>{{propietario_vivienda.parentesco}}</td>
+          <td>{{caracteristicas_vivienda.renta_mensual}}</td>
         </tr>
 
         <tr>
@@ -54,9 +54,33 @@
           <th colspan="2">TIPO DE INMUEBLE</th>
         </tr>
         <tr>
-          <td colspan="2"></td>
-          <td colspan="2">MXN</td>
-          <td colspan="2"></td>
+          <td colspan="2">
+            {% if caracteristicas_vivienda.propia %}
+              PROPIA
+            {% elif caracteristicas_vivienda.rentada %}
+              RENTADA
+            {% elif caracteristicas_vivienda.hipotecada %}
+              HIPOTECADA
+            {% elif caracteristicas_vivienda.prestada %}
+              PRESTADA
+            {% elif caracteristicas_vivienda.otra %}
+              OTRA
+            {% endif %}
+          </td>
+          <td colspan="2">{{caracteristicas_vivienda.valor_aproximado}}</td>
+          <td colspan="2">
+            {% if tipo_inmueble_vivienda.casa %}
+              CASA
+            {% elif tipo_inmueble_vivienda.terreno_compartido %}
+              TERRENO COMPARTIDO
+            {% elif tipo_inmueble_vivienda.departamento %}
+              DEPARTAMENTO
+            {% elif tipo_inmueble_vivienda.vivienda_popular %}
+              VIVIENDA POPULAR
+            {% elif tipo_inmueble_vivienda.otro_tipo %}
+              OTRO
+            {% endif %}
+          </td>
         </tr>
       </table>
     </div>
@@ -66,25 +90,25 @@
       <table>
         <tr>
           <th>HABITACIONES</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.habitaciones}}</td>
 
           <th>BAÑOS</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.banos}}</td>
 
           <th>SALAS</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.salas}}</td>
 
           <th>COMEDOR</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.comedor}}</td>
 
           <th>PATIOS</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.patios}}</td>
 
           <th>COCINA</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.cocina}}</td>
 
           <th>COCHERA</th>
-          <td>&nbsp;</td>
+          <td>{{distribucion_vivienda.cocheras}}</td>
         </tr>
       </table>
       <table>
@@ -94,28 +118,28 @@
           <th>SECTOR SOCIOECONÓMICO</th>
         </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+          <td>{{situacion_vivienda.tiempo_radicando}}</td>
+          <td>{{situacion_vivienda.tipo_mobiliario}}</td>
+          <td>{{situacion_vivienda.sector_socioeconomico}}</td>
         </tr>
 
         <tr>
           <th colspan="2">SI TIENE MENOS DE 5 AÑOS VIVIENDO EN EL DOMICILIO, ESPECIFICAR DOMICILIO ANTERIOR COMPLETO</th>
-          <td>&nbsp;</td>
+          <td>{{situacion_vivienda.sector_socioeconomico}}</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>DETALLAR QUIENES VIVEN CON EL EVALUADO</th>
-          <td colspan="2">&nbsp;</td>
+          <td colspan="2">{{situacion_vivienda.personas_viven_con_evaluado}}</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>CONSERVACIÓN DE LA VIVIENDA</th>
-          <td>&nbsp;</td>
+          <td>{{situacion_vivienda.conservacion}}</td>
           <th>TAMAÑO APROXIMADO</th>
-          <td>MT2</td>
+          <td>{{situacion_vivienda.tamano_aprox_mts2}}</td>
         </tr>
       </table>
     </div>
