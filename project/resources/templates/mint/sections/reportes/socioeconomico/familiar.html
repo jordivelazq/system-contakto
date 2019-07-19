@@ -15,55 +15,19 @@
           <th>DOMICILIO COMPLETO</th>
         </tr>
 
+        {% for familiar in marco_familiar %}
+        {%if familiar.nombre %}
         <tr>
-          <th>PADRE</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <th>{{familiar}}</th>
+          <td>{{familiar.nombre}}</td>
+          <td>{{familiar.edad}}</td>
+          <td>{{familiar.ocupacion}}</td>
+          <td>{{familiar.empresa}}</td>
+          <td>{{familiar.telefono}}</td>
+          <td>{{familiar.residencia}}</td>
         </tr>
-
-        <tr>
-          <th>MADRE</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <th>HERMANO</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <th>PAREJA</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <th>HIJO</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        {% endif %}
+        {% endfor %}
       </table>
 
     </div>

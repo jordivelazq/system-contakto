@@ -327,7 +327,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 	telefono = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s' % (self.tipo, self.nombre)
+		return '%s' % self.tipo
 
 '''
 	Modelos Info Económica mensual

@@ -77,4 +77,6 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	referencias = entrevista_persona.entrevistareferencia_set.all() if entrevista_persona.entrevistareferencia_set.all().count() else None
 
+	marco_familiar = entrevista_persona.entrevistamiembromarcofamiliar_set.all() if entrevista_persona.entrevistamiembromarcofamiliar_set.all().count() else None
+
 	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))
