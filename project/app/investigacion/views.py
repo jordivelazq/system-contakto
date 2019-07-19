@@ -86,4 +86,8 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	tipo_inmueble_vivienda = entrevista_persona.entrevistatipoinmueble_set.get()
 	distribucion_vivienda = entrevista_persona.entrevistadistribuciondimensiones_set.get()
 
+	# economica
+	ingresos = entrevista_persona.entrevistaeconomica_set.filter(tipo='ingreso')
+	egresos = entrevista_persona.entrevistaeconomica_set.filter(tipo='egreso')
+
 	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))

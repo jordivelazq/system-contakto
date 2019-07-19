@@ -415,91 +415,95 @@ table {
 .laboral-study-page .info-economica table tr.total td {
   background: #BFBFBF;
 }
-/* line 344, ../sass/print.sass */
+/* line 343, ../sass/print.sass */
+.laboral-study-page .info-economica div {
+  display: flex;
+}
+/* line 347, ../sass/print.sass */
 .laboral-study-page .mensual h4 {
   margin-bottom: 0;
   background-color: #888;
 }
-/* line 348, ../sass/print.sass */
+/* line 351, ../sass/print.sass */
 .laboral-study-page .mensual .title {
   background-color: #BFBFBF;
 }
-/* line 352, ../sass/print.sass */
+/* line 355, ../sass/print.sass */
 .laboral-study-page .domicilio > div {
   display: flex;
 }
-/* line 354, ../sass/print.sass */
+/* line 357, ../sass/print.sass */
 .laboral-study-page .domicilio > div > div {
   flex: 1;
   height: 300px;
 }
-/* line 358, ../sass/print.sass */
+/* line 361, ../sass/print.sass */
 .laboral-study-page .domicilio > div strong {
   text-align: center;
   display: block;
   margin-top: 12px;
 }
-/* line 363, ../sass/print.sass */
+/* line 366, ../sass/print.sass */
 .laboral-study-page .domicilio > div.center {
   display: block;
   border-top: 3px solid #888;
 }
-/* line 367, ../sass/print.sass */
+/* line 370, ../sass/print.sass */
 .laboral-study-page .domicilio > div .border-top {
   border-right: 3px solid #888;
   border-bottom: 3px solid #888;
 }
-/* line 371, ../sass/print.sass */
+/* line 374, ../sass/print.sass */
 .laboral-study-page .domicilio > div .border-bottom {
   border-bottom: 3px solid #888;
 }
-/* line 374, ../sass/print.sass */
+/* line 377, ../sass/print.sass */
 .laboral-study-page .domicilio > div .border-left {
   border-left: 3px solid #888;
 }
-/* line 377, ../sass/print.sass */
+/* line 380, ../sass/print.sass */
 .laboral-study-page .entrevistador, .laboral-study-page .croquis-domicilio {
   height: 380px;
 }
-/* line 380, ../sass/print.sass */
+/* line 383, ../sass/print.sass */
 .laboral-study-page .dommicilio-referencia {
   background: #D9D9D9;
   height: 100px;
   border-radius: 12px;
   display: flex;
 }
-/* line 386, ../sass/print.sass */
+/* line 389, ../sass/print.sass */
 .laboral-study-page .dommicilio-referencia p {
   margin: auto auto;
 }
-/* line 390, ../sass/print.sass */
+/* line 393, ../sass/print.sass */
 .laboral-study-page .conclusion p {
   background: #D9D9D9;
   height: 400px;
   border-radius: 12px;
 }
-/* line 395, ../sass/print.sass */
+/* line 398, ../sass/print.sass */
 .laboral-study-page .conclusion .square {
   display: flex;
   align-items: center;
   margin-left: 40%;
 }
-/* line 400, ../sass/print.sass */
+/* line 403, ../sass/print.sass */
 .laboral-study-page .conclusion .square div {
   width: 40px;
   height: 40px;
   background-color: #D9D9D9;
   margin-bottom: 6px;
 }
-/* line 406, ../sass/print.sass */
+/* line 409, ../sass/print.sass */
 .laboral-study-page .conclusion .square span {
   margin: 0 0 6px 12px;
 }
-/* line 409, ../sass/print.sass */
+/* line 412, ../sass/print.sass */
 .laboral-study-page .conclusion .title {
   background-color: #BFBFBF;
 }
-/* line 413, ../sass/print.sass */
+/* line 416, ../sass/print.sass */
 .laboral-study-page .conclusion table th {
   text-align: right;
   padding-right: 12px;

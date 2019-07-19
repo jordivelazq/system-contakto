@@ -63,118 +63,31 @@
 
     <div class="info-economica">
       <h3>INFORMACIÓN ECONÓMICA MENSUAL <br /><small>(INVOLUCRA A TODOS LOS QUE VIVEN CON EL CANDIDATO)</small></h3>
-
-      <table>
-        <tr>
+      <div>
+        <table>
           <th colspan="3">
             <h4>INGRESOS</h4>
           </th>
+          {% for ingreso in ingresos %}
+          <tr>
+            <th>{{ingreso.concepto}}</th>
+            <td colspan="2">${{ingreso.monto}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <table>
           <th colspan="3">
             <h4>EGRESOS</h4>
           </th>
-        </tr>
+          {% for egreso in egresos %}
+          <tr>
+            <th>{{egreso.concepto}}</th>
+            <td colspan="2">${{egreso.monto}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
 
-        <tr>
-          <th>INVESTIGADO</th>
-          <td colspan="2">$</td>
-          <th>IMPUESTOS</th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th colspan="3"></th>
-          <th>VESTIDO</th>
-          <td colspan="2"><span>$</span></td>
-        </tr>
-
-        <tr>
-          <th>CÓNYUGE</th>
-          <td colspan="2">$</td>
-          <th>GASTOS AUTOMÓVIL</th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th colspan="3"></th>
-          <th>TRANSPORTE PÚBLICO</th>
-          <td colspan="2"><span>$</span></td>
-        </tr>
-
-        <tr>
-          <th>PADRES</th>
-          <td colspan="2">$</td>
-          <th>ALIMENTACIÓN</th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th colspan="3"></th>
-          <th>EDUCACIÓN</th>
-          <td colspan="2"><span>$</span></td>
-        </tr>
-
-        <tr>
-          <th>HERMANOS</th>
-          <td colspan="2">$</td>
-          <th>MÉDICO</th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th colspan="3"></th>
-          <th>DIVERSIONES</th>
-          <td colspan="2"><span>$</span></td>
-        </tr>
-
-        <tr>
-          <th>OTROS <small>(ESPECIFICAR)</small></th>
-          <td colspan="2">$</td>
-          <th>SERVICIOS <small>(AGUA, LUZ, TELÉFONO, GAS, CABLE)</small></th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th></th>
-          <td colspan="2">$</td>
-          <th>SERVICIO DOMÉSTICO</th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th></th>
-          <td colspan="2">$</td>
-          <th>SEGUROS</th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th></th>
-          <td colspan="2">$</td>
-          <th>DEUDA 1 <small>INSTITUCIÓN</small></th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th></th>
-          <td colspan="2">$</td>
-          <th>DEUDA 2 <small>INSTITUCIÓN</small></th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr>
-          <th></th>
-          <td colspan="2">$</td>
-          <th>OTROS <small>(ESPECIFICAR)</small></th>
-          <td colspan="2">$</td>
-        </tr>
-
-        <tr class="total">
-          <th>TOTAL</th>
-          <td colspan="2">$</td>
-          <th>TOTAL</th>
-          <td colspan="2">$</td>
-        </tr>
-      </table>
     </div>
 
     {% include 'sections/reportes/seccion/footer.html' with page='5' %}

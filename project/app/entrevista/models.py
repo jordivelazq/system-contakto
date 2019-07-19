@@ -334,7 +334,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 '''
 class EntrevistaEconomica(models.Model):
 	TIPO_OPCIONES = (
-	    ('ingreso' , 'ingreso'),
+		('ingreso' , 'ingreso'),
 		('egreso' , 'egreso')
 	)
 	person = models.ForeignKey(EntrevistaPersona)
