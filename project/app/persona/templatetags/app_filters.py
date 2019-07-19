@@ -1,6 +1,7 @@
 from django import template
 import datetime
 from app.persona.models import Evaluacion
+import re
 
 register = template.Library()
 
@@ -42,7 +43,7 @@ def localize_month(instance):
 
 @register.filter(name='print_text')
 def print_text(instance):
-  value = instance.replace('.', '<br /><br />')
+  value = instance.replace('\r\n', '<br />')
   return value
 
 @register.filter(name='parse_date')
