@@ -1,3 +1,4 @@
+{% load app_filters %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
     {% include 'sections/reportes/socioeconomico/header.html' %}
@@ -20,9 +21,9 @@
           {% for tarjeta in tarjeta_credito %}
           <tr>
             <td>{{tarjeta.institucion}}</td>
-            <td>{{tarjeta.limite_credito}}</td>
-            <td>{{tarjeta.pago_minimo}}</td>
-            <td>{{tarjeta.saldo_actual}}</td>
+            <td>{{tarjeta.limite_credito|print_money}}</td>
+            <td>{{tarjeta.pago_minimo|print_money}}</td>
+            <td>{{tarjeta.saldo_actual|print_money}}</td>
           </tr>
           {% endfor %}
 
@@ -38,9 +39,9 @@
           {% for tarjeta in tarjeta_debito %}
           <tr>
             <td>{{tarjeta.institucion}}</td>
-            <td>{{tarjeta.saldo_mensual}}</td>
+            <td>{{tarjeta.saldo_mensual|print_money}}</td>
             <td>{{tarjeta.antiguedad}}</td>
-            <td>{{tarjeta.ahorro}}</td>
+            <td>{{tarjeta.ahorro|print_money}}</td>
           </tr>
           {% endfor %}
 
@@ -57,8 +58,8 @@
           <tr>
             <td>{{auto.marca}}</td>
             <td>{{auto.modelo_ano}}</td>
-            <td>{{auto.liquidacion}}</td>
-            <td>{{auto.valor_comercial}}</td>
+            <td>{{auto.liquidacion|print_money}}</td>
+            <td>{{auto.valor_comercial|print_money}}</td>
           </tr>
           {% endfor %}
           
@@ -74,9 +75,9 @@
           {% for item in bienes_raices %}
           <tr>
             <td>{{item.tipo_inmueble}}</td>
-            <td>{{item.liquidacion}}</td>
+            <td>{{item.liquidacion|print_money}}</td>
             <td>{{item.ubicacion}}</td>
-            <td>{{item.valor_comercial}}</td>
+            <td>{{item.valor_comercial|print_money}}</td>
           </tr>
           {% endfor %}
 
@@ -115,10 +116,10 @@
           <tr>
             <td>{{item.fecha_otorgamiento}}</td>
             <td>{{item.institucion}}</td>
-            <td>{{item.cantidad_total}}</td>
+            <td>{{item.cantidad_total|print_money}}</td>
             <td>{{item.tipo}}</td>
-            <td>{{item.saldo_actual}}</td>
-            <td>{{item.pago_mensual}}</td>
+            <td>{{item.saldo_actual|print_money}}</td>
+            <td>{{item.pago_mensual|print_money}}</td>
           </tr>
           {% endfor %}
         </table>
