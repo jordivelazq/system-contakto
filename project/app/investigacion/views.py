@@ -58,7 +58,6 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	entrevista_persona = investigacion.entrevistapersona_set.all()[0] if investigacion.entrevistapersona_set.all().count() else None
 
 	origen = entrevista_persona.entrevistaorigen_set.get() if entrevista_persona.entrevistaorigen_set.all().count() else None
-	fecha_nacimiento = origen.fecha
 
 	entrevista_investigacion = investigacion.entrevistainvestigacion_set.all()[0] if investigacion.entrevistainvestigacion_set.all().count() else None
 	entrevista_cita = investigacion.entrevistacita_set.all()[0] if investigacion.entrevistacita_set.all().count() else None
