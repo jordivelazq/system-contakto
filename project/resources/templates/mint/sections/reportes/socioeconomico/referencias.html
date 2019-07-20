@@ -1,3 +1,4 @@
+{% load app_filters %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
     {% include 'sections/reportes/socioeconomico/header.html' %}
@@ -71,7 +72,7 @@
           {% for ingreso in ingresos %}
           <tr>
             <th>{{ingreso.concepto}}</th>
-            <td colspan="2">${{ingreso.monto}}</td>
+            <td colspan="2">{{ingreso.monto|print_money}}</td>
           </tr>
           {% endfor %}
         </table>
@@ -82,7 +83,7 @@
           {% for egreso in egresos %}
           <tr>
             <th>{{egreso.concepto}}</th>
-            <td colspan="2">${{egreso.monto}}</td>
+            <td colspan="2">{{egreso.monto|print_money}}</td>
           </tr>
           {% endfor %}
         </table>

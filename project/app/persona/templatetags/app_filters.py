@@ -52,3 +52,10 @@ def parse_date(date_string, format):
     return datetime.datetime.strptime(date_string, format)
   except:
     return date_string
+
+@register.filter(name='print_money')
+def print_money(value):
+  try:
+    return '${:,.2f}'.format(float(value))
+  except:
+    return value
