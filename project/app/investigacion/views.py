@@ -90,4 +90,14 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	ingresos = entrevista_persona.entrevistaeconomica_set.filter(tipo='ingreso')
 	egresos = entrevista_persona.entrevistaeconomica_set.filter(tipo='egreso')
 
+	tarjeta_credito = entrevista_persona.entrevistatarjetacreditocomercial_set.all()
+	tarjeta_debito = entrevista_persona.entrevistacuentadebito_set.all()
+	automoviles = entrevista_persona.entrevistaautomovil_set.all()
+	bienes_raices = entrevista_persona.entrevistabienesraices_set.all()
+	seguros = entrevista_persona.entrevistaseguro_set.all()
+	deudas = entrevista_persona.entrevistadeudaactual_set.all()
+
+	infonavit = entrevista_persona.entrevistaprestacionvivienda_set.get(categoria_viv='infonavit') if entrevista_persona.entrevistaprestacionvivienda_set.filter(categoria_viv='infonavit').count() else None
+	fonacot = entrevista_persona.entrevistaprestacionvivienda_set.get(categoria_viv='fonacot') if entrevista_persona.entrevistaprestacionvivienda_set.filter(categoria_viv='fonacot').count() else None
+
 	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))

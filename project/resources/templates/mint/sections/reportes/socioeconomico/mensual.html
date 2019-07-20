@@ -17,12 +17,14 @@
             <th>PAGO MÍNIMO</th>
             <th>SALDO ACTUAL</th>
           </tr>
+          {% for tarjeta in tarjeta_credito %}
           <tr>
-            <td>&nbsp;</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{tarjeta.institucion}}</td>
+            <td>{{tarjeta.limite_credito}}</td>
+            <td>{{tarjeta.pago_minimo}}</td>
+            <td>{{tarjeta.saldo_actual}}</td>
           </tr>
+          {% endfor %}
 
           <tr>
             <td colspan="4" class="title">CUENTAS DE DÉBITO</td>
@@ -33,12 +35,14 @@
             <th>ANTIGÜEDAD</th>
             <th>AHORRO</th>
           </tr>
+          {% for tarjeta in tarjeta_debito %}
           <tr>
-            <td>&nbsp;</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{tarjeta.institucion}}</td>
+            <td>{{tarjeta.saldo_mensual}}</td>
+            <td>{{tarjeta.antiguedad}}</td>
+            <td>{{tarjeta.ahorro}}</td>
           </tr>
+          {% endfor %}
 
           <tr>
             <td colspan="4" class="title">AUTOMÓVILES</td>
@@ -49,13 +53,15 @@
             <th>LIQUIDADO</th>
             <th>VALOR COMERCIAL</th>
           </tr>
+          {% for auto in automoviles %}
           <tr>
-            <td>&nbsp;</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{auto.marca}}</td>
+            <td>{{auto.modelo_ano}}</td>
+            <td>{{auto.liquidacion}}</td>
+            <td>{{auto.valor_comercial}}</td>
           </tr>
-
+          {% endfor %}
+          
           <tr>
             <td colspan="4" class="title">BIENES RAÍCES</td>
           </tr>
@@ -65,12 +71,14 @@
             <th>UBICACIÓN <small>(DIRECCIÓN COMPLETA)</small></th>
             <th>VALOR COMERCIAL</th>
           </tr>
+          {% for item in bienes_raices %}
           <tr>
-            <td>&nbsp;</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{item.tipo_inmueble}}</td>
+            <td>{{item.liquidacion}}</td>
+            <td>{{item.ubicacion}}</td>
+            <td>{{item.valor_comercial}}</td>
           </tr>
+          {% endfor %}
 
           <tr>
             <td colspan="4" class="title">SEGUROS</td>
@@ -81,12 +89,14 @@
             <th>FORMA DE PAGO</th>
             <th>VIGENCIA</th>
           </tr>
+          {% for item in seguros %}
           <tr>
-            <td>&nbsp;</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{item.empresa}}</td>
+            <td>{{item.tipo}}</td>
+            <td>{{item.forma_pago}}</td>
+            <td>{{item.vigencia}}</td>
           </tr>
+          {% endfor %}
         </table>
 
         <table>
@@ -101,14 +111,16 @@
             <th>SALDO ACTUAL</th>
             <th>PAGO MENSUAL</th>
           </tr>
+          {% for item in deudas %}
           <tr>
-            <td>&nbsp;</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{item.fecha_otorgamiento}}</td>
+            <td>{{item.institucion}}</td>
+            <td>{{item.cantidad_total}}</td>
+            <td>{{item.tipo}}</td>
+            <td>{{item.saldo_actual}}</td>
+            <td>{{item.pago_mensual}}</td>
           </tr>
+          {% endfor %}
         </table>
       </div>
 
@@ -119,16 +131,16 @@
         <table>
           <tr>
             <th>No. DE CRÉDITO</th>
-            <td>&nbsp;</td>
+            <td>{{infonavit.numero_credito}}</td>
             <th>FECHA EN QUE FUE TRAMITADO</th>
-            <td>&nbsp;</td>
+            <td>{{infonavit.fecha_tramite}}</td>
           </tr>
 
           <tr>
             <th>¿PARA QUÉ SE TRAMITÓ?</th>
-            <td>&nbsp;</td>
+            <td>*REVISAR*</td>
             <th>DOMICILIO COMPLETO DEL INMUEBLE</th>
-            <td>&nbsp;</td>
+            <td>{{infonavit.uso}}</td>
           </tr>
         </table>
       </div>
@@ -140,9 +152,9 @@
         <table>
           <tr>
             <th>No. DE CRÉDITO</th>
-            <td>&nbsp;</td>
+            <td>{{fonacot.numero_credito}}</td>
             <th>FECHA EN QUE FUE TRAMITADO</th>
-            <td>&nbsp;</td>
+            <td>{{fonacot.fecha_tramite}}</td>
           </tr>
         </table>
       </div>
@@ -153,7 +165,7 @@
         <table>
           <tr>
             <th>QUIENES SON DEPENDIENTES ECONÓMICOS</th>
-            <td>&nbsp;</td>
+            <td>{{entrevista_persona.dependientes_economicos}}</td>
           </tr>
         </table>
       </div>
