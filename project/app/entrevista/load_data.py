@@ -746,7 +746,10 @@ class PreCandidato(object):
 			try:
 				return_value = datetime.datetime(*xlrd.xldate_as_tuple(self.worksheet.cell_value(rowx, colx), self.workbook.datemode)).date().strftime('%d/%m/%Y') 
 			except Exception, e:
-				return_value = cell_value
+				try:
+					return_value =  datetime.datetime.strptime(str(datetime.timedelta(days=cell_value)), '%H:%M:%S').strftime('%I:%M:%S %p')
+				except Exception, e:
+					return_value = cell_value
 		#If cell_type is anything else (0,1,4,5,6)
 		else:
 			return_value = cell_value
