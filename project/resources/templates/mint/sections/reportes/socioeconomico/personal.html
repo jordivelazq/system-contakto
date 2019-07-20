@@ -142,11 +142,11 @@
           <th colspan="2"><strong>¿ESTUDIA ACTUALMENTE?</strong></th>
           <th>SÍ</th>
           <td>
-            {% if info_academica.estudios_institucion %}X{% endif %}
+            {% if info_academica.estudios_institucion != "-" and info_academica.estudios_institucion != "NO APLICA" %}X{% endif %}
           </td>
           <th>NO</th>
           <td>
-            {% if not info_academica.estudios_institucion %}X{% endif %}
+            {% if info_academica.estudios_institucion == "-" or info_academica.estudios_institucion == "NO APLICA" or not info_academica.estudios_institucion %}X{% endif %}
           </td>
         </tr>
         <tr>
