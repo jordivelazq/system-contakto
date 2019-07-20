@@ -49,9 +49,6 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
 	domicilio = investigacion.entrevistadireccion_set.all()[0] if investigacion.entrevistadireccion_set.all().count() else None
-	
-	origen = candidato.origen_set.all()[0] if candidato.origen_set.all().count() else None
-	fecha_nacimiento = origen.fecha
 
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL
@@ -59,6 +56,9 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
 	entrevista_persona = investigacion.entrevistapersona_set.all()[0] if investigacion.entrevistapersona_set.all().count() else None
+
+	origen = entrevista_persona.entrevistaorigen_set.get() if entrevista_persona.entrevistaorigen_set.all().count() else None
+	fecha_nacimiento = origen.fecha
 
 	entrevista_investigacion = investigacion.entrevistainvestigacion_set.all()[0] if investigacion.entrevistainvestigacion_set.all().count() else None
 	entrevista_cita = investigacion.entrevistacita_set.all()[0] if investigacion.entrevistacita_set.all().count() else None
