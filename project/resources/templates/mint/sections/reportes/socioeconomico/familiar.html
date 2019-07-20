@@ -1,3 +1,4 @@
+{% load humanize %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
     {% include 'sections/reportes/socioeconomico/header.html' %}
@@ -45,7 +46,7 @@
         <tr>
           <td colspan="4">{{propietario_vivienda.nombre}}</td>
           <td>{{propietario_vivienda.parentesco}}</td>
-          <td>{{caracteristicas_vivienda.renta_mensual}}</td>
+          <td>${{caracteristicas_vivienda.renta_mensual|intcomma}}</td>
         </tr>
 
         <tr>
@@ -67,7 +68,7 @@
               OTRA
             {% endif %}
           </td>
-          <td colspan="2">{{caracteristicas_vivienda.valor_aproximado}}</td>
+          <td colspan="2">${{caracteristicas_vivienda.valor_aproximado|intcomma}}</td>
           <td colspan="2">
             {% if tipo_inmueble_vivienda.casa %}
               CASA

@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'app.front',
     'app.adjuntos',
     'app.api',
+    'django.contrib.humanize'
     # 'debug_toolbar',
     # 'debug_panel',
 )
