@@ -89,3 +89,6 @@ ie.
 
 - Watch sass files
 `compass watch project`
+
+- Compile sass files
+`compass compile project`
