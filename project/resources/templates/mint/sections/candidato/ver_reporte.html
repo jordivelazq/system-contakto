@@ -16,19 +16,12 @@
 		{% csrf_token %}
 		<input type="hidden" name="action" id="action"/>
 		<div id="reporte">
-			{% if not tiene_trayectoria %}
-			<div class="row">
-				<div class="col-xs-6">
-					<div class="alert alert-warning" role="alert">El candidato debe contar con una trayectoria laboral para poder generar los reportes</div>
-				</div>
-			</div>
-			{% endif %}
 			<div class="row">
 				<div class="col-xs-3">
 					<label>Reporte de datos generales y trayectoria laboral </label>
 				</div>
 				<div id="exportar-pdf" class="col-xs-2">
-					<a class="btn btn-default {% if not tiene_trayectoria %}disabled{% endif %}" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+					<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 				</div>
 			</div>
 			<div class="row">
@@ -36,19 +29,12 @@
 					<hr />
 				</div>
 			</div>
-			{% if tiene_trayectoria and not tiene_entrevista %}
-			<div class="row">
-				<div class="col-xs-6">
-					<div class="alert alert-warning" role="alert">El candidato debe contar con entrevista para poder generar el reporte completo</div>
-				</div>
-			</div>
-			{% endif %}
 			<div class="row">
 				<div class="col-xs-3">
 					<label>Reporte completo de investigación </label>
 				</div>
 				<div id="exportar-pdf" class="col-xs-3">
-					<a class="btn btn-default {% if not tiene_trayectoria or not tiene_entrevista %}disabled{% endif %}" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+					<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 				</div>
 			</div>
 		</div>

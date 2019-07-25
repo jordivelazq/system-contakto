@@ -4,6 +4,11 @@
 
       <h3>SEMANAS COTIZADAS ANTE EL IMSS</h3>
 
+      <div class="semanas-cotizadas">
+        {% if adjuntos.adj8 %}
+        <img src="{{adjuntos_baseurl}}{{adjuntos.adj8}}" />
+        {% endif %}
+      </div>
 
       {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:11 %}
     </div>

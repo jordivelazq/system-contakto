@@ -5,11 +5,17 @@
       <h3>GESTOR ENTREVISTADOR Y CANDIDATO</h3>
 
       <div class="entrevistador">
+        {% if adjuntos.adj10 %}
+        <img src="{{adjuntos_baseurl}}{{adjuntos.adj10}}" />
+        {% endif %}
       </div>
 
       <h3>CROQUIS DE UBICACIÓN DEL DOMICILIO</h3>
 
       <div class="croquis-domicilio">
+        {% if adjuntos.adj13 %}
+        <img src="{{adjuntos_baseurl}}{{adjuntos.adj13}}" />
+        {% endif %}
       </div>
 
       <div class="dommicilio-referencia">

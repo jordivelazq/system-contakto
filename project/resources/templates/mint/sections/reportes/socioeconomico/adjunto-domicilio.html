@@ -10,23 +10,38 @@
         <div>
           <div class="border-top">
             <strong>INTERIOR LATERAL IZQUIERDO</strong>
+            {% if adjuntos.adj3 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj3}}" />
+            {% endif %}
           </div>
           <div class="border-bottom">
             <strong>INTERIOR LATERAL DERECHO</strong>
+            {% if adjuntos.adj4 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj4}}" />
+            {% endif %}
           </div>
         </div>
 
         <div>
           <div>
             <strong>EXTERIOR LATERAL IZQUIERDO</strong>
+            {% if adjuntos.adj5 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj5}}" />
+            {% endif %}
           </div>
           <div class="border-left">
             <strong>EXTERIOR LATERAL DERECHO</strong>
+            {% if adjuntos.adj9 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj9}}" />
+            {% endif %}
           </div>
         </div>
 
         <div class="center">
           <strong>EXTERIOR FRENTE</strong>
+          {% if adjuntos.adj3 %}
+          <img src="{{adjuntos_baseurl}}{{adjuntos.adj3}}" />
+          {% endif %}
         </div>
       </div>
 

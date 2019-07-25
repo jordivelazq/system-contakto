@@ -4,6 +4,8 @@ $gray-b: #BFBFBF
 $gray-c: #404040
 $gray-d: #888
 
+$max-height: 800px
+
 @page 
   margin: 0
   size: auto
@@ -269,8 +271,9 @@ table
       background: none
     
     img
-      width: 80%
-      height: auto
+      max-height: $max-height
+      max-width: 80%
+      width: auto
   
   .company
     td
@@ -354,18 +357,26 @@ table
   .domicilio
     > div
       display: flex
+      text-align: center
+
+      img
+        width: 90%
+        height: auto
       > div
         flex: 1
         height: 300px
 
       strong
-        text-align: center
         display: block
-        margin-top: 12px
+        margin: 12px 0
       
       &.center
         display: block
         border-top: 3px solid $gray-d
+
+        img
+          width: auto
+          height: 250px
       
       .border-top
         border-right: 3px solid $gray-d
@@ -379,6 +390,12 @@ table
   
   .entrevistador, .croquis-domicilio
     height: 380px
+    text-align: center
+
+    img
+      margin: 12px 0
+      height: 90%
+      width: auto
 
   .dommicilio-referencia
     background: $gray-a
@@ -389,6 +406,15 @@ table
     p
       margin: auto auto
   
+  .aviso-privacidad, .constancia-entrevista, .semanas-cotizadas
+    text-align: center
+    margin: 12px 0
+
+    img
+      width: 80%
+      height: auto
+      max-height: $max-height
+
   .conclusion
     p
       background: $gray-a

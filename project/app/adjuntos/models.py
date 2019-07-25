@@ -17,10 +17,10 @@ class Adjuntos(models.Model):
 	adj6 = models.FileField(verbose_name='Foto tipo face', upload_to='adj', blank=True, null=True)
 	adj7 = models.FileField(verbose_name='Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
 	adj8 = models.FileField(verbose_name='Semanas Cotizadas', upload_to='adj', blank=True, null=True)
-	adj9 = models.FileField(verbose_name='Anexo 3', upload_to='adj', blank=True, null=True)
-	adj10 = models.FileField(verbose_name='Anexo 4', upload_to='adj', blank=True, null=True)
-	adj11 = models.FileField(verbose_name='Anexo 5', upload_to='adj', blank=True, null=True)
-	adj12 = models.FileField(verbose_name='Anexo 6', upload_to='adj', blank=True, null=True)
+	adj9 = models.FileField(verbose_name='Anexo 3. Exterior derecho', upload_to='adj', blank=True, null=True)
+	adj10 = models.FileField(verbose_name='Anexo 4. Gestor Entrevistador', upload_to='adj', blank=True, null=True)
+	adj11 = models.FileField(verbose_name='Anexo 5. Aviso Privacidad', upload_to='adj', blank=True, null=True)
+	adj12 = models.FileField(verbose_name='Anexo 6. Constancia', upload_to='adj', blank=True, null=True)
 	adj13 = models.FileField(verbose_name='Croquis', upload_to='adj', blank=True, null=True)
 
 	def filename(self):
