@@ -30,6 +30,7 @@
 					<th class="text-center">Es cliente</th>
 					<th class="text-center">Editar</th>
 					<th class="text-center">Contactos</th>
+					<th class="text-center">Sucursales</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,6 +43,7 @@
 					<td class="text-center">{% if empresa.es_cliente %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
 					<td class="text-center"><a href="/empresa/{{empresa.id}}/editar" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></td>
 					<td class="text-center"><a href="/empresa/{{empresa.id}}/contactos" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></td>
+						<td class="text-center"><a href="/empresa/{{empresa.id}}/sucursales" title="sucursales de {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></td>
 				</tr>
 			{% endfor %}
 

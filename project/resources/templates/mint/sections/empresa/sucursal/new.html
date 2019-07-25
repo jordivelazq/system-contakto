@@ -1,0 +1,49 @@
+{% extends 'layout/base.html' %}
+
+{% block site_wrapper %}
+<h1 class="page-header">{{title}}</h1>
+<span class="clearfix"></span>
+<form role="form" action="{{url}}" method="post" novalidate ng-non-bindable>
+  {% csrf_token %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Sucursal</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3">
+					{{formSucursales.nombre.label_tag}}
+          {{formSucursales.nombre}}
+          <div class="text-danger">{{formSucursales.nombre.errors}}</div>
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{formSucursales.ciudad.errors}}</div>
+					{{formSucursales.ciudad.label_tag}}
+					{{formSucursales.ciudad}}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{formSucursales.telefono.errors}}</div>
+					{{formSucursales.telefono.label_tag}}
+					{{formSucursales.telefono}}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{formSucursales.email.errors}}</div>
+					{{formSucursales.email.label_tag}}
+					{{formSucursales.email}}
+				</div>
+      </div>
+      
+      <br />
+
+      <div class="row">
+        <div class="col-md-2 pull-right">
+          <a href="{{boton_cancelar_url}}" class="btn btn-default form-control">Cancelar</a>
+        </div>
+        <div class="col-md-2 pull-right">
+          <button name="guargar_only" type="submit" class="btn btn-primary form-control" title="guardar">Guardar <span class="glyphicon glyphicon-save"></span></button>
+        </div>
+      </div>
+		</div>
+	</div>	
+</form>
+{% endblock %}

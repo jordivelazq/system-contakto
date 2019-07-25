@@ -1,0 +1,49 @@
+{% extends 'layout/base.html' %}
+
+{% block side_content %}
+	{% include 'sections/empresa/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+<h1 class="page-header">Sucursales de {{company}}</h1>
+
+<div class="row placeholders">
+    <div class="pull-right">
+      <a href="{{agregar_url}}">Agregar</a> <br />
+    </div>
+    <div class="table-responsive">
+		{% if sucursales|length %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="text-center">Nombre</th>
+					<th class="text-center">Ciudad</th>
+					<th class="text-center">Teléfono</th>
+					<th class="text-center">Email</th>
+          <th class="text-center">Editar</th>
+          {% if request.user.is_superuser %}
+          <th class="text-center">Eliminar</th>
+          {% endif %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for sucursal in sucursales %}
+				<tr>
+					<td>{{ sucursal }}</td>
+					<td>{{ sucursal.ciudad }}</td>
+					<td>{{ sucursal.telefono }}</td>
+					<td>{{ sucursal.email }}</td>
+          <td class="text-center"><a href="/empresa/{{compania_id}}/sucursal/{{sucursal.id}}/editar" title="editar {{sucursal}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></td>
+          {% if request.user.is_superuser %}
+          <td class="text-center"><a href="/empresa/{{compania_id}}/sucursal/{{sucursal.id}}/eliminar" title="eliminar {{sucursal}}" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></td>
+          {% endif %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+			<div class="bg-info">Esta empresa no tiene sucursales.</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

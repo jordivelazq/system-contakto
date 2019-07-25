@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import HttpResponse, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -9,7 +8,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from app.investigacion.models import Investigacion
 from app.bitacora.models import Bitacora
-from app.compania.models import Compania, Contacto
+from app.compania.models import Compania, Contacto, Sucursales
 from app.compania.forms import CompaniaForm, ContactoForm, SucursalesForm
 from django.db.models import Q
 import json
@@ -74,7 +73,6 @@ def nueva(request, investigacion_id=''):
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 	company = Compania.objects.get(id=compania_id)
-	sucursales = company.sucursales_set.all()
 	page = 'empresas'
 	title = 'Editar empresa: ' + str(company)
 
@@ -86,12 +84,6 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 	# variable to determin if we can delete company, it helps to show 'delete' btn
 	delete_company_enable = True
 	if request.POST:
-		formSucursales = SucursalesForm(request.POST, prefix='sucursales', instance=sucursales[0]) if sucursales else SucursalesForm(request.POST, prefix='sucursales')
-		if formSucursales.is_valid():
-			sucursales = formSucursales.save(commit=False)
-			sucursales.compania = company
-			sucursales.save()
-
 		form = CompaniaForm(request.POST, instance=company)
 		if form.is_valid():
 			form.save()
@@ -103,7 +95,6 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 				return HttpResponseRedirect('/empresas/exito')
 	else:
 		form = CompaniaForm(instance=company)
-		formSucursales = SucursalesForm(instance=sucursales[0], prefix='sucursales') if sucursales else SucursalesForm(prefix='sucursales')
 	return render_to_response('sections/empresa/form.html', locals(), context_instance=RequestContext(request))
 	
 @login_required(login_url='/login', redirect_field_name=None)
@@ -116,6 +107,74 @@ def borrar(request, compania_id):
 	b.save()
 	return HttpResponseRedirect('/empresas/exito')
 
+@login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
+def sucursal_main(request, compania_id):
+	company = Compania.objects.get(id=compania_id)
+	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva'
+	sucursales = Sucursales.objects.filter(compania_id=compania_id)
+	return render_to_response('sections/empresa/sucursal/main.html', locals(), context_instance=RequestContext(request))
+
+@login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
+def sucursal_new(request, compania_id):
+	company = Compania.objects.get(id=compania_id)
+	title = 'Crear nueva sucursal para ' + company.nombre
+	boton_cancelar_url = '/empresa/'+str(compania_id)+'/sucursales'
+
+	if request.POST:
+			formSucursal = SucursalesForm(request.POST, prefix='sucursal')
+			if formSucursal.is_valid():
+				sucursal = formSucursal.save(commit=False)
+				sucursal.compania_id = compania_id
+				sucursal.save()
+
+				b = Bitacora(action='sucursal-creada: ' + str(sucursal.id), user=request.user)
+				b.save()
+				return HttpResponseRedirect(boton_cancelar_url)
+				
+	else:
+		formSucursales = SucursalesForm(prefix='sucursal')
+
+	return render_to_response('sections/empresa/sucursal/new.html', locals(), context_instance=RequestContext(request))
+
+@login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
+def sucursal_edit(request, compania_id, sucursal_id):
+	company = Compania.objects.get(id=compania_id)
+	sucursal = Sucursales.objects.get(id=sucursal_id)
+	title = 'Editar sucursal de ' + company.nombre
+	boton_cancelar_url = '/empresa/'+str(compania_id)+'/sucursales'
+
+	if request.POST:
+			formSucursal = SucursalesForm(request.POST, prefix='sucursal', instance=sucursal)
+			if formSucursal.is_valid():
+				sucursal = formSucursal.save(commit=False)
+				sucursal.compania_id = compania_id
+				sucursal.save()
+
+				b = Bitacora(action='sucursal-editada: ' + str(sucursal.id), user=request.user)
+				b.save()
+				return HttpResponseRedirect(boton_cancelar_url)
+				
+	else:
+		formSucursal = SucursalesForm(instance=sucursal, prefix='sucursal')
+
+	return render_to_response('sections/empresa/sucursal/edit.html', locals(), context_instance=RequestContext(request))
+
+@login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
+def sucursal_delete(request, compania_id, sucursal_id):
+	if request.user.is_superuser is False:
+		return HttpResponseRedirect('/empresa/'+str(compania_id)+'/sucursales')
+
+	sucursal = Sucursales.objects.get(id=sucursal_id)
+	sucursal.delete()
+
+	b = Bitacora(action='sucursal-eliminada: ' + sucursal_id, user=request.user)
+	b.save()
+
+	return HttpResponseRedirect('/empresa/'+str(compania_id)+'/sucursales')
 
 '''
 	Contactos

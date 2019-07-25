@@ -4,7 +4,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from app.persona.models import Persona, File
-from app.compania.models import Compania, Contacto
+from app.compania.models import Compania, Contacto, Sucursales
 
 ACTIVO_OPCIONES = (
 		(0, 'Sí/No'),
@@ -38,6 +38,7 @@ class Investigacion(models.Model):
 	agente = models.ForeignKey(User)
 	candidato = models.ForeignKey(Persona)
 	compania = models.ForeignKey(Compania)
+	sucursal = models.ForeignKey(Sucursales, blank=True, null=True)
 	contacto = models.ForeignKey(Contacto)
 	fecha_recibido = models.DateField(blank=True, null=True)
 	hora_recibido = models.CharField(max_length=30, blank=True, null=True)

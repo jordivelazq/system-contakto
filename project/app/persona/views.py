@@ -372,7 +372,6 @@ def editar(request, investigacion_id):
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
 		if formInvestigacion.is_valid():
 			investigacion = formInvestigacion.save()
-
 			investigacion.status_active = True
 			investigacion.save()
 		else:
@@ -387,7 +386,7 @@ def editar(request, investigacion_id):
 	else:
 		formCandidato = CandidatoAltaForm(prefix='candidato', instance=investigacion.candidato)
 		formInvestigacion = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={'compania' : investigacion.compania.id }, agt_id=agente_id)
-		formSucursal = CompaniaSucursalForm(investigacion.compania, prefix='compania_sucursal')
+		formSucursal = CompaniaSucursalForm(investigacion, prefix='investigacion')
 		formOrigen = OrigenAltaForma(prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')		
 		formDireccion = DireccionForm(prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
 		formTelefono1 = TelefonoForm(prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')

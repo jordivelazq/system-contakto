@@ -6,9 +6,7 @@
     <tr>
       <th>ZONA</th>
       <td colspan="3">
-        {% with investigacion.compania.sucursales_set.all|first as sucursal %}
-        {{ sucursal}}
-        {% endwith %}
+        {{ investigacion.sucursal}}
       </td>
     </tr>
     <tr>
