@@ -10,6 +10,13 @@ from app.persona.models import Persona
 from app.investigacion.models import Investigacion
 from app.entrevista.models import EntrevistaInvestigacion
 
+def get_telefonos(candidato):
+	telefonos = candidato.telefono_set.all()
+	tel_movil = telefonos.filter(categoria='movil')[0] if telefonos.filter(categoria='movil').count() else ''
+	tel_casa = telefonos.filter(categoria='casa')[0] if telefonos.filter(categoria='casa').count() else ''
+	tel_recado = telefonos.filter(categoria='recado')[0] if telefonos.filter(categoria='recado').count() else ''
+	return tel_movil, tel_casa, tel_recado
+
 @csrf_exempt
 def print_reporte_laboral(request, investigacion_id):
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
@@ -17,10 +24,7 @@ def print_reporte_laboral(request, investigacion_id):
 	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil][1]
 
 	
-	telefonos = candidato.telefono_set.all()
-	tel_movil = telefonos.filter(categoria='movil')[0] if telefonos.filter(categoria='movil').count() else ''
-	tel_casa = telefonos.filter(categoria='casa')[0] if telefonos.filter(categoria='casa').count() else ''
-	tel_recado = telefonos.filter(categoria='recado')[0] if telefonos.filter(categoria='recado').count() else ''
+	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
 
 	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
 	domicilio = candidato.direccion_set.all()[0] if candidato.direccion_set.all().count() else None
@@ -41,11 +45,8 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	candidato = investigacion.candidato
 	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil][1]
 
+	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
 	
-	telefonos = candidato.telefono_set.all()
-	tel_movil = telefonos.filter(categoria='movil')[0] if telefonos.filter(categoria='movil').count() else ''
-	tel_casa = telefonos.filter(categoria='casa')[0] if telefonos.filter(categoria='casa').count() else ''
-	tel_recado = telefonos.filter(categoria='recado')[0] if telefonos.filter(categoria='recado').count() else ''
 
 	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
 	domicilio = investigacion.entrevistadireccion_set.all()[0] if investigacion.entrevistadireccion_set.all().count() else None
