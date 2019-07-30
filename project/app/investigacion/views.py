@@ -30,7 +30,6 @@ def print_reporte_laboral(request, investigacion_id):
 	domicilio = candidato.direccion_set.all()[0] if candidato.direccion_set.all().count() else None
 	
 	origen = candidato.origen_set.all()[0] if candidato.origen_set.all().count() else None
-	fecha_nacimiento = origen.fecha
 
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL
