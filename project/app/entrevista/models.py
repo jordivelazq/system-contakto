@@ -453,7 +453,7 @@ class EntrevistaAspectoHogar(models.Model):
 	estatus = models.CharField(max_length=140, blank=True, null=True)
 
 	def __unicode__(self):
-			return '%s, %s' % (self.tipo, self.estatus)
+			return '%s' % self.tipo
 
 class EntrevistaAspectoCandidato(models.Model):
 	person = models.ForeignKey(EntrevistaPersona)
@@ -461,4 +461,4 @@ class EntrevistaAspectoCandidato(models.Model):
 	estatus = models.CharField(max_length=140, blank=True, null=True)
 
 	def __unicode__(self):
-			return '%s, %s' % (self.tipo, self.estatus)
+			return '%s' % self.tipo

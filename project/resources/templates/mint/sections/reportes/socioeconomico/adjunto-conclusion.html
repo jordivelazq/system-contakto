@@ -42,44 +42,24 @@
                 <tr>
                   <td colspan="2" class="title">ASPECTO DEL HOGAR</td>
                 </tr>
+                {% for aspecto in entrevista_persona.entrevistaaspectohogar_set.all %}
                 <tr>
-                  <th>ORDEN</th>
-                  <td>&nbsp;</td>
+                  <th>{{aspecto}}</th>
+                  <td>{{aspecto.estatus}}</td>
                 </tr>
-                <tr>
-                  <th>LIMPIEZA</th>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <th>CONSERVACIÓN</th>
-                  <td>&nbsp;</td>
-                </tr>
+                {% endfor %}
               </table>
 
               <table>
                 <tr>
                   <td colspan="2" class="title">PERSONAL</td>
                 </tr>
+                {% for aspecto in entrevista_persona.entrevistaaspectocandidato_set.all %}
                 <tr>
-                  <th>DISPONIBILIDAD</th>
-                  <td>&nbsp;</td>
+                  <th>{{aspecto}}</th>
+                  <td>{{aspecto.estatus}}</td>
                 </tr>
-                <tr>
-                  <th>PUNTUALIDAD</th>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <th>APARIENCIA FÍSICA</th>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <th>COLABORACIÓN</th>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <th>ACTITUD</th>
-                  <td>&nbsp;</td>
-                </tr>
+                {% endfor %}
               </table>
             </td>
           </tr>
