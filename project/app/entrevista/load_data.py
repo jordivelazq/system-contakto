@@ -135,9 +135,10 @@ class PreCandidato(object):
 			data['tiempo_transporte'] = self.get_cell_value(rowx=18, colx=36)
 			data['dependientes_economicos'] = self.get_cell_value(rowx=132, colx=8)
 
-			data['infonavit']['activo'] = self.get_cell_value(rowx=130, colx=7)
-			data['infonavit']['numero'] = self.get_cell_value(rowx=130, colx=16)
+			data['infonavit']['activo'] = self.get_cell_value(rowx=130, colx=6)
+			data['infonavit']['numero'] = self.get_cell_value(rowx=130, colx=12)
 			data['infonavit']['fecha_tramite'] = self.get_cell_value(rowx=130, colx=29)
+			data['infonavit']['motivo'] = self.get_cell_value(rowx=130, colx=21)
 			data['infonavit']['uso'] = self.get_cell_value(rowx=130, colx=37)
 			
 			data['fonacot']['activo'] = self.get_cell_value(rowx=131, colx=7)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.entrevista.models import *
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput
 
 class EntrevistaFileForm(ModelForm):
 
@@ -407,6 +407,7 @@ class EntrevistaDeudaActualForm(ModelForm):
 	'''
 	class Meta:
 		model = EntrevistaDeudaActual
+		widgets = {'person': HiddenInput()}
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaDeudaActualForm, self).__init__(*args, **kwargs)

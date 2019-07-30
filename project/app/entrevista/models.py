@@ -18,7 +18,7 @@ class EntrevistaFile(models.Model):
 
 class EntrevistaPersona(models.Model):
 	investigacion = models.ForeignKey(Investigacion)
-	nombre = models.CharField(max_length=140)
+	nombre = models.CharField(max_length=140, blank=True, null=True)
 	email = models.CharField(max_length=140, blank=True, null=True)
 	nss = models.CharField(verbose_name='NSS (IMSS)', max_length=30, blank=True, null=True)
 	edad = models.CharField(max_length=140, blank=True, null=True)
@@ -112,8 +112,8 @@ class EntrevistaDireccion(models.Model):
 
 class EntrevistaPrestacionVivienda(models.Model):
 	VIVIENDA_OPCIONES = (
-	    ('infonavit', 'infonavit'),
-	    ('fonacot', 'fonacot'),
+		('infonavit', 'infonavit'),
+		('fonacot', 'fonacot'),
 	)
 	persona = models.ForeignKey(EntrevistaPersona)
 	categoria_viv = models.CharField(max_length=20, choices=VIVIENDA_OPCIONES)
@@ -121,6 +121,7 @@ class EntrevistaPrestacionVivienda(models.Model):
 	fecha_tramite = models.CharField(verbose_name='Fecha en que fue tramitado', max_length=140, null=True, blank=True)
 	numero_credito = models.CharField(verbose_name='No. de crédito', max_length=140, null=True, blank=True)
 	uso = models.CharField(max_length=250, null=True, blank=True)
+	motivo = models.CharField(verbose_name='Para qué se tramitó?', max_length=250, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.categoria_viv

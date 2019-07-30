@@ -49,7 +49,15 @@
 					{{ form.uso.label_tag }}
 					{{ form.uso }}
 				</div>
+				{% if forloop.counter == 1 %}
+				<div class="col-md-12">
+					<div class="text-danger">{{ form.motivo.errors }}</div>
+					{{ form.motivo.label_tag }}
+					{{ form.motivo }}
+				</div>
+				{% endif %}
 			</div>
+			
 		</div>
 	</div>
 	{% endfor %}
@@ -376,8 +384,10 @@
 				</div>
 			</div>
 			{{ deudas_formset.management_form }}
+
 			{% for form in deudas_formset %}
 				{{ form.id }}
+				{{ form.person }}
 				<div class="row">
 					<div class="col-xs-2">
 						<div class="text-danger">{{ form.fecha_otorgamiento.errors }}</div>

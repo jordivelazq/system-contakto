@@ -131,6 +131,7 @@ class ControllerPersona(object):
 											activo=datos_generales['infonavit']['activo'],
 											fecha_tramite=datos_generales['infonavit']['fecha_tramite'],
 											numero_credito=datos_generales['infonavit']['numero'],
+											motivo=datos_generales['infonavit']['motivo'],
 											uso=datos_generales['infonavit']['uso']).save()
 
 			EntrevistaPrestacionVivienda(	persona=candidato,
