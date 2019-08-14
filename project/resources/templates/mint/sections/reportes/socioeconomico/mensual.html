@@ -19,12 +19,14 @@
             <th>SALDO ACTUAL</th>
           </tr>
           {% for tarjeta in tarjeta_credito %}
+          {% if tarjeta.institucion %}
           <tr>
             <td>{{tarjeta.institucion}}</td>
             <td>{{tarjeta.limite_credito|print_money}}</td>
             <td>{{tarjeta.pago_minimo|print_money}}</td>
             <td>{{tarjeta.saldo_actual|print_money}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
 
           <tr>
@@ -36,13 +38,16 @@
             <th>ANTIGÜEDAD</th>
             <th>AHORRO</th>
           </tr>
+
           {% for tarjeta in tarjeta_debito %}
+          {% if tarjeta.institucion %}
           <tr>
             <td>{{tarjeta.institucion}}</td>
             <td>{{tarjeta.saldo_mensual|print_money}}</td>
             <td>{{tarjeta.antiguedad}}</td>
             <td>{{tarjeta.ahorro|print_money}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
 
           <tr>
@@ -55,12 +60,14 @@
             <th>VALOR COMERCIAL</th>
           </tr>
           {% for auto in automoviles %}
+          {% if auto.marca %}
           <tr>
             <td>{{auto.marca}}</td>
             <td>{{auto.modelo_ano}}</td>
             <td>{{auto.liquidacion|print_money}}</td>
             <td>{{auto.valor_comercial|print_money}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
           
           <tr>
@@ -73,12 +80,14 @@
             <th>VALOR COMERCIAL</th>
           </tr>
           {% for item in bienes_raices %}
+          {% if item.tipo_inmueble %}
           <tr>
             <td>{{item.tipo_inmueble}}</td>
             <td>{{item.liquidacion|print_money}}</td>
             <td>{{item.ubicacion}}</td>
             <td>{{item.valor_comercial|print_money}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
 
           <tr>
@@ -91,12 +100,14 @@
             <th>VIGENCIA</th>
           </tr>
           {% for item in seguros %}
+          {% if item.empresa %}
           <tr>
             <td>{{item.empresa}}</td>
             <td>{{item.tipo}}</td>
             <td>{{item.forma_pago}}</td>
             <td>{{item.vigencia}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
         </table>
 
@@ -113,6 +124,7 @@
             <th>PAGO MENSUAL</th>
           </tr>
           {% for item in deudas %}
+          {% if item.fecha_otorgamiento %}
           <tr>
             <td>{{item.fecha_otorgamiento}}</td>
             <td>{{item.institucion}}</td>
@@ -121,6 +133,7 @@
             <td>{{item.saldo_actual|print_money}}</td>
             <td>{{item.pago_mensual|print_money}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
         </table>
       </div>
