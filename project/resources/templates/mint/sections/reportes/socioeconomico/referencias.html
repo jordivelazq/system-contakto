@@ -70,10 +70,12 @@
             <h4>INGRESOS</h4>
           </th>
           {% for ingreso in ingresos %}
+          {% if not forloop.last %} 
           <tr>
             <th>{{ingreso.concepto}}</th>
             <td colspan="2">{{ingreso.monto|print_money}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
         </table>
         <table>
@@ -81,10 +83,34 @@
             <h4>EGRESOS</h4>
           </th>
           {% for egreso in egresos %}
+          {% if not forloop.last %} 
           <tr>
             <th>{{egreso.concepto}}</th>
             <td colspan="2">{{egreso.monto|print_money}}</td>
           </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+      </div>
+      <div class="totales">
+        <table>
+          {% for ingreso in ingresos %}
+          {% if forloop.last %} 
+          <tr>
+            <th><strong>{{ingreso.concepto}}</strong></th>
+            <th colspan="2"><h4>{{ingreso.monto|print_money}}</h4></th>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+        <table>
+          {% for egreso in egresos %}
+          {% if forloop.last %} 
+          <tr>
+            <th><strong>{{egreso.concepto}}</strong></th>
+            <th colspan="2"><h4>{{egreso.monto|print_money}}</h4></th>
+          </tr>
+          {% endif %}
           {% endfor %}
         </table>
       </div>

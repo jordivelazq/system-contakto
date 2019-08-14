@@ -26,7 +26,11 @@
 		{{ form.id }}
 		<div class="row">
 			<div class="col-xs-1">
+				{% if form.instance.tipo != "otro" %}
 				<label>{{ form.instance.tipo|title }}:</label>
+				{% else %}
+				{{form.parentesco}}
+				{% endif %}
 			</div>
 			<div class="col-xs-2">
 				<div class="text-danger">

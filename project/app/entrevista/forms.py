@@ -342,8 +342,10 @@ class MoneyFormatEntrevistaEconomicaForm(ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(MoneyFormatEntrevistaEconomicaForm, self).__init__(*args, **kwargs)
-		for field_name, field in self.fields.items():
-			field.widget.attrs['class'] = 'custom_money_format'
+
+		fields_money_format = ['monto']
+		for field_name in fields_money_format:
+			self.fields[field_name].widget.attrs['class'] = 'custom_money_format'
 
 class TarjetaCreditoComercialForm(ModelForm):
 	'''

@@ -434,6 +434,7 @@ class PreCandidato(object):
 				})
 
 			data['otro'].append({
+					'parentesco': self.get_cell_value(rowx=79,colx=1),
 					'nombre' : self.get_cell_value(rowx=79,colx=4),
 					'edad' : self.get_cell_value(rowx=79,colx=17),
 					'ocupacion' : self.get_cell_value(rowx=79,colx=19),
@@ -443,6 +444,7 @@ class PreCandidato(object):
 				})
 
 			data['otro'].append({
+					'parentesco': self.get_cell_value(rowx=79,colx=1),
 					'nombre' : self.get_cell_value(rowx=80,colx=4),
 					'edad' : self.get_cell_value(rowx=80,colx=17),
 					'ocupacion' : self.get_cell_value(rowx=80,colx=19),
@@ -452,6 +454,7 @@ class PreCandidato(object):
 				})
 
 			data['otro'].append({
+					'parentesco': self.get_cell_value(rowx=79,colx=1),
 					'nombre' : self.get_cell_value(rowx=81,colx=4),
 					'edad' : self.get_cell_value(rowx=81,colx=17),
 					'ocupacion' : self.get_cell_value(rowx=81,colx=19),

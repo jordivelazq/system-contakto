@@ -326,6 +326,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 	empresa = models.CharField(max_length=140, null=True, blank=True)
 	residencia = models.CharField(max_length=140, null=True, blank=True)
 	telefono = models.CharField(max_length=140, null=True, blank=True)
+	parentesco = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):
 		return '%s' % self.tipo
@@ -341,6 +342,7 @@ class EntrevistaEconomica(models.Model):
 	person = models.ForeignKey(EntrevistaPersona)
 	tipo = models.CharField(max_length=20, choices=TIPO_OPCIONES)
 	concepto = models.CharField(max_length=140)
+	detalle = models.CharField(max_length=140, null=True, blank=True)
 	monto = models.CharField(max_length=140, null=True, blank=True)
 
 	def __unicode__(self):

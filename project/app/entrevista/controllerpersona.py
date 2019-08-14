@@ -307,6 +307,7 @@ class ControllerPersona(object):
 					for miembro in marco_familiar[tipo[0]]:
 						EntrevistaMiembroMarcoFamiliar(	person = candidato,
 														tipo = tipo[0],
+														parentesco = tipo[0],
 														nombre = miembro['nombre'],
 														edad = miembro['edad'],
 														ocupacion = miembro['ocupacion'],
@@ -316,6 +317,7 @@ class ControllerPersona(object):
 				else:
 						EntrevistaMiembroMarcoFamiliar(	person = candidato,
 														tipo = tipo[0],
+														parentesco = tipo[0],
 														nombre = marco_familiar[tipo[0]]['nombre'],
 														edad = marco_familiar[tipo[0]]['edad'],
 														ocupacion = marco_familiar[tipo[0]]['ocupacion'],
@@ -342,6 +344,7 @@ class ControllerPersona(object):
 				# monto = egreso['monto'] if isinstance(egreso['monto'], float) else 0	
 				EntrevistaEconomica(	person = candidato,
 										tipo = 'egreso',
+										detalle = egreso['concepto'],
 										concepto = egreso['concepto'],
 										monto = egreso['monto']).save()
 		except Exception, e:

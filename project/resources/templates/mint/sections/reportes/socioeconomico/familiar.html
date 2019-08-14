@@ -19,7 +19,7 @@
         {% for familiar in marco_familiar %}
         {%if familiar.nombre %}
         <tr>
-          <th>{{familiar}}</th>
+          <th>{{familiar.parentesco}}</th>
           <td>{{familiar.nombre}}</td>
           <td>{{familiar.edad}}</td>
           <td>{{familiar.ocupacion}}</td>
@@ -90,7 +90,7 @@
       <h4>DISTRIBUCIÓN DIMENSIONAL</h4>
       <table class="distribucion-dimensional">
         <tr>
-          <th>HABITACIONES</th>
+          <th style="font-size: 7px">HABITACIONES</th>
           <td>{{distribucion_vivienda.habitaciones}}</td>
 
           <th>BAÑOS</th>
