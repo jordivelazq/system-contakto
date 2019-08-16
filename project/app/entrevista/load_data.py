@@ -315,6 +315,7 @@ class PreCandidato(object):
 			data['sector_socioeconomico'] = self.get_cell_value(rowx=60,colx=39)
 			data['personas_viven_con_evaluado'] = self.get_cell_value(rowx=61,colx=12)
 			data['conservacion'] = self.get_cell_value(rowx=62,colx=10)
+			data['domicilio_direcciones'] = self.get_cell_value(rowx=0,colx=208)
 			data['tamano_aprox_mts2'] = self.get_cell_value(rowx=62,colx=34)
 			data['domicilio_anterior'] = self.get_cell_value(rowx=63,colx=20)
 		except Exception, e:

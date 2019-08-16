@@ -260,6 +260,7 @@ class ControllerPersona(object):
 											personas_viven_con_evaluado = situacion_vivienda['personas_viven_con_evaluado'],
 											conservacion = situacion_vivienda['conservacion'],
 											domicilio_anterior = situacion_vivienda['domicilio_anterior'],
+											domicilio_direcciones = situacion_vivienda['domicilio_direcciones'],
 											tamano_aprox_mts2 = situacion_vivienda['tamano_aprox_mts2']).save()
 			
 			EntrevistaPropietarioVivienda(	person = candidato,
