@@ -1,0 +1,15 @@
+<table class="results-table">
+  <tr>
+    <th>{% if investigacion.resultado == "1" %}X{% else %}&nbsp;{% endif %}</th>
+    <td class="left-text">VIABLE</td>
+  </tr>
+  <tr>
+    <th>{% if investigacion.resultado == "2" %}X{% else %}&nbsp;{% endif %}</th>
+    <td class="left-text">NO VIABLE</td>
+  </tr>
+  <tr>
+    <th>{% if investigacion.resultado == "3" %}X{% else %}&nbsp;{% endif %}</th>
+    <td class="left-text">A RESERVAS</td>
+  </tr>
+</table>
+

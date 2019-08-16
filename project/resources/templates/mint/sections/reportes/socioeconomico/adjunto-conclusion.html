@@ -20,17 +20,8 @@
 
           <tr>
             <td class="no-bg align-top">
-              <div class="square">
-                <div>{% if investigacion.resultado == "1" %}X{% else %}&nbsp;{% endif %}</div>
-                <span>VIABLE</span>
-              </div>
-              <div class="square">
-                <div>{% if investigacion.resultado == "2" %}X{% else %}&nbsp;{% endif %}</div>
-                <span>NO VIABLE</span>
-              </div>
-              <div class="square">
-                <div>{% if investigacion.resultado == "3" %}X{% else %}&nbsp;{% endif %}</div>
-                <span>A RESERVAS</span>
+              <div class="results">
+              {% include 'sections/reportes/compartido/results.html' %}
               </div>
             </td>
 
