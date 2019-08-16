@@ -22,6 +22,7 @@ class Adjuntos(models.Model):
 	adj11 = models.FileField(verbose_name='Anexo 5. Aviso Privacidad', upload_to='adj', blank=True, null=True)
 	adj12 = models.FileField(verbose_name='Anexo 6. Constancia', upload_to='adj', blank=True, null=True)
 	adj13 = models.FileField(verbose_name='Croquis', upload_to='adj', blank=True, null=True)
+	adj14 = models.FileField(verbose_name='Ultimo grado de estudios', upload_to='adj', blank=True, null=True)
 
 	def filename(self):
 		return os.path.basename(self.file.name)
@@ -66,5 +67,8 @@ def resize_adjuntos(sender, **kwargs):
 	#adj13
 	if len(str(kwargs['instance'].adj13)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj13), size_x=800)
+	#adj14
+	if len(str(kwargs['instance'].adj14)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj14), size_x=800)
 
 post_save.connect(resize_adjuntos, sender=Adjuntos)

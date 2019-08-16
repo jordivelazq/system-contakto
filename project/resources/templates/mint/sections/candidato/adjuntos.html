@@ -216,6 +216,18 @@
 		{% endif %}
 	</div>
 </div>
+<div class="row">
+	<div class="col-xs-3 col-xs-offset-1">
+			<label>Último grado de estudios</label>
+	</div>
+	<div class="col-xs-2">
+		{% if adjuntos.adj14 %}
+			<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj14.name }}" data-toggle="lightbox" data-title="Anexo 6" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj14.name }}"></a>
+		{% else %}
+			<small>(Sin archivo)</small>
+		{% endif %}
+	</div>
+</div>
 <hr class="thin-separator" />
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
 {% endblock %}
