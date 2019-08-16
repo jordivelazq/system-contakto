@@ -2,16 +2,16 @@
     <div class="background-2">
       {% include 'sections/reportes/socioeconomico/header.html' %}
 
-      <h3>ANEXOS DE DOCUMENTOS</h3>
+      <h3>ACTA DE NACIMIENTO</h3>
 
       <div class="semanas-cotizadas">
-        {% if adjuntos.adj15 %}
-        <img src="{{adjuntos_baseurl}}{{adjuntos.adj15}}" />
+        {% if adjuntos.adj17 %}
+        <img src="{{adjuntos_baseurl}}{{adjuntos.adj17}}" />
         {% endif %}
       </div>
 
 
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:13 %}
+      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:15 %}
     </div>
   </section>
   <div class="page-break"></div>

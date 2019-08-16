@@ -23,6 +23,10 @@ class Adjuntos(models.Model):
 	adj12 = models.FileField(verbose_name='Anexo 6. Constancia', upload_to='adj', blank=True, null=True)
 	adj13 = models.FileField(verbose_name='Croquis', upload_to='adj', blank=True, null=True)
 	adj14 = models.FileField(verbose_name='Ultimo grado de estudios', upload_to='adj', blank=True, null=True)
+	adj15 = models.FileField(verbose_name='Extra', upload_to='adj', blank=True, null=True)
+	adj16 = models.FileField(verbose_name='Comprobante de domicilio', upload_to='adj', blank=True, null=True)
+	adj17 = models.FileField(verbose_name='Acta de nacimiento', upload_to='adj', blank=True, null=True)
+	adj18 = models.FileField(verbose_name='Carta laboral', upload_to='adj', blank=True, null=True)
 
 	def filename(self):
 		return os.path.basename(self.file.name)
@@ -70,5 +74,13 @@ def resize_adjuntos(sender, **kwargs):
 	#adj14
 	if len(str(kwargs['instance'].adj14)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj14), size_x=800)
+	if len(str(kwargs['instance'].adj15)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj15), size_x=800)
+	if len(str(kwargs['instance'].adj16)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj16), size_x=800)
+	if len(str(kwargs['instance'].adj17)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj17), size_x=800)
+	if len(str(kwargs['instance'].adj18)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj18), size_x=800)
 
 post_save.connect(resize_adjuntos, sender=Adjuntos)
