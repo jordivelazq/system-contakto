@@ -22,7 +22,11 @@
 
       <div class="dommicilio-referencia">
         <p>PEQUEÑA DESCRIPCIÓN DE LA FORMA DE LLEGAR AL DOMICILIO.</p>
-        <div>{{situacion_vivienda.domicilio_direcciones|print_text|safe}}</div>
+        <div>
+          {% if situacion_vivienda.domicilio_direcciones %}
+          {{situacion_vivienda.domicilio_direcciones|print_text|safe}}
+          {% endif %}
+        </div>
       </div>
 
       {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:8 %}
