@@ -42,7 +42,7 @@
                 {% for aspecto in entrevista_persona.entrevistaaspectohogar_set.all %}
                 <tr>
                   <th>{{aspecto}}</th>
-                  <td>{{aspecto.estatus}}</td>
+                  <td>{{aspecto.estatus}} %</td>
                 </tr>
                 {% endfor %}
               </table>
@@ -54,7 +54,7 @@
                 {% for aspecto in entrevista_persona.entrevistaaspectocandidato_set.all %}
                 <tr>
                   <th>{{aspecto}}</th>
-                  <td>{{aspecto.estatus}}</td>
+                  <td>{{aspecto.estatus}} %</td>
                 </tr>
                 {% endfor %}
               </table>
