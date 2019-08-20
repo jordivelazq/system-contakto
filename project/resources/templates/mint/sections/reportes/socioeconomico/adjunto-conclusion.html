@@ -1,3 +1,5 @@
+{% load app_filters %}
+
 <section class="laboral-study-page laboral-general">
     <div class="background-2">
       {% include 'sections/reportes/socioeconomico/header.html' %}
@@ -5,7 +7,11 @@
       <h3>CONCLUSIÓN DE ESTUDIO SOCIOECONÓMICO</h3>
 
       <div class="conclusion">
-        <p></p>
+        <p>
+          {{entrevista_investigacion.conclusiones|print_text|safe}} 
+          <br />
+          {{investigacion.observaciones_generales|print_text|safe}}
+        </p>
 
         <table>
           <tr>
