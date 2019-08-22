@@ -23,10 +23,10 @@ class Adjuntos(models.Model):
 	adj12 = models.FileField(verbose_name='Anexo 6. Constancia', upload_to='adj', blank=True, null=True)
 	adj13 = models.FileField(verbose_name='Croquis', upload_to='adj', blank=True, null=True)
 	adj14 = models.FileField(verbose_name='Ultimo grado de estudios', upload_to='adj', blank=True, null=True)
-	adj15 = models.FileField(verbose_name='Extra', upload_to='adj', blank=True, null=True)
+	adj15 = models.FileField(verbose_name='Anexo', upload_to='adj', blank=True, null=True)
 	adj16 = models.FileField(verbose_name='Comprobante de domicilio', upload_to='adj', blank=True, null=True)
 	adj17 = models.FileField(verbose_name='Acta de nacimiento', upload_to='adj', blank=True, null=True)
-	adj18 = models.FileField(verbose_name='Carta laboral', upload_to='adj', blank=True, null=True)
+	adj18 = models.FileField(verbose_name='Extra', upload_to='adj', blank=True, null=True)
 
 	def filename(self):
 		return os.path.basename(self.file.name)

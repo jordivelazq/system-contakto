@@ -24,10 +24,11 @@
 {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' %}
 {% include 'sections/reportes/socioeconomico/adjunto-validacion-demanda.html' %}
 {% include 'sections/reportes/socioeconomico/adjunto-ultimo-grado.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-comprobante-domicilio.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-acta-nacimiento.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-carta-laboral.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-conclusion.html' %}
+
+{% include 'sections/reportes/socioeconomico/adjunto-comprobante-domicilio.html' with page=14 %}
+{% include 'sections/reportes/socioeconomico/adjunto-acta-nacimiento.html' with page=15 %}
+{% include 'sections/reportes/socioeconomico/adjunto-carta-laboral.html' with page=16 %}
+{% include 'sections/reportes/socioeconomico/adjunto-conclusion.html' with page=17 %}
+{% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with page=18 %}
 
 {% endblock %}

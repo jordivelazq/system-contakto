@@ -146,9 +146,9 @@ table {
 
 /* line 119, ../sass/print.sass */
 .results {
-  margin: 40px 0 0 140px;
+  text-align: center;
 }
-/* line 122, ../sass/print.sass */
+/* line 121, ../sass/print.sass */
 .results h2 {
   border-radius: 20px;
   background: #8A0000;
@@ -157,11 +157,12 @@ table {
   padding: 5px 20px;
   display: inline-block;
 }
-/* line 130, ../sass/print.sass */
+/* line 129, ../sass/print.sass */
 .results table.results-table {
   width: auto;
-  margin: 0 0 0 100px;
   border-spacing: 5px;
+  display: flex;
+  justify-content: center;
 }
 /* line 135, ../sass/print.sass */
 .results table.results-table tr {
@@ -179,13 +180,14 @@ table {
   font-weight: bold;
   background: none;
   text-align: left;
+  font-size: 14px;
 }
-/* line 149, ../sass/print.sass */
+/* line 150, ../sass/print.sass */
 .results table.results-table td.left-text {
   text-align: left;
 }
 
-/* line 155, ../sass/print.sass */
+/* line 156, ../sass/print.sass */
 .cover-page .company h2 {
   border-radius: 20px;
   background: #8A0000;
@@ -194,56 +196,56 @@ table {
   padding: 5px 50px;
   display: inline-block;
 }
-/* line 163, ../sass/print.sass */
+/* line 164, ../sass/print.sass */
 .cover-page .company table {
   margin: 20px 0 0 60px;
 }
-/* line 165, ../sass/print.sass */
+/* line 166, ../sass/print.sass */
 .cover-page .company table th {
   text-align: right;
   font-weight: normal;
   padding-right: 10px;
 }
-/* line 170, ../sass/print.sass */
+/* line 171, ../sass/print.sass */
 .cover-page .company table td {
   background: #D9D9D9;
   padding: 5px 40px 5px 10px;
   font-weight: bold;
 }
-/* line 175, ../sass/print.sass */
+/* line 176, ../sass/print.sass */
 .cover-page .candidate {
   margin: 40px 0 0 140px;
 }
-/* line 178, ../sass/print.sass */
+/* line 179, ../sass/print.sass */
 .cover-page .candidate.socioeconomico {
   margin: 30px 10px 0 50px;
 }
-/* line 181, ../sass/print.sass */
+/* line 182, ../sass/print.sass */
 .cover-page .candidate:after {
   clear: both;
 }
-/* line 184, ../sass/print.sass */
+/* line 185, ../sass/print.sass */
 .cover-page .candidate .header-2 {
   background: #404040;
   color: white;
 }
-/* line 189, ../sass/print.sass */
+/* line 190, ../sass/print.sass */
 .cover-page .candidate tbody th {
   text-align: right;
   font-weight: normal;
   padding-right: 10px;
 }
-/* line 193, ../sass/print.sass */
+/* line 194, ../sass/print.sass */
 .cover-page .candidate tbody td {
   background: #D9D9D9;
   padding: 5px 40px 5px 10px;
   font-weight: bold;
 }
-/* line 198, ../sass/print.sass */
+/* line 199, ../sass/print.sass */
 .cover-page .candidate .smaller {
   font-size: 0.8em;
 }
-/* line 201, ../sass/print.sass */
+/* line 202, ../sass/print.sass */
 .cover-page .candidate img {
   width: 200px;
   height: auto;
@@ -253,8 +255,8 @@ table {
   border-radius: 20px;
 }
 /* line 210, ../sass/print.sass */
-.cover-page .results table {
-  margin-left: 250px;
+.cover-page .results {
+  margin-top: 40px;
 }
 
 /* line 216, ../sass/print.sass */
@@ -523,7 +525,7 @@ table {
   height: auto;
   max-height: 800px;
 }
-/* line 437, ../sass/print.sass */
+/* line 438, ../sass/print.sass */
 .laboral-study-page .conclusion p {
   background: #D9D9D9;
   height: 400px;
@@ -531,28 +533,28 @@ table {
   text-align: center;
   padding: 12px;
 }
-/* line 444, ../sass/print.sass */
+/* line 445, ../sass/print.sass */
 .laboral-study-page .conclusion .square {
   display: flex;
   align-items: center;
   margin-left: 40%;
 }
-/* line 449, ../sass/print.sass */
+/* line 450, ../sass/print.sass */
 .laboral-study-page .conclusion .square div {
   width: 40px;
   height: 40px;
   background-color: #D9D9D9;
   margin-bottom: 6px;
 }
-/* line 455, ../sass/print.sass */
+/* line 456, ../sass/print.sass */
 .laboral-study-page .conclusion .square span {
   margin: 0 0 6px 12px;
 }
-/* line 458, ../sass/print.sass */
+/* line 459, ../sass/print.sass */
 .laboral-study-page .conclusion .title {
   background-color: #BFBFBF;
 }
-/* line 462, ../sass/print.sass */
+/* line 463, ../sass/print.sass */
 .laboral-study-page .conclusion table th {
   text-align: right;
   padding-right: 12px;

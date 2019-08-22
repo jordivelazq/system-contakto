@@ -19,7 +19,13 @@
         {% for familiar in marco_familiar %}
         {%if familiar.nombre %}
         <tr>
-          <th>{{familiar.parentesco}}</th>
+          <th>
+            {% if familiar.parentesco %}
+              {{familiar.parentesco}}
+            {% else %}
+              {{familiar.tipo}}
+            {% endif %}
+          </th>
           <td>{{familiar.nombre}}</td>
           <td>{{familiar.edad}}</td>
           <td>{{familiar.ocupacion}}</td>

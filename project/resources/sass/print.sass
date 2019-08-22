@@ -117,8 +117,7 @@ table
     line-height: 18px
 
 .results
-  margin: 40px 0 0 140px
-
+  text-align: center
   h2
     border-radius: 20px
     background: $primary-color
@@ -129,8 +128,9 @@ table
   
   table.results-table
     width: auto
-    margin: 0 0 0 100px
     border-spacing: 5px
+    display: flex
+    justify-content: center
 
     tr
       margin: 5px 0
@@ -145,6 +145,7 @@ table
       font-weight: bold
       background: none
       text-align: left
+      font-size: 14px
 
       &.left-text
         text-align: left
@@ -207,8 +208,7 @@ table
       border-radius: 20px
   
   .results
-    table
-      margin-left: 250px
+    margin-top: 40px
 
 .laboral-study-page
   &.laboral-general
@@ -434,6 +434,7 @@ table
       max-height: $max-height
 
   .conclusion
+
     p
       background: $gray-a
       height: 400px
