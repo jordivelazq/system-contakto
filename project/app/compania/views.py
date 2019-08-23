@@ -218,17 +218,19 @@ def contacto_nuevo(request, compania_id='', investigacion_id=''):
 		if form.is_valid() and not users_with_email_count:
 			nuevo_contacto = form.save(commit=False)
 			nuevo_contacto.compania = company
-			nuevo_contacto.save()
 
 			#crear usuario contacto en caso de haber capturado 'password'
-			p = request.POST.get('password', '')
-			if len(p):
-				new_user = User(email=nuevo_contacto.email)
-				new_user.set_password(p)
+			password = request.POST.get('password', '')
+			if len(password):
+				new_user = User(email=nuevo_contacto.email, username=email)
+
+				new_user.set_password(password)
 				new_user.save()
-				new_user.username = "contacto_"+str(new_user.id)
+
 				new_user.groups.add(Group.objects.get(name='contactos'))
 				new_user.save()
+
+			nuevo_contacto.save()
 
 			b = Bitacora(action='contacto-creado: ' + request.POST.get('nombre') +' / '+ unicode(company.nombre), user=request.user)
 			b.save()
