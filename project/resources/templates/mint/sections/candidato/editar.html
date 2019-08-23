@@ -26,12 +26,19 @@
 	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab">
 		<input type="hidden" id="investigacion_id" value="{{ investigacion_id }}" />		
 		{% csrf_token %}
+		<br />
 		<div class="row">
 			<div class="col-md-8">
 			{% include 'sections/candidato/seccion/menu_trayectoria.html' %}	
 			</div>
+
+			{% if request.user.is_superuser %}	
+				<div class="col-md-2 text-right">
+					<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar investigación <span class="glyphicon glyphicon-trash"></span></a>
+				</div>
+			{% endif %}
 			{% if request.user.is_staff %}
-				<div class="col-md-4 text-right">
+				<div class="col-md-2 text-right">
 					<button type="submit" name="guardar" class="btn btn-primary ">
 						Guardar <span class="glyphicon glyphicon-save"></span>
 					</button>
@@ -46,12 +53,6 @@
 			</div>
 		</div>		
 	</form>
-	
-	<p class="text-right">
-		{% if request.user.is_superuser %}	
-			<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar investigación <span class="glyphicon glyphicon-trash"></span></a>
-		{% endif %}
-	</p>
 	
 	{% include 'sections/candidato/forma/seccion/existente.html' %}
 	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
