@@ -9,8 +9,8 @@ ACTIVO_OPCIONES = (
 	)
 
 def validate_rfc(rfc):
-	if rfc != '' and len(rfc) != 13:
-		raise ValidationError('RFC debe tener 13 caracteres')
+	if rfc != '' and len(rfc) != 11:
+		raise ValidationError('RFC debe tener 11 caracteres')
 
 class Compania(models.Model):
 	nombre = models.CharField(max_length=140, verbose_name='Nombre comercial')  #CHECK
