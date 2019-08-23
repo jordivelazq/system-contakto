@@ -161,7 +161,6 @@ def borrar(request, user_id):
 	deletedDate = str(datetime.datetime.today())
 	bits = deletedDate.split('.')
 	user = User.objects.get(id=user_id)
-	user.username = user.username + ' (-) [' + bits[0] + ']'
 	user.is_active = False
 	user.save()
 	b = Bitacora(action='borrar-agente: ' + unicode(user), user=request.user)
