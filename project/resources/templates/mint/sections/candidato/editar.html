@@ -22,10 +22,9 @@
 {% endautoescape %}
 
 <div ng-controller="CandidatoCTRL">
-	{% include 'sections/candidato/seccion/candidato_header.html' %}
-	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab">
-		<input type="hidden" id="investigacion_id" value="{{ investigacion_id }}" />		
-		{% csrf_token %}
+	<div class="fixed-submenu col-md-10">
+		{% include 'sections/candidato/seccion/candidato_header.html' %}
+
 		<br />
 		<div class="row">
 			<div class="col-md-8">
@@ -34,17 +33,22 @@
 
 			{% if request.user.is_superuser %}	
 				<div class="col-md-2 text-right">
-					<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar investigación <span class="glyphicon glyphicon-trash"></span></a>
+					<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar <span class="glyphicon glyphicon-trash"></span></a>
 				</div>
 			{% endif %}
 			{% if request.user.is_staff %}
-				<div class="col-md-2 text-right">
-					<button type="submit" name="guardar" class="btn btn-primary ">
+				<div class="col-md-1 text-right">
+					<button type="submit" name="guardar" class="btn btn-primary">
 						Guardar <span class="glyphicon glyphicon-save"></span>
 					</button>
 				</div>
 			{% endif %}
-		</div>		
+		</div>	
+	</div>
+	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab adjusted-fixed-submenu">
+		<input type="hidden" id="investigacion_id" value="{{ investigacion_id }}" />		
+		{% csrf_token %}
+		<br />	
 		<input type="hidden" name="action" id="action"/>
 		<div class="tab-content">
 			<div class="tab-pane active" id="info-personal">

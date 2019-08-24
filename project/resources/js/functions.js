@@ -131,6 +131,10 @@ $(document).ready(function () {
   });
 
   formatCurrencyFields();
+
+  $('.fixed-submenu button').click(() => {
+    $('#form_candidato_crear').submit()
+  })
 });
 
 function get_currentpage() {

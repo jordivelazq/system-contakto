@@ -253,3 +253,22 @@ body {
 .wide-th {
   min-width: 350px;
 }
+
+/* line 184, ../sass/screen.sass */
+.fixed-submenu {
+  position: fixed;
+  background: white;
+  top: 51px;
+  z-index: 3;
+}
+
+/* line 190, ../sass/screen.sass */
+.adjusted-fixed-submenu {
+  margin-top: 135px;
+}
+@media (max-width: 1190px) {
+  /* line 190, ../sass/screen.sass */
+  .adjusted-fixed-submenu {
+    margin-top: 200px;
+  }
+}
