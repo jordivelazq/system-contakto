@@ -28,7 +28,7 @@ class CandidatoAltaForm(ModelForm):
 
 	class Meta:  
 		model = Persona
-		fields = ['nombre', 'nss', 'rfc', 'email', 'edad', 'curp', 'malos_terminos']
+		fields = ['nombre', 'nss', 'rfc', 'email', 'edad', 'curp']
 
 	def __init__(self, *args, **kwargs):
 		super(CandidatoAltaForm, self).__init__(*args, **kwargs)
@@ -176,7 +176,7 @@ class LegalidadAltaForma(ModelForm, FormaController):
 
 	class Meta:
 		model = Legalidad
-		fields = ['antecedentes_penales', 'sindicato', 'afiliado_sindicato']
+		fields = ['sindicato', 'afiliado_sindicato']
 
 	def __init__(self, *args, **kwargs):
 		super(LegalidadAltaForma, self).__init__(*args, **kwargs)

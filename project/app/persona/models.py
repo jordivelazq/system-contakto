@@ -69,7 +69,6 @@ class Persona(models.Model):
 	email = models.EmailField(max_length=140, blank=True, null=True)
 	edad = models.IntegerField( blank=True, null=True) #choices=EDAD_CHOICES,
 	curp = models.CharField(max_length=30, blank=True, null=True, validators=[validate_curp]) #validación de único desde views para aceptar valores vacios
-	malos_terminos = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 
 	# datos extras del excel
 	rfc = models.CharField(max_length=30, blank=True, null=True)
@@ -243,7 +242,6 @@ class Legalidad(models.Model):
 	persona = models.ForeignKey(Persona)
 	sindicato = models.CharField(max_length=500, null=True, blank=True)
 	afiliado_sindicato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	antecedentes_penales = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	def __unicode__(self):
 		return '%s, %s' % (self.persona, self.sindicato)
@@ -260,12 +258,10 @@ class Demanda(models.Model):
 
 class Seguro(models.Model):
 	persona = models.ForeignKey(Persona)
-	ultimas_aportaciones = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 	verificado_enburo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	registro_completo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	def __unicode__(self):
-		return '%s, %s' % (self.persona, self.ultimas_aportaciones)
+		return '%s' % (self.persona)
 
 '''
 	Modelos Salud/ActividadesHabitos

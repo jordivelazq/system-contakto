@@ -184,17 +184,17 @@
 <hr class="thin-separator"/>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<label for="id_prestacion_vivienda_infonavit-activo">Infonavit vigente</label>
 		{{ formPrestacionViviendaInfonavit.activo }}
 		{{ formPrestacionViviendaInfonavit.activo.errors }}
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<label for="id_prestacion_vivienda_fonacot-activo">Fonacot vigente</label>
 		{{ formPrestacionViviendaFonacot.activo }}
 		{{ formPrestacionViviendaFonacot.activo.errors }}
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<label for="id_legalidad-sindicato">Afiliado a sindicato</label>
 		{{ formLegalidad.afiliado_sindicato }}
 		{{ formLegalidad.afiliado_sindicato.errors }}
@@ -202,31 +202,31 @@
 </div>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<label for="id_prestacion_vivienda_infonavit-numero_credito"># de crédito Infonavit</label>
 		{{ formPrestacionViviendaInfonavit.numero_credito }}
 		{{ formPrestacionViviendaInfonavit.numero_credito.errors }}
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<label for="id_prestacion_vivienda_fonacot-numero_credito"># de crédito Fonacot</label>
 		{{ formPrestacionViviendaFonacot.numero_credito }}
 		{{ formPrestacionViviendaFonacot.numero_credito.errors }}
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<label for="id_legalidad-sindicato">Nombre:</label>
 		{{ formLegalidad.sindicato }}
 		{{ formLegalidad.sindicato.errors }}
-	</div>
-	<div class="col-md-3">
-		<label for="id_legalidad-antecedentes_penales">Antecedentes penales</label>
-		{{ formLegalidad.antecedentes_penales }}
-		{{ formLegalidad.antecedentes_penales.errors }}
 	</div>
 </div>
 
 
 <hr class="thin-separator"/>
 <div class="row">
+	<div class="col-md-4">
+		<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
+		{{ formSeguro.verificado_enburo }}
+		{{ formSeguro.verificado_enburo.errors }}
+	</div>
 	<div class="col-md-4">
 		<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
 		{{ formInvestigacion.laboro_anteriormente }}
@@ -237,31 +237,9 @@
 		{{ formInvestigacion.familiar_laborando }}
 		{{ formInvestigacion.familiar_laborando.errors }}
 	</div>
-	<div class="col-md-4">
-		<label for="id_candidato-malos_terminos">Ha salido en malos términos</label>
-		{{ formCandidato.malos_terminos }}
-		{{ formCandidato.malos_terminos.errors }}
-	</div>
 </div>
 <hr class="thin-separator"/>
 
-<div class="row">
-	<div class="col-md-3 col-md-offset-1">
-		<label for="id_seguro-ultimas_aportaciones">Últimas aportaciones al SS</label>
-		{{ formSeguro.ultimas_aportaciones }}
-		{{ formSeguro.ultimas_aportaciones.errors }}
-	</div>
-	<div class="col-md-3">
-		<label for="id_seguro-registro_completo">Registro completo</label>
-		{{ formSeguro.registro_completo }}
-		{{ formSeguro.registro_completo.errors }}
-	</div>
-	<div class="col-md-3">
-		<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
-		{{ formSeguro.verificado_enburo }}
-		{{ formSeguro.verificado_enburo.errors }}
-	</div>
-</div>
 <br />
 
 {% include 'sections/candidato/forma/seccion/demandas.html' %}

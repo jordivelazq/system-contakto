@@ -783,8 +783,8 @@ def existencia(request):
 									'nss' : c.nss,
 									'email' : c.email,
 									'edad'  : c.edad,
-									'curp' : c.curp,
-									'malos_terminos' : c.malos_terminos }
+									'curp' : c.curp
+					}
 					candidatos_data.append({'datos_generales' : datos_generales , 'investigaciones' : invs_data })
 					response = { 'status' : True , 'candidatos' : candidatos_data }
 		
