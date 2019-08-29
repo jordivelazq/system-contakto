@@ -135,6 +135,8 @@ $(document).ready(function () {
   $('.fixed-submenu button').click(() => {
     $('#form_candidato_crear').submit()
   })
+
+  autoSave()
 });
 
 function get_currentpage() {
@@ -263,3 +265,16 @@ customFormatMoney = function (n, c, d, t) {
     j = (j = i.length) > 3 ? j % 3 : 0;
   return '$' + s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+
+function autoSave() {
+  if ($('form').length) {
+    const limit = 5
+    setInterval(() => {
+      if (confirm(`han pasado ${limit} minutos, quieres guardar los cambios?`)) {
+        $('form').submit()
+      }
+    }, 1000 * 60 * limit)
+  }
+  
+}
