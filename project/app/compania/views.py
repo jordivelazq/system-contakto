@@ -111,7 +111,9 @@ def borrar(request, compania_id):
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def sucursal_main(request, compania_id):
 	company = Compania.objects.get(id=compania_id)
-	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva'
+	investigacion_id = request.GET.get('investigacion', '')
+	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva?investigacion_id=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursal/nueva'
+	candidato_url = '/candidato/investigacion/' + investigacion_id + '/editar' if investigacion_id else ''
 	sucursales = Sucursales.objects.filter(compania_id=compania_id)
 	return render_to_response('sections/empresa/sucursal/main.html', locals(), context_instance=RequestContext(request))
 
@@ -120,7 +122,8 @@ def sucursal_main(request, compania_id):
 def sucursal_new(request, compania_id):
 	company = Compania.objects.get(id=compania_id)
 	title = 'Crear nueva sucursal para ' + company.nombre
-	boton_cancelar_url = '/empresa/'+str(compania_id)+'/sucursales'
+	investigacion_id = request.GET.get('investigacion_id', '')
+	boton_cancelar_url = '/empresa/'+str(compania_id)+'/sucursales?investigacion=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursales'
 
 	if request.POST:
 			formSucursal = SucursalesForm(request.POST, prefix='sucursal')

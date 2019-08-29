@@ -9,7 +9,10 @@
 
 <div class="row placeholders">
     <div class="pull-right">
-      <a href="{{agregar_url}}">Agregar</a> <br />
+			{% if candidato_url %}
+			<a href="{{candidato_url}}" class="btn btn-default">Regresar a Candidato</a>
+			{% endif %}
+      <a href="{{agregar_url}}" class="btn btn-primary">Agregar</a> <br />
     </div>
     <div class="table-responsive">
 		{% if sucursales|length %}

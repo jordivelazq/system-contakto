@@ -183,12 +183,15 @@ def crear(request):
 
 			b = Bitacora(action='candidato-creado: ' + str(investigacion.candidato), user=request.user)
 			b.save()
+
 			if 'guardar_crear_otro' in request.POST:
 				return HttpResponseRedirect('/candidato/nuevo/exito')
 			elif 'guardar_solo' in request.POST:
 				return HttpResponseRedirect('/candidato/exito')
 			elif 'guardar_empezar_inv' in request.POST:
 				return HttpResponseRedirect('/candidato/investigacion/' + str(investigacion.id) + '/editar/exito')
+			elif 'guardar_sucursal' in request.POST:
+				return HttpResponseRedirect('/empresa/' + str(investigacion.compania.id) + '/sucursales?investigacion=' + str(investigacion.id))
 			else:
 				return HttpResponseRedirect('/candidato/exito')
 		else:
