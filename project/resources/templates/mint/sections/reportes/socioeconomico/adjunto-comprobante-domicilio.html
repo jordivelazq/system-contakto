@@ -5,13 +5,10 @@
       <h3>COMPROBANTE DE DOMICILIO</h3>
 
       <div class="semanas-cotizadas">
-        {% if adjuntos.adj16 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj16}}" />
-        {% endif %}
       </div>
 
-
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:page %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>

@@ -5,13 +5,10 @@
       <h3>ANEXOS DE DOCUMENTOS</h3>
 
       <div class="semanas-cotizadas">
-        {% if adjuntos.adj15 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj15}}" />
-        {% endif %}
       </div>
 
-
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:page %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>

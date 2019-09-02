@@ -90,9 +90,15 @@
     <div class="demandas">
       <h4>DEMANDAS LABORALES</h4>
       {% include 'sections/reportes/compartido/demanda.html' %}
+
+      {% if adjuntos.adj7 %}
+        <div class="semanas-cotizadas">
+          <img src="{{adjuntos_baseurl}}{{adjuntos.adj7}}" />
+        </div>
+      {% endif %}
     </div>
 
-    {% include 'sections/reportes/seccion/footer.html' with page='2' %}
+    {% include 'sections/reportes/seccion/footer.html' %}
   </div>
 </section>
 <div class="page-break"></div>

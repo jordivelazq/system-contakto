@@ -5,12 +5,10 @@
       <h3>VALIDACIÓN DE DEMANDAS LABORALES</h3>
 
       <div class="semanas-cotizadas">
-        {% if adjuntos.adj7 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj7}}" />
-        {% endif %}
       </div>
 
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:12 %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>

@@ -4,13 +4,10 @@
 
       <h3>AVISO DE PRIVACIDAD</h3>
       <div class="aviso-privacidad">
-        {% if adjuntos.adj11 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj11}}" />
-        {% endif %}
       </div>
 
-
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:9 %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>

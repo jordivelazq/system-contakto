@@ -5,12 +5,10 @@
       <h3>ÚLTIMO GRADO DE ESTUDIOS</h3>
 
       <div class="semanas-cotizadas">
-        {% if adjuntos.adj14 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj14}}" />
-        {% endif %}
       </div>
 
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:13 %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>

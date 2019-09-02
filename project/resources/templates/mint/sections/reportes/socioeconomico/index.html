@@ -14,21 +14,48 @@
 
 {% include 'sections/reportes/socioeconomico/mensual.html' %}
 
-{% include 'sections/reportes/compartido/referencia-laboral.html' with page=7 %}
+{% include 'sections/reportes/compartido/referencia-laboral.html' %}
 
 {% include 'sections/reportes/socioeconomico/adjunto-domicilio.html' %}
 
 {% include 'sections/reportes/socioeconomico/adjunto-entrevistador.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-privacidad.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-constancia.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-validacion-demanda.html' %}
-{% include 'sections/reportes/socioeconomico/adjunto-ultimo-grado.html' %}
 
-{% include 'sections/reportes/socioeconomico/adjunto-comprobante-domicilio.html' with page=14 %}
-{% include 'sections/reportes/socioeconomico/adjunto-acta-nacimiento.html' with page=15 %}
-{% include 'sections/reportes/socioeconomico/adjunto-carta-laboral.html' with page=16 %}
-{% include 'sections/reportes/socioeconomico/adjunto-conclusion.html' with page=17 %}
-{% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with page=18 %}
+{% if adjuntos.adj11 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-privacidad.html' %}
+{% endif %}
+
+{% if adjuntos.adj12 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-constancia.html' %}
+{% endif %}
+
+{% if adjuntos.adj8 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' %}
+{% endif %}
+
+{% if adjuntos.adj7 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-validacion-demanda.html' %}
+{% endif %}
+
+{% if adjuntos.adj14 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-ultimo-grado.html' %}
+{% endif %}
+
+{% if adjuntos.adj16 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-comprobante-domicilio.html' %}
+{% endif %}
+
+{% if adjuntos.adj17 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-acta-nacimiento.html' %}
+{% endif %}
+
+{% if adjuntos.adj15 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' %}
+{% endif %}
+
+{% if adjuntos.adj18 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-2.html' %}
+{% endif %}
+
+{% include 'sections/reportes/socioeconomico/adjunto-conclusion.html' %}
 
 {% endblock %}

@@ -5,13 +5,10 @@
       <h3>ACTA DE NACIMIENTO</h3>
 
       <div class="semanas-cotizadas">
-        {% if adjuntos.adj17 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj17}}" />
-        {% endif %}
       </div>
 
-
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:page %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>

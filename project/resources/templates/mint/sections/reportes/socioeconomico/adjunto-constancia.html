@@ -4,12 +4,10 @@
 
       <h3>CONSTANCIA DE ENTREVISTA Y ENCUESTA</h3>
       <div class="constancia-entrevista">
-        {% if adjuntos.adj12 %}
         <img src="{{adjuntos_baseurl}}{{adjuntos.adj12}}" />
-        {% endif %}
       </div>
 
-      {% include 'sections/reportes/seccion/footer.html' with page=trayectoria.count|add:10 %}
+      {% include 'sections/reportes/seccion/footer.html' %}
     </div>
   </section>
   <div class="page-break"></div>
