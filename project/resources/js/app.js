@@ -147,7 +147,6 @@ contacktoApp.controller('CandidatoNuevaInvCTRL', function($scope) {
     }
 
     $scope.validate_candidate = function() {
-      console.log('validate_candidate2');
         var data = {
             'nss': $scope.nss,
             'curp': $scope.curp
@@ -299,7 +298,6 @@ contacktoApp.controller('TrayectoriaCTRL', function($scope) {
     };
 
     $scope.onClickEditarDatosEmpresa = function($event) {
-        console.log($event);
         if (!confirm('Presiona OK para dejar esta ventana, \nNota:si no has guardado los últimos cambios presiona cancel')) {
             $event.preventDefault();
         }

@@ -91,7 +91,7 @@ class EntrevistaInvestigacionForm(ModelForm):
 
 class EntrevistaCitaForm(ModelForm):
 	autorizada = forms.ChoiceField(choices=ACTIVO_OPCIONES, initial='0', label='Entrevista autorizada')
-	entrevistador = forms.CharField(label='Enviado a ejecutivo:', required=False)
+	entrevistador = forms.CharField(label='Enviado a entrevistador:', required=False)
 
 	class Meta:  
 		model = EntrevistaCita

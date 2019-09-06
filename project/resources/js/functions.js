@@ -137,6 +137,7 @@ $(document).ready(function () {
   })
 
   autoSave()
+  askBeforeMoveInsideInvestigation()
 });
 
 function get_currentpage() {
@@ -276,5 +277,14 @@ function autoSave() {
       }
     }, 1000 * 60 * limit)
   }
-  
+}
+
+function askBeforeMoveInsideInvestigation() {
+  if($('.investigacion-menu').length) {
+    $('.investigacion-menu a').click((event) => {
+      if (!confirm('presionar OK para continuar sin guardar los cambios?')) {
+        event.preventDefault()
+      }
+    })
+  }
 }

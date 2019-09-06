@@ -384,6 +384,8 @@ def editar(request, investigacion_id):
 		b.save()
 
 		if msg_param != '':
+			if 'guardar_sucursal' in request.POST:
+				return HttpResponseRedirect('/empresa/' + str(investigacion.compania.id) + '/sucursales?investigacion=' + str(investigacion.id))
 			return HttpResponseRedirect('/candidato/investigacion/'+str(investigacion_id)+'/editar'+msg_param)
 
 	else:
@@ -613,6 +615,8 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		b = Bitacora(action='trayectoria-editar: ' + str(trayectoria_empresa), user=request.user)
 		b.save()
 		if exito:
+			if 'guardar_sucursal' in request.POST:
+				return HttpResponseRedirect('/empresa/' + str(investigacion.compania.id) + '/sucursales?investigacion=' + str(investigacion.id))
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/editar/trayectoria/'+trayectoria_id+'/exito')
 
 	else:

@@ -1,4 +1,4 @@
-<ul class="nav nav-pills">
+<ul class="nav nav-pills investigacion-menu">
 	<li {% if not seccion %}class="active"{% endif %}>
 		<a href="/candidato/investigacion/{{investigacion_id}}/{% if request.user.is_staff %}editar{% else %}ver{% endif %}">Info. Personal</a>
 	</li>

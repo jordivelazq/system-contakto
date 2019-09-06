@@ -9,6 +9,9 @@
 		function onLoad() {
 			addPageNumber()
 			window.print()
+			window.onfocus=function(){
+				window.close();
+			}
 		}
 
 		function addPageNumber() {

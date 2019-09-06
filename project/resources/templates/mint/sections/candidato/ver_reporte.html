@@ -12,33 +12,27 @@
 <div>	
 	{% include 'sections/candidato/seccion/menu_trayectoria.html' %}
 	
-	<form role="form" action="#" method="post" id="form_candidato_crear">
-		{% csrf_token %}
-		<input type="hidden" name="action" id="action"/>
-		<div id="reporte">
-			<div class="row">
-				<div class="col-xs-3">
-					<label>Reporte de datos generales y trayectoria laboral </label>
-				</div>
-				<div id="exportar-pdf" class="col-xs-2">
-					<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-5">
-					<hr />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-3">
-					<label>Reporte completo de investigación </label>
-				</div>
-				<div id="exportar-pdf" class="col-xs-3">
-					<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
-				</div>
-			</div>
+	<div class="row">
+		<div class="col-xs-3">
+			<label>Reporte de datos generales y trayectoria laboral </label>
 		</div>
-	</form>
+		<div id="exportar-pdf" class="col-xs-2">
+			<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-5">
+			<hr />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3">
+			<label>Reporte completo de investigación </label>
+		</div>
+		<div id="exportar-pdf" class="col-xs-3">
+			<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+		</div>
+	</div>
 </div>
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
 {% endblock %}
