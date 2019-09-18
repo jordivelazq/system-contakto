@@ -59,6 +59,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
+
 	if not investigacion.entrevistapersona_set.all().count():
 		if not seccion_entrevista == 'cita':
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/cita')
@@ -405,6 +406,10 @@ def cargar_entrevista(request, investigacion_id):
 				file_instance.save()
 				if (pre_candidato.leerArchivo(file_id=file_instance.id, sheet_index=0)):
 					data = pre_candidato.getData()
+
+					if data['candidato']['datos_generales']['nss'] != investigacion.candidato.nss:
+						pre_candidato.errors.append('NSS no coincide con el guardado en la investigación')
+
 					#Revisar si hubo errores en la lectura del excel
 					if len(pre_candidato.errors) == 0:
 						candidato = ControllerPersona()
@@ -421,7 +426,6 @@ def cargar_entrevista(request, investigacion_id):
 							#borrar entrevista recién registrada si hubo algún error en la escritura de DB
 							EntrevistaPersona.objects.get(id=candidato_id).delete()
 					else:
-
 						file_instance.delete()
 
 	else:
