@@ -393,8 +393,13 @@ def cargar_entrevista(request, investigacion_id):
 	if investigacion.entrevistapersona_set.all().count():
 		tiene_entrevista = True
 		entrevista_actual = investigacion.entrevistapersona_set.all()[0]
-
+	
 	if request.method == 'POST':
+
+		if 'eliminar' in request.POST and tiene_entrevista:
+			entrevista_actual.delete()
+			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista')
+
 		form = EntrevistaFileForm(request.POST, request.FILES)
 		if form.is_valid():
 			ext = os.path.splitext(str(request.FILES['record']))[1]
