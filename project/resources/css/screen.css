@@ -261,24 +261,44 @@ body {
 
 /* line 187, ../sass/screen.sass */
 .fixed-submenu {
+  padding: 0 12px;
   position: fixed;
   background: white;
+  left: 17%;
+  right: 0;
   top: 51px;
   z-index: 3;
 }
+/* line 196, ../sass/screen.sass */
+.fixed-submenu .header {
+  display: flex;
+  justify-content: space-between;
+}
+/* line 200, ../sass/screen.sass */
+.fixed-submenu .cta {
+  text-align: right;
+}
+/* line 203, ../sass/screen.sass */
+.fixed-submenu .cta > * {
+  min-width: 200px;
+}
+/* line 205, ../sass/screen.sass */
+.fixed-submenu .cta a {
+  margin-right: 20px;
+}
 
-/* line 193, ../sass/screen.sass */
+/* line 208, ../sass/screen.sass */
 .adjusted-fixed-submenu {
-  margin-top: 135px;
+  margin-top: 150px;
 }
 @media (max-width: 1190px) {
-  /* line 193, ../sass/screen.sass */
+  /* line 208, ../sass/screen.sass */
   .adjusted-fixed-submenu {
     margin-top: 200px;
   }
 }
 
-/* line 199, ../sass/screen.sass */
+/* line 214, ../sass/screen.sass */
 .candidato-crear {
   margin-top: 101px;
 }

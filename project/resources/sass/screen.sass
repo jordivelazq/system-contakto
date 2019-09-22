@@ -185,13 +185,28 @@ body
 	min-width: 350px
 
 .fixed-submenu
+	padding: 0 12px
 	position: fixed
 	background: white
+	left: 17%
+	right: 0
 	top: 51px
 	z-index: 3
 
+	.header
+		display: flex
+		justify-content: space-between
+	
+	.cta
+		text-align: right
+
+		> *
+			min-width: 200px
+		a
+			margin-right: 20px
+
 .adjusted-fixed-submenu
-	margin-top: 135px
+	margin-top: 150px
 
 	@media (max-width: 1190px)
 		margin-top: 200px

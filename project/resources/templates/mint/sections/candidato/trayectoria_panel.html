@@ -12,10 +12,10 @@
 			</div>
 		</div>	
 {% endautoescape %}
-<div>
-	{% include 'sections/candidato/seccion/candidato_header.html' %}
 
-	{% include 'sections/candidato/seccion/menu_trayectoria.html' %}
+{% include 'sections/candidato/seccion/candidato_header.html' %}
+
+<div class="adjusted-fixed-submenu">
 	<h4>Empresas investigadas {% if request.user.is_staff %}<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/nueva" title="empresa nuevo" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a>{% endif %}</h4>
 	
 

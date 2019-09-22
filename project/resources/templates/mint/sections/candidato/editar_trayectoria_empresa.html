@@ -24,31 +24,20 @@
 {% include 'sections/candidato/seccion/candidato_header.html' %}
 
 <div ng-controller="TrayectoriaCTRL">
-		
-	<form role="form" action="#" method="post" id="form_trayectoria_editar">
+
+	<form role="form" action="#" method="post" id="form_trayectoria_editar" class="adjusted-fixed-submenu">
 		{% csrf_token %}	
 
+		{% if request.user.is_staff %}
 		<div class="row">
-			<div class="col-md-8">
-				{% include 'sections/candidato/seccion/menu_trayectoria.html' %}	
+			<div class="col-md-offset-10 col-md-2">
+				<button type="submit" name="guardar" class="btn btn-primary form-control">
+					Guardar <span class="glyphicon glyphicon-save"></span>
+				</button>
 			</div>
-			{% if request.user.is_staff %}
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-6">
-							<button type="submit" name="cancelar" class="btn btn-danger form-control">
-								Regresar <span class="glyphicon glyphicon-"></span>
-							</button>	
-						</div>
-						<div class="col-md-6">
-							<button type="submit" name="guardar" class="btn btn-primary form-control">
-								Guardar <span class="glyphicon glyphicon-save"></span>
-							</button>
-						</div>
-					</div>
-				</div>
-			{% endif %}		
 		</div>
+		{% endif %}		
+
 		{% include 'sections/candidato/forma/seccion/trayectoria_laboral.html' %}
 		<br />
 		{% include 'sections/candidato/forma/seccion/evaluacion.html' %}

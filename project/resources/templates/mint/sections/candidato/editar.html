@@ -22,30 +22,10 @@
 {% endautoescape %}
 
 <div ng-controller="CandidatoCTRL">
-	<div class="fixed-submenu col-md-10">
-		{% include 'sections/candidato/seccion/candidato_header.html' %}
-
-		<br />
-		<div class="row">
-			<div class="col-md-8">
-			{% include 'sections/candidato/seccion/menu_trayectoria.html' %}	
-			</div>
-
-			{% if request.user.is_superuser %}	
-				<div class="col-md-2 text-right">
-					<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar <span class="glyphicon glyphicon-trash"></span></a>
-				</div>
-			{% endif %}
-			{% if request.user.is_staff %}
-				<div class="col-md-1 text-right">
-					<button type="submit" name="guardar" class="btn btn-primary">
-						Guardar <span class="glyphicon glyphicon-save"></span>
-					</button>
-				</div>
-			{% endif %}
-		</div>	
-	</div>
 	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab adjusted-fixed-submenu">
+
+		{% include 'sections/candidato/seccion/candidato_header.html' with cta="both" %}
+	
 		<input type="hidden" id="investigacion_id" value="{{ investigacion_id }}" />		
 		{% csrf_token %}
 		<br />	

@@ -6,33 +6,36 @@
 {% endblock %}
 
 {% block site_wrapper %}
-{% autoescape off %}
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				{% if msg %}
-					<div id="msg" class="alert alert-{{status}}">
-						{% for m in msg %}
-							- {{m}} <br />
-						{% endfor %}
-					</div>
-				{% else %}
-					<div id="msg"></div>
-				{% endif %}
-			</div>
-		</div>	
-{% endautoescape %}
 
-	{% include 'sections/candidato/seccion/candidato_header.html' %}
+{% include 'sections/candidato/seccion/candidato_header.html' %}
 
-	{% include 'sections/candidato/seccion/menu_trayectoria.html' %}
-	
+<div id="form-container" class="missing-form-control adjusted-fixed-submenu">
+
+	{% autoescape off %}
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			{% if msg %}
+				<div id="msg" class="alert alert-{{status}}">
+					{% for m in msg %}
+						- {{m}} <br />
+					{% endfor %}
+				</div>
+			{% else %}
+				<div id="msg"></div>
+			{% endif %}
+		</div>
+	</div>	
+	{% endautoescape %}
+
+
 	{% include 'sections/entrevista/seccion/menu_entrevista.html' %}
 
-<h1 class="page-header">{{title}}</h1>
-<p class="{{msg_class}}">{{ state }}</p>
+	<h1 class="page-header">{{title}}</h1>
+	<p class="{{msg_class}}">{{ state }}</p>
 
-<div id="form-container" class="missing-form-control">
 	{% include form_template %}
 </div>
+
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+
 {% endblock %}

@@ -5,54 +5,58 @@
 {% endblock %}
 
 {% block site_wrapper %}
-{% autoescape off %}
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			{% if msg %}
-				<div id="msg" class="alert alert-{{status}}">
-					{% for m in msg %}
-						- {{m}} <br />
-					{% endfor %}
-				</div>
-			{% else %}
-				<div id="msg"></div>
-			{% endif %}
-		</div>
-	</div>
-{% endautoescape %}
 
 {% include 'sections/candidato/seccion/candidato_header.html' %}
 
-<form enctype="multipart/form-data" role="form" method="post" action="#" id="">
-	{% csrf_token %}
-	<div class="row">
-		<div class="col-md-8">
-			{% include 'sections/candidato/seccion/menu_trayectoria.html' %}	
+<div class="adjusted-fixed-submenu">
+	{% autoescape off %}
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				{% if msg %}
+					<div id="msg" class="alert alert-{{status}}">
+						{% for m in msg %}
+							- {{m}} <br />
+						{% endfor %}
+					</div>
+				{% else %}
+					<div id="msg"></div>
+				{% endif %}
+			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="row">				
-				<div class="col-md-6">
-				</div>
-				<div class="col-md-6">
-					<button type="submit" name="guardar" class="btn btn-primary form-control">Guardar <span class="glyphicon glyphicon-save"></span></button>
-				</div>				
-			</div>		
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="text-danger">{{ adjuntos_form.non_field_errors }}</div>
-		<div class="col-xs-4 col-xs-offset-1">
-			{% for f in adjuntos_form %}
-				<div class="text-danger">{{ f.errors }}</div>
-				{{ f.label_tag }}<br />
-				{{ f }}
-				<hr />
-			{% endfor %}
+	{% endautoescape %}
+
+
+
+	<form enctype="multipart/form-data" role="form" method="post" action="#" id="">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-md-8">
+			</div>
+			<div class="col-md-4">
+				<div class="row">				
+					<div class="col-md-6">
+					</div>
+					<div class="col-md-6">
+						<button type="submit" name="guardar" class="btn btn-primary form-control">Guardar <span class="glyphicon glyphicon-save"></span></button>
+					</div>				
+				</div>		
+			</div>
 		</div>
 		
-	</div>
-</form>
+		<div class="row">
+			<div class="text-danger">{{ adjuntos_form.non_field_errors }}</div>
+			<div class="col-xs-4 col-xs-offset-1">
+				{% for f in adjuntos_form %}
+					<div class="text-danger">{{ f.errors }}</div>
+					{{ f.label_tag }}<br />
+					{{ f }}
+					<hr />
+				{% endfor %}
+			</div>
+			
+		</div>
+	</form>
 
-{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+</div>
 {% endblock %}
