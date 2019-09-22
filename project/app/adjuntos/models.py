@@ -9,24 +9,26 @@ import os
 
 class Adjuntos(models.Model):
 	investigacion = models.ForeignKey(Investigacion)
-	adj1 = models.FileField(verbose_name='Solicitud o currículum (.doc,.pdf,.jpg)', upload_to='adj', blank=True, null=True)
-	adj2 = models.FileField(verbose_name='Foto Candidato', upload_to='adj', blank=True, null=True)
-	adj3 = models.FileField(verbose_name='Foto Interior 1', upload_to='adj', blank=True, null=True)
-	adj4 = models.FileField(verbose_name='Foto Interior 2', upload_to='adj', blank=True, null=True)
-	adj5 = models.FileField(verbose_name='Foto Exterior', upload_to='adj', blank=True, null=True)
-	adj6 = models.FileField(verbose_name='Foto tipo face', upload_to='adj', blank=True, null=True)
-	adj7 = models.FileField(verbose_name='Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
-	adj8 = models.FileField(verbose_name='Semanas Cotizadas', upload_to='adj', blank=True, null=True)
-	adj9 = models.FileField(verbose_name='Anexo 3. Exterior derecho', upload_to='adj', blank=True, null=True)
-	adj10 = models.FileField(verbose_name='Anexo 4. Gestor Entrevistador', upload_to='adj', blank=True, null=True)
-	adj11 = models.FileField(verbose_name='Anexo 5. Aviso Privacidad', upload_to='adj', blank=True, null=True)
-	adj12 = models.FileField(verbose_name='Anexo 6. Constancia', upload_to='adj', blank=True, null=True)
-	adj13 = models.FileField(verbose_name='Croquis', upload_to='adj', blank=True, null=True)
-	adj14 = models.FileField(verbose_name='Ultimo grado de estudios', upload_to='adj', blank=True, null=True)
-	adj15 = models.FileField(verbose_name='Anexo', upload_to='adj', blank=True, null=True)
-	adj16 = models.FileField(verbose_name='Comprobante de domicilio', upload_to='adj', blank=True, null=True)
-	adj17 = models.FileField(verbose_name='Acta de nacimiento', upload_to='adj', blank=True, null=True)
-	adj18 = models.FileField(verbose_name='Extra', upload_to='adj', blank=True, null=True)
+	adj2 = models.FileField(verbose_name='1. Foto de perfil del candidato', upload_to='adj', blank=True, null=True)
+
+	adj3 = models.FileField(verbose_name='2.a Interior derecho', upload_to='adj', blank=True, null=True)
+	adj4 = models.FileField(verbose_name='2.b Interior izquierdo', upload_to='adj', blank=True, null=True)
+	adj5 = models.FileField(verbose_name='2.c Exterior derecho', upload_to='adj', blank=True, null=True)
+	adj6 = models.FileField(verbose_name='2.d Exterior izquierdo', upload_to='adj', blank=True, null=True)
+	adj9 = models.FileField(verbose_name='2.e Frente', upload_to='adj', blank=True, null=True)
+
+	adj10 = models.FileField(verbose_name='3. Gestor Entrevistador', upload_to='adj', blank=True, null=True)
+	adj13 = models.FileField(verbose_name='4. Croquis', upload_to='adj', blank=True, null=True)
+	adj11 = models.FileField(verbose_name='5. Aviso Privacidad', upload_to='adj', blank=True, null=True)
+	adj12 = models.FileField(verbose_name='6. Constancia', upload_to='adj', blank=True, null=True)
+	adj14 = models.FileField(verbose_name='7. Identificación con fotografia', upload_to='adj', blank=True, null=True)
+
+
+	adj17 = models.FileField(verbose_name='8. Acta de nacimiento', upload_to='adj', blank=True, null=True)
+	adj16 = models.FileField(verbose_name='9. Comprobante de domicilio', upload_to='adj', blank=True, null=True)
+	adj8 = models.FileField(verbose_name='10. Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+	adj7 = models.FileField(verbose_name='11. Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
+	adj18 = models.FileField(verbose_name='12. Adicionales', upload_to='adj', blank=True, null=True)
 
 	def filename(self):
 		return os.path.basename(self.file.name)
