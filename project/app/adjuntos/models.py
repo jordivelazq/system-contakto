@@ -76,8 +76,7 @@ def resize_adjuntos(sender, **kwargs):
 	#adj14
 	if len(str(kwargs['instance'].adj14)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj14), size_x=800)
-	if len(str(kwargs['instance'].adj15)):
-		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj15), size_x=800)
+	
 	if len(str(kwargs['instance'].adj16)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj16), size_x=800)
 	if len(str(kwargs['instance'].adj17)):
