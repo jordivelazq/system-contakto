@@ -15,7 +15,8 @@ class EntrevistaService:
 			response = {
 				'entrevistador': data.entrevistador,
 				'fecha': data.fecha_entrevista,
-				'hora': data.hora_entrevista
+				'hora': data.hora_entrevista,
+				'autorizada': data.autorizada
 			}
 		return response
 

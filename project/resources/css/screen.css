@@ -27,8 +27,13 @@ body {
   display: none;
 }
 
+/* line 23, ../sass/screen.sass */
+.uppercase {
+  text-transform: uppercase;
+}
+
 @media (min-width: 768px) {
-  /* line 24, ../sass/screen.sass */
+  /* line 27, ../sass/screen.sass */
   .sidebar {
     position: fixed;
     top: 51px;
@@ -44,91 +49,91 @@ body {
     border-right: 1px solid #eee;
   }
 }
-/* line 38, ../sass/screen.sass */
+/* line 41, ../sass/screen.sass */
 .nav-sidebar {
   margin-right: -21px;
   margin-bottom: 20px;
   margin-left: -20px;
 }
-/* line 43, ../sass/screen.sass */
+/* line 46, ../sass/screen.sass */
 .nav-sidebar > li > a {
   padding-right: 20px;
   padding-left: 20px;
 }
-/* line 47, ../sass/screen.sass */
+/* line 50, ../sass/screen.sass */
 .nav-sidebar > .active > a {
   color: #fff;
   background-color: #428bca;
 }
 
-/* line 51, ../sass/screen.sass */
+/* line 54, ../sass/screen.sass */
 .main {
   padding: 10px;
 }
-/* line 54, ../sass/screen.sass */
+/* line 57, ../sass/screen.sass */
 .main .page-header {
   margin-top: 0;
 }
 
 @media (min-width: 768px) {
-  /* line 58, ../sass/screen.sass */
+  /* line 61, ../sass/screen.sass */
   .main {
     padding-right: 20px;
     padding-left: 20px;
   }
 }
-/* line 62, ../sass/screen.sass */
+/* line 65, ../sass/screen.sass */
 .placeholders {
   margin-bottom: 30px;
   text-align: center;
 }
-/* line 66, ../sass/screen.sass */
+/* line 69, ../sass/screen.sass */
 .placeholders h4 {
   margin-bottom: 0;
 }
 
-/* line 69, ../sass/screen.sass */
+/* line 72, ../sass/screen.sass */
 .placeholder {
   margin-bottom: 20px;
 }
-/* line 72, ../sass/screen.sass */
+/* line 75, ../sass/screen.sass */
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
 }
 
-/* line 76, ../sass/screen.sass */
+/* line 79, ../sass/screen.sass */
 .errorlist {
   color: #a94442;
   list-style-type: none;
   padding: 0 0 0 10px;
 }
 
-/* line 81, ../sass/screen.sass */
+/* line 84, ../sass/screen.sass */
 .sidebar-date-input {
   font-size: 12px;
   width: 45%;
   padding: 4px 4px;
 }
 
-/* line 86, ../sass/screen.sass */
+/* line 89, ../sass/screen.sass */
 .float-left {
   float: left;
   display: inline-block;
 }
 
-/* line 90, ../sass/screen.sass */
+/* line 93, ../sass/screen.sass */
 #daterange-inputs-sidebar {
   width: 100%;
 }
 
-/* line 93, ../sass/screen.sass */
+/* line 96, ../sass/screen.sass */
 .daterange-separator {
   margin-top: 5px;
   width: 10%;
 }
 
-/* line 97, ../sass/screen.sass */
+/* line 100, ../sass/screen.sass */
 .loading-ajax {
   background: url(../media/ajax-loader.gif) 0 0 no-repeat;
   background-position: center;
@@ -136,107 +141,107 @@ body {
   width: 100%;
 }
 
-/* line 104, ../sass/screen.sass */
+/* line 107, ../sass/screen.sass */
 #lista-candidatos-sidebar li {
   padding: 5px 5px 0px 5px;
   margin-bottom: -10px;
   cursor: pointer;
   font-size: small;
 }
-/* line 109, ../sass/screen.sass */
+/* line 112, ../sass/screen.sass */
 #lista-candidatos-sidebar li:hover {
   background-color: #eee;
 }
-/* line 111, ../sass/screen.sass */
+/* line 114, ../sass/screen.sass */
 #lista-candidatos-sidebar li:active {
   background-color: #ddd;
 }
-/* line 114, ../sass/screen.sass */
+/* line 117, ../sass/screen.sass */
 #lista-candidatos-sidebar .active {
   background-color: #428BCA;
 }
 
-/* line 117, ../sass/screen.sass */
+/* line 120, ../sass/screen.sass */
 #lista-agentes-sidebar {
   padding-top: 10px;
 }
-/* line 120, ../sass/screen.sass */
+/* line 123, ../sass/screen.sass */
 #lista-agentes-sidebar li {
   padding: 5px 8px 0px 8px;
   margin-bottom: -10px;
 }
-/* line 124, ../sass/screen.sass */
+/* line 127, ../sass/screen.sass */
 #lista-agentes-sidebar li .opcion-agente {
   font-size: small;
 }
-/* line 127, ../sass/screen.sass */
+/* line 130, ../sass/screen.sass */
 #lista-agentes-sidebar li a {
   color: #999;
 }
 
-/* line 131, ../sass/screen.sass */
+/* line 134, ../sass/screen.sass */
 #modal-lista-empresas .btn {
   width: 100%;
   font-size: small;
 }
 
-/* line 135, ../sass/screen.sass */
+/* line 138, ../sass/screen.sass */
 .sidebar-title {
   margin-top: -50px;
 }
 
-/* line 138, ../sass/screen.sass */
+/* line 141, ../sass/screen.sass */
 .botones-header {
   margin-top: -35px;
 }
-/* line 141, ../sass/screen.sass */
+/* line 144, ../sass/screen.sass */
 .botones-header a, .botones-header button {
   width: 180px;
 }
 
-/* line 144, ../sass/screen.sass */
+/* line 147, ../sass/screen.sass */
 .hidden-element {
   visibility: hidden;
 }
 
-/* line 147, ../sass/screen.sass */
+/* line 150, ../sass/screen.sass */
 .greeting-msg {
   color: #428BCA;
   padding-top: 15px;
   padding-right: 15px;
 }
 
-/* line 152, ../sass/screen.sass */
+/* line 155, ../sass/screen.sass */
 .thin-separator {
   margin-top: 10px;
   margin-bottom: 5px;
 }
 
-/* line 156, ../sass/screen.sass */
+/* line 159, ../sass/screen.sass */
 #status_block {
   float: right;
   margin-top: 15px;
   border-left: 1px solid #CCC;
 }
 
-/* line 161, ../sass/screen.sass */
+/* line 164, ../sass/screen.sass */
 .company_info_block {
   padding-top: 15px;
   background-color: #EEE;
 }
 
-/* line 165, ../sass/screen.sass */
+/* line 168, ../sass/screen.sass */
 #panel_header_status {
   font-size: 12px;
 }
 
-/* line 168, ../sass/screen.sass */
+/* line 171, ../sass/screen.sass */
 .small-id {
   font-size: 16px;
 }
 
 /* ----------------- REPORTES ----------------- */
-/* line 172, ../sass/screen.sass */
+/* line 175, ../sass/screen.sass */
 #panel_enviar_reporte {
   display: hide;
   position: absolute;
@@ -244,17 +249,17 @@ body {
   top: 30px;
 }
 
-/* line 178, ../sass/screen.sass */
+/* line 181, ../sass/screen.sass */
 #panel_empresa_contacto {
   position: relative;
 }
 
-/* line 181, ../sass/screen.sass */
+/* line 184, ../sass/screen.sass */
 .wide-th {
   min-width: 350px;
 }
 
-/* line 184, ../sass/screen.sass */
+/* line 187, ../sass/screen.sass */
 .fixed-submenu {
   position: fixed;
   background: white;
@@ -262,18 +267,18 @@ body {
   z-index: 3;
 }
 
-/* line 190, ../sass/screen.sass */
+/* line 193, ../sass/screen.sass */
 .adjusted-fixed-submenu {
   margin-top: 135px;
 }
 @media (max-width: 1190px) {
-  /* line 190, ../sass/screen.sass */
+  /* line 193, ../sass/screen.sass */
   .adjusted-fixed-submenu {
     margin-top: 200px;
   }
 }
 
-/* line 196, ../sass/screen.sass */
+/* line 199, ../sass/screen.sass */
 .candidato-crear {
   margin-top: 101px;
 }
