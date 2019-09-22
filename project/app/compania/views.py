@@ -13,7 +13,6 @@ from app.compania.forms import CompaniaForm, ContactoForm, SucursalesForm
 from django.db.models import Q
 import json
 
-
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def panel(request):
@@ -248,6 +247,10 @@ def contacto_nuevo(request, compania_id='', investigacion_id=''):
 			elif 'guargar_capturar_otro' in request.POST:
 				return HttpResponseRedirect('/empresa/'+str(company.id)+'/contacto/nuevo/exito')
 			else:
+
+				if 'candidato' in request.GET:
+					return HttpResponseRedirect('/candidato/investigacion/' + str(company.id) + '/editar')	
+
 				return HttpResponseRedirect('/empresa/'+str(company.id)+'/contactos/exito')
 		elif users_with_email_count:
 			error_msg = 'Este email ya está registrado.'
