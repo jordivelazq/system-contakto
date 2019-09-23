@@ -14,11 +14,18 @@
           <th colspan="2">SUCURSAL Y/O CIUDAD</th>
         </tr>
         <tr>
-          <td colspan="2">{{historial_en_empresa}}</td>
-          <td colspan="2">{{historial_en_empresa.puesto}}</td>
-          <td colspan="2">{{historial_en_empresa.periodo}}</td>
-          <td colspan="2">{{historial_en_empresa.motivo_salida|default:''}}</td>
-          <td colspan="2">{{historial_en_empresa.sucursal}}</td>
+          <td colspan="2">{{historial_en_empresa.tiene|default:''}}</td>
+          {% if historial_en_empresa.tiene == "NO" %}
+            <td colspan="2">NO APLICA</td>
+            <td colspan="2">NO APLICA</td>
+            <td colspan="2">NO APLICA</td>
+            <td colspan="2">NO APLICA</td>
+          {% else %}
+            <td colspan="2">{{historial_en_empresa.puesto}}</td>
+            <td colspan="2">{{historial_en_empresa.periodo}}</td>
+            <td colspan="2">{{historial_en_empresa.motivo_salida|default:''}}</td>
+            <td colspan="2">{{historial_en_empresa.sucursal}}</td>
+          {% endif %}
         </tr>
 
         <tr>
@@ -29,11 +36,18 @@
           <th colspan="2">SUCURSAL Y/O CIUDAD</th>
         </tr>
         <tr>
-          <td colspan="2">{{historial_familiar_en_empresa}}</td>
-          <td colspan="2">{{historial_familiar_en_empresa.nombre}}</td>
-          <td colspan="2">{{historial_familiar_en_empresa.puesto}}</td>
-          <td colspan="2">{{historial_familiar_en_empresa.parentesco}}</td>
-          <td colspan="2">{{historial_familiar_en_empresa.sucursal}}</td>
+          <td colspan="2">{{historial_familiar_en_empresa.tiene|default:''}}</td>
+          {% if historial_familiar_en_empresa.tiene == "NO" %}
+            <td colspan="2">NO APLICA</td>
+            <td colspan="2">NO APLICA</td>
+            <td colspan="2">NO APLICA</td>
+            <td colspan="2">NO APLICA</td>
+          {% else %}
+            <td colspan="2">{{historial_familiar_en_empresa.nombre}}</td>
+            <td colspan="2">{{historial_familiar_en_empresa.puesto}}</td>
+            <td colspan="2">{{historial_familiar_en_empresa.parentesco}}</td>
+            <td colspan="2">{{historial_familiar_en_empresa.sucursal}}</td>
+          {% endif %}
         </tr>
 
         <tr>

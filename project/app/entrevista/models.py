@@ -158,9 +158,13 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	    ('trabajo', 'trabajo'),
 	    ('familiar', 'familiar'),
 	)
+	TIENE_OPCIONES = (
+	    ('SI', 'SI'),
+	    ('NO', 'NO'),
+	)
 	persona = models.ForeignKey(EntrevistaPersona)
 	categoria = models.CharField(max_length=20, choices=HISTORIAL_OPCIONES)
-	tiene = models.CharField(max_length=140, null=True, blank=True)
+	tiene = models.CharField(max_length=140, null=True, blank=True, choices=TIENE_OPCIONES)
 	puesto = models.CharField(max_length=500, null=True, blank=True)
 	periodo = models.CharField(max_length=500, null=True, blank=True)	#Solo para categ. trabajo
 	nombre = models.CharField(max_length=140, null=True, blank=True)	#Solo para cate. familiar
