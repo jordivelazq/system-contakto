@@ -239,20 +239,25 @@
         </tr>
         <tr>
           <th>
-            {% if ref.datosgenerales.tiene_mercancia %}
-            MERCANCIA
-            {% endif %}
+            {% if ref.datosgenerales.tiene_valores != 1 %}
+              NO APLICA
+            {% else %}
 
-            {% if ref.datosgenerales.tiene_informacion %}
-            INFORMACIÓN
-            {% endif %}
+              {% if ref.datosgenerales.tiene_mercancia %}
+              MERCANCIA
+              {% endif %}
 
-            {% if ref.datosgenerales.tiene_documentos %}
-            DOCUMENTOS
-            {% endif %}
+              {% if ref.datosgenerales.tiene_informacion %}
+              INFORMACIÓN
+              {% endif %}
 
-            {% if ref.datosgenerales.tiene_efectivo %}
-            EFECTIVO
+              {% if ref.datosgenerales.tiene_documentos %}
+              DOCUMENTOS
+              {% endif %}
+
+              {% if ref.datosgenerales.tiene_efectivo %}
+              EFECTIVO
+              {% endif %}
             {% endif %}
           </th>
           <th>
