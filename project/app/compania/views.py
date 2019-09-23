@@ -133,6 +133,8 @@ def sucursal_new(request, compania_id):
 
 				b = Bitacora(action='sucursal-creada: ' + str(sucursal.id), user=request.user)
 				b.save()
+				if 'trayectoria' in request.GET:
+					return HttpResponseRedirect('/candidato/investigacion/' + str(investigacion_id) + '/editar/trayectoria/' + request.GET['trayectoria'])
 				return HttpResponseRedirect(boton_cancelar_url)
 				
 	else:
@@ -248,8 +250,8 @@ def contacto_nuevo(request, compania_id='', investigacion_id=''):
 				return HttpResponseRedirect('/empresa/'+str(company.id)+'/contacto/nuevo/exito')
 			else:
 
-				if 'candidato' in request.GET:
-					return HttpResponseRedirect('/candidato/investigacion/' + str(company.id) + '/editar')	
+				if 'investigacion' in request.GET:
+					return HttpResponseRedirect('/candidato/investigacion/' + str(request.GET['investigacion']) + '/editar')	
 
 				return HttpResponseRedirect('/empresa/'+str(company.id)+'/contactos/exito')
 		elif users_with_email_count:

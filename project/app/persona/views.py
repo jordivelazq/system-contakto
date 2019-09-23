@@ -616,7 +616,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		b.save()
 		if exito:
 			if 'guardar_sucursal' in request.POST:
-				return HttpResponseRedirect('/empresa/' + str(investigacion.compania.id) + '/sucursales?investigacion=' + str(investigacion.id))
+				return HttpResponseRedirect('/empresa/' + str(trayectoria_empresa.compania.id) + '/sucursal/nueva')
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/editar/trayectoria/'+trayectoria_id+'/exito')
 
 	else:
