@@ -28,7 +28,4 @@ class EntrevistaService:
 
 	@staticmethod
 	def clean_telefono(s):
-		try:
-			return str(int(s))
-		except ValueError:
-			return str(s)
+		return s.encode('utf-8').strip()
