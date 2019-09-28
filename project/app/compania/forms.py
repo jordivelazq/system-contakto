@@ -32,8 +32,13 @@ class CompaniaSucursalForm(forms.Form):
 	
 	def __init__(self, investigacion, *args, **kwargs):
 		super(CompaniaSucursalForm, self).__init__(*args, **kwargs)
+
+		choices = [("", "Seleccionar")]
+		for item in Sucursales.objects.filter(compania=investigacion.compania):
+			choices.append((item.id, str(item.nombre)))
+
 		self.fields['sucursal'] = forms.ChoiceField(
-			choices=[(item.id, str(item.nombre)) for item in Sucursales.objects.filter(compania=investigacion.compania)],
+			choices=choices,
 			initial=investigacion.sucursal_id
 		)
 		for field_name, field in self.fields.items():
