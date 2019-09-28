@@ -21,7 +21,7 @@ ESTADOSMEXICO_OPCIONES = (
 	("Colima", "Colima"),
 	("Distrito Federal", "Distrito Federal"),
 	("Durango", "Durango"),
-	("Estado de México", "Estado de México"),
+	("Estado de Mexico", "Estado de México"),
 	("Guanajuato", "Guanajuato"),
 	("Guerrero", "Guerrero"),
 	("Hidalgo", "Hidalgo"),
