@@ -170,8 +170,6 @@ class TrayectoriaLaboral(models.Model):
 	persona = models.ForeignKey(Persona)
 	compania = models.ForeignKey(Compania)
 	aparece_nss = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
-	aportaciones_fecha_inicial = models.DateField(null=True, blank=True)
-	aportaciones_fecha_final = models.DateField(null=True, blank=True)
 
 	reporta_candidato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
