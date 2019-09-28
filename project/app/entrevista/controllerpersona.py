@@ -306,9 +306,13 @@ class ControllerPersona(object):
 			for tipo in EntrevistaMiembroMarcoFamiliar.FAMILIAR_OPCIONES:
 				if tipo[0] in miembros_tipo_array:
 					for miembro in marco_familiar[tipo[0]]:
+						parentesco = tipo[0]
+						if tipo[0] == "otro" and not "otro" in miembro['parentesco'].lower():
+							parentesco = miembro['parentesco']
+
 						EntrevistaMiembroMarcoFamiliar(	person = candidato,
 														tipo = tipo[0],
-														parentesco = tipo[0],
+														parentesco = parentesco,
 														nombre = miembro['nombre'],
 														edad = miembro['edad'],
 														ocupacion = miembro['ocupacion'],
@@ -326,6 +330,7 @@ class ControllerPersona(object):
 														residencia = marco_familiar[tipo[0]]['residencia'],
 														telefono = srv.clean_telefono(marco_familiar[tipo[0]]['telefono'])).save()
 		except Exception, e:
+			print(e)
 			self.errors.append('Error en registro de marco familiar.')
 		return
 
