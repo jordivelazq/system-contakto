@@ -12,10 +12,18 @@
 			window.onfocus=function(){
 				window.close();
 			}
+			adjustConclusion()
 		}
 
 		function addPageNumber() {
 			document.querySelectorAll('.footer i').forEach((item, index) => item.innerHTML = index + 1)
+		}
+
+		function adjustConclusion() {
+			const conclusion = document.querySelector('.conclusion')
+			if (conclusion && conclusion.innerText.length > 3000) {
+				conclusion.style.fontSize = '13px'
+			}
 		}
 	</script>
 </head>
