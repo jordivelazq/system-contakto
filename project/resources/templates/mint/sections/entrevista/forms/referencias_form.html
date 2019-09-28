@@ -8,8 +8,16 @@
 	{% endif %}
 	{{ referencias_formset.management_form }}
 	{% for form in referencias_formset %}
+		{{form.errors}}
 		<h2><small>Referencia {{ forloop.counter }}</small></h2>
 		{{ form.id }}
+
+		<div class="row">
+			<div class="col-md-9">
+				<label>Tipo:</label> <br />
+				{{form.tipo}}
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-9">
 				<div class="text-danger">{{ form.nombre.errors }}</div>
