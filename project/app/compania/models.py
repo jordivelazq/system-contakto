@@ -8,10 +8,6 @@ ACTIVO_OPCIONES = (
 	    (2, 'No'),
 	)
 
-def validate_rfc(rfc):
-	if rfc != '' and len(rfc) != 11:
-		raise ValidationError('RFC debe tener 11 caracteres')
-
 class Compania(models.Model):
 	nombre = models.CharField(max_length=140, verbose_name='Nombre comercial')  #CHECK
 	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)
@@ -19,7 +15,7 @@ class Compania(models.Model):
 	email = models.EmailField(max_length=140, verbose_name='Correo', blank=True, null=True) #CHECK
 	role = models.CharField(max_length=140, verbose_name='Giro', blank=True, null=True) #CHECK
 	rfc_direccion = models.CharField(max_length=250, verbose_name='Dirección Fiscal', blank=True, null=True) #CHECK
-	rfc = models.CharField(max_length=20, verbose_name='RFC', blank=True, null=True, validators=[validate_rfc]) #CHECK
+	rfc = models.CharField(max_length=20, verbose_name='RFC', blank=True, null=True) #CHECK
 	notas = models.TextField(verbose_name='Notas', blank=True, null=True) #CHECK
 	es_cliente = models.BooleanField(default=False, verbose_name='Es cliente') #CHECK
 	razon_social = models.CharField(max_length=140, verbose_name='Razón social', blank=True, null=True)  #CHECK
