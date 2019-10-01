@@ -22,13 +22,13 @@
 		</div>	
 {% endautoescape %}
 
+<div class="adjusted-fixed-submenu">
 	{% include 'sections/candidato/seccion/candidato_header.html' %}
-
-	{% include 'sections/candidato/seccion/menu_trayectoria.html' %}
 	
 	{% include 'sections/entrevista/seccion/menu_entrevista.html' %}
 
-<div class="alert alert-warning" role="alert">Información aún no disponbile.</div>
+	<div class="alert alert-warning" role="alert">Información aún no disponbile.</div>
 
-{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+</div>
 {% endblock %}
