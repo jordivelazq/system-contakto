@@ -71,12 +71,6 @@ def crear(request):
 	if request.method == 'POST':
 		if 'cancelar' in request.POST:
 			return HttpResponseRedirect('/candidatos')
-		curp = request.POST.get('candidato-curp', '')
-		nss = request.POST.get('candidato-nss')
-		campos_id = True
-		if curp.strip() == '' and nss.strip() == '':
-			campos_id = False
-			msg.append('Favor de capturar NSS y/o CURP')
 
 		formCandidato = CandidatoAltaForm(request.POST, prefix='candidato')
 		formInvestigacion = InvestigacionAltaForm(request.POST, prefix='investigacion')
@@ -121,7 +115,7 @@ def crear(request):
 		if not formSeguro.is_valid():
 			formSeguro.set_is_valid(False)
 
-		if formCandidato.is_valid() and formInvestigacion.is_valid() and formOrigen.get_is_valid() and formDireccion.get_is_valid() and formTelefono1.get_is_valid() and formTelefono2.get_is_valid() and formTelefono3.get_is_valid() and formPrestacionViviendaInfonavit.get_is_valid() and formPrestacionViviendaFonacot.get_is_valid() and formLegalidad.get_is_valid() and formSeguro.get_is_valid() and campos_id:
+		if formCandidato.is_valid() and formInvestigacion.is_valid() and formOrigen.get_is_valid() and formDireccion.get_is_valid() and formTelefono1.get_is_valid() and formTelefono2.get_is_valid() and formTelefono3.get_is_valid() and formPrestacionViviendaInfonavit.get_is_valid() and formPrestacionViviendaFonacot.get_is_valid() and formLegalidad.get_is_valid() and formSeguro.get_is_valid():
 			
 			candidato = formCandidato.save()
 			investigacion = formInvestigacion.save(commit=False)
@@ -258,14 +252,6 @@ def editar(request, investigacion_id):
 
 		if 'cancelar' in request.POST:
 			return HttpResponseRedirect('/candidatos')
-
-		curp = request.POST.get('candidato-curp', '')
-		nss = request.POST.get('candidato-nss')
-		campos_id = True
-		if curp.strip() == '' and nss.strip() == '':
-			status = 'danger'
-			msg.append('Favor de capturar NSS y/o CURP')
-			msg_param = ''
 
 		formCandidato = CandidatoAltaForm(request.POST, prefix='candidato', instance=investigacion.candidato)
 		if formCandidato.is_valid():

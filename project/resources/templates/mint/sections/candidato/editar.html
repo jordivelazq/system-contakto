@@ -5,21 +5,6 @@
 {% endblock %}
 
 {% block site_wrapper %}
-{% autoescape off %}
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				{% if msg %}
-					<div id="msg" class="alert alert-{{status}}">
-						{% for m in msg %}
-							- {{m}} <br />
-						{% endfor %}
-					</div>
-				{% else %}
-					<div id="msg"></div>
-				{% endif %}
-			</div>
-		</div>	
-{% endautoescape %}
 
 <div ng-controller="CandidatoCTRL">
 	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab adjusted-fixed-submenu">
@@ -32,6 +17,23 @@
 		<input type="hidden" name="action" id="action"/>
 		<div class="tab-content">
 			<div class="tab-pane active" id="info-personal">
+
+				{% autoescape off %}
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3">
+							{% if msg %}
+								<div id="msg" class="alert alert-{{status}}">
+									{% for m in msg %}
+										- {{m}} <br />
+									{% endfor %}
+								</div>
+							{% else %}
+								<div id="msg"></div>
+							{% endif %}
+						</div>
+					</div>	
+				{% endautoescape %}
+
 				{% include 'sections/candidato/forma/seccion/informacion_personal.html' %}
 				<br />				
 			</div>
