@@ -138,6 +138,7 @@ $(document).ready(function () {
 
   autoSave()
   askBeforeMoveInsideInvestigation()
+  newClientContact()
 });
 
 function get_currentpage() {
@@ -286,5 +287,24 @@ function askBeforeMoveInsideInvestigation() {
         event.preventDefault()
       }
     })
+  }
+}
+
+function newClientContact(event) {
+  if ($('.new-client-contact').length) {
+
+    $('.new-client-contact').click(event => {
+      if (event.originalEvent.target.pathname === "/empresa//contacto/nuevo") {
+        event.preventDefault()
+
+        const empresaId = $('#id_investigacion-compania').val()
+        if (empresaId) {
+          window.location = `/empresa/${empresaId}/contacto/nuevo`
+        } else {
+          alert('Hay que eligir empresa primero.')
+        }
+      }
+    })
+
   }
 }
