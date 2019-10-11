@@ -132,7 +132,11 @@ $(document).ready(function () {
 
   formatCurrencyFields();
 
-  $('.fixed-submenu button').click(() => {
+  $('.fixed-submenu button').click((event) => {
+    const { name } = event.target
+
+    $('.save-type').remove()
+    $('#form_candidato_crear').append(`<input name="${name}" type="hidden" class="save-type" />`)
     $('#form_candidato_crear').submit()
   })
 
