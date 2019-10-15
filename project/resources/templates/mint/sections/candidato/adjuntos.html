@@ -254,11 +254,53 @@
 
 	<div class="row">
 		<div class="col-xs-3 col-xs-offset-1">
-				<label>12. Adicionales</label>
+				<label>12.a Adicionales</label>
 		</div>
 		<div class="col-xs-2">
 			{% if adjuntos.adj18 %}
-				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" data-toggle="lightbox" data-title="Anexo 6" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}"></a>
+				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" data-toggle="lightbox" data-title="Adicional A" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}"></a>
+			{% else %}
+				<small>(Sin archivo)</small>
+			{% endif %}
+		</div>
+	</div>
+	<hr class="thin-separator" />
+
+	<div class="row">
+		<div class="col-xs-3 col-xs-offset-1">
+				<label>12.b Adicionales</label>
+		</div>
+		<div class="col-xs-2">
+			{% if adjuntos.adj19 %}
+				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}" data-toggle="lightbox" data-title="Adicional B" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}"></a>
+			{% else %}
+				<small>(Sin archivo)</small>
+			{% endif %}
+		</div>
+	</div>
+	<hr class="thin-separator" />
+
+	<div class="row">
+		<div class="col-xs-3 col-xs-offset-1">
+				<label>12.c Adicionales</label>
+		</div>
+		<div class="col-xs-2">
+			{% if adjuntos.adj20 %}
+				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}" data-toggle="lightbox" data-title="Adicional C" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}"></a>
+			{% else %}
+				<small>(Sin archivo)</small>
+			{% endif %}
+		</div>
+	</div>
+	<hr class="thin-separator" />
+
+	<div class="row">
+		<div class="col-xs-3 col-xs-offset-1">
+				<label>12.d Adicionales</label>
+		</div>
+		<div class="col-xs-2">
+			{% if adjuntos.adj21 %}
+				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj21.name }}" data-toggle="lightbox" data-title="Adicional D" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj21.name }}"></a>
 			{% else %}
 				<small>(Sin archivo)</small>
 			{% endif %}

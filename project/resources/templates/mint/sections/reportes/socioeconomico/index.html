@@ -49,7 +49,19 @@
 {% endif %}
 
 {% if adjuntos.adj18 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' %}
+{% endif %}
+
+{% if adjuntos.adj19 %}
   {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-2.html' %}
+{% endif %}
+
+{% if adjuntos.adj20 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-3.html' %}
+{% endif %}
+
+{% if adjuntos.adj21 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-4.html' %}
 {% endif %}
 
 {% include 'sections/reportes/socioeconomico/adjunto-conclusion.html' %}
