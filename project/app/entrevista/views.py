@@ -277,7 +277,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
 
 		if request.method == 'POST' and not is_usuario_contacto:
-			candidato_form = EntrevistaPersonaForm(request.POST, instance=candidato) # A form bound to the POST data
+			candidato.dependientes_economicos = request.POST.get('dependientes_economicos')
 			tarjetas_formset = TarjetaCreditoComercialFormset(request.POST, prefix='tarjetas')
 			cuentas_deb_formset = CuentaDebitoFormset(request.POST, prefix='cuentas_deb')
 			autos_formset = AutomovilFormset(request.POST, prefix='autos')
@@ -288,8 +288,8 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			egresos_formset = EgresosFormset(request.POST, prefix='egresos')
 			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones')
 
-			if candidato_form.is_valid() and tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid() and ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
-				candidato_form.save()
+			if tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid() and ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
+				candidato.save()
 				tarjetas_formset.save()
 				cuentas_deb_formset.save()
 				autos_formset.save()
