@@ -143,6 +143,7 @@ $(document).ready(function () {
   autoSave()
   askBeforeMoveInsideInvestigation()
   newClientContact()
+  autoSaveFiles()
 });
 
 function get_currentpage() {
@@ -311,4 +312,23 @@ function newClientContact(event) {
     })
 
   }
+}
+
+function autoSaveFiles() {
+  if ($('#form_attachments').length) {
+    $('#form_attachments input[type=file]').change(saveFile)
+  }
+}
+
+function saveFile(event) {
+  const data = new FormData($('#form_attachments').get(0));
+
+  $.ajax({
+    url: $('#form_attachments').attr('action'),
+    type: $('#form_attachments').attr('method'),
+    data: data,
+    processData: false,
+    contentType: false,
+    success: () => location.reload()
+  });
 }
