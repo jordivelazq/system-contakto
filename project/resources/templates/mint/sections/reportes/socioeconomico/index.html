@@ -29,7 +29,19 @@
 {% endif %}
 
 {% if adjuntos.adj8 %}
-  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' %}
+  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' with file=adjuntos.adj8 %}
+{% endif %}
+{% if adjuntos.adj25 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' with file=adjuntos.adj25 %}
+{% endif %}
+{% if adjuntos.adj26 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' with file=adjuntos.adj26 %}
+{% endif %}
+{% if adjuntos.adj27 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' with file=adjuntos.adj27 %}
+{% endif %}
+{% if adjuntos.adj28 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-semanas-cotizadas.html' with file=adjuntos.adj28 %}
 {% endif %}
 
 {% if adjuntos.adj7 %}

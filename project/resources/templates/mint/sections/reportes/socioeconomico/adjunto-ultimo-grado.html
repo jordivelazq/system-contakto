@@ -4,9 +4,46 @@
 
       <h3>IDENTIFICACIÓN CON FOTOGRAFÍA</h3>
 
-      <div class="semanas-cotizadas">
-        <img src="{{adjuntos_baseurl}}{{adjuntos.adj14}}" />
+      <div class="domicilio">
+
+        {% if adjuntos.adj14 or adjuntos.adj22 %}
+        <div>
+          <div class="border-top">
+            <strong>IDENTIFICACIÓN CON FOTOGRAFÍA</strong>
+            {% if adjuntos.adj14 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj14}}" />
+            {% endif %}
+          </div>
+          <div class="border-bottom">
+            <strong>IDENTIFICACIÓN CON FOTOGRAFÍA</strong>
+            {% if adjuntos.adj22 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj22}}" />
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if adjuntos.adj23 or adjuntos.adj24 %}
+        <div>
+          <div>
+            <strong>IDENTIFICACIÓN CON FOTOGRAFÍA</strong>
+            {% if adjuntos.adj23 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj23}}" />
+            {% endif %}
+          </div>
+          <div class="border-left">
+            <strong>IDENTIFICACIÓN CON FOTOGRAFÍA</strong>
+            {% if adjuntos.adj24 %}
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj24}}" />
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
       </div>
+
+      {% include 'sections/reportes/seccion/footer.html' %}
+    </div>
 
       {% include 'sections/reportes/seccion/footer.html' %}
     </div>

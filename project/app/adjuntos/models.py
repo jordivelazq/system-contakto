@@ -21,12 +21,21 @@ class Adjuntos(models.Model):
 	adj13 = models.FileField(verbose_name='4. Croquis', upload_to='adj', blank=True, null=True)
 	adj11 = models.FileField(verbose_name='5. Aviso Privacidad', upload_to='adj', blank=True, null=True)
 	adj12 = models.FileField(verbose_name='6. Constancia', upload_to='adj', blank=True, null=True)
-	adj14 = models.FileField(verbose_name='7. Identificación con fotografia', upload_to='adj', blank=True, null=True)
-
+	
+	adj14 = models.FileField(verbose_name='7.a Identificación con fotografia', upload_to='adj', blank=True, null=True)
+	adj22 = models.FileField(verbose_name='7.b Identificación con fotografia', upload_to='adj', blank=True, null=True)
+	adj23 = models.FileField(verbose_name='7.c Identificación con fotografia', upload_to='adj', blank=True, null=True)
+	adj24 = models.FileField(verbose_name='7.d Identificación con fotografia', upload_to='adj', blank=True, null=True)
 
 	adj17 = models.FileField(verbose_name='8. Acta de nacimiento', upload_to='adj', blank=True, null=True)
 	adj16 = models.FileField(verbose_name='9. Comprobante de domicilio', upload_to='adj', blank=True, null=True)
-	adj8 = models.FileField(verbose_name='10. Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+	
+	adj8 = models.FileField(verbose_name='10.a Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+	adj25 = models.FileField(verbose_name='10.b Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+	adj26 = models.FileField(verbose_name='10.c Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+	adj27 = models.FileField(verbose_name='10.d Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+	adj28 = models.FileField(verbose_name='10.e Semanas Cotizadas', upload_to='adj', blank=True, null=True)
+
 	adj7 = models.FileField(verbose_name='11. Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
 	
 	adj18 = models.FileField(verbose_name='12.a Adicionales', upload_to='adj', blank=True, null=True)
