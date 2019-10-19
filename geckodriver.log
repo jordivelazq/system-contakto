@@ -1,0 +1,922 @@
+1570216552742	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.OwPe19RGXR7S"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570216553461	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570216553461	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570216553462	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570216553462	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570216555546	Marionette	INFO	Listening on port 58549
+1570216555609	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570216566520	Marionette	INFO	Stopped listening on port 58549
+1570740862320	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.HjokeDJpe4Hi"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570740862962	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570740862962	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570740862962	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570740862963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570740864913	Marionette	INFO	Listening on port 54239
+1570740864983	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1570740874315	Marionette	INFO	Stopped listening on port 54239
+1570741113352	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.8J5N91y450uS"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741113767	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741113767	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741113767	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741113767	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741115422	Marionette	INFO	Listening on port 54383
+1570741115503	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741219433	Marionette	INFO	Stopped listening on port 54383
+1570741309123	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.WJ4NQEL5mzN0"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741309533	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741309533	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741309534	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741309534	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741311089	Marionette	INFO	Listening on port 54487
+1570741311155	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741337696	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.KyBkdScpzWik"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741338294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741338294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741338294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741338294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741339944	Marionette	INFO	Listening on port 54545
+1570741340045	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741361250	Marionette	INFO	Stopped listening on port 54545
+1570741363012	Marionette	INFO	Stopped listening on port 54487
+1570741487761	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.Zu0DWZt7Ldat"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741488194	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741488194	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741488194	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741488194	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741489837	Marionette	INFO	Listening on port 54632
+1570741489912	Marionette	WARN	TLS certificate errors will be ignored for this session
+1570741490969	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.T5vMdlJJahQs"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741491386	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741491402	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741491402	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741491402	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741492975	Marionette	INFO	Listening on port 54678
+1570741493011	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741494039	Marionette	INFO	Stopped listening on port 54632
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1570741511987	Marionette	INFO	Stopped listening on port 54678
+1570741528590	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.nhrGwnQ45XDD"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741528997	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741528997	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741528997	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741528998	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741530529	Marionette	INFO	Listening on port 54775
+1570741530627	Marionette	WARN	TLS certificate errors will be ignored for this session
+1570741531683	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.ibXoJf6lEpdp"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741532088	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741532088	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741532088	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741532088	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741533745	Marionette	INFO	Listening on port 54822
+1570741533829	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741534312	Marionette	INFO	Stopped listening on port 54775
+1570741718038	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.Mtb3UaKtFunF"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741718444	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741718444	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741718444	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741718444	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741720108	Marionette	INFO	Listening on port 54928
+1570741720175	Marionette	WARN	TLS certificate errors will be ignored for this session
+1570741721230	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.OSY84Zi1VQNV"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741721690	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741721690	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741721690	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741721690	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741723373	Marionette	INFO	Listening on port 54973
+1570741723473	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741724026	Marionette	INFO	Stopped listening on port 54928
+1570741738651	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.3mMAylfGVFi6"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741739064	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741739065	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741739065	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741739065	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741740596	Marionette	INFO	Listening on port 55061
+1570741740602	Marionette	WARN	TLS certificate errors will be ignored for this session
+1570741741656	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.CpfLvzDmAI1B"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741742118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741742118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741742118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741742119	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741743751	Marionette	INFO	Listening on port 55107
+1570741743808	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741744378	Marionette	INFO	Stopped listening on port 55061
+1570741855551	Marionette	INFO	Stopped listening on port 54973
+1570741857949	Marionette	INFO	Stopped listening on port 55107
+1570741859703	Marionette	INFO	Stopped listening on port 54822
+1570741897222	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.WaizB0bkGaZG"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741897638	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741897638	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741897638	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741897638	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741899172	Marionette	INFO	Listening on port 55209
+1570741899271	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570741900408	Marionette	INFO	Stopped listening on port 55209
+1570741922896	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.2qeNseMnUZed"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570741923313	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570741923313	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570741923313	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570741923313	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570741924913	Marionette	INFO	Listening on port 55274
+1570741924944	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742046722	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.ImmnkEcI60OP"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742047127	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742047127	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742047127	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742047127	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742048666	Marionette	INFO	Listening on port 55373
+1570742048673	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742054963	Marionette	INFO	Stopped listening on port 55373
+1570742148053	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.zoByTPBdKkWQ"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742148464	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742148465	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742148465	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742148465	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742150203	Marionette	INFO	Listening on port 55461
+1570742150296	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742239086	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.hOR1MRJ2bcPJ"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742239513	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742239513	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742239513	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742239514	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742241081	Marionette	INFO	Listening on port 55566
+1570742241133	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742264662	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.tr81AuPSZcTx"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742265083	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742265083	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742265083	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742265083	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742266738	Marionette	INFO	Listening on port 55652
+1570742266796	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742280654	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.Jc93ZE3EVTRc"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742281134	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742281134	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742281135	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742281135	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742282711	Marionette	INFO	Listening on port 55739
+1570742282803	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742301109	Marionette	INFO	Stopped listening on port 55739
+1570742305507	Marionette	INFO	Stopped listening on port 55566
+1570742306933	Marionette	INFO	Stopped listening on port 55652
+1570742308091	Marionette	INFO	Stopped listening on port 55461
+1570742309404	Marionette	INFO	Stopped listening on port 55274
+1570742334267	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.IMkGfNHtpYOx"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742334687	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742334687	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742334687	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742334687	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742336290	Marionette	INFO	Listening on port 55838
+1570742336309	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742354434	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.KkYl7WC4ZGzr"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742354838	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742354838	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742354838	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742354838	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742356400	Marionette	INFO	Listening on port 55935
+1570742356483	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742386874	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.xFdxPoRqeCF4"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742387304	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742387304	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742387304	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742387304	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742388830	Marionette	INFO	Listening on port 56025
+1570742388923	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742444614	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.H3cjQ8v0lSzs"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742445051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742445051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742445051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742445051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742446594	Marionette	INFO	Listening on port 56137
+1570742446657	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742462563	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.ijXtNfNTREeF"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742462976	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742462976	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742462977	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742462977	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742464625	Marionette	INFO	Listening on port 56223
+1570742464711	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742465772	Marionette	INFO	Stopped listening on port 56223
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1570742474712	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.9cEkuSPDgNPW"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742475124	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742475125	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742475125	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742475125	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742476794	Marionette	INFO	Listening on port 56303
+1570742476853	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742477845	Marionette	INFO	Stopped listening on port 56303
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1570742487242	Marionette	INFO	Stopped listening on port 56025
+1570742488758	Marionette	INFO	Stopped listening on port 56137
+1570742489888	Marionette	INFO	Stopped listening on port 55935
+1570742491198	Marionette	INFO	Stopped listening on port 55838
+1570742535325	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.cZ3aygCxmsz3"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742535746	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742535746	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742535747	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742535747	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742537320	Marionette	INFO	Listening on port 56390
+1570742537370	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742538447	Marionette	INFO	Stopped listening on port 56390
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1570742622515	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.WImsvpX5rqcY"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742622922	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742622923	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742622923	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742622923	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742624475	Marionette	INFO	Listening on port 56501
+1570742624560	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742625177	Marionette	INFO	Stopped listening on port 56501
+1570742639212	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.7WXNNUHsKPEu"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742639633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742639633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742639633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742639633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742641217	Marionette	INFO	Listening on port 56566
+1570742641243	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742642294	Marionette	INFO	Stopped listening on port 56566
+1570742654735	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.tjjQgrhBHfah"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742655164	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742655164	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742655165	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742655165	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742656779	Marionette	INFO	Listening on port 56630
+1570742656879	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742657361	Marionette	INFO	Stopped listening on port 56630
+1570742682083	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.0xcDjWRmXR8W"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742682483	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742682483	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742682484	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742682484	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742684085	Marionette	INFO	Listening on port 56692
+1570742684122	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742685341	Marionette	INFO	Stopped listening on port 56692
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1570742692741	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.N6KfQQVOkmIF"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1570742693185	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1570742693186	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1570742693186	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1570742693186	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1570742694703	Marionette	INFO	Listening on port 56771
+1570742694790	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1570742695833	Marionette	INFO	Stopped listening on port 56771
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571026096840	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.j7GnXusV9JRa"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571026097268	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571026097269	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571026097269	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571026097269	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571026098796	Marionette	INFO	Listening on port 59365
+1571026098879	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571026100003	Marionette	INFO	Stopped listening on port 59365
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571026176017	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.ByhwKh7CAFo9"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571026176432	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571026176433	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571026176433	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571026176433	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571026177997	Marionette	INFO	Listening on port 59461
+1571026178052	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571026179096	Marionette	INFO	Stopped listening on port 59461
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571026348788	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.rCHunmyFdpxK"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571026349206	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571026349206	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571026349206	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571026349206	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571026350932	Marionette	INFO	Listening on port 59570
+1571026351031	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571026352027	Marionette	INFO	Stopped listening on port 59570
+1571026352121	addons.xpi	WARN	Addon with ID amazondotcom@search.mozilla.org already installed, older version will be disabled
+1571026352121	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352122	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352122	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+update@XPIProvider.jsm:2064:13
+1571026352141	addons.xpi	WARN	Addon with ID bing@search.mozilla.org already installed, older version will be disabled
+1571026352141	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352141	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352142	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+update@XPIProvider.jsm:2064:13
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571026352156	addons.xpi	WARN	Addon with ID google@search.mozilla.org already installed, older version will be disabled
+1571026352157	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352157	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352158	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+update@XPIProvider.jsm:2064:13
+1571026352174	addons.xpi	WARN	Addon with ID twitter@search.mozilla.org already installed, older version will be disabled
+1571026352174	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352174	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352175	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+update@XPIProvider.jsm:2064:13
+1571026352212	addons.xpi	WARN	Addon with ID wikipedia@search.mozilla.org already installed, older version will be disabled
+1571026352212	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352212	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352213	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+update@XPIProvider.jsm:2064:13
+1571026352226	addons.xpi	WARN	Addon with ID ddg@search.mozilla.org already installed, older version will be disabled
+1571026352226	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352226	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+update@XPIProvider.jsm:2064:13
+1571026352227	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+update@XPIProvider.jsm:2064:13
+1571026352241	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+makeAddonVisible@XPIDatabase.jsm:2286:10
+addToDatabase@XPIDatabase.jsm:2213:12
+install@XPIInstall.jsm:4343:27
+_activateAddon@XPIInstall.jsm:4370:7
+1571026352241	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+addToDatabase@XPIDatabase.jsm:2216:10
+install@XPIInstall.jsm:4343:27
+_activateAddon@XPIInstall.jsm:4370:7
+1571026352241	addons.xpi-utils	WARN	Error: XPI database modified after shutdown began(resource://gre/modules/addons/XPIDatabase.jsm:1483:17) JS Stack trace: saveChanges@XPIDatabase.jsm:1483:17
+syncWithDB@XPIProvider.jsm:671:25
+addAddon@XPIProvider.jsm:807:14
+addAddon@XPIProvider.jsm:1603:21
+install@XPIInstall.jsm:4348:17
+_activateAddon@XPIInstall.jsm:4370:7
+1571027957300	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.Gmr7SYXALnEq"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571027957734	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571027957734	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571027957734	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571027957734	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571027959351	Marionette	INFO	Listening on port 60141
+1571027959436	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571027960468	Marionette	INFO	Stopped listening on port 60141
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571027976758	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.WXmkCh8ieI81"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571027977180	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571027977180	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571027977180	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571027977180	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571027978795	Marionette	INFO	Listening on port 60225
+1571027978897	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571027979909	Marionette	INFO	Stopped listening on port 60225
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571028025777	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.hM1IvJM6Y8ru"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028026189	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028026189	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028026189	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028026189	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028027736	Marionette	INFO	Listening on port 60332
+1571028027830	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028028942	Marionette	INFO	Stopped listening on port 60332
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571028047694	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.eQGppSwtrIFs"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028048126	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028048126	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028048126	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028048126	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028049676	Marionette	INFO	Listening on port 60416
+1571028049730	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028051128	Marionette	INFO	Stopped listening on port 60416
+1571028074204	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.NmJyE0jJ0Vp3"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028074617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028074617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028074617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028074617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028076262	Marionette	INFO	Listening on port 60493
+1571028076354	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028077343	Marionette	INFO	Stopped listening on port 60493
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571028088614	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.GUTfHLjI6GFL"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028089039	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028089040	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028089040	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028089040	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028090583	Marionette	INFO	Listening on port 60572
+1571028090658	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028091031	Marionette	INFO	Stopped listening on port 60572
+1571028123906	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.j99QVLE9rzHc"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028124339	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028124339	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028124339	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028124339	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028125905	Marionette	INFO	Listening on port 60637
+1571028125976	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028126962	Marionette	INFO	Stopped listening on port 60637
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571028665691	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.hKF6TCly0ofd"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028666121	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028666121	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028666122	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028666122	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028667844	Marionette	INFO	Listening on port 60975
+1571028667932	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028668281	Marionette	INFO	Stopped listening on port 60975
+1571028808876	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.rUWQlqDCqhzL"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028809296	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028809296	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028809296	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028809297	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028810829	Marionette	INFO	Listening on port 61327
+1571028810908	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028981220	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.HRodyT9kSjFb"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571028981642	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571028981642	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571028981642	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571028981642	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571028983200	Marionette	INFO	Listening on port 62168
+1571028983284	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571028989758	Marionette	INFO	Stopped listening on port 62168
+JavaScript error: resource://devtools/shared/protocol/Front.js, line 69: Error: Connection closed, pending request to server1.conn0.child1/domnode157, type setNodeValue failed
+
+Request stack:
+request@resource://devtools/shared/protocol/Front.js:162:14
+generateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol/Front/FrontClassWithSpec.js:49:19
+showTextEditor/done/</<@resource://devtools/client/inspector/markup/views/text-editor.js:101:25
+do@resource://devtools/client/shared/undo.js:72:16
+endBatch@resource://devtools/client/shared/undo.js:83:11
+do@resource://devtools/client/shared/undo.js:96:10
+showTextEditor/done/<@resource://devtools/client/inspector/markup/views/text-editor.js:99:31
+process@resource://gre/modules/Promise-backend.js:961:38
+walkerLoop@resource://gre/modules/Promise-backend.js:845:29
+scheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:778:14
+
+1571028992371	Marionette	INFO	Stopped listening on port 61327
+1571029024321	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.l2KNwyMsg5st"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029024765	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029024765	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029024765	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029024765	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029026817	Marionette	INFO	Listening on port 62436
+1571029026873	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+JavaScript error: resource://devtools/client/jsonview/converter-observer.js, line 102: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsIHttpChannel.contentType]
+1571029032192	Marionette	INFO	Stopped listening on port 62436
+1571029214341	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.5FLtGJ7jCz1t"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029214790	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029214790	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029214791	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029214791	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029216539	Marionette	INFO	Listening on port 63466
+1571029216596	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029217759	Marionette	INFO	Stopped listening on port 63466
+1571029250877	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.lONMjFMww1py"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029251320	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029251320	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029251320	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029251320	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029253104	Marionette	INFO	Listening on port 63755
+1571029253131	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029254325	Marionette	INFO	Stopped listening on port 63755
+1571029286747	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.xkoUh1S3TQIh"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029287181	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029287182	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029287182	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029287182	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029288905	Marionette	INFO	Listening on port 64015
+1571029289009	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029392690	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.0Go5V9SCrx8o"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029393118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029393118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029393118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029393118	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029394914	Marionette	INFO	Listening on port 64626
+1571029394938	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029468379	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.rpEqSIaqTdCo"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029468811	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029468811	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029468811	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029468811	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029470602	Marionette	INFO	Listening on port 65075
+1571029470638	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029474587	Marionette	INFO	Stopped listening on port 65075
+1571029475780	Marionette	INFO	Stopped listening on port 64626
+1571029477139	Marionette	INFO	Stopped listening on port 64015
+1571029495440	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.FKlZn4FhyMVi"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029495859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029495859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029495859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029495859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029497601	Marionette	INFO	Listening on port 65291
+1571029497680	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029499883	Marionette	INFO	Stopped listening on port 65291
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571029513917	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.IMfq3skk4163"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029514350	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029514350	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029514351	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029514351	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029515957	Marionette	INFO	Listening on port 65458
+1571029515993	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029518213	Marionette	INFO	Stopped listening on port 65458
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571029580551	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.IB5ruTJPg1JQ"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571029580994	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571029580994	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571029580995	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571029580995	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571029582738	Marionette	INFO	Listening on port 49473
+1571029582813	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571029585052	Marionette	INFO	Stopped listening on port 49473
+1571030037862	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.3k177mkV6uUL"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030038287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030038287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030038287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030038287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030040042	Marionette	INFO	Listening on port 51705
+1571030040102	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030043351	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.H3kuZK2go9Ds"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030043782	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030043782	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030043782	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030043782	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030045443	Marionette	INFO	Listening on port 51808
+1571030045513	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030055376	Marionette	INFO	Stopped listening on port 51808
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571030056609	Marionette	INFO	Stopped listening on port 51705
+1571030096588	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.ROSoH9INVrSh"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030096993	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030096994	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030096994	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030096994	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030098701	Marionette	INFO	Listening on port 52135
+1571030098741	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030105269	Marionette	INFO	Stopped listening on port 52135
+1571030560127	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.M6KGsmqJxb4v"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030560564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030560564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030560564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030560564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030562218	Marionette	INFO	Listening on port 52506
+1571030562271	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030583474	Marionette	INFO	Stopped listening on port 52506
+1571030718923	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.C9R7FkwzAJcS"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030719352	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030719352	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030719352	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030719352	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030720911	Marionette	INFO	Listening on port 53207
+1571030720966	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030730582	Marionette	INFO	Stopped listening on port 53207
+1571030887613	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.0YEzKyecssRJ"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030888030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030888030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030888030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030888030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030889685	Marionette	INFO	Listening on port 53969
+1571030889771	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030895653	Marionette	INFO	Stopped listening on port 53969
+1571030906287	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.lsmhM9HjwOmN"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571030906704	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571030906704	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571030906704	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571030906704	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571030908338	Marionette	INFO	Listening on port 54110
+1571030908437	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571030914296	Marionette	INFO	Stopped listening on port 54110
+1571031177301	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.H8FkTzTIRILg"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031177729	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031177729	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031177730	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031177730	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031179376	Marionette	INFO	Listening on port 55270
+1571031179441	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031184096	Marionette	INFO	Stopped listening on port 55270
+1571031195438	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.Nm1jkOB1vj8m"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031195859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031195859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031195859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031195859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031197492	Marionette	INFO	Listening on port 55407
+1571031197590	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031201151	Marionette	INFO	Stopped listening on port 55407
+1571031258245	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.2UrzirNHT7LW"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031258675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031258675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031258675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031258675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031260260	Marionette	INFO	Listening on port 55726
+1571031260300	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031264521	Marionette	INFO	Stopped listening on port 55726
+1571031282525	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.DoGPjibBr2FM"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031282930	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031282930	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031282930	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031282930	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031284590	Marionette	INFO	Listening on port 55887
+1571031284682	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031296917	Marionette	INFO	Stopped listening on port 55887
+1571031304131	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.HauQxLvlzN63"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031304567	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031304567	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031304567	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031304567	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031306151	Marionette	INFO	Listening on port 56040
+1571031306182	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031318475	Marionette	INFO	Stopped listening on port 56040
+1571031477019	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.h3gBzttiBS7x"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031477459	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031477459	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031477459	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031477459	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031479105	Marionette	INFO	Listening on port 56813
+1571031479168	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031483989	Marionette	INFO	Stopped listening on port 56813
+1571031507880	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.Jq8XZaejUgdZ"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031508294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031508294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031508294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031508294	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031509977	Marionette	INFO	Listening on port 57003
+1571031510031	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031514644	Marionette	INFO	Stopped listening on port 57003
+1571031524404	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.HjbXR1aHXYyj"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031524844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031524844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031524844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031524844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031526482	Marionette	INFO	Listening on port 57133
+1571031526581	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031538182	Marionette	INFO	Stopped listening on port 57133
+1571031553152	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.43bXwwrCoGnW"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031553579	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031553579	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031553580	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031553580	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031555242	Marionette	INFO	Listening on port 57320
+1571031555300	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031561322	Marionette	INFO	Stopped listening on port 57320
+1571031614421	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.cuXSkGl5lgtb"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031614841	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031614841	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031614841	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031614841	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031616477	Marionette	INFO	Listening on port 57633
+1571031616569	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031638783	Marionette	INFO	Stopped listening on port 57633
+1571031831671	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.ohUqpI9flSu8"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031832103	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031832103	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031832104	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031832104	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031833788	Marionette	INFO	Listening on port 58589
+1571031833818	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031865495	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.81eI7chjoUZf"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031865914	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031865914	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031865914	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031865914	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031867578	Marionette	INFO	Listening on port 58794
+1571031867661	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031879957	Marionette	INFO	Stopped listening on port 58794
+1571031935626	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.jZwHrkoHJG5H"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571031936051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571031936051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571031936051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571031936051	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571031937696	Marionette	INFO	Listening on port 59151
+1571031937792	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571031940501	Marionette	INFO	Stopped listening on port 59151
+1571031950086	Marionette	INFO	Stopped listening on port 58589
+1571249769304	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.0LeMzONf7IEF"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571249769962	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571249769963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571249769963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571249769963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571249771960	Marionette	INFO	Listening on port 53612
+1571249772019	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571249774398	Marionette	INFO	Stopped listening on port 53612
+JavaScript error: http://127.0.0.1:8000/static/js/vendor/jquery-1.11.0.min.js, line 3: TypeError: a.ownerDocument.defaultView is null
+1571249818328	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.EgP2aqSkqprc"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571249818809	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571249818809	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571249818810	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571249818810	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571249820604	Marionette	INFO	Listening on port 53703
+1571249820622	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571249830146	Marionette	INFO	Stopped listening on port 53703
+1571249845747	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.J0ogAA5ELFwg"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571249846222	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571249846222	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571249846222	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571249846223	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571249847936	Marionette	INFO	Listening on port 53804
+1571249848038	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571249880608	Marionette	INFO	Stopped listening on port 53804
+1571249970797	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/t_/5y9hg4bs7plc1nxtxpdbgrb598qs61/T/rust_mozprofile.YwlD5fU2iXjP"
+JavaScript error: GrouponSettings.cfg, line 32: ReferenceError: Components is not defined
+1571249971269	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1571249971269	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1571249971270	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1571249971270	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1571249973028	Marionette	INFO	Listening on port 53916
+1571249973085	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://127.0.0.1:8000/static/js/functions.js, line 6: ReferenceError: $ is not defined
+1571250000853	Marionette	INFO	Stopped listening on port 53916
