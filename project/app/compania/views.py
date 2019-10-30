@@ -125,9 +125,9 @@ def sucursal_new(request, compania_id):
 	boton_cancelar_url = '/empresa/'+str(compania_id)+'/sucursales?investigacion=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursales'
 
 	if request.POST:
-			formSucursal = SucursalesForm(request.POST, prefix='sucursal')
-			if formSucursal.is_valid():
-				sucursal = formSucursal.save(commit=False)
+			formSucursales = SucursalesForm(request.POST, prefix='sucursal')
+			if formSucursales.is_valid():
+				sucursal = formSucursales.save(commit=False)
 				sucursal.compania_id = compania_id
 				sucursal.save()
 
