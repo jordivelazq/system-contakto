@@ -319,7 +319,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 		('padre', 'padre'),
 		('madre', 'madre'),
 		('hermano', 'hermano'),
-		('esposa', 'esposa'),
+		('pareja', 'pareja'),
 		('hijo', 'hijo'),
 		('otro', 'otro')
 	)

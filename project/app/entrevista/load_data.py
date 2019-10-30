@@ -331,7 +331,7 @@ class PreCandidato(object):
 					'padre': {},
 					'madre': {},
 					'hermano': [],
-					'esposa': {},
+					'pareja': {},
 					'hijo': [],
 					'otro': []
 				}
@@ -391,12 +391,12 @@ class PreCandidato(object):
 				}
 			)
 
-			data['esposa']['nombre'] = self.get_cell_value(rowx=74,colx=4)
-			data['esposa']['edad'] = self.get_cell_value(rowx=74,colx=17)
-			data['esposa']['ocupacion'] = self.get_cell_value(rowx=74,colx=19)
-			data['esposa']['empresa'] = self.get_cell_value(rowx=74,colx=24)
-			data['esposa']['residencia'] = self.get_cell_value(rowx=74,colx=29)
-			data['esposa']['telefono'] = self.get_cell_value(rowx=74,colx=35)
+			data['pareja']['nombre'] = self.get_cell_value(rowx=74,colx=4)
+			data['pareja']['edad'] = self.get_cell_value(rowx=74,colx=17)
+			data['pareja']['ocupacion'] = self.get_cell_value(rowx=74,colx=19)
+			data['pareja']['empresa'] = self.get_cell_value(rowx=74,colx=24)
+			data['pareja']['residencia'] = self.get_cell_value(rowx=74,colx=29)
+			data['pareja']['telefono'] = self.get_cell_value(rowx=74,colx=35)
 
 			data['hijo'].append({
 					'nombre' : self.get_cell_value(rowx=75,colx=4),

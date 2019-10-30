@@ -400,7 +400,7 @@ class MiembroMarcoFamiliar(models.Model):
 		('padre', 'padre'),
 		('madre', 'madre'),
 		('hermano', 'hermano'),
-		('esposa', 'esposa'),
+		('pareja', 'pareja'),
 		('hijo', 'hijo'),
 		('otro', 'otro')
 	)
