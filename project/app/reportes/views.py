@@ -58,7 +58,8 @@ def panel(request):
 
 	for i in investigaciones:
 		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
-		i.entrevista = i.entrevistapersona_set.all()[0].entrevistainvestigacion_set.all()[0] if i.entrevistapersona_set.all().count() else None
+		i.estado = i.candidato.direccion_set.all()[0].estado
+		i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
 		i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
 			
 	return render_to_response('sections/reportes/panel.html', locals())

@@ -302,3 +302,40 @@ body {
 .candidato-crear {
   margin-top: 101px;
 }
+
+/* line 217, ../sass/screen.sass */
+.col-red {
+  background-color: indianred;
+}
+
+/* line 220, ../sass/screen.sass */
+.col-gray {
+  background-color: dimgray;
+}
+
+/* line 223, ../sass/screen.sass */
+.col-blue {
+  background-color: lightsteelblue;
+}
+
+/* line 227, ../sass/screen.sass */
+.table-estatus thead {
+  color: white;
+}
+/* line 230, ../sass/screen.sass */
+.table-estatus th, .table-estatus td {
+  text-align: center;
+  padding: 6px;
+}
+/* line 234, ../sass/screen.sass */
+.table-estatus ul {
+  list-style-type: none;
+  text-align: left;
+}
+
+/* line 239, ../sass/screen.sass */
+.estatus-trayectoria td {
+  text-align: left;
+  font-size: 0.8em;
+  padding: 0;
+}

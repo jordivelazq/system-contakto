@@ -46,53 +46,88 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 	<div class="row placeholders">
 	    <div class="table-responsive">
 			{% if investigaciones|length %}
-			<table class="table table-striped uppercase">
+			<table class="table-estatus table table-striped uppercase">
 				<thead>
 					<tr>
-						<th class="text-center">ID</th>
-						<th class="text-center">Fecha de Recibido</th>
-						<th class="text-left">Cliente</th>
-						<th class="text-left">Nombre/Apellido</th>
-						<th class="text-left">Puesto</th>
-						<th class="text-left">Ciudad</th>
-						<th class="text-center">Status</th>
-						<th class="text-center wide-th">Investigación Laboral</th>
-						<th class="text-center">Calificación Final</th>
-						<th class="text-center">Reporte Laboral</th>
+						<th class="col-red" colspan="5">Datos de Solicitud</th>
+						<th class="col-gray" colspan="3">Datos de Candidato</th>
+						<th class="col-blue" colspan="3">Resultado</th>
+						<th class="col-red" colspan="3">Datos de Entrevista</th>
+					</tr>
+					<tr>
+						<th class="col-red">Contacto</th>
+						<th class="col-red">Correo</th>
+						<th class="col-red">Cliente</th>
+						<th class="col-red">Fecha de Recibido</th>
+						<th class="col-red">Tipo Estudio</th>
+
+						<th class="col-gray">Nombre</th>
+						<th class="col-gray">Puesto</th>
+						<th class="col-gray">Ciudad y Estado</th>
+
+						<th class="col-blue">Estatus</th>
+						<th class="col-blue">Investigación Laboral</th>
+						<th class="col-blue">Calificación Final</th>
+
+						<th class="col-red">Gestor</th>
+						<th class="col-red">Día Cita</th>
+						<th class="col-red">Hora Cita</th>
 					</tr>
 				</thead>
 				<tbody>
-				{% for inv in investigaciones %}
-				<tr>
-					<td class="text-center">{{ inv.id }}</td>
-					<td class="text-center">{{ inv.fecha_recibido|date:"d/M/y" }}</td>
-					<td class="text-left">{{ inv.compania.nombre }}</td>
-					<td class="text-left">{{ inv.candidato.nombre }}</td>
-					<td class="text-left">{{ inv.puesto }}</td>
-					<td class="text-left">{{ inv.ciudad }}</td>
-					<td class="text-center">{{ inv.status|investigacion_status }}</td>
-					<td class="text-left">
-						{% for t in inv.trayectoria %}
-							<small>
-								<p>
-									<strong>{{t.compania}}</strong><br />
-									<ul>
-										<li>Puesto: {{t.puesto_final|default:'---'}}</li>
-										<li>Periodos: {{t.periodo_alta}}-{{t.periodo_baja}}</li>
-										<li>Motivo de baja: {{t.motivo_salida|motivo_salida|default:'---'}}</li>
-										<li>Obs.: {{t.observaciones_generales|default:'---'}}</li>
-									</ul>
-								</p>
-							</small>
-							{% if not forloop.last %}
-							<hr class="thin-separator" />
-							{% endif %}
-						{% endfor %}
-					</td>
-					<td class="text-center">{{ inv.resultado|investigacion_resultado }}</td>
-					<td><a href="/candidato/investigacion/exportar/reporte-laboral/{{ inv.id }}" target="_blank">Ver</a></td>
-				</tr>
-				{% endfor %}
+					{% for inv in investigaciones %}
+					<tr>
+						<td>{{ inv.contacto }}</td>
+						<td>{{ inv.contacto.email }}</td>
+						<td>{{ inv.compania.nombre }}</td>
+						<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
+						<td></td>
+
+						<td>{{ inv.candidato.nombre }}</td>
+						<td>{{ inv.puesto }}</td>
+						<td>{{ inv.ciudad }}, {{ inv.estado }}</td>
+
+						<td>{{ inv.status|investigacion_status }}</td>
+						<td class="text-left">
+							{% for t in inv.trayectoria %}
+								{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales %}
+								<table class="estatus-trayectoria table table-striped uppercase">
+									<th colspan="2">{{t.compania}}</th>
+									{% if t.puesto_final %}
+									<tr>
+										<td>Puesto</td>
+										<td>{{t.puesto_final}}</td>
+									</tr>
+									{% endif %}
+									{% if t.periodo_alta or t.periodo_baja %}
+									<tr>
+										<td>Periodos</td>
+										<td>{{t.periodo_alta|default:""}}-{{t.periodo_baja|default:""}}</td>
+									</tr>
+									{% endif %}
+									{% if t.motivo_salida %}
+									<tr>
+										<td>Motivo de baja</td>
+										<td>{{t.motivo_salida}}</td>
+									</tr>
+									{% endif %}
+									{% if t.observaciones_generales %}
+									<tr>
+										<td>Observaciones</td>
+										<td>{{t.observaciones_generales}}</td>
+									</tr>
+									{% endif %}
+								</table>
+								{% endif %}
+							{% endfor %}
+						</td>
+						<td>{{ inv.resultado|investigacion_resultado }}</td>
+
+						<td>{{inv.entrevista.entrevistador}}</td>
+						<td>{{inv.entrevista.fecha_entrevista|default:""}}</td>
+						<td>{{inv.entrevista.hora_entrevista|default:""}}</td>
+					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		{% else %}
