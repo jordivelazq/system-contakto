@@ -32,12 +32,21 @@ def panel(request):
 	#Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT']
 	page = 'reportes'
-	sr = ServiceReporte()
+	service_reporte = ServiceReporte()
 
 	#para SEARCH sidebar
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	filtros_json = request.session.get('filtros_search_reportes', None)
+
+	if request.POST:
+		investigaciones = request.POST.getlist('investigacion[]')
+		destinatarios = request.POST.get('destinatarios')
+		user = request.user
+		if service_reporte.send_reporte_by_email(investigaciones, destinatarios, user):
+			return HttpResponseRedirect('/estatus/exito')
+		else:
+			return HttpResponseRedirect('/estatus/error')
 
 	if filtros_json != None:
 		if not len(filtros_json['compania_id']) and not len(filtros_json['compania_nombre']) and not len(filtros_json['contacto_id']) and not len(filtros_json['status_id']) and not len(filtros_json['fecha_inicio']) and not len(filtros_json['fecha_final']):
@@ -46,7 +55,7 @@ def panel(request):
 		if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
 			contacto_id = filtros_json['contacto_id']
 			contacto = Contacto.objects.get(id=contacto_id)
-			dest_list = sr.getDestinatarios(request,contacto_id)
+			dest_list = service_reporte.getDestinatarios(request,contacto_id)
 
 		if len(filtros_json['compania_id']):
 			compania_id = filtros_json['compania_id']
@@ -62,7 +71,7 @@ def panel(request):
 		i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
 		i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
 			
-	return render_to_response('sections/reportes/panel.html', locals())
+	return render_to_response('sections/reportes/panel.html', locals(), context_instance=RequestContext(request))
 
 @csrf_exempt
 def exportar_pdf(request):

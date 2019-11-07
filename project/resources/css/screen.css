@@ -339,3 +339,8 @@ body {
   font-size: 0.8em;
   padding: 0;
 }
+
+/* line 245, ../sass/screen.sass */
+.panel-enviar-correo textarea, .panel-enviar-correo input {
+  width: 100%;
+}

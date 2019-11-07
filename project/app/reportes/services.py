@@ -2,9 +2,12 @@
 from django.shortcuts import HttpResponse
 from django.template import loader, Context
 from django.template.loader import get_template
+from django.contrib.auth.models import User
+
 from app.investigacion.models import Investigacion
 from app.compania.models import Contacto
-from django.contrib.auth.models import User
+from app.util.email import EmailHandler
+
 
 class ServiceReporte:
 
@@ -29,6 +32,18 @@ class ServiceReporte:
 		for i in investigaciones:
 			i.ciudad = i.candidato.direccion_set.all()[0].ciudad
 			i.entrevista = i.entrevistapersona_set.all()[0].entrevistainvestigacion_set.all()[0] if i.entrevistapersona_set.all().count() else None
+			i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
+
+		return investigaciones
+	
+	def getEstatusReporte(self, investigaciones):
+
+		investigaciones = Investigacion.objects.filter(id__in=investigaciones)
+
+		for i in investigaciones:
+			i.ciudad = i.candidato.direccion_set.all()[0].ciudad
+			i.estado = i.candidato.direccion_set.all()[0].estado
+			i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
 			i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
 
 		return investigaciones
@@ -59,4 +74,25 @@ class ServiceReporte:
 		destinatarios.append(admin_email)
 
 		return destinatarios
+	
+	def send_reporte_by_email(self, investigaciones, destinatarios, user):
+		print "perro", destinatarios.split(','), len(destinatarios)
+		if len(investigaciones) == 0 or len(destinatarios) == 0:
+			return False
+		
+		dest_list = destinatarios.split(',')
+		sender_email = user.email or 'estatus@contakto.mx'
 
+		reporte = self.getEstatusReporte(investigaciones)
+		html_content = self.printReporte(reporte)
+
+		data = {
+			'subject': 'Estatus de Investigaciones',
+			'from_email': sender_email,
+			'to': dest_list,
+			'text_content': '',
+			'html_content': html_content
+		}
+
+		eh = EmailHandler()
+		return eh.sendEmail(data)

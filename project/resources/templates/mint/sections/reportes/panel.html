@@ -44,17 +44,34 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 		</div>
 	{% endif %}
 	<div class="row placeholders">
+		<form role="form" action="#" method="post">
+				{% csrf_token %}
+				<div id="msg"></div>
+				<div class="panel panel-default panel-enviar-correo">
+					<div class="panel-heading">
+						<h3 class="panel-title">Enviar Reporte</h3>
+					</div>
+					<div class="panel-body">
+						<div class="col-md-10">
+							<textarea rows="4" name="destinatarios"></textarea>
+						</div>
+						<div class="col-md-2">
+							<input type="submit" class="btn btn-default" value="Enviar" />
+						</div>
+					</div>
+				</div>
 	    <div class="table-responsive">
 			{% if investigaciones|length %}
 			<table class="table-estatus table table-striped uppercase">
 				<thead>
 					<tr>
-						<th class="col-red" colspan="5">Datos de Solicitud</th>
+						<th class="col-red" colspan="6">Datos de Solicitud</th>
 						<th class="col-gray" colspan="3">Datos de Candidato</th>
 						<th class="col-blue" colspan="3">Resultado</th>
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
 					<tr>
+						<th class="col-red"></th>
 						<th class="col-red">Contacto</th>
 						<th class="col-red">Correo</th>
 						<th class="col-red">Cliente</th>
@@ -77,6 +94,9 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				<tbody>
 					{% for inv in investigaciones %}
 					<tr>
+						<td>
+							<input type="checkbox" name="investigacion[]" value="{{inv.id}}" />
+						</td>
 						<td>{{ inv.contacto }}</td>
 						<td>{{ inv.contacto.email }}</td>
 						<td>{{ inv.compania.nombre }}</td>
@@ -134,6 +154,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 			<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
 		{% endif %}
 		</div>
+		</form>
 	</div>
 </div>
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
