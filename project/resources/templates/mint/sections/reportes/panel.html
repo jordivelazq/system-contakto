@@ -2,7 +2,9 @@
 {% load fe_extras %}
 
 {% block side_content %}
+	{% if request.user.is_superuser or request.user.is_staff %}
 	{% include 'sections/reportes/seccion/search_sidebar.html' %}
+	{% endif %}
 {% endblock %}
 
 {% block extra_javascript %}
@@ -44,8 +46,11 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 		</div>
 	{% endif %}
 	<div class="row placeholders">
+		{% if request.user.is_superuser or request.user.is_staff %}
 		<form role="form" action="#" method="post">
+		{% endif %}
 				{% csrf_token %}
+				{% if request.user.is_superuser or request.user.is_staff %}
 				<div id="msg"></div>
 				<div class="panel panel-default panel-enviar-correo">
 					<div class="panel-heading">
@@ -60,6 +65,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						</div>
 					</div>
 				</div>
+				{% endif %}
 	    <div class="table-responsive">
 			{% if investigaciones|length %}
 			<table class="table-estatus table table-striped uppercase">
@@ -95,7 +101,9 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 					{% for inv in investigaciones %}
 					<tr>
 						<td>
+							{% if request.user.is_superuser or request.user.is_staff %}
 							<input type="checkbox" name="investigacion[]" value="{{inv.id}}" />
+							{% endif %}
 						</td>
 						<td>{{ inv.contacto }}</td>
 						<td>{{ inv.contacto.email }}</td>
@@ -154,7 +162,9 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 			<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
 		{% endif %}
 		</div>
+		{% if request.user.is_superuser or request.user.is_staff %}
 		</form>
+		{% endif %}
 	</div>
 </div>
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}

@@ -10,6 +10,7 @@ from app.bitacora.models import Bitacora
 from app.investigacion.models import * 
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
+from app.compania.models import Contacto
 
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
@@ -23,7 +24,6 @@ from app.reportes.services import ServiceReporte
 from reportlab.pdfgen import canvas
 
 login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def panel(request):
 	'''
 		NOTA: Al modificar código en esta función, revisar también app.reportes.servcies, pues ahí también
@@ -61,6 +61,16 @@ def panel(request):
 			compania_id = filtros_json['compania_id']
 			compania = Compania.objects.get(id=compania_id)	
 	else:
+		user = request.user
+		if user.groups.filter(name='contactos').count():
+			contact = Contacto.objects.get(email=user.username)
+			filtros_json = {
+				"compania_id": "",
+				"compania_nombre": "",
+				"contacto_id": str(contact.id),
+				"status_id": "",
+				"fecha_inicio": ""
+			}
 		recientes = True
 
 	investigaciones = get_investigaciones_list(filtros_json)

@@ -304,7 +304,7 @@ def contacto_editar(request, compania_id, contacto_id):
 			#De lo contrario, en caso de haber capturado pwd 'len(p)', crear usuario del contacto
 			elif len(p):
 				new_user = User(email=new_email)
-				new_user.set_password(p)
+				new_user.set_password(str(p))
 				new_user.username = new_email
 				new_user.save()
 

@@ -30,10 +30,11 @@
 				{% if request.user.is_staff %}
 					<li class="{% if page == 'empresas' %}active{% endif %}">
 						<a href="/empresas" title="empresas">Empresas</a>
-					</li><li class="{% if page == 'reportes' %}active{% endif %}">
-						<a href="/estatus" title="reportes">Estatus</a>
 					</li>
 				{% endif %}
+				<li class="{% if page == 'reportes' %}active{% endif %}">
+					<a href="/estatus" title="reportes">Estatus</a>
+				</li>
 				{% if request.user.is_superuser %}
 				<li class="{% if page == 'bitacora' %}active{% endif %}">
 					<a href="/bitacora" title="bitacora">Bitácora</a>

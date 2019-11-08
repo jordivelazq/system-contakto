@@ -11,6 +11,10 @@ from app.bitacora.models import Bitacora
 
 @login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
+	user = request.user
+	if user.groups.filter(name='contactos').count():
+		return HttpResponseRedirect('/estatus')
+
 	return HttpResponseRedirect('/candidatos/')
 
 @login_required(login_url='/login', redirect_field_name=None)
@@ -54,7 +58,7 @@ def mint_login(request):
 				login(request, user)
 				b = Bitacora(action='login', user=user)
 				b.save()
-				return HttpResponseRedirect('/candidatos')
+				return HttpResponseRedirect('/estatus')
 			else:
 				state = "Tu cuenta no está activa, contacta a tu administrador"
 		else:
