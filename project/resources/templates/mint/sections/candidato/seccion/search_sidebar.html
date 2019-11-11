@@ -72,9 +72,11 @@
 		<div id="lista-candidatos-sidebar">
 			<ul class="list-group">
 				<li ng-click="load_candidato(c.id)" class="list-group-item {[{c.id|setClass}]}" ng-repeat="c in candidatos">
-					<strong>{[{c.nombre}]}</strong> <small>({[{c.id}]})</small>
-						<p class="text-right"><small>{[{c.empresa}]}
-						</small></p>
+					<strong>{[{c.nombre}]}</strong>
+						<p class="text-right">
+							<small>({[{c.fecha_recibido}]})</small> <br />
+							<small>{[{c.empresa}]}</small>
+						</p>
 				</li>
 			</ul>
 		</div>

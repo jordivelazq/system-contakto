@@ -96,7 +96,8 @@ class PersonaService:
 				'nombre': c.candidato.nombre,
 				'puesto': c.puesto,
 				'empresa': c.compania.nombre,
-				'fecha': c.fecha_registro.strftime('%d/%m/%Y')
+				'fecha': c.fecha_registro.strftime('%d/%m/%Y'),
+				'fecha_recibido': c.fecha_recibido.strftime('%d/%m/%Y')
 			})
 
 		return response
