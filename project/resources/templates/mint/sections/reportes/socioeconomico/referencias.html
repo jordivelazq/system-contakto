@@ -71,10 +71,18 @@
           </th>
           {% for ingreso in ingresos %}
           {% if not forloop.last %} 
+          {% if ingreso.monto %}
           <tr>
-            <th>{{ingreso.concepto}}</th>
+            <th>
+              {% if ingreso.concepto == "otros" %}
+              {{ingreso.detalle}}
+              {% else %}
+              {{ingreso.concepto}}
+              {% endif %}
+            </th>
             <td colspan="2">{{ingreso.monto|print_money}}</td>
           </tr>
+          {% endif %}
           {% endif %}
           {% endfor %}
         </table>
@@ -84,10 +92,18 @@
           </th>
           {% for egreso in egresos %}
           {% if not forloop.last %} 
+          {% if egreso.monto %}
           <tr>
-            <th>{{egreso.concepto}}</th>
+            <th>
+              {% if egreso.concepto == "otros" %}
+              {{egreso.detalle}}
+              {% else %}
+              {{egreso.concepto}}
+              {% endif %}
+            </th>
             <td colspan="2">{{egreso.monto|print_money}}</td>
           </tr>
+          {% endif %}
           {% endif %}
           {% endfor %}
         </table>

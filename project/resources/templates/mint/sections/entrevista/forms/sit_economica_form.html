@@ -74,7 +74,11 @@
 							{{ form.id }}
 						<div class="row">
 							<div class="col-xs-6" >
+								{% if form.instance.concepto == "otros" %}
+									{{form.detalle}}
+								{% else %}
 								<label>{{form.instance.concepto|clean_type}}:</label>
+								{% endif %}
 							</div>
 							<div class="col-xs-6">
 								<div class="text-danger">{{ form.monto.errors }}</div>

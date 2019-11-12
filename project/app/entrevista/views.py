@@ -272,7 +272,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		egresos = EntrevistaEconomica.objects.filter(person=candidato, tipo='egreso')
 		prestaciones_vivienda = EntrevistaPrestacionVivienda.objects.filter(persona=candidato)
 
-		IngresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto',), form=MoneyFormatEntrevistaEconomicaForm)
+		IngresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto'), form=MoneyFormatEntrevistaEconomicaForm)
 		EgresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto',), form=MoneyFormatEntrevistaEconomicaForm)
 		TarjetaCreditoComercialFormset = modelformset_factory(EntrevistaTarjetaCreditoComercial, extra=0, exclude=('person',), form=TarjetaCreditoComercialForm)
 		CuentaDebitoFormset = modelformset_factory(EntrevistaCuentaDebito, extra=0, exclude=('person',), form=EntrevistaCuentaDebitoForm)
