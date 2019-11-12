@@ -329,6 +329,9 @@ class ControllerPersona(object):
 														empresa = marco_familiar[tipo[0]]['empresa'],
 														residencia = marco_familiar[tipo[0]]['residencia'],
 														telefono = srv.clean_telefono(marco_familiar[tipo[0]]['telefono'])).save()
+				
+				# Marco Familiar agregado a Vivienda (category=2)
+				EntrevistaMiembroMarcoFamiliar(person = candidato, tipo = 'otro', category=2).save()
 		except Exception, e:
 			print(e)
 			self.errors.append('Error en registro de marco familiar.')

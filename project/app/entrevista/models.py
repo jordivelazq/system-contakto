@@ -323,6 +323,10 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 		('hijo', 'hijo'),
 		('otro', 'otro')
 	)
+	FAMILIAR_CATEGORIA = (
+	    (1, 'Marco Familiar'),
+	    (2, 'Vivienda'),
+	)
 	person = models.ForeignKey(EntrevistaPersona)
 	tipo = models.CharField(max_length=20, choices=FAMILIAR_OPCIONES)
 	nombre = models.CharField(max_length=140, null=True, blank=True)
@@ -332,6 +336,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 	residencia = models.CharField(max_length=140, null=True, blank=True)
 	telefono = models.CharField(max_length=140, null=True, blank=True)
 	parentesco = models.CharField(max_length=140, null=True, blank=True)
+	category = models.CharField(max_length=140, default=1, choices=FAMILIAR_OPCIONES)
 
 	def __unicode__(self):
 		return '%s' % self.tipo

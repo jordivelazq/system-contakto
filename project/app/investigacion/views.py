@@ -75,10 +75,12 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	referencias = entrevista_persona.entrevistareferencia_set.all() if entrevista_persona and entrevista_persona.entrevistareferencia_set.all().count() else None
 
-	marco_familiar = entrevista_persona.entrevistamiembromarcofamiliar_set.all() if entrevista_persona and entrevista_persona.entrevistamiembromarcofamiliar_set.all().count() else None
+	marco_familiar = entrevista_persona.entrevistamiembromarcofamiliar_set.filter(category=1) if entrevista_persona and entrevista_persona.entrevistamiembromarcofamiliar_set.filter(category=1).count() else None
 
 	# vivienda
 	situacion_vivienda = entrevista_persona.entrevistasituacionvivienda_set.get() if entrevista_persona else None
+	situacion_vivienda_marco_familiar = entrevista_persona.entrevistamiembromarcofamiliar_set.filter(category=2) if entrevista_persona and entrevista_persona.entrevistamiembromarcofamiliar_set.filter(category=2).count() else None
+
 	propietario_vivienda = entrevista_persona.entrevistapropietariovivienda_set.get() if entrevista_persona else None
 	caracteristicas_vivienda = entrevista_persona.entrevistacaractaristicasvivienda_set.get() if entrevista_persona else None
 	tipo_inmueble_vivienda = entrevista_persona.entrevistatipoinmueble_set.get() if entrevista_persona else None

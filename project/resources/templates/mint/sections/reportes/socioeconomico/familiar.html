@@ -151,6 +151,42 @@
       </table>
     </div>
 
+    <div>
+      <h3>MARCO FAMILIAR</h3>
+      <table class="marco-familiar">
+        <tr>
+          <th>PARENTESCO</th>
+          <th>NOMBRE COMPLETO</th>
+          <th>EDAD</th>
+          <th>OCUPACIÓN Y/O CARGO</th>
+          <th>EMPRESA Y/O INSTITUCIÓN</th>
+          <th>No. TELEFÓNICO (CON LADA)</th>
+          <th>DOMICILIO COMPLETO</th>
+        </tr>
+
+        {% for familiar in situacion_vivienda_marco_familiar %}
+        {%if familiar.nombre %}
+        <tr>
+          <th>
+            {% if familiar.parentesco %}
+              {{familiar.parentesco}}
+            {% else %}
+              {{familiar.tipo}}
+            {% endif %}
+          </th>
+          <td>{{familiar.nombre}}</td>
+          <td>{{familiar.edad}}</td>
+          <td>{{familiar.ocupacion}}</td>
+          <td>{{familiar.empresa}}</td>
+          <td>{{familiar.telefono}}</td>
+          <td>{{familiar.residencia}}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </table>
+
+    </div>
+
     {% include 'sections/reportes/seccion/footer.html' %}
   </div>
 </section>
