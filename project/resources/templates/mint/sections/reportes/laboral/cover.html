@@ -11,6 +11,9 @@
       {% include 'sections/reportes/compartido/cover-company.html' %}
 
       <div class="candidate">
+        {% if adjuntos.adj2 %}
+        <img src="{{adjuntos_baseurl}}{{adjuntos.adj2}}" />
+        {% endif %}
         <table>
           <tbody>
             <tr>
