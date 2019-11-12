@@ -76,7 +76,6 @@ class ServiceReporte:
 		return destinatarios
 	
 	def send_reporte_by_email(self, investigaciones, destinatarios, user):
-		print "perro", destinatarios.split(','), len(destinatarios)
 		if len(investigaciones) == 0 or len(destinatarios) == 0:
 			return False
 		

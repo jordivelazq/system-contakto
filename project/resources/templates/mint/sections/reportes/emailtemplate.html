@@ -1,35 +1,39 @@
 {% load fe_extras %}
-<table border="1px" align="left" width="100%" cellpadding="3px" cellspacing="3px">
+<table align="left" width="100%" cellpadding="3px" cellspacing="3px" style="border: 1px solid black">
 	<thead>
 		<tr>
-			<th class="col-red" colspan="5">Datos de Solicitud</th>
-			<th class="col-gray" colspan="3">Datos de Candidato</th>
-			<th class="col-blue" colspan="3">Resultado</th>
-			<th class="col-red" colspan="3">Datos de Entrevista</th>
+			<th class="col-red" colspan="5" style="background-color: indianred;">Datos de Solicitud</th>
+			<th class="col-gray" colspan="3" style="background-color: dimgray;">Datos de Candidato</th>
+			<th class="col-blue" colspan="3" style="background-color: lightsteelblue;">Resultado</th>
+			<th class="col-red" colspan="3" style="background-color: indianred;">Datos de Entrevista</th>
 		</tr>
 		<tr>
-			<th class="col-red">Contacto</th>
-			<th class="col-red">Correo</th>
-			<th class="col-red">Cliente</th>
-			<th class="col-red">Fecha de Recibido</th>
-			<th class="col-red">Tipo Estudio</th>
+			<th class="col-red" style="background-color: indianred;">Contacto</th>
+			<th class="col-red" style="background-color: indianred;">Correo</th>
+			<th class="col-red" style="background-color: indianred;">Cliente</th>
+			<th class="col-red" style="background-color: indianred;">Fecha de Recibido</th>
+			<th class="col-red" style="background-color: indianred;">Tipo Estudio</th>
 
-			<th class="col-gray">Nombre</th>
-			<th class="col-gray">Puesto</th>
-			<th class="col-gray">Ciudad y Estado</th>
+			<th class="col-gray" style="background-color: dimgray;">Nombre</th>
+			<th class="col-gray" style="background-color: dimgray;">Puesto</th>
+			<th class="col-gray" style="background-color: dimgray;">Ciudad y Estado</th>
 
-			<th class="col-blue">Estatus</th>
-			<th class="col-blue">Investigación Laboral</th>
-			<th class="col-blue">Calificación Final</th>
+			<th class="col-blue" style="background-color: lightsteelblue;">Estatus</th>
+			<th class="col-blue" style="background-color: lightsteelblue;">Investigación Laboral</th>
+			<th class="col-blue" style="background-color: lightsteelblue;">Calificación Final</th>
 
-			<th class="col-red">Gestor</th>
-			<th class="col-red">Día Cita</th>
-			<th class="col-red">Hora Cita</th>
+			<th class="col-red" style="background-color: indianred;">Gestor</th>
+			<th class="col-red" style="background-color: indianred;">Día Cita</th>
+			<th class="col-red" style="background-color: indianred;">Hora Cita</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="border: 1px solid black">
 		{% for inv in investigaciones %}
+		{% if forloop.counter|divisibleby:2 %}
+		<tr style="background-color: #f9f9f9">
+		{% else %}
 		<tr>
+		{% endif %}
 			<td>{{ inv.contacto }}</td>
 			<td>{{ inv.contacto.email }}</td>
 			<td>{{ inv.compania.nombre }}</td>
@@ -40,7 +44,7 @@
 			<td>{{ inv.puesto }}</td>
 			<td>{{ inv.ciudad }}, {{ inv.estado }}</td>
 
-			<td>{{ inv.status|investigacion_status }}</td>
+			<td>{{ inv.status|investigacion_status|upper }}</td>
 			<td class="text-left">
 				{% for t in inv.trayectoria %}
 					{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales or t.opinion_rh or t.opinion_jefe %}
