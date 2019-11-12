@@ -118,7 +118,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>{{ inv.status|investigacion_status }}</td>
 						<td class="text-left">
 							{% for t in inv.trayectoria %}
-								{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales %}
+								{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales or t.opinion_rh or t.opinion_jefe %}
 								<table class="estatus-trayectoria table table-striped uppercase">
 									<th colspan="2">{{t.compania}}</th>
 									{% if t.puesto_final %}
@@ -143,6 +143,37 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 									<tr>
 										<td>Observaciones</td>
 										<td>{{t.observaciones_generales}}</td>
+									</tr>
+									{% endif %}
+
+									{% if t.opinion_rh %}
+									<tr>
+										<td>Referente</td>
+										<td>
+											{% if t.opinion_rh.nombre %}
+											Nombre: <br />
+											<b>{{t.opinion_rh.nombre}}</b>
+											{% endif %}
+											{% if t.opinion_rh.puesto %}
+											Puesto: <br />
+											<b>{{t.opinion_rh.puesto}}</b>
+											{% endif %}
+										</td>
+									</tr>
+									{% endif %}
+									{% if t.opinion_jefe %}
+									<tr>
+										<td>Referente</td>
+										<td>
+											{% if t.opinion_jefe.nombre %}
+											Nombre: <br />
+											<b>{{t.opinion_jefe.nombre}}</b>
+											{% endif %}
+											{% if t.opinion_jefe.puesto %}
+											Puesto: <br />
+											<b>{{t.opinion_jefe.puesto}}</b>
+											{% endif %}
+										</td>
 									</tr>
 									{% endif %}
 								</table>
