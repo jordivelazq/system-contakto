@@ -2,15 +2,14 @@
 <table align="left" width="100%" cellpadding="3px" cellspacing="3px" style="border: 1px solid black">
 	<thead>
 		<tr>
-			<th class="col-red" colspan="5" style="background-color: indianred;">Datos de Solicitud</th>
+			<th class="col-red" colspan="4" style="background-color: indianred;">Datos de Solicitud</th>
 			<th class="col-gray" colspan="3" style="background-color: dimgray;">Datos de Candidato</th>
 			<th class="col-blue" colspan="3" style="background-color: lightsteelblue;">Resultado</th>
 			<th class="col-red" colspan="3" style="background-color: indianred;">Datos de Entrevista</th>
 		</tr>
 		<tr>
-			<th class="col-red" style="background-color: indianred;">Contacto</th>
-			<th class="col-red" style="background-color: indianred;">Correo</th>
 			<th class="col-red" style="background-color: indianred;">Cliente</th>
+			<th class="col-red" style="background-color: indianred;">Observaciones</th>
 			<th class="col-red" style="background-color: indianred;">Fecha de Recibido</th>
 			<th class="col-red" style="background-color: indianred;">Tipo Estudio</th>
 
@@ -34,11 +33,10 @@
 		{% else %}
 		<tr>
 		{% endif %}
-			<td>{{ inv.contacto }}</td>
-			<td>{{ inv.contacto.email }}</td>
 			<td>{{ inv.compania.nombre }}</td>
+			<td>{{ inv.tipo_investigacion_texto }}</td>
 			<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
-			<td></td>
+			<td>{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>
 
 			<td>{{ inv.candidato.nombre }}</td>
 			<td>{{ inv.puesto }}</td>

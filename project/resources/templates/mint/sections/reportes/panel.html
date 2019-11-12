@@ -73,7 +73,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 					<tr>
 						<th class="col-red" colspan="6">Datos de Solicitud</th>
 						<th class="col-gray" colspan="3">Datos de Candidato</th>
-						<th class="col-blue" colspan="3">Resultado</th>
+						<th class="col-blue" colspan="4">Resultado</th>
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
 					<tr>
@@ -91,6 +91,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<th class="col-blue">Estatus</th>
 						<th class="col-blue">Investigación Laboral</th>
 						<th class="col-blue">Calificación Final</th>
+						<th class="col-blue">Observaciones</th>
 
 						<th class="col-red">Gestor</th>
 						<th class="col-red">Día Cita</th>
@@ -109,7 +110,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>{{ inv.contacto.email }}</td>
 						<td>{{ inv.compania.nombre }}</td>
 						<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
-						<td></td>
+						<td>{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>
 
 						<td>{{ inv.candidato.nombre }}</td>
 						<td>{{ inv.puesto }}</td>
@@ -181,6 +182,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 							{% endfor %}
 						</td>
 						<td>{{ inv.resultado|investigacion_resultado }}</td>
+						<td>{{ inv.tipo_investigacion_texto }}</td>
 
 						<td>{{inv.entrevista.entrevistador}}</td>
 						<td>{{inv.entrevista.fecha_entrevista|default:""}}</td>
