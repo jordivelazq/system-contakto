@@ -19,6 +19,7 @@ def get_telefonos(candidato):
 
 @csrf_exempt
 def print_reporte_laboral(request, investigacion_id):
+	tipo_reporte = "laboral"
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
 	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil][1]
@@ -40,6 +41,7 @@ def print_reporte_laboral(request, investigacion_id):
 
 @csrf_exempt
 def print_reporte_socioeconomico(request, investigacion_id):
+	tipo_reporte = "socioeconomico"
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
 	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil][1]
