@@ -76,6 +76,9 @@ def panel(request):
 
 	investigaciones = get_investigaciones_list(filtros_json)
 
+	if request.user.is_staff and not request.user.is_superuser:
+		investigaciones = investigaciones.filter(agente=request.user)
+
 	for i in investigaciones:
 		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
 		i.estado = i.candidato.direccion_set.all()[0].estado
