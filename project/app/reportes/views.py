@@ -65,6 +65,7 @@ def panel(request):
 		if user.groups.filter(name='contactos').count():
 			contact = Contacto.objects.get(email=user.username)
 			filtros_json = {
+				"nombre": "",
 				"compania_id": "",
 				"compania_nombre": "",
 				"contacto_id": str(contact.id),
@@ -114,7 +115,7 @@ def exportar_pdf(request):
 def search_reportes(request):
 	response = { 'status' : False}
 	if request.method == 'POST' and request.is_ajax():
-		
+		nombre = request.POST.get('nombre', '')
 		compania_id = request.POST.get('compania_id', '')
 		compania_nombre = request.POST.get('compania_nombre', '')
 		contacto_id = request.POST.get('contacto_id', '')
@@ -122,7 +123,7 @@ def search_reportes(request):
 		fecha_inicio = request.POST.get('fecha_inicio', '')
 		fecha_final = request.POST.get('fecha_final', '')
 		
-		request.session['filtros_search_reportes'] = {'compania_id':compania_id, 'compania_nombre':compania_nombre, 'contacto_id':contacto_id, 'status_id':status_id, 'fecha_inicio':fecha_inicio,'fecha_final':fecha_final}
+		request.session['filtros_search_reportes'] = {'nombre': nombre, 'compania_id':compania_id, 'compania_nombre':compania_nombre, 'contacto_id':contacto_id, 'status_id':status_id, 'fecha_inicio':fecha_inicio,'fecha_final':fecha_final}
 		 
 		response = { 'status' : True}
 
@@ -136,13 +137,20 @@ def reset_filtros(request):
 
 def get_investigaciones_list(filtros_json):
 	investigaciones = Investigacion.objects.filter(status_active=True).order_by('fecha_recibido')
-
 	if filtros_json != None:
-		if not len(filtros_json['compania_id']) and not len(filtros_json['compania_nombre']) and not len(filtros_json['contacto_id']) and not len(filtros_json['status_id']) and not len(filtros_json['fecha_inicio']) and not len(filtros_json['fecha_final']):
+		if (not len(filtros_json['nombre'])
+			and not len(filtros_json['compania_id']) 
+			and not len(filtros_json['compania_nombre']) 
+			and not len(filtros_json['contacto_id']) 
+			and not len(filtros_json['status_id']) 
+			and not len(filtros_json['fecha_inicio']) 
+			and not len(filtros_json['fecha_final'])):
 			recientes = True
 			investigaciones = investigaciones.order_by('fecha_recibido')[:20]
 
 		else:
+			if len(filtros_json['nombre']):
+				investigaciones = investigaciones.filter(candidato__nombre__icontains=filtros_json['nombre'])
 			if len(filtros_json['compania_id']):
 				investigaciones = investigaciones.filter(compania__id=filtros_json['compania_id'])
 

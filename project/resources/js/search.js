@@ -379,6 +379,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     $scope.compania_id = '';
     $scope.empresa_contactos = [];
     $scope.empresa_contacto = '';
+    $scope.search_nombre = ''
 
     $scope.open_empresa_modal = function(){
             $('#selectEmpresaModal').modal().on('shown.bs.modal', function(){
@@ -388,6 +389,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
 
      $scope.get_filtros = function(){
         return {
+            'nombre' : $scope.search_nombre,
             'compania_id' : $scope.compania_id ? $scope.compania_id : '',
             'compania_nombre' : $scope.compania_nombre ? $scope.compania_nombre + '' : '',
             'contacto_id' : $scope.empresa_contacto ? $scope.empresa_contacto + '' : '',
@@ -398,6 +400,9 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     };
 
     $scope.set_filtros = function(filtros_json){
+        if (typeof filtros_json.search_nombre !== 'undefined'){
+            $scope.search_nombre = filtros_json.search_nombre;
+        }
         if (typeof filtros_json.compania_id !== 'undefined'){
             $scope.compania_id = filtros_json.compania_id;
         }
@@ -425,6 +430,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
         $scope.fecha_inicio = ($('#fecha_inicio').val());
         $scope.fecha_final = ($('#fecha_final').val());
         var data = $scope.get_filtros();
+
         $.post( "/estatus/search_reportes/", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
                 window.location.replace('/estatus');

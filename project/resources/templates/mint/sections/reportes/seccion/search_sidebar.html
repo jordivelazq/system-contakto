@@ -7,7 +7,10 @@
 	  	<h6 class="panel-title">Filtros</h6>
 	    <div id="collapseOne" class="panel-collapse collapse in">
 	    	<br />
-	    		<div id="msg-search"></div>
+				<div id="msg-search"></div>
+				<div class="form-group">
+					<input class="form-control" type="text" class="form-control" id="search_nombre" placeholder="Nombre del Candidato" ng-model="search_nombre">
+				</div>
 				<div class="form-group">
 					<div ng-click="open_empresa_modal()" class="input-group">
 						<input id="compania_id" type="hidden" value="{[{compania_id}]}">
