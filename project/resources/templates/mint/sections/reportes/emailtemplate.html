@@ -1,6 +1,6 @@
 {% load fe_extras %}
-<table border="1px" bordercolor="black" align="left" width="100%" cellpadding="3px" cellspacing="0px"  style="text-transform: uppercase;">
-	<thead>
+<table border="1px" bordercolor="black" align="left" width="100%" cellpadding="3px" cellspacing="0px"  style="text-transform: uppercase; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+	<thead style="font-size: 12px;">
 		<tr>
 			<th class="col-red" colspan="4" style="background-color: indianred;">Datos de Solicitud</th>
 			<th class="col-gray" colspan="3" style="background-color: dimgray;">Datos de Candidato</th>
@@ -26,7 +26,7 @@
 			<th class="col-red" style="background-color: indianred;">Hora Cita</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="font-size: 10px;">
 		{% for inv in investigaciones %}
 		{% if forloop.counter|divisibleby:2 %}
 		<tr style="background-color: #f9f9f9">
