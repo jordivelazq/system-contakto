@@ -64,7 +64,7 @@ class InvestigacionForm(ModelForm):
 			field.widget.attrs['class'] = 'form-control'
 
 class InvestigacionStatusForm(ModelForm):
-	fecha_entrega = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',])
+	fecha_entrega = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',],required=False)
 	
 	class Meta:
 		model = Investigacion
