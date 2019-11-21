@@ -20,7 +20,7 @@
 	</li>
 	{% endif %}
 
-	{% if is_usuario_contacto and investigacion.status_general == 2 %}
+	{% if is_usuario_contacto and investigacion.status_general == "2" %}
 	<li {% if seccion == 'reporte' %}class="active"{% endif %}>
 		<a href="/candidato/investigacion/{{investigacion_id}}/reporte">Reporte</a>
 	</li>
