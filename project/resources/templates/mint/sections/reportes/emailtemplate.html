@@ -1,5 +1,5 @@
 {% load fe_extras %}
-<table align="left" width="100%" cellpadding="3px" cellspacing="3px" style="border: 1px solid black">
+<table border="1px" bordercolor="black" align="left" width="100%" cellpadding="3px" cellspacing="0px"  style="text-transform: uppercase;">
 	<thead>
 		<tr>
 			<th class="col-red" colspan="4" style="background-color: indianred;">Datos de Solicitud</th>
@@ -26,7 +26,7 @@
 			<th class="col-red" style="background-color: indianred;">Hora Cita</th>
 		</tr>
 	</thead>
-	<tbody style="border: 1px solid black">
+	<tbody>
 		{% for inv in investigaciones %}
 		{% if forloop.counter|divisibleby:2 %}
 		<tr style="background-color: #f9f9f9">
@@ -46,7 +46,7 @@
 			<td class="text-left">
 				{% for t in inv.trayectoria %}
 					{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales or t.opinion_rh or t.opinion_jefe %}
-					<table class="estatus-trayectoria table table-striped uppercase">
+					<table class="estatus-trayectoria table table-striped uppercase" border="1" bordercolor="black" cellpadding="3px" cellspacing="0px" width="100%">
 						<th colspan="2">{{t.compania}}</th>
 						{% if t.puesto_final %}
 						<tr>
