@@ -326,21 +326,24 @@ body {
 .table-estatus th, .table-estatus td {
   text-align: center;
   padding: 6px;
+  font-size: 12px;
+  font-weight: bold;
 }
-/* line 234, ../sass/screen.sass */
+/* line 236, ../sass/screen.sass */
 .table-estatus ul {
   list-style-type: none;
   text-align: left;
 }
 
-/* line 239, ../sass/screen.sass */
+/* line 241, ../sass/screen.sass */
 .estatus-trayectoria td {
   text-align: left;
   font-size: 0.8em;
   padding: 0;
+  font-weight: normal;
 }
 
-/* line 245, ../sass/screen.sass */
+/* line 248, ../sass/screen.sass */
 .panel-enviar-correo textarea, .panel-enviar-correo input {
   width: 100%;
 }
