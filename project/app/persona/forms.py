@@ -32,6 +32,8 @@ class CandidatoAltaForm(ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(CandidatoAltaForm, self).__init__(*args, **kwargs)
+		self.fields['nss'].widget.attrs.update({'maxlength': '11'})
+		self.fields['curp'].widget.attrs.update({'maxlength': '18'})
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 			
