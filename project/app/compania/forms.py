@@ -30,16 +30,16 @@ class CompaniaForm(ModelForm):
 
 class CompaniaSucursalForm(forms.Form):
 	
-	def __init__(self, investigacion, *args, **kwargs):
+	def __init__(self, compania, sucursal, *args, **kwargs):
 		super(CompaniaSucursalForm, self).__init__(*args, **kwargs)
 
 		choices = [("", "Seleccionar")]
-		for item in Sucursales.objects.filter(compania=investigacion.compania):
+		for item in Sucursales.objects.filter(compania=compania):
 			choices.append((item.id, str(item.nombre)))
 
 		self.fields['sucursal'] = forms.ChoiceField(
 			choices=choices,
-			initial=investigacion.sucursal_id
+			initial=sucursal.id if sucursal else None
 		)
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'

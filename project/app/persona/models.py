@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from app.compania.models import Compania
+from app.compania.models import Compania, Sucursales
 from django.core.exceptions import ValidationError
 
 ACTIVO_OPCIONES = (
@@ -169,6 +169,7 @@ class TrayectoriaLaboral(models.Model):
 	# información que viene del doc
 	persona = models.ForeignKey(Persona)
 	compania = models.ForeignKey(Compania)
+	sucursal = models.ForeignKey(Sucursales, null=True, blank=True)
 	aparece_nss = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	reporta_candidato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)

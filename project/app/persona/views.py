@@ -376,7 +376,7 @@ def editar(request, investigacion_id):
 	else:
 		formCandidato = CandidatoAltaForm(prefix='candidato', instance=investigacion.candidato)
 		formInvestigacion = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={'compania' : investigacion.compania.id }, agt_id=agente_id)
-		formSucursal = CompaniaSucursalForm(investigacion, prefix='investigacion')
+		formSucursal = CompaniaSucursalForm(investigacion.compania, investigacion.sucursal, prefix='investigacion')
 		formOrigen = OrigenAltaForma(prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')		
 		formDireccion = DireccionForm(prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
 		formTelefono1 = TelefonoForm(prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
@@ -522,6 +522,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	informante2 = (informantes[1] if informantes.count() > 1 else None) if informantes else None
 
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
+	formSucursal = CompaniaSucursalForm(trayectoria_empresa.compania, trayectoria_empresa.sucursal, prefix='trayectoria')
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		exito = True

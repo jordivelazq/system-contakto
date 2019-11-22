@@ -83,17 +83,14 @@
 			</div>
 			{% if request.user.is_staff %}
 				<div class="col-md-2">
-					<a href="/empresa/{{trayectoria_empresa.compania.id}}/editar/ref/{{investigacion_id}}/{{trayectoria_id}}" class="btn btn-default form-control" data-ng-click="onClickEditarDatosEmpresa($event)">Editar datos de empresa</a>
+					<a href="/empresa/{{trayectoria_empresa.compania.id}}/editar/ref/{{investigacion_id}}/{{trayectoria_id}}" class="btn btn-default" data-ng-click="onClickEditarDatosEmpresa($event)">Editar datos de empresa</a>
 				</div>
 			{% endif %}
 		</div>
 		<div class="row">
-			{% with trayectoria_empresa.compania.sucursales_set.all|first as sucursal %}
+			{% with trayectoria_empresa.sucursal as sucursal %}
 			<div class="col-md-2">
-				<dl>
-					<dt>Sucursal</dt>
-					<dd>{{sucursal}}</dd>
-				</dl>
+				{{formSucursal}}
 			</div>
 			<div class="col-md-2">
 				<dl>
@@ -114,7 +111,7 @@
 				</dl>
 			</div>
 			<div class="col-md-2">
-				<button name="guardar_sucursal" type="submit" class="btn btn-default form-control">Guardar y crear sucursal</button>
+				<button name="guardar_sucursal" type="submit" class="btn btn-default">Guardar y crear sucursal</button>
 			</div>
 			{% endwith %}
 		</div>
