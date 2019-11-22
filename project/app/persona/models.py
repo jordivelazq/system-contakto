@@ -5,10 +5,10 @@ from app.compania.models import Compania, Sucursales
 from django.core.exceptions import ValidationError
 
 ACTIVO_OPCIONES = (
-		(0, 'Sí/No'),
-	    (1, 'Sí'),
-	    (2, 'No'),
-	)
+	(0, 'Sí/No'),
+	(1, 'Sí'),
+	(2, 'No'),
+)
 
 ESTADOSMEXICO_OPCIONES = (
 	("Aguascalientes", "Aguascalientes"),

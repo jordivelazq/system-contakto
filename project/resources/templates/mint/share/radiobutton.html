@@ -1,0 +1,28 @@
+<div class="form-control">
+  <div class="radiobutton">
+    <span>
+      Sí
+      {% if value == 1 %}
+        <input type="radio" name="{{name}}" value="1" checked />
+      {% else %}
+        <input type="radio" name="{{name}}" value="1" />
+      {% endif %}
+    </span>
+    <span>
+      No
+      {% if value == 2 %}
+        <input type="radio" name="{{name}}" value="2" checked />
+      {% else %}
+        <input type="radio" name="{{name}}" value="2" />
+      {% endif %}
+    </span>
+    <span>
+      NA
+      {% if value == 0 %}
+        <input type="radio" name="{{name}}" value="0" checked />
+      {% else %}
+        <input type="radio" name="{{name}}" value="0" />
+      {% endif %}
+    </span>
+  </div>
+</div>

@@ -193,17 +193,17 @@
 <div class="row">
 	<div class="col-md-4">
 		<label for="id_prestacion_vivienda_infonavit-activo">Infonavit vigente</label>
-		{{ formPrestacionViviendaInfonavit.activo }}
+		{% include 'share/radiobutton.html' with value=formPrestacionViviendaInfonavit.instance.activo name=formPrestacionViviendaInfonavit.activo.html_name %}
 		{{ formPrestacionViviendaInfonavit.activo.errors }}
 	</div>
 	<div class="col-md-4">
 		<label for="id_prestacion_vivienda_fonacot-activo">Fonacot vigente</label>
-		{{ formPrestacionViviendaFonacot.activo }}
+		{% include 'share/radiobutton.html' with value=formPrestacionViviendaFonacot.instance.activo name=formPrestacionViviendaFonacot.activo.html_name %}
 		{{ formPrestacionViviendaFonacot.activo.errors }}
 	</div>
 	<div class="col-md-4">
 		<label for="id_legalidad-sindicato">Afiliado a sindicato</label>
-		{{ formLegalidad.afiliado_sindicato }}
+		{% include 'share/radiobutton.html' with value=formLegalidad.instance.afiliado_sindicato name=formLegalidad.afiliado_sindicato.html_name %}
 		{{ formLegalidad.afiliado_sindicato.errors }}
 	</div>
 </div>
@@ -231,17 +231,17 @@
 <div class="row">
 	<div class="col-md-4">
 		<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
-		{{ formSeguro.verificado_enburo }}
+		{% include 'share/radiobutton.html' with value=formSeguro.instance.verificado_enburo name=formSeguro.verificado_enburo.html_name %}
 		{{ formSeguro.verificado_enburo.errors }}
 	</div>
 	<div class="col-md-4">
 		<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
-		{{ formInvestigacion.laboro_anteriormente }}
+		{% include 'share/radiobutton.html' with value=formInvestigacion.instance.laboro_anteriormente name=formInvestigacion.laboro_anteriormente.html_name %}
 		{{ formInvestigacion.laboro_anteriormente.errors }}
 	</div>
 	<div class="col-md-4">
 		<label for="id_investigacion-laboro_anteriormente">Familiar laborando en la empresa</label>
-		{{ formInvestigacion.familiar_laborando }}
+		{% include 'share/radiobutton.html' with value=formInvestigacion.instance.familiar_laborando name=formInvestigacion.familiar_laborando.html_name %}
 		{{ formInvestigacion.familiar_laborando.errors }}
 	</div>
 </div>

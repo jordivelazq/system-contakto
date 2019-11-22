@@ -17,14 +17,14 @@
 		</div>
 		{{ formTrayectoria.aparece_nss.errors }}
 		<label for="id_trayectoria1-aparece_nss">Aparece en NSS</label>
-		{{ formTrayectoria.aparece_nss }}
+		{% include 'share/radiobutton.html' with value=formTrayectoria.instance.aparece_nss name=formTrayectoria.aparece_nss.html_name %}
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-4">
 		{{ formTrayectoria.reporta_candidato.errors }}
 		<label for="id_trayectoria1-reporta_candidato">Reporta candidato</label>
-		{{ formTrayectoria.reporta_candidato }}
+		{% include 'share/radiobutton.html' with value=formTrayectoria.instance.reporta_candidato name=formTrayectoria.reporta_candidato.html_name %}
 	</div>
 </div>
 

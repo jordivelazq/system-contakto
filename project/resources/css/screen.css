@@ -347,3 +347,9 @@ body {
 .panel-enviar-correo textarea, .panel-enviar-correo input {
   width: 100%;
 }
+
+/* line 251, ../sass/screen.sass */
+.radiobutton {
+  display: flex;
+  justify-content: space-between;
+}
