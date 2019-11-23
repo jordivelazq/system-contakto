@@ -76,7 +76,7 @@
 				<tr>
 					<td class="text-left">{{ cob.investigacion.id }}</td>
 					<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/M/y" }}</td>
-					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar" title="Ir a investigacion de {{ cob.investigacion.candidato.nombre }}">{{ cob.investigacion.candidato.nombre }}</a></td>
+					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar" title="Ir a investigacion de {{ cob.investigacion.candidato.nombre }}">{{ cob.investigacion.candidato.nombre }} {{ cob.investigacion.candidato.apellido }}</a></td>
 					<td class="text-center">{{ cob.ciudad }}</td>
 					<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
 					<td class="text-center">{{ cob.investigacion.contacto.nombre }}</td>

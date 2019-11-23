@@ -28,7 +28,7 @@ class CandidatoAltaForm(ModelForm):
 
 	class Meta:  
 		model = Persona
-		fields = ['nombre', 'nss', 'rfc', 'email', 'edad', 'curp']
+		fields = ['nombre', 'apellido', 'nss', 'rfc', 'email', 'edad', 'curp']
 
 	def __init__(self, *args, **kwargs):
 		super(CandidatoAltaForm, self).__init__(*args, **kwargs)

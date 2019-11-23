@@ -72,7 +72,7 @@ class PersonaService:
 			fecha_final_format = datetime.datetime.strptime(self.fecha_final, '%d/%m/%y').strftime('%Y-%m-%d')
 			candidatos = candidatos.filter(fecha_recibido__range=(fecha_inicio_format, fecha_final_format))
 		if len(self.nombre):
-			candidatos = candidatos.filter(Q(candidato__nombre__contains=self.nombre))
+			candidatos = candidatos.filter(Q(candidato__nombre__icontains=self.nombre)|Q(candidato__apellido__icontains=self.nombre))
 		if len(self.compania_id):
 			candidatos = candidatos.filter(Q(compania__id=self.compania_id))
 		if len(self.agente_id):
@@ -93,7 +93,7 @@ class PersonaService:
 		for c in candidatos:
 			response.append({
 				'id': c.id,
-				'nombre': c.candidato.nombre,
+				'nombre': c.candidato.nombre + (' ' + c.candidato.apellido if c.candidato.apellido else ''),
 				'puesto': c.puesto,
 				'empresa': c.compania.nombre,
 				'fecha': c.fecha_registro.strftime('%d/%m/%Y'),

@@ -112,7 +112,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
 						<td>{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>
 
-						<td>{{ inv.candidato.nombre }}</td>
+						<td>{{ inv.candidato.nombre }} {{ inv.candidato.apellido }}</td>
 						<td>{{ inv.puesto }}</td>
 						<td>{{ inv.ciudad }}, {{ inv.estado }}</td>
 
