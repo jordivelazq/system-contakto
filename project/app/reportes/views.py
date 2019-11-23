@@ -38,7 +38,7 @@ def panel(request):
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	filtros_json = request.session.get('filtros_search_reportes', None)
-
+	
 	if request.POST:
 		investigaciones = request.POST.getlist('investigacion[]')
 		destinatarios = request.POST.get('destinatarios')
@@ -47,7 +47,7 @@ def panel(request):
 			return HttpResponseRedirect('/estatus/exito')
 		else:
 			return HttpResponseRedirect('/estatus/error')
-
+	
 	if filtros_json != None:
 		if not len(filtros_json['compania_id']) and not len(filtros_json['compania_nombre']) and not len(filtros_json['contacto_id']) and not len(filtros_json['status_id']) and not len(filtros_json['fecha_inicio']) and not len(filtros_json['fecha_final']):
 			recientes = True
@@ -74,10 +74,8 @@ def panel(request):
 			}
 		recientes = True
 
-	investigaciones = get_investigaciones_list(filtros_json)
-
-	if request.user.is_staff and not request.user.is_superuser:
-		investigaciones = investigaciones.filter(agente=request.user)
+	is_agent = request.user.is_staff and not request.user.is_superuser
+	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None)
 
 	for i in investigaciones:
 		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
@@ -138,8 +136,12 @@ def reset_filtros(request):
 	response = { 'status' : True}
 	return HttpResponse(json.dumps(response), content_type='application/json')
 
-def get_investigaciones_list(filtros_json):
+def get_investigaciones_list(filtros_json, agent_id):
 	investigaciones = Investigacion.objects.filter(status_active=True).order_by('fecha_recibido')
+
+	if agent_id:
+		investigaciones = investigaciones.filter(agente_id=agent_id)
+
 	if filtros_json != None:
 		if (not len(filtros_json['nombre'])
 			and not len(filtros_json['compania_id']) 
