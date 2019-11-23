@@ -19,6 +19,7 @@ class EntrevistaFile(models.Model):
 class EntrevistaPersona(models.Model):
 	investigacion = models.ForeignKey(Investigacion)
 	nombre = models.CharField(max_length=140, blank=True, null=True)
+	apellido = models.CharField(max_length=140, blank=True, null=True)
 	email = models.CharField(max_length=140, blank=True, null=True)
 	nss = models.CharField(verbose_name='NSS (IMSS)', max_length=30, blank=True, null=True)
 	edad = models.CharField(max_length=140, blank=True, null=True)

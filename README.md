@@ -42,12 +42,9 @@ This group will be assigned to Company contacts with restricted access to the sy
 
 ### Debug
 
-- Import pdb
+- Import pdb > Add tracer
 
 `import pdb`
-
-- Add tracer
-
 `pdb.set_trace()`
 
 The application will stop righ where the tracer has been added.

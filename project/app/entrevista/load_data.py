@@ -97,6 +97,7 @@ class PreCandidato(object):
 		}
 		try:
 			data['nombre'] = self.get_cell_value(rowx=4, colx=9)
+			data['apellido'] = self.get_cell_value(rowx=4, colx=20)
 			data['edad'] = self.get_cell_value(rowx=4, colx=35)
 			data['email'] = self.get_cell_value(rowx=6, colx=35)
 			
@@ -318,6 +319,19 @@ class PreCandidato(object):
 			data['domicilio_direcciones'] = self.get_cell_value(rowx=208,colx=0)
 			data['tamano_aprox_mts2'] = self.get_cell_value(rowx=62,colx=34)
 			data['domicilio_anterior'] = self.get_cell_value(rowx=63,colx=20)
+
+			data['marco_familiar'] = []
+			for i in range(0, 14):
+				data['marco_familiar'].append({
+					'parentesco': self.get_cell_value(rowx=86+i, colx=0),
+					'nombre': self.get_cell_value(rowx=86+i, colx=3),
+					'edad': self.get_cell_value(rowx=86+i, colx=7),
+					'ocupacion': self.get_cell_value(rowx=86+i, colx=8),
+					'empresa': self.get_cell_value(rowx=86+i, colx=10),
+					'residencia': self.get_cell_value(rowx=86+i, colx=13),
+					'telefono': self.get_cell_value(rowx=86+i, colx=18)
+				})
+			
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos de vivienda, revisar formato.')
 
@@ -476,52 +490,31 @@ class PreCandidato(object):
 					'ingresos': [],
 					'egresos': []
 				}
-
+				
 		try:
 			#Ingresos
-			data['ingresos'].append({	'concepto' : 'investigado',
-										'monto' : self.get_cell_value(rowx=88,colx=9) })
-			data['ingresos'].append({	'concepto' : 'conyuge',
-										'monto' : self.get_cell_value(rowx=91,colx=9) })
-			data['ingresos'].append({	'concepto' : 'padres',
-										'monto' : self.get_cell_value(rowx=94,colx=9) })
-			data['ingresos'].append({	'concepto' : 'hermanos',
-										'monto' : self.get_cell_value(rowx=97,colx=9) })
-			data['ingresos'].append({	'concepto' : 'otros',
-										'monto' : self.get_cell_value(rowx=100,colx=9) })
-			data['ingresos'].append({	'concepto' : 'total',
-										'monto' : self.get_cell_value(rowx=102,colx=9) })
+			data['ingresos'].append({	'concepto': 'investigado', 'monto': self.get_cell_value(rowx=86,colx=27) })
+			data['ingresos'].append({ 'concepto': 'conyuge','monto': self.get_cell_value(rowx=89,colx=27) })
+			data['ingresos'].append({ 'concepto': 'padres','monto': self.get_cell_value(rowx=92,colx=27) })
+			data['ingresos'].append({ 'concepto': 'hermanos','monto': self.get_cell_value(rowx=95,colx=27) })
+			data['ingresos'].append({ 'concepto': 'otros','monto': self.get_cell_value(rowx=98,colx=27) })
+			data['ingresos'].append({ 'concepto': 'total','monto': self.get_cell_value(rowx=100,colx=27) })
 			#Egresos
-			data['egresos'].append({	'concepto' : 'impuestos',
-										'monto' : self.get_cell_value(rowx=88,colx=33) })
-			data['egresos'].append({	'concepto' : 'vestimenta',
-										'monto' : self.get_cell_value(rowx=89,colx=33) })
-			data['egresos'].append({	'concepto' : 'gastos_automovil',
-										'monto' : self.get_cell_value(rowx=90,colx=33) })
-			data['egresos'].append({	'concepto' : 'transporte_publico',
-										'monto' : self.get_cell_value(rowx=91,colx=33) })
-			data['egresos'].append({	'concepto' : 'alimentacion',
-										'monto' : self.get_cell_value(rowx=92,colx=33) })
-			data['egresos'].append({	'concepto' : 'educacion',
-										'monto' : self.get_cell_value(rowx=93,colx=33) })
-			data['egresos'].append({	'concepto' : 'medico',
-										'monto' : self.get_cell_value(rowx=94,colx=33) })
-			data['egresos'].append({	'concepto' : 'diversos',
-										'monto' : self.get_cell_value(rowx=95,colx=33) })
-			data['egresos'].append({	'concepto' : 'servicios',
-										'monto' : self.get_cell_value(rowx=96,colx=33) })
-			data['egresos'].append({	'concepto' : 'serv_domestico',
-										'monto' : self.get_cell_value(rowx=97,colx=33) })
-			data['egresos'].append({	'concepto' : 'seguros',
-										'monto' : self.get_cell_value(rowx=98,colx=33) })
-			data['egresos'].append({	'concepto' : 'deuda1',
-										'monto' : self.get_cell_value(rowx=99,colx=33) })
-			data['egresos'].append({	'concepto' : 'deuda2',
-										'monto' : self.get_cell_value(rowx=100,colx=33) })
-			data['egresos'].append({	'concepto' : 'otros',
-										'monto' : self.get_cell_value(rowx=101,colx=33) })
-			data['egresos'].append({	'concepto' : 'total',
-										'monto' : self.get_cell_value(rowx=102,colx=33) })
+			data['egresos'].append({ 'concepto': 'impuestos', 'monto': self.get_cell_value(rowx=86,colx=37) })
+			data['egresos'].append({ 'concepto': 'vestimenta', 'monto': self.get_cell_value(rowx=87,colx=37) })
+			data['egresos'].append({ 'concepto': 'gastos_automovil', 'monto': self.get_cell_value(rowx=88,colx=37) })
+			data['egresos'].append({ 'concepto': 'transporte_publico', 'monto': self.get_cell_value(rowx=89,colx=37) })
+			data['egresos'].append({ 'concepto': 'alimentacion', 'monto': self.get_cell_value(rowx=90,colx=37) })
+			data['egresos'].append({ 'concepto': 'educacion', 'monto': self.get_cell_value(rowx=91,colx=37) })
+			data['egresos'].append({ 'concepto': 'medico', 'monto': self.get_cell_value(rowx=92,colx=37) })
+			data['egresos'].append({ 'concepto': 'diversos', 'monto': self.get_cell_value(rowx=93,colx=37) })
+			data['egresos'].append({ 'concepto': 'servicios', 'monto': self.get_cell_value(rowx=94,colx=37) })
+			data['egresos'].append({ 'concepto': 'serv_domestico', 'monto': self.get_cell_value(rowx=95,colx=37) })
+			data['egresos'].append({ 'concepto': 'seguros', 'monto': self.get_cell_value(rowx=96,colx=37) })
+			data['egresos'].append({ 'concepto': 'deuda1', 'monto': self.get_cell_value(rowx=97,colx=37) })
+			data['egresos'].append({ 'concepto': 'deuda2', 'monto': self.get_cell_value(rowx=98,colx=37) })
+			data['egresos'].append({ 'concepto': 'otros', 'monto': self.get_cell_value(rowx=99,colx=37) })
+			data['egresos'].append({ 'concepto': 'total', 'monto': self.get_cell_value(rowx=100,colx=37) })
 		except Exception, e:
 			self.errors.append('No se pudo extraer los datos económicos mensuales, revisar formato.')
 

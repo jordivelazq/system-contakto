@@ -16,6 +16,11 @@
 					{{ candidato_form.nombre }}
 				</div>
 				<div class="col-md-4">
+					<div class="text-danger">{{ candidato_form.apellido.errors }}</div>
+					{{ candidato_form.apellido.label_tag }}
+					{{ candidato_form.apellido }}
+				</div>
+				<div class="col-md-4">
 					<div class="text-danger">{{ candidato_form.email.errors }}</div>
 					{{ candidato_form.email.label_tag }}
 					{{ candidato_form.email }}

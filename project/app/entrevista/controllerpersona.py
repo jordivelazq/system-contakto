@@ -68,6 +68,7 @@ class ControllerPersona(object):
 		try:
 			candidato.investigacion = investigacion	
 			candidato.nombre = datos_generales['nombre']
+			candidato.apellido = datos_generales['apellido']
 			candidato.email = datos_generales['email']
 			candidato.edad = datos_generales['edad']
 			candidato.rfc = datos_generales['rfc']
@@ -291,8 +292,21 @@ class ControllerPersona(object):
 												cocina = situacion_vivienda['distribucion_dimensiones']['cocina'],
 												patios = situacion_vivienda['distribucion_dimensiones']['patios'],
 												cocheras = situacion_vivienda['distribucion_dimensiones']['cocheras']).save()
+			
+			# Marco Familiar agregado a Vivienda (category=2)
+			for i in range(0, len(situacion_vivienda['marco_familiar'])):
+				EntrevistaMiembroMarcoFamiliar(person = candidato,
+					tipo = 'otro',
+					parentesco = situacion_vivienda['marco_familiar'][i]['parentesco'],
+					nombre = situacion_vivienda['marco_familiar'][i]['nombre'],
+					edad = situacion_vivienda['marco_familiar'][i]['edad'],
+					ocupacion = situacion_vivienda['marco_familiar'][i]['ocupacion'],
+					empresa = situacion_vivienda['marco_familiar'][i]['empresa'],
+					residencia = situacion_vivienda['marco_familiar'][i]['residencia'],
+					telefono = situacion_vivienda['marco_familiar'][i]['telefono'],
+					category=2).save()
 		except Exception, e:
-			self.errors.append('Error en registro de situación de vivienda.')
+			self.errors.append('Error en registro de: Situación de vivienda')
 
 		return
 
@@ -329,9 +343,6 @@ class ControllerPersona(object):
 														empresa = marco_familiar[tipo[0]]['empresa'],
 														residencia = marco_familiar[tipo[0]]['residencia'],
 														telefono = srv.clean_telefono(marco_familiar[tipo[0]]['telefono'])).save()
-				
-				# Marco Familiar agregado a Vivienda (category=2)
-				EntrevistaMiembroMarcoFamiliar(person = candidato, tipo = 'otro', category=2).save()
 		except Exception, e:
 			print(e)
 			self.errors.append('Error en registro de marco familiar.')
