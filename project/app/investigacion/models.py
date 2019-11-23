@@ -23,6 +23,7 @@ class Investigacion(models.Model):
 		('1', 'Viable'),
 		('2', 'No viable'),
 		('3', 'Con reservas'),
+		('4', 'Cancelado'),
 	)
 	STATUS_OPCIONES = (
 		('0', 'En Investigación'),

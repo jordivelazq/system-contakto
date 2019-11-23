@@ -100,7 +100,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				</thead>
 				<tbody>
 					{% for inv in investigaciones %}
-					<tr>
+					<tr alt="{{forloop.counter }}">
 						<td>
 							{% if request.user.is_superuser or request.user.is_staff %}
 							<input type="checkbox" name="investigacion[]" value="{{inv.id}}" />

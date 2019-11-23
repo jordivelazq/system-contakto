@@ -413,10 +413,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
             $scope.compania_nombre = filtros_json.compania_nombre;
         }
         if (typeof filtros_json.status_id !== 'undefined'){
-            $scope.status_select = filtros_json.status_id;
-            if(filtros_json.status_id == ''){
-                $scope.status_select = '0';
-            } 
+            $scope.status_select = filtros_json.status_id; 
         }
         if (typeof filtros_json.fecha_inicio !== 'undefined'){
             $('#fecha_inicio').val(filtros_json.fecha_inicio);
@@ -439,7 +436,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     };
 
     $scope.init = function(){
-        $scope.status_select = '0';
+        $scope.status_select = '';
         if (filtros_json !== ''){
             $scope.set_filtros(filtros_json);
             $scope.fecha_inicio = ($('#fecha_inicio').val());
@@ -454,7 +451,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
             $scope.compania_id = '';
             $scope.compania_nombre = '';
             $scope.empresa_contacto = '';
-            $scope.status_select = '0';
+            $scope.status_select = '';
             $('#fecha_inicio').val('');
             $('#fecha_final').val('');
             $.post("/estatus/reset_filtros/");
