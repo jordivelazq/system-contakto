@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from app.compania.models import *
 from django import forms
 from django.forms import ModelForm
@@ -35,7 +36,7 @@ class CompaniaSucursalForm(forms.Form):
 
 		choices = [("", "Seleccionar")]
 		for item in Sucursales.objects.filter(compania=compania):
-			choices.append((item.id, str(item.nombre)))
+			choices.append((item.id, item.nombre))
 
 		self.fields['sucursal'] = forms.ChoiceField(
 			choices=choices,
