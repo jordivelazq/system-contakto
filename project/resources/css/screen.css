@@ -353,3 +353,15 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+/* line 256, ../sass/screen.sass */
+.form-etiquetas .etiqueta {
+  display: flex;
+  margin-bottom: 12px;
+}
+/* line 260, ../sass/screen.sass */
+.form-etiquetas .etiqueta span {
+  display: inline-block;
+  width: 50px;
+  margin-right: 12px;
+}

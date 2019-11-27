@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -19,7 +20,10 @@ from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService
 from app.cobranza.models import *
 from app.cobranza.forms import CobranzaMontoForm
+from app.agente.models import Labels
+from app.agente.forms import LabelsForm
 from django.forms.models import modelformset_factory
+
 from django.views.decorators.csrf import csrf_exempt
 
 from app.entrevista.controllerpersona import ControllerPersona
@@ -48,7 +52,24 @@ def panel(request):
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 
-	return render_to_response('sections/candidato/panel.html', locals())
+	user_labels = Labels.objects.filter(agente = request.user)
+	label_formset = modelformset_factory(Labels, form=LabelsForm, extra=0 if user_labels else len(Labels.LABEL_OPTIONS))
+
+	if request.method == 'POST':
+		formset = label_formset(request.POST)
+		if formset.is_valid():
+			formset.save()
+			return HttpResponseRedirect('/candidato/exito')
+	else:
+		if len(user_labels):
+			formset = label_formset(initial=user_labels)
+		else:
+			formset = label_formset(initial=[{
+				'color': color,
+				'agente': request.user
+			} for label, color in Labels.LABEL_OPTIONS])
+
+	return render_to_response('sections/candidato/panel.html', locals(), context_instance=RequestContext(request))
 
 '''
 	Captura de nuevo candidato con info personal e investigación
