@@ -97,7 +97,8 @@ class PersonaService:
 				'puesto': c.puesto,
 				'empresa': c.compania.nombre,
 				'fecha': c.fecha_registro.strftime('%d/%m/%Y'),
-				'fecha_recibido': c.fecha_recibido.strftime('%d/%m/%Y')
+				'fecha_recibido': c.fecha_recibido.strftime('%d/%m/%Y'),
+				'color': c.investigacionlabel.label.color if hasattr(c, 'investigacionlabel') and hasattr(c.investigacionlabel.label, 'color') else ''
 			})
 
 		return response

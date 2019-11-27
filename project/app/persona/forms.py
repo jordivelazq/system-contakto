@@ -400,6 +400,3 @@ class DistribucionDimensionesForm(ModelForm):
 		for field_name, field in self.fields.items():
 			#if not field_name in ('is_in_control', 'is_registered', 'client_authorization'):
 			field.widget.attrs['class'] = 'form-control'
-
-
-

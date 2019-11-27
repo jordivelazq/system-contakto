@@ -26,3 +26,6 @@ class Labels(models.Model):
 	agente = models.ForeignKey(User)
 	color = models.CharField(max_length=100, choices=LABEL_OPTIONS)
 	name = models.CharField(max_length=150, verbose_name='')
+
+	def __unicode__(self):
+		return u'%s' % (self.name)

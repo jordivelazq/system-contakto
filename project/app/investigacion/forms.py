@@ -102,3 +102,16 @@ class InvestigacionGeneralForm(ModelForm):
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 
+class InvestigacionLabelForm(ModelForm):
+	class Meta:
+		model = InvestigacionLabel
+		fields = ('investigacion', 'label')
+		widgets = {
+			'investigacion': forms.HiddenInput()
+		}
+	
+	def __init__(self, *args, **kwargs):
+		super(InvestigacionLabelForm, self).__init__(*args, **kwargs)
+
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'

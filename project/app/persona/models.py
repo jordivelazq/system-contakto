@@ -602,6 +602,3 @@ class Informante(models.Model):
 
 	def __unicode__(self):
 		return  '%s' % (self.evaluacion)
-
-
-
