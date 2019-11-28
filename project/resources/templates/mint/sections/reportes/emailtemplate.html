@@ -1,30 +1,30 @@
 {% load fe_extras %}
-<table align="left" width="100%" cellpadding="3px" cellspacing="0px"  style="text-transform: uppercase; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+<table align="left" style="text-transform: uppercase; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; border-spacing: 0px;">
 	<thead style="font-size: 12px;">
 		<tr>
-			<th colspan="4" style="background-color: indianred; border: 1px solid black;">Datos de Solicitud</th>
-			<th colspan="4" style="background-color: dimgray; border: 1px solid black;">Datos de Candidato</th>
-			<th colspan="3" style="background-color: lightsteelblue; border: 1px solid black;">Resultado</th>
-			<th colspan="3" style="background-color: indianred; border: 1px solid black;">Datos de Entrevista</th>
+			<th colspan="4" style="background-color: indianred; border: 1px solid black; padding: 5px;">Datos de Solicitud</th>
+			<th colspan="4" style="background-color: dimgray; border: 1px solid black; padding: 5px;">Datos de Candidato</th>
+			<th colspan="3" style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Resultado</th>
+			<th colspan="3" style="background-color: indianred; border: 1px solid black; padding: 5px;">Datos de Entrevista</th>
 		</tr>
 		<tr>
-			<th style="background-color: indianred; border: 1px solid black;">Cliente</th>
-			<th style="background-color: indianred; border: 1px solid black;">Observaciones</th>
-			<th style="background-color: indianred; border: 1px solid black;">Fecha de Recibido</th>
-			<th style="background-color: indianred; border: 1px solid black;">Tipo Estudio</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Cliente</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Observaciones</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Fecha de Recibido</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Tipo Estudio</th>
 
-			<th style="background-color: dimgray; border: 1px solid black;">Nombre</th>
-			<th style="background-color: dimgray; border: 1px solid black;">Apellido</th>
-			<th style="background-color: dimgray; border: 1px solid black;">Puesto</th>
-			<th style="background-color: dimgray; border: 1px solid black;">Ciudad y Estado</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Nombre</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Apellido</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Puesto</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Ciudad y Estado</th>
 
-			<th style="background-color: lightsteelblue; border: 1px solid black;">Estatus</th>
-			<th style="background-color: lightsteelblue; border: 1px solid black;">Investigación Laboral</th>
-			<th style="background-color: lightsteelblue; border: 1px solid black;">Calificación Final</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Estatus</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Investigación Laboral</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Calificación Final</th>
 
-			<th style="background-color: indianred; border: 1px solid black;">Gestor</th>
-			<th style="background-color: indianred; border: 1px solid black;">Día Cita</th>
-			<th style="background-color: indianred; border: 1px solid black;">Hora Cita</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Gestor</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Día Cita</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Hora Cita</th>
 		</tr>
 	</thead>
 	<tbody style="font-size: 10px;">
@@ -34,73 +34,79 @@
 		{% else %}
 		<tr>
 		{% endif %}
-			<td style="border: 1px solid black;">{{ inv.compania.nombre }}</td>
-			<td style="border: 1px solid black;">{{ inv.tipo_investigacion_texto }}</td>
-			<td style="border: 1px solid black;">{{ inv.fecha_recibido|date:"d/M/y" }}</td>
-			<td style="border: 1px solid black;">{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.compania.nombre }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.tipo_investigacion_texto }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.fecha_recibido|date:"d/M/y" }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>
 
-			<td style="border: 1px solid black;">{{ inv.candidato.nombre }}</td>
-			<td style="border: 1px solid black;">{{ inv.candidato.apellido }}</td>
-			<td style="border: 1px solid black;">{{ inv.puesto }}</td>
-			<td style="border: 1px solid black;">{{ inv.ciudad }}, {{ inv.estado }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.candidato.nombre }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.candidato.apellido }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.puesto }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.ciudad }}, {{ inv.estado }}</td>
 
-			<td style="border: 1px solid black;">{{ inv.status|investigacion_status|upper }}</td>
-			<td style="border: 1px solid black;" class="text-left">
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.status|investigacion_status|upper }}</td>
+			<td style="border: 1px solid black; padding: 5px;">
 				{% for t in inv.trayectoria %}
 					{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales or t.opinion_rh or t.opinion_jefe %}
-					<table border="1" bordercolor="black" cellpadding="3px" cellspacing="0px" width="100%">
-						<th colspan="2">{{t.compania}}</th>
+					<table align="left" style="text-transform: uppercase; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; border-spacing: 0px;">
+						<th colspan="2" style="border: 1px solid black; padding: 5px;">{{t.compania}}</th>
 						{% if t.puesto_final %}
-						<tr>
-							<td>Puesto</td>
-							<td>{{t.puesto_final}}</td>
-						</tr>
+							<tr>
+								<td style="border: 1px solid black; padding: 5px;">Puesto</td>
+								<td style="border: 1px solid black; padding: 5px;">{{t.puesto_final}}</td>
+							</tr>
 						{% endif %}
 						{% if t.periodo_alta or t.periodo_baja %}
-						<tr>
-							<td>Periodos</td>
-							<td>{{t.periodo_alta|default:""}}-{{t.periodo_baja|default:""}}</td>
-						</tr>
+							<tr>
+								<td style="border: 1px solid black; padding: 5px;">Periodos</td>
+								<td style="border: 1px solid black; padding: 5px;">{{t.periodo_alta|default:""}}-{{t.periodo_baja|default:""}}</td>
+							</tr>
 						{% endif %}
 						{% if t.motivo_salida %}
-						<tr>
-							<td>Motivo de baja</td>
-							<td>{{t.motivo_salida}}</td>
-						</tr>
+							<tr>
+								<td style="border: 1px solid black; padding: 5px;">Motivo de baja</td>
+								<td style="border: 1px solid black; padding: 5px;">{{t.motivo_salida}}</td>
+							</tr>
 						{% endif %}
 						{% if t.observaciones_generales %}
-						<tr>
-							<td>Observaciones</td>
-							<td>{{t.observaciones_generales}}</td>
-						</tr>
+							<tr>
+								<td style="border: 1px solid black; padding: 5px;">Observaciones</td>
+								<td style="border: 1px solid black; padding: 5px;">{{t.observaciones_generales}}</td>
+							</tr>
 						{% endif %}
 
 						{% if t.opinion_rh %}
 							<tr>
-								<td>Referente</td>
-								<td>
+								<td style="border: 1px solid black; padding: 5px;">Referente</td>
+								<td style="border: 1px solid black; padding: 5px;">
 									{% if t.opinion_rh.nombre %}
-									Nombre: <br />
-									<b>{{t.opinion_rh.nombre}}</b>
+										Nombre:
+										<br />
+										<b>{{t.opinion_rh.nombre}}</b>
+										<br />
 									{% endif %}
 									{% if t.opinion_rh.puesto %}
-									Puesto: <br />
-									<b>{{t.opinion_rh.puesto}}</b>
+										Puesto:
+										<br />
+										<b>{{t.opinion_rh.puesto}}</b>
 									{% endif %}
 								</td>
 							</tr>
 						{% endif %}
 						{% if t.opinion_jefe %}
 							<tr>
-								<td>Referente</td>
-								<td>
+								<td style="border: 1px solid black; padding: 5px;">Referente</td>
+								<td style="border: 1px solid black; padding: 5px;">
 									{% if t.opinion_jefe.nombre %}
-									Nombre: <br />
-									<b>{{t.opinion_jefe.nombre}}</b>
+										Nombre:
+										<br />
+										<b>{{t.opinion_jefe.nombre}}</b>
+										<br />
 									{% endif %}
 									{% if t.opinion_jefe.puesto %}
-									Puesto: <br />
-									<b>{{t.opinion_jefe.puesto}}</b>
+										Puesto:
+										<br />
+										<b>{{t.opinion_jefe.puesto}}</b>
 									{% endif %}
 								</td>
 							</tr>
@@ -109,11 +115,11 @@
 					{% endif %}
 				{% endfor %}
 			</td>
-			<td style="border: 1px solid black;">{{ inv.resultado|investigacion_resultado }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.resultado|investigacion_resultado }}</td>
 
-			<td style="border: 1px solid black;">{{inv.entrevista.entrevistador}}</td>
-			<td style="border: 1px solid black;">{{inv.entrevista.fecha_entrevista|default:""}}</td>
-			<td style="border: 1px solid black;">{{inv.entrevista.hora_entrevista|default:""}}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.entrevistador}}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.fecha_entrevista|default:""}}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.hora_entrevista|default:""}}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
