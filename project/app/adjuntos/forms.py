@@ -18,7 +18,7 @@ class AdjuntosForm(ModelForm):
 			if f:
 				ext = f.name.split('.')[len(f.name.split('.'))-1] if len(f.name.split('.')) > 1 else ''
 				if ext.lower() not in img_file_types:
-					raise ValidationError('Error por extensión de archivos. Usar xlsx, xls, doc, docx, pdf para documentos y .jpg')
+					raise ValidationError('Error por extensión de archivos. Usar: jpg, png')
 
 		return self.cleaned_data
 

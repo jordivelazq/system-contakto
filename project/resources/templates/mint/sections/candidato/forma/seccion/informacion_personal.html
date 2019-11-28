@@ -2,26 +2,38 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-3">
-				<label for="id_candidato-nss">Nss</label>
+				<label for="id_candidato-nss">NSS</label>
 				{{ formCandidato.nss }}
 				{{ formCandidato.nss.errors }}
 			</div>
 			<div class="col-md-3">
-				<label for="id_candidato-nss">RFC</label>
-				{{ formCandidato.rfc }}
-				{{ formCandidato.rfc.errors }}
-			</div>
-			<div class="col-md-3">
-				<label for="id_candidato-nombre">Nombre * / Appellido</label>
+				<label for="id_candidato-nombre">Nombre *</label>
 				{{ formCandidato.nombre }}
 				{{ formCandidato.nombre.errors }}
 				<br />
+				
+			</div>
+			<div class="col-md-3">
+				<label for="id_candidato-email">Apellido</label>
 				{{ formCandidato.apellido }}
+				{{ formCandidato.apellido.errors }}
 			</div>
 			<div class="col-md-3">
 				<label for="id_candidato-email">Email</label>
 				{{ formCandidato.email }}
 				{{ formCandidato.email.errors }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label for="id_candidato-curp">CURP</label>
+				{{ formCandidato.curp }}
+				{{ formCandidato.curp.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_candidato-nss">RFC</label>
+				{{ formCandidato.rfc }}
+				{{ formCandidato.rfc.errors }}
 			</div>
 		</div>
 	</div>
@@ -58,7 +70,7 @@
 					<br />
 				</div>
 				<div class="col-md-3 {% if not request.user.is_superuser %}hidden-element{% endif %}">
-					<label for="id_investigacion-agente">Agente *</label> <br />
+					<label for="id_investigacion-agente">Ejecutivo *</label> <br />
 					{{ formInvestigacion.agente }}
 					{{ formInvestigacion.agente.errors }}
 				</div>
@@ -103,17 +115,17 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-md-2">
-			<label for="id_telefono1-numero">Tel. Casa</label>
+			<label for="id_telefono1-numero">Teléfono Casa</label>
 			{{ formTelefono1.numero }}
 			{{ formTelefono1.numero.errors }}
 		</div>
 		<div class="col-md-2">
-			<label for="id_telefono2-numero">Tel. Celular</label>
+			<label for="id_telefono2-numero">Teléfono Celular</label>
 			{{ formTelefono2.numero }}
 			{{ formTelefono1.numero.errors }}
 		</div>
 		<div class="col-md-2">
-			<label for="id_telefono3-numero">Tel. Recados</label>
+			<label for="id_telefono3-numero">Teléfono Recados</label>
 			{{ formTelefono3.numero }}
 			{{ formTelefono3.numero.errors }}
 		</div>
@@ -151,11 +163,6 @@
 		{{ formOrigen.nacionalidad }}
 		{{ formOrigen.nacionalidad.errors }}
 	</div>
-	<div class="col-md-3">
-		<label for="id_candidato-curp">Curp</label>
-		{{ formCandidato.curp }}
-		{{ formCandidato.curp.errors }}
-	</div>
 </div>
 <hr class="thin-separator"/>
 
@@ -164,7 +171,7 @@
 </div>
 <div class="row">
 	<div class="col-md-3">
-		<label for="id_direccion-calle">Calle y #</label>
+		<label for="id_direccion-calle">Calle y número</label>
 		{{ formDireccion.calle }}
 		{{ formDireccion.calle.errors }}
 	</div>
@@ -174,7 +181,7 @@
 		{{ formDireccion.colonia.errors }}
 	</div>
 	<div class="col-md-2">
-		<label for="id_direccion-cp">Cp</label>
+		<label for="id_direccion-cp">C.P.</label>
 		{{ formDireccion.cp }}
 		{{ formDireccion.cp.errors }}
 	</div>
@@ -212,12 +219,12 @@
 
 <div class="row">
 	<div class="col-md-4">
-		<label for="id_prestacion_vivienda_infonavit-numero_credito"># de crédito Infonavit</label>
+		<label for="id_prestacion_vivienda_infonavit-numero_credito">Número de crédito Infonavit</label>
 		{{ formPrestacionViviendaInfonavit.numero_credito }}
 		{{ formPrestacionViviendaInfonavit.numero_credito.errors }}
 	</div>
 	<div class="col-md-4">
-		<label for="id_prestacion_vivienda_fonacot-numero_credito"># de crédito Fonacot</label>
+		<label for="id_prestacion_vivienda_fonacot-numero_credito">Número de crédito Fonacot</label>
 		{{ formPrestacionViviendaFonacot.numero_credito }}
 		{{ formPrestacionViviendaFonacot.numero_credito.errors }}
 	</div>

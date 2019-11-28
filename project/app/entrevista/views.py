@@ -229,7 +229,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			tipo_inmueble_vivienda_form = EntrevistaTipoInmuebleForm(request.POST, instance=tipo_inmueble_vivienda)
 			distribucion_vivienda = EntrevistaDistribucionDimensionesForm(request.POST, instance=distribucion_vivienda)
 			marcofamiliar_formset = MarcoFamiliarFormset(request.POST, prefix='grados')
-			# pdb.set_trace()
 
 			if situacion_vivienda_form.is_valid() and propietario_vivienda_form.is_valid() and caracteristicas_vivienda_form.is_valid() and tipo_inmueble_vivienda_form.is_valid() and distribucion_vivienda.is_valid() and marcofamiliar_formset.is_valid():
 				situacion_vivienda_form.save()

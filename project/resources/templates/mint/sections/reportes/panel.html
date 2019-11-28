@@ -72,7 +72,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				<thead>
 					<tr>
 						<th class="col-red" colspan="6">Datos de Solicitud</th>
-						<th class="col-gray" colspan="3">Datos de Candidato</th>
+						<th class="col-gray" colspan="4">Datos de Candidato</th>
 						<th class="col-blue" colspan="4">Resultado</th>
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
@@ -85,6 +85,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<th class="col-red">Tipo Estudio</th>
 
 						<th class="col-gray">Nombre</th>
+						<th class="col-gray">Apellido</th>
 						<th class="col-gray">Puesto</th>
 						<th class="col-gray">Ciudad y Estado</th>
 
@@ -112,7 +113,8 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
 						<td>{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>
 
-						<td>{{ inv.candidato.nombre }} {{ inv.candidato.apellido }}</td>
+						<td>{{ inv.candidato.nombre }}</td>
+						<td>{{ inv.candidato.apellido }}</td>
 						<td>{{ inv.puesto }}</td>
 						<td>{{ inv.ciudad }}, {{ inv.estado }}</td>
 

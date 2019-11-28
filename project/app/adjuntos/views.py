@@ -82,7 +82,6 @@ def editar_adjuntos(request, investigacion_id):
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
 	if request.method == 'POST':
-		
 		adjuntos_form = AdjuntosForm(request.POST, request.FILES, instance=adjuntos)
 		if adjuntos_form.is_valid():
 			adjuntos_form.save()

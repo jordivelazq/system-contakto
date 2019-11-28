@@ -155,7 +155,7 @@ def get_investigaciones_list(filtros_json, agent_id):
 
 		else:
 			if len(filtros_json['nombre']):
-				investigaciones = investigaciones.filter(candidato__nombre__icontains=filtros_json['nombre'])
+				investigaciones = investigaciones.filter(Q(candidato__nombre__icontains=filtros_json['nombre'])|Q(candidato__apellido__icontains=filtros_json['nombre']))
 			if len(filtros_json['compania_id']):
 				investigaciones = investigaciones.filter(compania__id=filtros_json['compania_id'])
 
