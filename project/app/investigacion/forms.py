@@ -68,7 +68,7 @@ class InvestigacionStatusForm(ModelForm):
 	
 	class Meta:
 		model = Investigacion
-		fields = ('status', 'resultado', 'conclusiones', 'status_general', 'tipo_investigacion_status', 'tipo_investigacion_texto', 'fecha_entrega')
+		fields = ('status', 'resultado', 'conclusiones', 'status_general', 'tipo_investigacion_status', 'tipo_investigacion_texto', 'fecha_entrega', 'label')
 
 	def __init__(self, *args, **kwargs):
 		super(InvestigacionStatusForm, self).__init__(*args, **kwargs)
@@ -99,19 +99,5 @@ class InvestigacionGeneralForm(ModelForm):
 		super(InvestigacionGeneralForm, self).__init__(*args, **kwargs)
 
 		self.fields['observaciones_generales'].widget.attrs.update({'rows':'3'})
-		for field_name, field in self.fields.items():
-			field.widget.attrs['class'] = 'form-control'
-
-class InvestigacionLabelForm(ModelForm):
-	class Meta:
-		model = InvestigacionLabel
-		fields = ('investigacion', 'label')
-		widgets = {
-			'investigacion': forms.HiddenInput()
-		}
-	
-	def __init__(self, *args, **kwargs):
-		super(InvestigacionLabelForm, self).__init__(*args, **kwargs)
-
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'

@@ -61,10 +61,7 @@ def panel(request):
 			formset.save()
 			return HttpResponseRedirect('/candidato/exito')
 	else:
-		if len(user_labels):
-			formset = label_formset(initial=user_labels)
-		else:
-			formset = label_formset(initial=[{
+		formset = label_formset(queryset=user_labels, initial=[{
 				'color': color,
 				'agente': request.user
 			} for label, color in Labels.LABEL_OPTIONS])
@@ -692,14 +689,10 @@ def observaciones(request, investigacion_id):
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)
 		formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(request.POST, prefix='cobranza', instance=cobranza)
-		investigacion_label_form = InvestigacionLabelForm(request.POST, prefix='investigacion_label', instance=investigacion.investigacionlabel if hasattr(investigacion, 'investigacionlabel') else None)
 		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaCobranza.is_valid():
 			inv_new_instance = formaInvestigacion.save()
 			tipo_inv_nuevo = inv_new_instance.tipo_investigacion_status
 			formaEntrevista.save()
-
-			if investigacion_label_form.is_valid():
-				investigacion_label_form.save()
 			
 			# ############# COBRANZA
 			if not tiene_factura:
@@ -726,9 +719,9 @@ def observaciones(request, investigacion_id):
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/observaciones/exito')		
 	else:
 		formaInvestigacion = InvestigacionStatusForm(prefix='investigacion', instance=investigacion)
+		formaInvestigacion.fields['label'].queryset = Labels.objects.filter(agente=request.user).exclude(name__exact='')
 		formaEntrevista = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(prefix='cobranza', instance=cobranza)
-		investigacion_label_form = InvestigacionLabelForm(prefix='investigacion_label', instance=investigacion.investigacionlabel) if hasattr(investigacion, 'investigacionlabel') else InvestigacionLabelForm(prefix='investigacion_label', initial={'investigacion': investigacion})
 
 	return render_to_response('sections/candidato/observaciones.html', locals(), context_instance=RequestContext(request))
 

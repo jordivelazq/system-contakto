@@ -69,10 +69,7 @@ class Investigacion(models.Model):
 	#Historia en empresa
 	laboro_anteriormente = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	familiar_laborando = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
+	label = models.ForeignKey(Labels, blank=True, null=True)
 
 	def __unicode__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
-
-class InvestigacionLabel(models.Model):
-	investigacion = models.OneToOneField(Investigacion)
-	label = models.OneToOneField(Labels, blank=True, null=True)

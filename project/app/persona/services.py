@@ -59,7 +59,7 @@ class PersonaService:
 	def getCandidatosList(self):
 		'''
 		'''
-		candidatos = Investigacion.objects.select_related('candidato', 'compania').filter(status_active=True) 
+		candidatos = Investigacion.objects.select_related('candidato', 'compania', 'label').filter(status_active=True) 
 		response = []
 		#Si el usuario es agente, filtrar por default las inv. que no tiene asignadas
 		if not self.is_superuser and self.is_staff:
@@ -98,7 +98,7 @@ class PersonaService:
 				'empresa': c.compania.nombre,
 				'fecha': c.fecha_registro.strftime('%d/%m/%Y'),
 				'fecha_recibido': c.fecha_recibido.strftime('%d/%m/%Y'),
-				'color': c.investigacionlabel.label.color if hasattr(c, 'investigacionlabel') and hasattr(c.investigacionlabel.label, 'color') else ''
+				'color': c.label.color if hasattr(c.label, 'color') else ''
 			})
 
 		return response
