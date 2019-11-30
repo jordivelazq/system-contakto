@@ -8,23 +8,23 @@
 			<th colspan="3" style="background-color: indianred; border: 1px solid black; padding: 5px;">Datos de Entrevista</th>
 		</tr>
 		<tr>
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Cliente</th>
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Observaciones</th>
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Fecha de Recibido</th>
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Tipo Estudio</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Cliente</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 150px;">Observaciones</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Fecha de Recibido</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Tipo Estudio</th>
 
-			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Nombre</th>
-			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Apellido</th>
-			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Puesto</th>
-			<th style="background-color: dimgray; border: 1px solid black; padding: 5px;">Ciudad y Estado</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px; min-width: 100px;">Nombre</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px; min-width: 100px;">Apellido</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px; min-width: 100px;">Puesto</th>
+			<th style="background-color: dimgray; border: 1px solid black; padding: 5px; min-width: 100px;">Ciudad y Estado</th>
 
-			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Estatus</th>
-			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Investigación Laboral</th>
-			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px;">Calificación Final</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 100px;">Estatus</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 400px;">Investigación Laboral</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 150px;">Calificación Final</th>
 
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Gestor</th>
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Día Cita</th>
-			<th style="background-color: indianred; border: 1px solid black; padding: 5px;">Hora Cita</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Gestor</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Día Cita</th>
+			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Hora Cita</th>
 		</tr>
 	</thead>
 	<tbody style="font-size: 10px;">
@@ -48,36 +48,36 @@
 			<td style="border: 1px solid black; padding: 5px;">
 				{% for t in inv.trayectoria %}
 					{% if t.puesto_final or t.periodo_alta or t.periodo_baja or t.motivo_salida or t.observaciones_generales or t.opinion_rh or t.opinion_jefe %}
-					<table align="left" style="text-transform: uppercase; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; border-spacing: 0px;">
+					<table align="left" style="text-transform: uppercase; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; border-spacing: 0px;" width="100%">
 						<th colspan="2" style="border: 1px solid black; padding: 5px;">{{t.compania}}</th>
 						{% if t.puesto_final %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px;">Puesto</td>
+								<td style="border: 1px solid black; padding: 5px; width: 100px;">Puesto</td>
 								<td style="border: 1px solid black; padding: 5px;">{{t.puesto_final}}</td>
 							</tr>
 						{% endif %}
 						{% if t.periodo_alta or t.periodo_baja %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px;">Periodos</td>
+								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Periodos</td>
 								<td style="border: 1px solid black; padding: 5px;">{{t.periodo_alta|default:""}}-{{t.periodo_baja|default:""}}</td>
 							</tr>
 						{% endif %}
 						{% if t.motivo_salida %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px;">Motivo de baja</td>
+								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Motivo de baja</td>
 								<td style="border: 1px solid black; padding: 5px;">{{t.motivo_salida}}</td>
 							</tr>
 						{% endif %}
 						{% if t.observaciones_generales %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px;">Observaciones</td>
+								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Observaciones</td>
 								<td style="border: 1px solid black; padding: 5px;">{{t.observaciones_generales}}</td>
 							</tr>
 						{% endif %}
 
 						{% if t.opinion_rh %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px;">Referente</td>
+								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Referente</td>
 								<td style="border: 1px solid black; padding: 5px;">
 									{% if t.opinion_rh.nombre %}
 										Nombre:
@@ -95,7 +95,7 @@
 						{% endif %}
 						{% if t.opinion_jefe %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px;">Referente</td>
+								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Referente</td>
 								<td style="border: 1px solid black; padding: 5px;">
 									{% if t.opinion_jefe.nombre %}
 										Nombre:
