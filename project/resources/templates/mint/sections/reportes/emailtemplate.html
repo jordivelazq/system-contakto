@@ -117,7 +117,7 @@
 			</td>
 			<td style="border: 1px solid black; padding: 5px;">{{ inv.resultado|investigacion_resultado }}</td>
 
-			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.entrevistador}}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.entrevistador|default:""}}</td>
 			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.fecha_entrevista|default:""}}</td>
 			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.hora_entrevista|default:""}}</td>
 		</tr>
