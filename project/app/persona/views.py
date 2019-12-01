@@ -89,6 +89,8 @@ def crear(request):
 	if request.method == 'POST':
 		if 'cancelar' in request.POST:
 			return HttpResponseRedirect('/candidatos')
+		
+		contact_id = request.POST.get('investigacion-contacto') or request.POST.get('contacto_id')
 
 		formCandidato = CandidatoAltaForm(request.POST, prefix='candidato')
 		formInvestigacion = InvestigacionAltaForm(request.POST, prefix='investigacion')
@@ -224,6 +226,9 @@ def crear(request):
 		formLegalidad = LegalidadAltaForma(prefix='legalidad')
 		formDemanda = DemandaAltaForma(prefix='demanda')
 		formSeguro = SeguroAltaForma(prefix='seguro')
+		form_empresa = CompaniaQuickForm(prefix='empresa')
+		form_empresa_contacto = ContactoQuickForm(prefix='empresa_contacto')
+		
 		
 	return render_to_response('sections/candidato/crear.html', locals(), context_instance=RequestContext(request))
 	
@@ -262,7 +267,7 @@ def editar(request, investigacion_id):
 	demanda = investigacion.candidato.demanda_set.all()
 	seguro = investigacion.candidato.seguro_set.all()	
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion) # NOTA: Pasar esto a PersonaService.get_status_list
-
+	contact_id = investigacion.contacto.id
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'

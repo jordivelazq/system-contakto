@@ -1,4 +1,7 @@
 <div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Información Personal</h3>
+	</div>
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-3">
@@ -42,10 +45,13 @@
 <br />
 
 <div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Cliente</h3>
+	</div>
 	<div class="panel-body">
 			<div class="row">
 				<div {% if request.user.is_staff %}ng-click="open_empresa_modal()"{% endif %} class="col-md-3">
-					<label for="id_investigacion-compania">Cliente (Empresa)</label>
+					<label for="id_investigacion-compania">Empresa</label>
 					<input id="id_investigacion-compania" name="investigacion-compania" type="hidden" value="{[{compania}]}">
 					<div class="input-group">
 						<input id="id_investigacion-compania-nombre" name="investigacion-compania-nombre" placeholder="Empresa" readonly="readonly" ng-model="compania_nombre" type="text" class="form-control">
@@ -66,7 +72,7 @@
 							<option ng-repeat="contacto in contacto_data" value="{[{ contacto.id }]}">{[{ contacto.nombre }]}</option>
 						</select>
 					{{ formInvestigacion.contacto.errors }}
-					<input type="hidden" name="contacto_id" id="contacto_id" value="{{formInvestigacion.contacto.value}}">
+					<input type="hidden" name="contacto_id" id="contacto_id" value="{{contact_id}}">
 					<br />
 				</div>
 				<div class="col-md-3 {% if not request.user.is_superuser %}hidden-element{% endif %}">

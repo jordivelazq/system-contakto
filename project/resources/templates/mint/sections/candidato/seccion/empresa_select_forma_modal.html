@@ -13,16 +13,80 @@
 				  		<input id="search-empresa-forma" class="form-control" ng-model="searchEmpresa">
 				  		<span class="input-group-addon glyphicon glyphicon-search"></span> 
 				  	</div>
-		  		</div>
+					</div>
+					{% if not investigacion_id %}
+						<div class="col-md-6">
+							<div class="input-group">
+								<button class="btn btn-default" id="empresa_nueva_cta">Nueva Empresa</button>
+							</div>
+						</div>
+					{% endif %}
 		  	</div>
-		  	<br	/>
+				<br	/>
+				
+				<div class="row hide" id="empresa_nueva_form">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Empresa nueva</h3>
+						</div> 
+						<div class="panel-body">
+							<form id="new_company">
+								<div class="row">
+									{% for field in form_empresa %}
+										<div class="col-md-4">
+											<label for="">{{ field.label }}</label>
+											{{ field }}
+										</div>
+									{% endfor %}
+								</div>
+								<div class="row">
+									<div class="panel-heading">
+										<h3 class="panel-title">Contacto de empresa</h3>
+									</div>
+								</div>
+								<div>
+									{% for field in form_empresa_contacto %}
+										<div class="col-md-4">
+											<label for="">{{ field.label }}</label>
+											{{ field }}
+										</div>
+									{% endfor %}
+								</div>
+							</form>
+							
+							<br />
+
+							<div class="row">
+								<div class="col-md-2 col-md-offset-8">
+									<button class="btn btn-default pull-right" id="save_company_cancel">Cancelar</button>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary pull-right" id="save_company">Guardar</button>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<p class="text-danger pull-right" id='save_company_msg'></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 		  	<div id="modal-lista-empresas" class="row">
-		  		<div ng-repeat="(key,empresa) in empresas_select_modal | filter:searchEmpresa" ng-click="set_empresa(empresa.id,empresa.nombre)">
-		  			<div title="{[{empresa.nombre}]}" class="col-md-4">
-		  				<span class="btn btn-default navbar-btn">{[{empresa.nombre|limitTo:13}]} <span class="glyphicon glyphicon-share"></span></span>
-		  			</div>
-		  		</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Empresas</h3>
+						</div> 
+						<div class="panel-body">
+							<div ng-repeat="(key,empresa) in empresas_select_modal | filter:searchEmpresa" ng-click="set_empresa(empresa.id,empresa.nombre)">
+								<div title="{[{empresa.nombre}]}" class="col-md-4">
+									<span class="btn btn-default navbar-btn">{[{empresa.nombre|limitTo:13}]} <span class="glyphicon glyphicon-share"></span></span>
+								</div>
+							</div>
+						</div>
+					</div>
 		  	</div>
 	  </div>
 	  <div class="modal-footer">

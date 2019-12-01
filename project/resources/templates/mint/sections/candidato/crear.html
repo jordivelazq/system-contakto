@@ -45,8 +45,8 @@
 			</div>
 		</div>	
 {% endautoescape %}
-<div ng-controller="CandidatoCTRL" class="candidato-crear">
-	<h3>Registrar Candidato <small>Información Personal</small></h3>
+<div ng-controller="CandidatoCTRL">
+	<h3>Registrar Candidato</h3>
 	<form role="form" action="/candidato/nuevo" method="post" id="form_candidato_crear">
 		{% csrf_token %}
 		<input type="hidden" name="action" id="action"/>

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import HttpResponse, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -9,7 +10,7 @@ from django.contrib.auth.models import User, Group
 from app.investigacion.models import Investigacion
 from app.bitacora.models import Bitacora
 from app.compania.models import Compania, Contacto, Sucursales
-from app.compania.forms import CompaniaForm, ContactoForm, SucursalesForm
+from app.compania.forms import CompaniaForm, ContactoForm, SucursalesForm, CompaniaQuickForm, ContactoQuickForm
 from django.db.models import Q
 import json
 
@@ -38,6 +39,31 @@ def nueva(request, investigacion_id=''):
 	boton_captura_contactos = True
 
 	boton_cancelar_url = '/candidato/investigacion/'+str(investigacion_id)+'/trayectoria/nueva' if investigacion_id else '/empresas'
+
+	if request.POST and request.is_ajax():
+		response = {'status': False}
+		form_compania_quick = CompaniaQuickForm(request.POST, prefix='empresa')
+		form_compania_contacto_quick = ContactoQuickForm(request.POST, prefix='empresa_contacto')
+
+		if form_compania_quick.is_valid() and form_compania_contacto_quick.is_valid():
+			company = form_compania_quick.save()
+			contacto = form_compania_contacto_quick.save(commit=False)
+			contacto.compania = company
+			contacto.save()
+
+			response = {
+				'status': True
+				'company': {
+					'id': company.id,
+					'name': company.nombre
+				},
+				'contacto': {
+					'id': contacto.id,
+					'name': contacto.nombre
+				}
+			}
+
+		return HttpResponse(json.dumps(response), mimetype='application/json')
 
 	if request.POST:
 		form = CompaniaForm(request.POST)

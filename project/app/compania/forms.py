@@ -29,6 +29,17 @@ class CompaniaForm(ModelForm):
 				if 'telefono' in field_name and not field_name is "telefono_alt":
 					field.widget.attrs['class'] = 'form-control phone'
 
+class CompaniaQuickForm(ModelForm):
+	class Meta:
+		model = Compania
+		fields = ['nombre', 'role', 'razon_social', 'es_cliente']
+
+	def __init__(self, *args, **kwargs):
+		super(CompaniaQuickForm, self).__init__(*args, **kwargs)
+		self.fields['es_cliente'].initial = True
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
 class CompaniaSucursalForm(forms.Form):
 	
 	def __init__(self, compania, sucursal, *args, **kwargs):
@@ -66,3 +77,13 @@ class ContactoForm(ModelForm):
 			field.widget.attrs['class'] = 'form-control'
 			if 'telefono' == field_name or 'telefono_celular' == field_name:
 				field.widget.attrs['class'] = 'form-control phone'
+
+class ContactoQuickForm(ModelForm):
+	class Meta:
+		model = Contacto
+		fields = ('nombre',)
+
+	def __init__(self, *args, **kwargs):
+		super(ContactoQuickForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'

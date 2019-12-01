@@ -144,6 +144,7 @@ $(document).ready(function () {
   askBeforeMoveInsideInvestigation()
   newClientContact()
   autoSaveFiles()
+  saveCompany()
 });
 
 function get_currentpage() {
@@ -331,4 +332,68 @@ function saveFile(event) {
     contentType: false,
     success: () => location.reload()
   });
+}
+
+function saveCompany() {
+  if ($('#empresa_nueva_cta').length) {
+    $('#empresa_nueva_cta').click(() => {
+      $('#empresa_nueva_form').removeClass('hide')
+      $('#save_company_msg').text('')
+      $('#save_company').removeAttr("disabled");
+    })
+  }
+
+  if ($('#save_company_cancel').length) {
+    $('#save_company_cancel').click(() => {
+      $('#empresa_nueva_form').addClass('hide')
+    })
+  }
+
+  if ($('#save_company').length) {
+    $('#save_company').click(() => {
+      $('#save_company_msg').text('')
+      const data = {}
+
+       $('#new_company :input[type=text]').toArray().reduce((values, field) => {
+        if ($(field).val()) {
+          values[field.name] = $(field).val();
+        }
+
+        return values
+      }, data);
+      
+      $('#new_company :input[type=checkbox]').toArray().reduce((values, field) => {
+        if ($(field).val()) {
+          values[field.name] = $(field).prop('checked')
+        }
+
+        return values
+      }, data);
+
+      if (Object.keys(data).length != 5) {
+        $('#save_company_msg').text('Favor de llenar todos los campos.')
+        return
+      }
+
+      $('#save_company').attr('disabled', 'disabled')
+
+      $.ajax({
+        type: 'POST',
+        url: '/empresa/nueva/',
+        data,
+        success: (response) => {
+          if (response.status) {
+            $('#id_investigacion-compania').val(response.company.id)
+            $('#id_investigacion-compania-nombre').attr('placeholder', response.company.name)
+            $('#contacto_id').val(response.contacto.id)
+            $('#id_investigacion-contacto').append(`<option value="${response.contacto.id}" selected>${response.contacto.name}</option>`)
+            $('#selectEmpresaFormaModal').modal('hide');
+          } else {
+            $('#save_company_msg').text('Error, intentar más tarde.')
+          }
+        },
+        dataType: 'json'
+      });
+    })
+  }
 }
