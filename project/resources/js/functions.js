@@ -276,11 +276,11 @@ customFormatMoney = function (n, c, d, t) {
 
 
 function autoSave() {
-  if ($('form').length) {
+  if($('.btn-primary[name=guardar]').length) {
     const limit = 5
     setInterval(() => {
       if (confirm(`han pasado ${limit} minutos, quieres guardar los cambios?`)) {
-        $('form').submit()
+        $('.btn-primary[name=guardar]').click()
       }
     }, 1000 * 60 * limit)
   }
