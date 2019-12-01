@@ -394,6 +394,8 @@ def editar(request, investigacion_id):
 		if msg_param != '':
 			if 'guardar_sucursal' in request.POST:
 				return HttpResponseRedirect('/empresa/' + str(investigacion.compania.id) + '/sucursales?investigacion=' + str(investigacion.id))
+			if 'redirect' in request.POST:
+				return HttpResponseRedirect(request.POST.get('redirect'))
 			return HttpResponseRedirect('/candidato/investigacion/'+str(investigacion_id)+'/editar'+msg_param)
 
 	else:
@@ -505,6 +507,10 @@ def ver_trayectoria(request, investigacion_id):
 		formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
 		if formaInvestigacion.is_valid():			
 			formaInvestigacion.save()
+
+			if 'redirect' in request.POST:
+				return HttpResponseRedirect(request.POST.get('redirect'))
+
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
 	else:
 		formaInvestigacion = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=investigacion)
@@ -626,6 +632,10 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		if exito:
 			if 'guardar_sucursal' in request.POST:
 				return HttpResponseRedirect('/empresa/' + str(trayectoria_empresa.compania.id) + '/sucursal/nueva?investigacion_id=' + investigacion_id + '&trayectoria=' + trayectoria_id)
+			
+			if 'redirect' in request.POST:
+				return HttpResponseRedirect(request.POST.get('redirect'))
+
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/editar/trayectoria/'+trayectoria_id+'/exito')
 
 	else:
@@ -720,7 +730,10 @@ def observaciones(request, investigacion_id):
 						elif tipo_inv_nuevo == 2 and contacto.costo_inv_completa:
 							fact_new_instance.monto = contacto.costo_inv_completa
 							fact_new_instance.save()
-				
+			
+			if 'redirect' in request.POST:
+				return HttpResponseRedirect(request.POST.get('redirect'))
+
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/observaciones/exito')		
 	else:
 		formaInvestigacion = InvestigacionStatusForm(prefix='investigacion', instance=investigacion)

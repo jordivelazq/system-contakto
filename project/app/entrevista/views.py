@@ -142,6 +142,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				direccion_form.save()
 				origen_form.save()
 				licencia_form.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			candidato_form = EntrevistaPersonaForm(instance=candidato)
@@ -163,6 +167,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			if infopersonal_form.is_valid() and historialempresa_formset.is_valid():
 				infopersonal_form.save()
 				historialempresa_formset.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			infopersonal_form = EntrevistaInfoPersonalForm(instance=infopersonal)
@@ -182,6 +190,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				candidato_form.save()
 				salud_form.save()
 				actividades_form.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			candidato_form = EntrevistaSaludPersonaForm(instance=candidato)
@@ -204,6 +216,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				academica_form.save()
 				otro_idioma_form.save()
 				gradosescolaridad_formset.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			academica_form = EntrevistaAcademicaForm(instance=academica)
@@ -237,6 +253,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				tipo_inmueble_vivienda_form.save()
 				distribucion_vivienda.save()
 				marcofamiliar_formset.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			situacion_vivienda_form = EntrevistaSituacionViviendaForm(instance=situacion_vivienda)
@@ -255,6 +275,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			marcofamiliar_formset = MarcoFamiliarFormset(request.POST, prefix='grados')
 			if marcofamiliar_formset.is_valid():
 				marcofamiliar_formset.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			marcofamiliar_formset = MarcoFamiliarFormset(queryset=marco_familiar, prefix='grados')
@@ -304,6 +328,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				ingresos_formset.save()
 				egresos_formset.save()
 				pv_formset.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			candidato_form = EntrevistaPersonaForm(instance=candidato)
@@ -325,6 +353,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			referencias_formset = ReferenciaFormset(request.POST, prefix='referencias')
 			if referencias_formset.is_valid():
 				referencias_formset.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			referencias_formset = ReferenciaFormset(queryset=referencias, prefix='referencias')
@@ -351,6 +383,9 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				aspectos_candidato_formset.save()
 				investigacion_form.save()		
 
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			documentos_formset = DocumentoCotejadoFormset(queryset=documentos, prefix='docs')
@@ -368,10 +403,13 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 			if cita_form.is_valid() and admin_form_flag:
 				cita_form.save()		
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			cita_form = EntrevistaCitaForm(instance=entrevista_cita)
-			# investigacion_admin_form = EntrevistaInvestigacionAdminForm(instance=entrevista_investigacion)
 
 	return render_to_response('sections/entrevista/edit_form.html', locals(), context_instance=RequestContext(request))
 

@@ -52,7 +52,7 @@ def nueva(request, investigacion_id=''):
 			contacto.save()
 
 			response = {
-				'status': True
+				'status': True,
 				'company': {
 					'id': company.id,
 					'name': company.nombre

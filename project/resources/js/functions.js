@@ -289,8 +289,12 @@ function autoSave() {
 function askBeforeMoveInsideInvestigation() {
   if($('.investigacion-menu').length) {
     $('.investigacion-menu a').click((event) => {
-      if (!confirm('presionar OK para continuar sin guardar los cambios?')) {
-        event.preventDefault()
+      if($('.btn-primary[name=guardar]').length) {
+        if (confirm('Deseas guardar los cambios efectuados?')) {
+          event.preventDefault()
+          $('form').append(`<input type="hidden" name="redirect" value="${event.target.pathname}" />`)
+          $('.btn-primary[name=guardar]').click()
+        }
       }
     })
   }
