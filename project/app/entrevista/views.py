@@ -46,7 +46,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 
@@ -419,7 +419,7 @@ def cargar_entrevista(request, investigacion_id):
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 

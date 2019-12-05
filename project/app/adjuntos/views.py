@@ -52,7 +52,7 @@ def panel_adjuntos(request, investigacion_id):
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	filtros_json = request.session.get('filtros_search', None)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
@@ -75,7 +75,7 @@ def editar_adjuntos(request, investigacion_id):
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	filtros_json = request.session.get('filtros_search', None)
 

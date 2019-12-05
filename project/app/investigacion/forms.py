@@ -13,7 +13,7 @@ import time
 # forma para dar de alta candidato (investigacion)
 class InvestigacionAltaForm(ModelForm):
 	compania = forms.ModelChoiceField(queryset=Compania.objects.filter(es_cliente=True))
-	agente = forms.ModelChoiceField(queryset=User.objects.filter(is_staff=True, is_active=True).exclude(username='admin'))
+	agente = forms.ModelChoiceField(queryset=User.objects.filter(is_staff=True, is_active=True).exclude(username='admint'))
 	fecha_recibido = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',])
 	
 	class Meta:
@@ -32,7 +32,7 @@ class InvestigacionAltaForm(ModelForm):
 
 class InvestigacionEditarForm(ModelForm):
 	compania = forms.ModelChoiceField(queryset=Compania.objects.filter(es_cliente=True))
-	agente = forms.ModelChoiceField(queryset=User.objects.filter(is_staff=True, is_active=True).exclude(username='admin'))
+	agente = forms.ModelChoiceField(queryset=User.objects.filter(is_staff=True, is_active=True).exclude(username='admint'))
 	fecha_recibido = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',])
 	
 	class Meta:
@@ -49,7 +49,7 @@ class InvestigacionEditarForm(ModelForm):
 		self.fields['entrevista'].widget.attrs.update({'placeholder': 'dd/mm/yyyy HH:mm:ss'})
 		self.fields['compania'].widget.attrs.update({'ng-model':'compania', 'ng-change': 'getContactsFromCompany()'})
 		self.fields['observaciones'].widget.attrs.update({'rows':'2'})
-		self.fields['agente'].queryset = User.objects.filter(Q(is_staff=True, is_active=True) | Q(is_staff=True,id=self.agt_id)).exclude(username='admin')
+		self.fields['agente'].queryset = User.objects.filter(Q(is_staff=True, is_active=True) | Q(is_staff=True,id=self.agt_id)).exclude(username='admint')
 
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'

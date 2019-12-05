@@ -48,7 +48,7 @@ def panel(request):
 	page = 'candidatos'	
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 
@@ -77,7 +77,7 @@ def crear(request):
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 	
@@ -243,7 +243,7 @@ def editar(request, investigacion_id):
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 
@@ -440,7 +440,7 @@ def nueva_trayectoria(request, investigacion_id, empresa_id=''):
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 	status_list = PersonaService.get_status_list(investigacion_id)
@@ -489,7 +489,7 @@ def ver_trayectoria(request, investigacion_id):
 
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 
@@ -529,7 +529,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 	status_list = PersonaService.get_status_list(investigacion_id)
@@ -695,7 +695,7 @@ def observaciones(request, investigacion_id):
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion, entrevista)	
@@ -764,7 +764,7 @@ def ver_reporte(request, investigacion_id):
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 

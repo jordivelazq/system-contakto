@@ -22,11 +22,11 @@ def panel(request):
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT']
 	
 	page = 'agentes'
-	users = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin').order_by('username')
+	users = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
 
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin').order_by('username')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	filtros_json = request.session.get('filtros_search_agente', None)
  	

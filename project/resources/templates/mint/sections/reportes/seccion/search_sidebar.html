@@ -27,6 +27,16 @@
 						</option>
 					</select>
 				</div>
+				{% if request.user.is_superuser %}
+				<div class="form-group">		
+					<select class="form-control" id="agente_select" name="agente_select" ng-model="agente_select">
+						<option value="" selected="selected">-Agente-</option>
+						{% for agt in agentes_select %}
+							<option value="{{agt.id}}">{{agt.username|title}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
 				<div class="form-group">		
 					<select class="form-control" id="status_select" name="status_select" ng-model="status_select">
 						<option value="">Todos</option>
@@ -60,6 +70,7 @@
 										'nombre':'{{filtros_json.nombre|safe}}',
 										'compania_id':'{{filtros_json.compania_id|safe}}',
 										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
+										'agente_id':'{{filtros_json.agente_id|safe}}',
 										'contacto_id':'{{filtros_json.contacto_id|safe}}',
 										'status_id':'{{filtros_json.status_id|safe}}',
 										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',

@@ -14,6 +14,7 @@ from app.compania.models import Contacto
 
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
+from app.persona.services import PersonaService
 from django.conf import settings
 import datetime
 import xlrd
@@ -36,7 +37,8 @@ def panel(request):
 
 	#para SEARCH sidebar
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	status_select = Investigacion.STATUS_GRAL_OPCIONES
+	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	filtros_json = request.session.get('filtros_search_reportes', None)
 	
 	if request.POST:
@@ -49,7 +51,7 @@ def panel(request):
 			return HttpResponseRedirect('/estatus/error')
 	
 	if filtros_json != None:
-		if not len(filtros_json['compania_id']) and not len(filtros_json['compania_nombre']) and not len(filtros_json['contacto_id']) and not len(filtros_json['status_id']) and not len(filtros_json['fecha_inicio']) and not len(filtros_json['fecha_final']):
+		if not len(filtros_json['compania_id']) and not len(filtros_json['compania_nombre']) and not len(filtros_json['contacto_id']) and not len(filtros_json['status_id']) and not len(filtros_json['fecha_inicio']) and not len(filtros_json['fecha_final']) and not len(filtros_json['agente_id']):
 			recientes = True
 
 		if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
@@ -70,7 +72,8 @@ def panel(request):
 				"compania_nombre": "",
 				"contacto_id": str(contact.id),
 				"status_id": "",
-				"fecha_inicio": ""
+				"fecha_inicio": "",
+				"agente_id": ""
 			}
 		recientes = True
 
@@ -123,8 +126,9 @@ def search_reportes(request):
 		status_id = request.POST.get('status_id', '')
 		fecha_inicio = request.POST.get('fecha_inicio', '')
 		fecha_final = request.POST.get('fecha_final', '')
+		agente_id = request.POST.get('agente_id', '')
 		
-		request.session['filtros_search_reportes'] = {'nombre': nombre, 'compania_id':compania_id, 'compania_nombre':compania_nombre, 'contacto_id':contacto_id, 'status_id':status_id, 'fecha_inicio':fecha_inicio,'fecha_final':fecha_final}
+		request.session['filtros_search_reportes'] = {'nombre': nombre, 'compania_id':compania_id, 'compania_nombre':compania_nombre, 'contacto_id':contacto_id, 'status_id':status_id, 'fecha_inicio':fecha_inicio,'fecha_final':fecha_final, 'agente_id': agente_id }
 		 
 		response = { 'status' : True}
 
@@ -146,12 +150,13 @@ def get_investigaciones_list(filtros_json, agent_id):
 		if (not len(filtros_json['nombre'])
 			and not len(filtros_json['compania_id']) 
 			and not len(filtros_json['compania_nombre']) 
+			and not len(filtros_json['agente_id']) 
 			and not len(filtros_json['contacto_id']) 
 			and not len(filtros_json['status_id']) 
 			and not len(filtros_json['fecha_inicio']) 
 			and not len(filtros_json['fecha_final'])):
 			recientes = True
-			investigaciones = investigaciones.order_by('fecha_recibido')[:100]
+			investigaciones = investigaciones.order_by('fecha_recibido')[:50]
 
 		else:
 			if len(filtros_json['nombre']):
@@ -163,7 +168,13 @@ def get_investigaciones_list(filtros_json, agent_id):
 				investigaciones = investigaciones.filter(contacto__id=filtros_json['contacto_id'])
 
 			if len(filtros_json['status_id']):
-				investigaciones = investigaciones.filter(status_general=filtros_json['status_id'])
+				if filtros_json['status_id'] != '3':
+					investigaciones = investigaciones.filter(status_general=filtros_json['status_id'])
+				else:
+					investigaciones = investigaciones.filter(Q(status_general=0)|Q(status_general=1))
+			
+			if len(filtros_json['agente_id']):
+				investigaciones = investigaciones.filter(agente__id=filtros_json['agente_id'])
 
 			if len(filtros_json['fecha_inicio']) and len(filtros_json['fecha_final']):
 				fecha_inicio_format = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')

@@ -23,7 +23,7 @@ def panel(request):
 	bitacoras = Bitacora.objects.all().order_by('-id')
 
 	#para SEARCH sidebar
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admin').order_by('username')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
 	filtros_json = request.session.get('filtros_search_bitacora', None)
 
 	if filtros_json != None:
