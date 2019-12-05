@@ -22,7 +22,7 @@ class PersonaService:
 	fecha_final = ''
 	is_superuser = is_staff = is_usuario_contacto = False
 	user = ''
-	num_per_list = 20
+	num_per_list = 50
 
 	def __init__(self, request):
 		'''

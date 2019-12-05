@@ -38,6 +38,9 @@ class InvestigacionEditarForm(ModelForm):
 	class Meta:
 		model = Investigacion
 		exclude = ('candidato', 'conclusiones', 'resultado', 'archivo', 'folio', 'presupuesto', 'status_general', 'status', 'observaciones_generales', 'tipo_investigacion_status', 'tipo_investigacion_texto')
+		widgets = {
+      'label': forms.HiddenInput()
+    }
 
 	def __init__(self, *args, **kwargs):
 		self.agt_id = kwargs.pop('agt_id')
