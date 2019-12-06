@@ -179,6 +179,8 @@ class TrayectoriaLaboral(models.Model):
 	puesto_final = models.CharField(max_length=140, null=True, blank=True)
 	periodo_alta = models.CharField(max_length=140, null=True, blank=True)
 	periodo_baja = models.CharField(max_length=140, null=True, blank=True)
+	reingreso_inicial = models.CharField(max_length=140, null=True, blank=True)
+	reingreso_final = models.CharField(max_length=140, null=True, blank=True)
 
 	sueldo_inicial = models.CharField(max_length=140, null=True, blank=True)
 	sueldo_final = models.CharField(max_length=140, null=True, blank=True) #NUEVO

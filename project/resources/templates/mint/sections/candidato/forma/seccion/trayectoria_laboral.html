@@ -118,91 +118,121 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-7">
+<div class="panel panel-default">
+	<div class="panel-body">
 		<div class="row">
-			<div class="col-md-5 col-md-offset-2 text-center">
-				<label>Inicial</label>
+
+			<div class="col-md-7">
+				<div class="row">
+					<div class="col-md-5 col-md-offset-2 text-center">
+						<label>Inicial</label>
+					</div>
+					<div class="col-md-5 text-center">
+						<label>Final</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<label>Puesto</label>
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.puesto_inicial.errors }}
+						{{ formTrayectoria.puesto_inicial }}
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.puesto_final.errors }}
+						{{ formTrayectoria.puesto_final }}
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5 col-md-offset-2 text-center">
+						<label>Inicial</label>
+					</div>
+					<div class="col-md-5 text-center">
+						<label>Final</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<label>Sueldo</label>
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.sueldo_inicial.errors }}
+						{{ formTrayectoria.sueldo_inicial }}
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.sueldo_final.errors }}
+						{{ formTrayectoria.sueldo_final }}
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5 col-md-offset-2 text-center">
+						<label>Del:</label>
+					</div>
+					<div class="col-md-5 text-center">
+						<label>Al:</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<label>Fechas laboradas</label>
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.periodo_alta.errors }}
+						{{ formTrayectoria.periodo_alta }}
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.periodo_baja.errors }}
+						{{ formTrayectoria.periodo_baja }}
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5 col-md-offset-2 text-center">
+						<label>Del:</label>
+					</div>
+					<div class="col-md-5 text-center">
+						<label>Al:</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<label>Fechas reingreso</label>
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.reingreso_inicial.errors }}
+						{{ formTrayectoria.reingreso_inicial }}
+					</div>
+					<div class="col-md-5">
+						{{ formTrayectoria.reingreso_final.errors }}
+						{{ formTrayectoria.reingreso_final }}
+					</div>
+				</div>
 			</div>
-			<div class="col-md-5 text-center">
-				<label>Final</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2">
-				<label>Puesto</label>
-			</div>
+
 			<div class="col-md-5">
-				{{ formTrayectoria.puesto_inicial.errors }}
-				{{ formTrayectoria.puesto_inicial }}
+				<div class="row">
+					<div class="col-md-12">
+						{{ formTrayectoria.funciones.errors }}
+						<label>Funciones y/o responsabilidades</label>
+						{{ formTrayectoria.funciones }}
+					</div>
+				</div>
+				<br /><br />
+				<div class="row">
+					<div class="col-md-12">
+						{{ formTrayectoria.cumplio_objetivos.errors }}
+						<label>Especificar si cumplió los objetivos del puesto</label>
+						{{ formTrayectoria.cumplio_objetivos }}
+					</div>
+				</div>
 			</div>
-			<div class="col-md-5">
-				{{ formTrayectoria.puesto_final.errors }}
-				{{ formTrayectoria.puesto_final }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-5 col-md-offset-2 text-center">
-				<label>Inicial</label>
-			</div>
-			<div class="col-md-5 text-center">
-				<label>Final</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2">
-				<label>Sueldo</label>
-			</div>
-			<div class="col-md-5">
-				{{ formTrayectoria.sueldo_inicial.errors }}
-				{{ formTrayectoria.sueldo_inicial }}
-			</div>
-			<div class="col-md-5">
-				{{ formTrayectoria.sueldo_final.errors }}
-				{{ formTrayectoria.sueldo_final }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-5 col-md-offset-2 text-center">
-				<label>Del:</label>
-			</div>
-			<div class="col-md-5 text-center">
-				<label>Al:</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2">
-				<label>Fechas laboradas</label>
-			</div>
-			<div class="col-md-5">
-				{{ formTrayectoria.periodo_alta.errors }}
-				{{ formTrayectoria.periodo_alta }}
-			</div>
-			<div class="col-md-5">
-				{{ formTrayectoria.periodo_baja.errors }}
-				{{ formTrayectoria.periodo_baja }}
-			</div>
-		</div>
-	</div>
-	<div class="col-md-5">
-		<div class="row">
-			<div class="col-md-12">
-				{{ formTrayectoria.funciones.errors }}
-				<label>Funciones y/o responsabilidades</label>
-				{{ formTrayectoria.funciones }}
-			</div>
-		</div>
-		<hr class="thin-separator" />
-		<div class="row">
-			<div class="col-md-12">
-				{{ formTrayectoria.cumplio_objetivos.errors }}
-				<label>Especificar si cumplió los objetivos del puesto</label>
-				{{ formTrayectoria.cumplio_objetivos }}
-			</div>
+
 		</div>
 	</div>
 </div>
-
 <br />
 
 <div class="panel panel-default">
