@@ -19,6 +19,9 @@ class InvestigacionAltaForm(ModelForm):
 	class Meta:
 		model = Investigacion
 		exclude = ('candidato', 'conclusiones', 'resultado', 'archivo', 'folio', 'presupuesto','status_general','status','observaciones_generales')
+		widgets = {
+      'label': forms.HiddenInput()
+    }
 
 	def __init__(self, *args, **kwargs):
 		super(InvestigacionAltaForm, self).__init__(*args, **kwargs)
