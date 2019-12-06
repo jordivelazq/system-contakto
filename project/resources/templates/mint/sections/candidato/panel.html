@@ -13,24 +13,26 @@
 		</div>	
 		<div class="row">
 			<div class="col-md-12">
-				<form role="form" action="#" method="post" class="form-etiquetas">
-					{% csrf_token %}
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Etiquetas</h3>
+				{% if not request.user.is_superuser %}
+					<form role="form" action="#" method="post" class="form-etiquetas">
+						{% csrf_token %}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Etiquetas</h3>
+							</div>
+							<div class="panel-body">
+								{{ formset.management_form }} 
+								{% for form in formset %}
+									<div class="etiqueta">
+										<span style="background-color: {{form.color.value}};"></span>
+										{{form}}
+									</div>
+								{% endfor %}
+							</div>
 						</div>
-						<div class="panel-body">
-							{{ formset.management_form }} 
-							{% for form in formset %}
-								<div class="etiqueta">
-									<span style="background-color: {{form.color.value}};"></span>
-									{{form}}
-								</div>
-							{% endfor %}
-						</div>
-					</div>
-					<input type="submit" class="btn btn-primary pull-right" value="Guardar">
-				</form>
+						<input type="submit" class="btn btn-primary pull-right" value="Guardar">
+					</form>
+				{% endif %}
 			</div>
 		</div>
 {% endautoescape %}
