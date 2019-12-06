@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from models import *
 from app.investigacion.models import Investigacion
 from app.compania.models import *
@@ -87,7 +88,7 @@ class ControllerPersona(object):
 			candidato.tiempo_transporte = datos_generales['tiempo_transporte']
 			candidato.dependientes_economicos = datos_generales['dependientes_economicos']
 		except Exception, e:
-			self.errors.append('Error en registro de datos generales.')
+			self.errors.append('Error asignando registro de datos generales.')
 
 		return
 
@@ -119,7 +120,6 @@ class ControllerPersona(object):
 								lugar=datos_generales['origen']['lugar'],
 								nacionalidad=datos_generales['origen']['nacionalidad'],
 								fecha=datos_generales['origen']['fecha']).save()
-
 
 			#Asignar datos 'licencia'
 			EntrevistaLicencia(	persona=candidato,

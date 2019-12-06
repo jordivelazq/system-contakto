@@ -130,7 +130,7 @@ class EntrevistaPrestacionVivienda(models.Model):
 class EntrevistaLicencia(models.Model):
 	persona = models.ForeignKey(EntrevistaPersona)
 	numero = models.CharField(verbose_name='No. de licencia', max_length=20, null=True, blank=True)
-	tipo = models.CharField(verbose_name='Tipo de licencia', max_length=14, null=True, blank=True)
+	tipo = models.CharField(verbose_name='Tipo de licencia', max_length=140, null=True, blank=True)
 	
 	def __unicode__(self):
 		return '%s, %s' % (self.tipo, self.numero)
