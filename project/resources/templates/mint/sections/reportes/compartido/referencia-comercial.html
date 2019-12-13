@@ -1,0 +1,69 @@
+{% load app_filters %}
+{% if trayectoria_comercial %}
+<section class="laboral-study-page">
+  <div class="background-2">
+    <div class="header">
+      <h1>Estudio Laboral</h1>
+      <img src="/media/logo-nuevo.png" />
+      <div class="clear-fix"></div>
+    </div>
+
+    <div class="company">
+      <h3>referencia comercial</h3>
+      <table>
+        <tr>
+          <th>
+            tipo de negocio
+          </th>
+          <td>
+            {{trayectoria_comercial.tipo_negocio}}
+          </td>
+          <th>
+            periodos
+          </th>
+          <td>
+            {{trayectoria_comercial.periodos}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="company">
+      {% for referencia in trayectoria_comercial.trayectoriacomercialreferencia_set.all %}
+        <h3>refefencia</h3>
+        <table>
+          <tr>
+            <th>nombre completo</th>
+            <td>{{referencia.nombre}}</td>
+            <th>teléfono</th>
+            <td>{{referencia.telefono}}</td>
+          </tr>
+          <tr>
+            <th>domicilio completo</th>
+            <td>{{referencia.domicilio}}</td>
+            <th>parentesco</th>
+            <td>{{referencia.parentesco}}</td>
+          </tr>
+          <tr>
+            <th>ocupación</th>
+            <td>{{referencia.ocupacion}}</td>
+            <th>tiempo de adquirir el servicio</th>
+            <td>{{referencia.tiempo}}</td>
+          </tr>
+          <tr>
+            <th colspan="2">productoo servicio que le fue proporcionado</th>
+            <td colspan="2">{{referencia.producto}}</td>
+          </tr>
+          <tr>
+            <th colspan="2">opinión sobre el candidato evaluado</th>
+            <td colspan="2">{{referencia.opinion}}</td>
+          </tr>
+        </table>
+      {% endfor %}
+    </div>
+
+    {% include 'sections/reportes/seccion/footer.html' %}
+  </div>
+</section>
+<div class="page-break"></div>
+{% endif %}

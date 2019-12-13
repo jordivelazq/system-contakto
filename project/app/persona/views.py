@@ -861,10 +861,11 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 			trayectoria_comercial.save()
 
 			trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
-			trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(commit=False)
-			for referencia in trayectoria_comercial_referencia:
-				referencia.trayectoria_comercial = trayectoria_comercial
-				referencia.save()
+			if trayectoria_comercial_referencia_formset.is_valid():
+				trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(commit=False)
+				for referencia in trayectoria_comercial_referencia:
+					referencia.trayectoria_comercial = trayectoria_comercial
+					referencia.save()
 
 			b = Bitacora(action='trayectoria_comercial: ' + unicode(trayectoria_comercial), user=request.user)
 			b.save()

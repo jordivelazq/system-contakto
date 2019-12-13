@@ -29,6 +29,7 @@ def print_reporte_laboral(request, investigacion_id):
 
 	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
 	domicilio = candidato.direccion_set.all()[0] if candidato.direccion_set.all().count() else None
+	trayectoria_comercial = candidato.trayectoriacomercial_set.all()[0] if candidato.trayectoriacomercial_set.all().count() else None
 	
 	origen = candidato.origen_set.all()[0] if candidato.origen_set.all().count() else None
 
@@ -51,6 +52,7 @@ def print_reporte_socioeconomico(request, investigacion_id):
 
 	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
 	domicilio = investigacion.entrevistadireccion_set.all()[0] if investigacion.entrevistadireccion_set.all().count() else None
+	trayectoria_comercial = candidato.trayectoriacomercial_set.all()[0] if candidato.trayectoriacomercial_set.all().count() else None
 
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL

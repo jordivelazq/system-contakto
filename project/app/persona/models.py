@@ -226,13 +226,13 @@ class TrayectoriaComercial(models.Model):
 class TrayectoriaComercialReferencia(models.Model):
 	trayectoria_comercial = models.ForeignKey(TrayectoriaComercial)
 	nombre = models.CharField(max_length=140)
-	telefono = models.CharField(max_length=140, null=True, blank=True)
+	telefono = models.CharField(max_length=140, null=True, blank=True, verbose_name="teléfono")
 	domicilio = models.CharField(max_length=140, null=True, blank=True)
 	parentesco = models.CharField(max_length=140, null=True, blank=True)
-	ocupacion = models.CharField(max_length=140, null=True, blank=True)
+	ocupacion = models.CharField(max_length=140, null=True, blank=True, verbose_name="ocupación")
 	tiempo = models.CharField(max_length=140, null=True, blank=True)
 	producto = models.CharField(max_length=140, null=True, blank=True)
-	opinion = models.CharField(max_length=140, null=True, blank=True)
+	opinion = models.CharField(max_length=140, null=True, blank=True, verbose_name="opinión")
 
 class CartaLaboral(models.Model):
 	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral)
