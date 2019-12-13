@@ -501,6 +501,7 @@ def ver_trayectoria(request, investigacion_id):
 	msg = ''
 	investigacion = Investigacion.objects.get(id=investigacion_id)
 	trayectorias_laborales = investigacion.candidato.trayectorialaboral_set.filter(status=True) if not is_usuario_contacto else investigacion.candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
+	referencias_comerciales = TrayectoriaComercial.objects.filter(persona=investigacion.candidato)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
 	if request.method == 'POST' and not is_usuario_contacto:
@@ -837,7 +838,7 @@ def reset_filtros(request):
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
-def trayectoria_comercial(request, investigacion_id):
+def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
@@ -847,11 +848,12 @@ def trayectoria_comercial(request, investigacion_id):
 	seccion = 'trayectoria'	
 	
 	investigacion = Investigacion.objects.get(id=investigacion_id)
-	formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=3)
+	referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=3)
+	trayectoria_instance = TrayectoriaComercial.objects.get(id=trayectoria_id) if trayectoria_id else None
 
 	if request.method == 'POST':
-		trayectoria_comercial_form = TrayectoriaComercialForm(request.POST)
-		trayectoria_comercial_referencia_formset = formset(request.POST)
+		trayectoria_comercial_form = TrayectoriaComercialForm(request.POST, instance=trayectoria_instance)
+		trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
 		if trayectoria_comercial_form.is_valid():
 			trayectoria_comercial = trayectoria_comercial_form.save(commit=False)
 			trayectoria_comercial.persona = investigacion.candidato
@@ -866,7 +868,18 @@ def trayectoria_comercial(request, investigacion_id):
 			b.save()
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')
 	else:
-		trayectoria_comercial_form = TrayectoriaComercialForm()
-		trayectoria_comercial_referencia_formset = formset(queryset=TrayectoriaComercialReferencia.objects.none())
+		trayectoria_comercial_form = TrayectoriaComercialForm(instance=trayectoria_instance)
+		trayectoria_comercial_referencia_formset = referencia_formset(queryset=TrayectoriaComercialReferencia.objects.none())
 
-	return render_to_response('sections/candidato/nueva_trayectoria_comercial.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('sections/candidato/trayectoria_comercial.html', locals(), context_instance=RequestContext(request))
+
+@login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
+def trayectoria_comercial_borrar(request, investigacion_id, trayectoria_id):
+	trayectoria = TrayectoriaComercial.objects.get(id=trayectoria_id)
+	trayectoria.delete()
+
+	b = Bitacora(action='trayectoria_comercial-borrar: ' + str(trayectoria_id), user=request.user)
+	b.save()
+
+	return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')

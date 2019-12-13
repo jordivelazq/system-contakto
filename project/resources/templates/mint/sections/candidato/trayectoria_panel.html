@@ -22,9 +22,9 @@
 			<h3 class="panel-title">Empresas investigadas {% if request.user.is_staff %}<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/nueva" title="empresa nuevo" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a>{% endif %}</h3>
 		</div>
 		<div class="panel-body">
-			<div class="row placeholders">
-				<div class="table-responsive">
-					{% if trayectorias_laborales %}	
+			{% if trayectorias_laborales %}	
+				<div class="row placeholders">
+					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -56,19 +56,46 @@
 								{% endfor %}
 							</tbody>
 						</table>
-					{% else %}
-						<div class="bg-info">No hay empresas registradas</div>
-					{% endif %}
+					</div>
 				</div>
-			</div>
+			{% endif %}
 		</div>
 	</div>
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Referencias Comerciales {% if request.user.is_staff %}<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria-comercial/nueva" title="Nueva trayectoria comercial" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a>{% endif %}</h3>
+			<h3 class="panel-title">
+				Referencias Comerciales
+				{% if request.user.is_staff %}
+					<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/comercial/nueva" title="Nueva trayectoria comercial" class="btn btn-default">
+						<span class="glyphicon glyphicon-plus"></span>
+					</a>
+				{% endif %}
+			</h3>
 		</div>
 		<div class="panel-body">
+			{% if referencias_comerciales %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Tipo de Negocio</th>
+							<th>Ver</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for referencia in referencias_comerciales %}
+							<tr>
+								<td>{{referencia.tipo_negocio}}</td>
+								<td>
+									<a class="btn btn-default" href="/candidato/investigacion/{{investigacion_id}}/trayectoria/comercial/{{referencia.id}}">
+										<span class="glyphicon glyphicon-edit"></span>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
 		</div>
 	</div>
 

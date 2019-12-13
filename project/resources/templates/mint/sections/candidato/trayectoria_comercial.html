@@ -49,6 +49,11 @@
 					</div>
 
 					<div class="row">
+						{% if request.user.is_staff %}
+						<div class="col-md-2 col-md-offset-8">
+							<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/comercial/{{trayectoria_id}}/borrar" class="btn btn-danger form-control btn_eliminar">Eliminar</a>
+						</div>
+						{% endif %}
 						<div class="col-md-2 pull-right">
 							<button type="submit" class="btn btn-primary form-control">Guardar</button>
 						</div>
