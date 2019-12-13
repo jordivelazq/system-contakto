@@ -117,7 +117,7 @@ class TrayectoriaComercialReferenciaForm(ModelForm):
 
 	class Meta:  
 		model = TrayectoriaComercialReferencia
-		fields = ['nombre', 'telefono', 'domicilio', 'parentesco', 'ocupacion', 'tiempo', 'producto', 'opinion']
+		fields = ['nombre', 'telefono', 'domicilio', 'parentesco', 'ocupacion', 'tiempo', 'producto', 'opinion', 'id']
 
 	def __init__(self, *args, **kwargs):
 		super(TrayectoriaComercialReferenciaForm, self).__init__(*args, **kwargs)

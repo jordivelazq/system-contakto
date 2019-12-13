@@ -848,17 +848,19 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 	seccion = 'trayectoria'	
 	
 	investigacion = Investigacion.objects.get(id=investigacion_id)
-	referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=3)
 	trayectoria_instance = TrayectoriaComercial.objects.get(id=trayectoria_id) if trayectoria_id else None
+	
+	referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=trayectoria_id).count() if trayectoria_id else 3
+	referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
 
 	if request.method == 'POST':
 		trayectoria_comercial_form = TrayectoriaComercialForm(request.POST, instance=trayectoria_instance)
-		trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
 		if trayectoria_comercial_form.is_valid():
 			trayectoria_comercial = trayectoria_comercial_form.save(commit=False)
 			trayectoria_comercial.persona = investigacion.candidato
 			trayectoria_comercial.save()
 
+			trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
 			trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(commit=False)
 			for referencia in trayectoria_comercial_referencia:
 				referencia.trayectoria_comercial = trayectoria_comercial
@@ -869,7 +871,9 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')
 	else:
 		trayectoria_comercial_form = TrayectoriaComercialForm(instance=trayectoria_instance)
-		trayectoria_comercial_referencia_formset = referencia_formset(queryset=TrayectoriaComercialReferencia.objects.none())
+
+		referencial_queryset = TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=trayectoria_id) if trayectoria_id else TrayectoriaComercialReferencia.objects.none()
+		trayectoria_comercial_referencia_formset = referencia_formset(queryset=referencial_queryset)
 
 	return render_to_response('sections/candidato/trayectoria_comercial.html', locals(), context_instance=RequestContext(request))
 
