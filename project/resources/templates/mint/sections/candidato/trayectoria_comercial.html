@@ -51,7 +51,7 @@
 					</div>
 
 					<div class="row">
-						{% if request.user.is_superuser %}
+						{% if trayectoria_id and request.user.is_superuser %}
 						<div class="col-md-2 col-md-offset-8">
 							<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/comercial/{{trayectoria_id}}/borrar" class="btn btn-danger form-control btn_eliminar">Eliminar</a>
 						</div>

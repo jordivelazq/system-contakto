@@ -855,12 +855,13 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 
 	if request.method == 'POST':
 		trayectoria_comercial_form = TrayectoriaComercialForm(request.POST, instance=trayectoria_instance)
+		trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
+
 		if trayectoria_comercial_form.is_valid():
 			trayectoria_comercial = trayectoria_comercial_form.save(commit=False)
 			trayectoria_comercial.persona = investigacion.candidato
 			trayectoria_comercial.save()
 
-			trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
 			if trayectoria_comercial_referencia_formset.is_valid():
 				trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(commit=False)
 				for referencia in trayectoria_comercial_referencia:
@@ -872,7 +873,7 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')
 	else:
 		trayectoria_comercial_form = TrayectoriaComercialForm(instance=trayectoria_instance)
-
+		
 		referencial_queryset = TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=trayectoria_id) if trayectoria_id else TrayectoriaComercialReferencia.objects.none()
 		trayectoria_comercial_referencia_formset = referencia_formset(queryset=referencial_queryset)
 
