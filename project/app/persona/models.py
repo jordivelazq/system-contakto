@@ -218,6 +218,22 @@ class TrayectoriaLaboral(models.Model):
 			return self.opinion_set.filter(categoria=1)[0]
 		return None
 
+class TrayectoriaComercial(models.Model):
+	persona = models.ForeignKey(Persona)
+	tipo_negocio = models.CharField(max_length=140)
+	periodos = models.CharField(max_length=140, null=True, blank=True)
+
+class TrayectoriaComercialReferencia(models.Model):
+	trayectoria_comercial = models.ForeignKey(TrayectoriaComercial)
+	nombre = models.CharField(max_length=140)
+	telefono = models.CharField(max_length=140, null=True, blank=True)
+	domicilio = models.CharField(max_length=140, null=True, blank=True)
+	parentesco = models.CharField(max_length=140, null=True, blank=True)
+	ocupacion = models.CharField(max_length=140, null=True, blank=True)
+	tiempo = models.CharField(max_length=140, null=True, blank=True)
+	producto = models.CharField(max_length=140, null=True, blank=True)
+	opinion = models.CharField(max_length=140, null=True, blank=True)
+
 class CartaLaboral(models.Model):
 	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral)
 	tiene_carta = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)

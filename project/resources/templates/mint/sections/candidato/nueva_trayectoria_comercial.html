@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% block side_content %}
+	{% include 'sections/candidato/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+	{% include 'sections/candidato/seccion/candidato_header.html' %}
+
+	<div class="adjusted-fixed-submenu">
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">Nueva Referencia Comercial</h3>
+			</div>
+
+			<div class="panel-body">
+				<form role="form" action="#" method="post">
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								{% for field in trayectoria_comercial_form.visible_fields %}
+									<div class="col-md-6">
+										{{field.label_tag}}
+										{{field}}
+										{{field.errors}}
+									</div>
+								{% endfor %}
+							</div>
+
+							<hr />
+							
+							{{ trayectoria_comercial_referencia_formset.management_form }}
+							{% for form in trayectoria_comercial_referencia_formset %}
+								<h4>Referencia {{ forloop.counter }}</h4>
+								<div class="row">
+								{% for field in form.visible_fields %}
+									<div class="col-md-6">
+										{{field.label_tag}}
+										{{field}}
+										{{field.errors}}
+									</div>
+								{% endfor %}
+								</div>
+								<br />
+							{% endfor %}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-2 pull-right">
+							<button type="submit" class="btn btn-primary form-control">Guardar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+{% endblock %}

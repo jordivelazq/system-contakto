@@ -102,6 +102,28 @@ class TrayectoriaFormSoloCompania(ModelForm):
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
 
+class TrayectoriaComercialForm(ModelForm):
+
+	class Meta:  
+		model = TrayectoriaComercial
+		fields = ['tipo_negocio', 'periodos']
+
+	def __init__(self, *args, **kwargs):
+		super(TrayectoriaComercialForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
+class TrayectoriaComercialReferenciaForm(ModelForm):
+
+	class Meta:  
+		model = TrayectoriaComercialReferencia
+		fields = ['nombre', 'telefono', 'domicilio', 'parentesco', 'ocupacion', 'tiempo', 'producto', 'opinion']
+
+	def __init__(self, *args, **kwargs):
+		super(TrayectoriaComercialReferenciaForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
 class EvaluacionForm(ModelForm):
 	productividad = forms.ChoiceField(label='Productividad', widget=forms.RadioSelect(), choices=Evaluacion.EVALUACION_OPCIONES, required=False)
 	adaptabilidad = forms.ChoiceField(widget=forms.RadioSelect(), choices=Evaluacion.EVALUACION_OPCIONES, required=False)

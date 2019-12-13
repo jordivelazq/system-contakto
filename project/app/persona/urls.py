@@ -21,6 +21,9 @@ urlpatterns = patterns('',
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/editar/trayectoria/(?P<trayectoria_id>[^/]+)/exito$', 'app.persona.views.editar_trayectoria_empresa', name='editar_trayectoria_empresa'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/borrar/trayectoria/(?P<trayectoria_id>[^/]+)$', 'app.persona.views.borrar_trayectoria_empresa', name='borrar_trayectoria_empresa'),
 
+	#Referencia comercial
+	url(r'^investigacion/(?P<investigacion_id>[^/]+)/trayectoria-comercial/nueva$', 'app.persona.views.trayectoria_comercial', name='trayectoria_comercial'),
+
 	#Entrevista (excel)
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/$', 'app.entrevista.views.editar_entrevista', name='editar_entrevista'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/exito$', 'app.entrevista.views.editar_entrevista', name='editar_entrevista'),
