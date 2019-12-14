@@ -38,10 +38,10 @@ class Adjuntos(models.Model):
 
 	adj7 = models.FileField(verbose_name='11. Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
 	
-	adj18 = models.FileField(verbose_name='12.a Adicionales', upload_to='adj', blank=True, null=True)
-	adj19 = models.FileField(verbose_name='12.b Adicionales', upload_to='adj', blank=True, null=True)
-	adj20 = models.FileField(verbose_name='12.c Adicionales', upload_to='adj', blank=True, null=True)
-	adj21 = models.FileField(verbose_name='12.d Adicionales', upload_to='adj', blank=True, null=True)
+	adj18 = models.FileField(verbose_name='Carta Laboral', upload_to='adj', blank=True, null=True)
+	adj19 = models.FileField(verbose_name='Adicionales A', upload_to='adj', blank=True, null=True)
+	adj20 = models.FileField(verbose_name='Adicionales B', upload_to='adj', blank=True, null=True)
+	adj21 = models.FileField(verbose_name='Adicionales C', upload_to='adj', blank=True, null=True)
 
 	def filename(self):
 		return os.path.basename(self.file.name)
