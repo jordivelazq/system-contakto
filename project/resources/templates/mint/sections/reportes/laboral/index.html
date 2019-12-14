@@ -1,4 +1,5 @@
 {% extends 'layout/base_print.html' %}
+{% load fe_extras %}
 
 {% block site_wrapper %}
 
@@ -48,19 +49,19 @@
 {% endif %}
 
 {% if adjuntos.adj18 %}
-  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 file=adjuntos.adj18 title=adjuntos|verbose_name:'adj18' %}
 {% endif %}
 
 {% if adjuntos.adj19 %}
-  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-2.html' with tipo=1 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 file=adjuntos.adj19 title=adjuntos|verbose_name:'adj19' %}
 {% endif %}
 
 {% if adjuntos.adj20 %}
-  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-3.html' with tipo=1 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 file=adjuntos.adj20 title=adjuntos|verbose_name:'adj20' %}
 {% endif %}
 
 {% if adjuntos.adj21 %}
-  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos-4.html' with tipo=1 %}
+  {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 file=adjuntos.adj21 title=adjuntos|verbose_name:'adj21' %}
 {% endif %}
 
 {% endblock %}

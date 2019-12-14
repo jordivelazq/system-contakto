@@ -9,31 +9,33 @@
 	{% include 'sections/candidato/seccion/candidato_header.html' %}
 
 	<div class="adjusted-fixed-submenu">	
-		<div class="row">
-			<div class="col-xs-3">
-				<label>Reporte de datos generales y trayectoria laboral </label>
+		<div class="panel panel-default">
+			<div class="panel-heading">Reportes</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Laboral</label>
+					</div>
+					<div id="exportar-pdf" class="col-xs-2">
+						<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+					</div>
+				</div>
+				<div class="row">
+					<hr />
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Socioeconómico</label>
+					</div>
+					<div id="exportar-pdf" class="col-xs-3">
+						{% if datos_entrevista.autorizada != 1 %}
+							Entrevista no autorizada
+						{% else %}
+							<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+						{% endif %}
+					</div>
+				</div>
 			</div>
-			<div id="exportar-pdf" class="col-xs-2">
-				<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-5">
-				<hr />
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-3">
-				<label>Reporte completo de investigación</label>
-			</div>
-			<div id="exportar-pdf" class="col-xs-3">
-				{% if datos_entrevista.autorizada != 1 %}
-					Entrevista no autorizada
-				{% else %}
-					<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
-				{% endif %}
-			</div>
-		</div>
 	</div>
 	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
 {% endblock %}

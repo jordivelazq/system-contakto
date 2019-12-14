@@ -15,8 +15,8 @@ ACTIVO_OPCIONES = (
 
 class Investigacion(models.Model):
 	TIPO_INVESTIGACION_OPCIONES = (		
-		(1, 'Esc. Laboral'),
-		(2, 'Esc. Socieconómico'),
+		(1, 'Laboral'),
+		(2, 'Socieconómico'),
 		(3, 'Otro'),
 	)
 	RESULTADO_OPCIONES = (
