@@ -39,7 +39,7 @@
 			<tbody>
 			{% for inv in investigaciones %}
 			<tr>
-				<td>{{ inv.candidato.nombre }}</td>
+				<td>{{ inv.candidato.nombre }} {{ inv.candidato.apellido }}</td>
 				<td>{{ inv.compania.nombre }}</td>
 				<td>{{ inv.status|investigacion_status }}</td>
 				<td>{{ inv.last_modified|date:"d/M/y" }}</td>
