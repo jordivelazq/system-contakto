@@ -87,7 +87,7 @@
       <table>
         <tr>
           <th width="50%">FECHAS LABORADAS</th>
-          <th>PUESTOS DESEMPEÑADOS</th>
+          <th>FECHAS REINGRESO</th>
         </tr>
         <tr>
           <td>
@@ -103,13 +103,24 @@
           <td>
             <table>
               <tr>
-                <th>INICIAL:</th>
-                <td>{{ref.puesto_inicial|default:""}}</td>
-                <th>FINAL:</th>
-                <td>{{ref.puesto_final|default:""}}</td>
+                <th>INGRESO:</th>
+                <td>{{ref.reingreso_inicial|default:""}}</td>
+                <th>EGRESO</th>
+                <td>{{ref.reingreso_final|default:""}}</td>
               </tr>
             </table>
           </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th colspan="4">PUESTOS DESEMPEÑADOS</th>
+        </tr>
+        <tr>
+          <th>INICIAL:</th>
+          <td>{{ref.puesto_inicial|default:""}}</td>
+          <th>FINAL:</th>
+          <td>{{ref.puesto_final|default:""}}</td>
         </tr>
       </table>
 
