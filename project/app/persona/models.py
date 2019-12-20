@@ -26,10 +26,10 @@ ESTADOSMEXICO_OPCIONES = (
 	("Guerrero", "Guerrero"),
 	("Hidalgo", "Hidalgo"),
 	("Jalisco", "Jalisco"),
-	("Michoacán", "Michoacán"),
+	("Michoacan", "Michoacán"),
 	("Morelos", "Morelos"),
 	("Nayarit", "Nayarit"),
-	("Nuevo León", "Nuevo León"),
+	("Nuevo Leon", "Nuevo León"),
 	("Oaxaca", "Oaxaca"),
 	("Puebla", "Puebla"),
 	("Queretaro", "Querétaro"),
@@ -41,7 +41,7 @@ ESTADOSMEXICO_OPCIONES = (
 	("Tamaulipas", "Tamaulipas"),
 	("Tlaxcala", "Tlaxcala"),
 	("Veracruz", "Veracruz"),
-	("Yucatán", "Yucatán"),
+	("Yucatan", "Yucatán"),
 	("Zacatecas", "Zacatecas"),
 )
 
