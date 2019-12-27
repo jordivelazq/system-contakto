@@ -57,6 +57,8 @@ def panel_adjuntos(request, investigacion_id):
 	filtros_json = request.session.get('filtros_search', None)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
+	is_user_captura = request.user.groups.filter(name="captura").count()
+
 	return render_to_response('sections/candidato/adjuntos.html', locals(), context_instance=RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)

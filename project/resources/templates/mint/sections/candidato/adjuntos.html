@@ -31,7 +31,7 @@
 		<div class="col-md-8">
 
 		</div>
-		{% if request.user.is_staff %}
+		{% if request.user.is_staff or is_user_captura %}
 			<div class="col-md-4 text-right">
 				<a href="/candidato/investigacion/{{investigacion_id}}/adjuntos/editar" class="btn btn-default">Editar adjuntos <span class="glyphicon glyphicon-edit"></span></a>
 			</div>

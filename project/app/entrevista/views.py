@@ -60,6 +60,8 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	candidato = investigacion.candidato
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
+	is_user_captura = request.user.groups.filter(name="captura").count()
+
 	if not investigacion.entrevistapersona_set.all().count():
 		if not seccion_entrevista == 'cita':
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/cita')
@@ -414,8 +416,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	return render_to_response('sections/entrevista/edit_form.html', locals(), context_instance=RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def cargar_entrevista(request, investigacion_id):
+	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
+		return HttpResponseRedirect('/')
+
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')

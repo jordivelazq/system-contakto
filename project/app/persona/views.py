@@ -268,6 +268,8 @@ def editar(request, investigacion_id):
 	seguro = investigacion.candidato.seguro_set.all()	
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion) # NOTA: Pasar esto a PersonaService.get_status_list
 	contact_id = investigacion.contacto.id
+
+	is_user_captura = request.user.groups.filter(name="captura").count()
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'
@@ -700,6 +702,8 @@ def observaciones(request, investigacion_id):
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion, entrevista)	
+
+	is_user_captura = request.user.groups.filter(name="captura").count()
 
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)

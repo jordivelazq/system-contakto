@@ -59,6 +59,11 @@ def mint_login(request):
 				b = Bitacora(action='login', user=user)
 				b.save()
 				return HttpResponseRedirect('/estatus')
+			elif user.groups.filter(name='captura').count():
+				login(request, user)
+				b = Bitacora(action='login', user=user)
+				b.save()
+				return HttpResponseRedirect('/candidatos')
 			else:
 				state = "Tu cuenta no está activa, contacta a tu administrador"
 		else:

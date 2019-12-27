@@ -10,7 +10,7 @@
 		<li class="{% if seccion_entrevista == 'referencias' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/{% if request.user.is_staff %}editar{% else %}ver{% endif %}/referencias">Referencias Personales</a></li>
 		<li class="{% if seccion_entrevista == 'evaluacion' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/{% if request.user.is_staff %}editar{% else %}ver{% endif %}/evaluacion">Evaluación</a></li>
 	{% endif %}
-	{% if request.user.is_staff %}	
+	{% if request.user.is_staff or is_user_captura %}	
 		<li class="{% if seccion_entrevista == 'cita' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/editar/cita">Cita</a></li>
 		<li class="{% if seccion_entrevista == 'archivo' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/editar/cargar">Archivo</a></li>
 	{% endif %}
