@@ -84,34 +84,48 @@
     </div>
 
     <div class="resume">
-      <table>
-        <tr>
-          <th width="50%">FECHAS LABORADAS</th>
-          <th>FECHAS REINGRESO</th>
-        </tr>
-        <tr>
-          <td>
-            <table>
-              <tr>
-                <th>INGRESO:</th>
-                <td>{{ref.periodo_alta|default:""}}</td>
-                <th>EGRESO</th>
-                <td>{{ref.periodo_baja|default:""}}</td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table>
-              <tr>
-                <th>INGRESO:</th>
-                <td>{{ref.reingreso_inicial|default:""}}</td>
-                <th>EGRESO</th>
-                <td>{{ref.reingreso_final|default:""}}</td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+      {% if ref.reingreso_inicial or ref.reingreso_final %}
+        <table>
+          <tr>
+            <th width="50%">FECHAS LABORADAS</th>
+            <th>FECHAS REINGRESO</th>
+          </tr>
+          <tr>
+            <td>
+              <table>
+                <tr>
+                  <th>INGRESO:</th>
+                  <td>{{ref.periodo_alta|default:""}}</td>
+                  <th>EGRESO</th>
+                  <td>{{ref.periodo_baja|default:""}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <th>INGRESO:</th>
+                  <td>{{ref.reingreso_inicial|default:""}}</td>
+                  <th>EGRESO</th>
+                  <td>{{ref.reingreso_final|default:""}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      {% else %}
+        <table>
+          <tr>
+            <th colspan="4">FECHAS LABORADAS</th>
+          </tr>
+          <tr>
+            <th>INGRESO:</th>
+            <td>{{ref.periodo_alta|default:""}}</td>
+            <th>EGRESO</th>
+            <td>{{ref.periodo_baja|default:""}}</td>
+          </tr>
+        </table>
+      {% endif %}
       <table>
         <tr>
           <th colspan="4">PUESTOS DESEMPEÑADOS</th>
