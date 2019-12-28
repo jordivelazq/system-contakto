@@ -31,7 +31,7 @@
 		{% if request.user.is_superuser %}	
 			<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar</a>
 		{% endif %}
-		{% if request.user.is_staff %}
+		{% if request.user.is_staff or is_user_captura %}
 			<button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
 		{% endif %}
 	</div>

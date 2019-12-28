@@ -1,11 +1,7 @@
 <form action="#" method="post">{% csrf_token %}
-	{% if request.user.is_staff %}
-		<div class="row">
-			<div class="col-md-2 col-md-offset-10">
-				<button class="btn btn-lrg btn-primary" type="submit" name="guardar">Guardar</button>
-			</div>
-		</div>
-	{% endif %}
+	
+	{% include 'sections/entrevista/forms/cta.html' %}
+
 	{{ referencias_formset.management_form }}
 	{% for form in referencias_formset %}
 		{{form.errors}}

@@ -83,10 +83,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 					'titulo' 	: 'Salud, Actividades y Hábitos',
 					'template' 	: 'sections/entrevista/forms/salud_form.html' 
 				},
-				'actividades'	: { 
-					'titulo' 	: 'Actividades y Hábitos',
-					'template' 	: 'sections/entrevista/forms/actividades_form.html' 
-				},
 				'academica'	: { 
 					'titulo' 	: 'Información Académica',
 					'template' 	: 'sections/entrevista/forms/academica_form.html' 
