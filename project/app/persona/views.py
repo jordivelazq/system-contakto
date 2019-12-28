@@ -55,6 +55,8 @@ def panel(request):
 	user_labels = Labels.objects.filter(agente = request.user)
 	label_formset = modelformset_factory(Labels, form=LabelsForm, extra=0 if user_labels else len(Labels.LABEL_OPTIONS))
 
+	is_user_captura = request.user.groups.filter(name="captura").count()
+
 	if request.method == 'POST':
 		formset = label_formset(request.POST)
 		if formset.is_valid():

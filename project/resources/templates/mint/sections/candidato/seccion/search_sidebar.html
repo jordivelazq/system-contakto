@@ -73,7 +73,7 @@
 			<ul class="list-group">
 				<li ng-click="load_candidato(c.id)" class="list-group-item {[{c.id|setClass}]}" ng-repeat="c in candidatos">
 					<strong>{[{c.nombre}]}</strong>
-					{% if request.user.is_superuser %}
+					{% if request.user.is_superuser or is_user_captura %}
 						<span class="candidato-label"></span>
 					{% else %}
 						<span style="background-color: {[{c.color}]};" class="candidato-label"></span>
