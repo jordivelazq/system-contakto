@@ -508,6 +508,8 @@ def ver_trayectoria(request, investigacion_id):
 	referencias_comerciales = TrayectoriaComercial.objects.filter(persona=investigacion.candidato)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
+	is_user_captura = request.user.groups.filter(name="captura").count()
+
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
 		if formaInvestigacion.is_valid():			
@@ -779,6 +781,8 @@ def ver_reporte(request, investigacion_id):
 	tiene_entrevista = True if investigacion.entrevistapersona_set.all().count() else False
 
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
+
+	is_user_captura = request.user.groups.filter(name="captura").count()
 
 	return render_to_response('sections/candidato/ver_reporte.html', locals(), context_instance=RequestContext(request))
 
