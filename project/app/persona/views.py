@@ -559,6 +559,8 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 	formSucursal = CompaniaSucursalForm(trayectoria_empresa.compania, trayectoria_empresa.sucursal, prefix='trayectoria')
+
+	is_user_captura = request.user.groups.filter(name="captura").count()
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		exito = True
@@ -707,8 +709,6 @@ def observaciones(request, investigacion_id):
 	filtros_json = request.session.get('filtros_search', None)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion, entrevista)	
 
-	is_user_captura = request.user.groups.filter(name="captura").count()
-
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)
 		formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
@@ -847,8 +847,9 @@ def reset_filtros(request):
 	return HttpResponse(json.dumps(response), content_type='application/json')
 
 @login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
+	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
+		return HttpResponseRedirect('/')
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR

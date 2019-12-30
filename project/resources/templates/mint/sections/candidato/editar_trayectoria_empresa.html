@@ -28,7 +28,7 @@
 	<form role="form" action="#" method="post" id="form_trayectoria_editar" class="adjusted-fixed-submenu">
 		{% csrf_token %}	
 
-		{% if request.user.is_staff %}
+		{% if request.user.is_staff or is_user_captura %}
 		<div class="row">
 			<div class="col-md-offset-10 col-md-2">
 				<button type="submit" name="guardar" class="btn btn-primary form-control">
