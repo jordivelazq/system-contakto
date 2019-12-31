@@ -185,6 +185,10 @@ def sucursal_edit(request, compania_id, sucursal_id):
 
 				b = Bitacora(action='sucursal-editada: ' + str(sucursal.id), user=request.user)
 				b.save()
+
+				if 'investigacion' in request.GET:
+					return HttpResponseRedirect('/candidato/investigacion/' + request.GET['investigacion'] + '/editar')
+
 				return HttpResponseRedirect(boton_cancelar_url)
 				
 	else:
