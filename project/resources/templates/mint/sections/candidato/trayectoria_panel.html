@@ -116,7 +116,7 @@
 
 				<div class="row">
 					<br />
-					{% if request.user.is_staff %}	
+					{% if request.user.is_staff or is_user_captura %}	
 						<div class="col-md-2 pull-right">
 							<button type="submit" class="btn btn-primary form-control" name="guardar">Guardar</button>
 						</div>
