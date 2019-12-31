@@ -72,14 +72,6 @@
           <th>GIRO</th>
           <td>{{ref.compania.role|default:"&nbsp;"}}</td>
         </tr>
-        <tr>
-          {% with ref.compania.sucursales_set.all|first as sucursal %}
-          <th>TELÉFONO</th>
-          <td>{{sucursal.telefono|default:"&nbsp;"}}</td>
-          <th>EMAIL</th>
-          <td>{{sucursal.email|default:"NO PROPORCIONÓ"}}</td>
-          {% endwith %}
-        </tr>
       </table>
     </div>
 
