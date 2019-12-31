@@ -43,6 +43,13 @@ class Adjuntos(models.Model):
 	adj20 = models.FileField(verbose_name='Adicionales B', upload_to='adj', blank=True, null=True)
 	adj21 = models.FileField(verbose_name='Adicionales C', upload_to='adj', blank=True, null=True)
 
+	adj29 = models.FileField(verbose_name='Adicionales D', upload_to='adj', blank=True, null=True)
+	adj30 = models.FileField(verbose_name='Adicionales E', upload_to='adj', blank=True, null=True)
+	adj31 = models.FileField(verbose_name='Adicionales F', upload_to='adj', blank=True, null=True)
+	adj32 = models.FileField(verbose_name='Adicionales G', upload_to='adj', blank=True, null=True)
+	adj33 = models.FileField(verbose_name='Adicionales H', upload_to='adj', blank=True, null=True)
+	adj34 = models.FileField(verbose_name='Adicionales I', upload_to='adj', blank=True, null=True)
+
 	def filename(self):
 		return os.path.basename(self.file.name)
 
@@ -103,5 +110,18 @@ def resize_adjuntos(sender, **kwargs):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj20), size_x=1600)
 	if len(str(kwargs['instance'].adj21)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj21), size_x=1600)
+	
+	if len(str(kwargs['instance'].adj29)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj29), size_x=1600)
+	if len(str(kwargs['instance'].adj30)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj30), size_x=1600)
+	if len(str(kwargs['instance'].adj31)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj31), size_x=1600)
+	if len(str(kwargs['instance'].adj32)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj32), size_x=1600)
+	if len(str(kwargs['instance'].adj33)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj33), size_x=1600)
+	if len(str(kwargs['instance'].adj34)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj34), size_x=1600)
 
 post_save.connect(resize_adjuntos, sender=Adjuntos)
