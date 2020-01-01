@@ -61,9 +61,13 @@
           <td>{{ref.compania.razon_social}}</td>
           <th>SUCURSAL Y/O UBICACIÓN</th>
           <td>
-            {% with ref.compania.sucursales_set.all|first as sucursal %}
-            {{sucursal}} / {{sucursal.ciudad}}
-            {% endwith %}
+            {% if ref.sucursal %}
+              {{ref.sucursal}}
+
+              {% if ref.sucursal.ciudad %}
+                / {{ref.sucursal.ciudad}}
+              {% endif %}
+            {% endif %}
           </td>
         </tr>
         <tr>
