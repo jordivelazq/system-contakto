@@ -100,9 +100,15 @@
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Estudia Actualmente</h3>
+			<h3 class="panel-title">Estudios</h3>
 		</div>
 		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="id_prestacion_vivienda_infonavit-activo">Estudia Actualmente</label>
+					{% include 'share/radiobutton.html' with value=academica_form.instance.activo name=academica_form.activo.html_name %}
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-xs-3">
 					<div class="text-danger">{{ academica_form.estudios_institucion.errors }}</div>

@@ -156,16 +156,14 @@
           <th colspan="2"><strong>¿ESTUDIA ACTUALMENTE?</strong></th>
           <th>SÍ</th>
           <td>
-            {% if info_academica.estudios_institucion != "-" and info_academica.estudios_institucion != "NO APLICA" %}X{% endif %}
+            {% if info_academica.activo == 1 %}X{% endif %}
           </td>
           <th>NO</th>
           <td>
-            {% if info_academica.estudios_institucion == "-" or info_academica.estudios_institucion == "NO APLICA" or not info_academica.estudios_institucion %}X{% endif %}
+            {% if info_academica.activo == 2 %}X{% endif %}
           </td>
         </tr>
-        <tr>
-          <th colspan="8">EN CASO DE QUE SÍ, RESPONDA LO SIGUIENTE:</th>
-        </tr>
+        {% if info_academica.activo == 1 %}
         <tr>
           <th colspan="2">INSTITUCIÓN</th>
           <th colspan="2">QUÉ ESTUDIA</th>
@@ -178,6 +176,7 @@
           <td colspan="2">{{info_academica.estudios_horarios|default:''}}</td>
           <td colspan="2">{{info_academica.estudios_dias|default:''}}</td>
         </tr>
+        {% endif %}
       </table>
     </div>
 

@@ -7,6 +7,7 @@ from app.investigacion.models import Investigacion
 ACTIVO_OPCIONES = (
 	    (1, 'Sí'),
 	    (2, 'No'),
+			(0, 'NA'),
 	)
 
 class EntrevistaFile(models.Model):
@@ -221,6 +222,7 @@ class EntrevistaAcademica(models.Model):
 	estudios_que = models.CharField(max_length=200, null=True, blank=True)
 	estudios_horarios = models.CharField(max_length=200, null=True, blank=True)
 	estudios_dias = models.CharField(max_length=200, null=True, blank=True)
+	activo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 
 class EntrevistaGradoEscolaridad(models.Model):
 	GRADO_OPCIONES = (
