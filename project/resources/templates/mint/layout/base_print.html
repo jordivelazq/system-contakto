@@ -9,11 +9,17 @@
 		function onLoad() {
 			document.title = "{{investigacion.compania|upper}}_{{tipo_reporte|upper}}_{{candidato|upper}}_{{candidato.apellido}}"
 			addPageNumber()
-			window.print()
-			window.onfocus=function(){
-				window.close();
-			}
 			adjustConclusion()
+
+			setTimeout(() => { 
+				window.print(); 
+			}, 100);
+			
+			window.onfocus = function () {
+				setTimeout(() => {
+					window.close();
+				}, 100); 
+			}
 		}
 
 		function addPageNumber() {
