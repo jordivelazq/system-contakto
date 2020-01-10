@@ -504,7 +504,7 @@ def ver_trayectoria(request, investigacion_id):
 	status = ''
 	msg = ''
 	investigacion = Investigacion.objects.get(id=investigacion_id)
-	trayectorias_laborales = investigacion.candidato.trayectorialaboral_set.filter(status=True) if not is_usuario_contacto else investigacion.candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
+	trayectorias_laborales = investigacion.get_trayectorias_laborales(is_usuario_contacto)
 	referencias_comerciales = TrayectoriaComercial.objects.filter(persona=investigacion.candidato)
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 

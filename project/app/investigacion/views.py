@@ -27,7 +27,8 @@ def print_reporte_laboral(request, investigacion_id):
 	
 	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
 
-	trayectoria = candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
+	trayectoria = investigacion.get_trayectorias_laborales()
+
 	domicilio = candidato.direccion_set.all()[0] if candidato.direccion_set.all().count() else None
 	trayectoria_comercial = candidato.trayectoriacomercial_set.all()[0] if candidato.trayectoriacomercial_set.all().count() else None
 	

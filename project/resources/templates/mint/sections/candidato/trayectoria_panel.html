@@ -29,11 +29,13 @@
 							<thead>
 								<tr>
 									<th>Empresa</th>
-									<th class="text-center">Ver</th>
+									<th>Fecha de Ingreso</th>
+									<th>Fecha de Egreso</th>
 									{% if request.user.is_staff %}
-										<th class="text-center">Terminada</th>
-										<th class="text-center">Visible en Estatus</th>
+									<th class="text-center">Terminada</th>
+									<th class="text-center">Visible en Estatus</th>
 									{% endif %}
+									<th class="text-center">Ver</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -43,15 +45,17 @@
 											{{ t.compania.nombre }} <br />
 											<small>{{ t.observaciones_generales|lower }}</small>
 										</td>
+										<td>{{t.periodo_alta}}</td>
+										<td>{{t.periodo_baja}}</td>
+										{% if request.user.is_staff %}
+											<td class="text-center"><span class="glyphicon glyphicon-{% if t.terminada %}ok{% else %}remove{% endif %}"></span></td>
+											<td class="text-center"><span class="glyphicon glyphicon-{% if t.visible_en_status %}ok{% else %}remove{% endif %}"></span></td>
+										{% endif %}
 										<td class="text-center">
 											<a class="btn btn-default" href="/candidato/investigacion/{{investigacion_id}}/{% if request.user.is_staff %}editar{% else %}ver{% endif %}/trayectoria/{{t.id}}">
 												<span class="glyphicon glyphicon-edit"></span>
 											</a>
 										</td>
-										{% if request.user.is_staff %}
-											<td class="text-center"><span class="glyphicon glyphicon-{% if t.terminada %}ok{% else %}remove{% endif %}"></span></td>
-											<td class="text-center"><span class="glyphicon glyphicon-{% if t.visible_en_status %}ok{% else %}remove{% endif %}"></span></td>
-										{% endif %}
 									</tr>
 								{% endfor %}
 							</tbody>

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
@@ -12,6 +14,16 @@ ACTIVO_OPCIONES = (
 	    (1, 'Sí'),
 	    (2, 'No'),
 	)
+
+def parse_string_to_date(string, fuzzy=False):
+	if not string:
+		return False
+
+	try: 
+		return datetime.datetime.strptime(string, "%d/%m/%Y")
+
+	except ValueError:
+		return False
 
 class Investigacion(models.Model):
 	TIPO_INVESTIGACION_OPCIONES = (		
@@ -73,3 +85,31 @@ class Investigacion(models.Model):
 
 	def __unicode__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
+	
+	def get_trayectorias_laborales(self, is_usuario_contacto=None):
+		trayectorias = None
+		if is_usuario_contacto:
+			trayectorias = self.candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
+		
+		trayectorias = self.candidato.trayectorialaboral_set.filter(status=True)
+		
+		data = []
+		for trayectoria in trayectorias:
+			data.append(trayectoria)
+		
+		for i in range(len(data)):
+			date_a = parse_string_to_date(data[i].periodo_alta)
+			if not date_a:
+				continue
+
+			for j in range(len(data)):
+				date_b = parse_string_to_date(data[j].periodo_alta)
+				if not date_b:
+					continue
+
+				if date_a > date_b:
+					tmp = data[i]
+					data[i] = data[j]
+					data[j] = tmp
+
+		return data
