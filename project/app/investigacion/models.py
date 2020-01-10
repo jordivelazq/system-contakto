@@ -86,12 +86,10 @@ class Investigacion(models.Model):
 	def __unicode__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
 	
-	def get_trayectorias_laborales(self, is_usuario_contacto=None):
-		trayectorias = None
-		if is_usuario_contacto:
-			trayectorias = self.candidato.trayectorialaboral_set.filter(status=True, visible_en_status=True)
-		
+	def get_trayectorias_laborales(self, use_status=None):
 		trayectorias = self.candidato.trayectorialaboral_set.filter(status=True)
+		if use_status:
+			trayectorias = trayectorias.filter(visible_en_status=True)
 		
 		data = []
 		for trayectoria in trayectorias:
