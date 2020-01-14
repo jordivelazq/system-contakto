@@ -20,7 +20,7 @@ def panel(request):
 
 	page = 'bitacora'
 	ultimos_dias = 1
-	bitacoras = Bitacora.objects.all().order_by('-id')
+	bitacoras = Bitacora.objects.all().order_by('-id')[:1000]
 
 	#para SEARCH sidebar
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
