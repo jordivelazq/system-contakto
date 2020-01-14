@@ -24,27 +24,8 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				{% endif %}
 			{% endif %}
 		</h3>
-		{% if contacto_id and investigaciones|length %}
-		<div class="form-group pull-right" id="panel_enviar_reporte">
-			<span id="msg_enviar_reporte"></span>
-			<a href="" class="btn btn-default" ng-click="send_email_reporte()">Enviar Reporte</a>
-		</div>
-		{% endif %}
 	</div>
-	{% if dest_list and contacto_id and investigaciones|length %}
-		<div class="row">
-			<div class="col-md-6 col-md-offset-6">
-				<div class="alert alert-warning">
-					<p>El reporte se enviará a las siguientes direcciones:</p>
-					<ul>
-						{% for d in dest_list %}
-							<li><strong>{{d}}</strong> {% if forloop.last %}(admin){% elif not forloop.first and not forloop.last %}(agente){% endif %}</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</div>
-	{% endif %}
+
 	<div class="row placeholders">
 		{% if request.user.is_superuser or request.user.is_staff %}
 		<form role="form" action="#" method="post">
@@ -58,10 +39,12 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 					</div>
 					<div class="panel-body">
 						<div class="col-md-10">
-							<textarea rows="2" name="destinatarios"></textarea>
+							<textarea rows="2" name="destinatarios">{% for destinatario in dest_list %}{{destinatario|lower}}{% if not forloop.last %}, {% endif %}{% endfor %}{% if dest_list|length > 0 %}, estudios@contakto.mx{% endif %}</textarea>
 						</div>
 						<div class="col-md-2">
+							{% if investigaciones|length %}
 							<input type="submit" class="btn btn-default" value="Enviar" />
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -77,7 +60,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
 					<tr>
-						<th class="col-red"></th>
+						<th class="col-red"><input type="checkbox" id="status_checkbox"/></th>
 						<th class="col-red">Contacto</th>
 						<th class="col-red">Correo</th>
 						<th class="col-red">Cliente</th>
@@ -105,7 +88,6 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>
 							{% if request.user.is_superuser or request.user.is_staff %}
 							<input type="checkbox" name="investigacion[]" value="{{inv.id}}" />
-							<small>{{forloop.counter }}</small>
 							{% endif %}
 						</td>
 						<td>{{ inv.contacto }}</td>

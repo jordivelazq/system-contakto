@@ -145,6 +145,7 @@ $(document).ready(function () {
   newClientContact()
   autoSaveFiles()
   saveCompany()
+  statusListners()
 });
 
 function get_currentpage() {
@@ -398,6 +399,18 @@ function saveCompany() {
         },
         dataType: 'json'
       });
+    })
+  }
+}
+
+function statusListners() {
+  if ($('#status_checkbox').length) {
+    $('#status_checkbox').on("click", () => {
+      
+      $('.table-estatus tbody input[type=checkbox]').each((index, item) => {
+        $(item).prop("checked", !$(item).prop("checked"));
+      });
+
     })
   }
 }

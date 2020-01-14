@@ -19,7 +19,7 @@ def panel(request):
 		return HttpResponseRedirect('/panel')
 
 	page = 'bitacora'
-	ultimos_dias = 30
+	ultimos_dias = 1
 	bitacoras = Bitacora.objects.all().order_by('-id')
 
 	#para SEARCH sidebar

@@ -308,29 +308,6 @@ contacktoApp.controller('TrayectoriaCTRL', function($scope) {
 
 contacktoApp.controller('ReporteCTRL', function($scope) {
 
-    $scope.send_email_reporte = function() {
-        var user = $scope.getUserById($('#sidebar').scope().empresa_contactos, $('#empresa_contacto').val());
-        $('#msg_enviar_reporte').html('').removeClass();
-        if (user.fields.email.length) {
-            var data = $('#sidebar').scope().get_filtros()
-            data['tipo'] = 1;
-            $('#panel_enviar_reporte').append(ajaxloader)
-            $.post("/api/reporte/enviar_correo", data, 'json').done(function(data) {
-                $('#panel_enviar_reporte').find('img').remove();
-                if (data.status) {
-                    $('#msg_enviar_reporte').removeClass().addClass('alert alert-success').html('Tu correo ha sido enviado.');
-                } else {
-                    $('#msg_enviar_reporte').removeClass().addClass('alert alert-danger').html('Tu correo no pudo ser enviado, favor de contactar a tu administrador');
-                }
-            });
-        } else {
-            if (confirm('Este usuario no tiene correo, Presiona OK para asignarle uno o CANCEL para regresar')) {
-                var compania_id = $('#sidebar').scope().compania_id;
-                window.location.replace('/empresa/' + compania_id + '/contacto/' + $('#empresa_contacto').val() + '/editar');
-            }
-        }
-    };
-
     $scope.getUserById = function(data, user_id) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].pk == user_id) {

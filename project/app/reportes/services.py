@@ -10,31 +10,6 @@ from app.util.email import EmailHandler
 
 
 class ServiceReporte:
-
-	def getReporte(self, data):
-
-		if data == None or not len(data['compania_id']):
-			return False
-
-		investigaciones = Investigacion.objects.filter(status_active=True, compania__id=data['compania_id']).order_by('fecha_recibido')
-
-		if 'contacto_id' in data and len(data['contacto_id']):
-			investigaciones = investigaciones.filter(contacto__id=data['contacto_id'])
-
-		if len(data['status_id']):
-			investigaciones = investigaciones.filter(status_general=data['status_id'])
-
-		if len(data['fecha_inicio']) and len(data['fecha_final']):
-			fecha_inicio_format = datetime.datetime.strptime(data['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
-			fecha_final_format = datetime.datetime.strptime(data['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
-			investigaciones = investigaciones.filter(fecha_recibido__range=(fecha_inicio_format, fecha_final_format))
-
-		for i in investigaciones:
-			i.ciudad = i.candidato.direccion_set.all()[0].ciudad
-			i.entrevista = i.entrevistapersona_set.all()[0].entrevistainvestigacion_set.all()[0] if i.entrevistapersona_set.all().count() else None
-			i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
-
-		return investigaciones
 	
 	def getEstatusReporte(self, investigaciones):
 
