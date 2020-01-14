@@ -31,6 +31,7 @@ class ControllerPersona(object):
 			candidato.save()
 		except Exception, e:
 			self.errors.append('Error al guardar registro, los datos no fueron almacenados.')
+			self.errors.append(e)
 		
 		if len(self.errors): #Salir de la funcion si hubo errores.
 			return

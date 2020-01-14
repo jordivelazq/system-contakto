@@ -472,7 +472,8 @@ def cargar_entrevista(request, investigacion_id):
 						else:
 							file_instance.delete()
 							#borrar entrevista recién registrada si hubo algún error en la escritura de DB
-							EntrevistaPersona.objects.get(id=candidato_id).delete()
+							if candidato_id:
+								EntrevistaPersona.objects.get(id=candidato_id).delete()
 					else:
 						file_instance.delete()
 
