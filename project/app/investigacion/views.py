@@ -22,7 +22,7 @@ def print_reporte_laboral(request, investigacion_id):
 	tipo_reporte = "laboral"
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
-	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil][1] if candidato.estado_civil else ''
+	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil - 1][1] if candidato.estado_civil else ''
 
 	
 	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
