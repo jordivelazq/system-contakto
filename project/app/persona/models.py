@@ -59,9 +59,9 @@ def validate_curp(curp):
 
 class Persona(models.Model):
 	EDOCIVIL_OPCIONES = (
-	    (0, 'Soltero(a)'),
-	    (1, 'Casado(a)'),
-	    (2, 'Divorciado(a)'),
+	    (1, 'Soltero(a)'),
+	    (2, 'Casado(a)'),
+	    (3, 'Divorciado(a)'),
 	)
 	EDAD_CHOICES = [(i,i) for i in range(15, 76)]
 	nombre = models.CharField(max_length=140)

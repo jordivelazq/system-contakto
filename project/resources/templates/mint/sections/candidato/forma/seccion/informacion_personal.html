@@ -13,8 +13,6 @@
 				<label for="id_candidato-nombre">Nombre *</label>
 				{{ formCandidato.nombre }}
 				{{ formCandidato.nombre.errors }}
-				<br />
-				
 			</div>
 			<div class="col-md-3">
 				<label for="id_candidato-email">Apellido</label>
@@ -27,6 +25,9 @@
 				{{ formCandidato.email.errors }}
 			</div>
 		</div>
+
+		<br />
+
 		<div class="row">
 			<div class="col-md-3">
 				<label for="id_candidato-curp">CURP</label>
@@ -40,6 +41,35 @@
 			</div>
 			<div class="col-md-3">
 				{{ formInvestigacion.label }}
+			</div>
+		</div>
+
+		<br />
+		<div class="row">
+			<div class="col-md-2">
+				<label for="id_origen-fecha">Fecha de Nacimiento</label>
+				{{ formOrigen.fecha }}
+				{{ formOrigen.fecha.errors }}
+			</div>
+			<div class="col-md-1">
+				{{ formCandidato.edad.errors }}
+				<label for="id_candidato-edad">Edad</label>
+				{{ formCandidato.edad }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_origen-lugar">Lugar de nacimiento</label>
+				{{ formOrigen.lugar }}
+				{{ formOrigen.lugar.errors }}
+			</div>
+			<div class="col-md-3">
+				<label for="id_origen-nacionalidad">Nacionalidad</label>
+				{{ formOrigen.nacionalidad }}
+				{{ formOrigen.nacionalidad.errors }}
+			</div>
+			<div class="col-md-3">
+				{{formCandidato.estado_civil.label_tag}}
+				{{ formCandidato.estado_civil }}
+				{{ formCandidato.estado_civil.errors }}
 			</div>
 		</div>
 	</div>
@@ -149,125 +179,98 @@
 	</div>
 </div>
 
-<hr class="thin-separator"/>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">DOMICILIO ACTUAL</h3>
+	</div>
+	<div class="panel-body">
+		<div class="col-md-3">
+			<label for="id_direccion-calle">Calle y número</label>
+			{{ formDireccion.calle }}
+			{{ formDireccion.calle.errors }}
+		</div>
+		<div class="col-md-3">
+			<label for="id_direccion-colonia">Colonia</label>
+			{{ formDireccion.colonia }}
+			{{ formDireccion.colonia.errors }}
+		</div>
+		<div class="col-md-2">
+			<label for="id_direccion-cp">C.P.</label>
+			{{ formDireccion.cp }}
+			{{ formDireccion.cp.errors }}
+		</div>
+		<div class="col-md-2">
+			<label for="id_direccion-ciudad">Ciudad</label>
+			{{ formDireccion.ciudad }}
+			{{ formDireccion.ciudad.errors }}
+		</div>
+	
+		<div class="col-md-2">
+			<label for="id_direccion-estado">Estado</label>
+			{{ formDireccion.estado }}
+			{{ formDireccion.estado.errors }}
+		</div>
+	</div>
+</div>
 
-<div class="row">
-	<div class="col-md-2">
-		<label for="id_origen-fecha">Fecha de Nacimiento</label>
-
-		<!-- <input class="form-control" id="id_origen-fecha" name="origen-fecha" type="text"/> -->
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-4">
+				<label for="id_prestacion_vivienda_infonavit-activo">Infonavit vigente</label>
+				{% include 'share/radiobutton.html' with value=formPrestacionViviendaInfonavit.instance.activo name=formPrestacionViviendaInfonavit.activo.html_name %}
+				{{ formPrestacionViviendaInfonavit.activo.errors }}
+			</div>
+			<div class="col-md-4">
+				<label for="id_prestacion_vivienda_fonacot-activo">Fonacot vigente</label>
+				{% include 'share/radiobutton.html' with value=formPrestacionViviendaFonacot.instance.activo name=formPrestacionViviendaFonacot.activo.html_name %}
+				{{ formPrestacionViviendaFonacot.activo.errors }}
+			</div>
+			<div class="col-md-4">
+				<label for="id_legalidad-sindicato">Afiliado a sindicato</label>
+				{% include 'share/radiobutton.html' with value=formLegalidad.instance.afiliado_sindicato name=formLegalidad.afiliado_sindicato.html_name %}
+				{{ formLegalidad.afiliado_sindicato.errors }}
+			</div>
+		</div>
 		
-		{{ formOrigen.fecha }}
-		{{ formOrigen.fecha.errors }}
-	</div>
-	<div class="col-md-1">
-		{{ formCandidato.edad.errors }}
-		<label for="id_candidato-edad">Edad</label>
-		{{ formCandidato.edad }}
-	</div>
-	<div class="col-md-3">
-		<label for="id_origen-lugar">Lugar de nacimiento</label>
-		{{ formOrigen.lugar }}
-		{{ formOrigen.lugar.errors }}
-	</div>
-	<div class="col-md-3">
-		<label for="id_origen-nacionalidad">Nacionalidad</label>
-		{{ formOrigen.nacionalidad }}
-		{{ formOrigen.nacionalidad.errors }}
-	</div>
-</div>
-<hr class="thin-separator"/>
-
-<div class="row">
-	<div class="col-md-3"><h5><strong>DOMICILIO ACTUAL</strong></h5></div>
-</div>
-<div class="row">
-	<div class="col-md-3">
-		<label for="id_direccion-calle">Calle y número</label>
-		{{ formDireccion.calle }}
-		{{ formDireccion.calle.errors }}
-	</div>
-	<div class="col-md-3">
-		<label for="id_direccion-colonia">Colonia</label>
-		{{ formDireccion.colonia }}
-		{{ formDireccion.colonia.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_direccion-cp">C.P.</label>
-		{{ formDireccion.cp }}
-		{{ formDireccion.cp.errors }}
-	</div>
-	<div class="col-md-2">
-		<label for="id_direccion-ciudad">Ciudad</label>
-		{{ formDireccion.ciudad }}
-		{{ formDireccion.ciudad.errors }}
-	</div>
-
-	<div class="col-md-2">
-		<label for="id_direccion-estado">Estado</label>
-		{{ formDireccion.estado }}
-		{{ formDireccion.estado.errors }}
+		<div class="row">
+			<div class="col-md-4">
+				<label for="id_prestacion_vivienda_infonavit-numero_credito">Número de crédito Infonavit</label>
+				{{ formPrestacionViviendaInfonavit.numero_credito }}
+				{{ formPrestacionViviendaInfonavit.numero_credito.errors }}
+			</div>
+			<div class="col-md-4">
+				<label for="id_prestacion_vivienda_fonacot-numero_credito">Número de crédito Fonacot</label>
+				{{ formPrestacionViviendaFonacot.numero_credito }}
+				{{ formPrestacionViviendaFonacot.numero_credito.errors }}
+			</div>
+			<div class="col-md-4">
+				<label for="id_legalidad-sindicato">Nombre:</label>
+				{{ formLegalidad.sindicato }}
+				{{ formLegalidad.sindicato.errors }}
+			</div>
+		</div>
+		
+		
+		<hr class="thin-separator"/>
+		<div class="row">
+			<div class="col-md-4">
+				<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
+				{% include 'share/radiobutton.html' with value=formSeguro.instance.verificado_enburo name=formSeguro.verificado_enburo.html_name %}
+				{{ formSeguro.verificado_enburo.errors }}
+			</div>
+			<div class="col-md-4">
+				<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
+				{% include 'share/radiobutton.html' with value=formInvestigacion.instance.laboro_anteriormente name=formInvestigacion.laboro_anteriormente.html_name %}
+				{{ formInvestigacion.laboro_anteriormente.errors }}
+			</div>
+			<div class="col-md-4">
+				<label for="id_investigacion-laboro_anteriormente">Familiar laborando en la empresa</label>
+				{% include 'share/radiobutton.html' with value=formInvestigacion.instance.familiar_laborando name=formInvestigacion.familiar_laborando.html_name %}
+				{{ formInvestigacion.familiar_laborando.errors }}
+			</div>
+		</div>
 	</div>
 </div>
-<hr class="thin-separator"/>
-
-<div class="row">
-	<div class="col-md-4">
-		<label for="id_prestacion_vivienda_infonavit-activo">Infonavit vigente</label>
-		{% include 'share/radiobutton.html' with value=formPrestacionViviendaInfonavit.instance.activo name=formPrestacionViviendaInfonavit.activo.html_name %}
-		{{ formPrestacionViviendaInfonavit.activo.errors }}
-	</div>
-	<div class="col-md-4">
-		<label for="id_prestacion_vivienda_fonacot-activo">Fonacot vigente</label>
-		{% include 'share/radiobutton.html' with value=formPrestacionViviendaFonacot.instance.activo name=formPrestacionViviendaFonacot.activo.html_name %}
-		{{ formPrestacionViviendaFonacot.activo.errors }}
-	</div>
-	<div class="col-md-4">
-		<label for="id_legalidad-sindicato">Afiliado a sindicato</label>
-		{% include 'share/radiobutton.html' with value=formLegalidad.instance.afiliado_sindicato name=formLegalidad.afiliado_sindicato.html_name %}
-		{{ formLegalidad.afiliado_sindicato.errors }}
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-4">
-		<label for="id_prestacion_vivienda_infonavit-numero_credito">Número de crédito Infonavit</label>
-		{{ formPrestacionViviendaInfonavit.numero_credito }}
-		{{ formPrestacionViviendaInfonavit.numero_credito.errors }}
-	</div>
-	<div class="col-md-4">
-		<label for="id_prestacion_vivienda_fonacot-numero_credito">Número de crédito Fonacot</label>
-		{{ formPrestacionViviendaFonacot.numero_credito }}
-		{{ formPrestacionViviendaFonacot.numero_credito.errors }}
-	</div>
-	<div class="col-md-4">
-		<label for="id_legalidad-sindicato">Nombre:</label>
-		{{ formLegalidad.sindicato }}
-		{{ formLegalidad.sindicato.errors }}
-	</div>
-</div>
-
-
-<hr class="thin-separator"/>
-<div class="row">
-	<div class="col-md-4">
-		<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
-		{% include 'share/radiobutton.html' with value=formSeguro.instance.verificado_enburo name=formSeguro.verificado_enburo.html_name %}
-		{{ formSeguro.verificado_enburo.errors }}
-	</div>
-	<div class="col-md-4">
-		<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
-		{% include 'share/radiobutton.html' with value=formInvestigacion.instance.laboro_anteriormente name=formInvestigacion.laboro_anteriormente.html_name %}
-		{{ formInvestigacion.laboro_anteriormente.errors }}
-	</div>
-	<div class="col-md-4">
-		<label for="id_investigacion-laboro_anteriormente">Familiar laborando en la empresa</label>
-		{% include 'share/radiobutton.html' with value=formInvestigacion.instance.familiar_laborando name=formInvestigacion.familiar_laborando.html_name %}
-		{{ formInvestigacion.familiar_laborando.errors }}
-	</div>
-</div>
-<hr class="thin-separator"/>
-
-<br />
 
 {% include 'sections/candidato/forma/seccion/demandas.html' %}
