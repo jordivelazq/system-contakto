@@ -44,7 +44,7 @@ def panel(request):
 	else:
 		#DEFAULT
 		recientes = True
-		bitacoras = bitacoras.filter(datetime__range=(datetime.datetime.today()-datetime.timedelta(days=ultimos_dias),datetime.datetime.today())).order_by('-id')
+		bitacoras = Bitacora.objects.filter(datetime__range=(datetime.datetime.today()-datetime.timedelta(days=ultimos_dias), datetime.datetime.today())).order_by('-id')[:1000]
 
 	return render_to_response('sections/bitacora/panel.html', locals())
 

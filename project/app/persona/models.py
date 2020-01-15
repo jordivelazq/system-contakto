@@ -609,6 +609,7 @@ class Opinion(models.Model):
 	puesto = models.CharField(max_length=140, null=True, blank=True)
 	telefono = models.CharField(max_length=140, null=True, blank=True)
 	email = models.CharField(max_length=140, null=True, blank=True)
+	referencia = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	def __unicode__(self):
 		return  '%s' % (self.trayectoriaLaboral)

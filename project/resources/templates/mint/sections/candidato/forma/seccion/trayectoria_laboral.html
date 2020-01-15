@@ -323,6 +323,12 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-4">
+				<label>Proporcionó referencia?</label>
+				{% include 'share/radiobutton.html' with value=formOpinionJefe.instance.referencia name=formOpinionJefe.referencia.html_name %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
 				{{ formOpinionJefe.nombre.errors }}
 				<label for="id_trayectoria1-jefe_inmediato">Nombre</label>
 				{{ formOpinionJefe.nombre }}

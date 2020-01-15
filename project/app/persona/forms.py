@@ -233,7 +233,7 @@ class OpinionAltaForma(ModelForm):
 
 	class Meta:
 		model = Opinion
-		fields = ['opinion', 'nombre', 'puesto', 'telefono', 'email']
+		fields = ['opinion', 'nombre', 'puesto', 'telefono', 'email', 'referencia']
 
 	def __init__(self, *args, **kwargs):
 		super(OpinionAltaForma, self).__init__(*args, **kwargs)

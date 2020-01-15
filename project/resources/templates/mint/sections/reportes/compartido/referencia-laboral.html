@@ -394,7 +394,13 @@
             <table>
               <tr>
                 <th>OPINIÓN:</th>
-                <td colspan="3">{{ref.opinion_jefe.opinion}}</td>
+                <td colspan="3">
+                  {% if ref.opinion_jefe.referencia == 1 %}
+                    {{ref.opinion_jefe.opinion}}
+                  {% else %}
+                    NO PROPORCIONÓ
+                  {% endif %}
+                </td>
               </tr>
             </table>
           </td>
@@ -416,9 +422,21 @@
             <table>
               <tr>
                 <th>TELÉFONO</th>
-                <td>{{ref.opinion_jefe.telefono}}</td>
+                <td>
+                  {% if ref.opinion_jefe.referencia == 1 %}
+                    {{ref.opinion_jefe.telefono}}
+                  {% else %}
+                    NO PROPORCIONÓ
+                  {% endif %}
+                </td>
                 <th>EMAIL:</th>
-                <td>{{ref.opinion_jefe.email}}</td>
+                <td>
+                  {% if ref.opinion_jefe.referencia == 1 %}
+                    {{ref.opinion_jefe.email}}
+                  {% else %}
+                    NO PROPORCIONÓ
+                  {% endif %}
+                </td>
               </tr>
             </table>
           </td>
