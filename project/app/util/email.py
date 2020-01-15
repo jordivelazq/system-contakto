@@ -14,7 +14,7 @@ class EmailHandler:
     '''
     try:
         sg = sendgrid.SendGridClient(os.environ['SENDGRID_API_KEY'])
-        message = sendgrid.Mail(to=data['to'], subject=data['subject'], html=data['html_content'], text=data['text_content'], from_email=data['from_email'], bcc=["info@mintitmedia.com"])
+        message = sendgrid.Mail(to=data['to'], subject=data['subject'], html=data['html_content'], text=data['text_content'], from_email=data['from_email'])
         status, msg = sg.send(message)
         return True
     except:

@@ -685,6 +685,8 @@ def observaciones(request, investigacion_id):
 	#Si es usuario contacto, verificar que la investigación le corresponda
 	if is_usuario_contacto and not Investigacion.objects.filter(id=investigacion_id, contacto__email=request.user.email).count():
 		return HttpResponseRedirect('/')
+	
+	is_user_captura = request.user.groups.filter(name="captura").count()
 
 	page = 'candidatos'
 	seccion = 'observaciones'
