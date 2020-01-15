@@ -50,6 +50,8 @@ class Adjuntos(models.Model):
 	adj33 = models.FileField(verbose_name='Adicionales H', upload_to='adj', blank=True, null=True)
 	adj34 = models.FileField(verbose_name='Adicionales I', upload_to='adj', blank=True, null=True)
 
+	adj35 = models.FileField(verbose_name='Extra A', upload_to='adj', blank=True, null=True)
+
 	def filename(self):
 		return os.path.basename(self.file.name)
 
