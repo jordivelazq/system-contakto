@@ -39,7 +39,16 @@
 
     <div class="general-observations">
       <h3>OBSERVACIONES SOBRE LA INVESTIGACIÓN</h3>
-      <div>{% if investigacion.observaciones_generales %}{{investigacion.observaciones_generales|print_text|safe}}{% endif %}</div>
+      <div>
+        {% if investigacion.observaciones_generales %}
+          {{investigacion.observaciones_generales|print_text|safe}}
+        {% endif %}
+
+        {% if investigacion.tipo_investigacion_texto %}
+          <br /><br />
+          OBSERVACIÓN: {{investigacion.tipo_investigacion_texto|print_text|safe}}
+        {% endif %}
+      </div>
     </div>
 
     <div class="footer">

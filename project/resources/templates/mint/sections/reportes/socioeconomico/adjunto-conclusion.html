@@ -9,9 +9,15 @@
       <div class="conclusion">
         <p>
           {{entrevista_investigacion.conclusiones|print_text|safe}} 
-          <br />
+          
           {% if investigacion.observaciones_generales %}
-          {{investigacion.observaciones_generales|print_text|safe}}
+            <br />
+            {{investigacion.observaciones_generales|print_text|safe}}
+          {% endif %}
+
+          {% if investigacion.tipo_investigacion_texto %}
+            <br /><br />
+            OBSERVACIÓN: {{investigacion.tipo_investigacion_texto|print_text|safe}}
           {% endif %}
         </p>
 
