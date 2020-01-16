@@ -410,9 +410,21 @@
             <table>
               <tr>
                 <th>NOMBRE DEL INFORMANTE</th>
-                <td>{{ref.opinion_jefe.nombre}}</td>
+                <td>
+                  {% if ref.opinion_jefe.nombre == 1 %}
+                    {{ref.opinion_jefe.nombre}}
+                  {% else %}
+                    NO PROPORCIONÓ
+                  {% endif %}
+                </td>
                 <th>PUESTO</th>
-                <td>{{ref.opinion_jefe.puesto}}</td>
+                <td>
+                  {% if ref.opinion_jefe.puesto == 1 %}
+                    {{ref.opinion_jefe.puesto}}
+                  {% else %}
+                    NO PROPORCIONÓ
+                  {% endif %}
+                </td>
               </tr>
             </table>
           </td>
