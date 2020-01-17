@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re 
 from django.shortcuts import HttpResponse, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -14,6 +15,14 @@ from app.investigacion.models import Investigacion
 from app.agente.models import AgenteInfo
 import json
 import datetime
+
+def is_email_valid(email):  
+	regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+	if(re.search(regex,email)):  
+		return True
+
+	return False
+		
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -51,7 +60,7 @@ def nuevo(request):
 	page = 'agentes'
 	title = 'Crear nuevo agente'
 	msg_class = 'alert alert-danger'
-	username = password = first_name = last_name = email = telefono = ''
+	username = password = first_name = last_name = telefono = ''
 	state = []
 	user = ''
 	if request.POST:
@@ -59,30 +68,25 @@ def nuevo(request):
 		password = request.POST.get('password', '')
 		first_name = request.POST.get('first_name', '')
 		last_name = request.POST.get('last_name', '')
-		email = request.POST.get('email', '')
 		telefono = request.POST.get('telefono', '')
-		if username == '' or password == '' or first_name == '' or last_name == '' or email == '':
+		if not is_email_valid(username) or password == '' or first_name == '' or last_name == '':
 			state.append('Favor de llenar los campos marcados con rojo')
 			required_fields = True
 		else:
-			users_with_name_count = User.objects.filter(username=username).count()
-			users_with_email_count = User.objects.filter(email=email).count()
+			is_username_taken = User.objects.filter(username=username).count()
 
-			if not users_with_name_count and not users_with_email_count:
-				user = User(username=username, first_name=first_name, last_name=last_name, email=email)
+			if not is_username_taken:
+				user = User(username=username, first_name=first_name, last_name=last_name, email=username)
 				user.set_password(password)
 				user.is_staff = True
 				user.save()
-				AgenteInfo(agente=user,telefono=telefono).save()
+				AgenteInfo(agente=user, telefono=telefono).save()
 				b = Bitacora(action='crear-agente: ' + unicode(user), user=request.user)
 				b.save()
 				return HttpResponseRedirect('/agentes/exito')
 			else:
 				user_exists = True
-				if users_with_name_count:
-					state.append('Este usuario ya está registrado, utilizar otro.')
-				if users_with_email_count:
-					state.append('Este email ya está registrado, utilizar otro.')
+				state.append('Este usuario ya está registrado, utilizar otro.')
 				
 	return render_to_response('sections/agente/form.html', locals(), context_instance=RequestContext(request))
 
@@ -109,7 +113,6 @@ def editar(request, user_id):
 	username = user.username
 	first_name = user.first_name
 	last_name = user.last_name
-	email = user.email
 	telefono = agente_info.telefono
 	enable_delete_agente = True
 	# este el usuario mint admin
@@ -120,20 +123,18 @@ def editar(request, user_id):
 		password = request.POST.get('password', '')
 		first_name = request.POST.get('first_name', '')
 		last_name = request.POST.get('last_name', '')
-		email = request.POST.get('email', '')
 		telefono = request.POST.get('telefono', '')
-		if username == '' or first_name == '' or last_name == '' or email == '':
+		if not is_email_valid(username) or first_name == '' or last_name == '':
 			state.append('Favor de llenar los campos marcados con rojo')
 			required_fields = True
 		else:
-			users_with_name_count = User.objects.filter(username=username).exclude(id=user_id).count()
-			users_with_email_count = User.objects.filter(email=email).exclude(id=user_id).count()
+			is_username_taken = User.objects.filter(username=username).exclude(id=user_id).count()
 
-			if not users_with_name_count and not users_with_email_count:
+			if not is_username_taken:
 				user.username = username
+				user.email = username
 				user.first_name = first_name
 				user.last_name = last_name
-				user.email = email
 				if len(password):
 					user.set_password(password)
 				user.save()
@@ -146,10 +147,7 @@ def editar(request, user_id):
 				return HttpResponseRedirect('/agentes/exito')
 			else:
 				user_exists = True
-				if users_with_name_count:
-					state.append('Este usuario ya está registrado, utilizar otro.')
-				if users_with_email_count:
-					state.append('Este email ya está registrado, utilizar otro.')
+				state.append('Este usuario ya está registrado, utilizar otro.')
 			
 	return render_to_response('sections/agente/form.html', locals(), context_instance=RequestContext(request))
 
