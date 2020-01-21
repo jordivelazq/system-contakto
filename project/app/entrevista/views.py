@@ -120,9 +120,9 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	#DATOS GENERALES
 	if seccion_entrevista == 'datos-generales':
 		telefonos = EntrevistaTelefono.objects.filter(persona=candidato)
-		direccion = EntrevistaDireccion.objects.get(persona=candidato)
-		origen = EntrevistaOrigen.objects.get(persona=candidato)
-		licencia = EntrevistaLicencia.objects.get(persona=candidato)
+		direccion = EntrevistaDireccion.objects.get(persona=candidato) if EntrevistaDireccion.objects.filter(persona=candidato).count() else None
+		origen = EntrevistaOrigen.objects.get(persona=candidato) if EntrevistaOrigen.objects.filter(persona=candidato).count() else None
+		licencia = EntrevistaLicencia.objects.get(persona=candidato) if EntrevistaLicencia.objects.filter(persona=candidato).count() else None
 
 		TelefonoFormSet = modelformset_factory(EntrevistaTelefono, extra=0, exclude=('persona', 'categoria',))
 		PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
