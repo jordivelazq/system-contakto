@@ -74,7 +74,7 @@ class ControllerPersona(object):
 			candidato.email = datos_generales['email']
 			candidato.edad = datos_generales['edad']
 			candidato.rfc = datos_generales['rfc']
-			candidato.curp = datos_generales['curp']
+			candidato.curp = datos_generales['curp'].strip()
 			candidato.ife = datos_generales['ife']
 			candidato.pasaporte = datos_generales['pasaporte']
 			candidato.nss = datos_generales['nss']

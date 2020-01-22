@@ -69,7 +69,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			return render_to_response('sections/entrevista/blank_form.html', locals(), context_instance=RequestContext(request))
 	else:
 		tiene_entrevista = True
-		candidato = investigacion.entrevistapersona_set.all()[0]
+		candidato = investigacion.entrevistapersona_set.all().order_by('-id')[0]
 
 	data_seccion = {	'datos-generales'	: { 
 					'titulo' 	: 'Datos Generales',
@@ -120,14 +120,14 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	#DATOS GENERALES
 	if seccion_entrevista == 'datos-generales':
 		telefonos = EntrevistaTelefono.objects.filter(persona=candidato)
-		direccion = EntrevistaDireccion.objects.get(persona=candidato) if EntrevistaDireccion.objects.filter(persona=candidato).count() else None
-		origen = EntrevistaOrigen.objects.get(persona=candidato) if EntrevistaOrigen.objects.filter(persona=candidato).count() else None
-		licencia = EntrevistaLicencia.objects.get(persona=candidato) if EntrevistaLicencia.objects.filter(persona=candidato).count() else None
+		direccion = EntrevistaDireccion.objects.get(persona=candidato)
+		origen = EntrevistaOrigen.objects.get(persona=candidato)
+		licencia = EntrevistaLicencia.objects.get(persona=candidato)
 
 		TelefonoFormSet = modelformset_factory(EntrevistaTelefono, extra=0, exclude=('persona', 'categoria',))
 		PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
 
-		if request.method == 'POST' and not is_usuario_contacto:	
+		if request.method == 'POST' and not is_usuario_contacto:
 			candidato_form = EntrevistaPersonaForm(request.POST, instance=candidato) # A form bound to the POST data
 			tel_formset = TelefonoFormSet(request.POST, prefix='telefonos')
 			direccion_form = EntrevistaDireccionForm(request.POST, instance=direccion)
@@ -447,7 +447,7 @@ def cargar_entrevista(request, investigacion_id):
 		if form.is_valid():
 			ext = os.path.splitext(str(request.FILES['record']))[1]
 			pre_candidato = PreCandidato()
-			if ext not in settings.EXT_RESEARCH_WHITELIST:
+			if ext.lower() not in settings.EXT_RESEARCH_WHITELIST:
 				pre_candidato.errors.append('Debes subir un archivo de Excel (xls o xlsx)')
 			else:
 				file_instance = EntrevistaFile(record=request.FILES['record'])
