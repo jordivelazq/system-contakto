@@ -97,33 +97,6 @@ def preview(request):
 	return render_to_response('sections/reportes/emailtemplate.html', locals(), context_instance=RequestContext(request))
 
 @csrf_exempt
-def exportar_pdf(request):
-	filtros_json = request.session.get('filtros_search_reportes', None)
-	investigaciones = get_investigaciones_list(filtros_json)
-
-	# Create the HttpResponse object with the appropriate PDF headers.
-	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'attachment; filename="reporte_investigaciones_cliente.pdf"'
-
-	# Create the PDF object, using the response object as its "file."
-	p = canvas.Canvas(response)
-
-	# Draw things on the PDF. Here's where the PDF generation happens.
-	# See the ReportLab documentation for the full list of functionality.
-	
-	content = ''
-	c = 1
-	for i in investigaciones:
-		content = unicode(i.compania.nombre)+' / '+unicode(i.candidato.nombre)+' / '+unicode(i.puesto)
-		p.drawString(80, 750-c, content)
-		c=c+15
-
-	# Close the PDF object cleanly, and we're done.
-	p.showPage()
-	p.save()
-	return response
-
-@csrf_exempt
 def search_reportes(request):
 	response = { 'status' : False}
 	if request.method == 'POST' and request.is_ajax():
