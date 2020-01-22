@@ -31,6 +31,8 @@
 									<th>Empresa</th>
 									<th>Fecha de Ingreso</th>
 									<th>Fecha de Egreso</th>
+									<th>Puesto</th>
+									<th>Motivo de baja</th>
 									{% if request.user.is_staff %}
 									<th class="text-center">Terminada</th>
 									<th class="text-center">Visible en Estatus</th>
@@ -47,6 +49,8 @@
 										</td>
 										<td>{{t.periodo_alta}}</td>
 										<td>{{t.periodo_baja}}</td>
+										<td>{{t.puesto_inicial}}</td>
+										<td>{{t.motivo_salida|default:''}}</td>
 										{% if request.user.is_staff %}
 											<td class="text-center"><span class="glyphicon glyphicon-{% if t.terminada %}ok{% else %}remove{% endif %}"></span></td>
 											<td class="text-center"><span class="glyphicon glyphicon-{% if t.visible_en_status %}ok{% else %}remove{% endif %}"></span></td>
