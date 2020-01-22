@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
 	url(r'^/$', 'app.reportes.views.panel', name='panel_reportes'),
+	url(r'^/preview$', 'app.reportes.views.preview', name='preview_reportes'),
 	url(r'^exito/$', 'app.reportes.views.panel', name='panel_reportes'),
 	url(r'^error/$', 'app.reportes.views.panel', name='panel_reportes'),
 

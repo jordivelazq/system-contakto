@@ -86,16 +86,15 @@ def panel(request):
 			}
 		recientes = True
 
-	is_agent = request.user.is_staff and not request.user.is_superuser
-	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None)
-
-	for i in investigaciones:
-		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
-		i.estado = i.candidato.direccion_set.all()[0].estado
-		i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
-		i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
+	investigaciones = get_investigaciones_extended(request)
 			
 	return render_to_response('sections/reportes/panel.html', locals(), context_instance=RequestContext(request))
+
+login_required(login_url='/login', redirect_field_name=None)
+def preview(request):
+	investigaciones = get_investigaciones_extended(request)
+
+	return render_to_response('sections/reportes/emailtemplate.html', locals(), context_instance=RequestContext(request))
 
 @csrf_exempt
 def exportar_pdf(request):
@@ -209,4 +208,19 @@ def get_investigaciones_list(filtros_json, agent_id):
 		recientes = True
 		investigaciones = investigaciones.order_by('fecha_recibido')[:20]
 
+	return investigaciones
+
+def get_investigaciones_extended(request):
+	filtros_json = request.session.get('filtros_search_reportes', None)
+
+	is_agent = request.user.is_staff and not request.user.is_superuser
+
+	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None)
+
+	for i in investigaciones:
+		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
+		i.estado = i.candidato.direccion_set.all()[0].estado
+		i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
+		i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
+	
 	return investigaciones

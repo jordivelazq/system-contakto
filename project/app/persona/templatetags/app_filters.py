@@ -59,3 +59,15 @@ def print_money(value):
     return '${:,.2f}'.format(float(value))
   except:
     return value
+
+@register.filter(name='show_entrevista')
+def show_entrevista(investigaciones):
+  if len(investigaciones) == 1 and investigaciones[0].entrevista.autorizada == 1:
+    return True
+  
+  atleast_one_entrevista = False
+  for inv in investigaciones:
+    if inv.entrevista.autorizada == 1:
+      atleast_one_entrevista = True
+
+  return atleast_one_entrevista
