@@ -48,8 +48,10 @@
 			<td style="border: 1px solid black; padding: 5px;">{{ inv.puesto }}</td>
 			<td style="border: 1px solid black; padding: 5px;">
 				{{ inv.ciudad }}
-					{% if inv.estado %}
-					, {{ inv.estado }}
+				{% if inv.ciudad and inv.estado %}
+					,
+				{% endif %}
+				{{ inv.estado }}
 				{% endif %}
 			</td>
 
