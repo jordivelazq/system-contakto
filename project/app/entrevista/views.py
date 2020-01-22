@@ -435,7 +435,7 @@ def cargar_entrevista(request, investigacion_id):
 	investigacion = Investigacion.objects.get(id=investigacion_id)
 	if investigacion.entrevistapersona_set.all().count():
 		tiene_entrevista = True
-		entrevista_actual = investigacion.entrevistapersona_set.all()[0]
+		entrevista_actual = investigacion.entrevistapersona_set.all().order_by('-id')[0]
 	
 	if request.method == 'POST':
 
