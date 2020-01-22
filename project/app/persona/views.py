@@ -866,6 +866,8 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 	referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=trayectoria_id).count() if trayectoria_id else 3
 	referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
 
+	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
+
 	if request.method == 'POST':
 		trayectoria_comercial_form = TrayectoriaComercialForm(request.POST, instance=trayectoria_instance)
 		trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
@@ -880,10 +882,11 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 				for referencia in trayectoria_comercial_referencia:
 					referencia.trayectoria_comercial = trayectoria_comercial
 					referencia.save()
+				
+				b = Bitacora(action='trayectoria_comercial: ' + unicode(trayectoria_id), user=request.user)
+				b.save()
 
-			b = Bitacora(action='trayectoria_comercial: ' + unicode(trayectoria_comercial), user=request.user)
-			b.save()
-			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')
+				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
 	else:
 		trayectoria_comercial_form = TrayectoriaComercialForm(instance=trayectoria_instance)
 		
@@ -899,6 +902,20 @@ def trayectoria_comercial_borrar(request, investigacion_id, trayectoria_id):
 	trayectoria.delete()
 
 	b = Bitacora(action='trayectoria_comercial-borrar: ' + str(trayectoria_id), user=request.user)
+	b.save()
+
+	return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')
+
+@login_required(login_url='/login', redirect_field_name=None)
+def trayectoria_comercial_referencia_borrar(request, investigacion_id, trayectoria_id, referencia_id):
+	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
+	if is_usuario_contacto:
+		return HttpResponseRedirect('/')
+
+	trayectoria_comercial_referencia = TrayectoriaComercialReferencia.objects.get(id=referencia_id)
+	trayectoria_comercial_referencia.delete()
+
+	b = Bitacora(action='trayectoria_comercial_referencia-borrar: ' + str(referencia_id), user=request.user)
 	b.save()
 
 	return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')

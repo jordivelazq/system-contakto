@@ -103,7 +103,7 @@ $(document).ready(function () {
     });
 
   $('.btn_eliminar').click(function () {
-    if (confirm('Seguro que deseas desactivar?')) {
+    if (confirm('Seguro que deseas eliminar?')) {
       return true;
     }
     return false;

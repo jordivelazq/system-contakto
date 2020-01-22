@@ -11,7 +11,7 @@
 		<div class="panel panel-default">
 
 			<div class="panel-heading">
-				<h3 class="panel-title">Nueva Referencia Comercial</h3>
+				<h3 class="panel-title">Referencia Comercial</h3>
 			</div>
 
 			<div class="panel-body">
@@ -35,22 +35,32 @@
 							{% for form in trayectoria_comercial_referencia_formset %}
 								<h4>Referencia {{ forloop.counter }}</h4>
 								<div class="row">
-								{% for field in form %}
-									<div class="col-md-6">
-										{% if field.name != 'id' %}
-											{{field.label_tag}}
-										{% endif %}
-										{{field}}
-										{{field.errors}}
-									</div>
-								{% endfor %}
+									{% for field in form %}
+										<div class="col-md-6">
+											{% if field.name != 'id' %}
+												{{field.label_tag}}
+											{% endif %}
+											{{field}}
+											{{field.errors}}
+										</div>
+									{% endfor %}
 								</div>
-								<br />
+
+								{% if not is_usuario_contacto and form.instance.id %}
+									<div class="row">
+										<div class="col-md-12">
+											<br />
+											<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/comercial/{{trayectoria_id}}/referencia/{{form.instance.id}}/borrar" class="btn btn-danger btn_eliminar pull-right">Eliminar</a>
+										</div>
+									</div>
+								{% endif %}
+								<hr />
 							{% endfor %}
 						</div>
 					</div>
 
 					<div class="row">
+						<br />
 						{% if trayectoria_id and request.user.is_superuser %}
 						<div class="col-md-2 col-md-offset-8">
 							<a href="/candidato/investigacion/{{investigacion_id}}/trayectoria/comercial/{{trayectoria_id}}/borrar" class="btn btn-danger form-control btn_eliminar">Eliminar</a>
@@ -60,6 +70,7 @@
 							<button type="submit" class="btn btn-primary form-control">Guardar</button>
 						</div>
 					</div>
+
 				</form>
 			</div>
 		</div>
