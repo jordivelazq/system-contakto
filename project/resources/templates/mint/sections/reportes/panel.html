@@ -119,12 +119,18 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 										<td>{{t.periodo_alta|default:""}}-{{t.periodo_baja|default:""}}</td>
 									</tr>
 									{% endif %}
-									{% if t.motivo_salida %}
+									
 									<tr>
 										<td>Motivo de baja</td>
-										<td>{{t.motivo_salida}}</td>
+										<td>
+											{% if t.datosgenerales and t.datosgenerales.motivo_salida %}
+											{{t.datosgenerales.motivo_salida}}
+											{% else %}
+												NO PROPORCIONÓ
+											{% endif %}
+										</td>
 									</tr>
-									{% endif %}
+
 									{% if t.observaciones_generales %}
 									<tr>
 										<td>Observaciones</td>

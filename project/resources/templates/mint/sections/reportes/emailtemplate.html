@@ -73,8 +73,8 @@
 						<tr>
 							<td style="border: 1px solid black; padding: 5px; width: 100px;"">Motivo de baja</td>
 							<td style="border: 1px solid black; padding: 5px;">
-								{% if t.motivo_salida %}
-									{{t.motivo_salida}}
+								{% if t.datosgenerales and t.datosgenerales.motivo_salida %}
+									{{t.datosgenerales.motivo_salida}}
 								{% else %}
 									no proporcionó
 								{% endif %}
