@@ -50,7 +50,7 @@
 										<td>{{t.periodo_alta}}</td>
 										<td>{{t.periodo_baja}}</td>
 										<td>{{t.puesto_inicial}}</td>
-										<td>{{t.motivo_salida|default:''}}</td>
+										<td>{{t.datosgenerales.motivo_salida|default:''}}</td>
 										{% if request.user.is_staff %}
 											<td class="text-center"><span class="glyphicon glyphicon-{% if t.terminada %}ok{% else %}remove{% endif %}"></span></td>
 											<td class="text-center"><span class="glyphicon glyphicon-{% if t.visible_en_status %}ok{% else %}remove{% endif %}"></span></td>

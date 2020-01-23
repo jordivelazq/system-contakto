@@ -32,7 +32,6 @@ class ServiceReporte:
 	def getDestinatarios(self,request,contacto_id):
 		destinatarios = []
 		contacto_email = Contacto.objects.filter(id=contacto_id)[0].email if contacto_id else ''
-		admin_email = User.objects.filter(is_superuser=True)[0].email
 		
 		#Agregar email de contacto
 		if len(contacto_email):
@@ -42,11 +41,8 @@ class ServiceReporte:
 			agente_email = request.user.email
 			destinatarios.append(agente_email)
 		
-		# se pidio agregar este email tambien
 		destinatarios.append('estatus@contakto.mx')
-
-		#Agregar email de admin (irene@contakto.mx)
-		destinatarios.append(admin_email)
+		destinatarios.append('estudios@contakto.mx')
 
 		return destinatarios
 	
