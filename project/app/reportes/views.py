@@ -54,7 +54,7 @@ def panel(request):
 	if filtros_json != None:
 		if (not len(filtros_json['compania_id']) 
 		and not len(filtros_json['compania_nombre']) 
-		and not len(filtros_json['contacto_id']) 
+		and not len(filtros_json['contactos_selected']) 
 		and not len(filtros_json['status_id'])
 		and ('status_laboral_id' not in filtros_json or not len(filtros_json['status_laboral_id'])) 
 		and not len(filtros_json['fecha_inicio']) 
@@ -62,10 +62,9 @@ def panel(request):
 		and not len(filtros_json['agente_id'])):
 			recientes = True
 
-		if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
-			contacto_id = filtros_json['contacto_id']
-			contacto = Contacto.objects.get(id=contacto_id)
-			dest_list = service_reporte.getDestinatarios(request,contacto_id)
+		if 'contactos_selected' in filtros_json and len(filtros_json['contactos_selected']):
+			contactos_selected = filtros_json['contactos_selected'].split(',')
+			dest_list = service_reporte.getDestinatarios(request, contactos_selected)
 
 		if len(filtros_json['compania_id']):
 			compania_id = filtros_json['compania_id']
@@ -78,7 +77,7 @@ def panel(request):
 				"nombre": "",
 				"compania_id": "",
 				"compania_nombre": "",
-				"contacto_id": str(contact.id),
+				"contactos_selected": str(contact.id),
 				"status_id": "",
 				"status_laboral_id": "",
 				"fecha_inicio": "",
@@ -103,7 +102,7 @@ def search_reportes(request):
 		nombre = request.POST.get('nombre', '')
 		compania_id = request.POST.get('compania_id', '')
 		compania_nombre = request.POST.get('compania_nombre', '')
-		contacto_id = request.POST.get('contacto_id', '')
+		contactos_selected = request.POST.get('contactos_selected', '')
 		status_id = request.POST.get('status_id', '')
 		status_laboral_id = request.POST.get('status_laboral_id', '')
 		fecha_inicio = request.POST.get('fecha_inicio', '')
@@ -114,7 +113,7 @@ def search_reportes(request):
 			'nombre': nombre, 
 			'compania_id':compania_id, 
 			'compania_nombre':compania_nombre, 
-			'contacto_id':contacto_id, 
+			'contactos_selected':contactos_selected, 
 			'status_id':status_id, 
 			'status_laboral_id': status_laboral_id,
 			'fecha_inicio':fecha_inicio,
@@ -143,7 +142,7 @@ def get_investigaciones_list(filtros_json, agent_id):
 			and not len(filtros_json['compania_id']) 
 			and not len(filtros_json['compania_nombre']) 
 			and not len(filtros_json['agente_id']) 
-			and not len(filtros_json['contacto_id']) 
+			and not len(filtros_json['contactos_selected']) 
 			and not len(filtros_json['status_id']) 
 			and ('status_laboral_id' not in filtros_json or not len(filtros_json['status_laboral_id']))
 			and not len(filtros_json['fecha_inicio']) 
@@ -157,8 +156,9 @@ def get_investigaciones_list(filtros_json, agent_id):
 			if len(filtros_json['compania_id']):
 				investigaciones = investigaciones.filter(compania__id=filtros_json['compania_id'])
 
-			if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
-				investigaciones = investigaciones.filter(contacto__id=filtros_json['contacto_id'])
+			if 'contactos_selected' in filtros_json and len(filtros_json['contactos_selected']):
+				contacto_ids = filtros_json['contactos_selected'].split(',')
+				investigaciones = investigaciones.filter(contacto__id__in=contacto_ids)
 
 			if len(filtros_json['status_id']):
 				if filtros_json['status_id'] != '3':

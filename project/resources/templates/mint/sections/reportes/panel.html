@@ -50,6 +50,12 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				</div>
 				{% endif %}
 	    <div class="table-responsive">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Investigaciones encontradas: {{investigaciones|length}}</h3>
+				</div>
+			</div>
 			{% if investigaciones|length %}
 			<table class="table-estatus table table-striped uppercase">
 				<thead>

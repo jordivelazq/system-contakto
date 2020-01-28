@@ -19,9 +19,8 @@
 					</div>
 				</div>
 				<div class="form-group" id="panel_empresa_contacto">
-					<select class="form-control" id="empresa_contacto" name="empresa_contacto" ng-model="empresa_contacto" ng-change="isSameContact()">
-						<option value="">Seleccionar Contacto</option>
-						<option ng-selected="{[{row.pk == empresa_contacto}]}" 
+					<select class="form-control" id="contactos_selected" name="contactos_selected" ng-model="contactos_selected" multiple size="{[{ empresa_contactos.length || 1 }]}">
+						<option ng-selected="{[{contactos_selected.split(',').includes(row.pk.toString())}]}" data-test="'{[{row.pk}]}''"
 							ng-repeat="row in empresa_contactos" value="{[{row.pk}]}">
 							{[{row.fields.nombre}]}
 						</option>
@@ -81,7 +80,7 @@
 										'compania_id':'{{filtros_json.compania_id|safe}}',
 										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
 										'agente_id':'{{filtros_json.agente_id|safe}}',
-										'contacto_id':'{{filtros_json.contacto_id|safe}}',
+										'contactos_selected':'{{filtros_json.contactos_selected|safe}}',
 										'status_id':'{{filtros_json.status_id|safe}}',
 										'status_laboral_id':'{{filtros_json.status_laboral_id|safe}}',
 										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',

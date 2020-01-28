@@ -29,13 +29,15 @@ class ServiceReporte:
 		html_content = htmly.render(d)
 		return html_content
 
-	def getDestinatarios(self,request,contacto_id):
+	def getDestinatarios(self, request, contactos_id):
 		destinatarios = []
-		contacto_email = Contacto.objects.filter(id=contacto_id)[0].email if contacto_id else ''
+		contactos_email = Contacto.objects.filter(id__in=contactos_id) if contactos_id else ''
 		
 		#Agregar email de contacto
-		if len(contacto_email):
-			destinatarios.append(contacto_email)
+		if len(contactos_email):
+			for contacto in contactos_email:
+				destinatarios.append(contacto.email)
+
 		#Si no es sesión de admin, agregar el email del agente en sesión.
 		if not request.user.is_superuser:
 			agente_email = request.user.email

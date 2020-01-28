@@ -10,5 +10,5 @@ from app.util.email import EmailHandler
 ''' ----------------- EMPRESA -----------------'''
 
 def empresa_get_contactos(request, empresa_id):
-	data = serializers.serialize("json", Contacto.objects.filter(compania_id=empresa_id, status=True))
+	data = serializers.serialize("json", Contacto.objects.filter(compania_id=empresa_id, status=True).order_by('nombre'))
 	return HttpResponse(data, mimetype='application/json')

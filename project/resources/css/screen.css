@@ -248,24 +248,16 @@ body {
 
 /* ----------------- REPORTES ----------------- */
 /* line 180, ../sass/screen.sass */
-#panel_enviar_reporte {
-  display: hide;
-  position: absolute;
-  right: 0px;
-  top: 30px;
-}
-
-/* line 186, ../sass/screen.sass */
 #panel_empresa_contacto {
   position: relative;
 }
 
-/* line 189, ../sass/screen.sass */
+/* line 183, ../sass/screen.sass */
 .wide-th {
   min-width: 350px;
 }
 
-/* line 192, ../sass/screen.sass */
+/* line 186, ../sass/screen.sass */
 .fixed-submenu {
   padding: 0 12px;
   position: fixed;
@@ -275,73 +267,73 @@ body {
   top: 51px;
   z-index: 3;
 }
-/* line 201, ../sass/screen.sass */
+/* line 195, ../sass/screen.sass */
 .fixed-submenu .header {
   display: flex;
   justify-content: space-between;
 }
-/* line 205, ../sass/screen.sass */
+/* line 199, ../sass/screen.sass */
 .fixed-submenu .cta {
   text-align: right;
 }
-/* line 208, ../sass/screen.sass */
+/* line 202, ../sass/screen.sass */
 .fixed-submenu .cta > * {
   min-width: 200px;
 }
-/* line 210, ../sass/screen.sass */
+/* line 204, ../sass/screen.sass */
 .fixed-submenu .cta a {
   margin-right: 20px;
 }
 
-/* line 213, ../sass/screen.sass */
+/* line 207, ../sass/screen.sass */
 .adjusted-fixed-submenu {
   margin-top: 150px;
 }
 @media (max-width: 1190px) {
-  /* line 213, ../sass/screen.sass */
+  /* line 207, ../sass/screen.sass */
   .adjusted-fixed-submenu {
     margin-top: 200px;
   }
 }
 
-/* line 219, ../sass/screen.sass */
+/* line 213, ../sass/screen.sass */
 .candidato-crear {
   margin-top: 101px;
 }
 
-/* line 222, ../sass/screen.sass */
+/* line 216, ../sass/screen.sass */
 .col-red {
   background-color: indianred;
 }
 
-/* line 225, ../sass/screen.sass */
+/* line 219, ../sass/screen.sass */
 .col-gray {
   background-color: dimgray;
 }
 
-/* line 228, ../sass/screen.sass */
+/* line 222, ../sass/screen.sass */
 .col-blue {
   background-color: lightsteelblue;
 }
 
-/* line 232, ../sass/screen.sass */
+/* line 226, ../sass/screen.sass */
 .table-estatus thead {
   color: white;
 }
-/* line 235, ../sass/screen.sass */
+/* line 229, ../sass/screen.sass */
 .table-estatus th, .table-estatus td {
   text-align: center;
   padding: 6px;
   font-size: 12px;
   font-weight: bold;
 }
-/* line 241, ../sass/screen.sass */
+/* line 235, ../sass/screen.sass */
 .table-estatus ul {
   list-style-type: none;
   text-align: left;
 }
 
-/* line 246, ../sass/screen.sass */
+/* line 240, ../sass/screen.sass */
 .estatus-trayectoria td {
   text-align: left;
   font-size: 0.8em;
@@ -349,25 +341,30 @@ body {
   font-weight: normal;
 }
 
-/* line 253, ../sass/screen.sass */
+/* line 247, ../sass/screen.sass */
 .panel-enviar-correo textarea, .panel-enviar-correo input {
   width: 100%;
 }
 
-/* line 256, ../sass/screen.sass */
+/* line 250, ../sass/screen.sass */
 .radiobutton {
   display: flex;
   justify-content: space-between;
 }
 
-/* line 261, ../sass/screen.sass */
+/* line 255, ../sass/screen.sass */
 .form-etiquetas .etiqueta {
   display: flex;
   margin-bottom: 12px;
 }
-/* line 265, ../sass/screen.sass */
+/* line 259, ../sass/screen.sass */
 .form-etiquetas .etiqueta span {
   display: inline-block;
   width: 50px;
   margin-right: 12px;
+}
+
+/* line 265, ../sass/screen.sass */
+#contactos_selected option {
+  text-transform: uppercase;
 }

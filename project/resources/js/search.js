@@ -382,7 +382,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     $scope.candidatos = [];
     $scope.compania_id = '';
     $scope.empresa_contactos = [];
-    $scope.empresa_contacto = '';
+    $scope.contactos_selected = '';
     $scope.nombre = ''
 
     $scope.open_empresa_modal = function(){
@@ -397,7 +397,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
             'compania_id' : $scope.compania_id ? $scope.compania_id : '',
             'compania_nombre' : $scope.compania_nombre ? $scope.compania_nombre + '' : '',
             'agente_id' : $scope.agente_select ? $scope.agente_select : '',
-            'contacto_id' : $scope.empresa_contacto ? $scope.empresa_contacto + '' : '',
+            'contactos_selected' : $scope.contactos_selected ? $scope.contactos_selected + '' : '',
             'status_id' : typeof $scope.status_select ? $scope.status_select : '',
             'status_laboral_id' : typeof $scope.status_laboral_select ? $scope.status_laboral_select : '',
             'fecha_inicio' : typeof $scope.fecha_inicio !== 'undefined' ? $scope.fecha_inicio : '',
@@ -412,8 +412,8 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
         if (typeof filtros_json.compania_id !== 'undefined'){
             $scope.compania_id = filtros_json.compania_id;
         }
-        if (typeof filtros_json.contacto_id !== 'undefined'){
-            $scope.empresa_contacto = filtros_json.contacto_id;
+        if (typeof filtros_json.contactos_selected !== 'undefined'){
+            $scope.contactos_selected = filtros_json.contactos_selected;
         }
         if (typeof filtros_json.compania_nombre !== 'undefined'){
             $scope.compania_nombre = filtros_json.compania_nombre;
@@ -449,6 +449,8 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     $scope.init = function(){
         $scope.status_select = '';
         $scope.status_laboral_select = '';
+        $scope.contactos_selected = ''
+
         if (filtros_json !== ''){
             $scope.set_filtros(filtros_json);
             $scope.fecha_inicio = ($('#fecha_inicio').val());
@@ -463,7 +465,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
             $scope.compania_id = '';
             $scope.compania_nombre = '';
             $scope.agente_select = '';
-            $scope.empresa_contacto = '';
+            $scope.contactos_selected = '';
             $scope.status_select = '';
             $scope.status_laboral_select = '';
             $('#fecha_inicio').val('');
@@ -473,25 +475,14 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
 
     $scope.setEmpresaContactos = function(is_init){
         if(!is_init){
-            $scope.empresa_contacto = '';
+            $scope.contactos_selected = '';
         }        
         $('#panel_empresa_contacto').append($(ajaxloader).css({'position': 'absolute', 'top': '9px', 'right': '20px'}));
         $.get( "/api/empresa/" + $scope.compania_id + "/get_contactos", 'json').done(function( data ) {
             $('#panel_empresa_contacto').find('img').attr({'style':''}).remove();
             $scope.empresa_contactos = data;
             $scope.$apply();
-            $scope.isSameContact();
         });
-    }
-
-    $scope.isSameContact = function(){
-        $('#msg_enviar_reporte').html('').removeClass();
-        if( typeof filtros_json['contacto_id'] != 'undefined' && filtros_json['contacto_id'] == $('#empresa_contacto').val() ){
-            $('#panel_enviar_reporte').show();
-        }
-        else{
-            $('#panel_enviar_reporte').hide();
-        }
     }
 
     $scope.init();
