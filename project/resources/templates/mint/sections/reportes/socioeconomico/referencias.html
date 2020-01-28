@@ -95,7 +95,7 @@
           {% if egreso.monto %}
           <tr>
             <th>
-              {% if egreso.concepto == "otros" %}
+              {% if egreso.detalle %}
               {{egreso.detalle}}
               {% else %}
               {{egreso.concepto}}
