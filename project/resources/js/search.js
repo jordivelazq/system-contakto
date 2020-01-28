@@ -29,6 +29,7 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
             'compania_nombre' : $scope.compania_nombre,
             'agente_id' : $scope.agente_select ? $scope.agente_select : '',
             'status_id' : $scope.status_select,
+            'limit_select' : $scope.limit_select,
             'fecha_inicio' : $scope.fecha_inicio,
             'fecha_final' : $scope.fecha_final
         }
@@ -36,12 +37,14 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
 
     $scope.set_filtros = function(filtros_json){
         var defaultStatus = 3;
+        const defaultLimit = 50;
 
         $scope.search_nombre = typeof filtros_json.nombre !== 'undefined' ? filtros_json.nombre : '';
         $scope.compania_id = typeof filtros_json.compania_id !== 'undefined' ? filtros_json.compania_id : '';
         $scope.compania_nombre = typeof filtros_json.compania_nombre !== 'undefined' ? filtros_json.compania_nombre : '';
         $scope.agente_select = typeof filtros_json.agente_id !== 'undefined' ? filtros_json.agente_id : '';
         $scope.status_select = typeof filtros_json.status_id !== 'undefined' ? filtros_json.status_id : defaultStatus;
+        $scope.limit_select = typeof filtros_json.limit_select !== 'undefined' ? filtros_json.limit_select : defaultLimit;
         $scope.fecha_inicio = '';
         $scope.fecha_final = '';
         if (typeof filtros_json.fecha_inicio !== 'undefined'){
@@ -99,6 +102,7 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
         $scope.compania_nombre = '';                  
         $scope.agente_select = '';
         $scope.status_select = '0';
+        $scope.limit_select = 50;
         $scope.fecha_inicio = '';
         $scope.fecha_final = '';
         $('#fecha_inicio').val('');

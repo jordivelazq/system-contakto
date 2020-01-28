@@ -22,7 +22,7 @@ class PersonaService:
 	fecha_final = ''
 	is_superuser = is_staff = is_usuario_contacto = False
 	user = ''
-	num_per_list = 50
+	limit_select = 50
 
 	def __init__(self, request):
 		'''
@@ -32,6 +32,7 @@ class PersonaService:
 		self.compania_nombre = request.POST.get('compania_nombre', '')		
 		self.agente_id = request.POST.get('agente_id', '')
 		self.status_id = request.POST.get('status_id', '')
+		self.limit_select = request.POST.get('limit_select', 50)
 		self.fecha_inicio = request.POST.get('fecha_inicio', '')
 		self.fecha_final = request.POST.get('fecha_final', '')
 		if request.user.is_superuser:
@@ -52,6 +53,7 @@ class PersonaService:
 			'compania_nombre': self.compania_nombre,			
 			'agente_id': self.agente_id, 
 			'status_id': self.status_id, 
+			'limit_select': self.limit_select,
 			'fecha_inicio': self.fecha_inicio,
 			'fecha_final': self.fecha_final
 		}
@@ -87,8 +89,8 @@ class PersonaService:
 				candidatos = candidatos.filter(Q(status_general=self.status_id))
 			elif self.status_id == '3':
 				candidatos = candidatos.filter(Q(status_general=0)|Q(status_general=1))
-		
-		candidatos = candidatos.order_by('fecha_recibido')[:self.num_per_list]
+
+		candidatos = candidatos.order_by('fecha_recibido')[:self.limit_select]
 
 		for c in candidatos:
 			response.append({
