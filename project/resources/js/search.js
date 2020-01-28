@@ -462,16 +462,17 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     };
 
     $scope.limpiar_filtros = function(){
-            $scope.compania_id = '';
-            $scope.compania_nombre = '';
-            $scope.agente_select = '';
-            $scope.contactos_selected = '';
-            $scope.status_select = '';
-            $scope.status_laboral_select = '';
-            $('#fecha_inicio').val('');
-            $('#fecha_final').val('');
-            $.post("/estatus/reset_filtros/");
-        };
+        $scope.nombre = ''
+        $scope.compania_id = '';
+        $scope.compania_nombre = '';
+        $scope.agente_select = '';
+        $scope.contactos_selected = '';
+        $scope.status_select = '';
+        $scope.status_laboral_select = '';
+        $('#fecha_inicio').val('');
+        $('#fecha_final').val('');
+        $.post("/estatus/reset_filtros/");
+    };
 
     $scope.setEmpresaContactos = function(is_init){
         if(!is_init){

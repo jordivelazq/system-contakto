@@ -148,7 +148,7 @@ def get_investigaciones_list(filtros_json, agent_id):
 			and not len(filtros_json['fecha_inicio']) 
 			and not len(filtros_json['fecha_final'])):
 			recientes = True
-			investigaciones = investigaciones.order_by('fecha_recibido')[:50]
+			investigaciones = investigaciones.order_by('fecha_recibido')
 
 		else:
 			if len(filtros_json['nombre']):
@@ -179,7 +179,9 @@ def get_investigaciones_list(filtros_json, agent_id):
 
 	else:
 		recientes = True
-		investigaciones = investigaciones.order_by('fecha_recibido')[:20]
+		investigaciones = investigaciones.order_by('fecha_recibido')
+	
+	investigaciones = investigaciones[:50]
 
 	return investigaciones
 
