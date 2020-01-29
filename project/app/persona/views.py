@@ -242,6 +242,12 @@ def editar(request, investigacion_id):
 	#Si es usuario contacto, verificar que la investigación le corresponda
 	if is_usuario_contacto and not Investigacion.objects.filter(id=investigacion_id, contacto__email=request.user.email).count():
 		return HttpResponseRedirect('/')
+	
+	investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=investigacion_id)
+
+	if not investigacion.status_active and not request.user.is_superuser:
+		return HttpResponseRedirect('/')
+
 	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
@@ -255,7 +261,6 @@ def editar(request, investigacion_id):
 	seccion = ''
 	status = ''
 	msg = []
-	investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=investigacion_id)
 	sucursales = investigacion.compania.sucursales_set.all()
 	agente_id = investigacion.agente.id
 	origen = investigacion.candidato.origen_set.all()
