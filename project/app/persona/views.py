@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
@@ -549,7 +548,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	page = 'candidatos'
 	seccion = 'trayectoria'
 	status = ''
-	msg = ''
+	msg = []
 	investigacion = Investigacion.objects.get(id=investigacion_id)
 	trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(pk=trayectoria_id)
 	evaluacion = trayectoria_empresa.evaluacion_set.all()
@@ -617,14 +616,21 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 			else:
 				exito = False
 
-		############## Opinion (RH) ##############		
+		############## Opinion (RH) ##############
 		formOpinionRH = OpinionAltaForma(request.POST, prefix='opinion_rh', instance=opinion_rh[0]) if opinion_rh else OpinionAltaForma(request.POST, prefix='opinion_rh')
 		if has_info_trayectoria(request.POST, prefix='opinion_rh', trayectoria=trayectoria_empresa):
 			if formOpinionRH.is_valid():
 				opinion_rh = formOpinionRH.save(commit=False)
 				opinion_rh.trayectoriaLaboral = trayectoria_empresa
 				opinion_rh.categoria = 2
-				opinion_rh.save()
+				try:
+					opinion_rh.save()
+				except Exception, error:
+					msg.append({
+						"text": "Opinion RH: " + str(error),
+						"status": "danger"
+					})
+					exito = False	
 			else:
 				exito = False
 

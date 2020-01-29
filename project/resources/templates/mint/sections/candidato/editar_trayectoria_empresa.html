@@ -5,21 +5,6 @@
 {% endblock %}
 
 {% block site_wrapper %}
-{% autoescape off %}
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				{% if msg %}
-					<div id="msg" class="alert alert-{{status}}">
-						{% for m in msg %}
-							- {{m}} <br />
-						{% endfor %}
-					</div>
-				{% else %}
-					<div id="msg"></div>
-				{% endif %}
-			</div>
-		</div>	
-{% endautoescape %}
 
 {% include 'sections/candidato/seccion/candidato_header.html' %}
 
@@ -27,6 +12,22 @@
 
 	<form role="form" action="#" method="post" id="form_trayectoria_editar" class="adjusted-fixed-submenu">
 		{% csrf_token %}	
+
+		{% autoescape off %}
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						{% if msg %}
+							{% for m in msg %}
+								<div id="msg" class="alert alert-{{m.status}}">
+									{{m.text}}
+								</div>
+							{% endfor %}
+						{% else %}
+							<div id="msg"></div>
+						{% endif %}
+					</div>
+				</div>	
+		{% endautoescape %}
 
 		{% if request.user.is_staff or is_user_captura %}
 		<div class="row">
