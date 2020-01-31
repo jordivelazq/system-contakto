@@ -153,7 +153,11 @@
 						<label>Estatus Final:</label>			
 					</div>
 					<div class="col-md-2">
-						{{formaInvestigacion.status_general}}			
+						{% if investigacion.status_general != "2" or request.user.is_superuser %}
+							{{formaInvestigacion.status_general}}
+						{% else %}
+							{{investigacion.print_status_general}}
+						{% endif %}
 					</div>
 				</div>
 				<br />

@@ -86,6 +86,13 @@ class Investigacion(models.Model):
 	def __unicode__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
 	
+	def print_status_general(self):
+		for status in self.STATUS_GRAL_OPCIONES:
+			if status[0] == self.status_general:
+				return status[1]
+
+		return ""
+	
 	def get_trayectorias_laborales(self, use_status=None):
 		trayectorias = self.candidato.trayectorialaboral_set.filter(status=True)
 		if use_status:
