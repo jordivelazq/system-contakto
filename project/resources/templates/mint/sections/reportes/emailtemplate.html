@@ -63,15 +63,20 @@
 							<td style="border: 1px solid black; padding: 5px; background-color: black; color: white;">{{t.compania}}</td>
 						</tr>
 
+						<tr>
+							<td style="border: 1px solid black; padding: 5px;">Puesto</td>
+							<td style="border: 1px solid black; padding: 5px;">{{t.puesto_final}}</td>
+						</tr>
+
 						{% if t.periodo_alta or t.periodo_baja %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Periodos</td>
+								<td style="border: 1px solid black; padding: 5px;"">Periodos</td>
 								<td style="border: 1px solid black; padding: 5px;">{{t.periodo_alta|default:""}}-{{t.periodo_baja|default:""}}</td>
 							</tr>
 						{% endif %}
 						
 						<tr>
-							<td style="border: 1px solid black; padding: 5px; width: 100px;"">Motivo de baja</td>
+							<td style="border: 1px solid black; padding: 5px;"">Motivo de baja</td>
 							<td style="border: 1px solid black; padding: 5px;">
 								{% if t.datosgenerales and t.datosgenerales.motivo_salida %}
 									{{t.datosgenerales.motivo_salida}}
@@ -82,7 +87,7 @@
 						</tr>
 						{% if t.observaciones_generales %}
 							<tr>
-								<td style="border: 1px solid black; padding: 5px; width: 100px;"">Observaciones</td>
+								<td style="border: 1px solid black; padding: 5px;"">Observaciones</td>
 								<td style="border: 1px solid black; padding: 5px;">{{t.observaciones_generales}}</td>
 							</tr>
 						{% endif %}
