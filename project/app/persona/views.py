@@ -22,6 +22,7 @@ from app.cobranza.forms import CobranzaMontoForm
 from app.agente.models import Labels
 from app.agente.forms import LabelsForm
 from django.forms.models import modelformset_factory
+from app.util.multiple_upload_investigacion import multiple_upload
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -56,16 +57,38 @@ def panel(request):
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
 
+	messages = request.session.get('messages', [])
+	request.session['messages'] = []
+	
 	if request.method == 'POST':
-		formset = label_formset(request.POST)
-		if formset.is_valid():
-			formset.save()
-			return HttpResponseRedirect('/candidato/exito')
+		if 'guardar' in request.POST:
+			formset = label_formset(request.POST)
+			if formset.is_valid():
+				formset.save()
+				return HttpResponseRedirect('/candidato/exito')
+		
+		if 'importar' in request.POST:
+			form_file = EntrevistaFileForm(request.POST, request.FILES)
+			if form_file.is_valid():
+				ext = os.path.splitext(str(request.FILES['record']))[1]
+				if ext.lower() not in settings.EXT_RESEARCH_WHITELIST:
+					messages = [{
+						"msg": "Es necesario cargar archivo de excel",
+						"type": "danger"
+					}]
+				else:
+					file_instance = EntrevistaFile(record=request.FILES['record'], tipo=1)
+					file_instance.save()
+					messages = multiple_upload(file_instance.id, 0, request.user)
+					request.session['messages'] = messages
+
+					return HttpResponseRedirect('/candidatos/exito')
 	else:
 		formset = label_formset(queryset=user_labels, initial=[{
 				'color': color,
 				'agente': request.user
 			} for label, color in Labels.LABEL_OPTIONS])
+		form_file = EntrevistaFileForm()
 
 	return render_to_response('sections/candidato/panel.html', locals(), context_instance=RequestContext(request))
 

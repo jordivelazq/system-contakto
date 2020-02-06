@@ -111,7 +111,7 @@ class Direccion(models.Model):
 	ciudad = models.CharField(max_length=140, null=True, blank=True)
 	colonia = models.CharField(max_length=140, null=True, blank=True)
 	cp = models.CharField(max_length=140, null=True, blank=True)
-	estado = models.CharField(max_length=140, default="Baja California", choices=ESTADOSMEXICO_OPCIONES)
+	estado = models.CharField(max_length=140, null=True, blank=True, choices=ESTADOSMEXICO_OPCIONES)
 
 	def __unicode__(self):
 		return '%s, %s, %s' % (self.calle, self.colonia, self.ciudad)

@@ -500,8 +500,10 @@ class ControllerPersona(object):
 			entrevista_investigacion.save()
 
 			entrevista_cita, created = EntrevistaCita.objects.get_or_create(investigacion=investigacion)
-			entrevista_cita.fecha_entrevista = data_investigacion['fecha']
-			entrevista_cita.hora_entrevista = data_investigacion['fecha_hora']
+			if data_investigacion['fecha']:
+				entrevista_cita.fecha_entrevista = data_investigacion['fecha']
+			if data_investigacion['fecha_hora']:
+				entrevista_cita.hora_entrevista = data_investigacion['fecha_hora']
 			entrevista_cita.save()
 
 		except Exception, e:

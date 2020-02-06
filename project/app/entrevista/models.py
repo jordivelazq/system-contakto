@@ -10,9 +10,15 @@ ACTIVO_OPCIONES = (
 			(0, 'NA'),
 	)
 
+ARCHIVO_OPCIONES = (
+	(0, 'Entrevista'),
+	(1, 'Carga Masiva')
+)
+
 class EntrevistaFile(models.Model):
 	record = models.FileField(verbose_name='Archivo', upload_to='xls')
 	fecha_registro = models.DateField(auto_now=True)
+	tipo = models.IntegerField(default=0, choices=ARCHIVO_OPCIONES, blank=True, null=True)
 
 	def __unicode__(self):
 		return u'%s' % self.record

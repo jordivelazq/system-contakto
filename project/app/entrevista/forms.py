@@ -7,6 +7,7 @@ class EntrevistaFileForm(ModelForm):
 
 	class Meta:
 		model = EntrevistaFile
+		fields = ['record']
 		
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaFileForm, self).__init__(*args, **kwargs)

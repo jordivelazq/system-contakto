@@ -30,11 +30,37 @@
 								{% endfor %}
 							</div>
 						</div>
-						<input type="submit" class="btn btn-primary pull-right" value="Guardar">
+						<input type="submit" class="btn btn-primary pull-right" value="Guardar" name="guardar">
 					</form>
-				{% endif %}
+				{% endif %}						
 			</div>
 		</div>
+		{% if user.is_superuser %}
+			<div class="row">
+				<div class="col-md-12">
+					{% for item in messages %}
+						<div class="alert alert-{{item.type}}">{{item.msg}}</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<form role="form" action="#" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Carga Masiva</h3>
+							</div>
+							<div class="panel-body">
+								{{form_file}}
+								<br />
+								<input type="submit" class="btn btn-primary pull-right" value="Importar" name="importar">
+							</div>
+						</div>
+					</form>	
+				</div>
+			</div>
+		{% endif %}
 {% endautoescape %}
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
 {% endblock %}
