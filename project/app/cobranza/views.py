@@ -44,8 +44,6 @@ def panel(request):
 
 			return HttpResponseRedirect('/cobranza/exito')
 
-	#Fix por pixeles en Chrome (input-group-addon de bootstrap)
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] 
 	page = 'cobranza'
 	cobranza = Cobranza.objects.filter(investigacion__status_active=True)
 	

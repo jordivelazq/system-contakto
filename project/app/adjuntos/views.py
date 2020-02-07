@@ -38,8 +38,6 @@ def panel_adjuntos(request, investigacion_id):
 	if is_usuario_contacto and not Investigacion.objects.filter(id=investigacion_id, contacto__email=request.user.email).count():
 		return HttpResponseRedirect('/')
 
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
-
 	page = 'candidatos'
 	seccion = 'adjuntos'
 	status = ''
@@ -65,7 +63,6 @@ def panel_adjuntos(request, investigacion_id):
 def editar_adjuntos(request, investigacion_id):
 	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
 		return HttpResponseRedirect('/')
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	
 	page = 'candidatos'
 	seccion = 'adjuntos'

@@ -26,20 +26,8 @@ from reportlab.pdfgen import canvas
 
 login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
-	'''
-		NOTA: Al modificar código en esta función, revisar también app.reportes.servcies, pues ahí también
-		se generan los reportes que se envian por correo. El código es similar.
-	'''
-	#Fix por pixeles en Chrome (input-group-addon de bootstrap)
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT']
-	page = 'reportes'
+	page = 'reportes'	# use for main_menu.active
 	service_reporte = ServiceReporte()
-
-	#para SEARCH sidebar
-	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
-	status_laboral_select = Investigacion.STATUS_OPCIONES
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	filtros_json = request.session.get('filtros_search_reportes', None)
 	
 	if request.POST:
@@ -52,38 +40,9 @@ def panel(request):
 			return HttpResponseRedirect('/estatus/error')
 	
 	if filtros_json != None:
-		if (not len(filtros_json['compania_id']) 
-		and not len(filtros_json['compania_nombre']) 
-		and not len(filtros_json['contactos_selected']) 
-		and not len(filtros_json['status_id'])
-		and ('status_laboral_id' not in filtros_json or not len(filtros_json['status_laboral_id'])) 
-		and not len(filtros_json['fecha_inicio']) 
-		and not len(filtros_json['fecha_final']) 
-		and not len(filtros_json['agente_id'])):
-			recientes = True
-
 		if 'contactos_selected' in filtros_json and len(filtros_json['contactos_selected']):
 			contactos_selected = filtros_json['contactos_selected'].split(',')
 			dest_list = service_reporte.getDestinatarios(request, contactos_selected)
-
-		if len(filtros_json['compania_id']):
-			compania_id = filtros_json['compania_id']
-			compania = Compania.objects.get(id=compania_id)	
-	else:
-		user = request.user
-		if user.groups.filter(name='contactos').count():
-			contact = Contacto.objects.get(email=user.username)
-			filtros_json = {
-				"nombre": "",
-				"compania_id": "",
-				"compania_nombre": "",
-				"contactos_selected": str(contact.id),
-				"status_id": "",
-				"status_laboral_id": "",
-				"fecha_inicio": "",
-				"agente_id": ""
-			}
-		recientes = True
 
 	investigaciones = get_investigaciones_extended(request)
 			
@@ -132,56 +91,49 @@ def reset_filtros(request):
 	return HttpResponse(json.dumps(response), content_type='application/json')
 
 def get_investigaciones_list(filtros_json, agent_id):
-	investigaciones = Investigacion.objects.filter(status_active=True).order_by('fecha_recibido')
+	investigaciones = Investigacion.objects.filter(status_active=True)
 
 	if agent_id:
 		investigaciones = investigaciones.filter(agente_id=agent_id)
 
 	if filtros_json != None:
-		if (not len(filtros_json['nombre'])
-			and not len(filtros_json['compania_id']) 
-			and not len(filtros_json['compania_nombre']) 
-			and not len(filtros_json['agente_id']) 
-			and not len(filtros_json['contactos_selected']) 
-			and not len(filtros_json['status_id']) 
-			and ('status_laboral_id' not in filtros_json or not len(filtros_json['status_laboral_id']))
-			and not len(filtros_json['fecha_inicio']) 
-			and not len(filtros_json['fecha_final'])):
-			recientes = True
-			investigaciones = investigaciones.order_by('fecha_recibido')
+		if len(filtros_json['nombre']):
+			investigaciones = investigaciones.filter(Q(candidato__nombre__icontains=filtros_json['nombre'])|Q(candidato__apellido__icontains=filtros_json['nombre']))
 
-		else:
-			if len(filtros_json['nombre']):
-				investigaciones = investigaciones.filter(Q(candidato__nombre__icontains=filtros_json['nombre'])|Q(candidato__apellido__icontains=filtros_json['nombre']))
-			if len(filtros_json['compania_id']):
-				investigaciones = investigaciones.filter(compania__id=filtros_json['compania_id'])
+		if len(filtros_json['compania_id']):
+			investigaciones = investigaciones.filter(compania__id=filtros_json['compania_id'])
 
-			if 'contactos_selected' in filtros_json and len(filtros_json['contactos_selected']):
-				contacto_ids = filtros_json['contactos_selected'].split(',')
-				investigaciones = investigaciones.filter(contacto__id__in=contacto_ids)
+		if 'contactos_selected' in filtros_json and len(filtros_json['contactos_selected']):
+			contacto_ids = filtros_json['contactos_selected'].split(',')
+			investigaciones = investigaciones.filter(contacto__id__in=contacto_ids)
 
-			if len(filtros_json['status_id']):
-				if filtros_json['status_id'] != '3':
-					investigaciones = investigaciones.filter(status_general=filtros_json['status_id'])
-				else:
-					investigaciones = investigaciones.filter(Q(status_general=0)|Q(status_general=1))
-			
-			if 'status_laboral_id' in filtros_json and len(filtros_json['status_laboral_id']):
-				investigaciones = investigaciones.filter(status=filtros_json['status_laboral_id'])
-			
-			if len(filtros_json['agente_id']):
-				investigaciones = investigaciones.filter(agente__id=filtros_json['agente_id'])
+		if len(filtros_json['status_id']):
+			if filtros_json['status_id'] != '3':
+				investigaciones = investigaciones.filter(status_general=filtros_json['status_id'])
+			else:
+				investigaciones = investigaciones.filter(Q(status_general=0)|Q(status_general=1))
+		
+		if 'status_laboral_id' in filtros_json and len(filtros_json['status_laboral_id']):
+			investigaciones = investigaciones.filter(status=filtros_json['status_laboral_id'])
+		
+		if len(filtros_json['agente_id']):
+			investigaciones = investigaciones.filter(agente__id=filtros_json['agente_id'])
 
-			if len(filtros_json['fecha_inicio']) and len(filtros_json['fecha_final']):
-				fecha_inicio_format = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
-				fecha_final_format = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
-				investigaciones = investigaciones.filter(fecha_recibido__range=(fecha_inicio_format, fecha_final_format))
+		fecha_inicio = None
+		fecha_final = None
+		if len(filtros_json['fecha_inicio']):
+			fecha_inicio = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
+		if len(filtros_json['fecha_final']):
+			fecha_final = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
 
-	else:
-		recientes = True
-		investigaciones = investigaciones.order_by('fecha_recibido')
-	
-	investigaciones = investigaciones[:50]
+		if fecha_inicio and fecha_final:
+			investigaciones = investigaciones.filter(fecha_recibido__gte=fecha_inicio, fecha_recibido__lte=fecha_final)
+		elif fecha_inicio:
+			investigaciones = investigaciones.filter(fecha_recibido__gte=fecha_inicio)
+		elif fecha_final:
+			investigaciones = investigaciones.filter(fecha_recibido__lte=fecha_final)
+
+	investigaciones = investigaciones.order_by('-fecha_recibido')[:50]
 
 	return investigaciones
 

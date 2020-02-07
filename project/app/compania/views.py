@@ -17,7 +17,6 @@ import json
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def panel(request):
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	page = 'empresas'
 	empresas = Compania.objects.filter(status=True).order_by('nombre')
 

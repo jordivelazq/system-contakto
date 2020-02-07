@@ -13,19 +13,6 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 
 {% block site_wrapper %}
 <div ng-controller="ReporteCTRL">
-	<div class="page-header">
-		<h3>{% if compania and contacto %}
-				Reporte de 
-				{% if compania %} 
-					{{compania}} 
-				{% endif %} 
-				{% if contacto %}
-					<small>{{contacto}}</small>
-				{% endif %}
-			{% endif %}
-		</h3>
-	</div>
-
 	<div class="row placeholders">
 		{% if request.user.is_superuser or request.user.is_staff %}
 		<form role="form" action="#" method="post">

@@ -27,9 +27,6 @@ def is_email_valid(email):
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def panel(request):
-	#Fix por pixeles en Chrome (input-group-addon de bootstrap)
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT']
-	
 	page = 'agentes'
 	users = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
 

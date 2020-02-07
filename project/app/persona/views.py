@@ -44,7 +44,6 @@ from reportlab.pdfgen import canvas
 @login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
 	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	page = 'candidatos'	
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
@@ -98,7 +97,6 @@ def panel(request):
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def crear(request):
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
@@ -270,7 +268,6 @@ def editar(request, investigacion_id):
 	if not investigacion.status_active and not request.user.is_superuser:
 		return HttpResponseRedirect('/')
 
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
@@ -467,7 +464,6 @@ def eliminar(request, investigacion_id):
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def nueva_trayectoria(request, investigacion_id, empresa_id=''):
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
@@ -516,7 +512,6 @@ def ver_trayectoria(request, investigacion_id):
 	#Si es usuario contacto, verificar que la investigación le corresponda
 	if is_usuario_contacto and not Investigacion.objects.filter(id=investigacion_id, contacto__email=request.user.email).count():
 		return HttpResponseRedirect('/')
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
@@ -559,7 +554,6 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	if is_usuario_contacto and not Investigacion.objects.filter(id=investigacion_id, contacto__email=request.user.email).count():
 		return HttpResponseRedirect('/')
 
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')

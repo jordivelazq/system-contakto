@@ -43,7 +43,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	if is_usuario_contacto and not Investigacion.objects.filter(id=investigacion_id, contacto__email=request.user.email).count():
 		return HttpResponseRedirect('/')
 
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
@@ -416,7 +415,6 @@ def cargar_entrevista(request, investigacion_id):
 	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
 		return HttpResponseRedirect('/')
 
-	es_chrome = 'Chrome' in request.META['HTTP_USER_AGENT'] #Fix por pixeles en Chrome (input-group-addon de bootstrap)
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
