@@ -3,6 +3,8 @@ from app.util.timer import timethis
 from django.db.models import Q
 import datetime
 
+LIMIT_TO_DISPLAY = 100
+
 class PersonaService:
 	'''
 	'''
@@ -22,7 +24,7 @@ class PersonaService:
 	fecha_final = ''
 	is_superuser = is_staff = is_usuario_contacto = False
 	user = ''
-	limit_select = 50
+	limit_select = LIMIT_TO_DISPLAY
 
 	def __init__(self, request):
 		'''
@@ -32,7 +34,7 @@ class PersonaService:
 		self.compania_nombre = request.POST.get('compania_nombre', '')		
 		self.agente_id = request.POST.get('agente_id', '')
 		self.status_id = request.POST.get('status_id', '')
-		self.limit_select = request.POST.get('limit_select', 50)
+		self.limit_select = request.POST.get('limit_select', LIMIT_TO_DISPLAY)
 		self.fecha_inicio = request.POST.get('fecha_inicio', '')
 		self.fecha_final = request.POST.get('fecha_final', '')
 		if request.user.is_superuser:

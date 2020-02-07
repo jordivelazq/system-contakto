@@ -14,7 +14,8 @@ $(document).ready(function(){
 
 /* Search CANDIDATOS */
 contacktoApp.controller('SearchCandidatoCTRL', function($scope){
-	$scope.candidatos = [];    
+    $scope.candidatos = [];    
+    const defaultLimit = 100;
 
     $scope.open_empresa_modal = function(){
         $('#selectEmpresaModal').modal().on('shown.bs.modal', function(){
@@ -37,7 +38,6 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
 
     $scope.set_filtros = function(filtros_json){
         var defaultStatus = 3;
-        const defaultLimit = 50;
 
         $scope.search_nombre = typeof filtros_json.nombre !== 'undefined' ? filtros_json.nombre : '';
         $scope.compania_id = typeof filtros_json.compania_id !== 'undefined' ? filtros_json.compania_id : '';
@@ -102,7 +102,7 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
         $scope.compania_nombre = '';                  
         $scope.agente_select = '';
         $scope.status_select = '0';
-        $scope.limit_select = 50;
+        $scope.limit_select = defaultLimit;
         $scope.fecha_inicio = '';
         $scope.fecha_final = '';
         $('#fecha_inicio').val('');

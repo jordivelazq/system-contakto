@@ -14,13 +14,13 @@
       <table>
         <tr>
           <th colspan="4">FECHA DE NACIMIENTO</th>
+          <th colspan="2">LUGAR DE NACIMIENTO</th>
           <th colspan="2">NACIONALIDAD</th>
-          <th colspan="2">ESTADO CIVIL</th>
         </tr>
         <tr>
           <td colspan="4">{{origen.fecha|date:"d/M/Y"|localize_month}}</td>
+          <td colspan="2">{{origen.lugar}}</td>
           <td colspan="2">{{origen.nacionalidad|default:""}}</td>
-          <td colspan="2">{{estado_civil|default:""}}</td>
         </tr>
         <tr>
           <th colspan="4">CURP</th>
