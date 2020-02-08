@@ -20,31 +20,35 @@ def panel(request):
 
 	page = 'bitacora'
 	ultimos_dias = 1
-	bitacoras = Bitacora.objects.all().order_by('-id')[:1000]
+	bitacoras = Bitacora.objects.all()
 
 	#para SEARCH sidebar
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
 	filtros_json = request.session.get('filtros_search_bitacora', None)
 
 	if filtros_json != None:
-		if not len(filtros_json['agente_id']) and not len(filtros_json['fecha_inicio']) and not len(filtros_json['fecha_final']):
-			#DEFAULT
-			recientes = True
-			bitacoras = bitacoras.filter(datetime__range=(datetime.datetime.today()-datetime.timedelta(days=ultimos_dias),datetime.datetime.today())).order_by('-id')
+		if len(filtros_json['agente_id']):
+			bitacoras = bitacoras.filter(user__id=filtros_json['agente_id'])
 
-		else:
-			if len(filtros_json['agente_id']):
-				bitacoras = bitacoras.filter(user__id=filtros_json['agente_id'])
+		fecha_inicio = None
+		fecha_final = None
+		if len(filtros_json['fecha_inicio']):
+			fecha_inicio = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
 
-			if len(filtros_json['fecha_inicio']) and len(filtros_json['fecha_final']):
-				fecha_inicio_format = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
-				fecha_final_format = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
-				bitacoras = bitacoras.filter(datetime__range=(fecha_inicio_format, fecha_final_format))
+		if len(filtros_json['fecha_final']):
+			fecha_final = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
+		
+		if fecha_inicio and fecha_final:
+			bitacoras = bitacoras.filter(datetime__gte=fecha_inicio, datetime__lte=fecha_final)
+		elif fecha_inicio:
+			bitacoras = bitacoras.filter(datetime__gte=fecha_inicio)
+		elif fecha_final:
+			bitacoras = bitacoras.filter(datetime__lte=fecha_final)
 
 	else:
-		#DEFAULT
-		recientes = True
-		bitacoras = Bitacora.objects.filter(datetime__range=(datetime.datetime.today()-datetime.timedelta(days=ultimos_dias), datetime.datetime.today())).order_by('-id')[:1000]
+		bitacoras = Bitacora.objects.filter(datetime__range=(datetime.datetime.today() - datetime.timedelta(days=ultimos_dias), datetime.datetime.today()))
+	
+	bitacoras = bitacoras.order_by('-id')[:500]
 
 	return render_to_response('sections/bitacora/panel.html', locals())
 
