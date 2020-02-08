@@ -28,6 +28,7 @@ login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
 	page = 'reportes'	# use for main_menu.active
 	service_reporte = ServiceReporte()
+	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	filtros_json = request.session.get('filtros_search_reportes', None)
 	
 	if request.POST:
