@@ -743,14 +743,21 @@ def observaciones(request, investigacion_id):
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
-	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion, entrevista)	
+	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion, entrevista)
+
+	status_general = investigacion.status_general
 
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)
 		formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(request.POST, prefix='cobranza', instance=cobranza)
 		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaCobranza.is_valid():
-			inv_new_instance = formaInvestigacion.save()
+			
+			inv_new_instance = formaInvestigacion.save(commit=False)
+			if not request.user.is_superuser and status_general == '2':
+				inv_new_instance.status_general = status_general
+			inv_new_instance.save()
+
 			tipo_inv_nuevo = inv_new_instance.tipo_investigacion_status
 			formaEntrevista.save()
 			
