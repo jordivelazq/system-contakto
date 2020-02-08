@@ -5,6 +5,7 @@ urlpatterns = patterns('',
 	url(r'^nuevo$', 'app.persona.views.crear', name='crear_persona'),
 	url(r'^nuevo/exito$', 'app.persona.views.crear', name='crear_persona'),
 	url(r'^/exito$', 'app.persona.views.panel', name='panel_persona'),
+	url(r'^exito$', 'app.persona.views.panel', name='panel_persona'),
 	url(r'^(?P<investigacion_id>[^/]+)/eliminar$', 'app.persona.views.eliminar', name='eliminar_persona'),
 
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/editar$', 'app.persona.views.editar', name='editar_persona'),
