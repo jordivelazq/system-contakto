@@ -28,7 +28,12 @@ login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
 	page = 'reportes'	# use for main_menu.active
 	service_reporte = ServiceReporte()
+
+	#para SEARCH sidebar
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
+	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
+	status_laboral_select = Investigacion.STATUS_OPCIONES
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 	filtros_json = request.session.get('filtros_search_reportes', None)
 	
 	if request.POST:
