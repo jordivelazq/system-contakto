@@ -1,5 +1,5 @@
 import xlrd
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -48,26 +48,39 @@ def read_file(file_id, sheet_index):
 		
 	return (workbook, worksheet)
 
-def get_fecha_recibido(workbook, worksheet, row_index):
-	fecha_recibido = None
+def get_fecha(workbook, worksheet, row_index, col_index, date_format = "%Y-%m-%d"):
+	fecha = None
 
-	if worksheet.cell_type(row_index, 2) == 3:
+	if worksheet.cell_type(row_index, col_index) == 3:
 		try:
-			fecha_recibido = datetime(*xlrd.xldate_as_tuple(worksheet.cell_value(row_index, 2), workbook.datemode)).date().strftime("%d-%m-%Y")
-			fecha_recibido = datetime.strptime(fecha_recibido, "%m-%d-%Y").strftime("%Y-%m-%d")
+			fecha = datetime(*xlrd.xldate_as_tuple(worksheet.cell_value(row_index, col_index), workbook.datemode)).date().strftime("%d-%m-%Y")
+			fecha = datetime.strptime(fecha, "%m-%d-%Y").strftime(date_format)
 		except Exception, e:
 			pass
 	
-	if not fecha_recibido:
+	if not fecha:
 		try:
-			fecha_recibido = datetime.strptime(worksheet.cell_value(row_index, 2), "%d/%m/%Y").strftime("%Y-%m-%d")
+			fecha = datetime.strptime(worksheet.cell_value(row_index, 2), "%d/%m/%Y").strftime(date_format)
 		except Exception, e:
 			pass
 	
-	return fecha_recibido
+	return fecha
+
+def get_hora(workbook, worksheet, row_index, col_index):
+	hora = worksheet.cell_value(row_index, col_index)
+
+	if worksheet.cell_type(row_index, col_index) == 3:
+		try:
+			hora = datetime.strptime(str(timedelta(days=hora)), '%H:%M:%S').strftime('%I:%M:%S %p')
+		except Exception, e:
+			pass
+	
+	return hora
 
 def get_row(workbook, worksheet, row_index):
-	fecha_recibido = get_fecha_recibido(workbook, worksheet, row_index)
+	fecha_recibido = get_fecha(workbook, worksheet, row_index, 2)
+	dia_cita = get_fecha(workbook, worksheet, row_index, 10, "%d/%m/%Y")
+	hora_cita = get_hora(workbook, worksheet, row_index, 11)
 
 	return {
 		"ejecutivo": 				worksheet.cell_value(row_index, 0),
@@ -84,8 +97,8 @@ def get_row(workbook, worksheet, row_index):
 		"ciudad":						worksheet.cell_value(row_index, 7),
 
 		"gestor": 					worksheet.cell_value(row_index, 9),
-		"dia_cita": 				worksheet.cell_value(row_index, 10),
-		"hora_cita": 				worksheet.cell_value(row_index, 11),
+		"dia_cita": 				dia_cita,
+		"hora_cita": 				hora_cita,
 
 		"observaciones": 		worksheet.cell_value(row_index, 12),
 	}
@@ -157,7 +170,7 @@ def get_status(status):
 
 	status = status if status in [0, 1, 2] else None
 
-	return status
+	return status - 1
 
 def save_investigacion(ejecutivo, contacto, persona, puesto, fecha_recibido, tipo_estudio, status, observaciones):
 	tipo_estudio = get_tipo_estudio(tipo_estudio)
@@ -184,11 +197,14 @@ def save_investigacion(ejecutivo, contacto, persona, puesto, fecha_recibido, tip
 	return investigacion
 
 def save_entrevista(investigacion, gestor, dia_cita, hora_cita):
+	autorizada = 1 if gestor and dia_cita and hora_cita else 0
+
 	entrevista = EntrevistaCita(
 		investigacion = investigacion,
 		entrevistador = gestor,
 		fecha_entrevista = dia_cita,
-		hora_entrevista = hora_cita
+		hora_entrevista = hora_cita,
+		autorizada = autorizada
 	)
 
 	try:
