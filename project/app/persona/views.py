@@ -28,7 +28,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
-from app.persona.services import PersonaService
+from app.persona.services import PersonaService, get_observacion_automatica
 from app.util.timer import timethis
 
 from django.conf import settings
@@ -533,14 +533,20 @@ def ver_trayectoria(request, investigacion_id):
 	is_user_captura = request.user.groups.filter(name="captura").count()
 
 	if request.method == 'POST' and not is_usuario_contacto:
-		formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
-		if formaInvestigacion.is_valid():			
-			formaInvestigacion.save()
-
-			if 'redirect' in request.POST:
-				return HttpResponseRedirect(request.POST.get('redirect'))
+		if 'autogenerar' in request.POST:
+			investigacion.observaciones_generales = get_observacion_automatica(trayectorias_laborales)
+			investigacion.save()
 
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
+		else:
+			formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
+			if formaInvestigacion.is_valid():			
+				formaInvestigacion.save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
+				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
 	else:
 		formaInvestigacion = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=investigacion)
 		

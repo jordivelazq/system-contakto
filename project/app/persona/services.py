@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from app.investigacion.models import Investigacion
 from app.util.timer import timethis
 from django.db.models import Q
@@ -118,3 +120,21 @@ class PersonaService:
 		status_list['investigacion_resultado'] = investigacion.resultado
 		status_list['entrevista_autorizada'] = investigacion.entrevistacita_set.all()[0].autorizada if investigacion.entrevistacita_set.all().count() > 0 else None
 		return status_list	
+
+def get_observacion_automatica(trayectorias):
+	observacion = []
+	for trayectoria in trayectorias:
+		record = [trayectoria.compania.razon_social]
+
+		if trayectoria.periodo_alta or trayectoria.periodo_baja:
+			record.append(trayectoria.periodo_alta + ' - ' + trayectoria.periodo_baja)
+
+		if trayectoria.puesto_final:
+			record.append(trayectoria.puesto_final)
+
+		if trayectoria.datosgenerales and trayectoria.datosgenerales.motivo_salida:
+			record.append(trayectoria.datosgenerales.motivo_salida)
+		
+		observacion.append("\n".join(record))
+
+	return "\n\n".join(observacion)
