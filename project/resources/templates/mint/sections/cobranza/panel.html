@@ -57,7 +57,7 @@
 
 						<th class="text-center col-red">Ejecutivo</th>
 						<th class="text-center col-red">Obs. Cobranza</th>
-						<th class="text-center col-red">*Tipo inv.</th>
+						<th class="text-center col-red">Tipo inv.</th>
 						<th class="text-center col-red">Estatus</th>
 						<th class="text-center col-red">Resultado</th>
 					</tr>
@@ -95,7 +95,7 @@
 					<td class="text-center">{{ cob.investigacion.compania.razon_social }}</td>
 
 					<td class="text-center">{{ cob.investigacion.agente.email }}</td>
-					<td class="text-center">****</td>
+					<td class="text-center">{{ cob.investigacion.sucursal|default:'' }}</td>
 					<td class="text-center">
 						{% if cob.investigacion.tipo_investigacion_status %}
 							{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}

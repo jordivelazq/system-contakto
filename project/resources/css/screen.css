@@ -316,24 +316,28 @@ body {
   background-color: lightsteelblue;
 }
 
-/* line 226, ../sass/screen.sass */
+/* line 225, ../sass/screen.sass */
+.table-estatus {
+  text-transform: uppercase;
+}
+/* line 228, ../sass/screen.sass */
 .table-estatus thead {
   color: white;
 }
-/* line 229, ../sass/screen.sass */
+/* line 231, ../sass/screen.sass */
 .table-estatus th, .table-estatus td {
   text-align: center;
   padding: 6px;
   font-size: 12px;
   font-weight: bold;
 }
-/* line 235, ../sass/screen.sass */
+/* line 237, ../sass/screen.sass */
 .table-estatus ul {
   list-style-type: none;
   text-align: left;
 }
 
-/* line 240, ../sass/screen.sass */
+/* line 242, ../sass/screen.sass */
 .estatus-trayectoria td {
   text-align: left;
   font-size: 0.8em;
@@ -341,30 +345,30 @@ body {
   font-weight: normal;
 }
 
-/* line 247, ../sass/screen.sass */
+/* line 249, ../sass/screen.sass */
 .panel-enviar-correo textarea, .panel-enviar-correo input {
   width: 100%;
 }
 
-/* line 250, ../sass/screen.sass */
+/* line 252, ../sass/screen.sass */
 .radiobutton {
   display: flex;
   justify-content: space-between;
 }
 
-/* line 255, ../sass/screen.sass */
+/* line 257, ../sass/screen.sass */
 .form-etiquetas .etiqueta {
   display: flex;
   margin-bottom: 12px;
 }
-/* line 259, ../sass/screen.sass */
+/* line 261, ../sass/screen.sass */
 .form-etiquetas .etiqueta span {
   display: inline-block;
   width: 50px;
   margin-right: 12px;
 }
 
-/* line 265, ../sass/screen.sass */
+/* line 267, ../sass/screen.sass */
 #contactos_selected option {
   text-transform: uppercase;
 }
