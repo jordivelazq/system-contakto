@@ -20,9 +20,6 @@
 	<span id="msg"></span>
 </h1>
 <div class="row">
-	<div class="col-md-4">
-		{% if recientes %}<h2><em><small>Últimos modificados...</small></em></h2>{% endif %}
-	</div>
 	<div class="col-md-6 col-md-offset-2">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -54,41 +51,94 @@
 	</div>
 </div>
 	<div class="row placeholders">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}}</h5>
+					<a class="btn btn-default pull-right" onclick="exportTableToCSV('cobranza')">Descargar</a>
+					<br class="clear-fix">
+					<br />
+				</div>
+			</div>
+
 	    <div class="table-responsive">
 			{% if cobranza|length %}
-			<table class="table table-striped" >
+			<table class="table table-striped table-estatus" >
 				<thead>
 					<tr>
-						<th class="text-center">ID</th>
-						<th class="text-center">Fecha de Creación</th>
-						<th class="text-center">Nombre/Apellido</th>
-						<th class="text-center">Ciudad</th>
-						<th class="text-center">Cliente</th>
-						<th class="text-center">Solicitante</th>
-						<th class="text-center">Tipo inv.</th>
-						<th class="text-center">Costo</th>
-						<th class="text-center">Folio</th>
-						<th class="text-center"><input ng-model="select_all" type="checkbox" ng-click="toggleSelectAll($event)" /></th>
+						<th class="text-center col-gray">ID</th>
+
+						<th class="text-center col-red">Fecha de Recibido</th>
+
+						<th class="text-center col-gray">Cliente</th>
+
+						<th class="text-center col-red">Nombre</th>
+						<th class="text-center col-red">Apellido</th>
+						<th class="text-center col-red">Puesto</th>
+						<th class="text-center col-red">Ciudad</th>
+
+						<th class="text-center col-blue">Monto</th>
+						<th class="text-center col-blue">Folio</th>
+						
+						<th class="text-center col-gray">Correo</th>
+						<th class="text-center col-gray">Solicitante</th>
+
+						<th class="text-center col-blue">Social</th>
+
+						<th class="text-center col-red">Ejecutivo</th>
+						<th class="text-center col-red">Obs. Cobranza</th>
+						<th class="text-center col-red">*Tipo inv.</th>
+						<th class="text-center col-red">Estatus</th>
+						<th class="text-center col-red">Resultado</th>
+						
+						<th class="text-center col-gray"><input ng-model="select_all" type="checkbox" ng-click="toggleSelectAll($event)" /></th>
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
 				{% for cob in cobranza %}
 				<tr>
-					<td class="text-left">{{ cob.investigacion.id }}</td>
+					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar">{{ cob.investigacion.id }}</a></td>
+
 					<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/M/y" }}</td>
-					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar" title="Ir a investigacion de {{ cob.investigacion.candidato.nombre }}">{{ cob.investigacion.candidato.nombre }} {{ cob.investigacion.candidato.apellido }}</a></td>
-					<td class="text-center">{{ cob.ciudad }}</td>
+
 					<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
+
+					<td class="text-left">{{ cob.investigacion.candidato.nombre }}</td>
+					<td class="text-left">{{ cob.investigacion.candidato.apellido }}</td>
+					<td class="text-left">{{ cob.investigacion.puesto }}</td>
+					<td class="text-center">{{ cob.ciudad }}</td>
+
+					<td class="text-center">
+						{% if cob.monto %}
+							$ <span ng-class="{monto_activo: selection.indexOf('{{cob.id}}') > -1}">{{ cob.monto }}</span>
+						{% else %}
+							<small class="text-danger"><strong>REQUERIDO</strong></small>
+						{% endif %}
+					</td>
+					<td class="text-center">
+						{% if cob.folio %}
+							{{ cob.folio }}
+						{% endif %}
+					</td>
+
+					<td class="text-center">{{ cob.investigacion.contacto.email }}</td>
 					<td class="text-center">{{ cob.investigacion.contacto.nombre }}</td>
+
+					<td class="text-center">{{ cob.investigacion.compania.razon_social }}</td>
+
+					<td class="text-center">{{ cob.investigacion.agente.email }}</td>
+					<td class="text-center">****</td>
 					<td class="text-center">
-						{% if cob.investigacion.tipo_investigacion_status %}{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}{% else %}<small class="text-danger"><strong>REQUERIDO</strong></small>{% endif %}
+						{% if cob.investigacion.tipo_investigacion_status %}
+							{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}
+						{% else %}
+							<small class="text-danger"><strong>REQUERIDO</strong></small>
+						{% endif %}
 					</td>
-					<td class="text-center">
-					 	{% if cob.monto %}$ <span ng-class="{monto_activo: selection.indexOf('{{cob.id}}') > -1}">{{ cob.monto }}</span>{% else %}<small class="text-danger"><strong>REQUERIDO</strong></small>{% endif %}
-					</td>
-					<td class="text-center">
-						{% if cob.folio %}{{ cob.folio }}{% else %}---{% endif %}
-					</td>
+					<td class="text-center">{{ cob.investigacion.resultado|investigacion_resultado }}</td>
+					<td class="text-center">{{ cob.investigacion.fecha_entrega|default:'' }}</td>
+
+
 					<td class="text-center">
 						{% if cob.investigacion.tipo_investigacion_status and cob.monto %}
 							<input class="active" value="{{cob.id}}" type="checkbox" ng-checked="(selection.indexOf('{{cob.id}}') > -1) || select_all" ng-click="toggleSelection('{{cob.id}}')"  />

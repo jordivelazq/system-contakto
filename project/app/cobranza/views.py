@@ -17,6 +17,7 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import *
 from app.cobranza.forms import *
+from app.cobranza.services import get_cobranza
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
@@ -45,37 +46,14 @@ def panel(request):
 			return HttpResponseRedirect('/cobranza/exito')
 
 	page = 'cobranza'
-	cobranza = Cobranza.objects.filter(investigacion__status_active=True)
 	
 	#para SEARCH sidebar
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	filtros_json = request.session.get('filtros_search_cobranza', None)
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 
-	if filtros_json != None:
-		if not len(filtros_json['compania_id']) and not len(filtros_json['compania_nombre']) and not len(filtros_json['factura_folio']) and not len(filtros_json['status_id']):
-			recientes = True
-			cobranza = cobranza.order_by('id')[:20]
-		else:
-			if len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
-				cobranza = cobranza.filter(investigacion__status_general=filtros_json['status_id'])
-			if len(filtros_json['compania_id']):
-				cobranza = cobranza.filter(investigacion__compania__id=filtros_json['compania_id'])
-			if len(filtros_json['contacto_id']):
-				cobranza = cobranza.filter(investigacion__contacto__id=filtros_json['contacto_id'])
-			if len(filtros_json['factura_folio']):
-				if filtros_json['factura_folio'] == 'por-facturar':
-					cobranza = cobranza.filter(folio='')
-				else:
-					cobranza = cobranza.filter(folio=filtros_json['factura_folio'])
-			
-	else:
-		recientes = True
-		cobranza = cobranza.order_by('id')[:20]
-
-	for c in cobranza:
-		c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else '---'
-		
+	cobranza = get_cobranza(filtros_json)
+	
 	return render_to_response('sections/cobranza/panel.html', locals(), context_instance=RequestContext(request))
 
 '''

@@ -39,11 +39,17 @@ def investigacion_status_gral(value):
 @register.filter(name = 'investigacion_resultado')
 def investigacion_resultado(value):
 	status = ''
+	if not value:
+		return ''
+
 	try:
-		status = Investigacion.RESULTADO_OPCIONES[int(value)][1]
+		status = int(value)
 	except Exception, e:
-		print e
-	return status if len(status) else '---'
+		pass
+
+	status = Investigacion.RESULTADO_OPCIONES[status][1]
+
+	return status
 	
 @register.filter(name = 'entrevista_grado_academico')
 def entrevista_grado_academico(value):
