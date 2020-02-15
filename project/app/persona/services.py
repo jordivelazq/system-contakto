@@ -124,17 +124,18 @@ class PersonaService:
 def get_observacion_automatica(trayectorias):
 	observacion = []
 	for trayectoria in trayectorias:
-		record = [trayectoria.compania.razon_social]
+		if trayectoria.visible_en_status:
+			record = [trayectoria.compania.razon_social or trayectoria.compania.nombre]
 
-		if trayectoria.periodo_alta or trayectoria.periodo_baja:
-			record.append(trayectoria.periodo_alta + ' - ' + trayectoria.periodo_baja)
+			if trayectoria.periodo_alta or trayectoria.periodo_baja:
+				record.append(trayectoria.periodo_alta + ' - ' + trayectoria.periodo_baja)
 
-		if trayectoria.puesto_final:
-			record.append(trayectoria.puesto_final)
+			if trayectoria.puesto_final:
+				record.append(trayectoria.puesto_final)
 
-		if trayectoria.datosgenerales and trayectoria.datosgenerales.motivo_salida:
-			record.append(trayectoria.datosgenerales.motivo_salida)
-		
-		observacion.append("\n".join(record))
+			if trayectoria.datosgenerales and trayectoria.datosgenerales.motivo_salida:
+				record.append(trayectoria.datosgenerales.motivo_salida)
+
+			observacion.append("\n".join(record))
 
 	return "\n\n".join(observacion)
