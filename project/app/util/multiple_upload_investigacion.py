@@ -44,6 +44,7 @@ def read_file(file_id, sheet_index):
 		workbook = xlrd.open_workbook(settings.MEDIA_ROOT + '/' + str(file.record))
 		worksheet = workbook.sheet_by_index(sheet_index)
 	except Exception, e:
+		print "read_file", e
 		pass
 		
 	return (workbook, worksheet)
@@ -56,12 +57,14 @@ def get_fecha(workbook, worksheet, row_index, col_index, date_format = "%Y-%m-%d
 			fecha = datetime(*xlrd.xldate_as_tuple(worksheet.cell_value(row_index, col_index), workbook.datemode)).date().strftime("%d-%m-%Y")
 			fecha = datetime.strptime(fecha, "%m-%d-%Y").strftime(date_format)
 		except Exception, e:
+			print "get_fecha", e
 			pass
 	
 	if not fecha:
 		try:
 			fecha = datetime.strptime(worksheet.cell_value(row_index, 2), "%d/%m/%Y").strftime(date_format)
 		except Exception, e:
+			print "get_fecha", e
 			pass
 	
 	return fecha
@@ -73,6 +76,7 @@ def get_hora(workbook, worksheet, row_index, col_index):
 		try:
 			hora = datetime.strptime(str(timedelta(days=hora)), '%H:%M:%S').strftime('%I:%M:%S %p')
 		except Exception, e:
+			print "get_hora", e
 			pass
 	
 	return hora
@@ -83,33 +87,34 @@ def get_row(workbook, worksheet, row_index):
 	hora_cita = get_hora(workbook, worksheet, row_index, 11)
 
 	return {
-		"ejecutivo": 				worksheet.cell_value(row_index, 0),
+		"ejecutivo": 				worksheet.cell_value(row_index, 0).strip().lower(),
 
-		"contacto_correo": 	worksheet.cell_value(row_index, 1),
+		"contacto_correo": 	worksheet.cell_value(row_index, 1).strip().lower(),
 
 		"fecha_recibido": 	fecha_recibido,
 		"tipo_estudio": 		worksheet.cell_value(row_index, 3),
-		"puesto": 					worksheet.cell_value(row_index, 6),
-		"estatus": 					worksheet.cell_value(row_index, 8),
+		"puesto": 					worksheet.cell_value(row_index, 6).strip(),
+		"estatus": 					worksheet.cell_value(row_index, 8).strip(),
 
-		"nombre": 					worksheet.cell_value(row_index, 4),
-		"apellido": 				worksheet.cell_value(row_index, 5),
-		"ciudad":						worksheet.cell_value(row_index, 7),
+		"nombre": 					worksheet.cell_value(row_index, 4).strip(),
+		"apellido": 				worksheet.cell_value(row_index, 5).strip(),
+		"ciudad":						worksheet.cell_value(row_index, 7).strip(),
 
-		"gestor": 					worksheet.cell_value(row_index, 9),
+		"gestor": 					worksheet.cell_value(row_index, 9).strip(),
 		"dia_cita": 				dia_cita,
 		"hora_cita": 				hora_cita,
 
-		"observaciones": 		worksheet.cell_value(row_index, 12),
+		"observaciones": 		worksheet.cell_value(row_index, 12).strip(),
 	}
 
 def get_ejecutivo(email, request_user):
+	ejecutivo = None
 	if is_email_valid(email):
-		ejecutivo = None
 		if request_user.is_superuser:
 			try:
 				ejecutivo = User.objects.get(email=email)
 			except Exception, e:
+				print "get_ejecutivo", e
 				pass
 		else:
 			ejecutivo = request_user
@@ -122,6 +127,7 @@ def get_contacto(email):
 		try:
 			contacto = Contacto.objects.get(email = email)
 		except Exception, e:
+			print "get_contacto", e
 			pass
 
 	return contacto
@@ -136,6 +142,7 @@ def save_persona(nombre, apellido):
 		persona.full_clean()
 		persona.save()
 	except Exception, e:
+		print "save_persona", e
 		pass
 
 	return persona
@@ -150,12 +157,14 @@ def save_direccion(ciudad, persona):
 		direccion.full_clean()
 		direccion.save()
 	except Exception, e:
+		print "save_direccion", e
 		pass
 
 def get_tipo_estudio(tipo_estudio):
 	try:
 		tipo_estudio = int(tipo_estudio)
 	except Exception, e:
+		print "get_tipo_estudio", e
 		return None
 	
 	tipo_estudio = tipo_estudio if tipo_estudio in [1, 2] else None
@@ -166,6 +175,7 @@ def get_status(status):
 	try:
 		status = int(status)
 	except Exception, e:
+		print "get_status", e
 		pass
 
 	status = status if status in [0, 1, 2] else None
@@ -192,6 +202,7 @@ def save_investigacion(ejecutivo, contacto, persona, puesto, fecha_recibido, tip
 		investigacion.full_clean()
 		investigacion.save()
 	except Exception, e:
+		print "save_investigacion", e
 		pass
 
 	return investigacion
@@ -211,6 +222,7 @@ def save_entrevista(investigacion, gestor, dia_cita, hora_cita):
 		entrevista.full_clean()
 		entrevista.save()
 	except Exception, e:
+		print "save_entrevista", e
 		pass
 
 def save_cobranza(investigacion):
