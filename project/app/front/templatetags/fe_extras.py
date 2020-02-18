@@ -12,11 +12,11 @@ register = template.Library()
 @register.filter(name = 'tipo_investigacion_status')
 def tipo_investigacion_status(value):
 	status = ''
-	try:
-		status = Investigacion.TIPO_INVESTIGACION_OPCIONES[int(value)-1][1]
-	except Exception, e:
-		print e
-	return status if len(status) else '---'
+	for status in Investigacion.TIPO_INVESTIGACION_OPCIONES:
+		if status[0] == value:
+			return status[1]
+	
+	return ''
 	
 @register.filter(name = 'investigacion_status')
 def investigacion_status(value):

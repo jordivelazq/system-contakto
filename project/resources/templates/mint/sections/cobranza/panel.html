@@ -60,6 +60,7 @@
 						<th class="text-center col-red">Tipo inv.</th>
 						<th class="text-center col-red">Estatus</th>
 						<th class="text-center col-red">Resultado</th>
+						<th class="text-center col-red">OBS. INVESTIGACION</th>
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
@@ -95,7 +96,7 @@
 					<td class="text-center">{{ cob.investigacion.compania.razon_social }}</td>
 
 					<td class="text-center">{{ cob.investigacion.agente.email }}</td>
-					<td class="text-center">{{ cob.investigacion.sucursal|default:'' }}</td>
+					<td class="text-center">{{ cob.obs_cobranza }}</td>
 					<td class="text-center">
 						{% if cob.investigacion.tipo_investigacion_status %}
 							{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}
@@ -105,6 +106,7 @@
 					</td>
 					<td class="text-center">{{ cob.investigacion.resultado|investigacion_resultado }}</td>
 					<td class="text-center">{{ cob.investigacion.fecha_entrega|default:'' }}</td>
+					<td class="text-center">{{ cob.investigacion.tipo_investigacion_texto|default:'' }}</td>
 				</tr>
 				{% endfor %}
 				</tbody>

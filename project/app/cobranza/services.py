@@ -22,5 +22,6 @@ def get_cobranza(filtros_json):
 
     for c in cobranza:
       c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
+      c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
     
     return cobranza

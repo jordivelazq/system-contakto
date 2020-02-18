@@ -29,6 +29,9 @@ class Investigacion(models.Model):
 	TIPO_INVESTIGACION_OPCIONES = (		
 		(1, 'Laboral'),
 		(2, 'Socieconómico'),
+		(4, 'Psicometrías'),
+		(5, 'Visita Domiciliaria'),
+		(6, 'Validación de Demandas'),
 		(3, 'Otro'),
 	)
 	RESULTADO_OPCIONES = (
