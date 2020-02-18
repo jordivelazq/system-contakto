@@ -19,6 +19,6 @@ def timethis(func):
     def func_wrapper(*args, **kwargs):
         with Timer() as t:
 	    ret_val = func(*args, **kwargs)
-        print "Time to Exectue %s: %0.6f" % (func.__name__, t.secs)
+        print "Time to Execute %s: %0.6f" % (func.__name__, t.secs)
         return ret_val
     return func_wrapper

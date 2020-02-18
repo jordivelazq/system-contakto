@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from app.entrevista.models import EntrevistaFile
 from app.investigacion.models import Investigacion
-from app.persona.models import Persona, Direccion
+from app.persona.models import Persona, Direccion, Telefono
 from app.compania.models import Contacto
 from app.entrevista.models import EntrevistaCita
 from app.cobranza.models import Cobranza
@@ -81,10 +81,18 @@ def get_hora(workbook, worksheet, row_index, col_index):
 	
 	return hora
 
+def get_telefono(worksheet, row_index, col_index):
+	value = worksheet.cell_value(row_index, col_index)
+	if worksheet.cell_type(row_index, col_index) == 2:
+		return str(int(value))
+
+	return value
+
 def get_row(workbook, worksheet, row_index):
 	fecha_recibido = get_fecha(workbook, worksheet, row_index, 2)
 	dia_cita = get_fecha(workbook, worksheet, row_index, 10, "%d/%m/%Y")
 	hora_cita = get_hora(workbook, worksheet, row_index, 11)
+	telefono = get_telefono(worksheet, row_index, 13)
 
 	return {
 		"ejecutivo": 				worksheet.cell_value(row_index, 0).strip().lower(),
@@ -94,7 +102,7 @@ def get_row(workbook, worksheet, row_index):
 		"fecha_recibido": 	fecha_recibido,
 		"tipo_estudio": 		worksheet.cell_value(row_index, 3),
 		"puesto": 					worksheet.cell_value(row_index, 6).strip(),
-		"estatus": 					worksheet.cell_value(row_index, 8).strip(),
+		"estatus": 					worksheet.cell_value(row_index, 8),
 
 		"nombre": 					worksheet.cell_value(row_index, 4).strip(),
 		"apellido": 				worksheet.cell_value(row_index, 5).strip(),
@@ -105,6 +113,8 @@ def get_row(workbook, worksheet, row_index):
 		"hora_cita": 				hora_cita,
 
 		"observaciones": 		worksheet.cell_value(row_index, 12).strip(),
+
+		"telefono": 				telefono,
 	}
 
 def get_ejecutivo(email, request_user):
@@ -158,6 +168,20 @@ def save_direccion(ciudad, persona):
 		direccion.save()
 	except Exception, e:
 		print "save_direccion", e
+		pass
+
+def save_telefono(numero, persona):
+	telefono = Telefono(
+		persona = persona,
+		numero = str(numero),
+		categoria = 'casa'
+	)
+
+	try:
+		telefono.full_clean()
+		telefono.save()
+	except Exception, e:
+		print "save_telefono", e
 		pass
 
 def get_tipo_estudio(tipo_estudio):
@@ -258,8 +282,6 @@ def save_items(items, request_user):
 			})
 			continue
 
-		save_direccion(item["ciudad"], persona)
-
 		investigacion = save_investigacion(ejecutivo, contacto, persona, item["puesto"], item["fecha_recibido"], item["tipo_estudio"], item["estatus"], item["observaciones"])
 		if not investigacion.id:
 			response.append({
@@ -267,6 +289,10 @@ def save_items(items, request_user):
 				"type": "danger"
 			})
 			continue
+
+		save_direccion(item["ciudad"], persona)
+
+		save_telefono(item["telefono"], persona)
 
 		save_entrevista(investigacion, item["gestor"], item["dia_cita"], item["hora_cita"])
 		
