@@ -28,11 +28,11 @@ def is_email_valid(email):
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def panel(request):
 	page = 'agentes'
-	users = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
+	users = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com').order_by('username')
 
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint').order_by('username')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com').order_by('username')
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	filtros_json = request.session.get('filtros_search_agente', None)
  	

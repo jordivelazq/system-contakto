@@ -33,7 +33,7 @@ def panel(request):
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	status_laboral_select = Investigacion.STATUS_OPCIONES
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 	filtros_json = request.session.get('filtros_search_reportes', None)
 	
 	if request.POST:

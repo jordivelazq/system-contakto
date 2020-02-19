@@ -51,7 +51,7 @@ def panel(request):
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	filtros_json = request.session.get('filtros_search_cobranza', None)
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
-	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 
 	cobranza = get_cobranza(filtros_json)
 	
