@@ -68,7 +68,7 @@
 				<tr>
 					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar">{{ cob.investigacion.id }}</a></td>
 
-					<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/M/y" }}</td>
+					<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/m/Y" }}</td>
 
 					<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
 
@@ -105,7 +105,7 @@
 						{% endif %}
 					</td>
 					<td class="text-center">{{ cob.investigacion.resultado|investigacion_resultado }}</td>
-					<td class="text-center">{{ cob.investigacion.fecha_entrega|default:'' }}</td>
+					<td class="text-center">{{ cob.investigacion.fecha_entrega|date:'d/m/Y' }}</td>
 					<td class="text-center">{{ cob.investigacion.tipo_investigacion_texto|default:'' }}</td>
 				</tr>
 				{% endfor %}

@@ -51,6 +51,7 @@ def panel(request):
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
 	filtros_json = request.session.get('filtros_search_cobranza', None)
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='admint')
 
 	cobranza = get_cobranza(filtros_json)
 	
@@ -89,7 +90,17 @@ def search_cobranza(request):
 		contacto_id = request.POST.get('contacto_id', '')
 		factura_folio = request.POST.get('factura_folio', '')
 		status_id = request.POST.get('status_id', '')
-		request.session['filtros_search_cobranza'] = {'compania_id':compania_id, 'compania_nombre':compania_nombre, 'contacto_id':contacto_id, 'factura_folio':factura_folio, 'status_id':status_id }
+		agente_select = request.POST.get('agente_select', '')
+
+		request.session['filtros_search_cobranza'] = {
+			'compania_id':compania_id, 
+			'compania_nombre':compania_nombre, 
+			'contacto_id':contacto_id, 
+			'factura_folio':factura_folio, 
+			'status_id':status_id,
+			'agente_select': agente_select
+		}
+
 		response = { 'status' : True}
 
 	return HttpResponse(json.dumps(response), content_type='application/json')

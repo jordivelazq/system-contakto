@@ -21,7 +21,7 @@
 
 				<div class="form-group" id="panel_empresa_contacto">
 					<select class="form-control" id="empresa_contacto" name="empresa_contacto" ng-model="empresa_contacto" ng-change="selectContacto()">
-						<option value="">Todos</option>
+						<option value="">Todos los Contactos</option>
 						<option ng-selected="{[{row.pk == contacto_id}]}" 
 							ng-repeat="row in empresa_contactos" value="{[{row.pk}]}">
 							{[{row.fields.nombre}]}
@@ -29,9 +29,11 @@
 					</select>
 				</div>
 
+				{% include 'share/search_agentes.html' %}
+
 				<div class="form-group" id="panel_factura">
 					<select class="form-control" id="folio_factura" name="folio_factura" ng-model="factura_folio_ng">
-						<option value="">Todos</option>
+						<option value="">Todos (Con y Sin Factura)</option>
 						<option value="por-facturar">Por facturar</option>
 						<option ng-selected="{[{row == factura_folio_ng}]}" 
 							ng-repeat="row in folios_facturas" value="{[{row}]}">
@@ -41,7 +43,7 @@
 				</div>
 				<div class="form-group">		
 					<select class="form-control" id="status_select" name="status_select" ng-model="status_select">
-						<option value="-1">Todos</option>
+						<option value="-1">Todos los Estatus</option>
 						{% for id,status in status_select %}
 							<option value="{{id}}">{{status}}</option>
 						{% endfor %}
@@ -70,7 +72,8 @@
 										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
 										'contacto_id':'{{filtros_json.contacto_id|safe}}',
 										'status_id':'{{filtros_json.status_id|safe}}',
-										'factura_folio':'{{filtros_json.factura_folio|safe}}'
+										'factura_folio':'{{filtros_json.factura_folio|safe}}',
+										'agente_select':'{{filtros_json.agente_select|safe}}'
 									}
 								{% else %}''{% endif %}
 </script>

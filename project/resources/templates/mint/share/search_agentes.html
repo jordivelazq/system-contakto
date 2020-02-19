@@ -1,0 +1,8 @@
+<div class="form-group">
+  <select class="form-control" id="agente_select" name="agente_select" ng-model="agente_select">
+    <option value="" selected="selected">Todos los Agentes</option>
+    {% for agt in agentes_select %}
+      <option value="{{agt.id}}">{{agt.username|title}}</option>
+    {% endfor %}
+  </select>
+</div>
