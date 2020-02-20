@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					{% for item in messages %}
-						<div class="alert alert-{{item.type}}">{{item.msg}}</div>
+						<div class="alert alert-{{item.type}}">{{item.msg|safe}}</div>
 					{% endfor %}
 				</div>
 			</div>

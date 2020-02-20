@@ -54,17 +54,16 @@ def get_fecha(workbook, worksheet, row_index, col_index, date_format = "%Y-%m-%d
 
 	if worksheet.cell_type(row_index, col_index) == 3:
 		try:
-			fecha = datetime(*xlrd.xldate_as_tuple(worksheet.cell_value(row_index, col_index), workbook.datemode)).date().strftime("%d-%m-%Y")
-			fecha = datetime.strptime(fecha, "%m-%d-%Y").strftime(date_format)
+			fecha = datetime(*xlrd.xldate_as_tuple(worksheet.cell_value(row_index, col_index), workbook.datemode)).date().strftime(date_format)
 		except Exception, e:
 			print "get_fecha", e
 			pass
 	
 	if not fecha:
 		try:
-			fecha = datetime.strptime(worksheet.cell_value(row_index, 2), "%d/%m/%Y").strftime(date_format)
+			fecha = datetime.strptime(worksheet.cell_value(row_index, col_index), "%d/%m/%Y").strftime(date_format)
 		except Exception, e:
-			print "get_fecha", e
+			print "get_fecha2", e
 			pass
 	
 	return fecha
@@ -299,7 +298,7 @@ def save_items(items, request_user):
 		save_cobranza(investigacion)
 
 		response.append({
-			"msg": "Investigaci&oacute;n creada: " + str(investigacion.id),
+			"msg": "Investigaci&oacute;n creada: <a href='/candidato/investigacion/" + str(investigacion.id)  + "/editar'>" + str(investigacion.id)  + "</a>",
 			"type": "success"
 		})
 
