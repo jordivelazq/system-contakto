@@ -174,7 +174,7 @@ def save_telefono(numero, persona):
 	telefono = Telefono(
 		persona = persona,
 		numero = str(numero),
-		categoria = 'casa'
+		categoria = 'movil'
 	)
 
 	try:
