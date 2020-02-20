@@ -17,7 +17,7 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import *
 from app.cobranza.forms import *
-from app.cobranza.services import get_cobranza
+from app.cobranza.services import get_cobranza, get_cobranza_csv_row
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
@@ -27,6 +27,7 @@ import datetime
 import xlrd
 import os
 import json
+import csv
 from django.db.models import Q
 
 login_required(login_url='/login', redirect_field_name=None)
@@ -56,6 +57,23 @@ def panel(request):
 	cobranza = get_cobranza(filtros_json)
 	
 	return render_to_response('sections/cobranza/panel.html', locals(), context_instance=RequestContext(request))
+
+login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+def descargar(request):
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
+	
+	writer = csv.writer(response)
+
+	filtros_json = request.session.get('filtros_search_cobranza', None)
+	cobranza = get_cobranza(filtros_json, 4200)
+
+	writer.writerow(['ID', 'Fecha de Recibido', 'Cliente', 'Nombre', 'Apellido', 'Puesto', 'Ciudad', 'Monto', 'Folio', 'Correo', 'Solicitante', 'Social', 'Ejecutivo', 'Obs. Cobranza', 'Tipo inv.', 'Estatus', 'Resultado', 'Obs .Investigacion'])
+	for cob in cobranza:
+		writer.writerow(get_cobranza_csv_row(cob))
+
+	return response
 
 '''
 	AJAX

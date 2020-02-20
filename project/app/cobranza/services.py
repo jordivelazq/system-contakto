@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from app.cobranza.models import Cobranza
+from app.front.templatetags.fe_extras import investigacion_resultado
 
-def get_cobranza(filtros_json, limit = 3500):
+def get_cobranza(filtros_json, limit = 200):
     cobranza = Cobranza.objects.filter(investigacion__status_active=True)
 
     if filtros_json != None:
@@ -27,3 +28,26 @@ def get_cobranza(filtros_json, limit = 3500):
       c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
     
     return cobranza
+
+def get_cobranza_csv_row(cob):
+  return [
+			cob.investigacion.id,
+			cob.investigacion.fecha_recibido,
+			cob.investigacion.compania.nombre.encode('utf-8'),
+			cob.investigacion.candidato.nombre.encode('utf-8'),
+			cob.investigacion.candidato.apellido.encode('utf-8'),
+			cob.investigacion.puesto.encode('utf-8'),
+			cob.ciudad.encode('utf-8'),
+			cob.monto,
+			cob.folio,
+			cob.investigacion.contacto.email,
+			cob.investigacion.contacto.nombre.encode('utf-8'),
+			cob.investigacion.compania.razon_social.encode('utf-8'),
+			cob.investigacion.agente.email,
+			cob.obs_cobranza.encode('utf-8'),
+			cob.investigacion.tipo_investigacion_status,
+			investigacion_resultado(cob.investigacion.resultado),
+			cob.investigacion.fecha_entrega,
+			cob.investigacion.tipo_investigacion_texto.encode('utf-8')
+		]
+  
