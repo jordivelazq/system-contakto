@@ -2,7 +2,7 @@
 
 from app.cobranza.models import Cobranza
 
-def get_cobranza(filtros_json):
+def get_cobranza(filtros_json, limit = 3500):
     cobranza = Cobranza.objects.filter(investigacion__status_active=True)
 
     if filtros_json != None:
@@ -20,7 +20,7 @@ def get_cobranza(filtros_json):
       if 'agente_select' in filtros_json and len(filtros_json['agente_select']):
         cobranza = cobranza.filter(investigacion__agente__id=filtros_json['agente_select'])
 
-    cobranza = cobranza.order_by('id')[:200]
+    cobranza = cobranza.order_by('id')[:limit]
 
     for c in cobranza:
       c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
