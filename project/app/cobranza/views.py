@@ -58,22 +58,14 @@ def panel(request):
 	
 	return render_to_response('sections/cobranza/panel.html', locals(), context_instance=RequestContext(request))
 
-login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
-def descargar(request):
-	response = HttpResponse(content_type='text/csv')
-	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
+def descargar():
+	cobranza = get_cobranza(None, 4200)
 	
-	writer = csv.writer(response)
-
-	filtros_json = request.session.get('filtros_search_cobranza', None)
-	cobranza = get_cobranza(filtros_json, 4200)
-
-	writer.writerow(['ID', 'Fecha de Recibido', 'Cliente', 'Nombre', 'Apellido', 'Puesto', 'Ciudad', 'Monto', 'Folio', 'Correo', 'Solicitante', 'Social', 'Ejecutivo', 'Obs. Cobranza', 'Tipo inv.', 'Estatus', 'Resultado', 'Obs .Investigacion'])
-	for cob in cobranza:
-		writer.writerow(get_cobranza_csv_row(cob))
-
-	return response
+	with open('./project/resources/csv/cobranza.csv', mode='w') as cobranza_file:
+			writer = csv.writer(cobranza_file, delimiter=',')
+			writer.writerow(['ID', 'Fecha de Recibido', 'Cliente', 'Nombre', 'Apellido', 'Puesto', 'Ciudad', 'Monto', 'Folio', 'Correo', 'Solicitante', 'Social', 'Ejecutivo', 'Obs. Cobranza', 'Tipo inv.', 'Estatus', 'Resultado', 'Obs .Investigacion'])
+			for cob in cobranza:
+				writer.writerow(get_cobranza_csv_row(cob))
 
 '''
 	AJAX

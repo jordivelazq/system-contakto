@@ -4,7 +4,6 @@ urlpatterns = patterns('',
 	url(r'^$', 'app.cobranza.views.panel', name='panel_cobranza'),
 	url(r'^exito/$', 'app.cobranza.views.panel', name='panel_cobranza'),
 	url(r'^error/$', 'app.cobranza.views.panel', name='panel_cobranza'),
-	url(r'^/descargar$', 'app.cobranza.views.descargar', name='descargar_cobranza'),
 	# #AJAX
 	url(r'^get_facturas/$', 'app.cobranza.views.get_facturas', name='get_facturas'),
 	url(r'^get_facturas/compania/(?P<compania_id>[^/]+)/$', 'app.cobranza.views.get_facturas', name='get_facturas'),
