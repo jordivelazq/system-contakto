@@ -40,9 +40,10 @@ class InvestigacionEditarForm(ModelForm):
 	
 	class Meta:
 		model = Investigacion
-		exclude = ('candidato', 'conclusiones', 'resultado', 'archivo', 'folio', 'presupuesto', 'status_general', 'status', 'observaciones_generales', 'tipo_investigacion_status', 'tipo_investigacion_texto')
+		exclude = ('candidato', 'conclusiones', 'resultado', 'archivo', 'folio', 'presupuesto', 'status_general', 'status', 'observaciones_generales', 'tipo_investigacion_status', 'tipo_investigacion_texto', 'fecha_entrega')
 		widgets = {
-      'label': forms.HiddenInput()
+      'label': forms.HiddenInput(),
+			'fecha_entrega': forms.HiddenInput()
     }
 
 	def __init__(self, *args, **kwargs):
