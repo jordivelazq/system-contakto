@@ -167,4 +167,4 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend'
 )
 
-EXT_RESEARCH_WHITELIST = ('.xlsx', '.xls')
+EXT_RESEARCH_WHITELIST = ('.xlsx', '.xls', '.csv')

@@ -12,7 +12,8 @@ ACTIVO_OPCIONES = (
 
 ARCHIVO_OPCIONES = (
 	(0, 'Entrevista'),
-	(1, 'Carga Masiva')
+	(1, 'Carga Masiva'),
+	(2, 'Actualizacion Cobranza')
 )
 
 class EntrevistaFile(models.Model):

@@ -21,7 +21,10 @@ def multiple_upload(file_id, sheet_index, request_user):
 			items = get_items(worksheet, workbook)
 			return save_items(items, request_user)
 
-		return ["Hubo problemas leyendo el archivo."]
+		return [{
+			"msg": "Hubo problemas leyendo el archivo.",
+			"type": "danger"
+		}]
 
 def get_items(worksheet, workbook):
 	row_index = init_row

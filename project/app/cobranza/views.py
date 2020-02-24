@@ -22,6 +22,7 @@ from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
+from app.util.cobranza_upload import cobranza_upload
 from django.conf import settings
 import datetime
 import xlrd
@@ -33,18 +34,28 @@ from django.db.models import Q
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def panel(request):
-	#Operaciones de panel (Agregar/Quitar factura)
-	if request.method == 'POST':
-		selection = request.POST.get('selection_json', '').split(',')
-		if len(selection):
-			folio_nuevo = request.POST.get('num_factura','') if 'agregar_factura' in request.POST else ''
-			for fact_id in selection:
-				c = Cobranza.objects.get(id=fact_id)
-				if not c.folio or folio_nuevo == '':
-					c.folio = folio_nuevo
-					c.save()
+	messages = []
 
-			return HttpResponseRedirect('/cobranza/exito')
+	if request.method == 'POST' and 'importar' in request.POST:
+		form_file = EntrevistaFileForm(request.POST, request.FILES)
+
+		if form_file.is_valid():
+			ext = os.path.splitext(str(request.FILES['record']))[1]
+
+			if ext.lower() not in settings.EXT_RESEARCH_WHITELIST:
+				messages = [{
+					"msg": "Es necesario cargar archivo de excel",
+					"type": "danger"
+				}]
+			else:
+				file_instance = EntrevistaFile(record=request.FILES['record'], tipo=2)
+				file_instance.save()
+
+				cobranza_upload(file_instance.record.path)
+
+				return HttpResponseRedirect('/cobranza/exito')
+	else:
+		form_file = EntrevistaFileForm()
 
 	page = 'cobranza'
 	

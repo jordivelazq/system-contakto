@@ -22,6 +22,32 @@
 
 	<div class="row placeholders">
 
+			<div class="row">
+				<div class="col-md-12">
+					{% for item in messages %}
+						<div class="alert alert-{{item.type}}">{{item.msg|safe}}</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<form role="form" action="#" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Actualizar cargos</h3>
+							</div>
+							<div class="panel-body">
+								{{form_file}}
+								<br />
+								<input type="submit" class="btn btn-primary pull-right" value="Importar" name="importar">
+							</div>
+						</div>
+					</form>	
+				</div>
+			</div>
+
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}}</h5>
