@@ -1,13 +1,11 @@
 {% load app_filters %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
-    <div class="header">
-      <h1>Estudio Laboral</h1>
-      <img src="/media/logo-nuevo.png" />
-      <div class="clear-fix"></div>
-    </div>
+    {% include 'sections/reportes/seccion/header.html' %}
 
-    {% include 'sections/reportes/compartido/datos-contacto.html' %}
+    {% if show_contact_info %}
+      {% include 'sections/reportes/compartido/datos-contacto.html' %}
+    {% endif %}
 
     <div class="general-info">
       <h3>DATOS GENERALES</h3>

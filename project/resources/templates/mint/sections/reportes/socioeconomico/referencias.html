@@ -1,7 +1,7 @@
 {% load app_filters %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
-    {% include 'sections/reportes/socioeconomico/header.html' %}
+    {% include 'sections/reportes/seccion/header.html' %}
 
     <div>
       <h3>REFERENCIAS VECINALES Y PERSONALES</h3>
@@ -50,7 +50,7 @@
               <th>TELÉFONO (CON LADA)</th>
               <td>{{referencia.telefono}}</td>
             </tr>
-    
+
             <tr>
               <th>DOMICILIO COMPLETO</th>
               <td colspan="2">{{referencia.domicilio}}</td>
@@ -70,7 +70,7 @@
             <h4>INGRESOS</h4>
           </th>
           {% for ingreso in ingresos %}
-          {% if not forloop.last %} 
+          {% if not forloop.last %}
           {% if ingreso.monto %}
           <tr>
             <th>
@@ -91,7 +91,7 @@
             <h4>EGRESOS</h4>
           </th>
           {% for egreso in egresos %}
-          {% if not forloop.last %} 
+          {% if not forloop.last %}
           {% if egreso.monto %}
           <tr>
             <th>
@@ -111,7 +111,7 @@
       <div class="totales">
         <table>
           {% for ingreso in ingresos %}
-          {% if forloop.last %} 
+          {% if forloop.last %}
           <tr>
             <th><strong>{{ingreso.concepto}}</strong></th>
             <th colspan="2"><h4>{{ingreso.monto|print_money}}</h4></th>
@@ -121,7 +121,7 @@
         </table>
         <table>
           {% for egreso in egresos %}
-          {% if forloop.last %} 
+          {% if forloop.last %}
           <tr>
             <th><strong>{{egreso.concepto}}</strong></th>
             <th colspan="2"><h4>{{egreso.monto|print_money}}</h4></th>
