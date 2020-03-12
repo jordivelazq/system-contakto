@@ -7,9 +7,6 @@
       {% include 'sections/reportes/compartido/cover-company.html' %}
 
       <div class="candidate socioeconomico">
-        {% if adjuntos.adj2 %}
-        <img src="{{adjuntos_baseurl}}{{adjuntos.adj2}}" />
-        {% endif %}
         <table>
           <tbody>
             <tr>
@@ -47,11 +44,6 @@
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div class="results">
-        <h2>RESULTADO</h2>
-        {% include 'sections/reportes/compartido/results.html' %}
       </div>
 
       {% include 'sections/reportes/compartido/cover-footer.html' %}

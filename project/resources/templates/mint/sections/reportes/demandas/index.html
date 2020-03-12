@@ -1,0 +1,12 @@
+{% extends 'layout/base_print.html' %}
+{% load fe_extras %}
+
+{% block site_wrapper %}
+
+{% include 'sections/reportes/demandas/cover.html' %}
+
+{% include 'sections/reportes/laboral/general.html' with show_contact_info=0 %}
+
+{% include 'sections/reportes/laboral/attachments-demandas.html' %}
+
+{% endblock %}

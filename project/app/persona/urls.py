@@ -35,15 +35,17 @@ urlpatterns = patterns('',
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/ver/(?P<seccion_entrevista>[-\w]+)/$', 'app.entrevista.views.editar_entrevista', name='editar_entrevista'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/editar/(?P<seccion_entrevista>[-\w]+)/$', 'app.entrevista.views.editar_entrevista', name='editar_entrevista'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/editar/(?P<seccion_entrevista>[-\w]+)/exito$', 'app.entrevista.views.editar_entrevista', name='editar_entrevista'),
-	
+
 	#Observaciones
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/observaciones$', 'app.persona.views.observaciones', name='ver_observaciones'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/observaciones/exito$', 'app.persona.views.observaciones', name='ver_observaciones'),
 
 	#Reporte
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/reporte$', 'app.persona.views.ver_reporte', name='ver_reporte'),
-		url(r'^investigacion/exportar/reporte-laboral/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_laboral', name='print_reporte_laboral'),
-		url(r'^investigacion/exportar/reporte-socioeconomico/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_socioeconomico', name='print_reporte_socioeconomico'),
+	url(r'^investigacion/exportar/reporte-laboral/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_laboral', name='print_reporte_laboral'),
+	url(r'^investigacion/exportar/reporte-socioeconomico/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_socioeconomico', name='print_reporte_socioeconomico'),
+	url(r'^investigacion/exportar/reporte-visita-domiciliaria/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_visita_domiciliaria', name='print_reporte_visita_domiciliaria'),
+	url(r'^investigacion/exportar/reporte-demandas/(?P<investigacion_id>[^/]+)$', 'app.investigacion.views.print_reporte_validacion_demandas', name='print_reporte_validacion_demandas'),
 
 	#Adjuntos
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/adjuntos/$', 'app.adjuntos.views.panel_adjuntos', name='panel_adjuntos'),
@@ -54,7 +56,7 @@ urlpatterns = patterns('',
 	url(r'^existencia/$', 'app.persona.views.existencia', name='existencia_candidato'),
 	url(r'^search_candidatos/$', 'app.persona.views.search_candidatos', name='search_candidatos'),
 	url(r'^reset_filtros/$', 'app.persona.views.reset_filtros', name='reset_filtros_candidatos'),
-)	
+)
 
 '''
     url(r'^(?P<investigacion_id>[^/]+)/editar$', 'app.investigacion.views.editar', name='editar_investigacion'),

@@ -2,14 +2,14 @@
 
 <section class="laboral-study-page laboral-general">
     <div class="background-2">
-      {% include 'sections/reportes/socioeconomico/header.html' %}
+      {% include 'sections/reportes/seccion/header.html' %}
 
       <h3>CONCLUSIÓN DE ESTUDIO SOCIOECONÓMICO</h3>
 
       <div class="conclusion">
         <p>
-          {{entrevista_investigacion.conclusiones|print_text|safe}} 
-          
+          {{entrevista_investigacion.conclusiones|print_text|safe}}
+
           {% if investigacion.observaciones_generales %}
             <br />
             {{investigacion.observaciones_generales|print_text|safe}}
@@ -24,7 +24,9 @@
         <table>
           <tr>
             <td class="no-bg">
-              <h3>RESULTADO DE <br />INVESTIGACIÓN LABORAL</h3>
+              {% if show_results %}
+                <h3>RESULTADO DE <br />INVESTIGACIÓN LABORAL</h3>
+              {% endif %}
             </td>
             <td width="50" class="no-bg"></td>
             <td class="no-bg">
@@ -35,7 +37,9 @@
           <tr>
             <td class="no-bg align-top">
               <div class="results">
-              {% include 'sections/reportes/compartido/results.html' %}
+                {% if show_results %}
+                  {% include 'sections/reportes/compartido/results.html' %}
+                {% endif %}
               </div>
             </td>
 
@@ -75,4 +79,3 @@
     </div>
   </section>
   <div class="page-break"></div>
-  

@@ -8,7 +8,7 @@
 {% block site_wrapper %}
 	{% include 'sections/candidato/seccion/candidato_header.html' %}
 
-	<div class="adjusted-fixed-submenu">	
+	<div class="adjusted-fixed-submenu">
 		<div class="panel panel-default">
 			<div class="panel-heading">Reportes</div>
 			<div class="panel-body">
@@ -33,6 +33,28 @@
 						{% else %}
 							<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-socioeconomico/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 						{% endif %}
+					</div>
+				</div>
+				<div class="row">
+					<hr />
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Visita Domiciliaria</label>
+					</div>
+					<div id="exportar-pdf" class="col-xs-3">
+						<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-visita-domiciliaria/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
+					</div>
+				</div>
+				<div class="row">
+					<hr />
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Validación Demandas Laborales</label>
+					</div>
+					<div id="exportar-pdf" class="col-xs-3">
+						<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-demandas/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 					</div>
 				</div>
 			</div>
