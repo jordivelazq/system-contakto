@@ -2,77 +2,79 @@
 {% load fe_extras %}
 
 {% block side_content %}
-	{% include 'sections/cobranza/seccion/search_sidebar.html' %}
+{% include 'sections/cobranza/seccion/search_sidebar.html' %}
+
+<hr />
+
+<table class="table">
+	<tr>
+		<th>Total de estudios</th>
+		<td>{{facturas_desglose.total}}</td>
+	</tr>
+	<tr>
+		<th>Investigaciones facturadas</th>
+		<td>{{facturas_desglose.facturas}}</td>
+	</tr>
+	<tr>
+		<th>Invesitigaciones por facturar</th>
+		<td>{{facturas_desglose.sin_factura}}</td>
+	</tr>
+</table>
+
+<hr />
+
+<form role="form" action="#" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Actualizar cargos</h3>
+		</div>
+		<div class="panel-body">
+			{{form_file}}
+			<br />
+			<input type="submit" class="btn btn-primary pull-right" value="Importar" name="importar">
+		</div>
+	</div>
+</form>
 {% endblock %}
 
 {% block site_wrapper %}
 {% autoescape off %}
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div id="msg"></div>
-			</div>
-		</div>	
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div id="msg"></div>
+	</div>
+</div>
 {% endautoescape %}
 
 <div ng-controller="CobranzaCTRL">
 	<h1 class="page-header">
-		Cobranza 
+		Cobranza
 		<span id="msg"></span>
 	</h1>
 
 	<div class="row placeholders">
 
-			<div class="row">
-				<div class="col-md-12">
-					{% for item in messages %}
-						<div class="alert alert-{{item.type}}">{{item.msg|safe}}</div>
-					{% endfor %}
-				</div>
+		<div class="row">
+			<div class="col-md-12">
+				{% for item in messages %}
+				<div class="alert alert-{{item.type}}">{{item.msg|safe}}</div>
+				{% endfor %}
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<form role="form" action="#" method="post" enctype="multipart/form-data">
-						{% csrf_token %}
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">Actualizar cargos</h3>
-							</div>
-							<div class="panel-body">
-								{{form_file}}
-								<br />
-								<input type="submit" class="btn btn-primary pull-right" value="Importar" name="importar">
-							</div>
-						</div>
-					</form>	
-				</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}}</h5>
+				<a class="btn btn-default pull-right" onclick="exportTableToCSV('cobranza')">Descargar</a>
+				<br class="clear-fix">
+				<br />
 			</div>
+		</div>
 
-			<table class="table">
-				<tr>
-					<th>Total de estudios</th>
-					<td>{{facturas_desglose.total}}</td>
-
-					<th>Investigaciones facturadas</th>
-					<td>{{facturas_desglose.facturas}}</td>
-
-					<th>Invesitigaciones por facturar</th>
-					<td>{{facturas_desglose.sin_factura}}</td>
-				</tr>
-			</table>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}}</h5>
-					<a class="btn btn-default pull-right" onclick="exportTableToCSV('cobranza')">Descargar</a>
-					<br class="clear-fix">
-					<br />
-				</div>
-			</div>
-
-	    <div class="table-responsive">
+		<div class="table-responsive">
 			{% if cobranza|length %}
-			<table class="table table-striped table-estatus" >
+			<table class="table table-striped table-estatus">
 				<thead>
 					<tr>
 						<th class="text-center col-gray">ID</th>
@@ -88,7 +90,7 @@
 
 						<th class="text-center col-blue">Monto</th>
 						<th class="text-center col-blue">Folio</th>
-						
+
 						<th class="text-center col-gray">Correo</th>
 						<th class="text-center col-gray">Solicitante</th>
 
@@ -103,61 +105,62 @@
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
-				{% for cob in cobranza %}
-				<tr>
-					<td class="text-left"><a href="/candidato/investigacion/{{cob.investigacion.id}}/editar">{{ cob.investigacion.id }}</a></td>
+					{% for cob in cobranza %}
+					<tr>
+						<td class="text-left"><a
+								href="/candidato/investigacion/{{cob.investigacion.id}}/editar">{{ cob.investigacion.id }}</a></td>
 
-					<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/m/Y" }}</td>
+						<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/m/Y" }}</td>
 
-					<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
+						<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
 
-					<td class="text-left">{{ cob.investigacion.candidato.nombre }}</td>
-					<td class="text-left">{{ cob.investigacion.candidato.apellido }}</td>
-					<td class="text-left">{{ cob.investigacion.puesto }}</td>
-					<td class="text-center">{{ cob.ciudad }}</td>
+						<td class="text-left">{{ cob.investigacion.candidato.nombre }}</td>
+						<td class="text-left">{{ cob.investigacion.candidato.apellido }}</td>
+						<td class="text-left">{{ cob.investigacion.puesto }}</td>
+						<td class="text-center">{{ cob.ciudad }}</td>
 
-					<td class="text-center">
-						{% if cob.monto %}
+						<td class="text-center">
+							{% if cob.monto %}
 							$ <span ng-class="{monto_activo: selection.indexOf('{{cob.id}}') > -1}">{{ cob.monto }}</span>
-						{% else %}
+							{% else %}
 							<small class="text-danger"><strong>REQUERIDO</strong></small>
-						{% endif %}
-					</td>
-					<td class="text-center">
-						{% if cob.folio %}
+							{% endif %}
+						</td>
+						<td class="text-center">
+							{% if cob.folio %}
 							{{ cob.folio }}
-						{% endif %}
-					</td>
+							{% endif %}
+						</td>
 
-					<td class="text-center">{{ cob.investigacion.contacto.email }}</td>
-					<td class="text-center">{{ cob.investigacion.contacto.nombre }}</td>
+						<td class="text-center">{{ cob.investigacion.contacto.email }}</td>
+						<td class="text-center">{{ cob.investigacion.contacto.nombre }}</td>
 
-					<td class="text-center">{{ cob.investigacion.compania.razon_social }}</td>
+						<td class="text-center">{{ cob.investigacion.compania.razon_social }}</td>
 
-					<td class="text-center">{{ cob.investigacion.agente.email }}</td>
-					<td class="text-center">{{ cob.obs_cobranza }}</td>
-					<td class="text-center">
-						{% if cob.investigacion.tipo_investigacion_status %}
+						<td class="text-center">{{ cob.investigacion.agente.email }}</td>
+						<td class="text-center">{{ cob.obs_cobranza }}</td>
+						<td class="text-center">
+							{% if cob.investigacion.tipo_investigacion_status %}
 							{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}
-						{% else %}
+							{% else %}
 							<small class="text-danger"><strong>REQUERIDO</strong></small>
-						{% endif %}
-					</td>
-					<td class="text-center">{{ cob.investigacion.resultado|investigacion_resultado }}</td>
-					<td class="text-center">{{ cob.investigacion.fecha_entrega|date:'d/m/Y' }}</td>
-					<td class="text-center">{{ cob.investigacion.tipo_investigacion_texto|default:'' }}</td>
-				</tr>
-				{% endfor %}
+							{% endif %}
+						</td>
+						<td class="text-center">{{ cob.investigacion.resultado|investigacion_resultado }}</td>
+						<td class="text-center">{{ cob.investigacion.fecha_entrega|date:'d/m/Y' }}</td>
+						<td class="text-center">{{ cob.investigacion.tipo_investigacion_texto|default:'' }}</td>
+					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 			{% else %}
-				<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
+			<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
 			{% endif %}
 		</div>
 	</div>
 </div>
 {% if selection_be %}
-	
+
 {% endif %}
 {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
 {% endblock %}
