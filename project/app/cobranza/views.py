@@ -66,6 +66,12 @@ def panel(request):
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 
 	cobranza = get_cobranza(filtros_json)
+
+	facturas_desglose = {
+		"total": Cobranza.objects.filter(investigacion__status_active=True).count(),
+		"facturas": Cobranza.objects.filter(investigacion__status_active=True).exclude(folio__exact='').count(),
+		"sin_factura": Cobranza.objects.filter(investigacion__status_active=True).filter(folio__exact='').count()
+	}
 	
 	return render_to_response('sections/cobranza/panel.html', locals(), context_instance=RequestContext(request))
 

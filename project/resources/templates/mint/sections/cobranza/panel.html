@@ -48,6 +48,19 @@
 				</div>
 			</div>
 
+			<table class="table">
+				<tr>
+					<th>Total de estudios</th>
+					<td>{{facturas_desglose.total}}</td>
+
+					<th>Investigaciones facturadas</th>
+					<td>{{facturas_desglose.facturas}}</td>
+
+					<th>Invesitigaciones por facturar</th>
+					<td>{{facturas_desglose.sin_factura}}</td>
+				</tr>
+			</table>
+
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}}</h5>
