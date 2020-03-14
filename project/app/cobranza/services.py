@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from django.db.models import Q
+
 from app.cobranza.models import Cobranza
 from app.front.templatetags.fe_extras import investigacion_resultado
 
@@ -8,7 +10,13 @@ def get_cobranza(filtros_json, limit = 200):
 
     if filtros_json != None:
       if 'status_id' in filtros_json and len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
-        cobranza = cobranza.filter(investigacion__status_general=filtros_json['status_id'])
+        if int(filtros_json['status_id']) == 3:
+          cobranza = cobranza.filter(Q(investigacion__status_general=0)|Q(investigacion__status_general=1))
+        elif int(filtros_json['status_id']) == 4:
+          cobranza = cobranza.filter(Q(investigacion__status_general=2)|Q(investigacion__status_general=1))
+        else:
+          cobranza = cobranza.filter(investigacion__status_general=filtros_json['status_id'])
+
       if 'compania_id' in filtros_json and len(filtros_json['compania_id']):
         cobranza = cobranza.filter(investigacion__compania__id=filtros_json['compania_id'])
       if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
@@ -21,13 +29,14 @@ def get_cobranza(filtros_json, limit = 200):
       if 'agente_select' in filtros_json and len(filtros_json['agente_select']):
         cobranza = cobranza.filter(investigacion__agente__id=filtros_json['agente_select'])
 
+    total_cobranza = cobranza.count()
     cobranza = cobranza.order_by('id')[:limit]
 
     for c in cobranza:
       c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
       c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
     
-    return cobranza
+    return cobranza, total_cobranza
 
 def get_cobranza_csv_row(cob):
   return [

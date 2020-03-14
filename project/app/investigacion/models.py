@@ -50,6 +50,8 @@ class Investigacion(models.Model):
 		('0', 'Abierto'),
 		('1', 'Pdt. por Cliente'),
 		('2', 'Cerrada'),
+		('3', 'Abierto + Pdt. por Cliente'),
+		('4', 'Cerrado + Pdt. por Cliente'),
 	)
 	
 	agente = models.ForeignKey(User)

@@ -29,7 +29,6 @@ import xlrd
 import os
 import json
 import csv
-from django.db.models import Q
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -65,7 +64,7 @@ def panel(request):
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 
-	cobranza = get_cobranza(filtros_json)
+	cobranza, total_cobranza = get_cobranza(filtros_json)
 
 	facturas_desglose = {
 		"total": Cobranza.objects.filter(investigacion__status_active=True).count(),
