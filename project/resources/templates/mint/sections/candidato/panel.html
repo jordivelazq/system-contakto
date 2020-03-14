@@ -35,7 +35,7 @@
 				{% endif %}						
 			</div>
 		</div>
-		{% if user.is_superuser %}
+		{% if not is_usuario_contacto and not is_user_captura %}
 			<div class="row">
 				<div class="col-md-12">
 					{% for item in messages %}
