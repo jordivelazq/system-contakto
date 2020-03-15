@@ -226,6 +226,7 @@ class ControllerPersona(object):
 			EntrevistaAcademica(	person = candidato,
 									cedula_profesional = info_academica['cedula_profesional'],
 									cedula_prof_ano_exp = info_academica['cedula_prof_ano_exp'],
+									activo = info_academica['estudia_actualmente'],
 									estudios_institucion = info_academica['estudios_institucion'],
 									estudios_que = info_academica['estudios_que'],
 									estudios_horarios = info_academica['estudios_horarios'],

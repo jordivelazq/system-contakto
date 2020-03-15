@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # documentacion de libreria xlrd:
 # https://secure.simplistix.co.uk/svn/xlrd/trunk/xlrd/doc/xlrd.html?p=4966
 from django.conf import settings
@@ -10,7 +11,22 @@ import json
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "contakto.settings")
 
-from app.entrevista.models import EntrevistaFile
+from app.entrevista.models import EntrevistaFile, ACTIVO_OPCIONES
+
+def get_activo_opciones(value):
+	'''
+		Options defined at: app.entrevista.models.ACTIVO_OPCIONES
+	'''
+	if not value:
+		return 0
+	
+	value = value.upper()
+	for option in ACTIVO_OPCIONES:
+		if option[1] == value:
+			return option[0]
+	
+	return 0
+		
 
 class PreCandidato(object):
 	'''
@@ -265,6 +281,8 @@ class PreCandidato(object):
 
 			data['cedula_profesional'] = self.get_cell_value(rowx=51,colx=32)
 			data['cedula_prof_ano_exp'] = self.get_cell_value(rowx=51,colx=40)
+
+			data['estudia_actualmente'] = get_activo_opciones(self.get_cell_value(rowx=52,colx=6))
 			data['estudios_institucion'] = self.get_cell_value(rowx=52,colx=9)
 			data['estudios_que'] = self.get_cell_value(rowx=52,colx=21)
 			data['estudios_horarios'] = self.get_cell_value(rowx=52,colx=30)

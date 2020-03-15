@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from app.investigacion.models import Investigacion
 
 ACTIVO_OPCIONES = (
-	    (1, 'Sí'),
-	    (2, 'No'),
-			(0, 'NA'),
-	)
+	(1, 'SI'),
+	(2, 'NO'),
+	(0, 'NA'),
+)
 
 ARCHIVO_OPCIONES = (
 	(0, 'Entrevista'),
