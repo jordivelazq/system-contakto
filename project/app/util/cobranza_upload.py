@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import csv
 
 from app.cobranza.models import Cobranza
@@ -59,6 +61,18 @@ def parse_int(value):
   except Exception, e:
     print "parse_int", e
     return None
+  
+def parse_string(value):
+  if not value:
+    return ""
+
+  try:
+    string_parsed = value.decode('cp1252').encode("utf-8").replace("€?", "É")
+  except Exception, e:
+    print "parse_string", e
+    string_parsed = value.decode('utf-8','ignore').encode("utf-8")
+  
+  return string_parsed
 
 
 def update_cobranza(investigacion_id, monto, folio):
@@ -81,7 +95,7 @@ def update_investigacion(investigacion_id, obs_cobranza, tipo):
   inv = Investigacion.objects.get(id=investigacion_id)
 
   if inv.sucursal:
-    inv.sucursal.nombre = obs_cobranza
+    inv.sucursal.nombre = parse_string(obs_cobranza)
     inv.sucursal.save()
 
   tipo = parse_int(tipo)

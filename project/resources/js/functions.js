@@ -443,7 +443,7 @@ function downloadCSV(csv, filename) {
 
 function exportTableToCSV(filename) {
   var csv = [];
-  var rows = document.querySelectorAll("table tr");
+  var rows = document.querySelectorAll("table.table-estatus tr");
   
   for (var i = 0; i < rows.length; i++) {
       var row = [], cols = rows[i].querySelectorAll("td, th");
