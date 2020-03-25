@@ -39,24 +39,26 @@ def get_cobranza(filtros_json, limit = 200):
     return cobranza, total_cobranza
 
 def get_cobranza_csv_row(cob):
-  return [
-			cob.investigacion.id,
-			cob.investigacion.fecha_recibido,
-			cob.investigacion.compania.nombre.encode('utf-8'),
-			cob.investigacion.candidato.nombre.encode('utf-8'),
-			cob.investigacion.candidato.apellido.encode('utf-8'),
-			cob.investigacion.puesto.encode('utf-8'),
-			cob.ciudad.encode('utf-8'),
-			cob.monto,
-			cob.folio,
-			cob.investigacion.contacto.email,
-			cob.investigacion.contacto.nombre.encode('utf-8'),
-			cob.investigacion.compania.razon_social.encode('utf-8'),
-			cob.investigacion.agente.email,
-			cob.obs_cobranza.encode('utf-8'),
-			cob.investigacion.tipo_investigacion_status,
-			investigacion_resultado(cob.investigacion.resultado),
-			cob.investigacion.fecha_entrega,
-			cob.investigacion.tipo_investigacion_texto.encode('utf-8')
-		]
+  if cob.investigacion:
+    return [
+        cob.investigacion.id,
+        cob.investigacion.fecha_recibido,
+        cob.investigacion.compania.nombre.encode('utf-8'),
+        cob.investigacion.candidato.nombre.encode('utf-8'),
+        cob.investigacion.candidato.apellido.encode('utf-8'),
+        cob.investigacion.puesto.encode('utf-8'),
+        cob.ciudad.encode('utf-8'),
+        cob.monto,
+        cob.folio,
+        cob.investigacion.contacto.email,
+        cob.investigacion.contacto.nombre.encode('utf-8'),
+        cob.investigacion.compania.razon_social.encode('utf-8'),
+        cob.investigacion.agente.email,
+        cob.obs_cobranza.encode('utf-8'),
+        cob.investigacion.tipo_investigacion_status,
+        investigacion_resultado(cob.investigacion.resultado),
+        cob.investigacion.fecha_entrega,
+        cob.investigacion.tipo_investigacion_texto.encode('utf-8')
+      ]
+  return ["ERROR", cob.id]
   
