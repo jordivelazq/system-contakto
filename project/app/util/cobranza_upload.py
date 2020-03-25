@@ -113,6 +113,7 @@ def save_items(items):
     index += 1
     investigacion_id = item['investigacion_id']
 
-    update_cobranza(investigacion_id, item['monto'], item['folio'])
-    update_compania(investigacion_id, item['razon_social'])
-    update_investigacion(investigacion_id, item['obs_cobranza'], item["tipo"])
+    if investigacion_id:
+      update_cobranza(investigacion_id, item['monto'], item['folio'])
+      update_compania(investigacion_id, item['razon_social'])
+      update_investigacion(investigacion_id, item['obs_cobranza'], item["tipo"])
