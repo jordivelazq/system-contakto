@@ -99,7 +99,7 @@ class Telefono(models.Model):
 	)
 	persona = models.ForeignKey(Persona)
 	categoria = models.CharField(max_length=20, choices=TELEFONO_OPCIONES)
-	numero = models.CharField(max_length=14, null=True, blank=True)
+	numero = models.CharField(max_length=10, null=True, blank=True)
 	parentesco = models.CharField(max_length=40, blank=True, null=True)
 
 	def __unicode__(self):
