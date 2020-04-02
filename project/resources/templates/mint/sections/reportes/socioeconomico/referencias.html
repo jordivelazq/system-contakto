@@ -41,6 +41,11 @@
             <th>COMO CONOCIÓ AL EVALUADO</th>
             <td colspan="4">{{referencia.lugares_labor_evaluado}}</td>
           </tr>
+
+          <tr>
+            <th>Opinión sobre EVALUADO</th>
+            <td colspan="4">{{referencia.opinion}}</td>
+          </tr>
         </table>
         {% else %}
           <table>
@@ -56,6 +61,11 @@
               <td colspan="2">{{referencia.domicilio}}</td>
               <th>PARENTESCO</th>
               <td>{{referencia.parentesco}}</td>
+            </tr>
+
+            <tr>
+              <th>Opinión sobre EVALUADO</th>
+              <td colspan="4">{{referencia.opinion}}</td>
             </tr>
           </table>
         {% endif %}
