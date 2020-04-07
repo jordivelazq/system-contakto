@@ -35,11 +35,20 @@
                   CARTA LABORAL
                 </th>
                 <td colspan="3">
-                  {% if ref.cartalaboral.fecha or ref.cartalaboral.expide == "NO PRESENTA" %}
-                  FECHA: {{ref.cartalaboral.fecha}} <Br />
-                  QUIEN EXPIDE: {{ref.cartalaboral.expide}}
+                  {% if ref.cartalaboral.tiene_carta == 1 %}
+                    {% if not ref.cartalaboral.fecha and not ref.cartalaboral.expide %} 
+                      SI
+                    {% else %}
+                      {% if ref.cartalaboral.fecha %} 
+                        FECHA: {{ref.cartalaboral.fecha}}
+                        <br />
+                      {% endif %}
+                      {% if ref.cartalaboral.expide %}
+                        QUIEN EXPIDE: {{ref.cartalaboral.expide}}
+                      {% endif %}
+                    {% endif %}
                   {% else %}
-                  NO <br /><br />
+                    NO
                   {% endif %}
                 </td>
               </tr>
