@@ -49,6 +49,13 @@
 						{% endfor %}
 					</select>
 				</div>
+
+				<div id="daterange-inputs-sidebar" class="form-group">
+					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio">
+					<span class="float-left daterange-separator">&nbsp;a&nbsp;</span>
+					<input class="form-control sidebar-date-input " type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
+				</div>
+
 				<div id="botones-sidebar" class="form-group">
 					<span class="pull-right">
 						<button type="button" class="btn btn-default btn-sm" ng-click="limpiar_filtros();"> Limpiar </button>
@@ -69,7 +76,9 @@
 										'contacto_id':'{{filtros_json.contacto_id|safe}}',
 										'status_id':'{{filtros_json.status_id|safe}}',
 										'factura_folio':'{{filtros_json.factura_folio|safe}}',
-										'agente_select':'{{filtros_json.agente_select|safe}}'
+										'agente_select':'{{filtros_json.agente_select|safe}}',
+										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
+										'fecha_final':'{{filtros_json.fecha_final|safe}}'
 									}
 								{% else %}''{% endif %}
 </script>

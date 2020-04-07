@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import datetime
 from django.db.models import Q
 
 from app.cobranza.models import Cobranza
@@ -28,6 +29,21 @@ def get_cobranza(filtros_json, limit = 200):
           cobranza = cobranza.filter(folio=filtros_json['factura_folio'])
       if 'agente_select' in filtros_json and len(filtros_json['agente_select']):
         cobranza = cobranza.filter(investigacion__agente__id=filtros_json['agente_select'])
+      
+      fecha_inicio = None
+      fecha_final = None
+      if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
+        fecha_inicio = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
+
+      if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
+        fecha_final = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
+      
+      if fecha_inicio and fecha_final:
+        cobranza = cobranza.filter(investigacion__fecha_recibido__gte=fecha_inicio, investigacion__fecha_recibido__lte=fecha_final)
+      elif fecha_inicio:
+        cobranza = cobranza.filter(investigacion__fecha_recibido__gte=fecha_inicio)
+      elif fecha_final:
+        cobranza = cobranza.filter(investigacion__fecha_recibido__lte=fecha_final)
 
     total_cobranza = cobranza.count()
     cobranza = cobranza.order_by('id')[:limit]

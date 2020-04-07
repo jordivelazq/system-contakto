@@ -117,6 +117,8 @@ def search_cobranza(request):
 		factura_folio = request.POST.get('factura_folio', '')
 		status_id = request.POST.get('status_id', '')
 		agente_select = request.POST.get('agente_select', '')
+		fecha_inicio = request.POST.get('fecha_inicio', '')
+		fecha_final = request.POST.get('fecha_final', '')
 
 		request.session['filtros_search_cobranza'] = {
 			'compania_id':compania_id, 
@@ -124,7 +126,9 @@ def search_cobranza(request):
 			'contacto_id':contacto_id, 
 			'factura_folio':factura_folio, 
 			'status_id':status_id,
-			'agente_select': agente_select
+			'agente_select': agente_select,
+			'fecha_inicio':fecha_inicio,
+			'fecha_final':fecha_final
 		}
 
 		response = { 'status' : True}

@@ -285,7 +285,9 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
             'contacto_id' : $scope.contacto_id ? $scope.contacto_id : '',
             'factura_folio' : $scope.factura_folio_ng ? $scope.factura_folio_ng : '',
             'status_id' : typeof $scope.status_select ? $scope.status_select : '',
-            'agente_select': $scope.agente_select ? $scope.agente_select : ''
+            'agente_select': $scope.agente_select ? $scope.agente_select : '',
+            'fecha_inicio' : $scope.fecha_inicio ? $scope.fecha_inicio : '',
+            'fecha_final' : $scope.fecha_final ? $scope.fecha_final : '',
         }
     };
 
@@ -311,9 +313,17 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
         if (typeof filtros_json.agente_select !== 'undefined') {
             $scope.agente_select = filtros_json.agente_select;
         }
+        if (filtros_json.fecha_inicio){
+            $('#fecha_inicio').val(filtros_json.fecha_inicio);
+        }
+        if (filtros_json.fecha_final){
+            $('#fecha_final').val(filtros_json.fecha_final);
+        }
     };
 
     $scope.search = function(){
+        $scope.fecha_inicio = $('#fecha_inicio').val();
+        $scope.fecha_final = $('#fecha_final').val();
         var data = $scope.get_filtros();
         $.post( "/cobranza/search_cobranza/", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
@@ -326,6 +336,8 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
         $scope.status_select = '0';
         if (filtros_json !== ''){
             $scope.set_filtros(filtros_json);
+            $scope.fecha_inicio = $('#fecha_inicio').val();
+            $scope.fecha_final = $('#fecha_final').val();
             if($scope.compania_id.length && parseInt($scope.compania_id)){
                 $scope.setEmpresaContactos()
             }
@@ -342,6 +354,8 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
             $scope.empresa_contacto = '';
             $scope.status_select = '0';
             $scope.agente_select = ''
+            $('#fecha_inicio').val('');
+            $('#fecha_final').val('');
             $.post("/cobranza/reset_filtros/");
             $scope.setFacturaFolios();
         };
