@@ -29,6 +29,7 @@ import xlrd
 import os
 import json
 import csv
+import subprocess
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -87,6 +88,7 @@ login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def generar_reporte(request):
 	descargar()
+	subprocess.Popen(["ls", "-la"])
 
 	return HttpResponse("cool")
 
