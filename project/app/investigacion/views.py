@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-import pdb
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
@@ -40,7 +39,7 @@ def print_reporte_laboral(request, investigacion_id):
 
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
-	return render_to_response('sections/reportes/laboral/index.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/reportes/laboral/index.html', locals(), RequestContext(request))
 
 @csrf_exempt
 def print_reporte_socioeconomico(request, investigacion_id):
@@ -106,7 +105,7 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	infonavit = entrevista_persona.entrevistaprestacionvivienda_set.get(categoria_viv='infonavit') if entrevista_persona and entrevista_persona.entrevistaprestacionvivienda_set.filter(categoria_viv='infonavit').count() else None
 	fonacot = entrevista_persona.entrevistaprestacionvivienda_set.get(categoria_viv='fonacot') if entrevista_persona and entrevista_persona.entrevistaprestacionvivienda_set.filter(categoria_viv='fonacot').count() else None
 
-	return render_to_response('sections/reportes/socioeconomico/index.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/reportes/socioeconomico/index.html', locals(), RequestContext(request))
 
 @csrf_exempt
 def print_reporte_visita_domiciliaria(request, investigacion_id):
@@ -172,7 +171,7 @@ def print_reporte_visita_domiciliaria(request, investigacion_id):
 	infonavit = entrevista_persona.entrevistaprestacionvivienda_set.get(categoria_viv='infonavit') if entrevista_persona and entrevista_persona.entrevistaprestacionvivienda_set.filter(categoria_viv='infonavit').count() else None
 	fonacot = entrevista_persona.entrevistaprestacionvivienda_set.get(categoria_viv='fonacot') if entrevista_persona and entrevista_persona.entrevistaprestacionvivienda_set.filter(categoria_viv='fonacot').count() else None
 
-	return render_to_response('sections/reportes/visita/index.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/reportes/visita/index.html', locals(), RequestContext(request))
 
 @csrf_exempt
 def print_reporte_validacion_demandas(request, investigacion_id):
@@ -197,4 +196,4 @@ def print_reporte_validacion_demandas(request, investigacion_id):
 
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
-	return render_to_response('sections/reportes/demandas/index.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/reportes/demandas/index.html', locals(), RequestContext(request))

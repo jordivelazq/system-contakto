@@ -1,9 +1,11 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
-urlpatterns = patterns('',
-	url(r'^/$', 'app.bitacora.views.panel', name='bitacora_panel'),
+from app.bitacora.views import panel, search_bitacora, reset_filtros
+
+urlpatterns = [
+	url(r'^/$', panel, name='bitacora_panel'),
 
 	#AJAX
-	url(r'^search_bitacora/$', 'app.bitacora.views.search_bitacora', name='search_bitacora'),
-    url(r'^reset_filtros/$', 'app.bitacora.views.reset_filtros', name='reset_filtros_bitacora'),
-)
+	url(r'^search_bitacora/$', search_bitacora, name='search_bitacora'),
+	url(r'^reset_filtros/$', reset_filtros, name='reset_filtros_bitacora')
+]

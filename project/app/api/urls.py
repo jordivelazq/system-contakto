@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
-urlpatterns = patterns('',
-	#url(r'^/$', 'app.reportes.views.panel', name='panel_reportes'),
-	
-    url(r'^empresa/(?P<empresa_id>[^/]+)/get_contactos$', 'app.api.views.empresa_get_contactos', name='empresa_get_contactos'),
-)	
+from app.api.views import empresa_get_contactos
 
+urlpatterns = [
+    url(r'^empresa/(?P<empresa_id>[^/]+)/get_contactos$', empresa_get_contactos, name='empresa_get_contactos'),
+]

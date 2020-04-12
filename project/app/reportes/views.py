@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
@@ -52,7 +52,7 @@ def panel(request):
 
 	investigaciones = get_investigaciones_extended(request)
 			
-	return render_to_response('sections/reportes/panel.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/reportes/panel.html', locals(), RequestContext(request))
 
 login_required(login_url='/login', redirect_field_name=None)
 def preview(request):

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import HttpResponse, render_to_response
+from django.shortcuts import HttpResponse, render_to_response, render
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from app.bitacora.models import Bitacora
+
 
 @login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
@@ -69,7 +70,7 @@ def mint_login(request):
 		else:
 			state = "Tu usuario y/o contraseña no son correctos"
 
-	return render_to_response('sections/login.html', {'state': state}, context_instance=RequestContext(request))
+	return render(request, 'sections/login.html', {'state': state}, RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 def mint_logout(request):

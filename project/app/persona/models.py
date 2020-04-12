@@ -495,16 +495,6 @@ class BienesRaices(models.Model):
 	def __unicode__(self):
 		return '%s, %s' % (self.tipo_inmueble, self.ubicacion)
 
-class Seguro(models.Model):
-	person = models.ForeignKey(Persona)
-	empresa = models.CharField(max_length=140)
-	tipo = models.CharField(max_length=140)
-	forma_pago = models.CharField(max_length=140)
-	vigencia = models.CharField(max_length=140)
-
-	def __unicode__(self):
-		return '%s, %s' % (self.empresa, self.tipo)
-
 class DeudaActual(models.Model):
 	person = models.ForeignKey(Persona)
 	fecha_otorgamiento = models.DateField(null=True, blank=True)
