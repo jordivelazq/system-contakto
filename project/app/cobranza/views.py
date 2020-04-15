@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response, render
+from django.shortcuts import HttpResponse, render_to_response, render
 from django.template import RequestContext
 from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
+from django.utils.six.moves import range
+from django.http import StreamingHttpResponse
+
 from app.bitacora.models import Bitacora
 from app.persona.models import *
 from app.persona.forms import * 
@@ -75,6 +78,14 @@ def panel(request):
 	
 	return render(request, 'sections/cobranza/panel.html', locals(), RequestContext(request))
 
+class Echo(object):
+	"""An object that implements just the write method of the file-like
+	interface.
+	"""
+	def write(self, value):
+			"""Write the value by returning it, instead of storing in a buffer."""
+			return value
+
 def descargar():
 	cobranza = get_cobranza(None, 10000)
 
@@ -84,13 +95,16 @@ def descargar():
 		for cob in cobranza[0]:
 			writer.writerow(get_cobranza_csv_row(cob))
 
-login_required(login_url='/login', redirect_field_name=None)
+@login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def generar_reporte(request):
-	descargar()
-	subprocess.Popen(["ls", "-la"])
-
-	return HttpResponse("cool")
+	filtros_json = request.session.get('filtros_search_cobranza', None)
+	rows = get_cobranza(filtros_json, 10000)
+	pseudo_buffer = Echo()
+	writer = csv.writer(pseudo_buffer)
+	response = StreamingHttpResponse((writer.writerow(get_cobranza_csv_row(row)) for row in rows[0]), content_type="text/csv")
+	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
+	return response
 
 '''
 	AJAX
@@ -114,7 +128,7 @@ def get_facturas(request, compania_id='', contacto_id=''):
 			if f:#OPTIMIZAR con exlude en query
 				data.append(f)
 		response = {'status': True, 'facturas': data}
-	return HttpResponse(json.dumps(response), mimetype='application/json')
+	return HttpResponse(json.dumps(response), content_type='application/json')
 
 @csrf_exempt
 def search_cobranza(request):

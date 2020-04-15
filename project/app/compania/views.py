@@ -62,7 +62,7 @@ def nueva(request, investigacion_id=''):
 				}
 			}
 
-		return HttpResponse(json.dumps(response), mimetype='application/json')
+		return HttpResponse(json.dumps(response), content_type='application/json')
 
 	if request.POST:
 		form = CompaniaForm(request.POST)

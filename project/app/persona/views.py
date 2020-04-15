@@ -870,7 +870,7 @@ def existencia(request):
 					candidatos_data.append({'datos_generales' : datos_generales , 'investigaciones' : invs_data })
 					response = { 'status' : True , 'candidatos' : candidatos_data }
 		
-	return HttpResponse(json.dumps(response), mimetype='application/json')
+	return HttpResponse(json.dumps(response), content_type='application/json')
 
 @csrf_exempt
 def search_candidatos(request):	
