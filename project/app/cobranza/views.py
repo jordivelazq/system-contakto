@@ -92,18 +92,21 @@ def descargar():
 	with open('./project/resources/csv/cobranza.csv', mode='w') as cobranza_file:
 		writer = csv.writer(cobranza_file, delimiter=',')
 		writer.writerow(['ID', 'Fecha de Recibido', 'Cliente', 'Nombre', 'Apellido', 'Puesto', 'Ciudad', 'Monto', 'Folio', 'Correo', 'Solicitante', 'Social', 'Ejecutivo', 'Obs. Cobranza', 'Tipo inv.', 'Estatus', 'Resultado', 'Obs .Investigacion'])
-		for cob in cobranza[0]:
+		for cob in cobranza[0].iterator():
 			writer.writerow(get_cobranza_csv_row(cob))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def generar_reporte(request):
+	start_time = time.time()
 	filtros_json = request.session.get('filtros_search_cobranza', None)
 	rows = get_cobranza(filtros_json, 10000)
 	pseudo_buffer = Echo()
 	writer = csv.writer(pseudo_buffer)
 	response = StreamingHttpResponse((writer.writerow(get_cobranza_csv_row(row)) for row in rows[0]), content_type="text/csv")
 	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
+	duration = time.time() - start_time
+	print "generar_reporte duration", int(duration * 1000)
 	return response
 
 '''

@@ -48,9 +48,9 @@ def get_cobranza(filtros_json, limit = 200):
     total_cobranza = cobranza.count()
     cobranza = cobranza.order_by('id')[:limit]
 
-    for c in cobranza:
-      c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
-      c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
+    # for c in cobranza:
+    #   c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
+    #   c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
     
     return cobranza, total_cobranza
 
@@ -63,14 +63,14 @@ def get_cobranza_csv_row(cob):
       cob.investigacion.candidato.nombre.encode('utf-8'),
       cob.investigacion.candidato.apellido.encode('utf-8'),
       cob.investigacion.puesto.encode('utf-8'),
-      cob.ciudad.encode('utf-8'),
+      "", # cob.ciudad.encode('utf-8'),
       cob.monto,
       cob.folio,
       cob.investigacion.contacto.email,
       cob.investigacion.contacto.nombre.encode('utf-8'),
       cob.investigacion.compania.razon_social.encode('utf-8'),
       cob.investigacion.agente.email,
-      cob.obs_cobranza.encode('utf-8'),
+      "", # cob.obs_cobranza.encode('utf-8'),
       cob.investigacion.tipo_investigacion_status,
       investigacion_resultado(cob.investigacion.resultado),
       cob.investigacion.fecha_entrega,
