@@ -90,7 +90,7 @@ def nueva(request, investigacion_id=''):
 	else:
 		form = CompaniaForm()
 		formSucursales = SucursalesForm(prefix='sucursales')
-	return render_to_response('sections/empresa/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/form.html', locals(), RequestContext(request))
 
 
 @login_required(login_url='/login', redirect_field_name=None)

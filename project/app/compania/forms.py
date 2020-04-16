@@ -51,6 +51,7 @@ class CompaniaSucursalForm(forms.Form):
 
 		self.fields['sucursal'] = forms.ChoiceField(
 			choices=choices,
+			required=False,
 			initial=sucursal.id if sucursal else None
 		)
 		for field_name, field in self.fields.items():

@@ -501,7 +501,7 @@ def nueva_trayectoria(request, investigacion_id, empresa_id=''):
 	else:
 		formTrayectoria = TrayectoriaFormSoloCompania(prefix='trayectoria')
 
-	return render_to_response('sections/candidato/nueva_trayectoria.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/nueva_trayectoria.html', locals(), RequestContext(request))
 
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)

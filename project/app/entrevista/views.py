@@ -65,7 +65,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		if not seccion_entrevista == 'cita':
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/cita')
 		else:
-			return render_to_response('sections/entrevista/blank_form.html', locals(), context_instance=RequestContext(request))
+			return render(request, 'sections/entrevista/blank_form.html', locals(), RequestContext(request))
 	else:
 		tiene_entrevista = True
 		candidato = investigacion.entrevistapersona_set.all().order_by('-id')[0]
