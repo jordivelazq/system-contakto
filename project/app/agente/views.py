@@ -85,7 +85,7 @@ def nuevo(request):
 				user_exists = True
 				state.append('Este usuario ya está registrado, utilizar otro.')
 				
-	return render_to_response('sections/agente/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/agente/form.html', locals(), RequestContext(request))
 
 '''
 	this function is not longer required, this function is handled throw NG
