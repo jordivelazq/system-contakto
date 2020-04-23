@@ -107,6 +107,7 @@ def crear(request):
 	status = ''
 	msg = []
 	companias_json = get_companias_json()
+	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=3, extra=3)
 
 	if request.method == 'POST':
 		if 'cancelar' in request.POST:
@@ -124,7 +125,7 @@ def crear(request):
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_fonacot')
 		formLegalidad = LegalidadAltaForma(request.POST, prefix='legalidad')
-		formDemanda = DemandaAltaForma(request.POST, prefix='demanda')
+		formDemanda = DemandaFormSet(request.POST, prefix='demanda')
 		formSeguro = SeguroAltaForma(request.POST, prefix='seguro')
 
 		if not formOrigen.is_valid():
@@ -150,14 +151,22 @@ def crear(request):
 
 		if not formLegalidad.is_valid():
 			formLegalidad.set_is_valid(False)
-		
-		if not formDemanda.is_valid():
-			formDemanda.set_is_valid(False)
 
 		if not formSeguro.is_valid():
 			formSeguro.set_is_valid(False)
 
-		if formCandidato.is_valid() and formInvestigacion.is_valid() and formOrigen.get_is_valid() and formDireccion.get_is_valid() and formTelefono1.get_is_valid() and formTelefono2.get_is_valid() and formTelefono3.get_is_valid() and formPrestacionViviendaInfonavit.get_is_valid() and formPrestacionViviendaFonacot.get_is_valid() and formLegalidad.get_is_valid() and formSeguro.get_is_valid():
+		if (formCandidato.is_valid()
+			and formInvestigacion.is_valid()
+			and formOrigen.get_is_valid()
+			and formDireccion.get_is_valid()
+			and formTelefono1.get_is_valid()
+			and formTelefono2.get_is_valid()
+			and formTelefono3.get_is_valid()
+			and formPrestacionViviendaInfonavit.get_is_valid()
+			and formPrestacionViviendaFonacot.get_is_valid()
+			and formLegalidad.get_is_valid()
+			and formSeguro.get_is_valid()
+			and formDemanda.is_valid()):
 			
 			candidato = formCandidato.save()
 			investigacion = formInvestigacion.save(commit=False)
@@ -206,9 +215,10 @@ def crear(request):
 			legalidad.persona = investigacion.candidato
 			legalidad.save()
 
-			demanda = formDemanda.save(commit=False)
-			demanda.persona = investigacion.candidato
-			demanda.save()
+			for formItem in formDemanda:
+				demanda = formItem.save(commit=False)
+				demanda.persona = investigacion.candidato
+				demanda.save()
 
 			seguro = formSeguro.save(commit=False)
 			seguro.persona = investigacion.candidato
@@ -246,7 +256,7 @@ def crear(request):
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
 		formLegalidad = LegalidadAltaForma(prefix='legalidad')
-		formDemanda = DemandaAltaForma(prefix='demanda')
+		formDemanda = DemandaFormSet(queryset=Demanda.objects.none(), prefix='demanda')
 		formSeguro = SeguroAltaForma(prefix='seguro')
 		form_empresa = CompaniaQuickForm(prefix='empresa')
 		form_empresa_contacto = ContactoQuickForm(prefix='empresa_contacto')
