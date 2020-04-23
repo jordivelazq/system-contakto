@@ -65,16 +65,20 @@ class EntrevistaSeguroAltaForma(ModelForm):
 			field.widget.attrs['class'] = 'form-control'
 
 class EntrevistaDeudaActualForm(ModelForm):
-	
+	'''
+	Helper class used to give money format to fields on Candidato > Entrevista  > Inf. Economica
+	'''
 	class Meta:
 		model = EntrevistaDeudaActual
-		exclude = ['person']
+		widgets = {'person': HiddenInput()}
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaDeudaActualForm, self).__init__(*args, **kwargs)
 
-		for field_name, field in self.fields.items():
-			field.widget.attrs['class'] = 'form-control'
+		fields_money_format = ['cantidad_total', 'saldo_actual', 'pago_mensual']
+		for field_name in fields_money_format:
+			self.fields[field_name].widget.attrs['class'] = 'custom_money_format'
 			
 class EntrevistaInvestigacionForm(ModelForm):
 
@@ -313,6 +317,7 @@ class EntrevistaDocumentoCotejadoForm(ModelForm):
 
 	class Meta:
 		model = EntrevistaDocumentoCotejado
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaDocumentoCotejadoForm, self).__init__(*args, **kwargs)
@@ -326,6 +331,7 @@ class EntrevistaReferenciaForm(ModelForm):
 
 	class Meta:
 		model = EntrevistaReferencia
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaReferenciaForm, self).__init__(*args, **kwargs)
@@ -340,6 +346,7 @@ class MoneyFormatEntrevistaEconomicaForm(ModelForm):
 	'''
 	class Meta:
 		model = EntrevistaEconomica
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(MoneyFormatEntrevistaEconomicaForm, self).__init__(*args, **kwargs)
@@ -354,6 +361,7 @@ class TarjetaCreditoComercialForm(ModelForm):
 	'''
 	class Meta:
 		model = EntrevistaTarjetaCreditoComercial
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(TarjetaCreditoComercialForm, self).__init__(*args, **kwargs)
@@ -368,6 +376,7 @@ class EntrevistaCuentaDebitoForm(ModelForm):
 	'''
 	class Meta:
 		model = EntrevistaCuentaDebito
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaCuentaDebitoForm, self).__init__(*args, **kwargs)
@@ -382,6 +391,7 @@ class EntrevistaAutomovilForm(ModelForm):
 	'''
 	class Meta:
 		model = EntrevistaAutomovil
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaAutomovilForm, self).__init__(*args, **kwargs)
@@ -396,6 +406,7 @@ class EntrevistaBienesRaicesForm(ModelForm):
 	'''
 	class Meta:
 		model = EntrevistaBienesRaices
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaBienesRaicesForm, self).__init__(*args, **kwargs)
@@ -403,21 +414,3 @@ class EntrevistaBienesRaicesForm(ModelForm):
 		fields_money_format = ['valor_comercial']
 		for field_name in fields_money_format:
 			self.fields[field_name].widget.attrs['class'] = 'custom_money_format'
-
-class EntrevistaDeudaActualForm(ModelForm):
-	'''
-	Helper class used to give money format to fields on Candidato > Entrevista  > Inf. Economica
-	'''
-	class Meta:
-		model = EntrevistaDeudaActual
-		widgets = {'person': HiddenInput()}
-
-	def __init__(self, *args, **kwargs):
-		super(EntrevistaDeudaActualForm, self).__init__(*args, **kwargs)
-
-		fields_money_format = ['cantidad_total', 'saldo_actual', 'pago_mensual']
-		for field_name in fields_money_format:
-			self.fields[field_name].widget.attrs['class'] = 'custom_money_format'
-
-
-

@@ -222,6 +222,7 @@ class SeguroAltaForma(ModelForm, FormaController):
 
 	class Meta:
 		model = Seguro
+		fields = '__all__'
 		exclude = ['persona']
 
 	def __init__(self, *args, **kwargs):
@@ -258,6 +259,7 @@ class CandidatoForm(ModelForm):
 
 	class Meta:  
 		model = Persona
+		fields = '__all__'
 
 	def __init__(self, *args, **kwargs):
 		super(CandidatoForm, self).__init__(*args, **kwargs)

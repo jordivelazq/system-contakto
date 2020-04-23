@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import pdb
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
+
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
@@ -65,7 +65,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		if not seccion_entrevista == 'cita':
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/cita')
 		else:
-			return render_to_response('sections/entrevista/blank_form.html', locals(), context_instance=RequestContext(request))
+			return render(request, 'sections/entrevista/blank_form.html', locals(), RequestContext(request))
 	else:
 		tiene_entrevista = True
 		candidato = investigacion.entrevistapersona_set.all().order_by('-id')[0]
@@ -408,7 +408,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		else:
 			cita_form = EntrevistaCitaForm(instance=entrevista_cita)
 
-	return render_to_response('sections/entrevista/edit_form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/entrevista/edit_form.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 def cargar_entrevista(request, investigacion_id):
@@ -477,5 +477,5 @@ def cargar_entrevista(request, investigacion_id):
 
 	else:
 		form = EntrevistaFileForm()
-	return render_to_response('sections/entrevista/new.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/entrevista/new.html', locals(), RequestContext(request))
 

@@ -9,12 +9,12 @@
       {% for referencia in referencias %}
         {% if referencia.tipo == "vecinal" %}
         <h4>REFERENCIA VECINAL (OBLIGATORIA)</h4>
-        {% elif referencia.tipo = "personal" %}
+        {% elif referencia.tipo == "personal" %}
         <h4>REFERENCIA PERSONAL (OBLIGATORIA)</h4>
         {% else %}
         <h4>REFERENCIA PERSONAL (OPCIONAL)</h4>
         {% endif %}
-        {% if referencia.tipo == "vecinal" or referencia.tipo = "personal" %}
+        {% if referencia.tipo == "vecinal" or referencia.tipo == "personal" %}
         <table>
           <tr>
             <th>NOMBRE COMPLETO</th>

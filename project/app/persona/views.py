@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
+import pdb
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
-from django.http import HttpResponseRedirect
+from django.views.decorators import csrf
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from app.bitacora.models import Bitacora
@@ -21,7 +22,7 @@ from app.cobranza.models import *
 from app.cobranza.forms import CobranzaMontoForm
 from app.agente.models import Labels
 from app.agente.forms import LabelsForm
-from django.forms.models import modelformset_factory
+from django.forms import modelformset_factory
 from app.util.multiple_upload_investigacion import multiple_upload
 
 from django.views.decorators.csrf import csrf_exempt
@@ -29,7 +30,6 @@ from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
 from app.persona.services import PersonaService, get_observacion_automatica
-from app.util.timer import timethis
 
 from django.conf import settings
 import datetime
@@ -89,7 +89,7 @@ def panel(request):
 			} for label, color in Labels.LABEL_OPTIONS])
 		form_file = EntrevistaFileForm()
 
-	return render_to_response('sections/candidato/panel.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/panel.html', locals(), RequestContext(request))
 
 '''
 	Captura de nuevo candidato con info personal e investigación
@@ -252,11 +252,10 @@ def crear(request):
 		form_empresa_contacto = ContactoQuickForm(prefix='empresa_contacto')
 		
 		
-	return render_to_response('sections/candidato/crear.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/crear.html', locals(), RequestContext(request))
 	
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
-@timethis
 def editar(request, investigacion_id):
 	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
 	#Si es usuario contacto, verificar que la investigación le corresponda
@@ -291,11 +290,12 @@ def editar(request, investigacion_id):
 	fonacot = investigacion.candidato.prestacionvivienda_set.filter(categoria_viv='fonacot')
 	legalidad = investigacion.candidato.legalidad_set.all()
 	demanda = investigacion.candidato.demanda_set.all()
-	seguro = investigacion.candidato.seguro_set.all()	
+	seguro = investigacion.candidato.seguro_set.all()
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion) # NOTA: Pasar esto a PersonaService.get_status_list
 	contact_id = investigacion.contacto.id
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
+	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=3, extra=3)
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'
@@ -388,14 +388,14 @@ def editar(request, investigacion_id):
 				msg_param = ''
 
 		####################### Demanda
-		formDemanda = DemandaAltaForma(request.POST, prefix='demanda', instance=demanda[0]) if demanda else DemandaAltaForma(request.POST, prefix='demanda')
-		if has_info(request.POST, prefix='demanda', investigacion=investigacion):
-			if formDemanda.is_valid():
-				demanda = formDemanda.save(commit=False)
+		formDemanda = DemandaFormSet(request.POST)
+		if formDemanda.is_valid():
+			for formItem in formDemanda:
+				demanda = formItem.save(commit=False)
 				demanda.persona = investigacion.candidato
 				demanda.save()
-			else:
-				msg_param = ''
+		else:
+			msg_param = formDemanda.errors
 
 		####################### Seguro #######################
 		formSeguro = SeguroAltaForma(request.POST, prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(request.POST, prefix='seguro')
@@ -437,8 +437,8 @@ def editar(request, investigacion_id):
 		formTelefono3 = TelefonoForm(prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(prefix='telefono3')
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
-		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
-		formDemanda = DemandaAltaForma(prefix='demanda', instance=demanda[0]) if demanda else DemandaAltaForma(prefix='demanda')
+		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')		
+		formDemanda = DemandaFormSet(queryset=Demanda.objects.filter(persona=investigacion.candidato))
 		formSeguro = SeguroAltaForma(prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
 		
 		# FORMAS QUE FALTAN POR EDITAR
@@ -449,7 +449,7 @@ def editar(request, investigacion_id):
 		formInformante1 = InformanteAltaForma(prefix='informante1')
 		formInformante2 = InformanteAltaForma(prefix='informante2')
 
-	return render_to_response('sections/candidato/editar.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/editar.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -503,7 +503,7 @@ def nueva_trayectoria(request, investigacion_id, empresa_id=''):
 	else:
 		formTrayectoria = TrayectoriaFormSoloCompania(prefix='trayectoria')
 
-	return render_to_response('sections/candidato/nueva_trayectoria.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/nueva_trayectoria.html', locals(), RequestContext(request))
 
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
@@ -550,7 +550,7 @@ def ver_trayectoria(request, investigacion_id):
 	else:
 		formaInvestigacion = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=investigacion)
 		
-	return render_to_response('sections/candidato/trayectoria_panel.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/trayectoria_panel.html', locals(), RequestContext(request))
 
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
@@ -694,7 +694,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		formInformante2 = InformanteAltaForma(prefix='informante2', instance=informante2) if informante2 else InformanteAltaForma(prefix='informante2')
 
 
-	return render_to_response('sections/candidato/editar_trayectoria_empresa.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/editar_trayectoria_empresa.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -793,7 +793,7 @@ def observaciones(request, investigacion_id):
 		formaEntrevista = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(prefix='cobranza', instance=cobranza)
 
-	return render_to_response('sections/candidato/observaciones.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/observaciones.html', locals(), RequestContext(request))
 
 '''
 	Reporte
@@ -827,7 +827,7 @@ def ver_reporte(request, investigacion_id):
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
 
-	return render_to_response('sections/candidato/ver_reporte.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/ver_reporte.html', locals(), RequestContext(request))
 
 '''
 	Función que verifica la existencia de uno o más candidatos con los datos enviados por POST (AJAX)
@@ -872,7 +872,7 @@ def existencia(request):
 					candidatos_data.append({'datos_generales' : datos_generales , 'investigaciones' : invs_data })
 					response = { 'status' : True , 'candidatos' : candidatos_data }
 		
-	return HttpResponse(json.dumps(response), mimetype='application/json')
+	return HttpResponse(json.dumps(response), content_type='application/json')
 
 @csrf_exempt
 def search_candidatos(request):	
@@ -881,7 +881,7 @@ def search_candidatos(request):
 		ps = PersonaService(request)
 		candidatos = ps.getCandidatosList()
 		response = { 'status' : True , 'candidatos' : candidatos }	
-	return HttpResponse(json.dumps(response), content_type='application/json')
+	return JsonResponse(response)
 
 @csrf_exempt
 def reset_filtros(request):
@@ -934,7 +934,7 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 		referencial_queryset = TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=trayectoria_id) if trayectoria_id else TrayectoriaComercialReferencia.objects.none()
 		trayectoria_comercial_referencia_formset = referencia_formset(queryset=referencial_queryset)
 
-	return render_to_response('sections/candidato/trayectoria_comercial.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/candidato/trayectoria_comercial.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)

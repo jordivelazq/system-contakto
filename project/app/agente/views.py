@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import re 
-from django.shortcuts import HttpResponse, render_to_response
+from django.shortcuts import HttpResponse, render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -49,7 +49,7 @@ def panel(request):
 			fecha_final_format = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
 			investigaciones = investigaciones.filter(fecha_recibido__range=(fecha_inicio_format, fecha_final_format))
 
-	return render_to_response('sections/agente/panel.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/agente/panel.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -85,7 +85,7 @@ def nuevo(request):
 				user_exists = True
 				state.append('Este usuario ya está registrado, utilizar otro.')
 				
-	return render_to_response('sections/agente/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/agente/form.html', locals(), RequestContext(request))
 
 '''
 	this function is not longer required, this function is handled throw NG
@@ -146,7 +146,7 @@ def editar(request, user_id):
 				user_exists = True
 				state.append('Este usuario ya está registrado, utilizar otro.')
 			
-	return render_to_response('sections/agente/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/agente/form.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)

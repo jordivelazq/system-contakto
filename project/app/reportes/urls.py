@@ -1,13 +1,14 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
-urlpatterns = patterns('',
-	url(r'^/$', 'app.reportes.views.panel', name='panel_reportes'),
-	url(r'^/preview$', 'app.reportes.views.preview', name='preview_reportes'),
-	url(r'^exito/$', 'app.reportes.views.panel', name='panel_reportes'),
-	url(r'^error/$', 'app.reportes.views.panel', name='panel_reportes'),
+from app.reportes.views import panel, preview, search_reportes, reset_filtros
+
+urlpatterns = [
+	url(r'^/$', panel, name='panel_reportes'),
+	url(r'^preview$', preview, name='preview_reportes'),
+	url(r'^exito/$', panel, name='panel_reportes'),
+	url(r'^error/$', panel, name='panel_reportes'),
 
 	# #AJAX
-	url(r'^search_reportes/$', 'app.reportes.views.search_reportes', name='search_reportes'),
-	url(r'^reset_filtros/$', 'app.reportes.views.reset_filtros', name='reset_filtros_reportes'),
-)	
-
+	url(r'^search_reportes/$', search_reportes, name='search_reportes'),
+	url(r'^reset_filtros/$', reset_filtros, name='reset_filtros_reportes'),
+]

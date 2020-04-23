@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response
+from django.shortcuts import HttpResponse, render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
+from django.utils.six.moves import range
+from django.http import StreamingHttpResponse
+
 from app.bitacora.models import Bitacora
 from app.persona.models import *
 from app.persona.forms import * 
@@ -29,6 +32,7 @@ import xlrd
 import os
 import json
 import csv
+import subprocess
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -72,16 +76,38 @@ def panel(request):
 		"sin_factura": Cobranza.objects.filter(investigacion__status_active=True).filter(folio__exact='').count()
 	}
 	
-	return render_to_response('sections/cobranza/panel.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/cobranza/panel.html', locals(), RequestContext(request))
+
+class Echo(object):
+	"""An object that implements just the write method of the file-like
+	interface.
+	"""
+	def write(self, value):
+			"""Write the value by returning it, instead of storing in a buffer."""
+			return value
 
 def descargar():
-	cobranza = get_cobranza(None, 4200)
-	
+	cobranza = get_cobranza(None, 10000)
+
 	with open('./project/resources/csv/cobranza.csv', mode='w') as cobranza_file:
-			writer = csv.writer(cobranza_file, delimiter=',')
-			writer.writerow(['ID', 'Fecha de Recibido', 'Cliente', 'Nombre', 'Apellido', 'Puesto', 'Ciudad', 'Monto', 'Folio', 'Correo', 'Solicitante', 'Social', 'Ejecutivo', 'Obs. Cobranza', 'Tipo inv.', 'Estatus', 'Resultado', 'Obs .Investigacion'])
-			for cob in cobranza:
-				writer.writerow(get_cobranza_csv_row(cob))
+		writer = csv.writer(cobranza_file, delimiter=',')
+		writer.writerow(['ID', 'Fecha de Recibido', 'Cliente', 'Nombre', 'Apellido', 'Puesto', 'Ciudad', 'Monto', 'Folio', 'Correo', 'Solicitante', 'Social', 'Ejecutivo', 'Obs. Cobranza', 'Tipo inv.', 'Estatus', 'Resultado', 'Obs .Investigacion'])
+		for cob in cobranza[0].iterator():
+			writer.writerow(get_cobranza_csv_row(cob))
+
+@login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+def generar_reporte(request):
+	start_time = time.time()
+	filtros_json = request.session.get('filtros_search_cobranza', None)
+	rows = get_cobranza(filtros_json, 10000)
+	pseudo_buffer = Echo()
+	writer = csv.writer(pseudo_buffer)
+	response = StreamingHttpResponse((writer.writerow(get_cobranza_csv_row(row)) for row in rows[0]), content_type="text/csv")
+	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
+	duration = time.time() - start_time
+	print "generar_reporte duration", int(duration * 1000)
+	return response
 
 '''
 	AJAX
@@ -105,7 +131,7 @@ def get_facturas(request, compania_id='', contacto_id=''):
 			if f:#OPTIMIZAR con exlude en query
 				data.append(f)
 		response = {'status': True, 'facturas': data}
-	return HttpResponse(json.dumps(response), mimetype='application/json')
+	return HttpResponse(json.dumps(response), content_type='application/json')
 
 @csrf_exempt
 def search_cobranza(request):

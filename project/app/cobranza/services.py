@@ -7,7 +7,24 @@ from app.cobranza.models import Cobranza
 from app.front.templatetags.fe_extras import investigacion_resultado
 
 def get_cobranza(filtros_json, limit = 200):
-    cobranza = Cobranza.objects.filter(investigacion__status_active=True)
+    cobranza = Cobranza.objects.values(
+      'investigacion_id',
+      'investigacion__fecha_recibido',
+      'investigacion__compania__nombre',
+      'investigacion__candidato__nombre',
+      'investigacion__candidato__apellido',
+      'investigacion__puesto',
+      'monto',
+      'folio',
+      'investigacion__contacto__email',
+      'investigacion__contacto__nombre',
+      'investigacion__compania__razon_social',
+      'investigacion__agente__email',
+      'investigacion__tipo_investigacion_status',
+      'investigacion__resultado',
+      'investigacion__fecha_entrega',
+      'investigacion__tipo_investigacion_texto'
+    ).filter(investigacion__status_active=True)
 
     if filtros_json != None:
       if 'status_id' in filtros_json and len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
@@ -48,33 +65,34 @@ def get_cobranza(filtros_json, limit = 200):
     total_cobranza = cobranza.count()
     cobranza = cobranza.order_by('id')[:limit]
 
-    for c in cobranza:
-      c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
-      c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
+    # for c in cobranza:
+    #   c.ciudad = c.investigacion.candidato.direccion_set.all()[0].ciudad if  c.investigacion.candidato.direccion_set.all()[0].ciudad else ''
+    #   c.obs_cobranza = c.investigacion.sucursal.nombre.replace(",", " -") if c.investigacion.sucursal and c.investigacion.sucursal.nombre else ''
     
     return cobranza, total_cobranza
 
 def get_cobranza_csv_row(cob):
-  if cob.investigacion:
-    return [
-        cob.investigacion.id,
-        cob.investigacion.fecha_recibido,
-        cob.investigacion.compania.nombre.encode('utf-8'),
-        cob.investigacion.candidato.nombre.encode('utf-8'),
-        cob.investigacion.candidato.apellido.encode('utf-8'),
-        cob.investigacion.puesto.encode('utf-8'),
-        cob.ciudad.encode('utf-8'),
-        cob.monto,
-        cob.folio,
-        cob.investigacion.contacto.email,
-        cob.investigacion.contacto.nombre.encode('utf-8'),
-        cob.investigacion.compania.razon_social.encode('utf-8'),
-        cob.investigacion.agente.email,
-        cob.obs_cobranza.encode('utf-8'),
-        cob.investigacion.tipo_investigacion_status,
-        investigacion_resultado(cob.investigacion.resultado),
-        cob.investigacion.fecha_entrega,
-        cob.investigacion.tipo_investigacion_texto.encode('utf-8')
-      ]
-  return ["ERROR", cob.id]
+  if cob["investigacion_id"]:
+    item = [
+      cob["investigacion_id"],
+      cob["investigacion__fecha_recibido"],
+      cob["investigacion__compania__nombre"].encode('utf-8'),
+      cob["investigacion__candidato__nombre"].encode('utf-8'),
+      cob["investigacion__candidato__apellido"].encode('utf-8'),
+      cob["investigacion__puesto"].encode('utf-8'),
+      "", # cob.ciudad.encode('utf-8'),
+      cob["monto"],
+      cob["folio"],
+      cob["investigacion__contacto__email"],
+      cob["investigacion__contacto__nombre"].encode('utf-8'),
+      cob["investigacion__compania__razon_social"].encode('utf-8'),
+      cob["investigacion__agente__email"],
+      "", # cob.obs_cobranza.encode('utf-8'),
+      cob["investigacion__tipo_investigacion_status"],
+      investigacion_resultado(cob["investigacion__resultado"]),
+      cob["investigacion__fecha_entrega"],
+      cob["investigacion__tipo_investigacion_texto"].encode('utf-8')
+    ]
+    return item
+  return ["ERROR", str(cob)]
   

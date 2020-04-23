@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import HttpResponse, render_to_response
+from django.shortcuts import HttpResponse, render_to_response, render
 from django.template import RequestContext
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from app.investigacion.models import Investigacion
@@ -62,7 +62,7 @@ def nueva(request, investigacion_id=''):
 				}
 			}
 
-		return HttpResponse(json.dumps(response), mimetype='application/json')
+		return HttpResponse(json.dumps(response), content_type='application/json')
 
 	if request.POST:
 		form = CompaniaForm(request.POST)
@@ -90,7 +90,7 @@ def nueva(request, investigacion_id=''):
 	else:
 		form = CompaniaForm()
 		formSucursales = SucursalesForm(prefix='sucursales')
-	return render_to_response('sections/empresa/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/form.html', locals(), RequestContext(request))
 
 
 @login_required(login_url='/login', redirect_field_name=None)
@@ -119,7 +119,7 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 				return HttpResponseRedirect('/empresas/exito')
 	else:
 		form = CompaniaForm(instance=company)
-	return render_to_response('sections/empresa/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/form.html', locals(), RequestContext(request))
 	
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -139,7 +139,7 @@ def sucursal_main(request, compania_id):
 	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva?investigacion_id=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursal/nueva'
 	candidato_url = '/candidato/investigacion/' + investigacion_id + '/editar' if investigacion_id else ''
 	sucursales = Sucursales.objects.filter(compania_id=compania_id)
-	return render_to_response('sections/empresa/sucursal/main.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/sucursal/main.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -165,7 +165,7 @@ def sucursal_new(request, compania_id):
 	else:
 		formSucursales = SucursalesForm(prefix='sucursal')
 
-	return render_to_response('sections/empresa/sucursal/new.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/sucursal/new.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -193,7 +193,7 @@ def sucursal_edit(request, compania_id, sucursal_id):
 	else:
 		formSucursal = SucursalesForm(instance=sucursal, prefix='sucursal')
 
-	return render_to_response('sections/empresa/sucursal/edit.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/sucursal/edit.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -230,7 +230,7 @@ def contactos(request, compania_id):
 		if len(filtros_json['es_cliente']):
 			empresas = empresas.filter(es_cliente=True)
 
-	return render_to_response('sections/empresa/contacto/panel.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/contacto/panel.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 def contacto_nuevo(request, compania_id='', investigacion_id=''):
@@ -288,7 +288,7 @@ def contacto_nuevo(request, compania_id='', investigacion_id=''):
 
 	else:
 		form = ContactoForm()
-	return render_to_response('sections/empresa/contacto/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/contacto/form.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -357,7 +357,7 @@ def contacto_editar(request, compania_id, contacto_id):
 			error_msg = 'Este email ya está registrado.'
 	else:
 		form = ContactoForm(instance=contacto)
-	return render_to_response('sections/empresa/contacto/form.html', locals(), context_instance=RequestContext(request))
+	return render(request, 'sections/empresa/contacto/form.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -390,7 +390,8 @@ def get_contactos(request, compania_id, investigacion_id=''):
 					'nombre': c.nombre
 					})
 			response = {'status': True, 'contactos': data}
-	return HttpResponse(json.dumps(response), mimetype='application/json')
+
+	return JsonResponse(response)
 
 @csrf_exempt
 def search_empresas(request):

@@ -66,7 +66,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}} / {{total_cobranza}}</h5>
-				<a class="btn btn-default pull-right" onclick="exportTableToCSV('cobranza')">Descargar</a>
+				<a class="btn btn-default pull-right" href="/cobranza/generar_reporte" target="_blank">Descargar</a>
 				<br class="clear-fix">
 				<br />
 			</div>
@@ -108,15 +108,15 @@
 					{% for cob in cobranza %}
 					<tr>
 						<td class="text-left"><a
-								href="/candidato/investigacion/{{cob.investigacion.id}}/editar">{{ cob.investigacion.id }}</a></td>
+								href="/candidato/investigacion/{{cob.investigacion_id}}/editar">{{ cob.investigacion_id }}</a></td>
 
-						<td class="text-center">{{ cob.investigacion.fecha_recibido|date:"d/m/Y" }}</td>
+						<td class="text-center">{{ cob.investigacion__fecha_recibido|date:"d/m/Y" }}</td>
 
-						<td class="text-center">{{ cob.investigacion.compania.nombre }}</td>
+						<td class="text-center">{{ cob.investigacion__compania__nombre }}</td>
 
-						<td class="text-left">{{ cob.investigacion.candidato.nombre }}</td>
-						<td class="text-left">{{ cob.investigacion.candidato.apellido }}</td>
-						<td class="text-left">{{ cob.investigacion.puesto }}</td>
+						<td class="text-left">{{ cob.investigacion__candidato__nombre }}</td>
+						<td class="text-left">{{ cob.investigacion__candidato__apellido }}</td>
+						<td class="text-left">{{ cob.investigacion__puesto }}</td>
 						<td class="text-center">{{ cob.ciudad }}</td>
 
 						<td class="text-center">
@@ -132,23 +132,23 @@
 							{% endif %}
 						</td>
 
-						<td class="text-center">{{ cob.investigacion.contacto.email }}</td>
-						<td class="text-center">{{ cob.investigacion.contacto.nombre }}</td>
+						<td class="text-center">{{ cob.investigacion__contacto__email }}</td>
+						<td class="text-center">{{ cob.investigacion__contacto__nombre }}</td>
 
-						<td class="text-center">{{ cob.investigacion.compania.razon_social }}</td>
+						<td class="text-center">{{ cob.investigacion__compania__razon_social }}</td>
 
-						<td class="text-center">{{ cob.investigacion.agente.email }}</td>
+						<td class="text-center">{{ cob.investigacion__agente__email }}</td>
 						<td class="text-center">{{ cob.obs_cobranza }}</td>
 						<td class="text-center">
-							{% if cob.investigacion.tipo_investigacion_status %}
-							{{ cob.investigacion.tipo_investigacion_status|tipo_investigacion_status }}
+							{% if cob.investigacion__tipo_investigacion_status %}
+							{{ cob.investigacion__tipo_investigacion_status|tipo_investigacion_status }}
 							{% else %}
 							<small class="text-danger"><strong>REQUERIDO</strong></small>
 							{% endif %}
 						</td>
-						<td class="text-center">{{ cob.investigacion.resultado|investigacion_resultado }}</td>
-						<td class="text-center">{{ cob.investigacion.fecha_entrega|date:'d/m/Y' }}</td>
-						<td class="text-center">{{ cob.investigacion.tipo_investigacion_texto|default:'' }}</td>
+						<td class="text-center">{{ cob.investigacion__resultado|investigacion_resultado }}</td>
+						<td class="text-center">{{ cob.investigacion__fecha_entrega|date:'d/m/Y' }}</td>
+						<td class="text-center">{{ cob.investigacion__tipo_investigacion_texto|default:'' }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>

@@ -25,7 +25,7 @@ class ServiceReporte:
 
 	def printReporte(self, data):
 		htmly = get_template('sections/reportes/emailtemplate.html')
-		d = Context({ 'investigaciones': data })
+		d = { 'investigaciones': data }
 		html_content = htmly.render(d)
 		return html_content
 

@@ -78,9 +78,9 @@ class Investigacion(models.Model):
 	status = models.CharField(max_length=140, choices=STATUS_OPCIONES, null=True, blank=True, default='0') #En template: "Estatus de Inv. Laboral"
 	status_active = models.BooleanField(default=True) # revisar si es necesario, si no borrarlo
 	status_general = models.CharField(max_length=140, choices=STATUS_GRAL_OPCIONES, null=True, blank=True, default='0')
-	observaciones_generales = models.TextField(max_length=200, blank=True, null=True)
+	observaciones_generales = models.TextField(max_length=2000, blank=True, null=True)
 	
-	tipo_investigacion_status = models.IntegerField(max_length=140, choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
+	tipo_investigacion_status = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
 	tipo_investigacion_texto = models.TextField(max_length=2000, blank=True, null=True)
 
 	#Historia en empresa

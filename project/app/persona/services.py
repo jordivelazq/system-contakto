@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from app.investigacion.models import Investigacion
-from app.util.timer import timethis
 from django.db.models import Q
 import datetime
 
