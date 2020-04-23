@@ -273,4 +273,9 @@
 	</div>
 </div>
 
-{% include 'sections/candidato/forma/seccion/demandas.html' %}
+{{ formDemanda.management_form }}
+{%for form in formDemanda %}
+	{{form.id}}
+	{% include 'sections/candidato/forma/seccion/demandas.html' with formDemanda=form %}
+{% endfor %}
+

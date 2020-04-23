@@ -4,7 +4,7 @@ from app.compania.views import panel, nueva, editar, borrar, sucursal_main, sucu
 
 urlpatterns = [
 	url(r'^/$', panel, name='compania_panel'),
-	url(r'^exito$', panel, name='compania_exit'),
+	url(r'^/exito$', panel, name='compania_exit'),
 	url(r'^nueva/$', nueva, name='compania_nueva'),
 	url(r'^nueva/ref/(?P<investigacion_id>[^/]+)/$', nueva, name='compania_nueva'),
 	

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import pdb
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response, render
 from django.template import RequestContext
 from django.views.decorators import csrf
@@ -21,7 +22,7 @@ from app.cobranza.models import *
 from app.cobranza.forms import CobranzaMontoForm
 from app.agente.models import Labels
 from app.agente.forms import LabelsForm
-from django.forms.models import modelformset_factory
+from django.forms import modelformset_factory
 from app.util.multiple_upload_investigacion import multiple_upload
 
 from django.views.decorators.csrf import csrf_exempt
@@ -294,6 +295,7 @@ def editar(request, investigacion_id):
 	contact_id = investigacion.contacto.id
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
+	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=3, extra=3)
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'
@@ -386,14 +388,14 @@ def editar(request, investigacion_id):
 				msg_param = ''
 
 		####################### Demanda
-		formDemanda = DemandaAltaForma(request.POST, prefix='demanda', instance=demanda[0]) if demanda else DemandaAltaForma(request.POST, prefix='demanda')
-		if has_info(request.POST, prefix='demanda', investigacion=investigacion):
-			if formDemanda.is_valid():
-				demanda = formDemanda.save(commit=False)
+		formDemanda = DemandaFormSet(request.POST)
+		if formDemanda.is_valid():
+			for formItem in formDemanda:
+				demanda = formItem.save(commit=False)
 				demanda.persona = investigacion.candidato
 				demanda.save()
-			else:
-				msg_param = ''
+		else:
+			msg_param = formDemanda.errors
 
 		####################### Seguro #######################
 		formSeguro = SeguroAltaForma(request.POST, prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(request.POST, prefix='seguro')
@@ -435,8 +437,8 @@ def editar(request, investigacion_id):
 		formTelefono3 = TelefonoForm(prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(prefix='telefono3')
 		formPrestacionViviendaInfonavit = PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
 		formPrestacionViviendaFonacot = PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
-		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
-		formDemanda = DemandaAltaForma(prefix='demanda', instance=demanda[0]) if demanda else DemandaAltaForma(prefix='demanda')
+		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')		
+		formDemanda = DemandaFormSet(queryset=Demanda.objects.filter(persona=investigacion.candidato))
 		formSeguro = SeguroAltaForma(prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
 		
 		# FORMAS QUE FALTAN POR EDITAR
