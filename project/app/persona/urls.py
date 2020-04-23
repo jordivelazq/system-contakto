@@ -5,8 +5,6 @@ from app.entrevista.views import editar_entrevista, cargar_entrevista
 from app.investigacion.views import print_reporte_laboral, print_reporte_socioeconomico, print_reporte_visita_domiciliaria, print_reporte_validacion_demandas
 from app.adjuntos.views import panel_adjuntos, editar_adjuntos
 
-# url(r'^candidatos', include('app.persona.urls')),
-#     url(r'^candidato/', include('app.persona.urls')),
 
 urlpatterns = [
 	url(r'^/$', panel, name='panel_persona'),
