@@ -743,10 +743,15 @@ def observaciones(request, investigacion_id):
 
 	tipo_inv_actual = investigacion.tipo_investigacion_status
 	cobranza = investigacion.cobranza_set.all()[0] if investigacion.cobranza_set.count() else None
+	monto_actual = None
+	tiene_factura = False
+	tiene_costo = False
 	if cobranza:
 		monto_actual = cobranza.monto 
-		tiene_factura = True if cobranza.folio else False
-		tiene_costo = True if cobranza.monto else False
+		if cobranza.folio:
+			tiene_factura = True
+		if cobranza.monto:
+			tiene_costo = True
 
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
