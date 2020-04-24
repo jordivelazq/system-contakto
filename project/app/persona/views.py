@@ -742,10 +742,11 @@ def observaciones(request, investigacion_id):
 	entrevista = EntrevistaCita.objects.filter(investigacion=investigacion).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=investigacion).count() else None
 
 	tipo_inv_actual = investigacion.tipo_investigacion_status
-	cobranza = investigacion.cobranza_set.all()[0]
-	monto_actual = cobranza.monto
-	tiene_factura = True if cobranza.folio else False
-	tiene_costo = True if cobranza.monto else False
+	cobranza = investigacion.cobranza_set.all()[0] if investigacion.cobranza_set.count() else None
+	if cobranza:
+		monto_actual = cobranza.monto 
+		tiene_factura = True if cobranza.folio else False
+		tiene_costo = True if cobranza.monto else False
 
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
