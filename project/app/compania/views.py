@@ -345,10 +345,11 @@ def contacto_editar(request, compania_id, contacto_id):
 				data = Investigacion.objects.filter(contacto=contacto, tipo_investigacion_status=status)#.filter(cobranza__monto=None, cobranza__folio='')
 				if data.count():
 					for inv in data:
-						f = inv.cobranza_set.all()[0]
-						if not f.monto and not f.folio:
-							f.monto = contacto_instance.costo_inv_laboral if status == 1 else contacto_instance.costo_inv_completa
-							f.save()
+						if inv.cobranza_set.count() > 0:
+							f = inv.cobranza_set.all()[0]
+							if not f.monto and not f.folio:
+								f.monto = contacto_instance.costo_inv_laboral if status == 1 else contacto_instance.costo_inv_completa
+								f.save()
 			b = Bitacora(action='contacto-editado: ' + unicode(request.POST.get('nombre')) +' / ' + unicode(company.nombre), user=request.user)
 			b.save()
 			return HttpResponseRedirect('/empresa/'+str(company.id)+'/contactos/exito')
