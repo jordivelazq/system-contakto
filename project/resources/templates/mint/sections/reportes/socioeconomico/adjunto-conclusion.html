@@ -49,26 +49,36 @@
               <h4>CALIFICACIÓN DEL 1 AL 100%</h4>
               <table>
                 <tr>
-                  <td colspan="2" class="title">ASPECTO DEL HOGAR</td>
-                </tr>
-                {% for aspecto in entrevista_persona.entrevistaaspectohogar_set.all %}
-                <tr>
-                  <th>{{aspecto}}</th>
-                  <td>{{aspecto.estatus}} %</td>
-                </tr>
-                {% endfor %}
-              </table>
 
-              <table>
-                <tr>
-                  <td colspan="2" class="title">PERSONAL</td>
+                  <td class="no-bg align-top">
+                    <table>
+                      <tr>
+                        <td colspan="3" class="title">ASPECTO DEL HOGAR</td>
+                      </tr>
+                      {% for aspecto in entrevista_persona.entrevistaaspectohogar_set.all %}
+                      <tr>
+                        <th colspan="2">{{aspecto}}</th>
+                        <td>{{aspecto.estatus}} %</td>
+                      </tr>
+                      {% endfor %}
+                    </table>
+                  </td>
+
+                  <td class="no-bg align-top">
+                    <table>
+                      <tr>
+                        <td colspan="3" class="title">PERSONAL</td>
+                      </tr>
+                      {% for aspecto in entrevista_persona.entrevistaaspectocandidato_set.all %}
+                      <tr>
+                        <th colspan="2">{{aspecto}}</th>
+                        <td>{{aspecto.estatus}} %</td>
+                      </tr>
+                      {% endfor %}
+                    </table>
+                  </td>
+
                 </tr>
-                {% for aspecto in entrevista_persona.entrevistaaspectocandidato_set.all %}
-                <tr>
-                  <th>{{aspecto}}</th>
-                  <td>{{aspecto.estatus}} %</td>
-                </tr>
-                {% endfor %}
               </table>
             </td>
           </tr>
