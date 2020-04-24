@@ -12,6 +12,15 @@ $(document).ready(function(){
 	});
 });
 
+function getDate(field) {
+    const value = $(`#${field}`).val() || ''
+    if (value.length > 6) {
+        return value
+    }
+
+    return ''
+}
+
 /* Search CANDIDATOS */
 contacktoApp.controller('SearchCandidatoCTRL', function($scope){
     $scope.candidatos = [];    
@@ -58,10 +67,9 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
     };
 
     $scope.search = function(){
-    	/* Jquery Fix por AngularJS issue */
-    	$scope.fecha_inicio = ($('#fecha_inicio').val());
-		$scope.fecha_final = ($('#fecha_final').val());
-        /* Jquery Fix END */
+    	$scope.fecha_inicio = getDate('fecha_inicio')
+		$scope.fecha_final = getDate('fecha_final')
+
     	var data = $scope.get_filtros();
         $('#lista-candidatos-sidebar').hide();
         $('#search-msg').html('').removeClass();
@@ -172,9 +180,9 @@ contacktoApp.controller('SearchAgenteCTRL', function($scope){
     };
 
     $scope.search = function(){
-        /* Jquery Fix por AngularJS issue */
-        $scope.fecha_inicio = ($('#fecha_inicio').val());
-        $scope.fecha_final = ($('#fecha_final').val());
+        $scope.fecha_inicio = getDate('fecha_inicio')
+        $scope.fecha_final = getDate('fecha_final')
+
         var data = $scope.get_filtros();
         $.post( "/agente/search_agentes/", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
@@ -322,8 +330,9 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
     };
 
     $scope.search = function(){
-        $scope.fecha_inicio = $('#fecha_inicio').val();
-        $scope.fecha_final = $('#fecha_final').val();
+        $scope.fecha_inicio = getDate('fecha_inicio')
+        $scope.fecha_final = getDate('fecha_final')
+
         var data = $scope.get_filtros();
         $.post( "/cobranza/search_cobranza/", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
@@ -455,10 +464,10 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     };
 
     $scope.search = function(){
-        $scope.fecha_inicio = ($('#fecha_inicio').val());
-        $scope.fecha_final = ($('#fecha_final').val());
-        var data = $scope.get_filtros();
+        $scope.fecha_inicio = getDate('fecha_inicio')
+        $scope.fecha_final =  getDate('fecha_final')
 
+        var data = $scope.get_filtros();
         $.post( "/estatus/search_reportes/", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
                 window.location.replace('/estatus');
@@ -536,9 +545,9 @@ contacktoApp.controller('SearchBitacoraCTRL', function($scope){
     };
 
     $scope.search = function(){
-        /* Jquery Fix por AngularJS issue */
-        $scope.fecha_inicio = ($('#fecha_inicio').val());
-        $scope.fecha_final = ($('#fecha_final').val());
+        $scope.fecha_inicio = getDate('fecha_inicio')
+        $scope.fecha_final = getDate('fecha_final')
+
         var data = $scope.get_filtros();
         $.post( "/bitacora/search_bitacora/", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
