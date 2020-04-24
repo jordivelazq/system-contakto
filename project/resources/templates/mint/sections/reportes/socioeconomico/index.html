@@ -7,6 +7,10 @@
 
 {% include 'sections/reportes/socioeconomico/general.html' %}
 
+{% if demandas|length > 1 %}
+  {% include 'sections/reportes/compartido/demandas-multiple.html' %}
+{% endif %}
+
 {% include 'sections/reportes/socioeconomico/personal.html' %}
 
 {% include 'sections/reportes/socioeconomico/familiar.html' %}

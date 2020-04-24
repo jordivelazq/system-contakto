@@ -1,0 +1,23 @@
+{% load app_filters %}
+<section class="laboral-study-page laboral-general">
+  <div class="background-2">
+    {% include 'sections/reportes/seccion/header.html' %}
+
+    <div class="demandas">
+      {% for demanda in demandas %}
+        <h4>DEMANDA LABORAL {{forloop.counter}}</h4>
+        {% include 'sections/reportes/compartido/demanda.html' with demanda=demanda %}
+        <br /><br />
+      {% endfor %}
+
+      {% if adjuntos.adj7 %}
+        <div class="semanas-cotizadas">
+          <img src="{{adjuntos_baseurl}}{{adjuntos.adj7}}" />
+        </div>
+      {% endif %}
+    </div>
+
+    {% include 'sections/reportes/seccion/footer.html' %}
+  </div>
+</section>
+<div class="page-break"></div>

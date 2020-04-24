@@ -107,7 +107,7 @@ def crear(request):
 	status = ''
 	msg = []
 	companias_json = get_companias_json()
-	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=3, extra=3)
+	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=5, extra=5)
 
 	if request.method == 'POST':
 		if 'cancelar' in request.POST:
@@ -305,7 +305,7 @@ def editar(request, investigacion_id):
 	contact_id = investigacion.contacto.id
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
-	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=3, extra=3)
+	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=5, extra=5)
 	
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'

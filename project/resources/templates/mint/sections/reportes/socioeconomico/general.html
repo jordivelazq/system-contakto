@@ -83,16 +83,19 @@
       </table>
     </div>
 
-    <div class="demandas">
-      <h4>DEMANDAS LABORALES</h4>
-      {% include 'sections/reportes/compartido/demanda.html' %}
+    {% if demandas|length < 2 %}
+      <div class="demandas"></div>
+        <h4>DEMANDAS LABORAES</h4>
+        
+        {% include 'sections/reportes/compartido/demanda.html' with demanda=demandas.0 %}
 
-      {% if adjuntos.adj7 %}
-        <div class="semanas-cotizadas">
-          <img src="{{adjuntos_baseurl}}{{adjuntos.adj7}}" />
-        </div>
-      {% endif %}
-    </div>
+        {% if adjuntos.adj7 %}
+          <div class="semanas-cotizadas">
+            <img src="{{adjuntos_baseurl}}{{adjuntos.adj7}}" />
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
 
     {% include 'sections/reportes/seccion/footer.html' %}
   </div>

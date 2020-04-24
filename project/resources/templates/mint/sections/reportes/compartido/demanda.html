@@ -19,9 +19,9 @@
   </tr>
   <tr>
     <td colspan="2">{{demanda.empresa|default:"&nbsp;"}}</td>
-    <td colspan="2">{{demanda.motivo}}</td>
-    <td colspan="2">{{demanda.ubicacion}}</td>
-    <td colspan="2">{{demanda.fecha}}</td>
+    <td colspan="2">{{demanda.motivo|default:''}}</td>
+    <td colspan="2">{{demanda.ubicacion|default:''}}</td>
+    <td colspan="2">{{demanda.fecha|default:''}}</td>
   </tr>
   <tr>
     <th colspan="4">NÚMERO DE AUDIENCIAS</th>
@@ -29,7 +29,7 @@
   </tr>
   <tr>
     <td colspan="4">{{demanda.audiencias|default:"&nbsp;"}}</td>
-    <td colspan="4">{{demanda.conclusion}}</td>
+    <td colspan="4">{{demanda.conclusion|default:''}}</td>
   </tr>
 </table>
 
