@@ -57,7 +57,7 @@ class Investigacion(models.Model):
 	agente = models.ForeignKey(User)
 	candidato = models.ForeignKey(Persona)
 	compania = models.ForeignKey(Compania)
-	sucursal = models.ForeignKey(Sucursales, blank=True, null=True)
+	sucursal = models.ForeignKey(Sucursales, models.SET_NULL, blank=True, null=True)
 	contacto = models.ForeignKey(Contacto)
 	fecha_recibido = models.DateField(blank=True, null=True)
 	hora_recibido = models.CharField(max_length=30, blank=True, null=True)
