@@ -426,6 +426,9 @@ def editar(request, investigacion_id):
 		else:
 			msg_param = ''
 
+		if Cobranza.objects.filter(investigacion=investigacion).count() == 0:
+			Cobranza(investigacion=investigacion).save()
+
 		b = Bitacora(action='candidato-editado: ' + str(investigacion.candidato), user=request.user)
 		b.save()
 
