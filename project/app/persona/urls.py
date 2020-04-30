@@ -10,6 +10,7 @@ urlpatterns = [
 	url(r'^/$', panel, name='panel_persona'),
 	url(r'^nuevo$', crear, name='crear_persona'),
 	url(r'^nuevo/exito$', crear, name='crear_persona'),
+	url(r'^exito$', panel, name='panel_persona'),
 	url(r'^/exito$', panel, name='panel_persona'),
 	url(r'^(?P<investigacion_id>[^/]+)/eliminar$', eliminar, name='eliminar_persona'),
 
