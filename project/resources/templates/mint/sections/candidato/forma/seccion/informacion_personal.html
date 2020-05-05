@@ -275,17 +275,35 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">DEMANDAS LABORALES</h3>
+		<h3 class="panel-title clearfix">
+			DEMANDAS LABORALES
+			{% if view == 'edit' %}
+				<div class="pull-right">
+					<a id="add_more_demandas" class="btn btn-default">Agregar</a>
+				</div>
+			{% endif %}
+		</h3>
 	</div>
 	{{ formDemanda.management_form }}
-	{%for form in formDemanda %}
-		{{form.id}}
+	<div id="form_set">
+		{%for form in formDemanda %}
+			{{form.id}}
+			<div class="panel-footer">
+				Demanda {{forloop.counter}}
+			</div>
+			<div class="panel-body">
+				{% include 'sections/candidato/forma/seccion/demandas.html' with formDemanda=form %}
+			</div>
+			<br />
+		{% endfor %}
+	</div>
+
+	<div id="empty_form" style="display:none">
 		<div class="panel-footer">
-			Demanda {{forloop.counter}}
+			Demanda #	
 		</div>
 		<div class="panel-body">
-			{% include 'sections/candidato/forma/seccion/demandas.html' with formDemanda=form %}
+			{% include 'sections/candidato/forma/seccion/demandas.html' with formDemanda=formDemanda.empty_form %}
 		</div>
-		<br />
-	{% endfor %}
+	</div>
 </div>

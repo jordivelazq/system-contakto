@@ -98,6 +98,8 @@ $(document).ready(function () {
   autoSaveFiles()
   saveCompany()
   statusListners()
+
+  enableMultiDemandas()
 });
 
 function get_currentpage() {
@@ -367,28 +369,13 @@ function statusListners() {
   }
 }
 
-function downloadCSV(csv, filename) {
-  var csvFile;
-  var downloadLink;
+function enableMultiDemandas() {
+  $('#add_more_demandas').click(function() {
+    var form_idx = parseInt($('#id_form-TOTAL_FORMS').val() || 0);
 
-  // CSV file
-  csvFile = new Blob([csv], {type: "text/csv"});
-
-  // Download link
-  downloadLink = document.createElement("a");
-
-  // File name
-  downloadLink.download = filename;
-
-  // Create a link to the file
-  downloadLink.href = window.URL.createObjectURL(csvFile);
-
-  // Hide download link
-  downloadLink.style.display = "none";
-
-  // Add the link to DOM
-  document.body.appendChild(downloadLink);
-
-  // Click download link
-  downloadLink.click();
+    if (form_idx < 5) {
+      $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx).replace('#', form_idx + 1));
+      $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    }
+  });
 }
