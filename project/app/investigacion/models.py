@@ -31,6 +31,7 @@ class Investigacion(models.Model):
 		(2, 'Socieconómico'),
 		(4, 'Psicometrías'),
 		(5, 'Visita Domiciliaria'),
+		(7, 'Visita Domiciliaria con demandas'),
 		(6, 'Validación de Demandas'),
 		(3, 'Otro'),
 	)

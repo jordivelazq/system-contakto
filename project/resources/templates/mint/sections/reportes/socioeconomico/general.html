@@ -83,7 +83,7 @@
       </table>
     </div>
 
-    {% if demandas|length < 2 %}
+    {% if investigacion.tipo_investigacion_status != 5 and demandas|length < 2 %}
       <div class="demandas"></div>
         <h4>DEMANDAS LABORAES</h4>
         

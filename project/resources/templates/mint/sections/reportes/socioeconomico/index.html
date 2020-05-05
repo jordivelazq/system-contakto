@@ -7,7 +7,7 @@
 
 {% include 'sections/reportes/socioeconomico/general.html' %}
 
-{% if demandas|length > 1 %}
+{% if investigacion.tipo_investigacion_status != 5 and demandas|length > 1 %}
   {% include 'sections/reportes/compartido/demandas-multiple.html' %}
 {% endif %}
 
