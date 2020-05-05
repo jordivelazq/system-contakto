@@ -61,7 +61,7 @@ class EntrevistaInvestigacion(models.Model):
 	investigacion = models.ForeignKey(Investigacion)
 	agente = models.ForeignKey(User)
 	persona = models.ForeignKey(EntrevistaPersona)
-	empresa_contratante = models.CharField(max_length=140, blank=True, null=True) #models.ForeignKey(Compania, null=True, blank=True)
+	empresa_contratante = models.CharField(max_length=140, blank=True, null=True)
 	fecha_recibido = models.CharField(max_length=140, blank=True, null=True) #Del excel
 	puesto = models.CharField(max_length=140, blank=True, null=True)
 	fecha_registro = models.CharField(max_length=140, blank=True, null=True)

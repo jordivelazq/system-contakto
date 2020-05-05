@@ -2,6 +2,23 @@
 
 {% block side_content %}
 	{% include 'sections/empresa/seccion/search_sidebar.html' %}
+
+	{% if investigaciones.count or trayectorias.count %}
+		<div class="alert alert-info" role="alert">
+			Para borrar empresa(s), primero es necesario editar:
+		</div>
+		{% for investigacion in investigaciones %}
+			<div class="alert alert-warning" role="alert">
+				<a href="/candidato/investigacion/{{investigacion.id}}/editar">Investigación {{investigacion.id}}</a>
+			</div>
+		{% endfor %}
+
+		{% for trayectoria in trayectorias %}
+			<div class="alert alert-warning" role="alert">
+				<a href="/candidato/investigacion/{{trayectoria.persona.investigacion_set.all.first.id}}/editar/trayectoria/{{trayectoria.id}}">Trayectoria {{trayectoria.id}}</a>
+			</div>
+		{% endfor %}
+	{% endif %}
 {% endblock %}
 
 {% block site_wrapper %}
@@ -10,45 +27,52 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div id="msg"></div>
 			</div>
-		</div>	
+		</div>
 {% endautoescape %}
-<!-- <h1 class="page-header">
-	Empresas 
-	<a href="/empresa/nueva" title="empresa nueva" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-plus"></span></a>
-	<span id="msg"></span>
-</h1> -->
-<div class="row placeholders">
-    <div class="table-responsive">
-		{% if empresas|length %}
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th class="text-center">Nombre</th>
-					<th class="text-center">Teléfono</th>
-					<th class="text-center">Teléfono alterno</th>
-					<th class="text-center">Email</th>
-					<th class="text-center">Es cliente</th>
-					<th class="text-center">Editar</th>
-					<th class="text-center">Contactos</th>
-					<th class="text-center">Sucursales</th>
-				</tr>
-			</thead>
-			<tbody>
-			{% for empresa in empresas %}
-				<tr>
-					<td>{{ empresa }}</td>
-					<td>{{ empresa.telefono|default:'---' }}</td>
-					<td>{{ empresa.telefono_alt|default:'---' }}</td>
-					<td>{{ empresa.email|default:'---' }}</td>
-					<td class="text-center">{% if empresa.es_cliente %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
-					<td class="text-center"><a href="/empresa/{{empresa.id}}/editar" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></td>
-					<td class="text-center"><a href="/empresa/{{empresa.id}}/contactos" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></td>
-						<td class="text-center"><a href="/empresa/{{empresa.id}}/sucursales" title="sucursales de {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></td>
-				</tr>
-			{% endfor %}
 
-			</tbody>
-		</table>
+<div class="row placeholders">
+	<div class="table-responsive">
+		{% if empresas|length %}
+			<form action="#" method="POST">
+				{% csrf_token %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th colspan="9">
+								<input type="submit" class="btn btn-danger pull-right" value="Eliminar">
+							</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th class="text-center">Nombre</th>
+							<th class="text-center">Teléfono</th>
+							<th class="text-center">Teléfono alterno</th>
+							<th class="text-center">Email</th>
+							<th class="text-center">Es cliente</th>
+							<th class="text-center">Editar</th>
+							<th class="text-center">Contactos</th>
+							<th class="text-center">Sucursales</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for empresa in empresas %}
+							<tr>
+								<td>
+									<input type="checkbox" name="empresa" value="{{empresa.id}}">
+								</td>
+								<td>{{ empresa }}</td>
+								<td>{{ empresa.telefono|default:'---' }}</td>
+								<td>{{ empresa.telefono_alt|default:'---' }}</td>
+								<td>{{ empresa.email|default:'---' }}</td>
+								<td class="text-center">{% if empresa.es_cliente %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+								<td class="text-center"><a href="/empresa/{{empresa.id}}/editar" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></td>
+								<td class="text-center"><a href="/empresa/{{empresa.id}}/contactos" title="editar {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></td>
+								<td class="text-center"><a href="/empresa/{{empresa.id}}/sucursales" title="sucursales de {{empresa}}" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</form>
 		{% else %}
 			<div class="bg-info">0 resultados, favor de intentar con otros filtros</div>
 		{% endif %}

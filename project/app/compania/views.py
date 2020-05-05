@@ -11,6 +11,8 @@ from app.investigacion.models import Investigacion
 from app.bitacora.models import Bitacora
 from app.compania.models import Compania, Contacto, Sucursales
 from app.compania.forms import CompaniaForm, ContactoForm, SucursalesForm, CompaniaQuickForm, ContactoQuickForm
+from app.persona.models import TrayectoriaLaboral
+from app.persona.services import LIMIT_TO_DISPLAY
 from django.db.models import Q
 import json
 
@@ -19,16 +21,36 @@ import json
 def panel(request):
 	page = 'empresas'
 	empresas = Compania.objects.filter(status=True).order_by('nombre')
+	limit_select = LIMIT_TO_DISPLAY
 
 	#Para search sidebar
 	filtros_json = request.session.get('filtros_search_empresa', None)
 	if filtros_json != None:
 		if len(filtros_json['compania_nombre']):
-			empresas = empresas.filter(nombre__contains=filtros_json['compania_nombre'])
+			empresas = empresas.filter(nombre__icontains=filtros_json['compania_nombre'])
 		if len(filtros_json['es_cliente']):
 			empresas = empresas.filter(es_cliente=True)
+		if filtros_json['limit_select']:
+			limit_select = filtros_json['limit_select']
+
+	if request.POST:
+		empresas_to_delete = request.POST.getlist('empresa', [])
+		for empresa_id in empresas_to_delete:
+			investigaciones = Investigacion.objects.filter(compania_id=empresa_id)
+			trayectorias = TrayectoriaLaboral.objects.filter(compania_id=empresa_id, status=True)
+			if len(investigaciones) == 0 and len(trayectorias) == 0:
+				empresa = Compania.objects.get(id=empresa_id)
+				empresa_nombre = empresa.nombre
+				empresa.delete()
+
+				b = Bitacora(action='empresa-eliminada: ' + empresa_nombre, user=request.user)
+				b.save()
+
+				return HttpResponseRedirect('/empresas/exito')
 	
-	return render_to_response('sections/empresa/panel.html', locals())
+	empresas = empresas[:limit_select]
+
+	return render(request, 'sections/empresa/panel.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
@@ -75,7 +97,7 @@ def nueva(request, investigacion_id=''):
 				sucursales.compania = emp_nueva
 				sucursales.save()
 
-			b = Bitacora(action='empresas-creada: ' + unicode(request.POST.get('name')), user=request.user)
+			b = Bitacora(action='empresas-creada: ' + emp_nueva.nombre, user=request.user)
 			b.save()
 			if investigacion_id:
 				if 'guargar_capt_contactos' in request.POST:
@@ -400,8 +422,15 @@ def search_empresas(request):
 	if request.method == 'POST' and request.is_ajax():
 		compania_nombre = request.POST.get('compania_nombre', '')
 		es_cliente = request.POST.get('es_cliente', '')
-		request.session['filtros_search_empresa'] = {'compania_nombre':compania_nombre, 'es_cliente':es_cliente}	
-		response = { 'status' : True}
+		limit_select = request.POST.get('limit_select', '')
+
+		request.session['filtros_search_empresa'] = {
+			'compania_nombre':compania_nombre, 
+			'es_cliente':es_cliente,
+			'limit_select': limit_select
+		}	
+		response = { 'status' : True }
+
 	return HttpResponse(json.dumps(response), content_type='application/json')
 
 @csrf_exempt

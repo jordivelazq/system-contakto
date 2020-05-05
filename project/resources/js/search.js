@@ -1,3 +1,5 @@
+const defaultLimit = 100;
+
 $(document).ready(function(){
 	$('#fecha_inicio, #fecha_final').datepicker({
 		format: 'dd/mm/yy'
@@ -21,7 +23,6 @@ function getDate(field) {
 /* Search CANDIDATOS */
 contacktoApp.controller('SearchCandidatoCTRL', function($scope){
     $scope.candidatos = [];    
-    const defaultLimit = 100;
 
     $scope.open_empresa_modal = function(){
         $('#selectEmpresaModal').modal().on('shown.bs.modal', function(){
@@ -231,6 +232,7 @@ contacktoApp.controller('SearchEmpresaCTRL', function($scope){
         return {
             'compania_nombre' : $scope.compania_nombre ? $scope.compania_nombre + '' : '',
             'es_cliente' : $scope.es_cliente ? $scope.es_cliente : '',
+            'limit_select' : $scope.limit_select,
         }
     };
 
@@ -241,6 +243,7 @@ contacktoApp.controller('SearchEmpresaCTRL', function($scope){
         if (typeof filtros_json.es_cliente !== 'undefined' && filtros_json.es_cliente == 'true'){
             $scope.es_cliente = true;
         }
+        $scope.limit_select = typeof filtros_json.limit_select !== 'undefined' ? filtros_json.limit_select : defaultLimit;
     };
 
     $scope.search = function(){
@@ -261,6 +264,7 @@ contacktoApp.controller('SearchEmpresaCTRL', function($scope){
     $scope.limpiar_filtros = function(){
             $scope.compania_nombre = '';
             $scope.es_cliente = '';
+            $scope.limit_select = defaultLimit;
             $.post("/empresa/reset_filtros/");
         };
 
