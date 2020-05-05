@@ -20,6 +20,12 @@
 								<button class="btn btn-default" id="empresa_nueva_cta">Nueva Empresa</button>
 							</div>
 						</div>
+					{% else %}
+						<div class="col-md-6">
+							<div class="input-group">
+								<a href="/empresa/nueva/ref/{{investigacion.id}}" class="btn btn-default form-control">Crear empresa <span class="glyphicon glyphicon-plus"></span></a>
+							</div>
+						</div>
 					{% endif %}
 		  	</div>
 				<br	/>

@@ -16,7 +16,7 @@
 			<h4>Nueva Investigación Laboral</h4>
 			<br />
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="form-group">
 						<div ng-click="open_empresa_modal()" class="input-group">
 							<input id="id_trayectoria-compania" name="trayectoria-compania" type="hidden" value="{[{compania_trayectoria}]}">
@@ -31,9 +31,6 @@
 					<div class="form-group">
 						{{ formTrayectoria.compania.errors }}
 					</div>
-				</div>
-				<div class="col-md-2">
-					<a href="/empresa/nueva/ref/{{investigacion.id}}" class="btn btn-default form-control">Crear empresa <span class="glyphicon glyphicon-plus"></span></a>
 				</div>
 			</div>
 			<div class="row">
