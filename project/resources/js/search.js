@@ -14,11 +14,8 @@ $(document).ready(function(){
 
 function getDate(field) {
     const value = $(`#${field}`).val() || ''
-    if (value.length > 6) {
-        return value
-    }
-
-    return ''
+    const regex = /^\d{2}\/\d{2}\/\d{2}$/
+    return regex.test(value) ?  value : ''
 }
 
 /* Search CANDIDATOS */
