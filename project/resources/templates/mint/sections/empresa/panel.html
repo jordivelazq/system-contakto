@@ -37,13 +37,17 @@
 				{% csrf_token %}
 				<table class="table table-striped">
 					<thead>
+						{% if request.user.is_superuser %}
+							<tr>
+								<th colspan="9">
+									<input type="submit" class="btn btn-danger pull-right" value="Eliminar">
+								</th>
+							</tr>
+						{% endif %}
 						<tr>
-							<th colspan="9">
-								<input type="submit" class="btn btn-danger pull-right" value="Eliminar">
-							</th>
-						</tr>
-						<tr>
-							<th></th>
+							{% if request.user.is_superuser %}
+								<th></th>
+							{% endif %}
 							<th class="text-center">Nombre</th>
 							<th class="text-center">Teléfono</th>
 							<th class="text-center">Teléfono alterno</th>
@@ -57,9 +61,11 @@
 					<tbody>
 						{% for empresa in empresas %}
 							<tr>
-								<td>
-									<input type="checkbox" name="empresa" value="{{empresa.id}}">
-								</td>
+								{% if request.user.is_superuser %}
+									<td>
+										<input type="checkbox" name="empresa" value="{{empresa.id}}">
+									</td>
+								{% endif %}
 								<td>{{ empresa }}</td>
 								<td>{{ empresa.telefono|default:'---' }}</td>
 								<td>{{ empresa.telefono_alt|default:'---' }}</td>

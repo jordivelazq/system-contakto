@@ -20,3 +20,7 @@ class Cobranza(models.Model):
 
 	def __unicode__(self):
 		return u'%s / %s' % (self.investigacion.candidato.nombre, self.investigacion.compania.nombre)
+
+class Factura(models.Model):
+	cobranza = models.ForeignKey(Cobranza)
+	folio = models.CharField(max_length=50)

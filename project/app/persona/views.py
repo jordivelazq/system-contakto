@@ -18,8 +18,8 @@ from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService
-from app.cobranza.models import *
-from app.cobranza.forms import CobranzaMontoForm
+from app.cobranza.models import Cobranza, Factura
+from app.cobranza.forms import CobranzaMontoForm, FacturaForm
 from app.agente.models import Labels
 from app.agente.forms import LabelsForm
 from django.forms import modelformset_factory
@@ -741,11 +741,9 @@ def observaciones(request, investigacion_id):
 	status = ''
 	msg = ''
 	investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=investigacion_id)
-	contacto = investigacion.contacto
 	status_list = PersonaService.get_status_list(investigacion_id)	
 	entrevista = EntrevistaCita.objects.filter(investigacion=investigacion).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=investigacion).count() else None
 
-	tipo_inv_actual = investigacion.tipo_investigacion_status
 	cobranza = investigacion.cobranza_set.all()[0] if investigacion.cobranza_set.count() else None
 	monto_actual = None
 	tiene_factura = False
@@ -756,6 +754,7 @@ def observaciones(request, investigacion_id):
 			tiene_factura = True
 		if cobranza.monto:
 			tiene_costo = True
+	FacturaFormSet = modelformset_factory(Factura, form=FacturaForm, max_num=5, extra=0)
 
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
@@ -770,38 +769,22 @@ def observaciones(request, investigacion_id):
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)
 		formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
-		formaCobranza = CobranzaMontoForm(request.POST, prefix='cobranza', instance=cobranza)
-		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaCobranza.is_valid():
+		formFactura = FacturaFormSet(request.POST)
+
+		if formaInvestigacion.is_valid() and formaEntrevista.is_valid():
 			
 			inv_new_instance = formaInvestigacion.save(commit=False)
 			if not request.user.is_superuser and status_general == '2':
 				inv_new_instance.status_general = status_general
 			inv_new_instance.save()
 
-			tipo_inv_nuevo = inv_new_instance.tipo_investigacion_status
 			formaEntrevista.save()
-			
-			# ############# COBRANZA
-			if not tiene_factura:
-				factura_actualizada = False
-				fact_new_instance = formaCobranza.save(commit=False)
 
-				if request.user.is_superuser:
-					if fact_new_instance.monto != monto_actual:
-						fact_new_instance.save()
-						factura_actualizada = True
-
-				if not request.user.is_superuser or not factura_actualizada:
-					
-					if tipo_inv_actual != tipo_inv_nuevo:
-
-						if tipo_inv_nuevo == 1 and contacto.costo_inv_laboral:
-							fact_new_instance.monto = contacto.costo_inv_laboral
-							fact_new_instance.save()
-						
-						elif tipo_inv_nuevo == 2 and contacto.costo_inv_completa:
-							fact_new_instance.monto = contacto.costo_inv_completa
-							fact_new_instance.save()
+			for form in formFactura:
+				if form.is_valid() and form.instance.folio:
+					form_ref = form.save(commit=False)
+					form_ref.cobranza = cobranza
+					form_ref.save()
 			
 			if 'redirect' in request.POST:
 				return HttpResponseRedirect(request.POST.get('redirect'))
@@ -812,6 +795,7 @@ def observaciones(request, investigacion_id):
 		formaInvestigacion.fields['label'].queryset = Labels.objects.filter(agente=request.user).exclude(name__exact='')
 		formaEntrevista = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(prefix='cobranza', instance=cobranza)
+		formFactura = FacturaFormSet(queryset=Factura.objects.none() if not cobranza else Factura.objects.filter(cobranza=cobranza))
 
 	return render(request, 'sections/candidato/observaciones.html', locals(), RequestContext(request))
 

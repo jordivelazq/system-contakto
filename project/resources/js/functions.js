@@ -99,7 +99,7 @@ $(document).ready(function () {
   saveCompany()
   statusListners()
 
-  enableMultiDemandas()
+  initDynamicForms()
 });
 
 function get_currentpage() {
@@ -369,13 +369,21 @@ function statusListners() {
   }
 }
 
-function enableMultiDemandas() {
-  $('#add_more_demandas').click(function() {
-    var form_idx = parseInt($('#id_form-TOTAL_FORMS').val() || 0);
+function setDynamicFormCTA(ctaSelector, limit) {
+  if ($(ctaSelector).length) {
+    $(ctaSelector).click(function() {
+      var form_idx = parseInt($('#id_form-TOTAL_FORMS').val() || 0);
+      
+      if (form_idx < limit) {
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx).replace('#', form_idx + 1));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+      }
+    });
+  }
+}
 
-    if (form_idx < 5) {
-      $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx).replace('#', form_idx + 1));
-      $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-    }
-  });
+
+function initDynamicForms() {
+  setDynamicFormCTA('#add_more_demandas', 5)
+  setDynamicFormCTA('#agregar_factura', 5)
 }
