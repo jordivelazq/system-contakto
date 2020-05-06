@@ -4,6 +4,7 @@ from app.persona.views import panel, crear, eliminar, editar, nueva_trayectoria,
 from app.entrevista.views import editar_entrevista, cargar_entrevista
 from app.investigacion.views import print_reporte_laboral, print_reporte_socioeconomico, print_reporte_visita_domiciliaria, print_reporte_validacion_demandas
 from app.adjuntos.views import panel_adjuntos, editar_adjuntos
+from app.cobranza.views import cobranza_investigacion
 
 
 urlpatterns = [
@@ -45,6 +46,9 @@ urlpatterns = [
 	#Observaciones
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/observaciones$', observaciones, name='ver_observaciones'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/observaciones/exito$', observaciones, name='ver_observaciones'),
+
+	#cobranza
+	url(r'^investigacion/(?P<investigacion_id>[^/]+)/cobranza', cobranza_investigacion, name='cobranza_investigacion'),
 
 	#Reporte
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/reporte$', ver_reporte, name='ver_reporte'),

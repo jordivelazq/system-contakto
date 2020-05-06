@@ -19,7 +19,7 @@ from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import *
-from app.cobranza.forms import *
+from app.cobranza.forms import CobranzaMontoForm, FacturaForm
 from app.cobranza.services import get_cobranza, get_cobranza_csv_row
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
@@ -77,6 +77,28 @@ def panel(request):
 	}
 	
 	return render(request, 'sections/cobranza/panel.html', locals(), RequestContext(request))
+
+login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+def cobranza_investigacion(request, investigacion_id):
+	investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=investigacion_id)
+	cobranza = investigacion.cobranza_set.all()[0] if investigacion.cobranza_set.count() else None
+
+	FacturaFormSet = modelformset_factory(Factura, form=FacturaForm, max_num=5, extra=0)
+
+	formaCobranza = CobranzaMontoForm(instance=cobranza)
+	formFactura = FacturaFormSet(queryset=Factura.objects.none() if not cobranza else Factura.objects.filter(cobranza=cobranza))
+
+	tiene_factura = True if cobranza and cobranza.folio else False
+
+	return render(request, 'sections/cobranza/investigacion.html', {
+		"investigacion": investigacion,
+
+		"formaCobranza": formaCobranza,
+		"formFactura": formFactura,
+
+		"tiene_factura": tiene_factura
+	}, RequestContext(request))
 
 class Echo(object):
 	"""An object that implements just the write method of the file-like
