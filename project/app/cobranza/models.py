@@ -22,5 +22,9 @@ class Cobranza(models.Model):
 		return u'%s / %s' % (self.investigacion.candidato.nombre, self.investigacion.compania.nombre)
 
 class Factura(models.Model):
-	cobranza = models.ForeignKey(Cobranza)
-	folio = models.CharField(max_length=50)
+	investigacion = models.ManyToManyField(Investigacion)
+
+	folio = models.CharField(max_length=50, unique=True)
+	subtotal = models.FloatField(default=0)
+	total = models.FloatField(default=0)
+	fecha = models.DateTimeField(blank=True, null=True)

@@ -19,7 +19,7 @@ from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import *
-from app.cobranza.forms import *
+from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm
 from app.cobranza.services import get_cobranza, get_cobranza_csv_row
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
@@ -77,6 +77,36 @@ def panel(request):
 	}
 	
 	return render(request, 'sections/cobranza/panel.html', locals(), RequestContext(request))
+
+login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+def cobranza_investigacion(request):
+	FacturaFormSet = modelformset_factory(Factura, form=FacturaInvestigacionForm, max_num=5, extra=0)
+
+	if request.method == 'POST':
+		facturaForm = FacturaForm(request.POST)
+		folioForm = FacturaFormSet(request.POST)
+		if facturaForm.is_valid():
+			factura = facturaForm.save()
+				
+			for folio in folioForm:
+				investigacion_id = folio['folio'].value()
+				if investigacion_id:
+					investigacion = Investigacion.objects.filter(id=investigacion_id)
+					if investigacion.count():
+						factura.investigacion.add(investigacion[0])
+
+			return HttpResponseRedirect('/cobranza/exito')
+
+	else:
+		facturaForm = FacturaForm()
+		folioForm = FacturaFormSet(queryset=Factura.objects.none())
+
+
+	return render(request, 'sections/cobranza/investigacion.html', {
+		"folioForm": folioForm,
+		"facturaForm": facturaForm,
+	}, RequestContext(request))
 
 class Echo(object):
 	"""An object that implements just the write method of the file-like

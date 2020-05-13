@@ -50,8 +50,8 @@ $(document).ready(function () {
     'timeFormat': 'G:i'
   });
 
-  $('.phone').keyup(function() {
-    this.value = this.value.replace(/[^0-9\.]/g,'');
+  $('.phone').keyup(function () {
+    this.value = this.value.replace(/[^0-9\.]/g, '');
   });
 
   $('.btn_eliminar').click(function () {
@@ -85,7 +85,9 @@ $(document).ready(function () {
   formatCurrencyFields();
 
   $('.fixed-submenu button').click((event) => {
-    const { name } = event.target
+    const {
+      name
+    } = event.target
 
     $('.save-type').remove()
     $('#form_candidato_crear').append(`<input name="${name}" type="hidden" class="save-type" />`)
@@ -100,6 +102,7 @@ $(document).ready(function () {
   statusListners()
 
   initDynamicForms()
+  initFactura()
 });
 
 function get_currentpage() {
@@ -231,7 +234,7 @@ customFormatMoney = function (n, c, d, t) {
 
 
 function autoSave() {
-  if($('.btn-primary[name=guardar]').length) {
+  if ($('.btn-primary[name=guardar]').length) {
     const limit = 5
     setInterval(() => {
       if (confirm(`han pasado ${limit} minutos, quieres guardar los cambios?`)) {
@@ -242,9 +245,9 @@ function autoSave() {
 }
 
 function askBeforeMoveInsideInvestigation() {
-  if($('.investigacion-menu').length) {
+  if ($('.investigacion-menu').length) {
     $('.investigacion-menu a').click((event) => {
-      if($('.btn-primary[name=guardar]').length) {
+      if ($('.btn-primary[name=guardar]').length) {
         if (confirm('Deseas guardar los cambios efectuados?')) {
           event.preventDefault()
           $('form').append(`<input type="hidden" name="redirect" value="${event.target.pathname}" />`)
@@ -313,14 +316,14 @@ function saveCompany() {
       $('#save_company_msg').text('')
       const data = {}
 
-       $('#new_company :input[type=text]').toArray().reduce((values, field) => {
+      $('#new_company :input[type=text]').toArray().reduce((values, field) => {
         if ($(field).val()) {
           values[field.name] = $(field).val();
         }
 
         return values
       }, data);
-      
+
       $('#new_company :input[type=checkbox]').toArray().reduce((values, field) => {
         if ($(field).val()) {
           values[field.name] = $(field).prop('checked')
@@ -360,7 +363,7 @@ function saveCompany() {
 function statusListners() {
   if ($('#status_checkbox').length) {
     $('#status_checkbox').on("click", () => {
-      
+
       $('.table-estatus tbody input[type=checkbox]').each((index, item) => {
         $(item).prop("checked", !$(item).prop("checked"));
       });
@@ -371,9 +374,9 @@ function statusListners() {
 
 function setDynamicFormCTA(ctaSelector, limit) {
   if ($(ctaSelector).length) {
-    $(ctaSelector).click(function() {
+    $(ctaSelector).click(function () {
       var form_idx = parseInt($('#id_form-TOTAL_FORMS').val() || 0);
-      
+
       if (form_idx < limit) {
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx).replace('#', form_idx + 1));
         $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
@@ -386,4 +389,38 @@ function setDynamicFormCTA(ctaSelector, limit) {
 function initDynamicForms() {
   setDynamicFormCTA('#add_more_demandas', 5)
   setDynamicFormCTA('#agregar_factura', 5)
+}
+
+function setFacturaData(xmlDoc) {
+  const data = xmlDoc.getElementsByTagName('cfdi:Comprobante')[0].attributes
+
+  $('#id_folio').val(data.Folio.value)
+  $('#id_subtotal').val(data.SubTotal.value)
+  $('#id_total').val(data.Total.value)
+  $('#id_fecha').val(data.Fecha.value.split('T')[0])
+}
+
+function onChangeFacturaHandler() {
+  var file = document.getElementById("factura").files[0];
+
+  if (file) {
+    var reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = function (evt) {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(evt.target.result, "text/xml");
+
+      setFacturaData(xmlDoc)
+    }
+
+    reader.onerror = function (evt) {
+      alert("error reading file");
+    }
+  }
+}
+
+function initFactura() {
+  if ($('#factura').length) {
+    $('#factura').change(onChangeFacturaHandler);
+  }
 }

@@ -17,10 +17,22 @@ class FacturaForm(ModelForm):
 
 	class Meta:
 		model = Factura
-		fields = ['folio',]
+		fields = ['folio', 'subtotal', 'total', 'fecha']
 
 	def __init__(self, *args, **kwargs):
 		super(FacturaForm, self).__init__(*args, **kwargs)
+
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
+class FacturaInvestigacionForm(ModelForm):
+
+	class Meta:
+		model = Factura
+		fields = ['folio',]
+
+	def __init__(self, *args, **kwargs):
+		super(FacturaInvestigacionForm, self).__init__(*args, **kwargs)
 
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
