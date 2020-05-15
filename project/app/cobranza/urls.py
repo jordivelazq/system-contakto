@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 
-from app.cobranza.views import panel, generar_reporte, get_facturas, search_cobranza, reset_filtros, cobranza_investigacion
+from app.cobranza.views import panel, generar_reporte, get_facturas, search_cobranza, reset_filtros, cobranza_investigacion, cobranza_facturas
 
 urlpatterns = [
 	url(r'^/$', panel, name='panel_cobranza'),
@@ -8,6 +8,7 @@ urlpatterns = [
 	url(r'^error/$', panel, name='panel_cobranza'),
 	url(r'^generar_reporte/$', generar_reporte, name='generar_reporte'),
 	url(r'^factura$', cobranza_investigacion, name='cobranza_investigacion'),
+	url(r'^facturas$', cobranza_facturas, name='cobranza_facturas'),
 
 	# #AJAX
 	url(r'^get_facturas/$', get_facturas, name='get_facturas'),

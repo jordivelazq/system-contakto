@@ -80,6 +80,18 @@ def panel(request):
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+def cobranza_facturas(request):
+	facturas = Factura.objects.all()[:200]	
+	page = 'cobranza'
+
+	return render(request, 'sections/cobranza/facturas.html', {
+		"page": page,
+		"facturas": facturas,
+		"request": request
+	})
+
+login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def cobranza_investigacion(request):
 	FacturaFormSet = modelformset_factory(Factura, form=FacturaInvestigacionForm, max_num=5, extra=0)
 
