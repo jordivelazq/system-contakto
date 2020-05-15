@@ -92,8 +92,8 @@ def cobranza_facturas(request):
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
-def cobranza_investigacion(request):
-	FacturaFormSet = modelformset_factory(Factura, form=FacturaInvestigacionForm, max_num=5, extra=0)
+def cobranza_investigacion(request, folio = None):
+	factura = Factura.objects.get(folio=folio) if folio and Factura.objects.filter(folio=folio).count() else None
 
 	if request.method == 'POST':
 		facturaForm = FacturaForm(request.POST)
@@ -108,11 +108,13 @@ def cobranza_investigacion(request):
 
 			return HttpResponseRedirect('/cobranza/exito')
 	else:
-		facturaForm = FacturaForm()
-
+		facturaForm = FacturaForm(instance = factura)
 
 	return render(request, 'sections/cobranza/investigacion.html', {
 		"facturaForm": facturaForm,
+		"request": request,
+		"folio": folio,
+		"factura": factura
 	}, RequestContext(request))
 
 class Echo(object):

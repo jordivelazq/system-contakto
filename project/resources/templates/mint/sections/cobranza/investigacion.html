@@ -2,7 +2,7 @@
 
 {% load fe_extras %}
 {% block side_content %}
-	{% include 'sections/candidato/seccion/search_sidebar.html' %}
+
 {% endblock %}
 
 {% block site_wrapper %}
@@ -12,8 +12,10 @@
         <h3 class="panel-title">Cobranza</h3>
       </div>
       <div class="panel-body">
-        <label>Factura:</label>
-        <input class="form-control" type="file" id="factura">
+        {% if not folio %}
+          <label>Factura:</label>
+          <input class="form-control" type="file" id="factura">
+        {% endif %}
 
         <form action="#" method="POST">
           {% csrf_token %}
@@ -25,7 +27,8 @@
           <label>Investigaciones:</label>
           <div class="row">
             <div class="col-md-12">
-              <textarea name="investigaciones" cols="30" rows="10" class="form-control"></textarea>
+              <textarea name="investigaciones" cols="30" rows="10" class="form-control">{% for investigacion in factura.investigacion.all %}{{investigacion.id}}
+{% endfor %}</textarea>
             </div>
           </div>
 
