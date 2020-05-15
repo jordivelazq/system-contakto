@@ -98,10 +98,7 @@
 									</div>
 								</div>
 
-								<p>
-									<a class="btn btn-default" id="agregar_factura">Agregar factura</a>
-								</p>
-
+								<br />
 								{{ formFactura.management_form }}
 								<div id="form_set">
 									{%for form in formFactura %}
@@ -115,14 +112,8 @@
 												</div>
 											</div>
 										</div>
+										<br />
 									{% endfor %}
-								</div>
-
-								<div id="empty_form" style="display:none">
-									<div class="input-group">
-										<span class="input-group-addon">Factura</span>
-										{{formFactura.empty_form.folio}}
-									</div>
 								</div>
 
 							</div>

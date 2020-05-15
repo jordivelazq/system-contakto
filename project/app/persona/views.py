@@ -796,7 +796,7 @@ def observaciones(request, investigacion_id):
 		formaInvestigacion.fields['label'].queryset = Labels.objects.filter(agente=request.user).exclude(name__exact='')
 		formaEntrevista = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(prefix='cobranza', instance=cobranza)
-		formFactura = FacturaFormSet(queryset=Factura.objects.none() if not cobranza else Factura.objects.filter(cobranza=cobranza))
+		formFactura = FacturaFormSet(queryset=Factura.objects.filter(investigacion=investigacion) if Factura.objects.filter(investigacion=investigacion).count() else Factura.objects.none())
 
 	return render(request, 'sections/candidato/observaciones.html', locals(), RequestContext(request))
 

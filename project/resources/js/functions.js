@@ -388,7 +388,6 @@ function setDynamicFormCTA(ctaSelector, limit) {
 
 function initDynamicForms() {
   setDynamicFormCTA('#add_more_demandas', 5)
-  setDynamicFormCTA('#agregar_factura', 5)
 }
 
 function setFacturaData(xmlDoc) {
