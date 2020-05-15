@@ -780,11 +780,12 @@ def observaciones(request, investigacion_id):
 
 			formaEntrevista.save()
 
-			for form in formFactura:
-				if form.is_valid() and form.instance.folio:
-					form_ref = form.save(commit=False)
-					form_ref.cobranza = cobranza
-					form_ref.save()
+			if request.user.is_superuser:
+				for form in formFactura:
+					if form.is_valid() and form.instance.folio:
+						form_ref = form.save(commit=False)
+						form_ref.cobranza = cobranza
+						form_ref.save()
 			
 			if 'redirect' in request.POST:
 				return HttpResponseRedirect(request.POST.get('redirect'))
