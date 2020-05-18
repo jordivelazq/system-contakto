@@ -309,6 +309,7 @@ class ControllerPersona(object):
 					category=2).save()
 		except Exception, e:
 			self.errors.append('Error en registro de: Situación de vivienda')
+			self.errors.append(e[1])
 
 		return
 
