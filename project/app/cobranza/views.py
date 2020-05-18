@@ -121,6 +121,17 @@ def cobranza_investigacion(request, folio = None):
 		"factura": factura
 	}, RequestContext(request))
 
+login_required(login_url='/login', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+def eliminar_cobranza_investigacion(request, folio):
+	factura = Factura.objects.get(folio=folio)
+	factura.delete()
+
+	b = Bitacora(action='factura-eliminada: ' + folio, user=request.user)
+	b.save()
+
+	return HttpResponseRedirect('/cobranza/facturas/exito')
+
 class Echo(object):
 	"""An object that implements just the write method of the file-like
 	interface.

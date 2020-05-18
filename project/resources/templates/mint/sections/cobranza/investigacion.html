@@ -35,7 +35,12 @@
           <br />
 
           <input type="submit" class="btn btn-primary" value="Guardar">
-          <a href="/cobranza/facturas" class="btn btn-danger">Cancelar</a>
+          <a href="/cobranza/facturas" class="btn btn-warning">Cancelar</a>
+
+          {% if folio %}
+          <br /><br />
+          <a href="/cobranza/factura/{{folio}}/eliminar" class="btn btn-danger pull-right btn_eliminar">Eliminar</a>
+          {% endif %}
 
         </form>
 
