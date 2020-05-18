@@ -54,12 +54,6 @@ def panel(request):
 			
 	return render(request, 'sections/reportes/panel.html', locals(), RequestContext(request))
 
-login_required(login_url='/login', redirect_field_name=None)
-def preview(request):
-	investigaciones = get_investigaciones_extended(request)
-
-	return render_to_response('sections/reportes/emailtemplate.html', locals(), context_instance=RequestContext(request))
-
 @csrf_exempt
 def search_reportes(request):
 	response = { 'status' : False}

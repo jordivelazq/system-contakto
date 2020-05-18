@@ -1,10 +1,9 @@
 from django.conf.urls import include, url
 
-from app.reportes.views import panel, preview, search_reportes, reset_filtros
+from app.reportes.views import panel, search_reportes, reset_filtros
 
 urlpatterns = [
 	url(r'^/$', panel, name='panel_reportes'),
-	url(r'^preview$', preview, name='preview_reportes'),
 	url(r'^exito/$', panel, name='panel_reportes'),
 	url(r'^error/$', panel, name='panel_reportes'),
 
