@@ -2,17 +2,29 @@
 {% load fe_extras %}
 
 {% block side_content %}
-
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/cobranza/facturas/nueva" class="panel-title btn btn-default" >Agregar Factura</a>
+    </div>
+  </div>
 {% endblock %}
 
 {% block site_wrapper %}
+  {% autoescape off %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div id="msg"></div>
+    </div>
+  </div>
+  {% endautoescape %}
+
   <table class="table table-striped table-estatus">
     <tr>
       <th>Folio</th>
       <th>Subtotal</th>
       <th>Total</th>
       <th>Fecha</th>
-      <th>Investigaciones</th>
+      <th># Investigaciones</th>
     </tr>
     {% for factura in facturas %}
       <tr>

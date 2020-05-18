@@ -96,17 +96,21 @@ def cobranza_investigacion(request, folio = None):
 	factura = Factura.objects.get(folio=folio) if folio and Factura.objects.filter(folio=folio).count() else None
 
 	if request.method == 'POST':
-		facturaForm = FacturaForm(request.POST)
+		facturaForm = FacturaForm(request.POST, instance = factura)
 		if facturaForm.is_valid():
 			factura = facturaForm.save()
+			
+			if folio:
+				for investigacion in factura.investigacion.all():
+					factura.investigacion.remove(investigacion)
 
 			for investigacion_id in request.POST.get('investigaciones', '').split('\n'):
-				if investigacion_id:
-					investigacion = Investigacion.objects.filter(id=investigacion_id)
+				if investigacion_id and len(investigacion_id.strip()) > 0:
+					investigacion = Investigacion.objects.filter(id=investigacion_id.strip())
 					if investigacion.count():
 						factura.investigacion.add(investigacion[0])
 
-			return HttpResponseRedirect('/cobranza/exito')
+			return HttpResponseRedirect('/cobranza/facturas/exito')
 	else:
 		facturaForm = FacturaForm(instance = factura)
 

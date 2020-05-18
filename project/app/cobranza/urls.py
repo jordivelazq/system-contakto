@@ -8,8 +8,9 @@ urlpatterns = [
 	url(r'^error/$', panel, name='panel_cobranza'),
 	url(r'^generar_reporte/$', generar_reporte, name='generar_reporte'),
 
-	url(r'^factura$', cobranza_investigacion, name='cobranza_investigacion'),
 	url(r'^facturas$', cobranza_facturas, name='cobranza_facturas'),
+	url(r'^facturas/exito$', cobranza_facturas, name='cobranza_facturas'),
+	url(r'^facturas/nueva$', cobranza_investigacion, name='cobranza_investigacion'),
 		url(r'^factura/(?P<folio>[^/]+)/$', cobranza_investigacion, name='cobranza_investigacion'),
 
 	# #AJAX

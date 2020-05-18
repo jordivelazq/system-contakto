@@ -27,4 +27,4 @@ class Factura(models.Model):
 	folio = models.CharField(max_length=50, unique=True)
 	subtotal = models.FloatField(default=0)
 	total = models.FloatField(default=0)
-	fecha = models.DateTimeField(blank=True, null=True)
+	fecha = models.DateField(blank=True, null=True)
