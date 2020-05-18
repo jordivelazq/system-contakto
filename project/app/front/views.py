@@ -18,30 +18,6 @@ def panel(request):
 
 	return HttpResponseRedirect('/candidatos/')
 
-@login_required(login_url='/login', redirect_field_name=None)
-def candidato(request):
-	page = 'candidatos'
-	return render_to_response('sections/candidato.html', locals())
-
-@login_required(login_url='/login', redirect_field_name=None)
-def clientes(request):
-	page = 'clientes'
-	return render_to_response('sections/clientes.html', locals())
-
-@login_required(login_url='/login', redirect_field_name=None)
-def reportes(request):
-	page = 'reportes'
-	return render_to_response('sections/reportes.html', locals())
-
-@login_required(login_url='/login', redirect_field_name=None)
-def bitacora(request):
-	if not request.user.is_superuser:
-		return HttpResponseRedirect('/panel')
-	page = 'bitacora'
-	bitacoras = Bitacora.objects.all().order_by('-id')[:50]
-	return render_to_response('sections/bitacora.html', locals())	
-
-
 def mint_login(request):
 	state = ''
 	if request.POST:
