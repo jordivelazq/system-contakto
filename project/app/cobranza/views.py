@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import HttpResponse, render_to_response, render
+from django.shortcuts import HttpResponse, render
 from django.template import RequestContext
 from django.views.decorators import csrf
 from django.http import HttpResponseRedirect

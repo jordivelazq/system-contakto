@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pdb
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render_to_response, render
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.template import RequestContext
 from django.views.decorators import csrf
 from django.http import HttpResponseRedirect, JsonResponse

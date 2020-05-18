@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import HttpResponse, render_to_response
+from django.shortcuts import HttpResponse, render
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.views.decorators import csrf
@@ -50,7 +50,7 @@ def panel(request):
 	
 	bitacoras = bitacoras.order_by('-id')[:500]
 
-	return render_to_response('sections/bitacora/panel.html', locals())
+	return render(request, 'sections/bitacora/panel.html', locals())
 
 @csrf_exempt
 def search_bitacora(request):
