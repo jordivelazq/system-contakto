@@ -754,7 +754,7 @@ def observaciones(request, investigacion_id):
 			tiene_factura = True
 		if cobranza.monto:
 			tiene_costo = True
-	FacturaFormSet = modelformset_factory(Factura, form=FacturaForm, max_num=5, extra=0)
+	facturas = Factura.objects.filter(investigacion=investigacion) if Factura.objects.filter(investigacion=investigacion).count() else None
 
 	#para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
@@ -769,7 +769,6 @@ def observaciones(request, investigacion_id):
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)
 		formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
-		formFactura = FacturaFormSet(request.POST)
 
 		if formaInvestigacion.is_valid() and formaEntrevista.is_valid():
 			
@@ -779,13 +778,6 @@ def observaciones(request, investigacion_id):
 			inv_new_instance.save()
 
 			formaEntrevista.save()
-
-			if request.user.is_superuser:
-				for form in formFactura:
-					if form.is_valid() and form.instance.folio:
-						form_ref = form.save(commit=False)
-						form_ref.cobranza = cobranza
-						form_ref.save()
 			
 			if 'redirect' in request.POST:
 				return HttpResponseRedirect(request.POST.get('redirect'))
@@ -796,7 +788,6 @@ def observaciones(request, investigacion_id):
 		formaInvestigacion.fields['label'].queryset = Labels.objects.filter(agente=request.user).exclude(name__exact='')
 		formaEntrevista = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(prefix='cobranza', instance=cobranza)
-		formFactura = FacturaFormSet(queryset=Factura.objects.filter(investigacion=investigacion) if Factura.objects.filter(investigacion=investigacion).count() else Factura.objects.none())
 
 	return render(request, 'sections/candidato/observaciones.html', locals(), RequestContext(request))
 

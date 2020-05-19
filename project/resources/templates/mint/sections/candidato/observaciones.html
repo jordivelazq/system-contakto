@@ -97,25 +97,22 @@
 										{% endif %}
 									</div>
 								</div>
-
-								<br />
-								{{ formFactura.management_form }}
-								<div id="form_set">
-									{%for form in formFactura %}
-										{{form.id}}
+							
+								{% if facturas %}
+									{% for factura in facturas %}
+										<br />
 										<div class="row">
 											<div class="col-md-12">
 												<div class="input-group">
-													<span class="input-group-addon">Factura</span>
-													{{ form.folio }}
-													{{ form.cobranza }}
+													<span class="input-group-addon">
+														Factura
+													</span>
+													<a href="/cobranza/factura/{{factura.folio}}" class="form-control">{{factura.folio}}</a>
 												</div>
 											</div>
 										</div>
-										<br />
 									{% endfor %}
-								</div>
-
+								{% endif %}
 							</div>
 						</div>
 					</div>
