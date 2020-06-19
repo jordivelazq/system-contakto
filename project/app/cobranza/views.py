@@ -85,24 +85,24 @@ def panel(request):
 	with connection.cursor() as cursor:
 		cursor.execute('''
 			SELECT
-				i.id as '1',
-				i.fecha_recibido as '2',
-				cc.nombre as '3',
-				pp.nombre as '4',
-				pp.apellido as '5',
-				i.puesto as '6',
+				i.id as '0',
+				i.fecha_recibido as '1',
+				cc.nombre as '2',
+				pp.nombre as '3',
+				pp.apellido as '4',
+				i.puesto as '5',
 				'' as ciudad,
-				cf.total as '8',
-				cf.folio as '9',
-				contacto.email as '10',
-				contacto.nombre as '11',
-				cc.razon_social as '12',
-				user.email as '13',
+				cf.total as '7',
+				cf.folio as '8',
+				contacto.email as '9',
+				contacto.nombre as '10',
+				cc.razon_social as '11',
+				user.email as '12',
 				'' as observaciones,
-				i.tipo_investigacion_status as '14',
-				i.resultado as '15',
-				i.fecha_entrega as '16',
-				i.tipo_investigacion_texto as '17'
+				i.tipo_investigacion_status as '13',
+				i.resultado as '14',
+				i.fecha_entrega as '15',
+				i.tipo_investigacion_texto as '16'
 			FROM investigacion_investigacion i
 			INNER JOIN compania_compania cc ON cc.id = i.compania_id
 			INNER JOIN persona_persona pp ON pp.id = i.candidato_id
