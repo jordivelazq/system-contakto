@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from calendar import monthrange
 from django.shortcuts import HttpResponse, render
 from django.template import RequestContext
 from django.views.decorators import csrf
@@ -70,6 +71,16 @@ def panel(request):
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 
 	total_cobranza = Investigacion.objects.count()
+	today = datetime.datetime.today()
+	start_date = datetime.date.today().replace(day=1)
+	end_date = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
+
+	if filtros_json:
+		if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
+			start_date = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
+
+	if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
+		end_date = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
 
 	with connection.cursor() as cursor:
 		cursor.execute('''
@@ -99,9 +110,11 @@ def panel(request):
 			INNER JOIN auth_user user ON user.id = i.agente_id
 			LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
 			LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
+			WHERE i.fecha_recibido between %s AND %s
 			ORDER BY i.fecha_recibido, cf.folio
 			LIMIT 1000
-		''')
+		''', [start_date, end_date])
+
 		investigaciones = cursor.fetchall()
 
 	facturas_desglose = {
