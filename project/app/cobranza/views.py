@@ -79,8 +79,8 @@ def panel(request):
 		if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
 			start_date = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
 
-	if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
-		end_date = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
+		if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
+			end_date = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
 
 	with connection.cursor() as cursor:
 		cursor.execute('''
@@ -116,6 +116,22 @@ def panel(request):
 		''', [start_date, end_date])
 
 		investigaciones = cursor.fetchall()
+
+		cursor.execute('''
+			SELECT
+				count(*)
+			FROM investigacion_investigacion i
+			INNER JOIN compania_compania cc ON cc.id = i.compania_id
+			INNER JOIN persona_persona pp ON pp.id = i.candidato_id
+			INNER JOIN compania_contacto contacto ON contacto.id = i.contacto_id
+			INNER JOIN auth_user user ON user.id = i.agente_id
+			LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
+			LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
+			WHERE i.fecha_recibido between %s AND %s
+		''', [start_date, end_date])
+
+		total_investigaciones = cursor.fetchone()
+
 
 		cursor.execute('SELECT COUNT(DISTINCT investigacion_id) AS total FROM cobranza_factura_investigacion')
 		total_facturadas = cursor.fetchone()
