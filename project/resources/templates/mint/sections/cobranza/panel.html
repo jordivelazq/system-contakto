@@ -28,20 +28,6 @@
 			<a href="/cobranza/facturas" class="panel-title btn btn-default" >Facturas</a>
 	</div>
 </div>
-
-<form role="form" action="#" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">Actualizar cargos</h3>
-		</div>
-		<div class="panel-body">
-			{{form_file}}
-			<br />
-			<input type="submit" class="btn btn-primary pull-right" value="Importar" name="importar">
-		</div>
-	</div>
-</form>
 {% endblock %}
 
 {% block site_wrapper %}

@@ -117,10 +117,13 @@ def panel(request):
 
 		investigaciones = cursor.fetchall()
 
+		cursor.execute('SELECT COUNT(DISTINCT investigacion_id) AS total FROM cobranza_factura_investigacion')
+		total_facturadas = cursor.fetchone()
+
 	facturas_desglose = {
-		"total": Cobranza.objects.filter(investigacion__status_active=True).count(),
-		"facturas": Cobranza.objects.filter(investigacion__status_active=True).exclude(folio__exact='').count(),
-		"sin_factura": Cobranza.objects.filter(investigacion__status_active=True).filter(folio__exact='').count()
+		"total": total_cobranza,
+		"facturas": total_facturadas[0],
+		"sin_factura": total_cobranza - total_facturadas[0]
 	}
 	
 	return render(request, 'sections/cobranza/panel.html', locals(), RequestContext(request))
