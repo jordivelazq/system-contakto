@@ -17,7 +17,7 @@ class FacturaForm(ModelForm):
 
 	class Meta:
 		model = Factura
-		fields = ['folio', 'subtotal', 'total', 'fecha']
+		fields = ['folio', 'subtotal', 'total', 'fecha', 'rfc', 'nombre']
 
 	def __init__(self, *args, **kwargs):
 		super(FacturaForm, self).__init__(*args, **kwargs)

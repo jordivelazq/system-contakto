@@ -26,18 +26,22 @@
     <tr>
       <th>#</th>
       <th>Folio</th>
+      <th>Fecha</th>
+      <th>Cliente</th>
+      <th>RFC</th>
       <th>Subtotal</th>
       <th>Total</th>
-      <th>Fecha</th>
       <th># Investigaciones</th>
     </tr>
     {% for factura in facturas %}
       <tr>
         <td>{{ forloop.counter }}</td>
         <td><a href="/cobranza/factura/{{factura.folio}}">{{factura.folio}}</a></td>
+        <td>{{factura.fecha|default:''}}</td>
+        <td>{{factura.nombre}}</td>
+        <td>{{factura.rfc}}</td>
         <td>{{factura.subtotal}}</td>
         <td>{{factura.total}}</td>
-        <td>{{factura.fecha|default:''}}</td>
         <td>{{factura.investigacion.all|length}}</td>
       </tr>
     {% endfor %}

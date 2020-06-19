@@ -28,3 +28,5 @@ class Factura(models.Model):
 	subtotal = models.FloatField(default=0)
 	total = models.FloatField(default=0)
 	fecha = models.DateField(blank=True, null=True)
+	rfc = models.CharField(max_length=50, blank=True, null=True, default='')
+	nombre = models.CharField(max_length=240, blank=True, null=True, default='')
