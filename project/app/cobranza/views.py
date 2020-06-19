@@ -18,7 +18,7 @@ from app.compania.forms import *
 from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
-from app.cobranza.models import *
+from app.cobranza.models import Cobranza, Factura
 from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm
 from app.cobranza.services import get_cobranza, get_cobranza_csv_row
 from django.forms.models import modelformset_factory
@@ -33,6 +33,7 @@ import os
 import json
 import csv
 import subprocess
+from django.db import connection
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -68,7 +69,40 @@ def panel(request):
 	status_select = Investigacion.STATUS_GRAL_OPCIONES
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 
-	cobranza, total_cobranza = get_cobranza(filtros_json)
+	total_cobranza = Investigacion.objects.count()
+
+	with connection.cursor() as cursor:
+		cursor.execute('''
+			SELECT
+				i.id as '1',
+				i.fecha_recibido as '2',
+				cc.nombre as '3',
+				pp.nombre as '4',
+				pp.apellido as '5',
+				i.puesto as '6',
+				'' as ciudad,
+				cf.total as '8',
+				cf.folio as '9',
+				contacto.email as '10',
+				contacto.nombre as '11',
+				cc.razon_social as '12',
+				user.email as '13',
+				'' as observaciones,
+				i.tipo_investigacion_status as '14',
+				i.resultado as '15',
+				i.fecha_entrega as '16',
+				i.tipo_investigacion_texto as '17'
+			FROM investigacion_investigacion i
+			INNER JOIN compania_compania cc ON cc.id = i.compania_id
+			INNER JOIN persona_persona pp ON pp.id = i.candidato_id
+			INNER JOIN compania_contacto contacto ON contacto.id = i.contacto_id
+			INNER JOIN auth_user user ON user.id = i.agente_id
+			LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
+			LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
+			ORDER BY i.fecha_recibido, cf.folio
+			LIMIT 1000
+		''')
+		investigaciones = cursor.fetchall()
 
 	facturas_desglose = {
 		"total": Cobranza.objects.filter(investigacion__status_active=True).count(),

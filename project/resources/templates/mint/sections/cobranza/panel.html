@@ -71,7 +71,7 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h5 class="pull-left">Investigaciones encontradas: {{cobranza|length}} / {{total_cobranza}}</h5>
+				<h5 class="pull-left">Investigaciones encontradas: {{investigaciones|length}} / {{total_cobranza}}</h5>
 				<a class="btn btn-default pull-right" href="/cobranza/generar_reporte" target="_blank">Descargar</a>
 				<br class="clear-fix">
 				<br />
@@ -79,7 +79,7 @@
 		</div>
 
 		<div class="table-responsive">
-			{% if cobranza|length %}
+			{% if investigaciones|length %}
 			<table class="table table-striped table-estatus">
 				<thead>
 					<tr>
@@ -111,51 +111,65 @@
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
-					{% for cob in cobranza %}
-					<tr>
-						<td class="text-left"><a
-								href="/candidato/investigacion/{{cob.investigacion_id}}/editar">{{ cob.investigacion_id }}</a></td>
+					{% for investigacion in investigaciones %}
+						<tr>
+							<td class="text-left"><a href="/candidato/investigacion/{{investigacion.0}}/editar">{{ investigacion.0 }}</a></td>
 
-						<td class="text-center">{{ cob.investigacion__fecha_recibido|date:"d/m/Y" }}</td>
+							<td class="text-center">{{ investigacion.1|date:"d/m/Y" }}</td>
 
-						<td class="text-center">{{ cob.investigacion__compania__nombre }}</td>
+							<td class="text-center">{{ investigacion.2 }}</td>
 
-						<td class="text-left">{{ cob.investigacion__candidato__nombre }}</td>
-						<td class="text-left">{{ cob.investigacion__candidato__apellido }}</td>
-						<td class="text-left">{{ cob.investigacion__puesto }}</td>
-						<td class="text-center">{{ cob.ciudad }}</td>
+							<td class="text-left">{{ investigacion.3 }}</td>
+							<td class="text-left">{{ investigacion.4 }}</td>
+							<td class="text-left">{{ investigacion.5 }}</td>
+							<td class="text-center">{{ investigacion.6 }}</td>
 
-						<td class="text-center">
-							{% if cob.monto %}
-							$ <span ng-class="{monto_activo: selection.indexOf('{{cob.id}}') > -1}">{{ cob.monto }}</span>
-							{% else %}
-							<small class="text-danger"><strong>REQUERIDO</strong></small>
-							{% endif %}
-						</td>
-						<td class="text-center">
-							{% if cob.folio %}
-							{{ cob.folio }}
-							{% endif %}
-						</td>
+							<td class="text-center">
+								{% if investigacion.7 %}
+									$<span>{{investigacion.7}}</span>
+								{% else %}
+									<small class="text-danger"><strong>REQUERIDO</strong></small>
+								{% endif %}
+							</td>
+							<td class="text-center">
+								{{ investigacion.8 }}
+							</td>
 
-						<td class="text-center">{{ cob.investigacion__contacto__email }}</td>
-						<td class="text-center">{{ cob.investigacion__contacto__nombre }}</td>
+							<td class="text-center">
+								{{ investigacion.9 }}
+							</td>
+							<td class="text-center">
+								{{ investigacion.10 }}
+							</td>
 
-						<td class="text-center">{{ cob.investigacion__compania__razon_social }}</td>
+							<td class="text-center">
+								{{ investigacion.11 }}
+							</td>
 
-						<td class="text-center">{{ cob.investigacion__agente__email }}</td>
-						<td class="text-center">{{ cob.obs_cobranza }}</td>
-						<td class="text-center">
-							{% if cob.investigacion__tipo_investigacion_status %}
-							{{ cob.investigacion__tipo_investigacion_status|tipo_investigacion_status }}
-							{% else %}
-							<small class="text-danger"><strong>REQUERIDO</strong></small>
-							{% endif %}
-						</td>
-						<td class="text-center">{{ cob.investigacion__resultado|investigacion_resultado }}</td>
-						<td class="text-center">{{ cob.investigacion__fecha_entrega|date:'d/m/Y' }}</td>
-						<td class="text-center">{{ cob.investigacion__tipo_investigacion_texto|default:'' }}</td>
-					</tr>
+							<td class="text-center">
+								{{ investigacion.12 }}
+							</td>
+
+							<td class="text-center">
+								{{ investigacion.13 }}
+							</td>
+							<td class="text-center">
+								{% if investigacion.14 %}
+									{{ investigacion.14|tipo_investigacion_status }}
+								{% else %}
+									<small class="text-danger"><strong>REQUERIDO</strong></small>
+								{% endif %}
+							</td>
+							<td class="text-center">
+									{{ investigacion.15|investigacion_resultado }}
+							</td>
+							<td class="text-center">
+								{{ investigacion.16|date:'d/m/Y' }}
+							</td>
+							<td class="text-center">
+								{{ investigacion.17 }}
+							</td>
+						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
