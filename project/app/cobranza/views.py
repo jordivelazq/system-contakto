@@ -191,30 +191,6 @@ def generar_reporte(request):
 	print "generar_reporte duration", int(duration * 1000)
 	return response
 
-'''
-	AJAX
-'''
-@login_required(login_url='/login', redirect_field_name=None)
-def get_facturas(request, compania_id='', contacto_id=''):
-	response = {'status': False}
-	facturas = Cobranza.objects.filter(investigacion__status_active=True)
-
-	if compania_id and contacto_id:
-		facturas = facturas.filter(investigacion__compania__id=compania_id, investigacion__contacto__id=contacto_id)
-	elif compania_id:
-		facturas = facturas.filter(investigacion__compania__id=compania_id)
-	elif contacto_id:	
-		facturas = facturas.filter(investigacion__contacto__id=contacto_id)
-
-	if facturas.count():
-		facturas = facturas.order_by('folio').values_list('folio', flat=True).distinct()
-		data = []
-		for f in facturas:
-			if f:#OPTIMIZAR con exlude en query
-				data.append(f)
-		response = {'status': True, 'facturas': data}
-	return HttpResponse(json.dumps(response), content_type='application/json')
-
 @csrf_exempt
 def search_cobranza(request):
 	response = { 'status' : False}

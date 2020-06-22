@@ -352,7 +352,6 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
                 $scope.setEmpresaContactos()
             }
         }
-        $scope.setFacturaFolios();
     };
 
     $scope.limpiar_filtros = function(){
@@ -360,14 +359,12 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
             $scope.compania_nombre = '';
             $scope.contacto_id = '';
             $scope.factura_folio_ng = '';
-            $scope.folios_facturas = [];
             $scope.empresa_contacto = '';
             $scope.status_select = '0';
             $scope.agente_select = ''
             $('#fecha_inicio').val('');
             $('#fecha_final').val('');
             $.post("/cobranza/reset_filtros/");
-            $scope.setFacturaFolios();
         };
 
     $scope.setEmpresaContactos = function(){
@@ -376,33 +373,12 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
             $scope.empresa_contactos = data;
             $scope.$apply();
         });
-        $scope.setFacturaFolios();
     }
 
     $scope.selectContacto = function(){
         $scope.contacto_id = $scope.empresa_contacto + '';
-        $scope.setFacturaFolios();
     }
 
-    $scope.setFacturaFolios = function(){
-        var url = "/cobranza/get_facturas"
-        if ($scope.compania_id.length && parseInt($scope.compania_id)){
-            url += '/compania/' + $scope.compania_id;
-        }   
-        if ($scope.contacto_id.length && parseInt($scope.contacto_id)){
-            url += '/contacto/' + $scope.contacto_id;
-        }
-        $.get( url, 'json').done(function( data ) {
-            $('#panel_empresa_contacto').find('img').attr({'style':''}).remove();
-            $scope.folios_facturas = data.facturas ? data.facturas : '';
-            // if (!($scope.folios_facturas.indexOf($scope.factura_folio_ng.toString()) > -1) && $scope.factura_folio_ng.toString() != 'por-facturar' ){
-            //     $scope.factura_folio_ng = '';
-            // }
-           
-            $scope.$apply();
-            
-        });
-    }
     $scope.init();
    
 });
