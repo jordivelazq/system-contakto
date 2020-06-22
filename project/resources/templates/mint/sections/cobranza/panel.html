@@ -78,7 +78,7 @@
 						<th class="text-center col-red">Nombre</th>
 						<th class="text-center col-red">Apellido</th>
 						<th class="text-center col-red">Puesto</th>
-						<th class="text-center col-red">Ciudad</th>
+						<th class="text-center col-red">Estado</th>
 
 						<th class="text-center col-blue">Monto</th>
 						<th class="text-center col-blue">Folio</th>
@@ -98,7 +98,7 @@
 				</thead>
 				<tbody id="cobranza-table">
 					{% for investigacion in investigaciones %}
-						<tr>
+						<tr data-statusgeneral="{{investigacion.18}}">
 							<td class="text-left"><a href="/candidato/investigacion/{{investigacion.0}}/editar">{{ investigacion.0 }}</a></td>
 
 							<td class="text-center">{{ investigacion.1|date:"d/m/Y" }}</td>

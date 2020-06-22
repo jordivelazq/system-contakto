@@ -2,6 +2,7 @@
 
 import datetime
 from django.db.models import Q
+from django.db import connection
 
 from app.cobranza.models import Cobranza
 from app.front.templatetags.fe_extras import investigacion_resultado
@@ -95,4 +96,118 @@ def get_cobranza_csv_row(cob):
     ]
     return item
   return ["ERROR", str(cob)]
+
+def get_investigaciones_query(count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status):
+  values = [start_date, end_date]
+  query = '''
+    SELECT
+  '''
+
+  if count:
+    query += '''
+      count(*)
+    '''
+  else:
+    query += '''
+      i.id as '0',
+      i.fecha_recibido as '1',
+      cc.nombre as '2',
+      pp.nombre as '3',
+      pp.apellido as '4',
+      i.puesto as '5',
+      pd.estado as '6',
+      cf.total as '7',
+      cf.folio as '8',
+      contacto.email as '9',
+      contacto.nombre as '10',
+      cc.razon_social as '11',
+      user.email as '12',
+      '' as observaciones,
+      i.tipo_investigacion_status as '14',
+      i.resultado as '15',
+      i.fecha_entrega as '16',
+      i.tipo_investigacion_texto as '17',
+      i.status_general as '18'
+      '''
+
+  query += '''
+    FROM investigacion_investigacion i
+      INNER JOIN compania_compania cc ON cc.id = i.compania_id
+      INNER JOIN persona_persona pp ON pp.id = i.candidato_id
+      INNER JOIN compania_contacto contacto ON contacto.id = i.contacto_id
+      INNER JOIN auth_user user ON user.id = i.agente_id
+      LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
+      LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
+      INNER JOIN persona_direccion pd ON pd.persona_id = pp.id
+    WHERE i.fecha_recibido between %s AND %s
+    '''
+
+  if compania_id:
+    query += '''
+      AND i.compania_id = %s
+      '''
+    values.append(compania_id)
   
+  if contacto_id:
+    query += '''
+      AND contacto.id = %s
+      '''
+    values.append(contacto_id)
+  
+  if agente_id:
+    query += '''
+      AND user.id = %s
+    '''
+    values.append(agente_id)
+  
+  if factura_filter == 'SIN_FACTURA':
+    query += '''
+      AND cf.folio IS NULL
+    '''
+  elif factura_filter == 'CON_FACTURA':
+    query += '''
+      AND cf.folio IS NOT NULL
+    '''
+  
+  if status == '3':
+    query += '''
+      AND (i.status_general = %s OR i.status_general = %s)
+    '''
+    values.append(0)
+    values.append(1)
+  elif status == '4':
+    query += '''
+      AND (i.status_general = %s OR i.status_general = %s)
+    '''
+    values.append(2)
+    values.append(1)
+  elif status:
+    query += '''
+      AND i.status_general = %s
+    '''
+    values.append(status)
+
+  if not count:
+    query += '''
+      ORDER BY i.fecha_recibido, cf.folio
+      LIMIT 1000
+      '''
+  
+  return (query, values)
+  
+def get_investigaciones(get_count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status):
+  with connection.cursor() as cursor:
+
+    query, values = get_investigaciones_query(get_count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status)
+
+    cursor.execute(query, values)
+
+    if get_count:
+      return cursor.fetchone()
+
+    return cursor.fetchall()
+
+def get_total_investigaciones_facturadas():
+  with connection.cursor() as cursor:
+    cursor.execute('SELECT COUNT(DISTINCT investigacion_id) AS total FROM cobranza_factura_investigacion')
+    return cursor.fetchone()

@@ -34,11 +34,8 @@
 				<div class="form-group" id="panel_factura">
 					<select class="form-control" id="folio_factura" name="folio_factura" ng-model="factura_folio_ng">
 						<option value="">Todos (Con y Sin Factura)</option>
-						<option value="por-facturar">Por facturar</option>
-						<option ng-selected="{[{row == factura_folio_ng}]}" 
-							ng-repeat="row in folios_facturas" value="{[{row}]}">
-							{[{row}]}
-						</option>
+						<option value="SIN_FACTURA">Sin Factura</option>
+						<option value="CON_FACTURA">Con Factura</option>
 					</select>
 				</div>
 				<div class="form-group">		

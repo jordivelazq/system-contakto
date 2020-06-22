@@ -395,9 +395,9 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
         $.get( url, 'json').done(function( data ) {
             $('#panel_empresa_contacto').find('img').attr({'style':''}).remove();
             $scope.folios_facturas = data.facturas ? data.facturas : '';
-            if (!($scope.folios_facturas.indexOf($scope.factura_folio_ng.toString()) > -1) && $scope.factura_folio_ng.toString() != 'por-facturar' ){
-                $scope.factura_folio_ng = '';
-            }
+            // if (!($scope.folios_facturas.indexOf($scope.factura_folio_ng.toString()) > -1) && $scope.factura_folio_ng.toString() != 'por-facturar' ){
+            //     $scope.factura_folio_ng = '';
+            // }
            
             $scope.$apply();
             

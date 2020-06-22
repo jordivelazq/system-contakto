@@ -392,7 +392,7 @@ function initDynamicForms() {
 
 function setFacturaData(xmlDoc) {
   const data = xmlDoc.getElementsByTagName('cfdi:Comprobante')[0].attributes
-  const factura = xmlDoc.getElementsByTagName('cfdi:Emisor')[0].attributes
+  const factura = xmlDoc.getElementsByTagName('cfdi:Receptor')[0].attributes
 
   $('#id_folio').val(data.Folio.value)
   $('#id_subtotal').val(data.SubTotal.value)

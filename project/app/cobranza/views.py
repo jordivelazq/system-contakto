@@ -21,7 +21,7 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import Cobranza, Factura
 from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm
-from app.cobranza.services import get_cobranza, get_cobranza_csv_row
+from app.cobranza.services import get_cobranza, get_cobranza_csv_row, get_investigaciones, get_total_investigaciones_facturadas
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
@@ -34,7 +34,6 @@ import os
 import json
 import csv
 import subprocess
-from django.db import connection
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
@@ -74,6 +73,11 @@ def panel(request):
 	today = datetime.datetime.today()
 	start_date = datetime.date.today().replace(day=1)
 	end_date = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
+	compania_id = None
+	contacto_id = None
+	agente_id = None
+	factura_filter = None
+	status = None
 
 	if filtros_json:
 		if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
@@ -81,60 +85,25 @@ def panel(request):
 
 		if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
 			end_date = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
+		
+		if 'compania_id' in filtros_json and len(filtros_json['compania_id']):
+			compania_id = filtros_json['compania_id']
+		
+		if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
+			contacto_id = filtros_json['contacto_id']
+		
+		if 'agente_select' in filtros_json and len(filtros_json['agente_select']):
+			agente_id = filtros_json['agente_select']
+		
+		if 'factura_folio' in filtros_json and len(filtros_json['factura_folio']):
+			factura_filter = filtros_json['factura_folio']
+		
+		if 'status_id' in filtros_json and len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
+			status = filtros_json['status_id']
 
-	with connection.cursor() as cursor:
-		cursor.execute('''
-			SELECT
-				i.id as '0',
-				i.fecha_recibido as '1',
-				cc.nombre as '2',
-				pp.nombre as '3',
-				pp.apellido as '4',
-				i.puesto as '5',
-				'' as ciudad,
-				cf.total as '7',
-				cf.folio as '8',
-				contacto.email as '9',
-				contacto.nombre as '10',
-				cc.razon_social as '11',
-				user.email as '12',
-				'' as observaciones,
-				i.tipo_investigacion_status as '13',
-				i.resultado as '14',
-				i.fecha_entrega as '15',
-				i.tipo_investigacion_texto as '16'
-			FROM investigacion_investigacion i
-			INNER JOIN compania_compania cc ON cc.id = i.compania_id
-			INNER JOIN persona_persona pp ON pp.id = i.candidato_id
-			INNER JOIN compania_contacto contacto ON contacto.id = i.contacto_id
-			INNER JOIN auth_user user ON user.id = i.agente_id
-			LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
-			LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
-			WHERE i.fecha_recibido between %s AND %s
-			ORDER BY i.fecha_recibido, cf.folio
-			LIMIT 1000
-		''', [start_date, end_date])
-
-		investigaciones = cursor.fetchall()
-
-		cursor.execute('''
-			SELECT
-				count(*)
-			FROM investigacion_investigacion i
-			INNER JOIN compania_compania cc ON cc.id = i.compania_id
-			INNER JOIN persona_persona pp ON pp.id = i.candidato_id
-			INNER JOIN compania_contacto contacto ON contacto.id = i.contacto_id
-			INNER JOIN auth_user user ON user.id = i.agente_id
-			LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
-			LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
-			WHERE i.fecha_recibido between %s AND %s
-		''', [start_date, end_date])
-
-		total_investigaciones = cursor.fetchone()
-
-
-		cursor.execute('SELECT COUNT(DISTINCT investigacion_id) AS total FROM cobranza_factura_investigacion')
-		total_facturadas = cursor.fetchone()
+	investigaciones = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status)
+	total_investigaciones = get_investigaciones(True, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status)
+	total_facturadas = get_total_investigaciones_facturadas()
 
 	facturas_desglose = {
 		"total": total_cobranza,
