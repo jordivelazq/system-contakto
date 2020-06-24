@@ -1,7 +1,7 @@
 const defaultLimit = 100;
 
 $(document).ready(function(){
-	$('#fecha_inicio, #fecha_final').datepicker({
+	$('#fecha_inicio, #fecha_final, #id_date_from, #id_date_to').datepicker({
 		format: 'dd/mm/yy'
 	}).on('changeDate', function(ev) {
 		$(this).datepicker('hide');

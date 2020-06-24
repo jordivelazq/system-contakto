@@ -36,3 +36,7 @@ class FacturaInvestigacionForm(ModelForm):
 
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
+
+class FacturaFilters(forms.Form):
+	date_from = forms.CharField(label='Fecha Inicial', required=False)
+	date_to = forms.CharField(label='Fecha Final', required=False)

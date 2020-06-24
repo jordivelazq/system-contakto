@@ -20,7 +20,7 @@ from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import Cobranza, Factura
-from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm
+from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm, FacturaFilters
 from app.cobranza.services import get_cobranza, get_cobranza_csv_row, get_investigaciones, get_total_investigaciones_facturadas
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
@@ -116,16 +116,39 @@ def panel(request):
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
 def cobranza_facturas(request):
-	facturas = Factura.objects.all()[:500]	
+	facturas = Factura.objects
 	total_facturas = Factura.objects.count()
 	page = 'cobranza'
+	if request.method == 'POST':
+		option = request.POST.get('option', '')
+		if option == 'Limpiar':
+			filters = FacturaFilters()
+		else:
+			filters = FacturaFilters(request.POST)
+			date_a = request.POST.get('date_from', '')
+			date_b = request.POST.get('date_to', '')
+
+			date_from = datetime.datetime.strptime(date_a, '%d/%m/%y').strftime('%Y-%m-%d') if date_a else None
+			date_to = datetime.datetime.strptime(date_b, '%d/%m/%y').strftime('%Y-%m-%d') if date_b else None
+
+			if date_from and date_to:
+				facturas = facturas.filter(fecha__gte=date_from, fecha__lte=date_to)
+			elif date_from:
+				facturas = facturas.filter(fecha__gte=date_from)
+			elif date_to:
+				facturas = facturas.filter(fecha__lte=date_to)
+	else:
+		filters = FacturaFilters()
+
+	facturas = facturas.all().order_by('fecha', 'folio')[:500]	
 
 	return render(request, 'sections/cobranza/facturas.html', {
 		"page": page,
 		"facturas": facturas,
 		"request": request,
-		"total_facturas": total_facturas
-	})
+		"total_facturas": total_facturas,
+		"filters": filters
+	}, RequestContext(request))
 
 login_required(login_url='/login', redirect_field_name=None)
 @user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)

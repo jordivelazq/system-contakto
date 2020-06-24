@@ -4,9 +4,11 @@
 {% block side_content %}
   <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="/cobranza/facturas/nueva" class="panel-title btn btn-default" >Agregar Factura</a>
+      <a href="/cobranza/facturas/nueva" class="panel-title text-center" style="display: block;">Agregar Factura</a>
     </div>
   </div>
+
+  {% include 'sections/cobranza/seccion/search_facturas.html' %}
 {% endblock %}
 
 {% block site_wrapper %}
@@ -38,8 +40,8 @@
         <td>{{ forloop.counter }}</td>
         <td><a href="/cobranza/factura/{{factura.folio}}">{{factura.folio}}</a></td>
         <td>{{factura.fecha|default:''}}</td>
-        <td>{{factura.nombre}}</td>
-        <td>{{factura.rfc}}</td>
+        <td>{{factura.nombre|default:''}}</td>
+        <td>{{factura.rfc|default:''}}</td>
         <td>{{factura.subtotal}}</td>
         <td>{{factura.total}}</td>
         <td>{{factura.investigacion.all|length}}</td>
