@@ -52,9 +52,9 @@ class InvestigacionService:
 	@staticmethod
 	def clean_currency(value, currency=''):
 		try:
-			return '$ '+unicode(float(value))+' '+currency
-		except Exception, e:
-			return unicode(value.upper())
+			return '$ '+str(float(value))+' '+currency
+		except Exception as e:
+			return str(value.upper())
 
 
 	'''-------------- Funciones auxiliares para reportes PDF -------------- '''
@@ -123,7 +123,7 @@ class InvestigacionService:
 
 		try:
 			index = int(resultado)
-		except Exception, e:
+		except Exception as e:
 			index = 0
 		
 		c.drawString(row_x+0.1*inch, row_y-RESULTADO_OPCIONES[index][1]*inch, 'X')

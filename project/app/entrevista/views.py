@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.template import RequestContext
 from django.views.decorators import csrf
@@ -452,8 +451,7 @@ def cargar_entrevista(request, investigacion_id):
 				file_instance.save()
 				if (pre_candidato.leerArchivo(file_id=file_instance.id, sheet_index=0)):
 					data = pre_candidato.getData()
-
-					if data['candidato']['datos_generales']['nss'] != investigacion.candidato.nss:
+					if 'nss' in data['candidato']['datos_generales'] and data['candidato']['datos_generales']['nss'] != investigacion.candidato.nss:
 						pre_candidato.errors.append('NSS no coincide con el guardado en la investigación')
 
 					#Revisar si hubo errores en la lectura del excel

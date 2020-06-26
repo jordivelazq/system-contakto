@@ -50,16 +50,16 @@ def get_row(data):
 def parse_float(value):
   try:
     return float(value)
-  except Exception, e:
-    print "parse_float", e
+  except Exception as e:
+    print (e)
     return None
 
 
 def parse_int(value):
   try:
     return int(value)
-  except Exception, e:
-    print "parse_int", e
+  except Exception as e:
+    print (e)
     return None
   
 def parse_string(value):
@@ -68,8 +68,8 @@ def parse_string(value):
 
   try:
     string_parsed = value.decode('cp1252').encode("utf-8").replace("€?", "É")
-  except Exception, e:
-    print "parse_string", e
+  except Exception as e:
+    print (e)
     string_parsed = value.decode('utf-8','ignore').encode("utf-8")
   
   return string_parsed

@@ -504,7 +504,7 @@ def nueva_trayectoria(request, investigacion_id, empresa_id=''):
 			nueva_trayectoria.persona = investigacion.candidato
 			nueva_trayectoria.save()
 			Evaluacion(trayectoriaLaboral=nueva_trayectoria).save()
-			b = Bitacora(action='trayectoria-nueva: ' + unicode(nueva_trayectoria), user=request.user)
+			b = Bitacora(action='trayectoria-nueva: ' + str(nueva_trayectoria), user=request.user)
 			b.save()
 
 			if 'cancelar' in request.POST:
@@ -662,7 +662,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 				opinion_rh.categoria = 2
 				try:
 					opinion_rh.save()
-				except Exception, error:
+				except Exception as error:
 					msg.append({
 						"text": "Opinion RH: " + str(error),
 						"status": "danger"
@@ -920,7 +920,7 @@ def trayectoria_comercial(request, investigacion_id, trayectoria_id=None):
 					referencia.trayectoria_comercial = trayectoria_comercial
 					referencia.save()
 				
-				b = Bitacora(action='trayectoria_comercial: ' + unicode(trayectoria_id), user=request.user)
+				b = Bitacora(action='trayectoria_comercial: ' + str(trayectoria_id), user=request.user)
 				b.save()
 
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')

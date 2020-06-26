@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from models import *
+from app.entrevista.models import *
 from app.investigacion.models import Investigacion
 from app.compania.models import *
 from app.entrevista.services import EntrevistaService
@@ -29,7 +29,7 @@ class ControllerPersona(object):
 		#Guardar registro de candidato
 		try:
 			candidato.save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error al guardar registro, los datos no fueron almacenados.')
 			self.errors.append(e)
 		
@@ -88,7 +88,7 @@ class ControllerPersona(object):
 			candidato.referencia_vacante = datos_generales['referencia_vacante']
 			candidato.tiempo_transporte = datos_generales['tiempo_transporte']
 			candidato.dependientes_economicos = datos_generales['dependientes_economicos']
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error asignando registro de datos generales.')
 
 		return
@@ -142,7 +142,7 @@ class ControllerPersona(object):
 											fecha_tramite=datos_generales['fonacot']['fecha_tramite'],
 											numero_credito=datos_generales['fonacot']['numero'],
 											uso=datos_generales['fonacot']['uso']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de datos generales.')
 
 		return
@@ -172,7 +172,7 @@ class ControllerPersona(object):
 											sucursal=info_personal['familiar_en_empresa']['sucursal'],
 											parentesco=info_personal['familiar_en_empresa']['parentesco'],
 											nombre=info_personal['familiar_en_empresa']['nombre']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de información personal.')
 
 		return
@@ -195,7 +195,7 @@ class ControllerPersona(object):
 								tratamiento_medico_psicologico=datos_salud['tratamiento_medico_psicologico'],
 								enfermedades_mayor_frecuencia=datos_salud['enfermedades_mayor_frecuencia'],
 								institucion_medica=datos_salud['institucion_medica']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de datos de salud.')
 
 		return
@@ -213,7 +213,7 @@ class ControllerPersona(object):
 											frecuencia_tabaco=actividades_habitos['frecuencia_tabaco'],
 											frecuencia_alcohol=actividades_habitos['frecuencia_alcohol'],
 											frecuencia_otras_sust=actividades_habitos['frecuencia_otras_sust']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de actividades y hábitos.')
 
 		return	
@@ -246,7 +246,7 @@ class ControllerPersona(object):
 									leido = info_academica['otro_idioma']['leido'],
 									escuchado = info_academica['otro_idioma']['escuchado'],
 									idioma = info_academica['otro_idioma']['idioma']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de información académica.')
 
 		return
@@ -307,7 +307,7 @@ class ControllerPersona(object):
 					residencia = situacion_vivienda['marco_familiar'][i]['residencia'],
 					telefono = situacion_vivienda['marco_familiar'][i]['telefono'],
 					category=2).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de: Situación de vivienda')
 			self.errors.append(e[1])
 
@@ -346,7 +346,7 @@ class ControllerPersona(object):
 														empresa = marco_familiar[tipo[0]]['empresa'],
 														residencia = marco_familiar[tipo[0]]['residencia'],
 														telefono = srv.clean_telefono(marco_familiar[tipo[0]]['telefono'])).save()
-		except Exception, e:
+		except Exception as e:
 			print(e)
 			self.errors.append('Error en registro de marco familiar.')
 		return
@@ -370,7 +370,7 @@ class ControllerPersona(object):
 										detalle = egreso['concepto'],
 										concepto = egreso['concepto'],
 										monto = egreso['monto']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de información económica mensual.')
 
 		return
@@ -424,7 +424,7 @@ class ControllerPersona(object):
 										cantidad_total = deuda['cantidad_total'],
 										saldo_actual = deuda['saldo_actual'],
 										pago_mensual = deuda['pago_mensual']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de información de situación económica.')
 
 		return
@@ -447,7 +447,7 @@ class ControllerPersona(object):
 				entrevista_referencia.opinion = ref['opinion']
 				entrevista_referencia.save()
 
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de referencias.')
 
 		return
@@ -475,7 +475,7 @@ class ControllerPersona(object):
 				EntrevistaAspectoCandidato(	person = candidato,
 											tipo = aspecto['tipo'],
 											estatus = aspecto['estatus']).save()
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de cuadro de evaluación.')
 
 		return
@@ -508,7 +508,7 @@ class ControllerPersona(object):
 				entrevista_cita.hora_entrevista = data_investigacion['fecha_hora']
 			entrevista_cita.save()
 
-		except Exception, e:
+		except Exception as e:
 			self.errors.append('Error en registro de investigación.')
 
 		return

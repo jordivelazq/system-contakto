@@ -78,7 +78,7 @@ def nuevo(request):
 				user.is_staff = True
 				user.save()
 				AgenteInfo(agente=user, telefono=telefono).save()
-				b = Bitacora(action='crear-agente: ' + unicode(user), user=request.user)
+				b = Bitacora(action='crear-agente: ' + str(user), user=request.user)
 				b.save()
 				return HttpResponseRedirect('/agentes/exito')
 			else:
@@ -139,7 +139,7 @@ def editar(request, user_id):
 				agente_info.save()
 				msg_class = 'alert alert-success'
 				state = 'Usuario guardado exitósamente'
-				b = Bitacora(action='editar-agente: ' + unicode(user), user=request.user)
+				b = Bitacora(action='editar-agente: ' + str(user), user=request.user)
 				b.save()
 				return HttpResponseRedirect('/agentes/exito')
 			else:
@@ -158,7 +158,7 @@ def borrar(request, user_id):
 	user = User.objects.get(id=user_id)
 	user.is_active = False
 	user.save()
-	b = Bitacora(action='borrar-agente: ' + unicode(user), user=request.user)
+	b = Bitacora(action='borrar-agente: ' + str(user), user=request.user)
 	b.save()
 	return HttpResponseRedirect('/agentes/exito')
 

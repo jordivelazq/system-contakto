@@ -44,8 +44,8 @@ class PreCandidato(object):
 			f = EntrevistaFile.objects.filter(id=file_id)
 			self.workbook = xlrd.open_workbook(settings.MEDIA_ROOT + '/' + str(f[0].record))
 			self.worksheet = self.workbook.sheet_by_index(sheet_index)
-		except Exception, e:
-			print "Exception leerArchivo", e
+		except Exception as e:
+			print(e)
 			self.errors.append('Archivo no encontrado o corrupto')
 			return 0
 		return 1
@@ -81,7 +81,7 @@ class PreCandidato(object):
 			try:
 				data['fecha'] =  self.get_cell_value(rowx=1, colx=32)
 				data['fecha_hora'] = self.get_cell_value(rowx=1, colx=38)
-			except Exception, e:
+			except Exception as e:
 				self.errors.append('Fecha de investigación inválida')
 			
 			data['empresa'] = self.get_cell_value(rowx=3, colx=9)
@@ -92,7 +92,8 @@ class PreCandidato(object):
 			data['no_viable'] = self.get_cell_value(rowx=250,colx=20)
 			data['reservas'] = self.get_cell_value(rowx=250,colx=33)
 
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de investigación, revisar formato.')
 
 		return data
@@ -162,7 +163,8 @@ class PreCandidato(object):
 			data['fonacot']['numero'] = self.get_cell_value(rowx=131, colx=16)
 			data['fonacot']['fecha_tramite'] = self.get_cell_value(rowx=131, colx=29)
 			data['fonacot']['uso'] = self.get_cell_value(rowx=131, colx=37)
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos generales, revisar formato.')
 		
 		return data
@@ -190,7 +192,8 @@ class PreCandidato(object):
 
 			data['antecedentes_penales'] = self.get_cell_value(rowx=29, colx=8)
 			data['tatuajes'] = self.get_cell_value(rowx=30, colx=21)
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos personales, revisar formato.')
 
 		return data
@@ -213,7 +216,8 @@ class PreCandidato(object):
 			data['tratamiento_medico_psicologico'] = self.get_cell_value(rowx=35,colx=38)
 			data['enfermedades_mayor_frecuencia'] = self.get_cell_value(rowx=36,colx=16)
 			data['institucion_medica'] = self.get_cell_value(rowx=36,colx=36)
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de salud, revisar formato.')
 
 		return data
@@ -231,7 +235,8 @@ class PreCandidato(object):
 			data['frecuencia_tabaco'] = self.get_cell_value(rowx=40,colx=16)
 			data['frecuencia_alcohol'] = self.get_cell_value(rowx=40,colx=24)
 			data['frecuencia_otras_sust'] = self.get_cell_value(rowx=40,colx=35)
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de Actividades y Hábitos, revisar formato.')
 
 		return data
@@ -288,7 +293,8 @@ class PreCandidato(object):
 			data['estudios_horarios'] = self.get_cell_value(rowx=52,colx=30)
 			data['estudios_dias'] = self.get_cell_value(rowx=52,colx=37)
 
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos académicos, revisar formato.')
 
 		return data
@@ -350,7 +356,8 @@ class PreCandidato(object):
 					'telefono': self.get_cell_value(rowx=86+i, colx=18)
 				})
 			
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de vivienda, revisar formato.')
 
 		return data
@@ -495,7 +502,8 @@ class PreCandidato(object):
 					'residencia' : self.get_cell_value(rowx=81,colx=29),
 					'telefono' : self.get_cell_value(rowx=81,colx=35)
 				})
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de marco familiar, revisar formato.')
 
 		return data
@@ -533,7 +541,8 @@ class PreCandidato(object):
 			data['egresos'].append({ 'concepto': 'deuda2', 'monto': self.get_cell_value(rowx=98,colx=37) })
 			data['egresos'].append({ 'concepto': 'otros', 'monto': self.get_cell_value(rowx=99,colx=37) })
 			data['egresos'].append({ 'concepto': 'total', 'monto': self.get_cell_value(rowx=100,colx=37) })
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos económicos mensuales, revisar formato.')
 
 		return data
@@ -638,7 +647,8 @@ class PreCandidato(object):
 					'saldo_actual': self.get_cell_value(rowx=129,colx=28),
 					'pago_mensual': self.get_cell_value(rowx=129,colx=35)
 		 		})
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de situación económica, revisar formato.')
 
 		return data
@@ -684,7 +694,8 @@ class PreCandidato(object):
 					'opinion': '',
 					'tipo': 'personal_opcional'
 				})
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de referencias, revisar formato.')
 
 		return data
@@ -740,7 +751,8 @@ class PreCandidato(object):
 			data['aspectos_candidato'].append({	'tipo' : 'actitud',
 												'estatus' : self.get_cell_value(rowx=227,colx=33) })											
 
-		except Exception, e:
+		except Exception as e:
+			print(e)
 			self.errors.append('No se pudo extraer los datos de cuadro de evaluación, revisar formato.')
 
 		return data
@@ -761,16 +773,16 @@ class PreCandidato(object):
 		elif cell_type == 3:
 			try:
 				return_value = datetime.datetime(*xlrd.xldate_as_tuple(self.worksheet.cell_value(rowx, colx), self.workbook.datemode)).date().strftime('%d/%m/%Y') 
-			except Exception, e:
+			except Exception as e:
 				try:
 					return_value =  datetime.datetime.strptime(str(datetime.timedelta(days=cell_value)), '%H:%M:%S').strftime('%I:%M:%S %p')
-				except Exception, e:
+				except Exception as e:
 					return_value = cell_value
 		#If cell_type is anything else (0,1,4,5,6)
 		else:
 			return_value = cell_value
 	
-		return unicode(return_value)
+		return str(return_value)
 
 	def get_percentage(self, rowx, colx):
 		'''
@@ -791,7 +803,7 @@ class PreCandidato(object):
 					isFloat = True
 
 		return_value = str(int(cell_value * 100)) if isFloat else str(cell_value)
-		return unicode(return_value)
+		return str(return_value)
 
 	"""docstring for ClassName"""
 	def __init__(self):

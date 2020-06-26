@@ -93,7 +93,7 @@ class PersonaService:
 			elif self.status_id == '3':
 				candidatos = candidatos.filter(Q(status_general=0)|Q(status_general=1))
 
-		candidatos = candidatos.order_by('fecha_recibido')[:self.limit_select]
+		candidatos = candidatos.order_by('fecha_recibido')[:int(self.limit_select)]
 
 		for c in candidatos:
 			response.append({

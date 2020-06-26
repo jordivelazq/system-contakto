@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from app.investigacion.models import Investigacion
-from image_functions import ImgOpt
+from app.adjuntos.image_functions import ImgOpt
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.exceptions import ValidationError

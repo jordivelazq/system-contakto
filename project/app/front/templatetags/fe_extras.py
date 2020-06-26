@@ -23,8 +23,8 @@ def investigacion_status(value):
 	status = ''
 	try:
 		status = Investigacion.STATUS_OPCIONES[int(value)][1]
-	except Exception, e:
-		print e
+	except Exception as e:
+		print (e)
 	return status if len(status) else '---'
 
 @register.filter(name = 'investigacion_status_gral')
@@ -32,8 +32,8 @@ def investigacion_status_gral(value):
 	status = ''
 	try:
 		status = Investigacion.STATUS_GRAL_OPCIONES[int(value)][1]
-	except Exception, e:
-		print e
+	except Exception as e:
+		print (e)
 	return status if len(status) else '---'
 	
 @register.filter(name = 'investigacion_resultado')
@@ -44,7 +44,7 @@ def investigacion_resultado(value):
 
 	try:
 		status = int(value)
-	except Exception, e:
+	except Exception as e:
 		pass
 
 	status = Investigacion.RESULTADO_OPCIONES[status][1]
@@ -64,8 +64,8 @@ def entrevista_status_autorizada(value):
 	index = ''
 	try:
 		index = 'Sí' if int(value) == 1 else 'No'
-	except Exception, e:
-		print e
+	except Exception as e:
+		print (e)
 	return index
 
 @register.filter(name = 'motivo_salida')
@@ -73,8 +73,8 @@ def motivo_salida(value):
 	status = ''
 	try:
 		status = TrayectoriaLaboral.SALIDA_OPCIONES[int(value)][1]
-	except Exception, e:
-		print e
+	except Exception as e:
+		print (e)
 	return status if len(status) else '---'
 
 @register.filter

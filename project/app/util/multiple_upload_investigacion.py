@@ -46,8 +46,8 @@ def read_file(file_id, sheet_index):
 		file = EntrevistaFile.objects.get(id=file_id)
 		workbook = xlrd.open_workbook(settings.MEDIA_ROOT + '/' + str(file.record))
 		worksheet = workbook.sheet_by_index(sheet_index)
-	except Exception, e:
-		print "read_file", e
+	except Exception as e:
+		print(e)
 		pass
 		
 	return (workbook, worksheet)
@@ -58,15 +58,15 @@ def get_fecha(workbook, worksheet, row_index, col_index, date_format = "%Y-%m-%d
 	if worksheet.cell_type(row_index, col_index) == 3:
 		try:
 			fecha = datetime(*xlrd.xldate_as_tuple(worksheet.cell_value(row_index, col_index), workbook.datemode)).date().strftime(date_format)
-		except Exception, e:
-			print "get_fecha", e
+		except Exception as e:
+			print(e)
 			pass
 	
 	if not fecha:
 		try:
 			fecha = datetime.strptime(worksheet.cell_value(row_index, col_index), "%d/%m/%Y").strftime(date_format)
-		except Exception, e:
-			print "get_fecha2", e
+		except Exception as e:
+			print(e)
 			pass
 	
 	return fecha
@@ -77,8 +77,8 @@ def get_hora(workbook, worksheet, row_index, col_index):
 	if worksheet.cell_type(row_index, col_index) == 3:
 		try:
 			hora = datetime.strptime(str(timedelta(days=hora)), '%H:%M:%S').strftime('%I:%M:%S %p')
-		except Exception, e:
-			print "get_hora", e
+		except Exception as e:
+			print(e)
 			pass
 	
 	return hora
@@ -125,8 +125,8 @@ def get_ejecutivo(email, request_user):
 		if request_user.is_superuser:
 			try:
 				ejecutivo = User.objects.get(email=email)
-			except Exception, e:
-				print "get_ejecutivo", e
+			except Exception as e:
+				print(e)
 				pass
 		else:
 			ejecutivo = request_user
@@ -138,8 +138,8 @@ def get_contacto(email):
 	if is_email_valid(email):
 		try:
 			contacto = Contacto.objects.get(email = email)
-		except Exception, e:
-			print "get_contacto", e
+		except Exception as e:
+			print(e)
 			pass
 
 	return contacto
@@ -153,8 +153,8 @@ def save_persona(nombre, apellido):
 	try:
 		persona.full_clean()
 		persona.save()
-	except Exception, e:
-		print "save_persona", e
+	except Exception as e:
+		print(e)
 		pass
 
 	return persona
@@ -168,8 +168,8 @@ def save_direccion(ciudad, persona):
 	try:
 		direccion.full_clean()
 		direccion.save()
-	except Exception, e:
-		print "save_direccion", e
+	except Exception as e:
+		print(e)
 		pass
 
 def save_telefono(numero, persona):
@@ -182,15 +182,15 @@ def save_telefono(numero, persona):
 	try:
 		telefono.full_clean()
 		telefono.save()
-	except Exception, e:
-		print "save_telefono", e
+	except Exception as e:
+		print(e)
 		pass
 
 def get_tipo_estudio(tipo_estudio):
 	try:
 		tipo_estudio = int(tipo_estudio)
-	except Exception, e:
-		print "get_tipo_estudio", e
+	except Exception as e:
+		print(e)
 		return None
 	
 	tipo_estudio = tipo_estudio if tipo_estudio in [1, 2] else None
@@ -200,8 +200,8 @@ def get_tipo_estudio(tipo_estudio):
 def get_status(status):
 	try:
 		status = int(status)
-	except Exception, e:
-		print "get_status", e
+	except Exception as e:
+		print(e)
 		pass
 
 	status = status if status in [0, 1, 2] else None
@@ -227,8 +227,8 @@ def save_investigacion(ejecutivo, contacto, persona, puesto, fecha_recibido, tip
 	try:
 		investigacion.full_clean()
 		investigacion.save()
-	except Exception, e:
-		print "save_investigacion", e
+	except Exception as e:
+		print(e)
 		pass
 
 	return investigacion
@@ -247,8 +247,8 @@ def save_entrevista(investigacion, gestor, dia_cita, hora_cita):
 	try:
 		entrevista.full_clean()
 		entrevista.save()
-	except Exception, e:
-		print "save_entrevista", e
+	except Exception as e:
+		print(e)
 		pass
 
 def save_cobranza(investigacion):

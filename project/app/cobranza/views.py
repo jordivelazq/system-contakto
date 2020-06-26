@@ -211,7 +211,7 @@ def generar_reporte(request):
 	response = StreamingHttpResponse((writer.writerow(get_cobranza_csv_row(row)) for row in rows[0]), content_type="text/csv")
 	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
 	duration = time.time() - start_time
-	print "generar_reporte duration", int(duration * 1000)
+	print ("generar_reporte duration", int(duration * 1000))
 	return response
 
 @csrf_exempt

@@ -133,7 +133,7 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 		form = CompaniaForm(request.POST, instance=company)
 		if form.is_valid():
 			form.save()
-			b = Bitacora(action='empresas-editada: ' + unicode(request.POST.get('name')), user=request.user)
+			b = Bitacora(action='empresas-editada: ' + str(request.POST.get('name')), user=request.user)
 			b.save()
 			if investigacion_id:
 				return HttpResponseRedirect('/candidato/investigacion/'+str(investigacion_id)+'/editar/trayectoria/'+str(trayectoria_id)+'/exito')
@@ -149,7 +149,7 @@ def borrar(request, compania_id):
 	company = Compania.objects.get(id=compania_id)
 	company.status = False
 	company.save()
-	b = Bitacora(action='borrar-empresa: ' + unicode(company), user=request.user)
+	b = Bitacora(action='borrar-empresa: ' + str(company), user=request.user)
 	b.save()
 	return HttpResponseRedirect('/empresas/exito')
 
@@ -240,7 +240,7 @@ def contactos(request, compania_id):
 	company = Compania.objects.get(id=compania_id)
 	contactos = Contacto.objects.filter(compania=company,status=True).order_by('-id')
 	page = 'empresas'
-	title = 'Contactos empresa: ' + unicode(company.nombre)
+	title = 'Contactos empresa: ' + str(company.nombre)
 	
 	empresas = Compania.objects.filter(status=True).order_by('nombre')
 
@@ -259,7 +259,7 @@ def contacto_nuevo(request, compania_id='', investigacion_id=''):
 	company = Compania.objects.get(id=compania_id)
 
 	page = 'empresas'
-	title = 'Crear nuevo contacto de '+unicode(company.nombre)
+	title = 'Crear nuevo contacto de '+str(company.nombre)
 
 	boton_capturar_otro = True
 	boton_cancelar_url = '/candidato/investigacion/'+str(investigacion_id)+'/trayectoria/nueva/empresa/'+str(compania_id) if investigacion_id else '/empresa/'+str(compania_id)+'/contactos'
@@ -287,7 +287,7 @@ def contacto_nuevo(request, compania_id='', investigacion_id=''):
 
 			nuevo_contacto.save()
 
-			b = Bitacora(action='contacto-creado: ' + request.POST.get('nombre') +' / '+ unicode(company.nombre), user=request.user)
+			b = Bitacora(action='contacto-creado: ' + request.POST.get('nombre') +' / '+ str(company.nombre), user=request.user)
 			b.save()
 
 			#Si se tiene el investigacion_id como referencia, se redirecciona
@@ -322,7 +322,7 @@ def contacto_editar(request, compania_id, contacto_id):
 	delete_contact_enable = True
 
 	page = 'empresas'
-	title = 'Editar contacto: ' + unicode(contacto.nombre) + ' / ' + unicode(company.nombre)
+	title = 'Editar contacto: ' + str(contacto.nombre) + ' / ' + str(company.nombre)
 	
 	boton_cancelar_url = '/empresa/'+str(compania_id)+'/contactos'
 
@@ -372,7 +372,7 @@ def contacto_editar(request, compania_id, contacto_id):
 							if not f.monto and not f.folio:
 								f.monto = contacto_instance.costo_inv_laboral if status == 1 else contacto_instance.costo_inv_completa
 								f.save()
-			b = Bitacora(action='contacto-editado: ' + unicode(request.POST.get('nombre')) +' / ' + unicode(company.nombre), user=request.user)
+			b = Bitacora(action='contacto-editado: ' + str(request.POST.get('nombre')) +' / ' + str(company.nombre), user=request.user)
 			b.save()
 			return HttpResponseRedirect('/empresa/'+str(company.id)+'/contactos/exito')
 		
@@ -390,7 +390,7 @@ def contacto_borrar(request, compania_id, contacto_id):
 	contacto.nombre = contacto.nombre + ' (-)'
 	contacto.status = False
 	contacto.save()
-	b = Bitacora(action='borrar-contacto: ' + unicode(contacto) + ' / ' + unicode(company.nombre), user=request.user)
+	b = Bitacora(action='borrar-contacto: ' + str(contacto) + ' / ' + str(company.nombre), user=request.user)
 	b.save()
 	return HttpResponseRedirect('/empresa/' + str(company.id) + '/contactos/exito')
 
