@@ -1,8 +1,8 @@
-Django==1.11
+Django==1.11.17
 ecdsa==0.13
 Fabric==1.10.2
 gunicorn==19.9.0
-mysqlclient==1.4.6 # this works with docker, locally using: MySQL-python==1.2.5
+mysqlclient==1.4.6
 newrelic==5.12.0.140
 paramiko==1.16.0
 Pillow==2.8.2
