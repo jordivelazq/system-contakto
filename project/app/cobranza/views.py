@@ -105,6 +105,12 @@ def panel(request):
 		
 		if 'folio' in filtros_json and len(filtros_json['folio']):
 			folio = filtros_json['folio']
+	else:
+		request.session['filtros_search_cobranza'] = {
+			'fecha_inicio': start_date.strftime('%d/%m/%y'),
+			'fecha_final': end_date.strftime('%d/%m/%y')
+		}
+		filtros_json = request.session.get('filtros_search_cobranza', None)
 
 	investigaciones = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
 	total_investigaciones = get_investigaciones(True, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
