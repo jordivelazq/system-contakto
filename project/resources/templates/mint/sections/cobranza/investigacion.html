@@ -30,10 +30,19 @@
           <br />
 
           <label>Investigaciones:</label>
-          <div class="row">
-            <div class="col-md-12">
-              <textarea name="investigaciones" cols="30" rows="10" class="form-control">{% for investigacion in factura.investigacion.all %}{{investigacion.id}}
-{% endfor %}</textarea>
+          <div class="textarea-anchors">
+            <div class="row">
+              <div class="col-md-6">
+                <textarea name="investigaciones" rows="10" class="form-control">{% for investigacion in factura.investigacion.all %}{{investigacion.id}}
+  {% endfor %}</textarea>
+              </div>
+              <div class="col-md-6">
+                <div class="anchors-wrapper">
+                  {% for investigacion in factura.investigacion.all %}
+                    <a href="/candidato/investigacion/{{investigacion.id}}/editar" target="_blank">{{investigacion.id}}</a>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
           </div>
 

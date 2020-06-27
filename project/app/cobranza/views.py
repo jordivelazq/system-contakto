@@ -138,6 +138,10 @@ def cobranza_facturas(request):
 				facturas = facturas.filter(fecha__gte=date_from)
 			elif date_to:
 				facturas = facturas.filter(fecha__lte=date_to)
+			
+			name = request.POST.get('name', '')
+			if name:
+				facturas = facturas.filter(nombre__icontains=name)
 	else:
 		filters_form = FiltersForm()
 

@@ -372,3 +372,17 @@ body {
 #contactos_selected option {
   text-transform: uppercase;
 }
+
+/* line 271, ../sass/screen.sass */
+.textarea-anchors textarea {
+  height: 300px;
+}
+/* line 273, ../sass/screen.sass */
+.textarea-anchors .anchors-wrapper {
+  height: 300px;
+  overflow: scroll;
+}
+/* line 276, ../sass/screen.sass */
+.textarea-anchors a {
+  display: block;
+}
