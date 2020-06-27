@@ -20,8 +20,9 @@ from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import Cobranza, Factura
-from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm, FacturaFilters
+from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm
 from app.cobranza.services import get_cobranza, get_cobranza_csv_row, get_investigaciones, get_total_investigaciones_facturadas
+from app.util.forms import FiltersForm
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
@@ -122,9 +123,9 @@ def cobranza_facturas(request):
 	if request.method == 'POST':
 		option = request.POST.get('option', '')
 		if option == 'Limpiar':
-			filters = FacturaFilters()
+			filters_form = FiltersForm()
 		else:
-			filters = FacturaFilters(request.POST)
+			filters_form = FiltersForm(request.POST)
 			date_a = request.POST.get('date_from', '')
 			date_b = request.POST.get('date_to', '')
 
@@ -138,7 +139,7 @@ def cobranza_facturas(request):
 			elif date_to:
 				facturas = facturas.filter(fecha__lte=date_to)
 	else:
-		filters = FacturaFilters()
+		filters_form = FiltersForm()
 
 	facturas = facturas.all().order_by('fecha', 'folio')[:500]	
 
@@ -147,7 +148,7 @@ def cobranza_facturas(request):
 		"facturas": facturas,
 		"request": request,
 		"total_facturas": total_facturas,
-		"filters": filters
+		"filters_form": filters_form
 	}, RequestContext(request))
 
 login_required(login_url='/login', redirect_field_name=None)
