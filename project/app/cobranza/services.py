@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from calendar import monthrange
 import datetime
 from django.db.models import Q
 from django.db import connection
@@ -96,6 +97,29 @@ def get_cobranza_csv_row(cob):
     ]
     return item
   return ["ERROR", str(cob)]
+
+def get_cobranza_csv_row_2(cob):
+  item = [
+    cob[0],
+    cob[1],
+    cob[2],
+    cob[3],
+    cob[4],
+    cob[5],
+    cob[6],
+    cob[7],
+    cob[8],
+    cob[9],
+    cob[10],
+    cob[11],
+    cob[12],
+    cob[13],
+    cob[14],
+    cob[15],
+    cob[16],
+    cob[17]
+  ]
+  return item
 
 def get_investigaciones_query(count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio):
   values = [start_date, end_date]
@@ -217,3 +241,47 @@ def get_total_investigaciones_facturadas():
   with connection.cursor() as cursor:
     cursor.execute('SELECT COUNT(DISTINCT investigacion_id) AS total FROM cobranza_factura_investigacion')
     return cursor.fetchone()
+
+def get_cobranza_filters(request, filtros_json):
+  today = datetime.datetime.today()
+  start_date = datetime.date.today().replace(day=1)
+  end_date = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
+  compania_id = None
+  contacto_id = None
+  agente_id = None
+  factura_filter = None
+  status = None
+  folio = None
+
+  if filtros_json:
+    if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
+      start_date = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
+
+    if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
+      end_date = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
+    
+    if 'compania_id' in filtros_json and len(filtros_json['compania_id']):
+      compania_id = filtros_json['compania_id']
+    
+    if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
+      contacto_id = filtros_json['contacto_id']
+    
+    if 'agente_select' in filtros_json and len(filtros_json['agente_select']):
+      agente_id = filtros_json['agente_select']
+    
+    if 'factura_folio' in filtros_json and len(filtros_json['factura_folio']):
+      factura_filter = filtros_json['factura_folio']
+    
+    if 'status_id' in filtros_json and len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
+      status = filtros_json['status_id']
+    
+    if 'folio' in filtros_json and len(filtros_json['folio']):
+      folio = filtros_json['folio']
+  else:
+    request.session['filtros_search_cobranza'] = {
+      'fecha_inicio': start_date.strftime('%d/%m/%y'),
+      'fecha_final': end_date.strftime('%d/%m/%y')
+    }
+    filtros_json = request.session.get('filtros_search_cobranza', None)
+
+  return (start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)

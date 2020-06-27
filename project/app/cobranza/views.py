@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from calendar import monthrange
 from django.shortcuts import HttpResponse, render
 from django.template import RequestContext
 from django.views.decorators import csrf
@@ -21,7 +20,7 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.cobranza.models import Cobranza, Factura
 from app.cobranza.forms import CobranzaMontoForm, FacturaForm, FacturaInvestigacionForm
-from app.cobranza.services import get_cobranza, get_cobranza_csv_row, get_investigaciones, get_total_investigaciones_facturadas
+from app.cobranza.services import get_cobranza, get_cobranza_csv_row, get_investigaciones, get_total_investigaciones_facturadas, get_cobranza_filters, get_cobranza_csv_row_2
 from app.util.forms import FiltersForm
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
@@ -71,46 +70,8 @@ def panel(request):
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 
 	total_cobranza = Investigacion.objects.count()
-	today = datetime.datetime.today()
-	start_date = datetime.date.today().replace(day=1)
-	end_date = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
-	compania_id = None
-	contacto_id = None
-	agente_id = None
-	factura_filter = None
-	status = None
-	folio = None
 
-	if filtros_json:
-		if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
-			start_date = datetime.datetime.strptime(filtros_json['fecha_inicio'], '%d/%m/%y').strftime('%Y-%m-%d')
-
-		if 'fecha_final' in filtros_json and len(filtros_json['fecha_final']):
-			end_date = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
-		
-		if 'compania_id' in filtros_json and len(filtros_json['compania_id']):
-			compania_id = filtros_json['compania_id']
-		
-		if 'contacto_id' in filtros_json and len(filtros_json['contacto_id']):
-			contacto_id = filtros_json['contacto_id']
-		
-		if 'agente_select' in filtros_json and len(filtros_json['agente_select']):
-			agente_id = filtros_json['agente_select']
-		
-		if 'factura_folio' in filtros_json and len(filtros_json['factura_folio']):
-			factura_filter = filtros_json['factura_folio']
-		
-		if 'status_id' in filtros_json and len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
-			status = filtros_json['status_id']
-		
-		if 'folio' in filtros_json and len(filtros_json['folio']):
-			folio = filtros_json['folio']
-	else:
-		request.session['filtros_search_cobranza'] = {
-			'fecha_inicio': start_date.strftime('%d/%m/%y'),
-			'fecha_final': end_date.strftime('%d/%m/%y')
-		}
-		filtros_json = request.session.get('filtros_search_cobranza', None)
+	(start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio) = get_cobranza_filters(request, filtros_json)
 
 	investigaciones = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
 	total_investigaciones = get_investigaciones(True, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
@@ -220,13 +181,22 @@ class Echo(object):
 def generar_reporte(request):
 	start_time = time.time()
 	filtros_json = request.session.get('filtros_search_cobranza', None)
-	rows = get_cobranza(filtros_json, 10000)
+
+	(start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio) = get_cobranza_filters(request, filtros_json)
+
+	rows = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
+	header = ('ID', 'FECHA DE RECIBIDO', 'CLIENTE', 'NOMBRE', 'APELLIDO', 'PUESTO', 'ESTADO', 'MONTO', 'FOLIO', 'CORREO', 'SOLICITANTE', 'SOCIAL', 'EJECUTIVO', 'OBS. COBRANZA', 'TIPO INV.', 'ESTATUS', 'RESULTADO', 'OBS .INVESTIGACION', '')
+	rows = (header,) + rows
+
 	pseudo_buffer = Echo()
 	writer = csv.writer(pseudo_buffer)
-	response = StreamingHttpResponse((writer.writerow(get_cobranza_csv_row(row)) for row in rows[0]), content_type="text/csv")
+
+	response = StreamingHttpResponse((writer.writerow(get_cobranza_csv_row_2(row)) for row in rows), content_type="text/csv")
 	response['Content-Disposition'] = 'attachment; filename="cobranza.csv"'
+
 	duration = time.time() - start_time
 	print ("generar_reporte duration", int(duration * 1000))
+
 	return response
 
 @csrf_exempt
