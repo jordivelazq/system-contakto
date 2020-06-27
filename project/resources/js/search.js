@@ -280,6 +280,7 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
     $scope.factura_folio_ng = '';
     $scope.empresa_contactos = [];
     $scope.agente_select = ''
+    $scope.folio = ''
 
     $scope.open_empresa_modal = function(){
              $('#selectEmpresaModal').modal().on('shown.bs.modal', function(){
@@ -297,6 +298,7 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
             'agente_select': $scope.agente_select ? $scope.agente_select : '',
             'fecha_inicio' : $scope.fecha_inicio ? $scope.fecha_inicio : '',
             'fecha_final' : $scope.fecha_final ? $scope.fecha_final : '',
+            'folio' : $scope.folio ? $scope.folio : '',
         }
     };
 
@@ -327,6 +329,10 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
         }
         if (filtros_json.fecha_final){
             $('#fecha_final').val(filtros_json.fecha_final);
+        }
+
+        if (typeof filtros_json.folio !== 'undefined'){
+            $scope.folio = filtros_json.folio;
         }
     };
 
@@ -362,6 +368,7 @@ contacktoApp.controller('SearchCobranzaCTRL', function($scope){
             $scope.empresa_contacto = '';
             $scope.status_select = '0';
             $scope.agente_select = ''
+            $scope.folio = ''
             $('#fecha_inicio').val('');
             $('#fecha_final').val('');
             $.post("/cobranza/reset_filtros/");

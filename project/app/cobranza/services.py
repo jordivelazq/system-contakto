@@ -97,7 +97,7 @@ def get_cobranza_csv_row(cob):
     return item
   return ["ERROR", str(cob)]
 
-def get_investigaciones_query(count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status):
+def get_investigaciones_query(count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio):
   values = [start_date, end_date]
   query = '''
     SELECT
@@ -186,19 +186,25 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       AND i.status_general = %s
     '''
     values.append(status)
+  
+  if folio:
+    query += '''
+      AND cf.folio = %s
+      '''
+    values.append(folio)
 
   if not count:
     query += '''
       ORDER BY i.fecha_recibido, cf.folio
       LIMIT 1000
       '''
-  
+
   return (query, values)
   
-def get_investigaciones(get_count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status):
+def get_investigaciones(get_count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio):
   with connection.cursor() as cursor:
 
-    query, values = get_investigaciones_query(get_count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status)
+    query, values = get_investigaciones_query(get_count, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
 
     cursor.execute(query, values)
 

@@ -38,6 +38,11 @@
 						<option value="CON_FACTURA">Con Factura</option>
 					</select>
 				</div>
+
+				<div id="daterange-inputs-sidebar" class="form-group">
+					<input class="form-control" type="text" id="folio" placeholder="Folio" ng-model="folio">
+				</div>
+				
 				<div class="form-group">		
 					<select class="form-control" id="status_select" name="status_select" ng-model="status_select">
 						<option value="-1">Todos los Estatus</option>
@@ -48,9 +53,9 @@
 				</div>
 
 				<div id="daterange-inputs-sidebar" class="form-group">
-					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio">
+					<input class="form-control sidebar-date-input float-left" type="text" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio">
 					<span class="float-left daterange-separator">&nbsp;a&nbsp;</span>
-					<input class="form-control sidebar-date-input " type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
+					<input class="form-control sidebar-date-input " type="text" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
 				</div>
 
 				<div id="botones-sidebar" class="form-group">
@@ -75,7 +80,8 @@
 										'factura_folio':'{{filtros_json.factura_folio|safe}}',
 										'agente_select':'{{filtros_json.agente_select|safe}}',
 										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
-										'fecha_final':'{{filtros_json.fecha_final|safe}}'
+										'fecha_final':'{{filtros_json.fecha_final|safe}}',
+										'folio':'{{filtros_json.folio|safe}}'
 									}
 								{% else %}''{% endif %}
 </script>

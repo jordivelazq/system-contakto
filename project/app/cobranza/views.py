@@ -79,6 +79,7 @@ def panel(request):
 	agente_id = None
 	factura_filter = None
 	status = None
+	folio = None
 
 	if filtros_json:
 		if 'fecha_inicio' in filtros_json and len(filtros_json['fecha_inicio']):
@@ -101,9 +102,12 @@ def panel(request):
 		
 		if 'status_id' in filtros_json and len(filtros_json['status_id']) and int(filtros_json['status_id']) > -1:
 			status = filtros_json['status_id']
+		
+		if 'folio' in filtros_json and len(filtros_json['folio']):
+			folio = filtros_json['folio']
 
-	investigaciones = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status)
-	total_investigaciones = get_investigaciones(True, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status)
+	investigaciones = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
+	total_investigaciones = get_investigaciones(True, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
 	total_facturadas = get_total_investigaciones_facturadas()
 
 	facturas_desglose = {
@@ -231,6 +235,7 @@ def search_cobranza(request):
 		agente_select = request.POST.get('agente_select', '')
 		fecha_inicio = request.POST.get('fecha_inicio', '')
 		fecha_final = request.POST.get('fecha_final', '')
+		folio = request.POST.get('folio', '')
 
 		request.session['filtros_search_cobranza'] = {
 			'compania_id':compania_id, 
@@ -240,7 +245,8 @@ def search_cobranza(request):
 			'status_id':status_id,
 			'agente_select': agente_select,
 			'fecha_inicio':fecha_inicio,
-			'fecha_final':fecha_final
+			'fecha_final':fecha_final,
+			'folio':folio
 		}
 
 		response = { 'status' : True}
