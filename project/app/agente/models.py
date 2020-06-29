@@ -6,7 +6,7 @@ class AgenteInfo(models.Model):
 	agente = models.ForeignKey(User)
 	telefono = models.CharField(max_length=150, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.agente.username)
 
 class Labels(models.Model):
@@ -27,5 +27,5 @@ class Labels(models.Model):
 	color = models.CharField(max_length=100, choices=LABEL_OPTIONS)
 	name = models.CharField(max_length=150, verbose_name='')
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.name)

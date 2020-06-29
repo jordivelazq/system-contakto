@@ -18,7 +18,7 @@ class Cobranza(models.Model):
 	status_cobranza = models.CharField(max_length=140, choices=STATUS_OPCIONES_COBRANZA, null=True, blank=True, default='0')
 	last_modified = models.DateTimeField(auto_now=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s / %s' % (self.investigacion.candidato.nombre, self.investigacion.compania.nombre)
 
 class Factura(models.Model):

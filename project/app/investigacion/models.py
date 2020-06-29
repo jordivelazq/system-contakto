@@ -89,7 +89,7 @@ class Investigacion(models.Model):
 	familiar_laborando = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	label = models.ForeignKey(Labels, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
 	
 	def print_status_general(self):

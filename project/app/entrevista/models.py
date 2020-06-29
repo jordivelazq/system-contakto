@@ -21,7 +21,7 @@ class EntrevistaFile(models.Model):
 	fecha_registro = models.DateField(auto_now=True)
 	tipo = models.IntegerField(default=0, choices=ARCHIVO_OPCIONES, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % self.record
 
 class EntrevistaPersona(models.Model):
@@ -48,7 +48,7 @@ class EntrevistaPersona(models.Model):
 	activa = models.BooleanField(default=True)
 	dependientes_economicos = models.TextField(max_length=200, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s / %s' % (self.id, self.nombre)
 
 class EntrevistaInvestigacion(models.Model):
@@ -71,7 +71,7 @@ class EntrevistaInvestigacion(models.Model):
 	folio = models.CharField(max_length=50, blank=True, null=True)
 	presupuesto = models.CharField(max_length=50, blank=True, null=True)	
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s / %s' % (self.persona, self.archivo)
 
 '''
@@ -85,7 +85,7 @@ class EntrevistaCita(models.Model):
 	autorizada = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	observaciones = models.TextField(max_length=500, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.investigacion)
 
 '''
@@ -103,7 +103,7 @@ class EntrevistaTelefono(models.Model):
 	numero = models.CharField(max_length=20, null=True, blank=True)
 	parentesco = models.CharField(max_length=40, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.numero
 
 class EntrevistaDireccion(models.Model):
@@ -116,7 +116,7 @@ class EntrevistaDireccion(models.Model):
 	cp = models.CharField(verbose_name='Código Postal', max_length=140, null=True, blank=True)
 	estado = models.CharField(verbose_name='Estado', max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s, %s' % (self.calle, self.colonia, self.ciudad)
 
 class EntrevistaPrestacionVivienda(models.Model):
@@ -132,7 +132,7 @@ class EntrevistaPrestacionVivienda(models.Model):
 	uso = models.CharField(max_length=250, null=True, blank=True)
 	motivo = models.CharField(verbose_name='Para qué se tramitó?', max_length=250, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.categoria_viv
 
 class EntrevistaLicencia(models.Model):
@@ -140,7 +140,7 @@ class EntrevistaLicencia(models.Model):
 	numero = models.CharField(verbose_name='No. de licencia', max_length=20, null=True, blank=True)
 	tipo = models.CharField(verbose_name='Tipo de licencia', max_length=140, null=True, blank=True)
 	
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tipo, self.numero)
 
 class EntrevistaOrigen(models.Model):
@@ -149,7 +149,7 @@ class EntrevistaOrigen(models.Model):
 	nacionalidad = models.CharField(max_length=140, null=True, blank=True)
 	fecha = models.CharField(verbose_name='Fecha de nacimiento', max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.lugar, self.fecha)
 
 
@@ -181,7 +181,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	motivo_salida = models.CharField(max_length=140, null=True, blank=True) #Solo para categ. trabajo
 	parentesco = models.CharField(max_length=140, null=True, blank=True)	#Solo para cate. familiar
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.tiene)
 	
 
@@ -204,7 +204,7 @@ class EntrevistaSalud(models.Model):
 	enfermedades_mayor_frecuencia = models.CharField(max_length=200, null=True, blank=True)
 	institucion_medica = models.CharField(max_length=200, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.peso_kg)
 
 class EntrevistaActividadesHabitos(models.Model):
@@ -246,7 +246,7 @@ class EntrevistaGradoEscolaridad(models.Model):
 	anos = models.CharField(max_length=200, null=True, blank=True)
 	certificado = models.CharField(max_length=200, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.grado)
 
 class EntrevistaOtroIdioma(models.Model):
@@ -256,7 +256,7 @@ class EntrevistaOtroIdioma(models.Model):
 	escuchado = models.CharField(max_length=140, null=True, blank=True)
 	idioma = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.idioma)
 
 '''
@@ -273,7 +273,7 @@ class EntrevistaSituacionVivienda(models.Model):
 	domicilio_anterior = models.CharField(max_length=500, null=True, blank=True)
 	domicilio_direcciones = models.TextField(null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tiempo_radicando, self.conservacion)
 
 class EntrevistaPropietarioVivienda(models.Model):
@@ -281,7 +281,7 @@ class EntrevistaPropietarioVivienda(models.Model):
 	nombre = models.CharField(verbose_name='Nombre del propietario' , max_length=200, null=True, blank=True)
 	parentesco = models.CharField(max_length=200, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.nombre, self.parentesco)
 
 class EntrevistaCaractaristicasVivienda(models.Model):
@@ -294,7 +294,7 @@ class EntrevistaCaractaristicasVivienda(models.Model):
 	valor_aproximado = models.CharField(max_length=50, null=True, blank=True)
 	renta_mensual = models.CharField(max_length=50, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.propia, self.rentada)
 
 class EntrevistaTipoInmueble(models.Model):
@@ -305,7 +305,7 @@ class EntrevistaTipoInmueble(models.Model):
 	vivienda_popular = models.CharField(max_length=50, null=True, blank=True)
 	otro_tipo = models.CharField(max_length=50, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.casa, self.departamento)
 
 class EntrevistaDistribucionDimensiones(models.Model):
@@ -318,7 +318,7 @@ class EntrevistaDistribucionDimensiones(models.Model):
 	patios = models.CharField(max_length=50, null=True, blank=True)
 	cocheras = models.CharField(max_length=50, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.habitaciones, self.banos)
 
 '''
@@ -348,7 +348,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 	parentesco = models.CharField(max_length=140, null=True, blank=True)
 	category = models.CharField(max_length=140, default=1, choices=FAMILIAR_OPCIONES)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % self.tipo
 
 '''
@@ -365,7 +365,7 @@ class EntrevistaEconomica(models.Model):
 	detalle = models.CharField(max_length=140, null=True, blank=True)
 	monto = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s - %s, %s, %s' % (self.person, self.tipo, self.concepto, self.monto)
 
 '''
@@ -378,7 +378,7 @@ class EntrevistaTarjetaCreditoComercial(models.Model):
 	pago_minimo = models.CharField(max_length=140, null=True, blank=True)
 	saldo_actual = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.institucion, self.limite_credito)
 
 class EntrevistaCuentaDebito(models.Model):
@@ -388,7 +388,7 @@ class EntrevistaCuentaDebito(models.Model):
 	antiguedad = models.CharField(max_length=140, null=True, blank=True)
 	ahorro = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.institucion, self.saldo_mensual)
 
 class EntrevistaAutomovil(models.Model):
@@ -398,7 +398,7 @@ class EntrevistaAutomovil(models.Model):
 	liquidacion = models.CharField(max_length=140, null=True, blank=True)
 	valor_comercial = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.modelo_ano, self.liquidacion)
 
 class EntrevistaBienesRaices(models.Model):
@@ -408,7 +408,7 @@ class EntrevistaBienesRaices(models.Model):
 	liquidacion = models.CharField(max_length=140, null=True, blank=True)
 	valor_comercial = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tipo_inmueble, self.ubicacion)
 
 class EntrevistaSeguro(models.Model):
@@ -418,7 +418,7 @@ class EntrevistaSeguro(models.Model):
 	forma_pago = models.CharField(max_length=140, null=True, blank=True)
 	vigencia = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.empresa, self.tipo)
 
 class EntrevistaDeudaActual(models.Model):
@@ -430,7 +430,7 @@ class EntrevistaDeudaActual(models.Model):
 	saldo_actual = models.CharField(max_length=140, null=True, blank=True)
 	pago_mensual = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.institucion, self.saldo_actual)
 
 '''
@@ -453,7 +453,7 @@ class EntrevistaReferencia(models.Model):
 	opinion = models.TextField(max_length=500, blank=True, null=True)
 	tipo = models.CharField(max_length=20, choices=REFERENCIA_TIPO_OPCIONES, default='')
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.nombre, self.parentesco)
 
 '''
@@ -466,7 +466,7 @@ class EntrevistaDocumentoCotejado(models.Model):
 	estatus = models.BooleanField(default=False)
 	observaciones = models.TextField(max_length=500, blank=True, null=True) #Solo se usa para el tipo 'motivos_falta_docs'
 
-	def __unicode__(self):
+	def __str__(self):
 			return '%s, %s' % (self.tipo, self.estatus)
 
 class EntrevistaAspectoHogar(models.Model):
@@ -474,7 +474,7 @@ class EntrevistaAspectoHogar(models.Model):
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 			return '%s' % self.tipo
 
 class EntrevistaAspectoCandidato(models.Model):
@@ -482,5 +482,5 @@ class EntrevistaAspectoCandidato(models.Model):
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 			return '%s' % self.tipo

@@ -55,7 +55,7 @@ class Adjuntos(models.Model):
 	def filename(self):
 		return os.path.basename(self.file.name)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % self.investigacion
 
 def resize_adjuntos(sender, **kwargs):

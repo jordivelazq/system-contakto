@@ -24,7 +24,7 @@ class Compania(models.Model):
 	fecha_creacion = models.DateField(auto_now=True)
 	status = models.BooleanField(default=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.nombre)
 
 	class Meta:
@@ -37,7 +37,7 @@ class Sucursales(models.Model):
 	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)
 	email = models.EmailField(max_length=140, verbose_name='Correo', blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.nombre)
 
 class Contacto(models.Model):
@@ -56,7 +56,7 @@ class Contacto(models.Model):
 	
 	status = models.BooleanField(default=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.nombre)
 
 	class Meta:

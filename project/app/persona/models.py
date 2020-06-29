@@ -85,7 +85,7 @@ class Persona(models.Model):
 	fecha_registro = models.DateField(auto_now=True)
 	estatus = models.BooleanField(default=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.nombre
 
 '''
@@ -103,7 +103,7 @@ class Telefono(models.Model):
 	numero = models.CharField(max_length=14, null=True, blank=True)
 	parentesco = models.CharField(max_length=40, blank=True, null=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s' % (self.numero)
 
 class Direccion(models.Model):
@@ -114,7 +114,7 @@ class Direccion(models.Model):
 	cp = models.CharField(max_length=140, null=True, blank=True)
 	estado = models.CharField(max_length=140, null=True, blank=True, choices=ESTADOSMEXICO_OPCIONES)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s, %s' % (self.calle, self.colonia, self.ciudad)
 
 class PrestacionVivienda(models.Model):
@@ -129,7 +129,7 @@ class PrestacionVivienda(models.Model):
 	numero_credito = models.CharField(max_length=140, null=True, blank=True)
 	uso = models.CharField(max_length=250, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s - %s' % (self.persona, self.categoria_viv)
 
 class Licencia(models.Model):
@@ -137,7 +137,7 @@ class Licencia(models.Model):
 	numero = models.CharField(max_length=20)
 	tipo = models.CharField(max_length=14)
 	
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tipo, self.numero)
 
 class Origen(models.Model):
@@ -146,7 +146,7 @@ class Origen(models.Model):
 	nacionalidad = models.CharField(max_length=140, null=True, blank=True)
 	fecha = models.DateField(null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.lugar, self.fecha)
 
 
@@ -200,7 +200,7 @@ class TrayectoriaLaboral(models.Model):
 
 	status = models.BooleanField(default=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return  u'%s/%s' % (self.persona, self.compania)
 
 	def getMotivoSalida(self):
@@ -262,7 +262,7 @@ class Legalidad(models.Model):
 	sindicato = models.CharField(max_length=500, null=True, blank=True)
 	afiliado_sindicato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.persona, self.sindicato)
 
 class Demanda(models.Model):
@@ -279,7 +279,7 @@ class Seguro(models.Model):
 	persona = models.ForeignKey(Persona)
 	verificado_enburo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.persona)
 
 '''
@@ -301,7 +301,7 @@ class Salud(models.Model):
 	enfermedades_mayor_frecuencia = models.CharField(max_length=200)
 	institucion_medica = models.CharField(max_length=200)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.enfermedades_mayor_frecuencia, self.enfermedades_familiares)
 
 class ActividadesHabitos(models.Model):
@@ -312,7 +312,7 @@ class ActividadesHabitos(models.Model):
 	frecuencia_alcohol = models.CharField(max_length=140)
 	frecuencia_otras_sust = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.tiempo_libre)
 
 '''
@@ -325,7 +325,7 @@ class Academica(models.Model):
 	cedula_prof_ano_exp = models.CharField(max_length=200)
 	estudios_actuales = models.CharField(max_length=200)
 	
-	def __unicode__(self):
+	def __str__(self):
 		return '%s' % (self.estudios_actuales)
 
 class GradoEscolaridad(models.Model):
@@ -343,7 +343,7 @@ class GradoEscolaridad(models.Model):
 	anos = models.CharField(max_length=200)
 	certificado = models.CharField(max_length=200)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.grado, self.institucion)
 
 class OtroIdioma(models.Model):
@@ -351,7 +351,7 @@ class OtroIdioma(models.Model):
 	porcentaje = models.IntegerField();
 	idioma = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.idioma, self.porcentaje)
 
 '''
@@ -366,7 +366,7 @@ class SituacionVivienda(models.Model):
 	conservacion = models.CharField(max_length=200)
 	tamano_aprox_mts2 = models.CharField(max_length=50)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tiempo_radicando, self.conservacion)
 
 class PropietarioVivienda(models.Model):
@@ -374,7 +374,7 @@ class PropietarioVivienda(models.Model):
 	nombre = models.CharField(max_length=200)
 	parentesco = models.CharField(max_length=200)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.nombre, self.parentesco)
 
 class CaractaristicasVivienda(models.Model):
@@ -387,7 +387,7 @@ class CaractaristicasVivienda(models.Model):
 	valor_aproximado = models.CharField(max_length=50)
 	renta_mensual = models.CharField(max_length=50)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.propia, self.rentada)
 
 class TipoInmueble(models.Model):
@@ -397,7 +397,7 @@ class TipoInmueble(models.Model):
 	departamento = models.CharField(max_length=50)
 	vivienda_popular = models.CharField(max_length=50)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.casa, self.departamento)
 
 class DistribucionDimensiones(models.Model):
@@ -410,7 +410,7 @@ class DistribucionDimensiones(models.Model):
 	patios = models.CharField(max_length=50)
 	cocheras = models.CharField(max_length=50)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.habitaciones, self.banos)
 
 '''
@@ -434,7 +434,7 @@ class MiembroMarcoFamiliar(models.Model):
 	residencia = models.CharField(max_length=140, null=True, blank=True)
 	telefono = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tipo, self.nombre)
 
 '''
@@ -450,7 +450,7 @@ class Economica(models.Model):
 	concepto = models.CharField(max_length=140)
 	monto = models.FloatField()
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s, %s' % (self.tipo, self.concepto, self.monto)
 
 '''
@@ -463,7 +463,7 @@ class TarjetaCreditoComercial(models.Model):
 	pago_minimo = models.CharField(max_length=140)
 	saldo_actual = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.institucion, self.limite_credito)
 
 class CuentaDebito(models.Model):
@@ -473,7 +473,7 @@ class CuentaDebito(models.Model):
 	antiguedad = models.CharField(max_length=140)
 	ahorro = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.institucion, self.saldo_mensual)
 
 class Automovil(models.Model):
@@ -483,7 +483,7 @@ class Automovil(models.Model):
 	liquidacion = models.CharField(max_length=140)
 	valor_comercial = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.modelo_ano, self.liquidacion)
 
 class BienesRaices(models.Model):
@@ -493,7 +493,7 @@ class BienesRaices(models.Model):
 	liquidacion = models.CharField(max_length=140)
 	valor_comercial = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tipo_inmueble, self.ubicacion)
 
 class DeudaActual(models.Model):
@@ -505,7 +505,7 @@ class DeudaActual(models.Model):
 	saldo_actual = models.CharField(max_length=140)
 	pago_mensual = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.institucion, self.saldo_actual)
 
 '''
@@ -522,7 +522,7 @@ class Referencia(models.Model):
 	lugares_labor_evaluado = models.CharField(max_length=200)
 	opinion = models.CharField(max_length=200)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.nombre, self.parentesco)
 
 '''
@@ -535,7 +535,7 @@ class CuadroEvaluacion(models.Model):
 	no_viable = models.CharField(max_length=140) 
 	reservas = models.CharField(max_length=140) 
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.conclusiones, self.reservas)
 
 class DocumentoCotejado(models.Model):
@@ -543,7 +543,7 @@ class DocumentoCotejado(models.Model):
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 			return '%s, %s' % (self.tipo, self.estatus)
 
 class AspectoHogar(models.Model):
@@ -551,7 +551,7 @@ class AspectoHogar(models.Model):
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 			return '%s, %s' % (self.tipo, self.estatus)
 
 class AspectoCandidato(models.Model):
@@ -559,7 +559,7 @@ class AspectoCandidato(models.Model):
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140)
 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s, %s' % (self.tipo, self.estatus)
 
 # Datos del word
@@ -585,7 +585,7 @@ class Evaluacion(models.Model):
 	toma_decisiones = models.CharField(max_length=20, choices=EVALUACION_OPCIONES, null=True, blank=True)
 	solucion_problemas = models.CharField(max_length=20, choices=EVALUACION_OPCIONES, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return  '%s' % (self.trayectoriaLaboral)
 
 class Opinion(models.Model):
@@ -602,7 +602,7 @@ class Opinion(models.Model):
 	email = models.CharField(max_length=140, null=True, blank=True)
 	referencia = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return  '%s' % (self.trayectoriaLaboral)
 
 class Informante(models.Model):
@@ -610,5 +610,5 @@ class Informante(models.Model):
 	nombre = models.CharField(max_length=140, null=True, blank=True)
 	puesto = models.CharField(max_length=140, null=True, blank=True)
 
-	def __unicode__(self):
+	def __str__(self):
 		return  '%s' % (self.evaluacion)
