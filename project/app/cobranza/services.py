@@ -164,6 +164,7 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
       INNER JOIN persona_direccion pd ON pd.persona_id = pp.id
     WHERE i.fecha_recibido between %s AND %s
+      AND i.status_active = 1
     '''
 
   if compania_id:
