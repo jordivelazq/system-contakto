@@ -136,3 +136,13 @@ def clean_type(value):
 @register.filter(name = 'verbose_name')
 def verbose_name(instance, field_name):
 	return instance._meta.get_field(field_name).verbose_name.title()
+
+
+@register.filter(name = 'get_investigacion_cost')
+def get_investigacion_cost(investigacion_raw):
+	if investigacion_raw[14] == 1 and investigacion_raw[19]:
+		return "$ " + str(investigacion_raw[19])
+	elif investigacion_raw[14] == 2 and investigacion_raw[20]:
+		return "$ " + str(investigacion_raw[20])
+							
+	return 'REQUERIDO'

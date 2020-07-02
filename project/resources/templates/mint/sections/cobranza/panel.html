@@ -108,14 +108,10 @@
 							<td class="text-left">{{ investigacion.3 }}</td>
 							<td class="text-left">{{ investigacion.4 }}</td>
 							<td class="text-left">{{ investigacion.5 }}</td>
-							<td class="text-center">{{ investigacion.6 }}</td>
+							<td class="text-center">{{ investigacion.6|default:""}}</td>
 
 							<td class="text-center">
-								{% if investigacion.7 %}
-									$<span>{{investigacion.7}}</span>
-								{% else %}
-									<small class="text-danger"><strong>REQUERIDO</strong></small>
-								{% endif %}
+								{{investigacion|get_investigacion_cost}}
 							</td>
 							<td class="text-center">
 								{{ investigacion.8|default:'' }}

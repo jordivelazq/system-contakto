@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.db import connection
 
 from app.cobranza.models import Cobranza
-from app.front.templatetags.fe_extras import investigacion_resultado
+from app.front.templatetags.fe_extras import investigacion_resultado, get_investigacion_cost
 
 def get_cobranza(filtros_json, limit = 200):
     cobranza = Cobranza.objects.values(
@@ -107,7 +107,7 @@ def get_cobranza_csv_row_2(cob):
     cob[4],
     cob[5],
     cob[6],
-    cob[7],
+    get_investigacion_cost(cob),
     cob[8],
     cob[9],
     cob[10],
@@ -151,7 +151,9 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       i.resultado as '15',
       i.fecha_entrega as '16',
       i.tipo_investigacion_texto as '17',
-      i.status_general as '18'
+      i.status_general as '18',
+      contacto.costo_inv_laboral as '19',
+      contacto.costo_inv_completa as '20'
       '''
 
   query += '''

@@ -31,7 +31,7 @@ def panel(request):
 		if len(filtros_json['es_cliente']):
 			empresas = empresas.filter(es_cliente=True)
 		if filtros_json['limit_select']:
-			limit_select = filtros_json['limit_select']
+			limit_select = int(filtros_json['limit_select'])
 
 	if request.POST:
 		empresas_to_delete = request.POST.getlist('empresa', [])
