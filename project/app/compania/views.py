@@ -158,6 +158,9 @@ def borrar(request, compania_id):
 def sucursal_main(request, compania_id):
 	company = Compania.objects.get(id=compania_id)
 	investigacion_id = request.GET.get('investigacion', '')
+	sucursal_id = request.GET.get('sucursal_id', '')
+	investigations = Investigacion.objects.filter(sucursal=sucursal_id) if sucursal_id else None
+
 	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva?investigacion_id=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursal/nueva'
 	candidato_url = '/candidato/investigacion/' + investigacion_id + '/editar' if investigacion_id else ''
 	sucursales = Sucursales.objects.filter(compania_id=compania_id)
@@ -223,13 +226,15 @@ def sucursal_delete(request, compania_id, sucursal_id):
 	if request.user.is_superuser is False:
 		return HttpResponseRedirect('/empresa/'+str(compania_id)+'/sucursales')
 
-	sucursal = Sucursales.objects.get(id=sucursal_id)
-	sucursal.delete()
+	investigations = Investigacion.objects.filter(sucursal=sucursal_id)
+	if investigations.count() == 0:
+		sucursal = Sucursales.objects.get(id=sucursal_id)
+		sucursal.delete()
 
-	b = Bitacora(action='sucursal-eliminada: ' + sucursal_id, user=request.user)
-	b.save()
+		b = Bitacora(action='sucursal-eliminada: ' + sucursal_id, user=request.user)
+		b.save()
 
-	return HttpResponseRedirect('/empresa/'+str(compania_id)+'/sucursales')
+	return HttpResponseRedirect('/empresa/'+str(compania_id)+'/sucursales?sucursal_id=' + sucursal_id)
 
 '''
 	Contactos
