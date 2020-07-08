@@ -351,7 +351,8 @@ function saveCompany() {
             $('#id_investigacion-contacto').append(`<option value="${response.contacto.id}" selected>${response.contacto.name}</option>`)
             $('#selectEmpresaFormaModal').modal('hide');
           } else {
-            $('#save_company_msg').text('Error, intentar más tarde.')
+            $('#save_company').attr('disabled', false)
+            $('#save_company_msg').text(response.msg)
           }
         },
         dataType: 'json'

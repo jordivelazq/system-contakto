@@ -64,25 +64,32 @@ def nueva(request, investigacion_id=''):
 	if request.POST and request.is_ajax():
 		response = {'status': False}
 		form_compania_quick = CompaniaQuickForm(request.POST, prefix='empresa')
-		form_compania_contacto_quick = ContactoQuickForm(request.POST, prefix='empresa_contacto')
+		
+		company_name = form_compania_quick.data['empresa-nombre']
 
-		if form_compania_quick.is_valid() and form_compania_contacto_quick.is_valid():
-			company = form_compania_quick.save()
-			contacto = form_compania_contacto_quick.save(commit=False)
-			contacto.compania = company
-			contacto.save()
+		companies_total = Compania.objects.filter(nombre__icontains=company_name).count() if company_name else None
+		if companies_total:
+			response['msg'] = "Error: Hay " + str(companies_total) + " empresa(s) con este nombre."
+		else:
+			form_compania_contacto_quick = ContactoQuickForm(request.POST, prefix='empresa_contacto')
 
-			response = {
-				'status': True,
-				'company': {
-					'id': company.id,
-					'name': company.nombre
-				},
-				'contacto': {
-					'id': contacto.id,
-					'name': contacto.nombre
+			if form_compania_quick.is_valid() and form_compania_contacto_quick.is_valid():
+				company = form_compania_quick.save()
+				contacto = form_compania_contacto_quick.save(commit=False)
+				contacto.compania = company
+				contacto.save()
+
+				response = {
+					'status': True,
+					'company': {
+						'id': company.id,
+						'name': company.nombre
+					},
+					'contacto': {
+						'id': contacto.id,
+						'name': contacto.nombre
+					}
 				}
-			}
 
 		return HttpResponse(json.dumps(response), content_type='application/json')
 
