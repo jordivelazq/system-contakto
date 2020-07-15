@@ -96,26 +96,32 @@ def nueva(request, investigacion_id=''):
 	if request.POST:
 		form = CompaniaForm(request.POST)
 		if form.is_valid():
-			emp_nueva = form.save()
-
-			formSucursales = SucursalesForm(request.POST, prefix='sucursales')
-			if formSucursales.is_valid():
-				sucursales = formSucursales.save(commit=False)
-				sucursales.compania = emp_nueva
-				sucursales.save()
-
-			b = Bitacora(action='empresas-creada: ' + emp_nueva.nombre, user=request.user)
-			b.save()
-			if investigacion_id:
-				if 'guargar_capt_contactos' in request.POST:
-					return HttpResponseRedirect('/empresa/'+str(emp_nueva.id)+'/contacto/nuevo/ref/'+str(investigacion_id))
-				else:
-					return HttpResponseRedirect('/candidato/investigacion/'+str(investigacion_id)+'/trayectoria/nueva/empresa/'+str(emp_nueva.id))
-				
-			elif 'guargar_capt_contactos' in request.POST:
-				return HttpResponseRedirect('/empresa/'+str(emp_nueva.id)+'/contacto/nuevo')
+			company_name = form.data['nombre']
+			companies_total = Compania.objects.filter(nombre__icontains=company_name).count() if company_name else None
+			if companies_total:
+				state = "Error: Hay " + str(companies_total) + " empresa(s) con este nombre."
+				msg_class = 'alert alert-danger'
 			else:
-				return HttpResponseRedirect('/empresas/exito')
+				emp_nueva = form.save()
+
+				formSucursales = SucursalesForm(request.POST, prefix='sucursales')
+				if formSucursales.is_valid():
+					sucursales = formSucursales.save(commit=False)
+					sucursales.compania = emp_nueva
+					sucursales.save()
+
+				b = Bitacora(action='empresas-creada: ' + emp_nueva.nombre, user=request.user)
+				b.save()
+				if investigacion_id:
+					if 'guargar_capt_contactos' in request.POST:
+						return HttpResponseRedirect('/empresa/'+str(emp_nueva.id)+'/contacto/nuevo/ref/'+str(investigacion_id))
+					else:
+						return HttpResponseRedirect('/candidato/investigacion/'+str(investigacion_id)+'/trayectoria/nueva/empresa/'+str(emp_nueva.id))
+					
+				elif 'guargar_capt_contactos' in request.POST:
+					return HttpResponseRedirect('/empresa/'+str(emp_nueva.id)+'/contacto/nuevo')
+				else:
+					return HttpResponseRedirect('/empresas/exito')
 	else:
 		form = CompaniaForm()
 		formSucursales = SucursalesForm(prefix='sucursales')

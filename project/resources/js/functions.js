@@ -303,6 +303,16 @@ function saveCompany() {
       $('#save_company_msg').text('')
       $('#save_company').removeAttr("disabled");
     })
+
+    if ($('#search-empresa-forma').length) {
+      $('#search-empresa-forma').on('input', function() {
+        if (this.value.length > 2) {
+          $('#empresa_nueva_cta').removeAttr("disabled");
+        } else {
+          $('#empresa_nueva_cta').attr("disabled", "disabled");
+        }
+      });
+    }
   }
 
   if ($('#save_company_cancel').length) {
