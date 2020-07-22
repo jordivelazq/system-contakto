@@ -67,7 +67,7 @@ def nueva(request, investigacion_id=''):
 		
 		company_name = form_compania_quick.data['empresa-nombre']
 
-		companies_total = Compania.objects.filter(nombre__icontains=company_name).count() if company_name else None
+		companies_total = Compania.objects.filter(nombre=company_name).count() if company_name else None
 		if companies_total:
 			response['msg'] = "Error: Hay " + str(companies_total) + " empresa(s) con este nombre."
 		else:
@@ -97,7 +97,7 @@ def nueva(request, investigacion_id=''):
 		form = CompaniaForm(request.POST)
 		if form.is_valid():
 			company_name = form.data['nombre']
-			companies_total = Compania.objects.filter(nombre__icontains=company_name).count() if company_name else None
+			companies_total = Compania.objects.filter(nombre=company_name, status=True).count() if company_name else None
 			if companies_total:
 				state = "Error: Hay " + str(companies_total) + " empresa(s) con este nombre."
 				msg_class = 'alert alert-danger'
