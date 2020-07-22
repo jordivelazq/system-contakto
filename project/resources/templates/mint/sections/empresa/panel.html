@@ -40,7 +40,9 @@
 						{% if request.user.is_superuser %}
 							<tr>
 								<th colspan="9">
-									<input type="submit" class="btn btn-danger pull-right" value="Eliminar">
+									<div class="fixed-submenu">
+										<input type="submit" class="btn btn-danger pull-right" value="Eliminar">
+									</div>
 								</th>
 							</tr>
 						{% endif %}
