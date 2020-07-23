@@ -133,7 +133,7 @@ def get_investigaciones_list(filtros_json, agent_id):
 		elif fecha_final:
 			investigaciones = investigaciones.filter(fecha_recibido__lte=fecha_final)
 
-	investigaciones = investigaciones.order_by('-fecha_recibido')[:50]
+	investigaciones = investigaciones.order_by('-fecha_recibido')[:200]
 
 	return investigaciones
 
