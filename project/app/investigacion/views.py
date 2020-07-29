@@ -124,7 +124,7 @@ def print_reporte_visita_domiciliaria(request, investigacion_id):
 	adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else None
 	adjuntos_baseurl = settings.MEDIA_URL
 
-	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
+	demandas = candidato.demanda_set.all() if candidato.demanda_set.all().count() else None
 
 	entrevista_persona = investigacion.entrevistapersona_set.all().order_by('-id')[0] if investigacion.entrevistapersona_set.all().count() else None
 	origen = entrevista_persona.entrevistaorigen_set.get() if entrevista_persona and entrevista_persona.entrevistaorigen_set.all().count() else None
