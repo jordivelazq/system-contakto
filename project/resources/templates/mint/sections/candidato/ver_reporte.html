@@ -12,6 +12,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Reportes</div>
 			<div class="panel-body">
+				{% if investigacion.tipo_investigacion_status == 1 or investigacion.tipo_investigacion_status == 4 or investigacion.tipo_investigacion_status == 3 %}
 				<div class="row">
 					<div class="col-xs-3">
 						<label>Laboral</label>
@@ -20,9 +21,10 @@
 						<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}" target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 					</div>
 				</div>
-				<div class="row">
-					<hr />
-				</div>
+				<hr />
+				{% endif %}
+					
+				{% if investigacion.tipo_investigacion_status == 2 or investigacion.tipo_investigacion_status == 4 or investigacion.tipo_investigacion_status == 3 %}
 				<div class="row">
 					<div class="col-xs-3">
 						<label>Socioeconómico</label>
@@ -35,9 +37,10 @@
 						{% endif %}
 					</div>
 				</div>
-				<div class="row">
-					<hr />
-				</div>
+				<hr />
+				{% endif %}
+				
+				{% if investigacion.tipo_investigacion_status == 5 or investigacion.tipo_investigacion_status == 7 or investigacion.tipo_investigacion_status == 4 or investigacion.tipo_investigacion_status == 3 %}
 				<div class="row">
 					<div class="col-xs-3">
 						<label>Visita Domiciliaria</label>
@@ -46,9 +49,10 @@
 						<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-visita-domiciliaria/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 					</div>
 				</div>
-				<div class="row">
-					<hr />
-				</div>
+				<hr />
+				{% endif %}
+
+				{% if investigacion.tipo_investigacion_status == 6 or investigacion.tipo_investigacion_status == 4 or investigacion.tipo_investigacion_status == 3 %}
 				<div class="row">
 					<div class="col-xs-3">
 						<label>Validación Demandas Laborales</label>
@@ -57,6 +61,8 @@
 						<a class="btn btn-default" href="/candidato/investigacion/exportar/reporte-demandas/{{investigacion.id}}"  target="_blank">Generar <span class="glyphicon glyphicon-export"></span></a>
 					</div>
 				</div>
+				{% endif %}
+
 			</div>
 	</div>
 	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
