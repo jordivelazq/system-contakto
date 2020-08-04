@@ -397,6 +397,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
     $scope.empresa_contactos = [];
     $scope.contactos_selected = '';
     $scope.nombre = ''
+    $scope.limit_select = 50;
 
     $scope.open_empresa_modal = function(){
             $('#selectEmpresaModal').modal().on('shown.bs.modal', function(){
@@ -415,6 +416,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
             'status_laboral_id' : typeof $scope.status_laboral_select ? $scope.status_laboral_select : '',
             'fecha_inicio' : typeof $scope.fecha_inicio !== 'undefined' ? $scope.fecha_inicio : '',
             'fecha_final' : typeof $scope.fecha_final !== 'undefined' ? $scope.fecha_final : '',
+            'limit_select' : $scope.limit_select ? $scope.limit_select : 50,
         }
     };
 
@@ -443,6 +445,9 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
         if (typeof filtros_json.fecha_final !== 'undefined'){
             $('#fecha_final').val(filtros_json.fecha_final);
         }
+        if (typeof filtros_json.limit_select !== 'undefined'){
+            $scope.limit_select = filtros_json.limit_select; 
+        }
 
         $scope.agente_select = typeof filtros_json.agente_id !== 'undefined' ? filtros_json.agente_id : '';
     };
@@ -463,6 +468,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
         $scope.status_select = '';
         $scope.status_laboral_select = '';
         $scope.contactos_selected = ''
+        $scope.limit_select = 50;
 
         if (filtros_json !== ''){
             $scope.set_filtros(filtros_json);
@@ -482,6 +488,7 @@ contacktoApp.controller('SearchReportesCTRL', function($scope){
         $scope.contactos_selected = '';
         $scope.status_select = '';
         $scope.status_laboral_select = '';
+        $scope.limit_select = 50;
         $('#fecha_inicio').val('');
         $('#fecha_final').val('');
         $.post("/estatus/reset_filtros/");

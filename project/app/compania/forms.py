@@ -24,9 +24,9 @@ class CompaniaForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(CompaniaForm, self).__init__(*args, **kwargs)
 		for field_name, field in self.fields.items():
-			if field_name is not 'es_cliente':
+			if field_name != 'es_cliente':
 				field.widget.attrs['class'] = 'form-control'
-				if 'telefono' in field_name and not field_name is "telefono_alt":
+				if 'telefono' in field_name and field_name != "telefono_alt":
 					field.widget.attrs['class'] = 'form-control phone'
 
 class CompaniaQuickForm(ModelForm):

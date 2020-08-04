@@ -57,6 +57,17 @@
 				<div id="daterange-inputs-sidebar" class="form-group">
 					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio"><span class="float-left daterange-separator">&nbsp;a&nbsp;</span><input class="form-control sidebar-date-input" type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
 				</div>
+
+				<div class="form-group">		
+					<select class="form-control" id="limit_select" name="limit_select" ng-model="limit_select">
+						<option value="50">50</option>
+						<option value="100">100</option>
+						<option value="200">200</option>
+						<option value="300">300</option>
+						<option value="500">500</option>
+					</select>
+				</div>
+
 				<div id="botones-sidebar" class="form-group">
 					<span class="pull-right">
 						<button type="button" class="btn btn-default btn-sm" ng-click="limpiar_filtros();"> Limpiar </button>
@@ -75,15 +86,17 @@
 </div>
 <script type="text/javascript">
 			var filtros_json = {% if filtros_json %}
-									{	
-										'nombre':'{{filtros_json.nombre|safe}}',
-										'compania_id':'{{filtros_json.compania_id|safe}}',
-										'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
-										'agente_id':'{{filtros_json.agente_id|safe}}',
-										'contactos_selected':'{{filtros_json.contactos_selected|safe}}',
-										'status_id':'{{filtros_json.status_id|safe}}',
-										'status_laboral_id':'{{filtros_json.status_laboral_id|safe}}',
-										'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
-										'fecha_final':'{{filtros_json.fecha_final|safe}}' 	}
-								{% else %}''{% endif %}
+				{	
+					'nombre':'{{filtros_json.nombre|safe}}',
+					'compania_id':'{{filtros_json.compania_id|safe}}',
+					'compania_nombre':'{{filtros_json.compania_nombre|safe}}',
+					'agente_id':'{{filtros_json.agente_id|safe}}',
+					'contactos_selected':'{{filtros_json.contactos_selected|safe}}',
+					'status_id':'{{filtros_json.status_id|safe}}',
+					'status_laboral_id':'{{filtros_json.status_laboral_id|safe}}',
+					'fecha_inicio':'{{filtros_json.fecha_inicio|safe}}',
+					'fecha_final':'{{filtros_json.fecha_final|safe}}',
+					'limit_select':'{{filtros_json.limit_select|safe}}',
+				}
+			{% else %}''{% endif %}
 </script>

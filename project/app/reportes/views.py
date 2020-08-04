@@ -67,6 +67,7 @@ def search_reportes(request):
 		fecha_inicio = request.POST.get('fecha_inicio', '')
 		fecha_final = request.POST.get('fecha_final', '')
 		agente_id = request.POST.get('agente_id', '')
+		limit_select = request.POST.get('limit_select', '')
 		
 		request.session['filtros_search_reportes'] = {
 			'nombre': nombre, 
@@ -77,7 +78,8 @@ def search_reportes(request):
 			'status_laboral_id': status_laboral_id,
 			'fecha_inicio':fecha_inicio,
 			'fecha_final':fecha_final, 
-			'agente_id': agente_id
+			'agente_id': agente_id,
+			'limit_select': limit_select
 		}
 		 
 		response = { 'status' : True}
@@ -91,6 +93,7 @@ def reset_filtros(request):
 	return HttpResponse(json.dumps(response), content_type='application/json')
 
 def get_investigaciones_list(filtros_json, agent_id):
+	limit_select = 50
 	investigaciones = Investigacion.objects.filter(status_active=True)
 
 	if agent_id:
@@ -133,7 +136,10 @@ def get_investigaciones_list(filtros_json, agent_id):
 		elif fecha_final:
 			investigaciones = investigaciones.filter(fecha_recibido__lte=fecha_final)
 
-	investigaciones = investigaciones.order_by('-fecha_recibido')[:200]
+		if 'limit_select' in filtros_json and len(filtros_json['limit_select']):
+			limit_select = int(filtros_json['limit_select'])
+
+	investigaciones = investigaciones.order_by('-fecha_recibido')[:limit_select]
 
 	return investigaciones
 
