@@ -196,4 +196,4 @@ def print_reporte_validacion_demandas(request, investigacion_id):
 
 	demanda = candidato.demanda_set.all()[0] if candidato.demanda_set.all().count() else None
 
-	return render(request, 'sections/reportes/demandas/index.html', locals(), RequestContext(request))
+	return render(request, 'sections/reportes/demandas/validacion.html', locals(), RequestContext(request))

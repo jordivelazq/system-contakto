@@ -1,0 +1,33 @@
+
+{% load app_filters %}
+<section class="cover-page">
+  <div class="background-1">
+    <div class="background-2">
+      {% include 'sections/reportes/seccion/header.html' %}
+
+      {% include 'sections/reportes/compartido/cover-company.html' %}
+
+      <div class="candidate socioeconomico">
+        <table>
+          <tbody>
+            <tr>
+              <th width="155px"><strong>CANDIDATO</strong></th>
+              <td style="min-width: 350px" colspan="2" class="header-2">{{ candidato }} {{ candidato.apellido }}</td>
+            </tr>
+            <tr>
+              <th>PUESTO</th>
+              <td colspan="2">{{ investigacion.puesto }}</td>
+            </tr>
+            <tr>
+              <th>EDAD</th>
+              <td colspan="2">{{ candidato.edad }} años</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {% include 'sections/reportes/compartido/cover-footer.html' %}
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>
