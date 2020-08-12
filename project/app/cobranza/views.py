@@ -28,6 +28,7 @@ from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
 from app.util.cobranza_upload import cobranza_upload
 from django.conf import settings
+from calendar import monthrange
 import datetime
 import xlrd
 import os
@@ -91,10 +92,19 @@ def cobranza_facturas(request):
 	facturas = Factura.objects
 	total_facturas = Factura.objects.count()
 	page = 'cobranza'
+
 	if request.method == 'POST':
 		option = request.POST.get('option', '')
-		if option == 'Limpiar':
-			filters_form = FiltersForm()
+		if option == 'Limpiar':			
+			today = datetime.datetime.today()
+			date_from = datetime.date.today().replace(day=1)
+			date_to = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
+
+			facturas = facturas.filter(fecha__gte=date_from, fecha__lte=date_to)
+			filters_form = FiltersForm({
+				'date_from': date_from.strftime("%d/%m/%y"),
+			'date_to': date_to.strftime("%d/%m/%y")
+			})
 		else:
 			filters_form = FiltersForm(request.POST)
 			date_a = request.POST.get('date_from', '')
@@ -114,7 +124,15 @@ def cobranza_facturas(request):
 			if name:
 				facturas = facturas.filter(nombre__icontains=name)
 	else:
-		filters_form = FiltersForm()
+		today = datetime.datetime.today()
+		date_from = datetime.date.today().replace(day=1)
+		date_to = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
+
+		facturas = facturas.filter(fecha__gte=date_from, fecha__lte=date_to)
+		filters_form = FiltersForm({
+			'date_from': date_from.strftime("%d/%m/%y"),
+			'date_to': date_to.strftime("%d/%m/%y")
+		})
 
 	facturas = facturas.all().order_by('fecha', 'folio')[:500]	
 
