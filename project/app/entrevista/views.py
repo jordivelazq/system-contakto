@@ -49,7 +49,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	filtros_json = request.session.get('filtros_search', None)
 
 	status_list = PersonaService.get_status_list(investigacion_id)
-
 	page = 'candidatos'
 	seccion = 'entrevista'
 	status = ''
@@ -330,7 +329,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
-			candidato_form = EntrevistaPersonaForm(instance=candidato)
+			candidato_form = EntrevistaPersonaInfoEconomicaForm(instance=candidato)
 			tarjetas_formset = TarjetaCreditoComercialFormset(queryset=tarjetas, prefix='tarjetas')
 			cuentas_deb_formset = CuentaDebitoFormset(queryset=cuentas_deb, prefix='cuentas_deb')
 			autos_formset = AutomovilFormset(queryset=autos, prefix='autos')

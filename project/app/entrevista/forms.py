@@ -122,10 +122,21 @@ class EntrevistaPersonaForm(ModelForm):
 	
 	class Meta:  
 		model = EntrevistaPersona
-		exclude = ('investigacion', 'activa')
+		fields = ('nombre', 'apellido', 'email', 'rfc', 'curp', 'ife', 'smn', 'pasaporte', 'nss', 'estado_civil', 'fecha_matrimonio', 'religion', 'tiempo_radicando', 'medio_utilizado', 'referencia_vacante', 'tiempo_transporte')
 
 	def __init__(self, *args, **kwargs):
 		super(EntrevistaPersonaForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			field.widget.attrs['class'] = 'form-control'
+
+class EntrevistaPersonaInfoEconomicaForm(ModelForm):
+	
+	class Meta:  
+		model = EntrevistaPersona
+		fields = ('dependientes_economicos',)
+
+	def __init__(self, *args, **kwargs):
+		super(EntrevistaPersonaInfoEconomicaForm, self).__init__(*args, **kwargs)
 		self.fields['dependientes_economicos'].widget.attrs.update({'rows':'3'})
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'
