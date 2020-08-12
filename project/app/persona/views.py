@@ -40,6 +40,9 @@ from django.db.models import Q
 
 from reportlab.pdfgen import canvas
 
+import logging
+logger = logging.getLogger(__name__)
+
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
@@ -454,7 +457,7 @@ def editar(request, investigacion_id):
 		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')		
 		formDemanda = DemandaFormSet(queryset=Demanda.objects.filter(persona=investigacion.candidato))
 		formSeguro = SeguroAltaForma(prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
-		
+
 		# FORMAS QUE FALTAN POR EDITAR
 		formTrayectoria1 = TrayectoriaForm(prefix='trayectoria1')
 		formEvaluacion1 = EvaluacionForm(prefix='evaluacion1')
@@ -602,7 +605,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	formSucursal = CompaniaSucursalForm(trayectoria_empresa.compania, trayectoria_empresa.sucursal, prefix='trayectoria')
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
-	
+
 	if request.method == 'POST' and not is_usuario_contacto:
 		exito = True
 		if 'cancelar' in request.POST:
@@ -612,6 +615,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		if formTrayectoria.is_valid(): 
 			trayectoria_empresa = formTrayectoria.save()
 		else:
+			logger.info('formTrayectoria invalid')
 			exito = False
 
 		############## Carta Laboral
@@ -621,6 +625,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 			carta_laboral.trayectoriaLaboral = trayectoria_empresa
 			carta_laboral.save()
 		else:
+			logger.info('formCartaLaboral invalid')
 			exito = False
 		
 		############## Datos Generales
@@ -630,6 +635,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 			datos_generales.trayectoriaLaboral = trayectoria_empresa
 			datos_generales.save()
 		else:
+			logger.info('formDatosGenerales invalid')
 			exito = False
 
 		############## Evaluación ##############
@@ -640,6 +646,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 				evaluacion.trayectoriaLaboral = trayectoria_empresa
 				evaluacion.save()
 			else:
+				logger.info('formEvaluacion invalid')
 				exito = False
 
 		############## Opinion (Jefe) ##############
@@ -651,6 +658,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 				opinion_jefe.categoria = 1
 				opinion_jefe.save()
 			else:
+				logger.info('opinion_jefe invalid')
 				exito = False
 
 		############## Opinion (RH) ##############
@@ -663,12 +671,14 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 				try:
 					opinion_rh.save()
 				except Exception as error:
+					logger.info('opinion_rh error')
 					msg.append({
 						"text": "Opinion RH: " + str(error),
 						"status": "danger"
 					})
 					exito = False	
 			else:
+				logger.info('formOpinionRH invalid')
 				exito = False
 
 		############## Informantes  ##############
