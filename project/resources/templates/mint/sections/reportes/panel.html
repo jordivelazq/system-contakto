@@ -47,15 +47,22 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 			<table class="table-estatus table table-striped uppercase">
 				<thead>
 					<tr>
+						{% if not contacto_empresa_id %}
 						<th class="col-red" colspan="6">Datos de Solicitud</th>
+						{% else %}
+						<th class="col-red" colspan="3">Datos de Solicitud</th>
+						{% endif %}
+						
 						<th class="col-gray" colspan="4">Datos de Candidato</th>
 						<th class="col-blue" colspan="4">Resultado</th>
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
 					<tr>
+						{% if not contacto_empresa_id %}
 						<th class="col-red"><input type="checkbox" id="status_checkbox"/></th>
 						<th class="col-red">Contacto</th>
 						<th class="col-red">Correo</th>
+						{% endif %}
 						<th class="col-red">Cliente</th>
 						<th class="col-red">Fecha de Recibido</th>
 						<th class="col-red">Tipo Estudio</th>
@@ -78,6 +85,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				<tbody>
 					{% for inv in investigaciones %}
 					<tr alt="{{forloop.counter }}">
+						{% if not contacto_empresa_id %}
 						<td>
 							{% if request.user.is_superuser or request.user.is_staff %}
 							<input type="checkbox" name="investigacion[]" value="{{inv.id}}" />
@@ -85,6 +93,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						</td>
 						<td>{{ inv.contacto }}</td>
 						<td>{{ inv.contacto.email }}</td>
+						{% endif %}
 						<td>{{ inv.compania.nombre }}</td>
 						<td>{{ inv.fecha_recibido|date:"d/M/y" }}</td>
 						<td>{{ inv.tipo_investigacion_status|tipo_investigacion_status }}</td>

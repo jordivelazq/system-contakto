@@ -98,7 +98,11 @@
 					{{ formSucursal.sucursal.errors }}
 				</div>
 				<div class="col-md-3">
-					<label for="id_companiacliente-contacto">Quién envia * <a href="/empresa/{{investigacion.compania.id}}/contacto/nuevo?investigacion={{investigacion.id}}" class="new-client-contact">Nuevo</a></label>
+						{% if not is_usuario_contacto %}
+						<label for="id_companiacliente-contacto">Quién envia * <a href="/empresa/{{investigacion.compania.id}}/contacto/nuevo?investigacion={{investigacion.id}}" class="new-client-contact">Nuevo</a></label>
+						{% else %}
+						<label>&nbsp;</label>
+						{% endif %}
 						<select class="form-control" id="id_investigacion-contacto" name="investigacion-contacto" 
 						ng-model="contacto" >
 							<option value="">---------</option>
@@ -116,7 +120,9 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-md-offset-3">
+					{% if not is_usuario_contacto %}
 					<button name="guardar_sucursal" type="submit" class="btn btn-default form-control" ng-disabled="saving_enabled">Guardar y crear sucursal</button>
+					{% endif %}
 					{% if investigacion.sucursal %}
 						<br /><br />
 						<a href="/empresa/{{investigacion.compania.id}}/sucursal/{{investigacion.sucursal.id}}/editar?investigacion={{investigacion.id}}" class="btn btn-default form-control">Editar Sucursal</a>
@@ -277,7 +283,7 @@
 	<div class="panel-heading">
 		<h3 class="panel-title clearfix">
 			DEMANDAS LABORALES
-			{% if view == 'edit' %}
+			{% if view == 'edit' and not is_usuario_contacto %}
 				<div class="pull-right">
 					<a id="add_more_demandas" class="btn btn-default">Agregar</a>
 				</div>
