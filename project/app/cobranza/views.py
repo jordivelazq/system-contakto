@@ -96,14 +96,9 @@ def cobranza_facturas(request):
 	if request.method == 'POST':
 		option = request.POST.get('option', '')
 		if option == 'Limpiar':			
-			today = datetime.datetime.today()
-			date_from = datetime.date.today().replace(day=1)
-			date_to = datetime.date.today().replace(day=monthrange(today.year, today.month)[1])
-
-			facturas = facturas.filter(fecha__gte=date_from, fecha__lte=date_to)
 			filters_form = FiltersForm({
-				'date_from': date_from.strftime("%d/%m/%y"),
-			'date_to': date_to.strftime("%d/%m/%y")
+				'date_from': '',
+				'date_to': ''
 			})
 		else:
 			filters_form = FiltersForm(request.POST)
