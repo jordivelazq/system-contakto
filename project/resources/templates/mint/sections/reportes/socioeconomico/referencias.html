@@ -75,70 +75,78 @@
     <div class="info-economica">
       <h3>INFORMACIÓN ECONÓMICA MENSUAL <br /><small>(INVOLUCRA A TODOS LOS QUE VIVEN CON EL CANDIDATO)</small></h3>
       <div>
-        <table>
-          <th colspan="3">
-            <h4>INGRESOS</h4>
-          </th>
-          {% for ingreso in ingresos %}
-          {% if not forloop.last %}
-          {% if ingreso.monto %}
-          <tr>
-            <th>
-              {% if ingreso.concepto == "otros" %}
-              {{ingreso.detalle}}
-              {% else %}
-              {{ingreso.concepto}}
-              {% endif %}
+        <div>
+          <table>
+            <th colspan="3">
+              <h4>INGRESOS</h4>
             </th>
-            <td colspan="2">{{ingreso.monto|print_money}}</td>
-          </tr>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-        </table>
-        <table>
-          <th colspan="3">
-            <h4>EGRESOS</h4>
-          </th>
-          {% for egreso in egresos %}
-          {% if not forloop.last %}
-          {% if egreso.monto %}
-          <tr>
-            <th>
-              {% if egreso.detalle %}
-              {{egreso.detalle}}
-              {% else %}
-              {{egreso.concepto}}
-              {% endif %}
+            {% for ingreso in ingresos %}
+            {% if not forloop.last %}
+            {% if ingreso.monto %}
+            <tr>
+              <th>
+                {% if ingreso.concepto == "otros" %}
+                {{ingreso.detalle}}
+                {% else %}
+                {{ingreso.concepto}}
+                {% endif %}
+              </th>
+              <td colspan="2">{{ingreso.monto|print_money}}</td>
+            </tr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </table>
+        </div>
+        <div>
+          <table>
+            <th colspan="3">
+              <h4>EGRESOS</h4>
             </th>
-            <td colspan="2">{{egreso.monto|print_money}}</td>
-          </tr>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-        </table>
+            {% for egreso in egresos %}
+            {% if not forloop.last %}
+            {% if egreso.monto %}
+            <tr>
+              <th>
+                {% if egreso.detalle %}
+                {{egreso.detalle}}
+                {% else %}
+                {{egreso.concepto}}
+                {% endif %}
+              </th>
+              <td colspan="2">{{egreso.monto|print_money}}</td>
+            </tr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </table>
+        </div>
       </div>
       <div class="totales">
-        <table>
-          {% for ingreso in ingresos %}
-          {% if forloop.last %}
-          <tr>
-            <th><strong>{{ingreso.concepto}}</strong></th>
-            <th colspan="2"><h4>{{ingreso.monto|print_money}}</h4></th>
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </table>
-        <table>
-          {% for egreso in egresos %}
-          {% if forloop.last %}
-          <tr>
-            <th><strong>{{egreso.concepto}}</strong></th>
-            <th colspan="2"><h4>{{egreso.monto|print_money}}</h4></th>
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </table>
+        <div>
+          <table>
+            {% for ingreso in ingresos %}
+            {% if forloop.last %}
+            <tr>
+              <th><strong>{{ingreso.concepto}}</strong></th>
+              <th colspan="2"><h4>{{ingreso.monto|print_money}}</h4></th>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </table>
+        </div>
+        <div>
+          <table>
+            {% for egreso in egresos %}
+            {% if forloop.last %}
+            <tr>
+              <th><strong>{{egreso.concepto}}</strong></th>
+              <th colspan="2"><h4>{{egreso.monto|print_money}}</h4></th>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </table>
+        </div>
       </div>
 
     </div>
