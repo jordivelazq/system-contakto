@@ -47,7 +47,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 			<table class="table-estatus table table-striped uppercase">
 				<thead>
 					<tr>
-						{% if not contacto_empresa_id %}
+						{% if not contacto_id %}
 						<th class="col-red" colspan="6">Datos de Solicitud</th>
 						{% else %}
 						<th class="col-red" colspan="3">Datos de Solicitud</th>
@@ -58,7 +58,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
 					<tr>
-						{% if not contacto_empresa_id %}
+						{% if not contacto_id %}
 						<th class="col-red"><input type="checkbox" id="status_checkbox"/></th>
 						<th class="col-red">Contacto</th>
 						<th class="col-red">Correo</th>
@@ -85,7 +85,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 				<tbody>
 					{% for inv in investigaciones %}
 					<tr alt="{{forloop.counter }}">
-						{% if not contacto_empresa_id %}
+						{% if not contacto_id %}
 						<td>
 							{% if request.user.is_superuser or request.user.is_staff %}
 							<input type="checkbox" name="investigacion[]" value="{{inv.id}}" />
@@ -101,7 +101,11 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>{{ inv.candidato.nombre }}</td>
 						<td>{{ inv.candidato.apellido }}</td>
 						<td>{{ inv.puesto }}</td>
-						<td>{{ inv.ciudad }}, {{ inv.estado }}</td>
+						<td>
+							{% if inv.ciudad and inv.estado %}
+								{{ inv.ciudad }}, {{ inv.estado }}
+							{% endif %}
+						</td>
 
 						<td>{{ inv.status|investigacion_status }}</td>
 						<td class="text-left">
@@ -177,7 +181,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 						<td>{{ inv.resultado|investigacion_resultado }}</td>
 						<td>{{ inv.tipo_investigacion_texto }}</td>
 
-						<td>{{inv.entrevista.entrevistador}}</td>
+						<td>{{inv.entrevista.entrevistador|default:""}}</td>
 						<td>{{inv.entrevista.fecha_entrevista|default:""}}</td>
 						<td>{{inv.entrevista.hora_entrevista|default:""}}</td>
 					</tr>

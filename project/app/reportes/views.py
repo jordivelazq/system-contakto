@@ -36,10 +36,10 @@ def panel(request):
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 	filtros_json = request.session.get('filtros_search_reportes', None)
 
-	contacto_empresa_id = None
+	contacto_id = None
 	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
 	if is_usuario_contacto and Contacto.objects.filter(email=request.user.email, status=True).count():
-		contacto_empresa_id = Contacto.objects.filter(email=request.user.email, status=True)[0].compania_id
+		contacto_id = request.user.id
 	
 	if request.POST:
 		investigaciones = request.POST.getlist('investigacion[]')
@@ -55,7 +55,7 @@ def panel(request):
 			contactos_selected = filtros_json['contactos_selected'].split(',')
 			dest_list = service_reporte.getDestinatarios(request, contactos_selected)
 
-	investigaciones = get_investigaciones_extended(request, contacto_empresa_id)
+	investigaciones = get_investigaciones_extended(request, contacto_id)
 			
 	return render(request, 'sections/reportes/panel.html', locals(), RequestContext(request))
 
@@ -97,15 +97,15 @@ def reset_filtros(request):
 	response = { 'status' : True}
 	return HttpResponse(json.dumps(response), content_type='application/json')
 
-def get_investigaciones_list(filtros_json, agent_id, contacto_empresa_id):
+def get_investigaciones_list(filtros_json, agent_id, contacto_id):
 	limit_select = 50
 	investigaciones = Investigacion.objects.filter(status_active=True)
 
 	if agent_id:
 		investigaciones = investigaciones.filter(agente_id=agent_id)
 	
-	if contacto_empresa_id:
-		investigaciones = investigaciones.filter(compania__id=contacto_empresa_id)
+	if contacto_id:
+		investigaciones = investigaciones.filter(agente__id=contacto_id)
 
 	if filtros_json != None:
 		if len(filtros_json['nombre']):
@@ -149,14 +149,16 @@ def get_investigaciones_list(filtros_json, agent_id, contacto_empresa_id):
 
 	investigaciones = investigaciones.order_by('-fecha_recibido')[:limit_select]
 
+	print("perro", investigaciones.query)
+
 	return investigaciones
 
-def get_investigaciones_extended(request, contacto_empresa_id):
+def get_investigaciones_extended(request, contacto_id):
 	filtros_json = request.session.get('filtros_search_reportes', None)
 
 	is_agent = request.user.is_staff and not request.user.is_superuser
 
-	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None, contacto_empresa_id)
+	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None, contacto_id)
 
 	for i in investigaciones:
 		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
