@@ -39,7 +39,7 @@ def panel(request):
 	contacto_id = None
 	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
 	if is_usuario_contacto and Contacto.objects.filter(email=request.user.email, status=True).count():
-		contacto_id = request.user.id
+		contacto_id = Contacto.objects.filter(email=request.user.email)[0].id
 	
 	if request.POST:
 		investigaciones = request.POST.getlist('investigacion[]')
@@ -101,11 +101,11 @@ def get_investigaciones_list(filtros_json, agent_id, contacto_id):
 	limit_select = 50
 	investigaciones = Investigacion.objects.filter(status_active=True)
 
-	if agent_id:
+	if contacto_id:
+		investigaciones = investigaciones.filter(contacto__id=contacto_id)
+	elif agent_id:
 		investigaciones = investigaciones.filter(agente_id=agent_id)
 	
-	if contacto_id:
-		investigaciones = investigaciones.filter(agente__id=contacto_id)
 
 	if filtros_json != None:
 		if len(filtros_json['nombre']):
@@ -148,8 +148,6 @@ def get_investigaciones_list(filtros_json, agent_id, contacto_id):
 			limit_select = int(filtros_json['limit_select'])
 
 	investigaciones = investigaciones.order_by('-fecha_recibido')[:limit_select]
-
-	print("perro", investigaciones.query)
 
 	return investigaciones
 
