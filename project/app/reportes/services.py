@@ -48,12 +48,12 @@ class ServiceReporte:
 
 		return destinatarios
 	
-	def send_reporte_by_email(self, investigaciones, destinatarios, user):
+	def send_reporte_by_email(self, investigaciones, destinatarios):
 		if len(investigaciones) == 0 or len(destinatarios) == 0:
 			return False
 		
 		dest_list = destinatarios.split(',')
-		sender_email = user.email or 'estatus@contakto.mx'
+		sender_email = 'estatus.contakto@gmail.com'
 
 		reporte = self.getEstatusReporte(investigaciones)
 		html_content = self.printReporte(reporte)

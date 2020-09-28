@@ -45,7 +45,7 @@ def panel(request):
 		investigaciones = request.POST.getlist('investigacion[]')
 		destinatarios = request.POST.get('destinatarios')
 		user = request.user
-		if service_reporte.send_reporte_by_email(investigaciones, destinatarios, user):
+		if service_reporte.send_reporte_by_email(investigaciones, destinatarios):
 			return HttpResponseRedirect('/estatus/exito')
 		else:
 			return HttpResponseRedirect('/estatus/error')
