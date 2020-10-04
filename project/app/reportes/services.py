@@ -42,8 +42,7 @@ class ServiceReporte:
 		if not request.user.is_superuser:
 			agente_email = request.user.email
 			destinatarios.append(agente_email)
-		
-		destinatarios.append('estatus@contakto.mx')
+
 		destinatarios.append('estudios@contakto.mx')
 
 		return destinatarios
