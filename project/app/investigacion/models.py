@@ -124,3 +124,8 @@ class Investigacion(models.Model):
 					data[j] = tmp
 
 		return data
+
+class InvestigacionExtra(models.Model):
+	investigacion = models.ForeignKey(Investigacion)
+	nombre = models.TextField(max_length=200, blank=True, null=True)
+	apellido = models.TextField(max_length=200, blank=True, null=True)
