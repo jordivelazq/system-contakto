@@ -192,6 +192,14 @@
 				</div>
 			</div>
 		</div>
+
+		{% if user.is_superuser and investigacion.investigacionextra_set.all %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Ejecutivo: <b>{{investigacion.investigacionextra_set.all.first.nombre}} {{investigacion.investigacionextra_set.all.first.apellido}}</b>
+			</div>
+		</div>
+		{% endif %}
 	</form>
 	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
 </div>

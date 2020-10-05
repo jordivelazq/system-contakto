@@ -230,6 +230,8 @@ def crear(request):
 			### Crear registro cobranza:
 			Cobranza(investigacion=investigacion).save()
 
+			InvestigacionExtra(investigacion=investigacion, nombre=investigacion.agente.first_name, apellido=investigacion.agente.last_name).save()
+
 			b = Bitacora(action='candidato-creado: ' + str(investigacion.candidato), user=request.user)
 			b.save()
 
