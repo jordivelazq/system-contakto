@@ -52,6 +52,7 @@
 				{{ form.ocupacion }}
 			</div>
 		</div>
+		{% if forloop.counter != 3 %}
 		<div class="row">
 			<div class="col-md-9">
 				<div class="text-danger">{{ form.lugares_labor_evaluado.errors }}</div>
@@ -66,6 +67,7 @@
 				{{ form.opinion }}
 			</div>
 		</div>
+		{% endif %}
 	{% endfor %}
 
 </form>
