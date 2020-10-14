@@ -425,6 +425,9 @@ def editar(request, investigacion_id):
 
 		####################### Investigación #######################
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
+		if formInvestigacion.instance.sucursal and not request.POST['investigacion-sucursal']:
+			logger.info('removed:sucursal:INV_ID:' + str(investigacion.id))
+			Bitacora(action='sucursal-removida: ' + str(investigacion.id), user=request.user).save()
 		if formInvestigacion.is_valid():
 			investigacion = formInvestigacion.save()
 			investigacion.status_active = True
@@ -435,7 +438,7 @@ def editar(request, investigacion_id):
 		if Cobranza.objects.filter(investigacion=investigacion).count() == 0:
 			Cobranza(investigacion=investigacion).save()
 
-		b = Bitacora(action='candidato-editado: ' + str(investigacion.candidato), user=request.user)
+		b = Bitacora(action='candidato-editado: ' + str(investigacion.id), user=request.user)
 		b.save()
 
 		if msg_param != '':
