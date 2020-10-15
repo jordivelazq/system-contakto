@@ -425,7 +425,7 @@ def editar(request, investigacion_id):
 
 		####################### Investigación #######################
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
-		if formInvestigacion.instance.sucursal and not request.POST['investigacion-sucursal']:
+		if formInvestigacion.instance.sucursal and not request.POST.get('investigacion-sucursal', ''):
 			logger.info('removed:sucursal:INV_ID:' + str(investigacion.id))
 			Bitacora(action='sucursal-removida: ' + str(investigacion.id), user=request.user).save()
 		if formInvestigacion.is_valid():
