@@ -170,8 +170,6 @@ class TelefonoForm(ModelForm, FormaController):
 
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = ' form-control'
-		
-		self.fields['numero'].widget.attrs['class'] += ' phone'
 
 class PrestacionViviendaForma(ModelForm, FormaController):
 
