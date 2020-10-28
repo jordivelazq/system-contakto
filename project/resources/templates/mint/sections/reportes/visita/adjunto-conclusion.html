@@ -1,0 +1,86 @@
+{% load app_filters %}
+
+<section class="laboral-study-page laboral-general">
+    <div class="background-2">
+      {% include 'sections/reportes/seccion/header.html' %}
+
+      <h3>CONCLUSIÓN DE ESTUDIO SOCIOECONÓMICO</h3>
+
+      <div class="conclusion">
+        <p>
+          {{entrevista_investigacion.conclusiones|print_text|safe}}
+
+          {% if investigacion.tipo_investigacion_texto %}
+            <br /><br />
+            OBSERVACIÓN: {{investigacion.tipo_investigacion_texto|print_text|safe}}
+          {% endif %}
+        </p>
+
+        <table>
+          <tr>
+            <td class="no-bg">
+              {% if show_results %}
+                <h3>RESULTADO DE <br />INVESTIGACIÓN LABORAL</h3>
+              {% endif %}
+            </td>
+            <td width="50" class="no-bg"></td>
+            <td class="no-bg">
+              <h3>RESULTADO DE VISITA <br /> DOMICILIARIA</h3>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="no-bg align-top">
+              <div class="results">
+                {% if show_results %}
+                  {% include 'sections/reportes/compartido/results.html' %}
+                {% endif %}
+              </div>
+            </td>
+
+            <td class="no-bg"></td>
+
+            <td class="no-bg">
+              <h4>CALIFICACIÓN DEL 1 AL 100%</h4>
+              <table>
+                <tr>
+
+                  <td class="no-bg align-top">
+                    <table>
+                      <tr>
+                        <td colspan="3" class="title">ASPECTO DEL HOGAR</td>
+                      </tr>
+                      {% for aspecto in entrevista_persona.entrevistaaspectohogar_set.all %}
+                      <tr>
+                        <th colspan="2">{{aspecto}}</th>
+                        <td>{{aspecto.estatus}} %</td>
+                      </tr>
+                      {% endfor %}
+                    </table>
+                  </td>
+
+                  <td class="no-bg align-top">
+                    <table>
+                      <tr>
+                        <td colspan="3" class="title">PERSONAL</td>
+                      </tr>
+                      {% for aspecto in entrevista_persona.entrevistaaspectocandidato_set.all %}
+                      <tr>
+                        <th colspan="2">{{aspecto}}</th>
+                        <td>{{aspecto.estatus}} %</td>
+                      </tr>
+                      {% endfor %}
+                    </table>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      {% include 'sections/reportes/seccion/footer.html' %}
+    </div>
+  </section>
+  <div class="page-break"></div>
