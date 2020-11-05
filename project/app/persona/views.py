@@ -512,7 +512,7 @@ def nueva_trayectoria(request, investigacion_id, empresa_id=''):
 			nueva_trayectoria.persona = investigacion.candidato
 			nueva_trayectoria.save()
 			Evaluacion(trayectoriaLaboral=nueva_trayectoria).save()
-			b = Bitacora(action='trayectoria-nueva: ' + str(nueva_trayectoria), user=request.user)
+			b = Bitacora(action='trayectoria-nueva: ' + str(nueva_trayectoria.id) + ', compania: ' + str(nueva_trayectoria.compania.id), user=request.user)
 			b.save()
 
 			if 'cancelar' in request.POST:
