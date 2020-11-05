@@ -7,14 +7,28 @@ from django.conf import settings
 
 from app.persona.models import Persona
 from app.investigacion.models import Investigacion
-from app.entrevista.models import EntrevistaInvestigacion
+from app.entrevista.models import EntrevistaInvestigacion, EntrevistaPersona, EntrevistaTelefono
 
-def get_telefonos(candidato):
+def get_telefonos(candidato, investigacion):
 	telefonos = candidato.telefono_set.all()
-	tel_movil = telefonos.filter(categoria='movil')[0] if telefonos.filter(categoria='movil').count() else ''
-	tel_casa = telefonos.filter(categoria='casa')[0] if telefonos.filter(categoria='casa').count() else ''
-	tel_recado = telefonos.filter(categoria='recado')[0] if telefonos.filter(categoria='recado').count() else ''
-	return tel_movil, tel_casa, tel_recado
+	tel_movil = telefonos.filter(categoria='movil')[0].numero if telefonos.filter(categoria='movil').count() else ''
+	tel_casa = telefonos.filter(categoria='casa')[0].numero if telefonos.filter(categoria='casa').count() else ''
+	tel_recado = telefonos.filter(categoria='recado')[0].numero if telefonos.filter(categoria='recado').count() else ''
+	tel_recado_parentesco = telefonos.filter(categoria='recado')[0].parentesco if telefonos.filter(categoria='recado').count() else ''
+
+	entrevista_persona = EntrevistaPersona.objects.filter(investigacion=investigacion)[0] if EntrevistaPersona.objects.filter(investigacion=investigacion).count() else None
+	if entrevista_persona:
+		entrevista_telefonos = EntrevistaTelefono.objects.filter(persona=entrevista_persona)
+		for tel in entrevista_telefonos:
+			if tel.categoria == 'movil' and not tel_movil:
+				tel_movil = tel.numero
+			if tel.categoria == 'casa' and not tel_casa:
+				tel_casa = tel.numero
+			if tel.categoria == 'recado' and not tel_recado:
+				tel_recado = tel.numero
+				tel_recado_parentesco = tel.parentesco
+
+	return tel_movil, tel_casa, tel_recado, tel_recado_parentesco
 
 @csrf_exempt
 def print_reporte_laboral(request, investigacion_id):
@@ -25,7 +39,7 @@ def print_reporte_laboral(request, investigacion_id):
 	candidato = investigacion.candidato
 	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil - 1][1] if candidato.estado_civil else ''
 
-	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
+	tel_movil, tel_casa, tel_recado, tel_recado_parentesco = get_telefonos(candidato, investigacion)
 
 	trayectoria = investigacion.get_trayectorias_laborales(True)
 
@@ -49,7 +63,7 @@ def print_reporte_socioeconomico(request, investigacion_id):
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
 
-	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
+	tel_movil, tel_casa, tel_recado, tel_recado_parentesco = get_telefonos(candidato, investigacion)
 
 	trayectoria = investigacion.get_trayectorias_laborales(True)
 	domicilio = investigacion.entrevistadireccion_set.all()[0] if investigacion.entrevistadireccion_set.all().count() else None
@@ -115,7 +129,7 @@ def print_reporte_visita_domiciliaria(request, investigacion_id):
 	investigacion = Investigacion.objects.get(pk=investigacion_id)
 	candidato = investigacion.candidato
 
-	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
+	tel_movil, tel_casa, tel_recado, tel_recado_parentesco = get_telefonos(candidato, investigacion)
 
 	trayectoria = investigacion.get_trayectorias_laborales(True)
 	domicilio = investigacion.entrevistadireccion_set.all()[0] if investigacion.entrevistadireccion_set.all().count() else None
@@ -182,7 +196,7 @@ def print_reporte_validacion_demandas(request, investigacion_id):
 	candidato = investigacion.candidato
 	estado_civil = Persona.EDOCIVIL_OPCIONES[candidato.estado_civil - 1][1] if candidato.estado_civil else ''
 
-	tel_movil, tel_casa, tel_recado = get_telefonos(candidato)
+	tel_movil, tel_casa, tel_recado, tel_recado_parentesco = get_telefonos(candidato, investigacion)
 
 	trayectoria = investigacion.get_trayectorias_laborales(True)
 
