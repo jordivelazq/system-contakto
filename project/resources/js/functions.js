@@ -437,3 +437,64 @@ function initFactura() {
     $('#factura').change(onChangeFacturaHandler);
   }
 }
+
+function deepEqual(object1, object2) {
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (const key of keys1) {
+    const val1 = object1[key];
+    const val2 = object2[key];
+    const areObjects = isObject(val1) && isObject(val2);
+    if (
+      areObjects && !deepEqual(val1, val2) ||
+      !areObjects && val1 !== val2
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function isObject(object) {
+  return object != null && typeof object === 'object';
+}
+
+function areFiltersEqual(filters) {
+  if (typeof(Storage) !== "undefined") {
+    const filtersSaved = JSON.parse(sessionStorage.getItem("filters") || '{}');
+    return deepEqual(filters, filtersSaved)
+  }
+
+  return false
+}
+
+function getCandidatos(filtros) {
+  if (typeof(Storage) !== "undefined" && areFiltersEqual(filtros)) {
+    const candidatos = JSON.parse(sessionStorage.getItem("candidatos") || '[]');
+    if (candidatos.length) {
+      return candidatos
+    }
+  }
+
+  return new Promise(resolve => {
+    $.post( "/candidato/search_candidatos/", filtros , 'json')
+      .done(function( data ) {
+        if (typeof data.status != 'undefined' && data.status){
+          resolve(data.candidatos)
+
+          if (typeof(Storage) !== "undefined") {
+            sessionStorage.setItem("candidatos", JSON.stringify(data.candidatos))
+            sessionStorage.setItem("filters", JSON.stringify(filtros))
+          }
+        } else {
+          resolve([])
+        }
+      });
+  })
+}

@@ -64,7 +64,7 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
         }
     };
 
-    $scope.search = function(){
+    $scope.search = async function(){
     	$scope.fecha_inicio = getDate('fecha_inicio')
 		$scope.fecha_final = getDate('fecha_final')
 
@@ -72,19 +72,17 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
         $('#lista-candidatos-sidebar').hide();
         $('#search-msg').html('').removeClass();
         $('#search-status').addClass('loading-ajax');
-		$.post( "/candidato/search_candidatos/", data , 'json').done(function( data ) {
-            $('#search-status').removeClass('loading-ajax');
-			if (typeof data.status != 'undefined' && data.status){
-                if(data.candidatos.length){
-                    $scope.candidatos = data.candidatos;                                                
-                    $scope.$apply();
-                    $('#lista-candidatos-sidebar').show();                        
-                }else{
-                    $('#search-msg').addClass('alert alert-warning').html('0 resultados, favor de intentar con otros filtros');    
-                }
-				
-            }                
-	   });
+
+        const candidatos = await getCandidatos(data)
+        $('#search-status').removeClass('loading-ajax');
+
+        if (candidatos.length) {
+            $scope.candidatos = candidatos;                                                
+            $scope.$apply();
+            $('#lista-candidatos-sidebar').show();                        
+        } else {
+            $('#search-msg').addClass('alert alert-warning').html('0 resultados, favor de intentar con otros filtros');    
+        }
     };        
 
     $scope.load_candidato = function(id_cand){
