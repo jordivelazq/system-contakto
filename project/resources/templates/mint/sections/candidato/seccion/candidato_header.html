@@ -32,7 +32,8 @@
 			<a href="/candidato/{{investigacion.id}}/eliminar" class="btn btn-danger btn_eliminar">Eliminar</a>
 		{% endif %}
 		{% if request.user.is_staff or is_user_captura %}
-			<button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
+		
+			<button type="submit" name="guardar" class="btn btn-primary {%if refresh %}refresh-candidatos{%endif%}">Guardar</button>
 		{% endif %}
 	</div>
 	{% endif %}

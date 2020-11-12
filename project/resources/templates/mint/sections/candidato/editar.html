@@ -9,7 +9,7 @@
 <div ng-controller="CandidatoCTRL">
 	<form role="form" action="/candidato/investigacion/{{ investigacion_id }}/editar" method="post" id="form_candidato_crear" class="enter-tab adjusted-fixed-submenu">
 
-		{% include 'sections/candidato/seccion/candidato_header.html' with cta="both" %}
+		{% include 'sections/candidato/seccion/candidato_header.html' with cta="both" refresh="true" %}
 	
 		<input type="hidden" id="investigacion_id" value="{{ investigacion_id }}" />		
 		{% csrf_token %}

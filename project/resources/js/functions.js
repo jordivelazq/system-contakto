@@ -103,6 +103,8 @@ $(document).ready(function () {
 
   initDynamicForms()
   initFactura()
+
+  refreshCandidatos()
 });
 
 function get_currentpage() {
@@ -497,4 +499,15 @@ function getCandidatos(filtros) {
         }
       });
   })
+}
+
+function refreshCandidatos() {
+  if ($('.refresh-candidatos').length) {
+    $('.refresh-candidatos').click(() => {
+      if (typeof(Storage) !== "undefined") {
+        sessionStorage.removeItem("candidatos")
+        sessionStorage.removeItem("filters")
+      }
+    })
+  }
 }
