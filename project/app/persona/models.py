@@ -68,7 +68,7 @@ class Persona(models.Model):
 	nombre = models.CharField(max_length=140)
 	apellido = models.CharField(max_length=140, default="")
 	nss = models.CharField(max_length=30, blank=True, null=True, validators=[validate_nss]) #validación de único desde views para aceptar valores vacios
-	email = models.EmailField(max_length=140, blank=True, null=True)
+	email = models.CharField(max_length=140, blank=True, null=True)
 	edad = models.IntegerField( blank=True, null=True) #choices=EDAD_CHOICES,
 	curp = models.CharField(max_length=30, blank=True, null=True, validators=[validate_curp]) #validación de único desde views para aceptar valores vacios
 
