@@ -96,6 +96,10 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 					'titulo' 	: 'Información Económica',
 					'template' 	: 'sections/entrevista/forms/sit_economica_form.html' 
 				},
+				'bienes'	: { 
+					'titulo' 	: 'Bienes',
+					'template' 	: 'sections/entrevista/forms/bienes_form.html' 
+				},
 				'referencias'	: { 
 					'titulo' 	: 'Referencias Personales',
 					'template' 	: 'sections/entrevista/forms/referencias_form.html' 
@@ -280,49 +284,27 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 	
 	#INFORMACIÓN ECONÓMICA
 	elif seccion_entrevista == 'inf-economica':
-		tarjetas = EntrevistaTarjetaCreditoComercial.objects.filter(person=candidato)
-		cuentas_deb = EntrevistaCuentaDebito.objects.filter(person=candidato)
-		autos = EntrevistaAutomovil.objects.filter(person=candidato)
-		bienesraices = EntrevistaBienesRaices.objects.filter(person=candidato)
-		seguros = EntrevistaSeguro.objects.filter(person=candidato)
-		deudas = EntrevistaDeudaActual.objects.filter(person=candidato)
 		ingresos = EntrevistaEconomica.objects.filter(person=candidato, tipo='ingreso')
 		egresos = EntrevistaEconomica.objects.filter(person=candidato, tipo='egreso')
 		prestaciones_vivienda = EntrevistaPrestacionVivienda.objects.filter(persona=candidato)
 
 		IngresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto'), form=MoneyFormatEntrevistaEconomicaForm)
 		EgresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto',), form=MoneyFormatEntrevistaEconomicaForm)
-		TarjetaCreditoComercialFormset = modelformset_factory(EntrevistaTarjetaCreditoComercial, extra=0, exclude=('person',), form=TarjetaCreditoComercialForm)
-		CuentaDebitoFormset = modelformset_factory(EntrevistaCuentaDebito, extra=0, exclude=('person',), form=EntrevistaCuentaDebitoForm)
-		AutomovilFormset = modelformset_factory(EntrevistaAutomovil, extra=0, exclude=('person',), form=EntrevistaAutomovilForm)
-		BienesRaicesFormset = modelformset_factory(EntrevistaBienesRaices, extra=0, exclude=('person',), form=EntrevistaBienesRaicesForm)
-		SeguroFormset = modelformset_factory(EntrevistaSeguro, extra=0, exclude=('person',))
-		DeudaActualFormset = modelformset_factory(EntrevistaDeudaActual, extra=0, form=EntrevistaDeudaActualForm)
 		PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
 
 		if request.method == 'POST' and not is_usuario_contacto:
 			candidato.dependientes_economicos = request.POST.get('dependientes_economicos')
-			tarjetas_formset = TarjetaCreditoComercialFormset(request.POST, prefix='tarjetas')
-			cuentas_deb_formset = CuentaDebitoFormset(request.POST, prefix='cuentas_deb')
-			autos_formset = AutomovilFormset(request.POST, prefix='autos')
-			bienesraices_formset = BienesRaicesFormset(request.POST, prefix='bienesraices')
-			seguros_formset = SeguroFormset(request.POST, prefix='seguros')
-			deudas_formset = DeudaActualFormset(request.POST, prefix='deudas')
 			ingresos_formset = IngresosFormset(request.POST, prefix='ingresos')
 			egresos_formset = EgresosFormset(request.POST, prefix='egresos')
 			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones')
 
-			if tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid() and ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
+			if ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
 				candidato.save()
-				tarjetas_formset.save()
-				cuentas_deb_formset.save()
-				autos_formset.save()
-				bienesraices_formset.save()
-				seguros_formset.save()
-				deudas_formset.save()
 				ingresos_formset.save()
 				egresos_formset.save()
 				pv_formset.save()
+
+				Bitacora(action='inf-economica: ' + str(investigacion_id), user=request.user).save()
 
 				if 'redirect' in request.POST:
 					return HttpResponseRedirect(request.POST.get('redirect'))
@@ -330,15 +312,55 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			candidato_form = EntrevistaPersonaInfoEconomicaForm(instance=candidato)
+			ingresos_formset = IngresosFormset(queryset=ingresos, prefix='ingresos')
+			egresos_formset = EgresosFormset(queryset=egresos, prefix='egresos')
+			pv_formset = PrestacionViviendaFormSet(queryset=prestaciones_vivienda, prefix='prestaciones')
+	
+	#BIENES
+	elif seccion_entrevista == 'bienes':
+		tarjetas = EntrevistaTarjetaCreditoComercial.objects.filter(person=candidato)
+		cuentas_deb = EntrevistaCuentaDebito.objects.filter(person=candidato)
+		autos = EntrevistaAutomovil.objects.filter(person=candidato)
+		bienesraices = EntrevistaBienesRaices.objects.filter(person=candidato)
+		seguros = EntrevistaSeguro.objects.filter(person=candidato)
+		deudas = EntrevistaDeudaActual.objects.filter(person=candidato)
+
+		TarjetaCreditoComercialFormset = modelformset_factory(EntrevistaTarjetaCreditoComercial, extra=0, exclude=('person',), form=TarjetaCreditoComercialForm)
+		CuentaDebitoFormset = modelformset_factory(EntrevistaCuentaDebito, extra=0, exclude=('person',), form=EntrevistaCuentaDebitoForm)
+		AutomovilFormset = modelformset_factory(EntrevistaAutomovil, extra=0, exclude=('person',), form=EntrevistaAutomovilForm)
+		BienesRaicesFormset = modelformset_factory(EntrevistaBienesRaices, extra=0, exclude=('person',), form=EntrevistaBienesRaicesForm)
+		SeguroFormset = modelformset_factory(EntrevistaSeguro, extra=0, exclude=('person',))
+		DeudaActualFormset = modelformset_factory(EntrevistaDeudaActual, extra=0, form=EntrevistaDeudaActualForm)
+
+		if request.method == 'POST' and not is_usuario_contacto:
+			tarjetas_formset = TarjetaCreditoComercialFormset(request.POST, prefix='tarjetas')
+			cuentas_deb_formset = CuentaDebitoFormset(request.POST, prefix='cuentas_deb')
+			autos_formset = AutomovilFormset(request.POST, prefix='autos')
+			bienesraices_formset = BienesRaicesFormset(request.POST, prefix='bienesraices')
+			seguros_formset = SeguroFormset(request.POST, prefix='seguros')
+			deudas_formset = DeudaActualFormset(request.POST, prefix='deudas')
+
+			if tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid():
+				tarjetas_formset.save()
+				cuentas_deb_formset.save()
+				autos_formset.save()
+				bienesraices_formset.save()
+				seguros_formset.save()
+				deudas_formset.save()
+
+				Bitacora(action='bienes: ' + str(investigacion_id), user=request.user).save()
+
+				if 'redirect' in request.POST:
+					return HttpResponseRedirect(request.POST.get('redirect'))
+
+				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
+		else:
 			tarjetas_formset = TarjetaCreditoComercialFormset(queryset=tarjetas, prefix='tarjetas')
 			cuentas_deb_formset = CuentaDebitoFormset(queryset=cuentas_deb, prefix='cuentas_deb')
 			autos_formset = AutomovilFormset(queryset=autos, prefix='autos')
 			bienesraices_formset = BienesRaicesFormset(queryset=bienesraices, prefix='bienesraices')
 			seguros_formset = SeguroFormset(queryset=seguros, prefix='seguros')
 			deudas_formset = DeudaActualFormset(queryset=deudas, prefix='deudas')
-			ingresos_formset = IngresosFormset(queryset=ingresos, prefix='ingresos')
-			egresos_formset = EgresosFormset(queryset=egresos, prefix='egresos')
-			pv_formset = PrestacionViviendaFormSet(queryset=prestaciones_vivienda, prefix='prestaciones')
 
 	#REFERENCIAS
 	elif seccion_entrevista == 'referencias':
