@@ -799,7 +799,7 @@ class PreCandidato(object):
 
 		if cell_type == 2:
 			if isinstance(cell_value, float):
-				if int(cell_value) < 1:
+				if int(cell_value) <= 1:
 					isFloat = True
 
 		return_value = str(int(cell_value * 100)) if isFloat else str(cell_value)
