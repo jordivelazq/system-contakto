@@ -118,7 +118,7 @@ def clean_type(value):
 				('alimentacion','Alimentación'), 
 				('educacion','Educación'), 
 				('medico','Médico'), 
-				('diversos','Diversos'), 
+				('diversos','Diversión'), 
 				('servicios','Servicios (Luz, Agua, Teléfono)'), 
 				('serv_domestico','Serv. doméstico'), 
 				('seguros','Seguros'), 

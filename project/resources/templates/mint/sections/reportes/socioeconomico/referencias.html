@@ -1,3 +1,4 @@
+{% load fe_extras %}
 {% load app_filters %}
 <section class="laboral-study-page laboral-general">
   <div class="background-2">
@@ -106,7 +107,7 @@
                 {% if egreso.detalle %}
                 {{egreso.detalle}}
                 {% else %}
-                {{egreso.concepto}}
+                {{egreso.concepto|clean_type}}
                 {% endif %}
               </th>
               <td colspan="2">{{egreso.monto|print_money}}</td>
