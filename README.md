@@ -89,3 +89,27 @@ ie.
 
 - Compile sass files
 `compass compile project`
+
+
+### Installing python 3.5
+
+```bash
+brew install pyenv
+
+CFLAGS=-I/usr/include/openssl LDFLAGS=-L/usr/lib pyenv install -v 3.5.3
+
+export PATH="~/.pyenv/versions/3.5.3/bin:${PATH}"
+
+eval "$(pyenv init -)"
+
+pip install virtualenvwrapper
+
+source /usr/local/bin/virtualenvwrapper.sh
+
+virtualenv mp1
+
+source mp1/bin/activate
+
+```
+
+[virtualenv](https://docs.python-guide.org/dev/virtualenvs/)
