@@ -113,3 +113,8 @@ source mp1/bin/activate
 ```
 
 [virtualenv](https://docs.python-guide.org/dev/virtualenvs/)
+
+
+### Remove duplicate companies
+
+mysql -uroot db_contakto < project/scripts/empresas-vacias.sql >  docs/empresas-vacias.csv  
