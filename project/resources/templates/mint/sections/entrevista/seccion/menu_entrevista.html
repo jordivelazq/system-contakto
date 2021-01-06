@@ -14,5 +14,6 @@
 	{% if request.user.is_staff or is_user_captura %}	
 		<li class="{% if seccion_entrevista == 'cita' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/editar/cita">Cita</a></li>
 		<li class="{% if seccion_entrevista == 'archivo' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/editar/cargar">Archivo</a></li>
+		<li class="{% if seccion_entrevista == 'comprimido' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/comprimido">Comprimido</a></li>
 	{% endif %}
 </ul>

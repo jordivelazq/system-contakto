@@ -123,3 +123,4 @@ source mp1/bin/activate
 ### SQL queries
 
 mysql -uroot db_contakto < project/scripts/empresas-poca-actividad.sql > docs/empresas-poca-actividad.csv
+mysql -uroot db_contakto < project/scripts/empresas-repetidas.sql > docs/empresas-repetidas.csv

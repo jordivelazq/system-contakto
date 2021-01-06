@@ -29,7 +29,10 @@ import os
 import json
 from django.db.models import Q
 from django.forms import ModelForm, Textarea
+import zipfile
 
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 '''
 	Entrevista (Excel)
@@ -498,3 +501,88 @@ def cargar_entrevista(request, investigacion_id):
 		form = EntrevistaFileForm()
 	return render(request, 'sections/entrevista/new.html', locals(), RequestContext(request))
 
+
+@login_required(login_url='/login', redirect_field_name=None)
+def comprimido_entrevista(request, investigacion_id):
+	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
+		return HttpResponseRedirect('/')
+
+	#Temporal para SEARCH
+	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
+	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
+	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
+	filtros_json = request.session.get('filtros_search', None)
+
+	status_list = PersonaService.get_status_list(investigacion_id)
+	
+	page = 'investigaciones'
+	seccion = 'entrevista'
+	seccion_entrevista = 'comprimido'
+	status = ''
+	msg = ''
+	tiene_entrevista = False
+
+	investigacion = Investigacion.objects.get(id=investigacion_id)
+	zip_path = settings.MEDIA_ROOT + '/zip/' + str(investigacion.id)
+	if investigacion.entrevistapersona_set.all().count():
+		tiene_entrevista = True
+		entrevista_actual = investigacion.entrevistapersona_set.all().order_by('-id')[0]
+	
+	if request.method == 'POST':
+
+		form = EntrevistaFileForm(request.POST, request.FILES)
+		if form.is_valid():
+			ext = os.path.splitext(str(request.FILES['record']))[1]
+			pre_candidato = PreCandidato()
+			if ext.lower() not in ('.zip'):
+				pre_candidato.errors.append('Debes subir un archivo de Excel (xls o xlsx)')
+			else:
+				with zipfile.ZipFile(request.FILES['record'], 'r') as zip_ref:
+					zip_ref.extractall(zip_path)
+				
+
+				
+
+				# file_instance = EntrevistaFile(record=request.FILES['record'])
+				# file_instance.save()
+				# if (pre_candidato.leerArchivo(file_id=file_instance.id, sheet_index=0)):
+				# 	data = pre_candidato.getData()
+				# 	if 'nss' in data['candidato']['datos_generales'] and data['candidato']['datos_generales']['nss'] != investigacion.candidato.nss:
+				# 		pre_candidato.errors.append('NSS no coincide con el guardado en la investigación')
+
+				# 	#Revisar si hubo errores en la lectura del excel
+				# 	if len(pre_candidato.errors) == 0:
+				# 		candidato = ControllerPersona()
+				# 		candidato_id = candidato.saveAllData(investigacion, data, file_instance, request.user)
+				# 		#Revisar si hubo errores en la escritura de DB
+				# 		if len(candidato.errors) == 0:
+				# 			b = Bitacora(action='entrevista-cargada: ' + str(investigacion_id), user=request.user)
+				# 			b.save()
+				# 			if tiene_entrevista:
+				# 				entrevista_actual.delete()
+				# 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/exito')
+				# 		else:
+				# 			file_instance.delete()
+				# 			#borrar entrevista recién registrada si hubo algún error en la escritura de DB
+				# 			if candidato_id:
+				# 				EntrevistaPersona.objects.get(id=candidato_id).delete()
+				# 	else:
+				# 		file_instance.delete()
+
+	else:
+		form = EntrevistaFileForm()
+	
+	if True:
+		with open(zip_path + '/data.json') as f:
+			data = {
+				'candidato': json.load(f)
+			}
+			
+			pp.pprint(data)
+
+			candidato = ControllerPersona()
+			candidato_id = candidato.saveAllData(investigacion, data, None, request.user)
+			print("perro:candidato_id", candidato_id)
+		
+
+	return render(request, 'sections/entrevista/comprimido.html', locals(), RequestContext(request))
