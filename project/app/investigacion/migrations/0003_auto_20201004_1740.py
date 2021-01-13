@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='investigacion',
             name='tipo_investigacion_status',
-            field=models.IntegerField(blank=True, choices=[(1, 'Laboral'), (2, 'Socieconómico'), (4, 'Psicometrías'), (5, 'Visita Domiciliaria'), (7, 'Visita Domiciliaria con demandas'), (6, 'Validación de Demandas'), (3, 'Otro')], null=True),
+            field=models.IntegerField(blank=True, choices=[(1, 'Laboral'), (2, 'Socioeconómico'), (4, 'Psicometrías'), (5, 'Visita Domiciliaria'), (7, 'Visita Domiciliaria con demandas'), (6, 'Validación de Demandas'), (3, 'Otro')], null=True),
         ),
         migrations.AddField(
             model_name='investigacionextra',

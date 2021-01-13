@@ -28,7 +28,7 @@ def parse_string_to_date(string, fuzzy=False):
 class Investigacion(models.Model):
 	TIPO_INVESTIGACION_OPCIONES = (		
 		(1, 'Laboral'),
-		(2, 'Socieconómico'),
+		(2, 'Socioeconómico'),
 		(4, 'Psicometrías'),
 		(5, 'Visita Domiciliaria'),
 		(7, 'Visita Domiciliaria con demandas'),
