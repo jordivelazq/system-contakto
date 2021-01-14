@@ -540,49 +540,30 @@ def comprimido_entrevista(request, investigacion_id):
 				with zipfile.ZipFile(request.FILES['record'], 'r') as zip_ref:
 					zip_ref.extractall(zip_path)
 				
+				with open(zip_path + '/data.json') as f:
+					data = {
+						'candidato': json.load(f)
+					}
 
-				
+					if len(pre_candidato.errors) == 0:
+						candidato = ControllerPersona()
+						candidato_id = candidato.saveAllData(investigacion, data, None, request.user)
 
-				# file_instance = EntrevistaFile(record=request.FILES['record'])
-				# file_instance.save()
-				# if (pre_candidato.leerArchivo(file_id=file_instance.id, sheet_index=0)):
-				# 	data = pre_candidato.getData()
-				# 	if 'nss' in data['candidato']['datos_generales'] and data['candidato']['datos_generales']['nss'] != investigacion.candidato.nss:
-				# 		pre_candidato.errors.append('NSS no coincide con el guardado en la investigación')
+						if len(candidato.errors) == 0:
+							b = Bitacora(action='compartido-cargado: ' + str(investigacion_id), user=request.user)
+							b.save()
+							if tiene_entrevista:
+								entrevista_actual.delete()
 
-				# 	#Revisar si hubo errores en la lectura del excel
-				# 	if len(pre_candidato.errors) == 0:
-				# 		candidato = ControllerPersona()
-				# 		candidato_id = candidato.saveAllData(investigacion, data, file_instance, request.user)
-				# 		#Revisar si hubo errores en la escritura de DB
-				# 		if len(candidato.errors) == 0:
-				# 			b = Bitacora(action='entrevista-cargada: ' + str(investigacion_id), user=request.user)
-				# 			b.save()
-				# 			if tiene_entrevista:
-				# 				entrevista_actual.delete()
-				# 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/exito')
-				# 		else:
-				# 			file_instance.delete()
-				# 			#borrar entrevista recién registrada si hubo algún error en la escritura de DB
-				# 			if candidato_id:
-				# 				EntrevistaPersona.objects.get(id=candidato_id).delete()
-				# 	else:
-				# 		file_instance.delete()
+							return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/exito')
+
+						elif candidato_id:
+							EntrevistaPersona.objects.get(id=candidato_id).delete()
+							pre_candidato.errors.append('Error, intentar de nuevo.')
+
 
 	else:
 		form = EntrevistaFileForm()
-	
-	if True:
-		with open(zip_path + '/data.json') as f:
-			data = {
-				'candidato': json.load(f)
-			}
-			
-			pp.pprint(data)
-
-			candidato = ControllerPersona()
-			candidato_id = candidato.saveAllData(investigacion, data, None, request.user)
-			print("perro:candidato_id", candidato_id)
 		
 
 	return render(request, 'sections/entrevista/comprimido.html', locals(), RequestContext(request))

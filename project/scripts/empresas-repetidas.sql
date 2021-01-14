@@ -1,3 +1,5 @@
+SET SESSION group_concat_max_len = 1000000;
+
 SELECT
   REPLACE(cc.nombre, '.', '') as nombre,
   cc.id,
@@ -23,6 +25,7 @@ FROM
         GROUP_CONCAT(cc2.id) as IDS
       FROM compania_compania cc2
       WHERE es_cliente = 0
+        AND status = 1
       GROUP BY cc2.nombre
       HAVING total > 1
       ORDER BY cc2.nombre

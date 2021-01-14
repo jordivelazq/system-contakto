@@ -59,7 +59,10 @@ class ControllerPersona(object):
 		#Asignar info cuadro evaluación
 		self.setCuadroEvaluacion(candidato, data['candidato']['cuadro_evaluacion'])
 		#Crear registro de investigacion
-		self.setInvestigacion(investigacion, candidato, data['investigacion'], archivo_id, user)
+		if 'investigacion' in data:
+			self.setInvestigacion(investigacion, candidato, data['investigacion'], archivo_id, user)
+		elif 'investigacion' in data['candidato']:
+			self.setInvestigacion(investigacion, candidato, data['candidato']['investigacion'], archivo_id, user)
 
 		return candidato.id
 
@@ -89,6 +92,7 @@ class ControllerPersona(object):
 			candidato.tiempo_transporte = datos_generales['tiempo_transporte']
 			candidato.dependientes_economicos = datos_generales['dependientes_economicos']
 		except Exception as e:
+			self.errors.append(e)
 			self.errors.append('Error asignando registro de datos generales.')
 
 		return
@@ -143,6 +147,7 @@ class ControllerPersona(object):
 											numero_credito=datos_generales['fonacot']['numero'],
 											uso=datos_generales['fonacot']['uso']).save()
 		except Exception as e:
+			self.errors.append(e)
 			self.errors.append('Error en registro de datos generales.')
 
 		return
@@ -247,6 +252,7 @@ class ControllerPersona(object):
 									escuchado = info_academica['otro_idioma']['escuchado'],
 									idioma = info_academica['otro_idioma']['idioma']).save()
 		except Exception as e:
+			self.errors.append(e)
 			self.errors.append('Error en registro de información académica.')
 
 		return
