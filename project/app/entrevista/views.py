@@ -15,7 +15,7 @@ from app.compania.forms import *
 from app.entrevista.load_data import PreCandidato
 from app.entrevista.forms import *
 from app.entrevista.models import *
-from app.entrevista.services import EntrevistaService
+from app.entrevista.services import EntrevistaService, save_adjuntos
 from django.forms.models import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from app.persona.services import PersonaService
@@ -30,6 +30,7 @@ import json
 from django.db.models import Q
 from django.forms import ModelForm, Textarea
 import zipfile
+import shutil
 
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
@@ -523,24 +524,28 @@ def comprimido_entrevista(request, investigacion_id):
 	tiene_entrevista = False
 
 	investigacion = Investigacion.objects.get(id=investigacion_id)
-	zip_path = settings.MEDIA_ROOT + '/zip/' + str(investigacion.id)
 	if investigacion.entrevistapersona_set.all().count():
 		tiene_entrevista = True
 		entrevista_actual = investigacion.entrevistapersona_set.all().order_by('-id')[0]
 	
 	if request.method == 'POST':
-
 		form = EntrevistaFileForm(request.POST, request.FILES)
 		if form.is_valid():
 			ext = os.path.splitext(str(request.FILES['record']))[1]
 			pre_candidato = PreCandidato()
 			if ext.lower() not in ('.zip'):
-				pre_candidato.errors.append('Debes subir un archivo de Excel (xls o xlsx)')
+				pre_candidato.errors.append('Debes subir un archivo comprimido .zip')
 			else:
+				zip_relative_path = 'zip/' + str(investigacion.id)
+				zip_absolute_path = settings.MEDIA_ROOT + '/' + zip_relative_path
+
+				if os.path.isdir(zip_absolute_path):
+					shutil.rmtree(zip_absolute_path)
+
 				with zipfile.ZipFile(request.FILES['record'], 'r') as zip_ref:
-					zip_ref.extractall(zip_path)
+					zip_ref.extractall(zip_absolute_path)
 				
-				with open(zip_path + '/data.json') as f:
+				with open(zip_absolute_path + '/data.json') as f:
 					data = {
 						'candidato': json.load(f)
 					}
@@ -554,14 +559,14 @@ def comprimido_entrevista(request, investigacion_id):
 							b.save()
 							if tiene_entrevista:
 								entrevista_actual.delete()
+							
+							save_adjuntos(data['candidato']['adjuntos'], zip_relative_path, investigacion)
 
 							return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/exito')
 
 						elif candidato_id:
 							EntrevistaPersona.objects.get(id=candidato_id).delete()
 							pre_candidato.errors.append('Error, intentar de nuevo.')
-
-
 	else:
 		form = EntrevistaFileForm()
 		

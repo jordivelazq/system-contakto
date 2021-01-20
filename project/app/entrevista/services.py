@@ -1,5 +1,8 @@
+import zipfile
+
 from django.db import models
 from django import forms
+from app.adjuntos.models import Adjuntos
 
 class EntrevistaService:
 
@@ -29,3 +32,17 @@ class EntrevistaService:
 	@staticmethod
 	def clean_telefono(s):
 		return s.encode('utf-8').strip()
+
+def save_adjuntos(lista_adjuntos, image_path, investigacion):
+	if not lista_adjuntos or not len(lista_adjuntos):
+		return None
+	
+	Adjuntos.objects.filter(investigacion=investigacion).delete()
+	nuevos_adjuntos = Adjuntos(investigacion=investigacion)
+
+	for field_name in lista_adjuntos:
+		filename = lista_adjuntos[field_name]
+		if filename:
+			setattr(nuevos_adjuntos, field_name, image_path + '/' + filename)
+
+	nuevos_adjuntos.save()
