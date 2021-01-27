@@ -20,7 +20,9 @@
 
 <div class="row placeholders">
     <div class="pull-right">
-			{% if candidato_url %}
+			{% if trayectoria_url %}
+			<a href="{{trayectoria_url}}" class="btn btn-default">Regresar a Trayectoria</a>
+			{% elif candidato_url %}
 			<a href="{{candidato_url}}" class="btn btn-default">Regresar a Candidato</a>
 			{% endif %}
       <a href="{{agregar_url}}" class="btn btn-primary">Agregar</a> <br />
@@ -47,7 +49,7 @@
 					<td>{{ sucursal.ciudad }}</td>
 					<td>{{ sucursal.telefono }}</td>
 					<td>{{ sucursal.email }}</td>
-          <td class="text-center"><a href="/empresa/{{compania_id}}/sucursal/{{sucursal.id}}/editar" title="editar {{sucursal}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></td>
+          <td class="text-center"><a href="/empresa/{{compania_id}}/sucursal/{{sucursal.id}}/editar?investigacion={{investigacion_id}}&trayectoria={{trayectoria_id}}" title="editar {{sucursal}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></td>
           {% if request.user.is_superuser %}
           <td class="text-center"><a href="/empresa/{{compania_id}}/sucursal/{{sucursal.id}}/eliminar" title="eliminar {{sucursal}}" class="btn btn-danger btn_eliminar"><span class="glyphicon glyphicon-remove"></span></td>
           {% endif %}

@@ -618,6 +618,9 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 		if 'cancelar' in request.POST:
 			return HttpResponseRedirect('/candidato/investigacion/' + str(investigacion_id) + '/trayectoria')
 		
+		if 'editar_sucursal' in request.POST:
+			return HttpResponseRedirect('/empresa/' + str(trayectoria_empresa.compania.id) + '/sucursales?investigacion=' + str(investigacion.id) + '&trayectoria=' + str(trayectoria_id))
+		
 		formTrayectoria = TrayectoriaForm(request.POST, prefix='trayectoria', instance=trayectoria_empresa)
 		if formTrayectoria.is_valid(): 
 			trayectoria_empresa = formTrayectoria.save()

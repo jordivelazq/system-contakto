@@ -172,10 +172,12 @@ def sucursal_main(request, compania_id):
 	company = Compania.objects.get(id=compania_id)
 	investigacion_id = request.GET.get('investigacion', '')
 	sucursal_id = request.GET.get('sucursal_id', '')
+	trayectoria_id = request.GET.get('trayectoria', '')
 	investigations = Investigacion.objects.filter(sucursal=sucursal_id) if sucursal_id else None
 
 	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva?investigacion_id=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursal/nueva'
 	candidato_url = '/candidato/investigacion/' + investigacion_id + '/editar' if investigacion_id else ''
+	trayectoria_url = '/candidato/investigacion/' + investigacion_id + '/editar/trayectoria/' + trayectoria_id if trayectoria_id else ''
 	sucursales = Sucursales.objects.filter(compania_id=compania_id)
 	return render(request, 'sections/empresa/sucursal/main.html', locals(), RequestContext(request))
 
@@ -223,7 +225,9 @@ def sucursal_edit(request, compania_id, sucursal_id):
 				b = Bitacora(action='sucursal-editada: ' + str(sucursal.id), user=request.user)
 				b.save()
 
-				if 'investigacion' in request.GET:
+				if 'trayectoria' in request.GET:
+					return HttpResponseRedirect('/candidato/investigacion/' + request.GET['investigacion'] + '/editar/trayectoria/' + request.GET['trayectoria'])
+				elif 'investigacion' in request.GET:
 					return HttpResponseRedirect('/candidato/investigacion/' + request.GET['investigacion'] + '/editar')
 
 				return HttpResponseRedirect(boton_cancelar_url)

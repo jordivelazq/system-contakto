@@ -47,7 +47,7 @@ class CompaniaSucursalForm(forms.Form):
 
 		choices = [("", "Seleccionar")]
 		for item in Sucursales.objects.filter(compania=compania):
-			choices.append((item.id, item.nombre))
+			choices.append((item.id, item.nombre + ' - ' + item.ciudad))
 
 		self.fields['sucursal'] = forms.ChoiceField(
 			choices=choices,
