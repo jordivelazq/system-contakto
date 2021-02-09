@@ -426,14 +426,10 @@ def editar(request, investigacion_id):
 		####################### Investigación #######################
 		# pdb.set_trace()
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
-		if formInvestigacion.data['investigacion-sucursal'] == '':
+		if 'investigacion-sucursal' in formInvestigacion.data and formInvestigacion.data['investigacion-sucursal'] == '':
 			msg.append('Es necesario seleccionar sucursal')
 			formSucursal = CompaniaSucursalForm(investigacion.compania, investigacion.sucursal, prefix='investigacion')
 			status = 'danger'
-
-			print('sucursal-vacia: ' + str(investigacion.id))
-			b = Bitacora(action='sucursal-vacia: ' + str(investigacion.id), user=request.user)
-			b.save()
 		elif not formInvestigacion.is_valid():
 			msg_param = ''
 		else:
