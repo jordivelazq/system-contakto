@@ -312,7 +312,9 @@ def editar(request, investigacion_id):
 	is_user_captura = request.user.groups.filter(name="captura").count()
 	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=1, extra=1)
 	view = 'edit'
-	
+
+	formSucursal = CompaniaSucursalForm(investigacion.compania, investigacion.sucursal, prefix='investigacion')
+
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'
 
@@ -426,9 +428,14 @@ def editar(request, investigacion_id):
 		####################### Investigación #######################
 		# pdb.set_trace()
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
+
+		b = Bitacora(action='candidato-editado: ' + str(investigacion.id) + ' sucursal-antes: ' + str(investigacion.sucursal_id), user=request.user)
+		b.save()
+		b = Bitacora(action='candidato-editado: ' + str(investigacion.id) + ' sucursal-despues: ' + request.POST.get('investigacion-sucursal', ''), user=request.user)
+		b.save()
+
 		if 'investigacion-sucursal' in formInvestigacion.data and formInvestigacion.data['investigacion-sucursal'] == '':
 			msg.append('Es necesario seleccionar sucursal')
-			formSucursal = CompaniaSucursalForm(investigacion.compania, investigacion.sucursal, prefix='investigacion')
 			status = 'danger'
 		elif not formInvestigacion.is_valid():
 			msg_param = ''
@@ -453,7 +460,6 @@ def editar(request, investigacion_id):
 	else:
 		formCandidato = CandidatoAltaForm(prefix='candidato', instance=investigacion.candidato)
 		formInvestigacion = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={'compania' : investigacion.compania.id }, agt_id=agente_id)
-		formSucursal = CompaniaSucursalForm(investigacion.compania, investigacion.sucursal, prefix='investigacion')
 		formOrigen = OrigenAltaForma(prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')		
 		formDireccion = DireccionForm(prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
 		formTelefono1 = TelefonoForm(prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
