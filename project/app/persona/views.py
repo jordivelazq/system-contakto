@@ -426,15 +426,14 @@ def editar(request, investigacion_id):
 				msg_param = ''
 
 		####################### Investigación #######################
-		# pdb.set_trace()
+
+		pre_empresa = investigacion.compania_id
+		pre_sucursal = investigacion.sucursal_id
+		pre_envia = investigacion.contacto_id
+
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
 
-		b = Bitacora(action='candidato-editado: ' + str(investigacion.id) + ' sucursal-antes: ' + str(investigacion.sucursal_id), user=request.user)
-		b.save()
-		b = Bitacora(action='candidato-editado: ' + str(investigacion.id) + ' sucursal-despues: ' + request.POST.get('investigacion-sucursal', ''), user=request.user)
-		b.save()
-
-		if 'investigacion-sucursal' in formInvestigacion.data and formInvestigacion.data['investigacion-sucursal'] == '':
+		if request.POST.get('investigacion-sucursal', '') == '':
 			msg.append('Es necesario seleccionar sucursal')
 			status = 'danger'
 		elif not formInvestigacion.is_valid():
@@ -442,12 +441,21 @@ def editar(request, investigacion_id):
 		else:
 			investigacion = formInvestigacion.save()
 			investigacion.status_active = True
+
+			if pre_empresa != investigacion.compania_id:
+				investigacion.sucursal = None
+
 			investigacion.save()
 
 			if Cobranza.objects.filter(investigacion=investigacion).count() == 0:
 				Cobranza(investigacion=investigacion).save()
 
-			b = Bitacora(action='candidato-editado: ' + str(investigacion.id), user=request.user)
+			before = 'candidato-editado: ' + str(investigacion.id) + ', pre empresa: ' + str(pre_empresa) + ' sucursal: ' + str(pre_sucursal) + ', envia: ' + str(pre_envia)
+			after = 'candidato-editado: ' + str(investigacion.id) + ', pos empresa: ' + str(investigacion.compania_id)  + ', sucursal: ' + str(investigacion.sucursal_id) + ', envia: ' + str(investigacion.contacto_id)
+
+			b = Bitacora(action=before, user=request.user)
+			b.save()
+			b = Bitacora(action=after, user=request.user)
 			b.save()
 
 			if msg_param != '':
