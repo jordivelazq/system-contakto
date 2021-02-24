@@ -454,7 +454,7 @@ class ControllerPersona(object):
 				entrevista_referencia.save()
 
 		except Exception as e:
-			self.errors.append('Error en registro de referencias.')
+			self.errors.append('Error en registro de referencias.' +  str(e))
 
 		return
 
