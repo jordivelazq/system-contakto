@@ -13,7 +13,7 @@ class ServiceReporte:
 	
 	def getEstatusReporte(self, investigaciones):
 
-		investigaciones = Investigacion.objects.filter(id__in=investigaciones)
+		investigaciones = Investigacion.objects.filter(id__in=investigaciones).order_by('-fecha_recibido')
 
 		for i in investigaciones:
 			i.ciudad = i.candidato.direccion_set.all()[0].ciudad
@@ -56,6 +56,8 @@ class ServiceReporte:
 
 		reporte = self.getEstatusReporte(investigaciones)
 		html_content = self.printReporte(reporte)
+
+		print(html_content)
 
 		data = {
 			'subject': 'Estatus de Investigaciones',
