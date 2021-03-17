@@ -1,3 +1,4 @@
+from os import path
 import zipfile
 
 from django.db import models
@@ -42,7 +43,7 @@ def save_adjuntos(lista_adjuntos, image_path, investigacion):
 
 	for field_name in lista_adjuntos:
 		filename = lista_adjuntos[field_name]
-		if filename:
+		if filename and path.exists(image_path + '/' + filename):
 			setattr(nuevos_adjuntos, field_name, image_path + '/' + filename)
 
 	nuevos_adjuntos.save()
