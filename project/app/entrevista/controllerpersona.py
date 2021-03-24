@@ -281,7 +281,6 @@ class ControllerPersona(object):
 												rentada = situacion_vivienda['caracteristicas_vivienda']['rentada'],
 												hipotecada = situacion_vivienda['caracteristicas_vivienda']['hipotecada'],
 												prestada = situacion_vivienda['caracteristicas_vivienda']['prestada'],
-												otra = situacion_vivienda['caracteristicas_vivienda']['otra'],
 												valor_aproximado = situacion_vivienda['caracteristicas_vivienda']['valor_aproximado'],
 												renta_mensual = situacion_vivienda['caracteristicas_vivienda']['renta_mensual']).save()
 
