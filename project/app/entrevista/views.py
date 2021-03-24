@@ -560,7 +560,7 @@ def comprimido_entrevista(request, investigacion_id):
 							if tiene_entrevista:
 								entrevista_actual.delete()
 							
-							save_adjuntos(data['candidato']['adjuntos'], zip_relative_path, investigacion)
+							save_adjuntos(data['candidato']['adjuntos'], zip_relative_path, zip_absolute_path, investigacion)
 
 							return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/exito')
 

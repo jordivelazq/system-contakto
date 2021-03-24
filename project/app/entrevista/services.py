@@ -34,7 +34,7 @@ class EntrevistaService:
 	def clean_telefono(s):
 		return s.encode('utf-8').strip()
 
-def save_adjuntos(lista_adjuntos, image_path, investigacion):
+def save_adjuntos(lista_adjuntos, image_path, absolute_path, investigacion):
 	if not lista_adjuntos or not len(lista_adjuntos):
 		return None
 	
@@ -43,7 +43,7 @@ def save_adjuntos(lista_adjuntos, image_path, investigacion):
 
 	for field_name in lista_adjuntos:
 		filename = lista_adjuntos[field_name]
-		if filename and path.exists(image_path + '/' + filename):
+		if filename and path.exists(absolute_path + '/' + filename):
 			setattr(nuevos_adjuntos, field_name, image_path + '/' + filename)
 
 	nuevos_adjuntos.save()
