@@ -178,7 +178,7 @@ def sucursal_main(request, compania_id):
 	agregar_url = '/empresa/'+str(compania_id)+'/sucursal/nueva?investigacion_id=' + investigacion_id if investigacion_id else '/empresa/'+str(compania_id)+'/sucursal/nueva'
 	candidato_url = '/candidato/investigacion/' + investigacion_id + '/editar' if investigacion_id else ''
 	trayectoria_url = '/candidato/investigacion/' + investigacion_id + '/editar/trayectoria/' + trayectoria_id if trayectoria_id else ''
-	sucursales = Sucursales.objects.filter(compania_id=compania_id)
+	sucursales = Sucursales.objects.filter(compania_id=compania_id).order_by('nombre')
 	return render(request, 'sections/empresa/sucursal/main.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)

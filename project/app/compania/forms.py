@@ -46,7 +46,7 @@ class CompaniaSucursalForm(forms.Form):
 		super(CompaniaSucursalForm, self).__init__(*args, **kwargs)
 
 		choices = [("", "Seleccionar")]
-		for item in Sucursales.objects.filter(compania=compania):
+		for item in Sucursales.objects.filter(compania=compania).order_by('nombre'):
 			choices.append((item.id, item.nombre + ' - ' + str(item.ciudad)))
 
 		self.fields['sucursal'] = forms.ChoiceField(
