@@ -23,6 +23,10 @@ async function getSucursalesFromEmpresa(empresaId) {
 
 function setSucursales(sucursales) {
     const select = document.getElementById('id_investigacion-sucursal')
+    if (!select) {
+        return null
+    }
+
     for (let i = select.options.length - 1; i > 0; i--) {
         select.remove(i)
     }
