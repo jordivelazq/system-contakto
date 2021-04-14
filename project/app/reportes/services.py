@@ -57,8 +57,6 @@ class ServiceReporte:
 		reporte = self.getEstatusReporte(investigaciones)
 		html_content = self.printReporte(reporte)
 
-		print(html_content)
-
 		data = {
 			'subject': 'Estatus de Investigaciones',
 			'from_email': sender_email,
