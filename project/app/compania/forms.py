@@ -42,17 +42,17 @@ class CompaniaQuickForm(ModelForm):
 
 class CompaniaSucursalForm(forms.Form):
 	
-	def __init__(self, compania, sucursal, *args, **kwargs):
+	def __init__(self, compania_id, sucursal_id, *args, **kwargs):
 		super(CompaniaSucursalForm, self).__init__(*args, **kwargs)
 
 		choices = [("", "Seleccionar")]
-		for item in Sucursales.objects.filter(compania=compania).order_by('nombre'):
+		for item in Sucursales.objects.filter(compania=compania_id).order_by('nombre'):
 			choices.append((item.id, item.nombre + ' - ' + str(item.ciudad)))
 
 		self.fields['sucursal'] = forms.ChoiceField(
 			choices=choices,
 			required=False,
-			initial=sucursal.id if sucursal else None
+			initial=sucursal_id if sucursal_id else None
 		)
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'

@@ -313,8 +313,6 @@ def editar(request, investigacion_id):
 	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=1, extra=1)
 	view = 'edit'
 
-	formSucursal = CompaniaSucursalForm(investigacion.compania, investigacion.sucursal, prefix='investigacion')
-
 	if request.method == 'POST' and not is_usuario_contacto:
 		msg_param = '/exito'
 
@@ -427,9 +425,7 @@ def editar(request, investigacion_id):
 
 		####################### Investigación #######################
 
-		pre_empresa = investigacion.compania_id
-		pre_sucursal = investigacion.sucursal_id
-		pre_envia = investigacion.contacto_id
+		formSucursal = CompaniaSucursalForm(request.POST.get('investigacion-compania'), request.POST.get('investigacion-sucursal'), prefix='investigacion')
 
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
 
@@ -442,21 +438,10 @@ def editar(request, investigacion_id):
 			investigacion = formInvestigacion.save()
 			investigacion.status_active = True
 
-			if pre_empresa != investigacion.compania_id:
-				investigacion.sucursal = None
-
 			investigacion.save()
 
 			if Cobranza.objects.filter(investigacion=investigacion).count() == 0:
 				Cobranza(investigacion=investigacion).save()
-
-			before = 'candidato-editado: ' + str(investigacion.id) + ', pre empresa: ' + str(pre_empresa) + ' sucursal: ' + str(pre_sucursal) + ', envia: ' + str(pre_envia)
-			after = 'candidato-editado: ' + str(investigacion.id) + ', pos empresa: ' + str(investigacion.compania_id)  + ', sucursal: ' + str(investigacion.sucursal_id) + ', envia: ' + str(investigacion.contacto_id)
-
-			b = Bitacora(action=before, user=request.user)
-			b.save()
-			b = Bitacora(action=after, user=request.user)
-			b.save()
 
 			if msg_param != '':
 				if 'guardar_sucursal' in request.POST:
@@ -478,6 +463,7 @@ def editar(request, investigacion_id):
 		formLegalidad = LegalidadAltaForma(prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')		
 		formDemanda = DemandaFormSet(queryset=Demanda.objects.filter(persona=investigacion.candidato))
 		formSeguro = SeguroAltaForma(prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
+		formSucursal = CompaniaSucursalForm(investigacion.compania.id, investigacion.sucursal.id if investigacion.sucursal else None, prefix='investigacion')
 
 		# FORMAS QUE FALTAN POR EDITAR
 		formTrayectoria1 = TrayectoriaForm(prefix='trayectoria1')
@@ -623,7 +609,7 @@ def editar_trayectoria_empresa(request, investigacion_id, trayectoria_id):
 	informante2 = (informantes[1] if informantes.count() > 1 else None) if informantes else None
 
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
-	formSucursal = CompaniaSucursalForm(trayectoria_empresa.compania, trayectoria_empresa.sucursal, prefix='trayectoria')
+	formSucursal = CompaniaSucursalForm(trayectoria_empresa.compania.id, trayectoria_empresa.sucursal.id if trayectoria_empresa.sucursal else None, prefix='trayectoria')
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
 

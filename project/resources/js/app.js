@@ -10,6 +10,33 @@ var contacktoApp = angular.module('contacktoApp', ['listCandidatosFilters']).con
 
 controllers = {};
 
+async function getSucursalesFromEmpresa(empresaId) {
+    const url = `/empresa/${empresaId}/sucursales`;
+    const response = await window.fetch(url, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }) 
+
+    return response.json()
+}
+
+function setSucursales(sucursales) {
+    const select = document.getElementById('id_investigacion-sucursal')
+    for (let i = select.options.length - 1; i > 0; i--) {
+        select.remove(i)
+    }
+
+    sucursales.forEach((sucursal, index) => {
+        const option = document.createElement("option");
+
+        option.text = sucursal.nombre
+        option.value = sucursal.id
+
+        select.add(option)
+    })    
+}
+
 contacktoApp.controller('CandidatoCTRL', function($scope) {
     /* Jquery fix por issue con datepicker+angular */
     $('#id_origen-fecha').datepicker({
@@ -115,7 +142,10 @@ contacktoApp.controller('CandidatoCTRL', function($scope) {
         });
     };
 
-    $scope.set_empresa = function(empresa_id, empresa_nombre) {
+    $scope.set_empresa = async function(empresa_id, empresa_nombre) {
+        const sucursales = await getSucursalesFromEmpresa(empresa_id)
+        setSucursales(sucursales)
+
         $scope.compania = empresa_id;
         $scope.compania_nombre = empresa_nombre;
         $scope.getContactsFromCompany();

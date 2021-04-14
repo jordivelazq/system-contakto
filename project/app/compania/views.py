@@ -179,6 +179,18 @@ def sucursal_main(request, compania_id):
 	candidato_url = '/candidato/investigacion/' + investigacion_id + '/editar' if investigacion_id else ''
 	trayectoria_url = '/candidato/investigacion/' + investigacion_id + '/editar/trayectoria/' + trayectoria_id if trayectoria_id else ''
 	sucursales = Sucursales.objects.filter(compania_id=compania_id).order_by('nombre')
+
+	if request.content_type == 'application/json':
+		data = []
+
+		for sucursal in sucursales:
+			data.append({
+				"id": sucursal.id,
+				"nombre": (sucursal.nombre or "") + " - " + (sucursal.ciudad or "")
+			})
+
+		return HttpResponse(json.dumps(data), content_type='application/json')
+
 	return render(request, 'sections/empresa/sucursal/main.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
