@@ -142,14 +142,24 @@
 				{{ formInvestigacion.puesto.errors }}
 			</div>
 			<div class="col-md-3">
-				<label for="id_investigacion-fecha_recibido">Fecha recibido</label>
-				{{ formInvestigacion.fecha_recibido }}
-				{{ formInvestigacion.fecha_recibido.errors }}
+				<label for="id_investigacion-fecha_recibido">Fecha recibido *</label>
+				{% if view != 'edit' %}
+					{{ formInvestigacion.fecha_recibido }}
+					{{ formInvestigacion.fecha_recibido.errors }}
+				{% else %}
+					<input value="{{investigacion.fecha_recibido|date:'d/m/Y'}}" class="form-control" disabled>
+					<input type="hidden" name="investigacion-fecha_recibido" id="id_investigacion-fecha_recibido" value="{{investigacion.fecha_recibido|date:'d/m/Y'}}">
+				{% endif %}
 			</div>
 			<div class="col-md-3">
-				<label for="id_investigacion-hora_recibido">Hora recibido</label>
-				{{ formInvestigacion.hora_recibido }}
-				{{ formInvestigacion.hora_recibido.errors }}
+				<label for="id_investigacion-hora_recibido">Hora recibido *</label>
+				{% if view != 'edit' or investigacion.hora_recibido is None  %}
+					{{ formInvestigacion.hora_recibido }}
+					{{ formInvestigacion.hora_recibido.errors }}
+				{% else %}
+					<input value="{{investigacion.hora_recibido}}" class="form-control" disabled>
+					<input type="hidden" name="investigacion-hora_recibido" id="id_investigacion-hora_recibido" value="{{investigacion.hora_recibido}}">
+				{% endif %}
 			</div>
 		</div>
 	</div>
