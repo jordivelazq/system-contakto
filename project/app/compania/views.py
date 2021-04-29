@@ -210,6 +210,11 @@ def sucursal_new(request, compania_id):
 
 				b = Bitacora(action='sucursal-creada: ' + str(sucursal.id), user=request.user)
 				b.save()
+
+				if request.POST.get('ajax_form'):
+					response = {'id': sucursal.id}
+					return JsonResponse(response)
+
 				if 'trayectoria' in request.GET:
 					return HttpResponseRedirect('/candidato/investigacion/' + str(investigacion_id) + '/editar/trayectoria/' + request.GET['trayectoria'])
 				return HttpResponseRedirect(boton_cancelar_url)

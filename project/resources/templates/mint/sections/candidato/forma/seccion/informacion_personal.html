@@ -120,8 +120,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-md-offset-3">
-					{% if not is_usuario_contacto %}
-					<button name="guardar_sucursal" type="submit" class="btn btn-default form-control" ng-disabled="saving_enabled">Guardar y crear sucursal</button>
+					{% if not is_usuario_contacto and view == 'edit' %}
+					<button id="btn_modal_sucursal" class="btn btn-default form-control">Crear sucursal</button>
 					{% endif %}
 					{% if investigacion.sucursal %}
 						<br /><br />
@@ -323,3 +323,5 @@
 		</div>
 	</div>
 </div>
+
+{% include 'sections/candidato/seccion/sucursal_forma_modal.html' %}

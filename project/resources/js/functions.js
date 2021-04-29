@@ -100,6 +100,7 @@ $(document).ready(function () {
   autoSaveFiles()
   saveCompany()
   statusListners()
+  initModalSucursal()
 
   initDynamicForms()
   initFactura()
@@ -510,4 +511,86 @@ function refreshCandidatos() {
       }
     })
   }
+}
+
+function initModalSucursal() {
+  if ($('#btn_modal_sucursal').length) {
+    $('#btn_modal_sucursal').click((event) => {
+      event.preventDefault()
+
+      clearModalSucursalForm()
+
+      $('#sucursalModal').modal().on('shown.bs.modal', function() {
+        $('#id_sucursal-nombre').focus();
+      });
+    })
+
+    initModalSucursalClick()
+  }
+}
+
+function initModalSucursalClick() {
+  if ($('#btn_guardar_sucursal').length) {
+    $('#btn_guardar_sucursal').click(async (event) => {
+      event.preventDefault()
+      $('#sucursal_modal_status').addClass('loading-ajax');
+
+      const compania = document.getElementById('id_investigacion-compania').value
+
+      if (!compania) {
+        return alert('[ERROR:INITMODALSUCURSALCLICK]')
+      }
+
+      await saveSucursal(compania)
+
+      $('#search-status').removeClass('loading-ajax');
+
+      $('#sucursalModal').modal('hide');
+    })
+  }
+}
+
+function clearModalSucursalForm() {
+  document.getElementById('id_sucursal-nombre').value = ''
+  document.getElementById('id_sucursal-ciudad').value = ''
+}
+
+async function saveSucursal(compania) {
+  const data = {
+    'sucursal-nombre': $('#id_sucursal-nombre').val(),
+    'sucursal-ciudad': $('#id_sucursal-ciudad').val(),
+    'ajax_form': true
+  }
+
+  if (!data['sucursal-nombre']) {
+    return alert('Favor de llenar nombre de sucursal')
+  }
+
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(data)) {
+    formData.append(key, value);
+  }
+
+  const url = `/empresa/${compania}/sucursal/nueva`
+  const response = await fetch(url, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken') 
+    }
+  });
+
+  const sucursal = await response.json()
+
+  updateSucursalList(sucursal, data)
+}
+
+function updateSucursalList(sucursal, data) {
+  const selectSucursal = document.getElementById("id_investigacion-sucursal");
+  const option = document.createElement("option");
+
+  option.text = `${data['sucursal-nombre']} - ${data['sucursal-ciudad']}`
+  option.value = sucursal.id 
+
+  selectSucursal.add(option);
 }
