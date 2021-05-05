@@ -36,7 +36,8 @@ class Adjuntos(models.Model):
 	adj27 = models.FileField(verbose_name='10.d Semanas Cotizadas', upload_to='adj', blank=True, null=True)
 	adj28 = models.FileField(verbose_name='10.e Semanas Cotizadas', upload_to='adj', blank=True, null=True)
 
-	adj7 = models.FileField(verbose_name='11. Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
+	adj7 = models.FileField(verbose_name='11.a Validación de Demandas Laborales', upload_to='adj', blank=True, null=True)
+	adj36 = models.FileField(verbose_name='11.b Validacion web', upload_to='adj', blank=True, null=True)
 	
 	adj18 = models.FileField(verbose_name='Carta Laboral', upload_to='adj', blank=True, null=True)
 	adj19 = models.FileField(verbose_name='Adicionales A', upload_to='adj', blank=True, null=True)
@@ -77,6 +78,9 @@ def resize_adjuntos(sender, **kwargs):
 	#adj7
 	if len(str(kwargs['instance'].adj7)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj7), size_x=1600)
+	#adj36
+	if len(str(kwargs['instance'].adj36)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj36), size_x=1600)
 	#adj8
 	if len(str(kwargs['instance'].adj8)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj8), size_x=1600)

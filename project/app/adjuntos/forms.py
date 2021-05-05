@@ -10,7 +10,7 @@ class AdjuntosForm(ModelForm):
 
 
 	def clean(self):
-		img_file_names = ('adj2','adj3','adj4','adj5','adj6','adj7','adj8','adj9','adj10','adj11','adj12','adj13')
+		img_file_names = ('adj2','adj3','adj4','adj5','adj6','adj7', 'adj36', 'adj8','adj9','adj10','adj11','adj12','adj13')
 		img_file_types = ('jpg','png','bmp','jpeg')
 
 		for name in img_file_names:

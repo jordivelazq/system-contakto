@@ -348,18 +348,39 @@
 
 			
 
-	<div class="row">
-		<div class="col-xs-3 col-xs-offset-1">
-				<label>11. Validación de Demandas Laborales</label>
-		</div>
-		<div class="col-xs-2">
-			{% if adjuntos.adj7 %}
-				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}" data-toggle="lightbox" data-title="Anexo 1" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}"></a>
-			{% else %}
-				<small>(Sin archivo)</small>
-			{% endif %}
+	<div class="panel panel-default">
+		<div class="panel-heading">11. Validaciones</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 col-xs-offset-1">
+						<label>11.a Demandas Laborales</label>
+				</div>
+				<div class="col-xs-2">
+					{% if adjuntos.adj7 %}
+						<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}" data-toggle="lightbox" data-title="Anexo 1" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}"></a>
+					{% else %}
+						<small>(Sin archivo)</small>
+					{% endif %}
+				</div>
+			</div>
+
+			<hr class="thin-separator" />
+
+			<div class="row">
+				<div class="col-xs-3 col-xs-offset-1">
+						<label>11.b Web</label>
+				</div>
+				<div class="col-xs-2">
+					{% if adjuntos.adj36 %}
+						<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}" data-toggle="lightbox" data-title="validacion web" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}"></a>
+					{% else %}
+						<small>(Sin archivo)</small>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 	</div>
+
 	<hr class="thin-separator" />
 
 	<div class="row">
