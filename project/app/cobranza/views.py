@@ -118,6 +118,10 @@ def cobranza_facturas(request):
 			name = request.POST.get('name', '')
 			if name:
 				facturas = facturas.filter(nombre__icontains=name)
+
+			folio = request.POST.get('folio', '')
+			if folio:
+				facturas = facturas.filter(folio__icontains=folio)
 	else:
 		today = datetime.datetime.today()
 		date_from = datetime.date.today().replace(day=1)

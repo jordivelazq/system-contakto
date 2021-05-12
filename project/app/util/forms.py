@@ -2,6 +2,7 @@
 from django import forms
 
 class FiltersForm(forms.Form):
+	folio = forms.CharField(label='Folio', required=False)
 	name = forms.CharField(label='Cliente', required=False)
 	date_from = forms.CharField(label='Fecha Inicial', required=False)
 	date_to = forms.CharField(label='Fecha Final', required=False)
