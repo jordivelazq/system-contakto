@@ -10,7 +10,7 @@ from app.util.email import EmailHandler
 
 
 class ServiceReporte:
-	
+
 	def getEstatusReporte(self, investigaciones):
 
 		investigaciones = Investigacion.objects.filter(id__in=investigaciones)
@@ -32,7 +32,7 @@ class ServiceReporte:
 	def getDestinatarios(self, request, contactos_id):
 		destinatarios = []
 		contactos_email = Contacto.objects.filter(id__in=contactos_id) if contactos_id else ''
-		
+
 		#Agregar email de contacto
 		if len(contactos_email):
 			for contacto in contactos_email:
@@ -44,13 +44,14 @@ class ServiceReporte:
 			destinatarios.append(agente_email)
 
 		destinatarios.append('estudios@contakto.mx')
+		destinatarios.append('estatus@contakto.mx')
 
 		return destinatarios
-	
+
 	def send_reporte_by_email(self, investigaciones, destinatarios):
 		if len(investigaciones) == 0 or len(destinatarios) == 0:
 			return False
-		
+
 		dest_list = destinatarios.split(',')
 		sender_email = 'estatus.contakto@gmail.com'
 
