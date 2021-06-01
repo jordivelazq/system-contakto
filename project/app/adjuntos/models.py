@@ -40,6 +40,8 @@ class Adjuntos(models.Model):
 	adj36 = models.FileField(verbose_name='11.b Validacion web', upload_to='adj', blank=True, null=True)
 	
 	adj18 = models.FileField(verbose_name='Carta Laboral', upload_to='adj', blank=True, null=True)
+	adj37 = models.FileField(verbose_name='Carta Laboral Extra', upload_to='adj', blank=True, null=True)
+
 	adj19 = models.FileField(verbose_name='Adicionales A', upload_to='adj', blank=True, null=True)
 	adj20 = models.FileField(verbose_name='Adicionales B', upload_to='adj', blank=True, null=True)
 	adj21 = models.FileField(verbose_name='Adicionales C', upload_to='adj', blank=True, null=True)
@@ -60,46 +62,45 @@ class Adjuntos(models.Model):
 		return u'%s' % self.investigacion
 
 def resize_adjuntos(sender, **kwargs):
-	#adj2
 	if len(str(kwargs['instance'].adj2)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj2), size_x=1600)
-	#adj3
+
 	if len(str(kwargs['instance'].adj3)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj3), size_x=1600)
-	#adj4
+
 	if len(str(kwargs['instance'].adj4)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj4), size_x=1600)
-	#adj5
+
 	if len(str(kwargs['instance'].adj5)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj5), size_x=1600)
-	#adj6
+
 	if len(str(kwargs['instance'].adj6)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj6), size_x=1600)
-	#adj7
+
 	if len(str(kwargs['instance'].adj7)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj7), size_x=1600)
-	#adj36
+
 	if len(str(kwargs['instance'].adj36)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj36), size_x=1600)
-	#adj8
+
 	if len(str(kwargs['instance'].adj8)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj8), size_x=1600)
-	#adj9
+
 	if len(str(kwargs['instance'].adj9)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj9), size_x=1600)
-	#adj10
+
 	if len(str(kwargs['instance'].adj10)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj10), size_x=1600)
-	#adj11
+
 	if len(str(kwargs['instance'].adj11)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj11), size_x=1600)
 	#adj12
 	if len(str(kwargs['instance'].adj12)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj12), size_x=1600)
-	#adj13
+
 	if len(str(kwargs['instance'].adj13)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj13), size_x=1600)
-	#adj14
+
 	if len(str(kwargs['instance'].adj14)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj14), size_x=1600)
 	
@@ -110,6 +111,8 @@ def resize_adjuntos(sender, **kwargs):
 	
 	if len(str(kwargs['instance'].adj18)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj18), size_x=1600)
+	if len(str(kwargs['instance'].adj37)):
+		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj37), size_x=1600)
 	if len(str(kwargs['instance'].adj19)):
 		ImgOpt.resize(file_path=settings.MEDIA_ROOT+'/'+str(kwargs['instance'].adj19), size_x=1600)
 	if len(str(kwargs['instance'].adj20)):

@@ -82,10 +82,10 @@ Follow steps found on this [tutorial](https://south.readthedocs.io/en/latest/tut
 
 ie.
 - Create migration
-`./project/manage.py schemamigration persona --auto`
+`./project/manage.py makemigrations [model]`
 
 - Run migration
-`./project/manage.py migrate persona`
+`./project/manage.py migrate`
 
 ### Compass
 

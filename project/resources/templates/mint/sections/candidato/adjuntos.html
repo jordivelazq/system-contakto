@@ -383,18 +383,38 @@
 
 	<hr class="thin-separator" />
 
-	<div class="row">
-		<div class="col-xs-3 col-xs-offset-1">
-			<label>12. Carta Laboral</label>
+	<div class="panel panel-default">
+		<div class="panel-heading">12. Carta Laboral</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3 col-xs-offset-1">
+					<label>12.a Principal</label>
+				</div>
+				<div class="col-xs-2">
+					{% if adjuntos.adj18 %}
+						<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" data-toggle="lightbox" data-title="Adicional A" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}"></a>
+					{% else %}
+						<small>(Sin archivo)</small>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-3 col-xs-offset-1">
+					<label>12.b Extra</label>
+				</div>
+				<div class="col-xs-2">
+					{% if adjuntos.adj37 %}
+						<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}" data-toggle="lightbox" data-title="Adicional A" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}"></a>
+					{% else %}
+						<small>(Sin archivo)</small>
+					{% endif %}
+				</div>
+			</div>
 		</div>
-		<div class="col-xs-2">
-			{% if adjuntos.adj18 %}
-				<a class="thumbnail" href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" data-toggle="lightbox" data-title="Adicional A" class="btn btn-info"><img src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}"></a>
-			{% else %}
-				<small>(Sin archivo)</small>
-			{% endif %}
-		</div>
+
 	</div>
+
 	<hr class="thin-separator" />
 
 	<div class="panel panel-default">
