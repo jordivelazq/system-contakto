@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 
-from app.persona.views import panel, crear, eliminar, editar, nueva_trayectoria, ver_trayectoria, editar_trayectoria_empresa, borrar_trayectoria_empresa, trayectoria_comercial, trayectoria_comercial_borrar, trayectoria_comercial_referencia_borrar, observaciones, ver_reporte, existencia, search_candidatos, reset_filtros
+from app.persona.views import panel, crear, eliminar, editar, nueva_trayectoria, ver_trayectoria, editar_trayectoria_empresa, borrar_trayectoria_empresa, trayectoria_comercial, trayectoria_comercial_borrar, trayectoria_comercial_referencia_borrar, observaciones, ver_reporte, existencia, search_candidatos, reset_filtros, borrar_demanda
 from app.entrevista.views import editar_entrevista, cargar_entrevista, comprimido_entrevista
 from app.investigacion.views import print_reporte_laboral, print_reporte_socioeconomico, print_reporte_visita_domiciliaria, print_reporte_validacion_demandas
 from app.adjuntos.views import panel_adjuntos, editar_adjuntos
@@ -66,5 +66,8 @@ urlpatterns = [
 	#AJAX
 	url(r'^existencia/$', existencia, name='existencia_candidato'),
 	url(r'^search_candidatos/$', search_candidatos, name='search_candidatos'),
-	url(r'^reset_filtros/$', reset_filtros, name='reset_filtros_candidatos')
+	url(r'^reset_filtros/$', reset_filtros, name='reset_filtros_candidatos'),
+
+	#Demanda
+	url(r'^investigacion/(?P<investigacion_id>[^/]+)/demanda/(?P<demanda_id>[^/]+)$', borrar_demanda, name='nueva_trayectoria'),
 ]

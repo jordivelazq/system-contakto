@@ -306,6 +306,8 @@
 			{{form.id}}
 			<div class="panel-footer">
 				Demanda {{forloop.counter}}
+				
+				<a href="/candidato/investigacion/{{investigacion.id}}/demanda/{{form.instance.id}}" class="btn_eliminar pull-right">Eliminar</a>
 			</div>
 			<div class="panel-body">
 				{% include 'sections/candidato/forma/seccion/demandas.html' with formDemanda=form %}

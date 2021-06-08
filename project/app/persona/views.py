@@ -976,3 +976,8 @@ def trayectoria_comercial_referencia_borrar(request, investigacion_id, trayector
 	b.save()
 
 	return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/')
+
+def borrar_demanda(request, investigacion_id, demanda_id):
+	if demanda_id:
+		Demanda.objects.get(id=demanda_id).delete()
+	return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/editar/exito')
