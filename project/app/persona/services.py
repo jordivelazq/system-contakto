@@ -127,7 +127,7 @@ def get_observacion_automatica(trayectorias):
 			record = [trayectoria.compania.razon_social or trayectoria.compania.nombre]
 
 			if trayectoria.periodo_alta or trayectoria.periodo_baja:
-				record.append(trayectoria.periodo_alta + ' - ' + trayectoria.periodo_baja)
+				record.append(str(trayectoria.periodo_alta) + ' - ' + str(trayectoria.periodo_baja))
 
 			if trayectoria.puesto_final:
 				record.append(trayectoria.puesto_final)
