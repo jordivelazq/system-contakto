@@ -405,13 +405,6 @@ def editar(request, investigacion_id):
 
 		####################### Demanda
 		formDemanda = DemandaFormSet(request.POST)
-		if formDemanda.is_valid():
-			for formItem in formDemanda:
-				demanda = formItem.save(commit=False)
-				demanda.persona = investigacion.candidato
-				demanda.save()
-		else:
-			msg_param = formDemanda.errors
 
 		####################### Seguro #######################
 		formSeguro = SeguroAltaForma(request.POST, prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(request.POST, prefix='seguro')
@@ -428,13 +421,21 @@ def editar(request, investigacion_id):
 		formSucursal = CompaniaSucursalForm(request.POST.get('investigacion-compania'), request.POST.get('investigacion-sucursal'), prefix='investigacion')
 
 		formInvestigacion = InvestigacionEditarForm(request.POST, prefix='investigacion', instance=investigacion, agt_id=agente_id)
-
 		if request.POST.get('investigacion-sucursal', '') == '':
 			msg.append('Es necesario seleccionar sucursal')
 			status = 'danger'
 		elif not formInvestigacion.is_valid():
 			msg_param = ''
 		else:
+			####################### Demanda
+			if formDemanda.is_valid():
+				for formItem in formDemanda:
+					demanda = formItem.save(commit=False)
+					demanda.persona = investigacion.candidato
+					demanda.save()
+			else:
+				msg_param = formDemanda.errors
+
 			investigacion = formInvestigacion.save()
 			investigacion.status_active = True
 
