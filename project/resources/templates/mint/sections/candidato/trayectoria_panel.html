@@ -47,8 +47,20 @@
 											{{ t.compania.nombre }} <br />
 											<small>{{ t.observaciones_generales|lower }}</small>
 										</td>
-										<td>{{t.periodo_alta}}</td>
-										<td>{{t.periodo_baja}}</td>
+										<td class="{% if not t.periodo_alta %}text-danger{% endif %}">
+											{% if t.periodo_alta %}
+												{{t.periodo_alta}}
+											{% else %}
+												<b>Sin Dato</b>
+											{% endif %}
+										</td>
+										<td class="{% if not t.periodo_baja %}text-danger{% endif %}">
+											{% if t.periodo_baja %}
+												{{t.periodo_baja}}
+											{% else %}
+												<b>Sin Dato</b>
+											{% endif %}
+										</td>
 										<td>{{t.puesto_final}}</td>
 										<td>{{t.datosgenerales.motivo_salida|default:''}}</td>
 										{% if request.user.is_staff %}
