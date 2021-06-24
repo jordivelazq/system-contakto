@@ -267,7 +267,7 @@ class EntrevistaSituacionVivienda(models.Model):
 	tiempo_radicando = models.CharField(max_length=50, null=True, blank=True)
 	tipo_mobiliario = models.CharField(max_length=200, null=True, blank=True)
 	sector_socioeconomico = models.CharField(max_length=200, null=True, blank=True)
-	personas_viven_con_evaluado = models.CharField(max_length=50, null=True, blank=True)
+	personas_viven_con_evaluado = models.CharField(max_length=200, null=True, blank=True)
 	conservacion = models.CharField(max_length=200, null=True, blank=True)
 	tamano_aprox_mts2 = models.CharField(max_length=50, null=True, blank=True)
 	domicilio_anterior = models.CharField(max_length=500, null=True, blank=True)
