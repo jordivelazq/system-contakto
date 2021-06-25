@@ -4,10 +4,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 
-from app.front.views import panel, mint_login, mint_logout
+from app.front.views import panel, mint_login, mint_logout, descargar_app
 
 urlpatterns = [
     url(r'^$', panel, name='panel'),
+
+    url(r'^descargar-app$', descargar_app, name='descargar_app'),
     
     url(r'^agentes', include('app.agente.urls')),
     url(r'^agente/', include('app.agente.urls')),
