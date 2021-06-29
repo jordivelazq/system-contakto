@@ -132,7 +132,8 @@ INSTALLED_APPS = (
     'app.reportes',
     'app.front',
     'app.adjuntos',
-    'app.api'
+    'app.api',
+    'django_extensions',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -177,3 +178,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 EXT_RESEARCH_WHITELIST = ('.xlsx', '.xls', '.csv')
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
