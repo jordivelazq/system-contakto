@@ -1,0 +1,15 @@
+{% extends 'layout/base.html' %}
+{% load fe_extras %}
+
+{% block site_wrapper %}
+<div ng-controller="ReporteCTRL">
+	<div class="row placeholders">
+		<iframe
+			src="http://siga.caaaremti.mx:8080/pentaho/api/repos/%3Apublic%3ACAAAREM%3ADASHBOARD%3ACDE_BANCOS.wcdf/generatedContent?userid=userKrem&password=852040"
+			title="reporte"
+			width="800"
+			height="600"
+		></iframe>
+	</div>
+</div>
+{% endblock %}

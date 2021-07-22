@@ -59,6 +59,10 @@ def panel(request):
 			
 	return render(request, 'sections/reportes/panel.html', locals(), RequestContext(request))
 
+login_required(login_url='/login', redirect_field_name=None)
+def reporte_prueba(request):
+	return render(request, 'sections/reportes/prueba.html', { "request": request}, RequestContext(request))
+
 @csrf_exempt
 def search_reportes(request):
 	response = { 'status' : False}
