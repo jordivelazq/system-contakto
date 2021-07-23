@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^', include('app.front.urls')),
 
     url(r'^api/', include('app.api.urls')),
-    url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/', admin.site.urls),
 ]

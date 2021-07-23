@@ -98,7 +98,7 @@ class Telefono(models.Model):
 	    ('otro', 'otro'),
 	    ('recado', 'recado'),
 	)
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	categoria = models.CharField(max_length=20, choices=TELEFONO_OPCIONES)
 	numero = models.CharField(max_length=14, null=True, blank=True)
 	parentesco = models.CharField(max_length=40, blank=True, null=True)
@@ -107,7 +107,7 @@ class Telefono(models.Model):
 		return u'%s' % (self.numero)
 
 class Direccion(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	calle = models.CharField(max_length=140, null=True, blank=True)
 	ciudad = models.CharField(max_length=140, null=True, blank=True)
 	colonia = models.CharField(max_length=140, null=True, blank=True)
@@ -122,7 +122,7 @@ class PrestacionVivienda(models.Model):
 	    ('infonavit', 'infonavit'),
 	    ('fonacot', 'fonacot'),
 	)
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	categoria_viv = models.CharField(max_length=20, choices=VIVIENDA_OPCIONES)
 	activo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, null=True, blank=True)
 	fecha_tramite = models.DateField(null=True, blank=True)
@@ -133,7 +133,7 @@ class PrestacionVivienda(models.Model):
 		return u'%s - %s' % (self.persona, self.categoria_viv)
 
 class Licencia(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	numero = models.CharField(max_length=20)
 	tipo = models.CharField(max_length=14)
 	
@@ -141,7 +141,7 @@ class Licencia(models.Model):
 		return '%s, %s' % (self.tipo, self.numero)
 
 class Origen(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	lugar = models.CharField(max_length=140, null=True, blank=True)
 	nacionalidad = models.CharField(max_length=140, null=True, blank=True)
 	fecha = models.DateField(null=True, blank=True)
@@ -155,7 +155,7 @@ class Origen(models.Model):
 '''
 
 class InfoPersonal(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tatuajes = models.CharField(max_length=500)
 
 class TrayectoriaLaboral(models.Model):
@@ -169,9 +169,9 @@ class TrayectoriaLaboral(models.Model):
 	    ('6', 'Otro'),
 	)
 	# información que viene del doc
-	persona = models.ForeignKey(Persona)
-	compania = models.ForeignKey(Compania)
-	sucursal = models.ForeignKey(Sucursales, null=True, blank=True)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
+	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
+	sucursal = models.ForeignKey(Sucursales, null=True, blank=True, on_delete=models.CASCADE)
 	aparece_nss = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	reporta_candidato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
@@ -220,12 +220,12 @@ class TrayectoriaLaboral(models.Model):
 		return None
 
 class TrayectoriaComercial(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo_negocio = models.CharField(max_length=140)
 	periodos = models.CharField(max_length=140, null=True, blank=True)
 
 class TrayectoriaComercialReferencia(models.Model):
-	trayectoria_comercial = models.ForeignKey(TrayectoriaComercial)
+	trayectoria_comercial = models.ForeignKey(TrayectoriaComercial, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=140)
 	telefono = models.CharField(max_length=140, null=True, blank=True, verbose_name="teléfono")
 	domicilio = models.CharField(max_length=140, null=True, blank=True)
@@ -236,13 +236,13 @@ class TrayectoriaComercialReferencia(models.Model):
 	opinion = models.CharField(max_length=140, null=True, blank=True, verbose_name="opinión")
 
 class CartaLaboral(models.Model):
-	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral)
+	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral, on_delete=models.CASCADE)
 	tiene_carta = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 	expide = models.CharField(max_length=140, null=True, blank=True)
 	fecha = models.CharField(max_length=140, null=True, blank=True)
 
 class DatosGenerales(models.Model):
-	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral)
+	trayectoriaLaboral = models.OneToOneField(TrayectoriaLaboral, on_delete=models.CASCADE)
 	num_personas = models.CharField(max_length=140, null=True, blank=True)
 	puestos = models.CharField(max_length=140, null=True, blank=True)
 	tiene_valores = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
@@ -258,7 +258,7 @@ class DatosGenerales(models.Model):
 	tiene_efectivo = models.BooleanField(default=False)
 
 class Legalidad(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	sindicato = models.CharField(max_length=500, null=True, blank=True)
 	afiliado_sindicato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
@@ -266,7 +266,7 @@ class Legalidad(models.Model):
 		return '%s, %s' % (self.persona, self.sindicato)
 
 class Demanda(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tiene_demanda = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 	empresa = models.CharField(max_length=500, null=True, blank=True)
 	motivo = models.CharField(max_length=500, null=True, blank=True)
@@ -276,7 +276,7 @@ class Demanda(models.Model):
 	conclusion = models.CharField(max_length=500, null=True, blank=True)
 
 class Seguro(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	verificado_enburo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
 	def __str__(self):
@@ -287,7 +287,7 @@ class Seguro(models.Model):
 '''
 
 class Salud(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	peso_kg = models.FloatField()
 	estatura_mts = models.FloatField()
 	salud_fisica = models.CharField(max_length=200)
@@ -305,7 +305,7 @@ class Salud(models.Model):
 		return '%s, %s' % (self.enfermedades_mayor_frecuencia, self.enfermedades_familiares)
 
 class ActividadesHabitos(models.Model):
-	persona = models.ForeignKey(Persona)
+	persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tiempo_libre = models.CharField(max_length=140)
 	extras = models.CharField(max_length=140)
 	frecuencia_tabaco = models.CharField(max_length=140)
@@ -320,7 +320,7 @@ class ActividadesHabitos(models.Model):
 '''
 
 class Academica(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	cedula_profesional = models.CharField(max_length=200)
 	cedula_prof_ano_exp = models.CharField(max_length=200)
 	estudios_actuales = models.CharField(max_length=200)
@@ -336,7 +336,7 @@ class GradoEscolaridad(models.Model):
 		('profesional' , 'profesional'),
 		('otro_grado' , 'otro_grado')
 	)
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	grado = models.CharField(max_length=20, choices=GRADO_OPCIONES)
 	institucion = models.CharField(max_length=200)
 	ciudad = models.CharField(max_length=200)
@@ -347,7 +347,7 @@ class GradoEscolaridad(models.Model):
 		return '%s, %s' % (self.grado, self.institucion)
 
 class OtroIdioma(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	porcentaje = models.IntegerField();
 	idioma = models.CharField(max_length=140)
 
@@ -358,7 +358,7 @@ class OtroIdioma(models.Model):
 	Modelos Situacion Vivienda
 '''
 class SituacionVivienda(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tiempo_radicando = models.CharField(max_length=50)
 	tipo_mobiliario = models.CharField(max_length=200)
 	sector_socioeconomico = models.CharField(max_length=200)
@@ -370,7 +370,7 @@ class SituacionVivienda(models.Model):
 		return '%s, %s' % (self.tiempo_radicando, self.conservacion)
 
 class PropietarioVivienda(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=200)
 	parentesco = models.CharField(max_length=200)
 
@@ -378,7 +378,7 @@ class PropietarioVivienda(models.Model):
 		return '%s, %s' % (self.nombre, self.parentesco)
 
 class CaractaristicasVivienda(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	propia = models.CharField(max_length=50)
 	rentada = models.CharField(max_length=50)
 	hipotecada = models.CharField(max_length=50)
@@ -391,7 +391,7 @@ class CaractaristicasVivienda(models.Model):
 		return '%s, %s' % (self.propia, self.rentada)
 
 class TipoInmueble(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	casa = models.CharField(max_length=50)
 	terreno_compartido = models.CharField(max_length=50)
 	departamento = models.CharField(max_length=50)
@@ -401,7 +401,7 @@ class TipoInmueble(models.Model):
 		return '%s, %s' % (self.casa, self.departamento)
 
 class DistribucionDimensiones(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	habitaciones = models.CharField(max_length=50) 
 	banos = models.CharField(max_length=50)
 	salas = models.CharField(max_length=50)
@@ -425,7 +425,7 @@ class MiembroMarcoFamiliar(models.Model):
 		('hijo', 'hijo'),
 		('otro', 'otro')
 	)
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20, choices=FAMILIAR_OPCIONES)
 	nombre = models.CharField(max_length=140)
 	edad = models.CharField(max_length=140, null=True, blank=True)
@@ -445,7 +445,7 @@ class Economica(models.Model):
 	    ('ingreso' , 'ingreso'),
 		('egreso' , 'egreso')
 	)
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20, choices=TIPO_OPCIONES)
 	concepto = models.CharField(max_length=140)
 	monto = models.FloatField()
@@ -457,7 +457,7 @@ class Economica(models.Model):
 	Modelos Situación Económica
 '''
 class TarjetaCreditoComercial(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	institucion = models.CharField(max_length=140)
 	limite_credito = models.CharField(max_length=140)
 	pago_minimo = models.CharField(max_length=140)
@@ -467,7 +467,7 @@ class TarjetaCreditoComercial(models.Model):
 		return '%s, %s' % (self.institucion, self.limite_credito)
 
 class CuentaDebito(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	institucion = models.CharField(max_length=140)
 	saldo_mensual = models.CharField(max_length=140)
 	antiguedad = models.CharField(max_length=140)
@@ -477,7 +477,7 @@ class CuentaDebito(models.Model):
 		return '%s, %s' % (self.institucion, self.saldo_mensual)
 
 class Automovil(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	marca = models.CharField(max_length=140)
 	modelo_ano = models.CharField(max_length=140)
 	liquidacion = models.CharField(max_length=140)
@@ -487,7 +487,7 @@ class Automovil(models.Model):
 		return '%s, %s' % (self.modelo_ano, self.liquidacion)
 
 class BienesRaices(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo_inmueble = models.CharField(max_length=140)
 	ubicacion = models.CharField(max_length=140)
 	liquidacion = models.CharField(max_length=140)
@@ -497,7 +497,7 @@ class BienesRaices(models.Model):
 		return '%s, %s' % (self.tipo_inmueble, self.ubicacion)
 
 class DeudaActual(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	fecha_otorgamiento = models.DateField(null=True, blank=True)
 	tipo = models.CharField(max_length=140)
 	institucion = models.CharField(max_length=140)
@@ -512,7 +512,7 @@ class DeudaActual(models.Model):
 	Modelos Referencias
 '''
 class Referencia(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=140)
 	domicilio = models.CharField(max_length=200)
 	telefono = models.CharField(max_length=140)
@@ -529,7 +529,7 @@ class Referencia(models.Model):
 	Modelos Cuadro Evaluacion
 '''
 class CuadroEvaluacion(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	conclusiones = models.TextField()
 	viable = models.CharField(max_length=140) 
 	no_viable = models.CharField(max_length=140) 
@@ -539,7 +539,7 @@ class CuadroEvaluacion(models.Model):
 		return '%s, %s' % (self.conclusiones, self.reservas)
 
 class DocumentoCotejado(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140)
 
@@ -547,7 +547,7 @@ class DocumentoCotejado(models.Model):
 			return '%s, %s' % (self.tipo, self.estatus)
 
 class AspectoHogar(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140)
 
@@ -555,7 +555,7 @@ class AspectoHogar(models.Model):
 			return '%s, %s' % (self.tipo, self.estatus)
 
 class AspectoCandidato(models.Model):
-	person = models.ForeignKey(Persona)
+	person = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140)
 
@@ -570,7 +570,7 @@ class Evaluacion(models.Model):
 		('3', 'Regular'),
 		('4', 'Malo'),
 	)
-	trayectoriaLaboral = models.ForeignKey(TrayectoriaLaboral)
+	trayectoriaLaboral = models.ForeignKey(TrayectoriaLaboral, on_delete=models.CASCADE)
 	productividad = models.CharField(max_length=20, choices=EVALUACION_OPCIONES, null=True, blank=True)
 	adaptabilidad = models.CharField(max_length=20, choices=EVALUACION_OPCIONES, null=True, blank=True)
 	motivacion = models.CharField(max_length=20, choices=EVALUACION_OPCIONES, null=True, blank=True)
@@ -593,7 +593,7 @@ class Opinion(models.Model):
 		(1, 'Jefe'),
 		(2, 'Recursos Humanos'),
 	)
-	trayectoriaLaboral = models.ForeignKey(TrayectoriaLaboral)
+	trayectoriaLaboral = models.ForeignKey(TrayectoriaLaboral, on_delete=models.CASCADE)
 	categoria = models.IntegerField(default=0, choices=OPINION_OPCIONES)
 	opinion = models.TextField(null=True, blank=True)
 	nombre = models.CharField(max_length=140, null=True, blank=True)
@@ -606,7 +606,7 @@ class Opinion(models.Model):
 		return  '%s' % (self.trayectoriaLaboral)
 
 class Informante(models.Model):
-	evaluacion = models.ForeignKey(Evaluacion)
+	evaluacion = models.ForeignKey(Evaluacion, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=140, null=True, blank=True)
 	puesto = models.CharField(max_length=140, null=True, blank=True)
 

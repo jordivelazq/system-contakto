@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class AgenteInfo(models.Model):
-	agente = models.ForeignKey(User)
+	agente = models.ForeignKey(User, on_delete=models.CASCADE)
 	telefono = models.CharField(max_length=150, blank=True, null=True)
 
 	def __str__(self):
@@ -23,7 +23,7 @@ class Labels(models.Model):
 		('Sienna', 'Sienna')
 	)
 
-	agente = models.ForeignKey(User)
+	agente = models.ForeignKey(User, on_delete=models.CASCADE)
 	color = models.CharField(max_length=100, choices=LABEL_OPTIONS)
 	name = models.CharField(max_length=150, verbose_name='')
 

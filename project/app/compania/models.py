@@ -31,7 +31,7 @@ class Compania(models.Model):
 		verbose_name = 'Compañia'
 
 class Sucursales(models.Model):
-	compania = models.ForeignKey(Compania)
+	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=140, verbose_name='Sucursal')
 	ciudad = models.CharField(max_length=140, verbose_name='Ciudad', blank=True, null=True)
 	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)
@@ -41,7 +41,7 @@ class Sucursales(models.Model):
 		return u'%s' % (self.nombre)
 
 class Contacto(models.Model):
-	compania = models.ForeignKey(Compania, related_name='compania_contacto')
+	compania = models.ForeignKey(Compania, related_name='compania_contacto', on_delete=models.CASCADE)
 
 	nombre = models.CharField(max_length=140)
 	puesto = models.CharField(max_length=140, blank=True, null=True)

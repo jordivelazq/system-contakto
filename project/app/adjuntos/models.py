@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 import os
 
 class Adjuntos(models.Model):
-	investigacion = models.ForeignKey(Investigacion)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	adj2 = models.FileField(verbose_name='1. Foto de perfil del candidato', upload_to='adj', blank=True, null=True)
 
 	adj3 = models.FileField(verbose_name='2.a Interior derecho', upload_to='adj', blank=True, null=True)

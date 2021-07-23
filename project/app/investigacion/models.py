@@ -55,11 +55,11 @@ class Investigacion(models.Model):
 		('4', 'Cerrado + Pdt. por Cliente'),
 	)
 	
-	agente = models.ForeignKey(User)
-	candidato = models.ForeignKey(Persona)
-	compania = models.ForeignKey(Compania)
+	agente = models.ForeignKey(User, on_delete=models.CASCADE)
+	candidato = models.ForeignKey(Persona, on_delete=models.CASCADE)
+	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
 	sucursal = models.ForeignKey(Sucursales, models.SET_NULL, blank=True, null=True)
-	contacto = models.ForeignKey(Contacto)
+	contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
 	fecha_recibido = models.DateField(blank=True, null=True)
 	hora_recibido = models.CharField(max_length=30, blank=True, null=True)
 	fecha_entrega = models.DateField(blank=True, null=True)
@@ -72,7 +72,7 @@ class Investigacion(models.Model):
 
 	conclusiones = models.TextField(blank=True, null=True)
 	resultado = models.CharField(max_length=30, choices=RESULTADO_OPCIONES, blank=True, null=True, default='0')
-	archivo = models.ForeignKey(File, blank=True, null=True)
+	archivo = models.ForeignKey(File, blank=True, null=True, on_delete=models.CASCADE)
 	folio = models.CharField(max_length=50, blank=True, null=True)
 	presupuesto = models.CharField(max_length=50, blank=True, null=True)
 	
@@ -87,7 +87,7 @@ class Investigacion(models.Model):
 	#Historia en empresa
 	laboro_anteriormente = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	familiar_laborando = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
-	label = models.ForeignKey(Labels, blank=True, null=True)
+	label = models.ForeignKey(Labels, blank=True, null=True, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
@@ -126,6 +126,6 @@ class Investigacion(models.Model):
 		return data
 
 class InvestigacionExtra(models.Model):
-	investigacion = models.ForeignKey(Investigacion)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	nombre = models.TextField(max_length=200, blank=True, null=True)
 	apellido = models.TextField(max_length=200, blank=True, null=True)

@@ -25,7 +25,7 @@ class EntrevistaFile(models.Model):
 		return u'%s' % self.record
 
 class EntrevistaPersona(models.Model):
-	investigacion = models.ForeignKey(Investigacion)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=140, blank=True, null=True)
 	apellido = models.CharField(max_length=140, blank=True, null=True)
 	email = models.CharField(max_length=140, blank=True, null=True)
@@ -58,16 +58,16 @@ class EntrevistaInvestigacion(models.Model):
 		('2', 'Con reservas'),
 		('3', 'No viable'),
 	)
-	investigacion = models.ForeignKey(Investigacion)
-	agente = models.ForeignKey(User)
-	persona = models.ForeignKey(EntrevistaPersona)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
+	agente = models.ForeignKey(User, on_delete=models.CASCADE)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	empresa_contratante = models.CharField(max_length=140, blank=True, null=True)
 	fecha_recibido = models.CharField(max_length=140, blank=True, null=True) #Del excel
 	puesto = models.CharField(max_length=140, blank=True, null=True)
 	fecha_registro = models.CharField(max_length=140, blank=True, null=True)
 	conclusiones = models.TextField() # NOTA: posiblemente se puede borrar
 	resultado = models.CharField(max_length=30, choices=RESULTADO_OPCIONES, blank=True, null=True)
-	archivo = models.ForeignKey(EntrevistaFile, blank=True, null=True)
+	archivo = models.ForeignKey(EntrevistaFile, blank=True, null=True, on_delete=models.CASCADE)
 	folio = models.CharField(max_length=50, blank=True, null=True)
 	presupuesto = models.CharField(max_length=50, blank=True, null=True)	
 
@@ -78,7 +78,7 @@ class EntrevistaInvestigacion(models.Model):
 	Cita
 '''
 class EntrevistaCita(models.Model):
-	investigacion = models.ForeignKey(Investigacion)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	fecha_entrevista = models.CharField(max_length=200, blank=True, null=True)
 	hora_entrevista = models.CharField(max_length=200, blank=True, null=True)
 	entrevistador = models.CharField(max_length=200, blank=True, null=True)
@@ -98,7 +98,7 @@ class EntrevistaTelefono(models.Model):
 	    ('otro', 'otro'),
 	    ('recado', 'recado'),
 	)
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	categoria = models.CharField(max_length=20, choices=TELEFONO_OPCIONES)
 	numero = models.CharField(max_length=20, null=True, blank=True)
 	parentesco = models.CharField(max_length=40, blank=True, null=True)
@@ -107,8 +107,8 @@ class EntrevistaTelefono(models.Model):
 		return self.numero
 
 class EntrevistaDireccion(models.Model):
-	investigacion = models.ForeignKey(Investigacion)
-	persona = models.ForeignKey(EntrevistaPersona)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	calle = models.CharField(verbose_name='Calle', max_length=140, null=True, blank=True)
 	num = models.CharField(verbose_name='Num ext-int', max_length=140, null=True, blank=True)
 	ciudad = models.CharField(verbose_name='Ciudad', max_length=140, null=True, blank=True)
@@ -124,7 +124,7 @@ class EntrevistaPrestacionVivienda(models.Model):
 		('infonavit', 'infonavit'),
 		('fonacot', 'fonacot'),
 	)
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	categoria_viv = models.CharField(max_length=20, choices=VIVIENDA_OPCIONES)
 	activo = models.CharField(verbose_name='Tiene crédito activo', max_length=140, null=True, blank=True)
 	fecha_tramite = models.CharField(verbose_name='Fecha en que fue tramitado', max_length=140, null=True, blank=True)
@@ -136,7 +136,7 @@ class EntrevistaPrestacionVivienda(models.Model):
 		return self.categoria_viv
 
 class EntrevistaLicencia(models.Model):
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	numero = models.CharField(verbose_name='No. de licencia', max_length=20, null=True, blank=True)
 	tipo = models.CharField(verbose_name='Tipo de licencia', max_length=140, null=True, blank=True)
 	
@@ -144,7 +144,7 @@ class EntrevistaLicencia(models.Model):
 		return '%s, %s' % (self.tipo, self.numero)
 
 class EntrevistaOrigen(models.Model):
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	lugar = models.CharField(verbose_name='Lugar de nacimiento', max_length=140, null=True, blank=True)
 	nacionalidad = models.CharField(max_length=140, null=True, blank=True)
 	fecha = models.CharField(verbose_name='Fecha de nacimiento', max_length=140, null=True, blank=True)
@@ -157,7 +157,7 @@ class EntrevistaOrigen(models.Model):
 	Modelos Info Personal
 '''
 class EntrevistaInfoPersonal(models.Model):
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	antecedentes_penales = models.CharField(verbose_name='Demandas Laborales y/o Antecedentes Penales', max_length=500, null=True, blank=True)
 	tatuajes = models.CharField(verbose_name='Cuenta con algún tatuaje o arete:(Cuantos y en que parte del cuerpo)', max_length=500, null=True, blank=True)
 
@@ -171,7 +171,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 	    ('SI', 'SI'),
 	    ('NO', 'NO'),
 	)
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	categoria = models.CharField(max_length=20, choices=HISTORIAL_OPCIONES)
 	tiene = models.CharField(max_length=140, null=True, blank=True, choices=TIENE_OPCIONES)
 	puesto = models.CharField(max_length=500, null=True, blank=True)
@@ -190,7 +190,7 @@ class EntrevistaHistorialEnEmpresa(models.Model):
 '''
 
 class EntrevistaSalud(models.Model):
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	peso_kg = models.CharField(max_length=200, null=True, blank=True)
 	estatura_mts = models.CharField(max_length=200, null=True, blank=True)
 	salud_fisica = models.CharField(max_length=200, null=True, blank=True)
@@ -208,7 +208,7 @@ class EntrevistaSalud(models.Model):
 		return '%s' % (self.peso_kg)
 
 class EntrevistaActividadesHabitos(models.Model):
-	persona = models.ForeignKey(EntrevistaPersona)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	inactividad_laboral = models.CharField(max_length=140, null=True, blank=True)
 	inactividad_laboral_actividad = models.CharField(max_length=500, null=True, blank=True)
 	negocios = models.CharField(max_length=140, null=True, blank=True)
@@ -222,7 +222,7 @@ class EntrevistaActividadesHabitos(models.Model):
 '''
 
 class EntrevistaAcademica(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	cedula_profesional = models.CharField(max_length=200, null=True, blank=True)
 	cedula_prof_ano_exp = models.CharField(max_length=200, null=True, blank=True)
 	estudios_institucion = models.CharField(max_length=200, null=True, blank=True)
@@ -239,7 +239,7 @@ class EntrevistaGradoEscolaridad(models.Model):
 		('profesional' , 'Profesional'),
 		('otro_grado' , 'Otro')
 	)
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	grado = models.CharField(max_length=20, choices=GRADO_OPCIONES)
 	institucion = models.CharField(max_length=200, null=True, blank=True)
 	ciudad = models.CharField(max_length=200, null=True, blank=True)
@@ -250,7 +250,7 @@ class EntrevistaGradoEscolaridad(models.Model):
 		return '%s' % (self.grado)
 
 class EntrevistaOtroIdioma(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	hablado = models.CharField(max_length=140, null=True, blank=True)
 	leido = models.CharField(max_length=140, null=True, blank=True)
 	escuchado = models.CharField(max_length=140, null=True, blank=True)
@@ -263,7 +263,7 @@ class EntrevistaOtroIdioma(models.Model):
 	Modelos Situacion Vivienda
 '''
 class EntrevistaSituacionVivienda(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tiempo_radicando = models.CharField(max_length=50, null=True, blank=True)
 	tipo_mobiliario = models.CharField(max_length=200, null=True, blank=True)
 	sector_socioeconomico = models.CharField(max_length=200, null=True, blank=True)
@@ -277,7 +277,7 @@ class EntrevistaSituacionVivienda(models.Model):
 		return '%s, %s' % (self.tiempo_radicando, self.conservacion)
 
 class EntrevistaPropietarioVivienda(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	nombre = models.CharField(verbose_name='Nombre del propietario' , max_length=200, null=True, blank=True)
 	parentesco = models.CharField(max_length=200, null=True, blank=True)
 
@@ -285,7 +285,7 @@ class EntrevistaPropietarioVivienda(models.Model):
 		return '%s, %s' % (self.nombre, self.parentesco)
 
 class EntrevistaCaractaristicasVivienda(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	propia = models.CharField(max_length=50, null=True, blank=True)
 	rentada = models.CharField(max_length=50, null=True, blank=True)
 	hipotecada = models.CharField(max_length=50, null=True, blank=True)
@@ -298,7 +298,7 @@ class EntrevistaCaractaristicasVivienda(models.Model):
 		return '%s, %s' % (self.propia, self.rentada)
 
 class EntrevistaTipoInmueble(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	casa = models.CharField(max_length=50, null=True, blank=True)
 	terreno_compartido = models.CharField(max_length=50, null=True, blank=True)
 	departamento = models.CharField(max_length=50, null=True, blank=True)
@@ -309,7 +309,7 @@ class EntrevistaTipoInmueble(models.Model):
 		return '%s, %s' % (self.casa, self.departamento)
 
 class EntrevistaDistribucionDimensiones(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	habitaciones = models.CharField(max_length=50, null=True, blank=True) 
 	banos = models.CharField(max_length=50, null=True, blank=True)
 	salas = models.CharField(max_length=50, null=True, blank=True)
@@ -337,7 +337,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 	    (1, 'Marco Familiar'),
 	    (2, 'Vivienda'),
 	)
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20, choices=FAMILIAR_OPCIONES)
 	nombre = models.CharField(max_length=140, null=True, blank=True)
 	edad = models.CharField(max_length=140, null=True, blank=True)
@@ -359,7 +359,7 @@ class EntrevistaEconomica(models.Model):
 		('ingreso' , 'ingreso'),
 		('egreso' , 'egreso')
 	)
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20, choices=TIPO_OPCIONES)
 	concepto = models.CharField(max_length=140)
 	detalle = models.CharField(max_length=140, null=True, blank=True)
@@ -372,7 +372,7 @@ class EntrevistaEconomica(models.Model):
 	Modelos Situación Económica
 '''
 class EntrevistaTarjetaCreditoComercial(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	institucion = models.CharField(max_length=140, null=True, blank=True)
 	limite_credito = models.CharField(max_length=140, null=True, blank=True)
 	pago_minimo = models.CharField(max_length=140, null=True, blank=True)
@@ -382,7 +382,7 @@ class EntrevistaTarjetaCreditoComercial(models.Model):
 		return '%s, %s' % (self.institucion, self.limite_credito)
 
 class EntrevistaCuentaDebito(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	institucion = models.CharField(max_length=140, null=True, blank=True)
 	saldo_mensual = models.CharField(max_length=140, null=True, blank=True)
 	antiguedad = models.CharField(max_length=140, null=True, blank=True)
@@ -392,7 +392,7 @@ class EntrevistaCuentaDebito(models.Model):
 		return '%s, %s' % (self.institucion, self.saldo_mensual)
 
 class EntrevistaAutomovil(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	marca = models.CharField(max_length=140, null=True, blank=True)
 	modelo_ano = models.CharField(max_length=140, null=True, blank=True)
 	liquidacion = models.CharField(max_length=140, null=True, blank=True)
@@ -402,7 +402,7 @@ class EntrevistaAutomovil(models.Model):
 		return '%s, %s' % (self.modelo_ano, self.liquidacion)
 
 class EntrevistaBienesRaices(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo_inmueble = models.CharField(max_length=140, null=True, blank=True)
 	ubicacion = models.CharField(max_length=140, null=True, blank=True)
 	liquidacion = models.CharField(max_length=140, null=True, blank=True)
@@ -412,7 +412,7 @@ class EntrevistaBienesRaices(models.Model):
 		return '%s, %s' % (self.tipo_inmueble, self.ubicacion)
 
 class EntrevistaSeguro(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	empresa = models.CharField(max_length=140, null=True, blank=True)
 	tipo = models.CharField(max_length=140, null=True, blank=True)
 	forma_pago = models.CharField(max_length=140, null=True, blank=True)
@@ -422,7 +422,7 @@ class EntrevistaSeguro(models.Model):
 		return '%s, %s' % (self.empresa, self.tipo)
 
 class EntrevistaDeudaActual(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	fecha_otorgamiento = models.CharField(max_length=140, null=True, blank=True)
 	tipo = models.CharField(max_length=140, null=True, blank=True)
 	institucion = models.CharField(max_length=140, null=True, blank=True)
@@ -442,7 +442,7 @@ class EntrevistaReferencia(models.Model):
 		('personal' , 'personal'),
 		('personal_opcional' , 'personal_opcional')
 	)
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=140, blank=True, null=True)
 	domicilio = models.CharField(max_length=200, blank=True, null=True)
 	telefono = models.CharField(max_length=140, blank=True, null=True)
@@ -461,7 +461,7 @@ class EntrevistaReferencia(models.Model):
 '''
 
 class EntrevistaDocumentoCotejado(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=255)
 	estatus = models.BooleanField(default=False)
 	observaciones = models.TextField(max_length=500, blank=True, null=True) #Solo se usa para el tipo 'motivos_falta_docs'
@@ -470,7 +470,7 @@ class EntrevistaDocumentoCotejado(models.Model):
 			return '%s, %s' % (self.tipo, self.estatus)
 
 class EntrevistaAspectoHogar(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140, blank=True, null=True)
 
@@ -478,7 +478,7 @@ class EntrevistaAspectoHogar(models.Model):
 			return '%s' % self.tipo
 
 class EntrevistaAspectoCandidato(models.Model):
-	person = models.ForeignKey(EntrevistaPersona)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo = models.CharField(max_length=20)
 	estatus = models.CharField(max_length=140, blank=True, null=True)
 

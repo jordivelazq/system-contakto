@@ -11,7 +11,7 @@ class Cobranza(models.Model):
 	    ('1', 'Status 2'),
 	    ('2', 'Pagada'),
 	)
-	investigacion = models.ForeignKey(Investigacion)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	monto = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 	# No. de factura
 	folio = models.CharField(max_length=50, blank=True, null=True, default='')
