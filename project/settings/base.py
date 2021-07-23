@@ -133,7 +133,6 @@ INSTALLED_APPS = (
     'app.front',
     'app.adjuntos',
     'app.api',
-    'django_extensions',
 )
 
 # A sample logging configuration. The only tangible logging

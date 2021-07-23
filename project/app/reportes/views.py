@@ -24,7 +24,7 @@ from django.db.models import Q
 from app.reportes.services import ServiceReporte
 from reportlab.pdfgen import canvas
 
-login_required(login_url='/login', redirect_field_name=None)
+@login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
 	page = 'reportes'	# use for main_menu.active
 	service_reporte = ServiceReporte()
@@ -59,7 +59,7 @@ def panel(request):
 			
 	return render(request, 'sections/reportes/panel.html', locals(), RequestContext(request))
 
-login_required(login_url='/login', redirect_field_name=None)
+@login_required(login_url='/login', redirect_field_name=None)
 def reporte_prueba(request):
 	return render(request, 'sections/reportes/prueba.html', { "request": request}, RequestContext(request))
 
