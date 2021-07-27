@@ -4,12 +4,8 @@
 {% block site_wrapper %}
 <div ng-controller="ReporteCTRL">
 	<div class="row placeholders">
-		<iframe
-			src="http://siga.caaaremti.mx:8080/pentaho/api/repos/%3Apublic%3ACAAAREM%3ADASHBOARD%3ACDE_BANCOS.wcdf/generatedContent?userid=userKrem&password=852040"
-			title="reporte"
-			width="800"
-			height="600"
-		></iframe>
+		<iframe style="width: 100%; display: block; border: 0px; overflow: auto; height: 900px;" name="iframe" id="iframe" src="http://siga.caaaremti.mx:8080/pentaho/api/repos/%3Apublic%3ACAAAREM%3ADASHBOARD%3ACDE_BANCOS.wcdf/generatedContent?userid=userKrem&password=852040">
+		</iframe>
 	</div>
 </div>
 {% endblock %}
