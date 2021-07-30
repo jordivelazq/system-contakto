@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect, render
 from django.template import RequestContext
-from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from app.bitacora.models import Bitacora
 from app.persona.models import *
@@ -17,27 +16,24 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService, save_adjuntos
 from django.forms.models import modelformset_factory
-from django.views.decorators.csrf import csrf_exempt
 from app.persona.services import PersonaService
 
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
 from django.conf import settings
-import datetime
 import xlrd
 import os
 import json
-from django.db.models import Q
-from django.forms import ModelForm, Textarea
 import zipfile
 import shutil
 
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 '''
 	Entrevista (Excel)
 '''
+@cache_page(60 * 15)
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
 def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-generales'):
@@ -121,6 +117,9 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 	title = data_seccion[seccion_entrevista]['titulo']
 	form_template = data_seccion[seccion_entrevista]['template']
+
+	if request.method == 'POST':
+		cache.clear()
 
 	#DATOS GENERALES
 	if seccion_entrevista == 'datos-generales':
@@ -431,11 +430,11 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			cita_form = EntrevistaCitaForm(instance=entrevista_cita)
-
+	
 	return render(request, 'sections/entrevista/edit_form.html', locals(), RequestContext(request))
 
 @login_required(login_url='/login', redirect_field_name=None)
-def cargar_entrevista(request, investigacion_id):
+def cargar_entrevista(request, investigacion_id):	
 	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
 		return HttpResponseRedirect('/')
 
