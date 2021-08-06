@@ -8,4 +8,5 @@ urlpatterns = [
 
     url(r'^api/', include('app.api.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^silk/', include("silk.urls", namespace="silk"))
 ]

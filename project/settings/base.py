@@ -85,6 +85,8 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_cprofile_middleware.middleware.ProfilerMiddleware",
+    "silk.middleware.SilkyMiddleware",
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -133,6 +135,7 @@ INSTALLED_APPS = (
     'app.front',
     'app.adjuntos',
     'app.api',
+    'silk',
 )
 
 # A sample logging configuration. The only tangible logging
