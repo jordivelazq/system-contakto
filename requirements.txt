@@ -5,8 +5,7 @@ cffi==1.14.0
 chardet==3.0.4
 cryptography==3.2
 Django==2.2.24
-django-cprofile-middleware==1.0.5
-django-silk==4.1.0
+django-debug-toolbar==3.1.1
 ecdsa==0.13.3
 Fabric3==1.14.post1
 gprof2dot==2021.2.21
@@ -32,7 +31,6 @@ requests==2.24.0
 sendgrid==2.2.1
 six==1.15.0
 smtpapi==0.3.1
-snakeviz==2.1.0
 South==1.0.2
 sqlparse==0.4.1
 toml==0.10.2
