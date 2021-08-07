@@ -2,8 +2,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = True
-
 ADMINS = (
     ('Mint IT Media', 'info@mintitmedia.com'),
 )
@@ -63,7 +61,6 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'resources'),
-    '/usr/local/django/contrib/admin/static/'
 )
 
 # List of finder classes that know how to find static files in
@@ -78,6 +75,7 @@ STATICFILES_FINDERS = (
 SECRET_KEY = 'jwp_uxb)-v677pfh17!0hxmepw%8bq=_2(#7@nv#w(l&amp;w^n4)*'
 
 MIDDLEWARE = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,6 +134,7 @@ INSTALLED_APPS = (
     'app.adjuntos',
     'app.api',
     'silk',
+    'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -192,3 +191,7 @@ CACHES = {
         'LOCATION': '/var/tmp/django_cache',
     }
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

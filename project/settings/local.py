@@ -12,3 +12,5 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+DEBUG = True

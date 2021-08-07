@@ -431,7 +431,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		else:
 			cita_form = EntrevistaCitaForm(instance=entrevista_cita)
 	
-	return render(request, 'sections/entrevista/edit_form.html', locals(), RequestContext(request))
+	return render(request, 'sections/entrevista/edit_form.html', locals())
 
 @login_required(login_url='/login', redirect_field_name=None)
 def cargar_entrevista(request, investigacion_id):	
