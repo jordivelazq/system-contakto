@@ -17,6 +17,7 @@ from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService, save_adjuntos
 from django.forms.models import modelformset_factory
 from app.persona.services import PersonaService
+from app.util.parallel import run_io_tasks_in_parallel
 
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
@@ -297,15 +298,17 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 		if request.method == 'POST' and not is_usuario_contacto:
 			candidato.dependientes_economicos = request.POST.get('dependientes_economicos')
-			ingresos_formset = IngresosFormset(request.POST, prefix='ingresos')
-			egresos_formset = EgresosFormset(request.POST, prefix='egresos')
-			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones')
+			ingresos_formset = IngresosFormset(request.POST, prefix='ingresos', queryset=ingresos)
+			egresos_formset = EgresosFormset(request.POST, prefix='egresos', queryset=egresos)
+			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones', queryset=prestaciones_vivienda)
 
 			if ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
-				candidato.save()
-				ingresos_formset.save()
-				egresos_formset.save()
-				pv_formset.save()
+				run_io_tasks_in_parallel([
+					lambda: candidato.save(),
+					lambda: ingresos_formset.save(),
+					lambda: egresos_formset.save(),
+					lambda: pv_formset.save(),
+				])
 
 				Bitacora(action='inf-economica: ' + str(investigacion_id), user=request.user).save()
 
