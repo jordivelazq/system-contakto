@@ -13,4 +13,4 @@ DATABASES = {
     }
 }
 
-
+SHOW_DJANGO_TOOLBAR = True
