@@ -255,7 +255,6 @@ contacktoApp.controller('SelectEmpresaCTRL', function($scope) {
         scope.compania_nombre = empresa_nombre;
         $('#selectEmpresaModal').modal('hide');
         $('#sidebar').scope().contacto_id = '';
-        $('#sidebar').scope().setEmpresaContactos();
     };
 
     $scope.reset_compania = function() {
