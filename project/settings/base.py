@@ -2,6 +2,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DEBUG = True
+
 ADMINS = (
     ('Mint IT Media', 'info@mintitmedia.com'),
 )
@@ -61,6 +63,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'resources'),
+    '/usr/local/django/contrib/admin/static/'
 )
 
 # List of finder classes that know how to find static files in
