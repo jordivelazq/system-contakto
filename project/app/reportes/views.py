@@ -22,7 +22,7 @@ import os
 import json
 from django.db.models import Q
 from app.reportes.services import ServiceReporte
-from app.reportes.utils import get_trayectorias_por_persona
+from app.reportes.utils import get_trayectorias_por_persona, get_direccion_por_persona, get_entrevistacita_por_persona
 from reportlab.pdfgen import canvas
 
 @login_required(login_url='/login', redirect_field_name=None)
@@ -164,16 +164,24 @@ def get_investigaciones_extended(request, contacto_id):
 	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None, contacto_id)
 
 	personas_id = []
+	investigaciones_id = []
 	for i in investigaciones:
-		direccion = i.candidato.direccion_set.first()
-		i.ciudad = direccion.ciudad
-		i.estado = direccion.estado
-		i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
 		personas_id.append(i.candidato.id)
+		investigaciones_id.append(i.id)
 	
 	trayectorias_por_persona = get_trayectorias_por_persona(personas_id)
+	direccion_por_persona = get_direccion_por_persona(personas_id)
+	entrevistacita_por_persona = get_entrevistacita_por_persona(investigaciones_id)
+
 	for i in investigaciones:
 		if i.candidato.id in trayectorias_por_persona:
 			i.trayectoria = trayectorias_por_persona[i.candidato.id]
+
+		if i.candidato.id in direccion_por_persona:
+			i.ciudad = direccion_por_persona[i.candidato.id].ciudad
+			i.estado = direccion_por_persona[i.candidato.id].estado
+		
+		if i.id in entrevistacita_por_persona:
+			i.entrevista = entrevistacita_por_persona[i.id]
 
 	return investigaciones

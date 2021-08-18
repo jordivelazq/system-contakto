@@ -1,5 +1,7 @@
 from django.db import connection
 from reportlab.lib.units import inch
+from app.persona.models import Direccion
+from app.entrevista.models import EntrevistaCita
 
 class TextUtility:
 
@@ -76,3 +78,27 @@ def get_trayectorias_por_persona(personas_id):
 			})
 
 		return response
+
+def get_direccion_por_persona(personas_id):
+	# equivalent to (less performant):
+	# direccion = i.candidato.direccion_set.first()
+	# i.ciudad = direccion.ciudad
+	# i.estado = direccion.estado
+	direcciones = Direccion.objects.filter(persona__in=personas_id)
+	response = {}
+	for direccion in direcciones:
+		if not direccion.persona.id in response:
+			response[direccion.persona.id] = direccion
+	
+	return response
+
+def get_entrevistacita_por_persona(investigaciones_id):
+	# equivalent to (less performant):
+	# i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
+	entrevista_citas = EntrevistaCita.objects.filter(investigacion__in=investigaciones_id)
+	response = {}
+	for cita in entrevista_citas:
+		if not cita.investigacion.id in response:
+			response[cita.investigacion.id] = cita
+	
+	return response
