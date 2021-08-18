@@ -22,6 +22,7 @@ import os
 import json
 from django.db.models import Q
 from app.reportes.services import ServiceReporte
+from app.reportes.utils import get_trayectorias_por_persona
 from reportlab.pdfgen import canvas
 
 @login_required(login_url='/login', redirect_field_name=None)
@@ -40,7 +41,7 @@ def panel(request):
 	is_usuario_contacto = True if any("contactos" in s for s in request.user.groups.values_list('name',flat=True)) else False
 	if is_usuario_contacto and Contacto.objects.filter(email=request.user.email, status=True).count():
 		contacto_id = Contacto.objects.filter(email=request.user.email)[0].id
-	
+
 	if request.POST:
 		investigaciones = request.POST.getlist('investigacion[]')
 		destinatarios = request.POST.get('destinatarios')
@@ -49,15 +50,15 @@ def panel(request):
 			return HttpResponseRedirect('/estatus/exito')
 		else:
 			return HttpResponseRedirect('/estatus/error')
-	
+
 	if filtros_json != None:
 		if 'contactos_selected' in filtros_json and len(filtros_json['contactos_selected']):
 			contactos_selected = filtros_json['contactos_selected'].split(',')
 			dest_list = service_reporte.getDestinatarios(request, contactos_selected)
 
 	investigaciones = get_investigaciones_extended(request, contacto_id)
-			
-	return render(request, 'sections/reportes/panel.html', locals(), RequestContext(request))
+
+	return render(request, 'sections/reportes/panel.html', locals())
 
 @login_required(login_url='/login', redirect_field_name=None)
 def reporte_prueba(request):
@@ -151,7 +152,7 @@ def get_investigaciones_list(filtros_json, agent_id, contacto_id):
 		if 'limit_select' in filtros_json and len(filtros_json['limit_select']):
 			limit_select = int(filtros_json['limit_select'])
 
-	investigaciones = investigaciones.order_by('-fecha_recibido')[:limit_select]
+	investigaciones = investigaciones.select_related('candidato', 'compania', 'contacto').order_by('-fecha_recibido')[:limit_select]
 
 	return investigaciones
 
@@ -162,10 +163,17 @@ def get_investigaciones_extended(request, contacto_id):
 
 	investigaciones = get_investigaciones_list(filtros_json, request.user.id if is_agent else None, contacto_id)
 
+	personas_id = []
 	for i in investigaciones:
-		i.ciudad = i.candidato.direccion_set.all()[0].ciudad
-		i.estado = i.candidato.direccion_set.all()[0].estado
+		direccion = i.candidato.direccion_set.first()
+		i.ciudad = direccion.ciudad
+		i.estado = direccion.estado
 		i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
-		i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True)
+		personas_id.append(i.candidato.id)
 	
+	trayectorias_por_persona = get_trayectorias_por_persona(personas_id)
+	for i in investigaciones:
+		if i.candidato.id in trayectorias_por_persona:
+			i.trayectoria = trayectorias_por_persona[i.candidato.id]
+
 	return investigaciones
