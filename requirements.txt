@@ -35,5 +35,5 @@ South==1.0.2
 sqlparse==0.4.1
 toml==0.10.2
 tornado==6.1
-urllib3==1.25.9
+urllib3==1.26.5
 xlrd==0.9.3
