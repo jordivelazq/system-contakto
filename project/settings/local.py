@@ -12,3 +12,5 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+SHOW_DJANGO_TOOLBAR = True

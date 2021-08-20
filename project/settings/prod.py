@@ -12,3 +12,5 @@ DATABASES = {
         'HOST': os.environ['MYSQL_CONTAKTO_PORT_3306_TCP_ADDR']                      # Set to empty string for localhost. Not used with sqlite3.
     }
 }
+
+SHOW_DJANGO_TOOLBAR = False

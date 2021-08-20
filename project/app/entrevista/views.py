@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect, render
 from django.template import RequestContext
-from django.views.decorators import csrf
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from app.bitacora.models import Bitacora
 from app.persona.models import *
@@ -17,27 +16,25 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService, save_adjuntos
 from django.forms.models import modelformset_factory
-from django.views.decorators.csrf import csrf_exempt
 from app.persona.services import PersonaService
+from app.util.parallel import run_io_tasks_in_parallel
 
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
 from django.conf import settings
-import datetime
 import xlrd
 import os
 import json
-from django.db.models import Q
-from django.forms import ModelForm, Textarea
 import zipfile
 import shutil
 
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 '''
 	Entrevista (Excel)
 '''
+@cache_page(60 * 15)
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
 def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-generales'):
@@ -121,6 +118,9 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 	title = data_seccion[seccion_entrevista]['titulo']
 	form_template = data_seccion[seccion_entrevista]['template']
+
+	if request.method == 'POST':
+		cache.clear()
 
 	#DATOS GENERALES
 	if seccion_entrevista == 'datos-generales':
@@ -247,7 +247,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			caracteristicas_vivienda_form = EntrevistaCaractaristicasViviendaForm(request.POST, instance=caracteristicas_vivienda)
 			tipo_inmueble_vivienda_form = EntrevistaTipoInmuebleForm(request.POST, instance=tipo_inmueble_vivienda)
 			distribucion_vivienda = EntrevistaDistribucionDimensionesForm(request.POST, instance=distribucion_vivienda)
-			marcofamiliar_formset = MarcoFamiliarFormset(request.POST, prefix='grados')
+			marcofamiliar_formset = MarcoFamiliarFormset(request.POST, prefix='grados', queryset=marco_familiar)
 
 			if situacion_vivienda_form.is_valid() and propietario_vivienda_form.is_valid() and caracteristicas_vivienda_form.is_valid() and tipo_inmueble_vivienda_form.is_valid() and distribucion_vivienda.is_valid() and marcofamiliar_formset.is_valid():
 				situacion_vivienda_form.save()
@@ -275,7 +275,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		MarcoFamiliarFormset = modelformset_factory(EntrevistaMiembroMarcoFamiliar, extra=0, exclude=('person', 'tipo', 'category'))
 
 		if request.method == 'POST' and not is_usuario_contacto:
-			marcofamiliar_formset = MarcoFamiliarFormset(request.POST, prefix='grados')
+			marcofamiliar_formset = MarcoFamiliarFormset(request.POST, prefix='grados', queryset=marco_familiar)
 			if marcofamiliar_formset.is_valid():
 				marcofamiliar_formset.save()
 
@@ -298,15 +298,17 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 		if request.method == 'POST' and not is_usuario_contacto:
 			candidato.dependientes_economicos = request.POST.get('dependientes_economicos')
-			ingresos_formset = IngresosFormset(request.POST, prefix='ingresos')
-			egresos_formset = EgresosFormset(request.POST, prefix='egresos')
-			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones')
+			ingresos_formset = IngresosFormset(request.POST, prefix='ingresos', queryset=ingresos)
+			egresos_formset = EgresosFormset(request.POST, prefix='egresos', queryset=egresos)
+			pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones', queryset=prestaciones_vivienda)
 
 			if ingresos_formset.is_valid() and egresos_formset.is_valid() and pv_formset.is_valid():
-				candidato.save()
-				ingresos_formset.save()
-				egresos_formset.save()
-				pv_formset.save()
+				run_io_tasks_in_parallel([
+					lambda: candidato.save(),
+					lambda: ingresos_formset.save(),
+					lambda: egresos_formset.save(),
+					lambda: pv_formset.save(),
+				])
 
 				Bitacora(action='inf-economica: ' + str(investigacion_id), user=request.user).save()
 
@@ -431,11 +433,11 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 				return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
 		else:
 			cita_form = EntrevistaCitaForm(instance=entrevista_cita)
-
-	return render(request, 'sections/entrevista/edit_form.html', locals(), RequestContext(request))
+	
+	return render(request, 'sections/entrevista/edit_form.html', locals())
 
 @login_required(login_url='/login', redirect_field_name=None)
-def cargar_entrevista(request, investigacion_id):
+def cargar_entrevista(request, investigacion_id):	
 	if not request.user.is_staff and request.user.groups.filter(name="captura").count() == 0:
 		return HttpResponseRedirect('/')
 

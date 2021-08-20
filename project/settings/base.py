@@ -78,6 +78,7 @@ STATICFILES_FINDERS = (
 SECRET_KEY = 'jwp_uxb)-v677pfh17!0hxmepw%8bq=_2(#7@nv#w(l&amp;w^n4)*'
 
 MIDDLEWARE = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,7 +134,7 @@ INSTALLED_APPS = (
     'app.front',
     'app.adjuntos',
     'app.api',
-    'django_extensions',
+    'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -183,3 +184,14 @@ GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

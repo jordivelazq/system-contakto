@@ -6,3 +6,17 @@ node_modules
 npm-debug.log
 project/resources/media/xls
 project/resources/media/adj
+
+*.py[co]
+*.sw[po]
+*.bak
+*.orig
+*~
+.project
+.pydevproject
+.vscode
+secrets.txt
+.DS_Store
+.sass-cache/
+project/resources/csv/
+project/resources/media/zip/

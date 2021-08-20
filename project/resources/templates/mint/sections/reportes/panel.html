@@ -144,7 +144,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 									</tr>
 									{% endif %}
 
-									{% if t.opinion_rh %}
+									{% if t.opinion_rh and t.opinion_rh.nombre or t.opinion_rh.puesto %}
 									<tr>
 										<td>Referente</td>
 										<td>
@@ -159,7 +159,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/media/ajax-loader.gif\" />
 										</td>
 									</tr>
 									{% endif %}
-									{% if t.opinion_jefe %}
+									{% if t.opinion_jefe and t.opinion_jefe.nombre or t.opinion_jefe.puesto %}
 									<tr>
 										<td>Referente</td>
 										<td>
