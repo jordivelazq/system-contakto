@@ -17,6 +17,9 @@ class TextUtility:
 def get_trayectorias_por_persona(personas_id):
 	# Equivalente to the filter, but with better performance since only executes one query
 	# i.trayectoria = i.candidato.trayectorialaboral_set.filter(visible_en_status=True, status=True).select_related('compania', 'datosgenerales')
+	response = {}
+	if not len(personas_id):
+		return response
 
 	with connection.cursor() as cursor:
 		query = '''
@@ -52,7 +55,6 @@ def get_trayectorias_por_persona(personas_id):
 		'''
 		cursor.execute(query, [tuple(personas_id)])
 		trayectorias = cursor.fetchall()
-		response = {}
 		for t in trayectorias:
 			if not t[0] in response:
 				response[t[0]] = []
