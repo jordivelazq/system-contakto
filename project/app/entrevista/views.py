@@ -396,9 +396,9 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		AspectoCandidatoFormset = modelformset_factory(EntrevistaAspectoCandidato, extra=0, exclude=('person', 'tipo',))
 
 		if request.method == 'POST' and not is_usuario_contacto:
-			documentos_formset = DocumentoCotejadoFormset(request.POST, prefix='docs')
-			aspectos_hogar_formset = AspectoHogarFormset(request.POST, prefix='asp_hogar')
-			aspectos_candidato_formset = AspectoCandidatoFormset(request.POST, prefix='asp_candidato')
+			documentos_formset = DocumentoCotejadoFormset(request.POST, prefix='docs', queryset=documentos)
+			aspectos_hogar_formset = AspectoHogarFormset(request.POST, prefix='asp_hogar', queryset=aspectos_hogar)
+			aspectos_candidato_formset = AspectoCandidatoFormset(request.POST, prefix='asp_candidato', queryset=aspectos_candidato)
 			investigacion_form = EntrevistaInvestigacionForm(request.POST, instance=entrevista_investigacion, prefix='investigacion')
 			if documentos_formset.is_valid() and aspectos_hogar_formset.is_valid() and aspectos_candidato_formset.is_valid() and investigacion_form.is_valid():
 				documentos_formset.save()
@@ -573,4 +573,4 @@ def comprimido_entrevista(request, investigacion_id):
 		form = EntrevistaFileForm()
 		
 
-	return render(request, 'sections/entrevista/comprimido.html', locals(), RequestContext(request))
+	return render(request, 'sections/entrevista/comprimido.html', locals())
