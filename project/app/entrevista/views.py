@@ -339,12 +339,12 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		DeudaActualFormset = modelformset_factory(EntrevistaDeudaActual, extra=0, form=EntrevistaDeudaActualForm)
 
 		if request.method == 'POST' and not is_usuario_contacto:
-			tarjetas_formset = TarjetaCreditoComercialFormset(request.POST, prefix='tarjetas')
-			cuentas_deb_formset = CuentaDebitoFormset(request.POST, prefix='cuentas_deb')
-			autos_formset = AutomovilFormset(request.POST, prefix='autos')
-			bienesraices_formset = BienesRaicesFormset(request.POST, prefix='bienesraices')
-			seguros_formset = SeguroFormset(request.POST, prefix='seguros')
-			deudas_formset = DeudaActualFormset(request.POST, prefix='deudas')
+			tarjetas_formset = TarjetaCreditoComercialFormset(request.POST, prefix='tarjetas', queryset=tarjetas)
+			cuentas_deb_formset = CuentaDebitoFormset(request.POST, prefix='cuentas_deb', queryset=cuentas_deb)
+			autos_formset = AutomovilFormset(request.POST, prefix='autos', queryset=autos)
+			bienesraices_formset = BienesRaicesFormset(request.POST, prefix='bienesraices', queryset=bienesraices)
+			seguros_formset = SeguroFormset(request.POST, prefix='seguros', queryset=seguros)
+			deudas_formset = DeudaActualFormset(request.POST, prefix='deudas', queryset=deudas)
 
 			if tarjetas_formset.is_valid() and cuentas_deb_formset.is_valid() and autos_formset.is_valid() and bienesraices_formset.is_valid() and seguros_formset.is_valid() and deudas_formset.is_valid():
 				tarjetas_formset.save()
