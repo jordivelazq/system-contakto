@@ -10,7 +10,7 @@ html, body {
   font-family: Trebuchet MS;
   text-transform: uppercase;
   -webkit-print-color-adjust: exact !important;
-  display: none;
+  /* display: none; */
 }
 
 @media print {
@@ -52,7 +52,7 @@ table {
 
 /* line 45, ../sass/print.sass */
 .background-1 {
-  border: solid 20px #8A0000;
+  border: solid 20px #16253f;
   height: calc(100% - 85px);
   padding: 15px 15px 30px 15px;
 }
@@ -63,7 +63,7 @@ table {
 
 /* line 53, ../sass/print.sass */
 .background-2 {
-  border: solid 10px #8A0000;
+  border: solid 10px #16253f;
   height: calc(100% - 20px);
   padding: 0px 10px 0 10px;
   position: relative;
@@ -71,7 +71,7 @@ table {
 
 /* line 59, ../sass/print.sass */
 .border-red {
-  border: 3px solid #8A0000;
+  border: 3px solid #16253f;
 }
 
 /* line 62, ../sass/print.sass */
@@ -117,7 +117,7 @@ table {
 }
 /* line 94, ../sass/print.sass */
 .footer .agent {
-  border: 2px solid #8A0000;
+  border: 2px solid #16253f;
   border-radius: 10px;
   background: #D9D9D9;
   display: inline-block;
@@ -133,7 +133,7 @@ table {
 /* line 107, ../sass/print.sass */
 .footer i {
   display: inline-block;
-  background: #8A0000;
+  background: #16253f;
   border-radius: 20px;
   color: white;
   width: 18px;
@@ -151,7 +151,7 @@ table {
 /* line 121, ../sass/print.sass */
 .results h2 {
   border-radius: 20px;
-  background: #8A0000;
+  background: #16253f;
   color: white;
   margin: 0 0 0 100px;
   padding: 5px 20px;
@@ -190,7 +190,7 @@ table {
 /* line 156, ../sass/print.sass */
 .cover-page .company h2 {
   border-radius: 20px;
-  background: #8A0000;
+  background: #16253f;
   color: white;
   margin: 100px 0 0 100px;
   padding: 5px 50px;
@@ -251,7 +251,7 @@ table {
   height: auto;
   float: left;
   margin-right: 20px;
-  border: 5px solid #8A0000;
+  border: 5px solid #16253f;
   border-radius: 20px;
 }
 /* line 210, ../sass/print.sass */
@@ -289,7 +289,7 @@ table {
 }
 /* line 241, ../sass/print.sass */
 .laboral-study-page h3 {
-  background: #8A0000;
+  background: #16253f;
   color: white;
   padding: 5px 0;
   text-align: center;
@@ -404,7 +404,7 @@ table {
 }
 /* line 334, ../sass/print.sass */
 .laboral-study-page .resume .table-border {
-  border: 2px solid #8A0000;
+  border: 2px solid #16253f;
   margin: 2px 0;
   width: 100%;
 }
@@ -414,7 +414,7 @@ table {
 }
 /* line 342, ../sass/print.sass */
 .laboral-study-page .activities table.inner-table {
-  border: 2px solid #8A0000;
+  border: 2px solid #16253f;
   border-collapse: collapse;
 }
 /* line 346, ../sass/print.sass */
