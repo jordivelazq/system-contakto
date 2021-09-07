@@ -89,4 +89,4 @@ def editar_adjuntos(request, investigacion_id):
 	else:
 		adjuntos_form = AdjuntosForm(instance=adjuntos)
 
-	return render(request, 'sections/candidato/editar_adjuntos.html', locals(), RequestContext(request))
+	return render(request, 'sections/candidato/editar_adjuntos.html', locals())

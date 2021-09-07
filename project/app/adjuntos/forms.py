@@ -11,14 +11,14 @@ class AdjuntosForm(ModelForm):
 
 	def clean(self):
 		img_file_names = ('adj2','adj3','adj4','adj5','adj6','adj7', 'adj36', 'adj8','adj9','adj10','adj11','adj12','adj13')
-		img_file_types = ('jpg','png','bmp','jpeg')
+		img_file_types = ('jpg','png','bmp','jpeg', 'gif')
 
 		for name in img_file_names:
 			f = self.cleaned_data[name]
 			if f:
 				ext = f.name.split('.')[len(f.name.split('.'))-1] if len(f.name.split('.')) > 1 else ''
 				if ext.lower() not in img_file_types:
-					raise ValidationError('Error por extensión de archivos. Usar: jpg, png')
+					raise ValidationError(f.name + ' - Error por extensión de archivos. Usar: jpg, png')
 
 		return self.cleaned_data
 
