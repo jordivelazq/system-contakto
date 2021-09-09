@@ -1,5 +1,4 @@
 from os import path
-import zipfile
 
 from django.db import models
 from django import forms
@@ -37,9 +36,8 @@ class EntrevistaService:
 def save_adjuntos(lista_adjuntos, image_path, absolute_path, investigacion):
 	if not lista_adjuntos or not len(lista_adjuntos):
 		return None
-	
-	Adjuntos.objects.filter(investigacion=investigacion).delete()
-	nuevos_adjuntos = Adjuntos(investigacion=investigacion)
+
+	nuevos_adjuntos, created = Adjuntos.objects.get_or_create(investigacion=investigacion)
 
 	for field_name in lista_adjuntos:
 		filename = lista_adjuntos[field_name]
