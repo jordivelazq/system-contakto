@@ -28,13 +28,9 @@ import json
 import zipfile
 import shutil
 
-from django.views.decorators.cache import cache_page
-from django.core.cache import cache
-
 '''
 	Entrevista (Excel)
 '''
-@cache_page(60 * 15)
 ### USUARIO CONTACTO TIENE ACCESO
 @login_required(login_url='/login', redirect_field_name=None)
 def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-generales'):
@@ -118,9 +114,6 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 
 	title = data_seccion[seccion_entrevista]['titulo']
 	form_template = data_seccion[seccion_entrevista]['template']
-
-	if request.method == 'POST':
-		cache.clear()
 
 	#DATOS GENERALES
 	if seccion_entrevista == 'datos-generales':
