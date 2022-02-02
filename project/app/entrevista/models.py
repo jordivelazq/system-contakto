@@ -83,7 +83,7 @@ class EntrevistaCita(models.Model):
 	hora_entrevista = models.CharField(max_length=200, blank=True, null=True)
 	entrevistador = models.CharField(max_length=200, blank=True, null=True)
 	autorizada = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
-	observaciones = models.TextField(max_length=500, null=True, blank=True)
+	observaciones = models.TextField(max_length=16000, null=True, blank=True)
 
 	def __str__(self):
 		return u'%s' % (self.investigacion)
