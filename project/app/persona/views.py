@@ -491,7 +491,7 @@ def eliminar(request, investigacion_id):
 def nueva_trayectoria(request, investigacion_id, empresa_id=''):
 	#Temporal para SEARCH
 	empresas_select = Compania.objects.filter(status=True, es_cliente=True).order_by('nombre')
-	empresas_select_todas = Compania.objects.filter(status=True).order_by('nombre')
+	empresas_select_todas = Compania.objects.filter(status=True).order_by('-fecha_creacion')
 	agentes_select = User.objects.filter(is_staff=True, is_active=True).exclude(username='info@mintitmedia.com')
 	status_select = PersonaService.STATUS_GRAL_OPCIONES_SIDEBAR
 	filtros_json = request.session.get('filtros_search', None)
