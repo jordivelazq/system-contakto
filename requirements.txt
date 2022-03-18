@@ -32,7 +32,7 @@ sendgrid==2.2.1
 six==1.15.0
 smtpapi==0.3.1
 South==1.0.2
-sqlparse==0.4.1
+sqlparse==0.4.2
 toml==0.10.2
 tornado==6.1
 urllib3==1.26.5
