@@ -4,7 +4,7 @@ certifi==2020.6.20
 cffi==1.14.0
 chardet==3.0.4
 cryptography==3.3.2
-Django==2.2.24
+Django==2.2.27
 django-debug-toolbar==3.2.1
 ecdsa==0.13.3
 Fabric3==1.14.post1
