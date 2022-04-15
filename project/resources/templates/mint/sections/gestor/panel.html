@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+{% load fe_extras %}
+{% block side_content %}
+    {% include 'sections/gestor/seccion/search_sidebar.html' %}
+{% endblock %}
+
+{% block site_wrapper %}
+    {% autoescape off %}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div id="msg"></div>
+            </div>
+        </div>
+    {% endautoescape %}
+
+    <div class="row placeholders">
+        <div class="table-responsive">
+        </div>
+    </div>
+    {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+{% endblock %}

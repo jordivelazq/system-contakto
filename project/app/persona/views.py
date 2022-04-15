@@ -19,7 +19,7 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService
 from app.cobranza.models import Cobranza, Factura
-from app.cobranza.forms import CobranzaMontoForm, FacturaForm
+from app.cobranza.forms import CobranzaMontoForm, FacturaForm, GestorInvestigacionForm
 from app.agente.models import Labels
 from app.agente.forms import LabelsForm
 from django.forms import modelformset_factory
@@ -786,20 +786,29 @@ def observaciones(request, investigacion_id):
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion, entrevista)
 
 	status_general = investigacion.status_general
+	gestor_investigacion = GestorInvestigacion.objects.filter(investigacion=investigacion)
+	gestor_investigacion = gestor_investigacion.first() if gestor_investigacion else None
 
 	if request.method == 'POST' and not is_usuario_contacto:
 		formaInvestigacion = InvestigacionStatusForm(request.POST, prefix='investigacion', instance=investigacion)
 		formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
+		formaGestorInvestigacion = GestorInvestigacionForm(request.POST, prefix='gestor_investigacion', instance=gestor_investigacion) if gestor_investigacion else GestorInvestigacionForm(request.POST, prefix='gestor_investigacion')
+		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaGestorInvestigacion.is_valid():
+			# GESTOR INVESTIGACION
+			formaGestorInvestigacion.instance.fecha_registro = datetime.datetime.now()
+			formaGestorInvestigacion.instance.investigacion_id = investigacion.id
+			if request.POST.get('gestor_investigacion-estatus') == '2':
+				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+			if request.POST.get('gestor_investigacion-estatus') == '3':
+				formaGestorInvestigacion.instance.fecha_atencion = datetime.datetime.now()
+			formaGestorInvestigacion.save()
 
-		if formaInvestigacion.is_valid() and formaEntrevista.is_valid():
-			
 			inv_new_instance = formaInvestigacion.save(commit=False)
 			if not request.user.is_superuser and status_general == '2':
 				inv_new_instance.status_general = status_general
 			inv_new_instance.save()
 
 			formaEntrevista.save()
-			
 			if 'redirect' in request.POST:
 				return HttpResponseRedirect(request.POST.get('redirect'))
 
@@ -809,7 +818,7 @@ def observaciones(request, investigacion_id):
 		formaInvestigacion.fields['label'].queryset = Labels.objects.filter(agente=request.user).exclude(name__exact='')
 		formaEntrevista = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 		formaCobranza = CobranzaMontoForm(prefix='cobranza', instance=cobranza)
-
+		formaGestorInvestigacion = GestorInvestigacionForm(prefix='gestor_investigacion', instance=gestor_investigacion) if gestor_investigacion else GestorInvestigacionForm(prefix='gestor_investigacion')
 	return render(request, 'sections/candidato/observaciones.html', locals(), RequestContext(request))
 
 '''

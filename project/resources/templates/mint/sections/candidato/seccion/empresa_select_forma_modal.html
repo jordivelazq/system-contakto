@@ -86,7 +86,7 @@
 							<h3 class="panel-title">Empresas</h3>
 						</div> 
 						<div class="panel-body">
-							<div ng-repeat="(key,empresa) in empresas_select_modal | filter:searchEmpresa| limitTo:15" ng-click="set_empresa(empresa.id,empresa.nombre)">
+							<div ng-repeat="(key,empresa) in empresas_select_modal | filter:searchEmpresa" ng-click="set_empresa(empresa.id,empresa.nombre)">
 								<div title="{[{empresa.nombre}]}" class="col-md-4">
 									<span class="btn btn-default navbar-btn">{[{empresa.nombre|limitTo:13}]} <span class="glyphicon glyphicon-share"></span></span>
 								</div>

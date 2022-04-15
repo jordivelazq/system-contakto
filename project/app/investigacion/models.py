@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+from statistics import mode
 
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from app.persona.models import Persona, File
 from app.compania.models import Compania, Contacto, Sucursales
-from app.agente.models import Labels
+from app.agente.models import Labels, GestorInfo
 
 ACTIVO_OPCIONES = (
 		(0, 'Sí/No'),
@@ -129,3 +130,20 @@ class InvestigacionExtra(models.Model):
 	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	nombre = models.TextField(max_length=200, blank=True, null=True)
 	apellido = models.TextField(max_length=200, blank=True, null=True)
+
+
+class GestorInvestigacion(models.Model):
+	ESTATUS = (
+		(1, 'ASIGNADA'),
+		(2, 'EN ATENCIÓN'),
+		(3, 'CONCLUIDA')
+	)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
+	gestor = models.ForeignKey(GestorInfo, on_delete=models.CASCADE)
+	fecha_asignacion = models.DateTimeField(null=True, blank=True)
+	fecha_registro = models.DateTimeField(null=True, blank=True)
+	fecha_atencion = models.DateTimeField(null=True, blank=True)
+	estatus = models.PositiveSmallIntegerField(choices=ESTATUS, default=1)
+
+	def __str__(self):
+		return '{} / {} / {}'.format(self.investigacion,self.gestor, self.get_estatus_display())

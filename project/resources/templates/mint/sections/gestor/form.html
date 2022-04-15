@@ -1,0 +1,75 @@
+{% extends 'layout/base.html' %}
+
+{% block site_wrapper %}
+    <h1 class="page-header">{{ title }}</h1>
+    {% if state %}
+        <div class="{{ msg_class }}">
+            <ul>{% for msg in state %}
+                <li>{{ msg }}</li>{% endfor %}</ul>
+        </div>
+    {% endif %}
+    <form role="form" action="#" method="post">{% csrf_token %}
+        <div class="form-group {% if required_fields or user_exists %}has-error{% endif %}">
+            <label class="control-label" form="username">Usuario:</label>
+            <input type="email" class="form-control" name="username" value="{{ username }}">
+        </div>
+
+        <div class="form-group {% if required_fields %}has-error{% endif %}">
+            <label class="control-label" for="password">Contraseña:</label>
+            <input type="password" class="form-control" name="password"
+                   placeholder="{% if editar_agente %}( Introduce una contraseña si deseas cambiarla ){% endif %}">
+        </div>
+
+        <div class="form-group {% if required_fields %}has-error{% endif %}">
+            <label class="control-label" for="nombre">Nombre:</label>
+            <input type="text" class="form-control" name="first_name" value="{{ first_name }}">
+        </div>
+
+        <div class="form-group {% if required_fields %}has-error{% endif %}">
+            <label class="control-label" for="apellido">Apellido:</label>
+            <input type="text" class="form-control" name="last_name" value="{{ last_name }}">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" class="form-control" name="telefono" value="{{ telefono }}">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Ciudad:</label>
+            <input type="text" class="form-control" name="ciudad" value="{{ ciudad }}">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Estado:</label>
+            <input type="text" class="form-control" name="estado" value="{{ estado }}">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Zonas que cubre:</label>
+            <textarea rows="2" class="form-control" name="zona">{{ zona }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="id_estatus">Estatus:</label>
+            <select name="estatus" id="id_estatus" class="form-control">
+                <option value="1" {% if estatus == 1 %} selected {% endif %}>ASPIRANTE</option>
+                <option value="2" {% if estatus == 2 %} selected {% endif %}>EN CAPACITACIÓN</option>
+                <option value="3" {% if estatus == 3 %} selected {% endif %}>PRUEBAS</option>
+                <option value="4" {% if estatus == 4 %} selected {% endif %}>ACTIVO</option>
+                <option value="5" {% if estatus == 5 %} selected {% endif %}>INACTIVO</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_tipo_pago">Tipo de pago:</label>
+            <select name="tipo_pago" id="id_tipo_pago" class="form-control">
+                <option value="1" {% if tipo_pago == 1 %} selected {% endif %}>A</option>
+                <option value="2" {% if tipo_pago == 2 %} selected {% endif %}>B</option>
+                <option value="3" {% if tipo_pago == 3 %} selected {% endif %}>C</option>
+            </select>
+        </div>
+        <div class="form-group pull-right">
+            <button type="submit" class="btn btn-primary" title="guardar">Guardar</button>
+        </div>
+    </form>
+{% endblock %}

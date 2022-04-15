@@ -9,6 +9,7 @@ urlpatterns = [
 
     url(r'^api/', include('app.api.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
 
