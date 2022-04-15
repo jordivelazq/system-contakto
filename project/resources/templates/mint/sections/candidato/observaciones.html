@@ -2,205 +2,248 @@
 
 {% load fe_extras %}
 {% block side_content %}
-	{% include 'sections/candidato/seccion/search_sidebar.html' %}
+    {% include 'sections/candidato/seccion/search_sidebar.html' %}
 {% endblock %}
 
 {% block site_wrapper %}
-{% include 'sections/candidato/seccion/candidato_header.html' %}
+    {% include 'sections/candidato/seccion/candidato_header.html' %}
 
-<div class="adjusted-fixed-submenu">
-	{% autoescape off %}
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					{% if msg %}
-						<div id="msg" class="alert alert-{{status}}">
-							{% for m in msg %}
-								- {{m}} <br />
-							{% endfor %}
-						</div>
-					{% else %}
-						<div id="msg"></div>
-					{% endif %}
-				</div>
-			</div>
-	{% endautoescape %}
+    <div class="adjusted-fixed-submenu">
+        {% autoescape off %}
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    {% if msg %}
+                        <div id="msg" class="alert alert-{{ status }}">
+                            {% for m in msg %}
+                                - {{ m }} <br/>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div id="msg"></div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endautoescape %}
 
-	<form role="form" action="#" method="post" id="form">
-		{% csrf_token %}
-		{{ formaInvestigacion.errors }}
-		{{ formaEntrevista.errors }}
-		<div class="row">
-			<div class="col-md-8">
-			</div>
-			{% if request.user.is_staff or is_user_captura %}
-				<div class="col-md-4">			
-					<div class="text-right">
-						<button type="submit" name="guardar" class="btn btn-primary refresh-candidatos" name="guardar">Guardar</button>
-						<br />
-						<br />
-					</div>			
-				</div>
-			{% endif %}
-		</div>
+        <form role="form" action="#" method="post" id="form">
+            {% csrf_token %}
+            {{ formaInvestigacion.errors }}
+            {{ formaEntrevista.errors }}
+            <div class="row">
+                <div class="col-md-8">
+                </div>
+                {% if request.user.is_staff or is_user_captura %}
+                    <div class="col-md-4">
+                        <div class="text-right">
+                            <button type="submit" name="guardar" class="btn btn-primary refresh-candidatos"
+                                    name="guardar">Guardar
+                            </button>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Etiqueta
-			</div>
-			<div class="panel-body">
-				{{formaInvestigacion.label}}
-			</div>
-		</div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Etiqueta
+                </div>
+                <div class="panel-body">
+                    {{ formaInvestigacion.label }}
+                </div>
+            </div>
 
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-4">
-						<label>Tipo de Investigación:</label>
-						{{formaInvestigacion.tipo_investigacion_status}}
-					</div>
-					<div class="col-md-8">
-						<label>Observaciones de Investigación (visible en estatus y pdf):</label>
-						{{formaInvestigacion.tipo_investigacion_texto}}
-					</div>
-				</div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Tipo de Investigación:</label>
+                            {{ formaInvestigacion.tipo_investigacion_status }}
+                        </div>
+                        <div class="col-md-8">
+                            <label>Observaciones de Investigación (visible en estatus y pdf):</label>
+                            {{ formaInvestigacion.tipo_investigacion_texto }}
+                        </div>
+                    </div>
 
-				<br />
+                    <br/>
 
-				<div class="row">
-					<div class="col-md-4">
-						<label>Estatus de Inv. Laboral:</label>
-						{{formaInvestigacion.status}}
-					</div>
-					{% if user.is_superuser %}
-					<div class="col-md-8">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">Cobranza</h3>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-1">
-										<label>Costo:</label>
-									</div>
-									<div class="col-md-3">
-										<div class="input-group">
-											<span class="input-group-addon">$</span>
-											<input class="form-control" readonly="readonly" id="id_cobranza-monto" name="cobranza-monto" step="0.01" type="number" value="{{formaCobranza.instance.monto}}">
-										</div>
-									</div>
-									<div class="col-md-6">
-										{% if tiene_factura %}
-												<div class="alert alert-warning">
-												Investigación asignada a factura <strong>#{{cobranza.folio}}</strong>
-												</div>
-										{% endif %}
-									</div>
-								</div>
-							
-								{% if facturas %}
-									{% for factura in facturas %}
-										<br />
-										<div class="row">
-											<div class="col-md-12">
-												<div class="input-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Estatus de Inv. Laboral:</label>
+                            {{ formaInvestigacion.status }}
+                        </div>
+                        {% if user.is_superuser %}
+                            <div class="col-md-8">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Cobranza</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label>Costo:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span>
+                                                    <input class="form-control" readonly="readonly"
+                                                           id="id_cobranza-monto" name="cobranza-monto" step="0.01"
+                                                           type="number" value="{{ formaCobranza.instance.monto }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                {% if tiene_factura %}
+                                                    <div class="alert alert-warning">
+                                                        Investigación asignada a factura
+                                                        <strong>#{{ cobranza.folio }}</strong>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        {% if facturas %}
+                                            {% for factura in facturas %}
+                                                <br/>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group">
 													<span class="input-group-addon">
 														Factura
 													</span>
-													<a href="/cobranza/factura/{{factura.folio}}" class="form-control">{{factura.folio}}</a>
-												</div>
-											</div>
-										</div>
-									{% endfor %}
-								{% endif %}
-							</div>
-						</div>
-					</div>
-			
-					{% endif %}
-				</div>
-			</div>
-		</div>
-		
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-4">
-						<label>Entrevista autorizada:</label>
-						{{formaEntrevista.autorizada}}
-					</div>
-					<div class="col-md-8">
-						<label>Enviado a entrevistador:</label>
-						{{formaEntrevista.entrevistador}}
-					</div>
-				</div>
+                                                            <a href="/cobranza/factura/{{ factura.folio }}"
+                                                               class="form-control">{{ factura.folio }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
 
-				<div class="row">
-					<div class="col-md-3 col-md-offset-1">
-						<label>Fecha / Hora:</label>
-						{{formaEntrevista.fecha_entrevista}}
-						{{formaEntrevista.hora_entrevista}}
-					</div>
-					<div class="col-md-8">
-						<label>Observaciones de Entrevista (uso interno, no visible):</label>
-						{{formaEntrevista.observaciones}}
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<br />
-		
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-4">
-						<label>Calificación Final:</label>
-						{{formaInvestigacion.resultado}}
-					</div>
-					<div class="col-md-8">
-						<label>Observaciones de Calificación (uso interno, no visible):</label>
-						{{formaInvestigacion.conclusiones}}
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="col-md-2">
-						<label>Estatus Final:</label>			
-					</div>
-					<div class="col-md-2">
-						{% if investigacion.status_general != "2" or request.user.is_superuser %}
-							{{formaInvestigacion.status_general}}
-						{% else %}
-							{{investigacion.print_status_general}}
-						{% endif %}
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="col-md-2">
-						<label>Fecha de Entrega:</label>			
-					</div>
-					<div class="col-md-2">
-						{% if investigacion.status_general != "2" %}
-						{{formaInvestigacion.fecha_entrega}}
-						{% else %}
-						{{investigacion.fecha_entrega|date:"d/M/y"}}
-						<input type="hidden" value="{{investigacion.fecha_entrega|date:'d/m/Y'}}" name="investigacion-fecha_entrega">
-						{% endif %}
-					</div>
-				</div>
-			</div>
-		</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
-		{% if user.is_superuser and investigacion.investigacionextra_set.all %}
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Ejecutivo: <b>{{investigacion.investigacionextra_set.all.first.nombre}} {{investigacion.investigacionextra_set.all.first.apellido}}</b>
-			</div>
-		</div>
-		{% endif %}
-	</form>
-	{% include 'sections/candidato/seccion/empresa_select_modal.html' %}
-</div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Entrevista autorizada:</label>
+                            {{ formaEntrevista.autorizada }}
+                        </div>
+                        <div class="col-md-8">
+                            <label>Enviado a entrevistador:</label>
+                            {{ formaEntrevista.entrevistador }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">
+                            <label>Fecha / Hora:</label>
+                            {{ formaEntrevista.fecha_entrevista }}
+                            {{ formaEntrevista.hora_entrevista }}
+                        </div>
+                        <div class="col-md-8">
+                            <label>Observaciones de Entrevista (uso interno, no visible):</label>
+                            {{ formaEntrevista.observaciones }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr>
+                        <div class="col-md-10 col-md-offset-1">
+                            <label>Gestor asignado:</label>
+                            {{ formaGestorInvestigacion.gestor }}
+                        </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <label>Estatus:</label>
+                            {{ formaGestorInvestigacion.estatus }}
+                        </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <label>Fecha de asignación:</label>
+                            <p>{{ gestor_investigacion.fecha_asignacion }}</p>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <label>Fecha de finalización:</label>
+                            <p>{{ gestor_investigacion.fecha_atencion  | default_if_none:'' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Calificación Final:</label>
+                            {{ formaInvestigacion.resultado }}
+                        </div>
+                        <div class="col-md-8">
+                            <label>Observaciones de Calificación (uso interno, no visible):</label>
+                            {{ formaInvestigacion.conclusiones }}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Estatus Final:</label>
+                        </div>
+                        <div class="col-md-2">
+                            {% if investigacion.status_general != "2" or request.user.is_superuser %}
+                                {{ formaInvestigacion.status_general }}
+                            {% else %}
+                                {{ investigacion.print_status_general }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Fecha de Entrega:</label>
+                        </div>
+                        <div class="col-md-2">
+                            {% if investigacion.status_general != "2" %}
+                                {{ formaInvestigacion.fecha_entrega }}
+                            {% else %}
+                                {{ investigacion.fecha_entrega|date:"d/M/y" }}
+                                <input type="hidden" value="{{ investigacion.fecha_entrega|date:'d/m/Y' }}"
+                                       name="investigacion-fecha_entrega">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if user.is_superuser and investigacion.investigacionextra_set.all %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Ejecutivo:
+                        <b>{{ investigacion.investigacionextra_set.all.first.nombre }} {{ investigacion.investigacionextra_set.all.first.apellido }}</b>
+                    </div>
+                </div>
+            {% endif %}
+        </form>
+        {% include 'sections/candidato/seccion/empresa_select_modal.html' %}
+
+    </div>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#id_gestor_investigacion-gestor").select2()
+        });
+
+    </script>
 {% endblock %}

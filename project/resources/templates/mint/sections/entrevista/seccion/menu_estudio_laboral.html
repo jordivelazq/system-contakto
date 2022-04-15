@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+	{% if tiene_entrevista %}
+		<li class="{% if seccion_entrevista == 'datos-generales' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/{% if request.user.is_staff %}editar{% else %}ver{% endif %}/datos-generales/">Datos generales</a></li>
+        <li class="{% if seccion_entrevista == 'info-personal' %}active{% endif %}"><a href="/candidato/investigacion/{{ investigacion.id }}/entrevista/{% if request.user.is_staff %}editar{% else %}ver{% endif %}/info-personal/">Inf. Personal</a></li>
+        <li {% if seccion_entrevista == 'trayectoria' %}class="active"{% endif %}> <a href="/candidato/investigacion/{{ investigacion_id }}/trayectoria">Inv. Laboral</a></li>
+    {% endif %}
+</ul>

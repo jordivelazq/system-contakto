@@ -1,0 +1,76 @@
+<div id="sidebar" ng-controller="SearchAgenteCTRL">
+    <div class="sidebar-title">
+        <h4 class="page-header">
+            Gestores
+            <a href="/agentes/gestor/nuevo" title="Crear Gestor" class="btn btn-default btn-sm"><span
+                    class="glyphicon glyphicon-plus"></span></a>
+        </h4>
+    </div>
+    <div class="" id="filters_accordion">
+        <div class="">
+            <h6 class="panel-title">Filtros</h6>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div id="msg-search"></div>
+                <div id="lista-agentes-sidebar">
+                    <ul class="list-group">
+                        {% for a in users %}
+                            <li ng-click="select_gestor_radio({{ a.id }})" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-9 opcion-gestor">
+                                        <input type="radio" ng-model="gestor_radio" value="{{ a.id }}">
+                                        <strong>{{ a.username }}</strong>
+                                        <p><small>{{ a.first_name }} {{ a.last_name }}</small></p>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="/agentes/gestor/{{ a.id }}/editar" title="Editar gestor"><span
+                                                class="glyphicon glyphicon-edit"></span></a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div id="daterange-inputs-sidebar" class="form-group">
+                    <input type="search" name="search_nombre" id="search_nombre" ng-model="search_nombre"
+                           placeholder="Teléfono, Nombre de usuario" class="form-control">
+                </div>
+                <div id="botones-sidebar" class="form-group">
+					<span class="pull-right">
+						<button type="button" class="btn btn-default btn-sm"
+                                onclick="limpiar_filtros();"> Limpiar </button>
+						<button type="button" class="btn btn-primary btn-sm"
+                                onclick="validate_search();"> Buscar </button>
+					</span>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div>
+        <hr>
+    </div>
+</div>
+<script type="text/javascript">
+    var filtros_json = {% if filtros_json %}
+        {
+            'compania_id': '{{filtros_json.compania_id|safe}}',
+            'compania_nombre': '{{filtros_json.compania_nombre|safe}}',
+            'agente_id': '{{filtros_json.agente_id|safe}}',
+            'status_id': '{{filtros_json.status_id|safe}}',
+            'fecha_inicio': '{{filtros_json.fecha_inicio|safe}}',
+            'fecha_final': '{{filtros_json.fecha_final|safe}}'
+        }
+        {% else %}''{% endif %}
+
+    function limpiar_filtros() {
+        document.getElementById('search_nombre').value = '';
+        document.location.href = '/agentes/gestor';
+    }
+
+    function validate_search() {
+        var search = document.getElementById('search_nombre').value;
+        document.location.href = '/agentes/gestor/?search=' + search;
+    }
+</script>

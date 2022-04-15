@@ -1,0 +1,42 @@
+{% extends 'layout/base.html' %}
+
+{% block site_wrapper %}
+    <h1 class="page-header">{{ title }}</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form role="form" action="#" method="post">
+        {% csrf_token %}
+        <!--All fields -->
+        <div class="col-12">
+            {% for field in form %}
+                <div class="form-group">
+                    <label class="col-md-12">
+                        {{ field.label_tag }}
+                        {% if field.field.required %}
+                            <b style="color: red;">*</b>
+                        {% endif %}
+                    </label>
+                    <div class="col-md-12">
+                        {{ field }}
+                    </div>
+                </div>
+                <div class="help-block">{{ field.helpt_text }}</div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="col-12">
+            <button type="subtmit" class="btn btn-primary" title="guardar">Guardar</button>
+            <a class="btn btn-danger" href="/">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

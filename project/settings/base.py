@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'app.adjuntos',
     'app.api',
     'debug_toolbar',
+    'oauth2_provider',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -195,3 +196,10 @@ CACHES = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ]
+}

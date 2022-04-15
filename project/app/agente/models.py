@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -29,3 +30,31 @@ class Labels(models.Model):
 
 	def __str__(self):
 		return u'%s' % (self.name)
+
+
+class GestorInfo(models.Model):
+	ESTATUS = (
+		(1, 'ASPIRANTE'),
+		(2, 'EN CAPACITACIÓN'),
+		(3, 'PRUEBAS'),
+		(4, 'ACTIVO'),
+		(5, 'INACTIVO'),
+	)
+
+	TIPO_PAGO = (
+		(1, "A"),
+		(2, "B"),
+		(3, "C"),
+	)
+	usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+	telefono = models.CharField(max_length=15, null=True, blank=True)
+	ciudad = models.CharField(max_length=100, null=True, blank=True)
+	estado = models.CharField(max_length=100, null=True, blank=True)
+	zona = models.TextField(null=True, blank=True)
+	fecha_ingreso = models.DateField()
+	fecha_registro = models.DateTimeField(auto_now_add=True)
+	estatus = models.PositiveSmallIntegerField(choices=ESTATUS, default=1)
+	tipo_pago = models.PositiveSmallIntegerField(choices=TIPO_PAGO, default=1)
+
+	def __str__(self):
+		return '{} Tel: {} Zona:{} Ciudad:{} Estado:{} Tipo: {}'.format(self.usuario, self.telefono, self.zona, self.ciudad, self.estado, self.get_tipo_pago_display())
