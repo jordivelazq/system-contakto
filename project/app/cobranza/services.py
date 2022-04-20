@@ -25,7 +25,8 @@ def get_cobranza(filtros_json, limit = 200):
       'investigacion__tipo_investigacion_status',
       'investigacion__resultado',
       'investigacion__fecha_entrega',
-      'investigacion__tipo_investigacion_texto'
+      'investigacion__tipo_investigacion_texto',
+      'investigacion__compania__sucursal'
     ).filter(investigacion__status_active=True)
 
     if filtros_json != None:
@@ -79,6 +80,7 @@ def get_cobranza_csv_row(cob):
       cob["investigacion_id"],
       cob["investigacion__fecha_recibido"],
       cob["investigacion__compania__nombre"].encode('utf-8'),
+      cob["investigacion__compania__sucursal"].encode('utf-8'),
       cob["investigacion__candidato__nombre"].encode('utf-8'),
       cob["investigacion__candidato__apellido"].encode('utf-8'),
       cob["investigacion__puesto"].encode('utf-8'),
@@ -103,6 +105,7 @@ def get_cobranza_csv_row_2(cob):
     cob[0],
     cob[1],
     cob[2],
+    cob[21],
     cob[3],
     cob[4],
     cob[5],
@@ -153,7 +156,8 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       i.tipo_investigacion_texto as '17',
       i.status_general as '18',
       contacto.costo_inv_laboral as '19',
-      contacto.costo_inv_completa as '20'
+      contacto.costo_inv_completa as '20',
+      cs.nombre as '21'
       '''
 
   query += '''
@@ -165,6 +169,7 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       LEFT JOIN cobranza_factura_investigacion cfi ON cfi.investigacion_id = i.id
       LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
       INNER JOIN persona_direccion pd ON pd.persona_id = pp.id
+      INNER JOIN compania_sucursales cs ON i.sucursal_id = cs.id
     WHERE i.fecha_recibido between %s AND %s
       AND i.status_active = 1
     '''

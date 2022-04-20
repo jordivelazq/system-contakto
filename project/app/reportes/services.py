@@ -53,7 +53,8 @@ class ServiceReporte:
 			return False
 
 		dest_list = destinatarios.split(',')
-		sender_email = 'estatus@contakto.mx'
+		dest_list.append('estudios@contakto.mx')
+		sender_email = 'estudios@contakto.mx'
 
 		reporte = self.getEstatusReporte(investigaciones)
 		html_content = self.printReporte(reporte)
