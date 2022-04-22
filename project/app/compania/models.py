@@ -18,7 +18,7 @@ class Compania(models.Model):
 	rfc = models.CharField(max_length=20, verbose_name='RFC', blank=True, null=True) #CHECK
 	notas = models.TextField(verbose_name='Notas', blank=True, null=True) #CHECK
 	es_cliente = models.BooleanField(default=False, verbose_name='Es cliente') #CHECK
-	razon_social = models.CharField(max_length=140, verbose_name='Razón social', blank=True, null=True)  #CHECK
+	razon_social = models.CharField(max_length=500, verbose_name='Razón social', blank=True, null=True)  #CHECK
 	referencia_correo = models.IntegerField(default=0, verbose_name='Referencia por correo', choices=ACTIVO_OPCIONES, blank=True, null=True)
 
 	fecha_creacion = models.DateField(auto_now=True)
