@@ -15,7 +15,7 @@ from app.investigacion.models import Investigacion
 
 
 @login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def gestor_panel(request):
     page = 'gestor'
     gestores = GestorInfo.objects.all().values_list('usuario', flat=True)
