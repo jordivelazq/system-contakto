@@ -51,7 +51,7 @@ def gestor_panel(request):
 
 
 @login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def gestor_nuevo(request):
     page = 'gestor'
     title = 'Crear nuevo gestor'
@@ -98,7 +98,7 @@ def gestor_nuevo(request):
 
 
 @login_required(login_url='/login', redirect_field_name=None)
-@user_passes_test(lambda u: u.is_superuser, login_url='/', redirect_field_name=None)
+@user_passes_test(lambda u: u.is_staff, login_url='/', redirect_field_name=None)
 def gestor_editar(request, user_id):
     user = User.objects.get(id=user_id)
 
