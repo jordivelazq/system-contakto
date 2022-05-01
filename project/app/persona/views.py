@@ -803,9 +803,22 @@ def observaciones(request, investigacion_id):
 				formaGestorInvestigacion.instance.fecha_atencion = datetime.datetime.now()
 			formaGestorInvestigacion.save()
 
+			#Validación adicional para tipo de investigación
+			hasInterview = investigacion.entrevistapersona_set.all().count()
+			hasTrayectorias = investigacion.get_trayectorias_laborales(True)
+
 			inv_new_instance = formaInvestigacion.save(commit=False)
 			if not request.user.is_superuser and status_general == '2':
 				inv_new_instance.status_general = status_general
+
+			if inv_new_instance.status_general == '2':
+				if hasInterview > 0 and hasTrayectorias:
+					inv_new_instance.tipo_investigacion_status = 2
+				elif hasInterview > 0 and hasTrayectorias is False:
+					inv_new_instance.tipo_investigacion_status = 5
+				elif hasInterview == 0 and hasTrayectorias:
+					inv_new_instance.tipo_investigacion_status = 1
+			
 			inv_new_instance.save()
 
 			formaEntrevista.save()
