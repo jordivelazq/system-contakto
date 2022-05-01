@@ -57,4 +57,4 @@ class GestorInfo(models.Model):
 	tipo_pago = models.PositiveSmallIntegerField(choices=TIPO_PAGO, default=1)
 
 	def __str__(self):
-		return '{} Tel: {} Zona:{} Ciudad:{} Estado:{} Tipo: {}'.format(self.usuario, self.telefono, self.zona, self.ciudad, self.estado, self.get_tipo_pago_display())
+		return '{} {} Tel:{} Ciudad:{} Estado:{} Zona: {} Tipo:{}'.format(self.usuario.first_name, self.usuario.last_name , self.telefono, self.ciudad, self.estado, self.zona, self.get_tipo_pago_display())
