@@ -521,181 +521,181 @@ class DatosGeneralesFormApiView(APIView):
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_academica.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaActividadesHabitos._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_actividades_habitos.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaAspectoCandidato._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_aspecto_candidato.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaAspectoHogar._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_aspecto_hogar.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaAutomovil._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_automovil.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaBienesRaices._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_bienes_raices.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaCuentaDebito._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_cuenta_debito.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaDeudaActual._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_deuda_actual.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaDireccion._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_direccion.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaDistribucionDimensiones._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_distribucion_dimensiones.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaDocumentoCotejado._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_documento_cotejado.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaEconomica._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_economica.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaEconomica._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_economica.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaGradoEscolaridad._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_grado_escolaridad.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaHistorialEnEmpresa._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_historial_en_empresa.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaInfoPersonal._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_info_personal.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaLicencia._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_licencia.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaMiembroMarcoFamiliar._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_miembro_marco_familiar.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaOrigen._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_origen.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaOtroIdioma._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_otro_idioma.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaPersona._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_persona.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaPropietarioVivienda._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_propietario_vivienda.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaReferencia._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_referencia.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaSeguro._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_seguro.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaSituacionVivienda._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_situacion_vivienda.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaSalud._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_salud.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaPrestacionVivienda._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_prestacion_vivienda.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaTarjetaCreditoComercial._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_tarjeta_credito_comercial.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaTelefono._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_telefonos.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaTipoInmueble._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
                     json_entrevista_tipo_inmueble.append(
-                        {'column_name': field.column, 'type': self.get_field_type(field)})
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             json_output = {
                 'entrevista_academica': json_entrevista_academica,
