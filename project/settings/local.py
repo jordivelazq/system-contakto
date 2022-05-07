@@ -14,3 +14,14 @@ DATABASES = {
 }
 
 SHOW_DJANGO_TOOLBAR = True
+
+INSTALLED_APPS = INSTALLED_APPS + ('rest_framework', 'drf_spectacular')
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+

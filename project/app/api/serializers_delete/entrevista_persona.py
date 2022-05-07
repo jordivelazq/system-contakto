@@ -2,20 +2,20 @@ from rest_framework import serializers
 
 from app.compania.models import Compania, Contacto, Sucursales
 
-from app.solicitud.models import Servicio, AdjuntoSolicitud
+# from app.solicitud.models import Servicio, AdjuntoSolicitud
 
 from app.persona.models import Persona
 
+# No existe la aplicacion de Servicio
+# class ServicioSerializer(serializers.ModelSerializer):
+#     costo = serializers.SerializerMethodField()
 
-class ServicioSerializer(serializers.ModelSerializer):
-    costo = serializers.SerializerMethodField()
+#     def get_costo(self, obj):
+#         return "${:,.2f}".format(obj.costo)
 
-    def get_costo(self, obj):
-        return "${:,.2f}".format(obj.costo)
-
-    class Meta:
-        model = Servicio
-        fields = '__all__'
+#     class Meta:
+#         model = Servicio
+#         fields = '__all__'
 
 
 class CompaniaSerializer(serializers.ModelSerializer):
@@ -42,7 +42,7 @@ class PersonaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AdjuntoSolicitudSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AdjuntoSolicitud
-        fields = '__all__'
+# class AdjuntoSolicitudSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = AdjuntoSolicitud
+#         fields = '__all__'
