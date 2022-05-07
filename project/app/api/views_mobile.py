@@ -281,6 +281,7 @@ class InvestigacionUploadImageApiView(APIView):
 class EntrevistaPersonaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = EntrevistaPersona.objects.all()
     serializer_class = EntrevistaPersonaSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         investigacion_id = self.kwargs['investigacion_id']
