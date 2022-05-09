@@ -61,4 +61,7 @@ urlpatterns = [
     url(r'^investigacion/(?P<pk>[^/]+)/detalle/$', InvestigacionDetailApiView.as_view(), name='api-investigacion'),
     url(r'^investigacion/adjunto/upload/$', InvestigacionUploadImageApiView.as_view(), name='api-investigacion-adjunto-upload'),
     url(r'^forms/datosgenerales/fields/$', DatosGeneralesFormApiView.as_view(), name='api-forms-datosgenerales-fields'),
+    
+    url(r'^investigacion/verifica_entrevista_persona/(?P<investigacion_id>[^/]+)/', VerificaEntrevistaPersona.as_view(), name='api-verifica-entrevista-persona'),
+    url(r'^investigacion/elimina_entrevista_persona/(?P<investigacion_id>[^/]+)/', EliminaEntrevistaPersona.as_view(), name='api-elimina-entrevista-persona'),
 ]

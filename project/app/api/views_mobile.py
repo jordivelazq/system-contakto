@@ -70,6 +70,7 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaTipoInmuebleSerializer,
                          )
 
+from app.entrevista.entrevista_persona import EntrevistaPersonaService
 
 class AsignacionInvestigacionApiView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -272,6 +273,44 @@ class InvestigacionUploadImageApiView(APIView):
         return Response(data={'error': 3, 'message': 'No se ha completado el proceso. Inténtelo nuevamente.'},
                         status=401)
 
+
+
+class VerificaEntrevistaPersona(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        data = {'message': 'Petición no procesada', 'error': 1}
+        try:
+            investigacion_id = self.kwargs['investigacion_id']
+            ep = EntrevistaPersonaService(investigacion_id).verifyData()
+            print(ep)
+            if ep:
+                data = {'message': 'Datos generados',
+                        'error': 0, 'data': []}
+            else:
+                data = {'message': 'Datos ya existen',
+                        'error': 0, 'data': []}
+        except Exception as e:
+            data = {'message': 'Ha ocurrido un error interno. {}'.format(
+                e.args), 'error': 2}
+        return Response(data=data)
+
+
+class EliminaEntrevistaPersona(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        data = {'message': 'Petición no procesada', 'error': 1}
+        try:
+            investigacion_id = self.kwargs['investigacion_id']
+            ep = EntrevistaPersona.objects.filter(investigacion_id=investigacion_id).delete()
+            
+            data = {'message': 'Datos eliminados',
+                        'error': 0, 'data': []}
+        except Exception as e:
+            data = {'message': 'Ha ocurrido un error interno. {}'.format(
+                e.args), 'error': 2}
+        return Response(data=data)
 
 '''
  Formularios
