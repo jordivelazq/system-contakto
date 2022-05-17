@@ -17,5 +17,6 @@ docs/
 SHA1.txt
 project/resources/csv/
 newrelic.ini
+.env`
 project/resources/media/zip/
 project/resources/static/

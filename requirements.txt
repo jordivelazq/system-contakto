@@ -43,3 +43,4 @@ djangorestframework==3.13.1
 
 # -------------------------------------------------
 drf-spectacular==0.22.1 # https://drf-spectacular.readthedocs.io/en/latest/
+django-environ==0.8.1  # https://github.com/joke2k/django-environ
