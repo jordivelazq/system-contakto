@@ -14,7 +14,6 @@ framework.
 
 """
 import os
-#import newrelic.agent
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.dev")
 
