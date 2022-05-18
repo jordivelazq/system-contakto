@@ -14,12 +14,13 @@ framework.
 
 """
 import os
-import newrelic.agent
+#import newrelic.agent
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.local")
 
 if os.environ["DJANGO_SETTINGS_MODULE"] == "settings.prod":
-  newrelic.agent.initialize('../newrelic.ini')
+  pass
+  #newrelic.agent.initialize('../newrelic.ini')
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
