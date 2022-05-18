@@ -10,10 +10,10 @@ env = environ.Env()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': env.db('CONTAKTO_DB_NAME'),
-        'USER': env.db('CONTAKTO_DB_USER'),                      # Not used with sqlite3.
-        'PASSWORD': env.db('CONTAKTO_DB_PASSWORD'),                  # Not used with sqlite3.
-        'HOST': env.db('MYSQL_CONTAKTO_PORT_3306_TCP_ADDR')                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': os.environ['CONTAKTO_DB_NAME'],
+        'USER': os.environ['CONTAKTO_DB_USER'],                      # Not used with sqlite3.
+        'PASSWORD': os.environ['CONTAKTO_DB_PASSWORD'],                  # Not used with sqlite3.
+        'HOST': os.environ['MYSQL_CONTAKTO_PORT_3306_TCP_ADDR']                      # Set to empty string for localhost. Not used with sqlite3.
     }
 }
 
