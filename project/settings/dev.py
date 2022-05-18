@@ -4,7 +4,7 @@ import environ
 
 env = environ.Env()
 
-DEBUG = False
+#DEBUG = False
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
