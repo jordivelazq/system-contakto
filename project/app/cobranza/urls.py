@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from app.cobranza.views import panel, generar_reporte, search_cobranza, reset_filtros, cobranza_investigacion, cobranza_facturas, eliminar_cobranza_investigacion
 
 urlpatterns = [
-	url(r'^/$', panel, name='panel_cobranza'),
+	url(r'^$', panel, name='panel_cobranza'),
 	url(r'^exito/$', panel, name='panel_cobranza'),
 	url(r'^error/$', panel, name='panel_cobranza'),
 	url(r'^generar_reporte/$', generar_reporte, name='generar_reporte'),

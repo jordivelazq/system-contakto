@@ -63,7 +63,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'resources'),
-    '/usr/local/django/contrib/admin/static/'
+    # '/usr/local/django/contrib/admin/static/'
 )
 
 # List of finder classes that know how to find static files in
@@ -98,7 +98,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'resources/templates/mint'),
-            '/usr/local/django/contrib/admin/templates/'
+            # '/usr/local/django/contrib/admin/templates/'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
