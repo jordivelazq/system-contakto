@@ -1,20 +1,76 @@
+import json
+import uuid
+
+from app.adjuntos.models import Adjuntos
+from app.agente.models import GestorInfo
+from app.api.serializer import (AdjuntosSerializer,
+                                InvestigacionListSerializer,
+                                InvestigacionSerializer)
+from app.entrevista.models import (EntrevistaAcademica,
+                                   EntrevistaActividadesHabitos,
+                                   EntrevistaAspectoCandidato,
+                                   EntrevistaAspectoHogar, EntrevistaAutomovil,
+                                   EntrevistaBienesRaices,
+                                   EntrevistaCuentaDebito,
+                                   EntrevistaDeudaActual, EntrevistaDireccion,
+                                   EntrevistaDistribucionDimensiones,
+                                   EntrevistaDocumentoCotejado,
+                                   EntrevistaEconomica,
+                                   EntrevistaGradoEscolaridad,
+                                   EntrevistaHistorialEnEmpresa,
+                                   EntrevistaInfoPersonal, EntrevistaLicencia,
+                                   EntrevistaMiembroMarcoFamiliar,
+                                   EntrevistaOrigen, EntrevistaOtroIdioma,
+                                   EntrevistaPersona,
+                                   EntrevistaPrestacionVivienda,
+                                   EntrevistaPropietarioVivienda,
+                                   EntrevistaReferencia, EntrevistaSalud,
+                                   EntrevistaSeguro,
+                                   EntrevistaSituacionVivienda,
+                                   EntrevistaTarjetaCreditoComercial,
+                                   EntrevistaTelefono, EntrevistaTipoInmueble)
+from app.investigacion.models import Investigacion
+from app.persona.models import DatosGenerales
 from django.conf import settings
+from rest_framework import generics, mixins, viewsets
 from rest_framework.generics import ListAPIView
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from app.agente.models import GestorInfo
-from app.api.serializer import InvestigacionSerializer, InvestigacionListSerializer, AdjuntosSerializer
-from app.entrevista.models import EntrevistaTelefono, EntrevistaPersona, EntrevistaDireccion, EntrevistaOrigen, \
-    EntrevistaLicencia
-from app.investigacion.models import Investigacion
-from app.adjuntos.models import Adjuntos
-import uuid
+from .serializer import (EntrevistaAcademicaSerializer,
+                         EntrevistaActividadesHabitosSerializer,
+                         EntrevistaAspectoCandidatoSerializer,
+                         EntrevistaAspectoHogarSerializer,
+                         EntrevistaPersonaSerializer,
+                         EntrevistaAutomovilSerializer,
+                         EntrevistaBienesRaicesSerializer,
+                         EntrevistaCuentaDebitoSerializer,
+                         EntrevistaDeudaActualSerializer,
+                         EntrevistaDireccionSerializer,
+                         EntrevistaDistribucionDimensionesSerializer,
+                         EntrevistaDocumentoCotejadoSerializer,
+                         EntrevistaEconomicaSerializer,
+                         EntrevistaGradoEscolaridadSerializer,
+                         EntrevistaHistorialEnEmpresaSerializer,
+                         EntrevistaInfoPersonalSerializer,
+                         EntrevistaLicenciaSerializer,
+                         EntrevistaMiembroMarcoFamiliarSerializer,
+                         EntrevistaOrigenSerializer,
+                         EntrevistaOtroIdiomaSerializer,
+                         EntrevistaPropietarioViviendaSerializer,
+                         EntrevistaReferenciaSerializer,
+                         EntrevistaSeguroSerializer,
+                         EntrevistaSituacionViviendaSerializer,
+                         EntrevistaSaludSerializer,
+                         EntrevistaPrestacionViviendaSerializer,
+                         EntrevistaTarjetaCreditoComercialSerializer,
+                         EntrevistaTelefonoSerializer,
+                         EntrevistaTipoInmuebleSerializer,
+                         )
 
-from app.persona.models import DatosGenerales
-
+from app.entrevista.entrevista_persona import EntrevistaPersonaService
 
 class AsignacionInvestigacionApiView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -23,11 +79,14 @@ class AsignacionInvestigacionApiView(APIView):
         data = {'message': 'Petición no procesada', 'error': 1}
         try:
             gestor = GestorInfo.objects.get(usuario=self.request.user)
-            queryset = Investigacion.objects.filter(gestorinvestigacion__gestor=gestor, gestorinvestigacion__estatus=2)
+            queryset = Investigacion.objects.filter(
+                gestorinvestigacion__gestor=gestor, gestorinvestigacion__estatus=2)
             serializer = InvestigacionListSerializer(queryset, many=True)
-            data = {'message': 'Datos correctos', 'error': 0, 'data': serializer.data}
+            data = {'message': 'Datos correctos',
+                    'error': 0, 'data': serializer.data}
         except Exception as e:
-            data = {'message': 'Ha ocurrido un error interno. {}'.format(e.args), 'error': 2}
+            data = {'message': 'Ha ocurrido un error interno. {}'.format(
+                e.args), 'error': 2}
         return Response(data=data)
 
 
@@ -46,7 +105,8 @@ class InvestigacionUploadImageApiView(APIView):
 
     def get(self, request, *args, **kwargs):
         if self.request.GET.get('inv'):
-            queryset = Adjuntos.objects.filter(investigacion_id=self.request.GET.get('inv'))
+            queryset = Adjuntos.objects.filter(
+                investigacion_id=self.request.GET.get('inv'))
             serializer = AdjuntosSerializer(queryset, many=True)
             return Response(data={'error': 0, 'message': 'Adjuntos de investigación', 'data': serializer.data},
                             status=200)
@@ -58,7 +118,8 @@ class InvestigacionUploadImageApiView(APIView):
         column_no = self.request.GET.get('column_no')
         if 'file' not in request.data:
             return Response(
-                data={'error': 4, 'message': 'Archivo no encontrado, inténtelo nuevamente usando datos correctos.'},
+                data={
+                    'error': 4, 'message': 'Archivo no encontrado, inténtelo nuevamente usando datos correctos.'},
                 status=404)
         f = request.data['file']
         ext = f.name.split('.')
@@ -70,10 +131,12 @@ class InvestigacionUploadImageApiView(APIView):
         destination.close()
         if investigacion_id and column_no:
             try:
-                adjunto = Adjuntos.objects.filter(investigacion_id=investigacion_id)
+                adjunto = Adjuntos.objects.filter(
+                    investigacion_id=investigacion_id)
                 if not adjunto:
                     Adjuntos.objects.create(investigacion_id=investigacion_id)
-                    adjunto = Adjuntos.objects.filter(investigacion_id=investigacion_id)
+                    adjunto = Adjuntos.objects.filter(
+                        investigacion_id=investigacion_id)
                 # adj2='1. Foto de perfil del candidato'
                 if column_no == '2':
                     adjunto.update(adj2=f)
@@ -211,9 +274,226 @@ class InvestigacionUploadImageApiView(APIView):
                         status=401)
 
 
+
+class VerificaEntrevistaPersona(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        data = {'message': 'Petición no procesada', 'error': 1}
+        try:
+            investigacion_id = self.kwargs['investigacion_id']
+            ep = EntrevistaPersonaService(investigacion_id).verifyData()
+            print(ep)
+            if ep:
+                data = {'message': 'Datos generados',
+                        'error': 0, 'data': []}
+            else:
+                data = {'message': 'Datos ya existen',
+                        'error': 0, 'data': []}
+        except Exception as e:
+            data = {'message': 'Ha ocurrido un error interno. {}'.format(
+                e.args), 'error': 2}
+        return Response(data=data)
+
+
+class EliminaEntrevistaPersona(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        data = {'message': 'Petición no procesada', 'error': 1}
+        try:
+            investigacion_id = self.kwargs['investigacion_id']
+            ep = EntrevistaPersona.objects.filter(investigacion_id=investigacion_id).delete()
+            
+            data = {'message': 'Datos eliminados',
+                        'error': 0, 'data': []}
+        except Exception as e:
+            data = {'message': 'Ha ocurrido un error interno. {}'.format(
+                e.args), 'error': 2}
+        return Response(data=data)
+
 '''
  Formularios
 '''
+
+
+class EntrevistaPersonaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = EntrevistaPersona.objects.all()
+    serializer_class = EntrevistaPersonaSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        investigacion_id = self.kwargs['investigacion_id']
+        qs = self.queryset.filter(investigacion_id=investigacion_id)
+        return qs
+
+
+class EntrevistaAcademicaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaAcademica.objects.all()
+    serializer_class = EntrevistaAcademicaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaActividadesHabitosViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaActividadesHabitos.objects.all()
+    serializer_class = EntrevistaActividadesHabitosSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaAspectoCandidatoViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaAspectoCandidato.objects.all()
+    serializer_class = EntrevistaAspectoCandidatoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaAspectoHogarViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaAspectoHogar.objects.all()
+    serializer_class = EntrevistaAspectoHogarSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaAutomovilViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaAutomovil.objects.all()
+    serializer_class = EntrevistaAutomovilSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaBienesRaicesViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaBienesRaices.objects.all()
+    serializer_class = EntrevistaBienesRaicesSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaCuentaDebitoViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaCuentaDebito.objects.all()
+    serializer_class = EntrevistaCuentaDebitoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaDeudaActualViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaDeudaActual.objects.all()
+    serializer_class = EntrevistaDeudaActualSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaDireccionViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaDireccion.objects.all()
+    serializer_class = EntrevistaDireccionSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaDistribucionDimensionesViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaDistribucionDimensiones.objects.all()
+    serializer_class = EntrevistaDistribucionDimensionesSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaDocumentoCotejadoViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaDocumentoCotejado.objects.all()
+    serializer_class = EntrevistaDocumentoCotejadoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaEconomicaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaEconomica.objects.all()
+    serializer_class = EntrevistaEconomicaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaGradoEscolaridadViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaGradoEscolaridad.objects.all()
+    serializer_class = EntrevistaGradoEscolaridadSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaHistorialEnEmpresaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaHistorialEnEmpresa.objects.all()
+    serializer_class = EntrevistaHistorialEnEmpresaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaInfoPersonalViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaInfoPersonal.objects.all()
+    serializer_class = EntrevistaInfoPersonalSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaLicenciaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaLicencia.objects.all()
+    serializer_class = EntrevistaLicenciaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaMiembroMarcoFamiliarViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaMiembroMarcoFamiliar.objects.all()
+    serializer_class = EntrevistaMiembroMarcoFamiliarSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaOrigenViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaOrigen.objects.all()
+    serializer_class = EntrevistaOrigenSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaOtroIdiomaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaOtroIdioma.objects.all()
+    serializer_class = EntrevistaOtroIdiomaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaPropietarioViviendaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaPropietarioVivienda.objects.all()
+    serializer_class = EntrevistaPropietarioViviendaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaReferenciaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaReferencia.objects.all()
+    serializer_class = EntrevistaReferenciaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaSeguroViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaSeguro.objects.all()
+    serializer_class = EntrevistaSeguroSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaSituacionViviendaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaSituacionVivienda.objects.all()
+    serializer_class = EntrevistaSituacionViviendaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaSaludViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaSalud.objects.all()
+    serializer_class = EntrevistaSaludSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaPrestacionViviendaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaPrestacionVivienda.objects.all()
+    serializer_class = EntrevistaPrestacionViviendaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaTarjetaCreditoComercialViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaTarjetaCreditoComercial.objects.all()
+    serializer_class = EntrevistaTarjetaCreditoComercialSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaTelefonoViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaTelefono.objects.all()
+    serializer_class = EntrevistaTelefonoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class EntrevistaTipoInmuebleViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaTipoInmueble.objects.all()
+    serializer_class = EntrevistaTipoInmuebleSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class DatosGeneralesFormApiView(APIView):
@@ -245,45 +525,253 @@ class DatosGeneralesFormApiView(APIView):
     def get(self, request, *args, **kwargs):
         data = {'error': 1, 'message': 'Datos no procesados'}
         try:
-            json_data_ep = []
-            json_telefonos = []
-            json_direccion = []
+            json_entrevista_academica = []
+            json_entrevista_actividades_habitos = []
+            json_entrevista_aspecto_candidato = []
+            json_entrevista_aspecto_hogar = []
+            json_entrevista_automovil = []
+            json_entrevista_bienes_raices = []
+            json_entrevista_cuenta_debito = []
+            json_entrevista_deuda_actual = []
+            json_entrevista_distribucion_dimensiones = []
+            json_entrevista_documento_cotejado = []
+            json_entrevista_economica = []
+            json_entrevista_grado_escolaridad = []
+            json_entrevista_historial_en_empresa = []
+            json_entrevista_info_personal = []
+            json_entrevista_miembro_marco_familiar = []
             json_origen = []
+            json_entrevista_otro_idioma = []
+            json_entrevista_persona = []
             json_licencia = []
+            json_direccion = []
+            json_entrevista_persona = []
+            json_entrevista_propietario_vivienda = []
+            json_entrevista_referencia = []
+            json_entrevista_seguro = []
+            json_entrevista_situacion_vivienda = []
+            json_entrevista_salud = []
+            json_entrevista_prestacion_vivienda = []
+            json_entrevista_tarjeta_credito_comercial = []
+            json_telefonos = []
+            json_entrevista_tipo_inmueble = []
 
-            for field in EntrevistaPersona._meta.get_fields():
+            for field in EntrevistaAcademica._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
-                    json_data_ep.append({'column_name': field.column, 'type': self.get_field_type(field)})
+                    json_entrevista_academica.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
-
-            for field in EntrevistaTelefono._meta.get_fields():
+            for field in EntrevistaActividadesHabitos._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
-                    json_telefonos.append({'column_name': field.column, 'type': self.get_field_type(field)})
+                    json_entrevista_actividades_habitos.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
+            for field in EntrevistaAspectoCandidato._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_aspecto_candidato.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaAspectoHogar._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_aspecto_hogar.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaAutomovil._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_automovil.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaBienesRaices._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_bienes_raices.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaCuentaDebito._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_cuenta_debito.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaDeudaActual._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_deuda_actual.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaDireccion._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
-                    json_direccion.append({'column_name': field.column, 'type': self.get_field_type(field)})
+                    json_direccion.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
-
-            for field in EntrevistaOrigen._meta.get_fields():
+            for field in EntrevistaDistribucionDimensiones._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
-                    json_origen.append({'column_name': field.column, 'type': self.get_field_type(field)})
+                    json_entrevista_distribucion_dimensiones.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
+            for field in EntrevistaDocumentoCotejado._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_documento_cotejado.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaEconomica._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_economica.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaEconomica._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_economica.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaGradoEscolaridad._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_grado_escolaridad.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaHistorialEnEmpresa._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_historial_en_empresa.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaInfoPersonal._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_info_personal.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
             for field in EntrevistaLicencia._meta.get_fields():
                 if not field.one_to_many:
                     print(field.get_internal_type(), ' = ', field.column)
-                    json_licencia.append({'column_name': field.column, 'type': self.get_field_type(field)})
+                    json_licencia.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
+            for field in EntrevistaMiembroMarcoFamiliar._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_miembro_marco_familiar.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
-            json_output= {'entrevista_persona':json_data_ep, 'entrevista_telefono':json_telefonos,'entrevista_origen': json_origen,'entrevista_licencia': json_licencia}
+            for field in EntrevistaOrigen._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_origen.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
 
-            data = {'error': 0, 'message': 'Datos procesados correctamente', 'seccion': 'datos_generales', 'data': json_output}
+            for field in EntrevistaOtroIdioma._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_otro_idioma.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaPersona._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_persona.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaPropietarioVivienda._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_propietario_vivienda.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaReferencia._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_referencia.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaSeguro._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_seguro.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaSituacionVivienda._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_situacion_vivienda.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaSalud._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_salud.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaPrestacionVivienda._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_prestacion_vivienda.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaTarjetaCreditoComercial._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_tarjeta_credito_comercial.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaTelefono._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_telefonos.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            for field in EntrevistaTipoInmueble._meta.get_fields():
+                if not field.one_to_many:
+                    print(field.get_internal_type(), ' = ', field.column)
+                    json_entrevista_tipo_inmueble.append(
+                        {'column_name': field.column, 'type': self.get_field_type(field), 'max_length': field.max_length})
+
+            json_output = {
+                'entrevista_academica': json_entrevista_academica,
+                'entrevista_actividades_habitos': json_entrevista_actividades_habitos,
+                'entrevista_aspecto_candidato': json_entrevista_aspecto_candidato,
+                'entrevista_aspecto_hogar': json_entrevista_aspecto_hogar,
+                'entrevista_automovil': json_entrevista_automovil,
+                'entrevista_bienes_raices': json_entrevista_bienes_raices,
+                'entrevista_cuenta_debito': json_entrevista_cuenta_debito,
+                'entrevista_deuda_actual': json_entrevista_deuda_actual,
+                'entrevista_direccion': json_direccion,
+                'entrevista_distribucion_dimensiones': json_entrevista_distribucion_dimensiones,
+                'entrevista_documento_cotejado': json_entrevista_documento_cotejado,
+                'entrevista_economica': json_entrevista_economica,
+                'entrevista_grado_escolaridad': json_entrevista_grado_escolaridad,
+                'entrevista_historial_en_empresa': json_entrevista_historial_en_empresa,
+                'entrevista_info_personal': json_entrevista_info_personal,
+                'entrevista_licencia': json_licencia,
+                'entrevista_miembro_marco_familiar': json_entrevista_miembro_marco_familiar,
+                'entrevista_origen': json_origen,
+                'entrevista_otro_idioma': json_entrevista_otro_idioma,
+                'entrevista_persona': json_entrevista_persona,
+                'entrevista_persona': json_entrevista_persona,
+                'entrevista_propietario_vivienda': json_entrevista_propietario_vivienda,
+                'entrevista_referencia': json_entrevista_referencia,
+                'entrevista_seguro': json_entrevista_seguro,
+                'entrevista_situacion_vivienda': json_entrevista_situacion_vivienda,
+                'entrevista_salud': json_entrevista_salud,
+                'entrevista_prestacion_vivienda': json_entrevista_prestacion_vivienda,
+                'entrevista_tarjeta_credito_comercial': json_entrevista_tarjeta_credito_comercial,
+                'entrevista_telefono': json_telefonos,
+                'entrevista_tipo_inmueble': json_entrevista_tipo_inmueble
+            }
+
+            data = {'error': 0, 'message': 'Datos procesados correctamente',
+                    'seccion': 'datos_generales', 'data': json_output}
         except Exception as e:
-            data = {'error': 1, 'message': 'Datos no procesados. {}'.format(str(e))}
+            data = {'error': 1,
+                    'message': 'Datos no procesados. {}'.format(str(e))}
         return Response(data=data)
