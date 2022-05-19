@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from app.bitacora.views import panel, search_bitacora, reset_filtros
 
 urlpatterns = [
-	url(r'^/$', panel, name='bitacora_panel'),
+	url(r'^$', panel, name='bitacora_panel'),
 
 	#AJAX
 	url(r'^search_bitacora/$', search_bitacora, name='search_bitacora'),

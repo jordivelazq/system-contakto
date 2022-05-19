@@ -3,8 +3,8 @@ from django.conf.urls import include, url
 from app.compania.views import panel, nueva, editar, borrar, sucursal_main, sucursal_new, sucursal_edit, sucursal_delete, contactos, contacto_nuevo, contacto_editar, contacto_borrar, get_contactos, search_empresas, reset_filtros
 
 urlpatterns = [
-	url(r'^/$', panel, name='compania_panel'),
-	url(r'^/exito$', panel, name='compania_exit'),
+	url(r'^$', panel, name='compania_panel'),
+	url(r'^exito$', panel, name='compania_exit'),
 	url(r'^nueva/$', nueva, name='compania_nueva'),
 	url(r'^nueva/ref/(?P<investigacion_id>[^/]+)/$', nueva, name='compania_nueva'),
 	
