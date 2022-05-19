@@ -1,6 +1,6 @@
 /* line 1, ../sass/screen.sass */
 navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
-  background: url(../media/logo_white.png) 0 0 no-repeat;
+  background: url(../img/logo_white.png) 0 0 no-repeat;
   height: 31px;
   line-height: 5000em;
   margin-left: 0;
@@ -135,7 +135,7 @@ body {
 
 /* line 100, ../sass/screen.sass */
 .loading-ajax {
-  background: url(../media/ajax-loader.gif) 0 0 no-repeat;
+  background: url(../img/ajax-loader.gif) 0 0 no-repeat;
   background-position: center;
   height: 20px;
   width: 100%;

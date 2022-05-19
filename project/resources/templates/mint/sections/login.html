@@ -7,7 +7,7 @@
 	<form class="form-signin" role="form" action="/login" method="post">{% csrf_token %}
 
 		<center>
-			<img src="{%static 'media/logo_black.png' %}" />
+			<img src="{% static 'img/logo_black.png' %}" />
 		</center>
 		{% if next %} <input type="hidden" name="next" value="{{next}}"> {% endif %}
 		<h2 class="form-signin-heading">Ingresar al sistema</h2>
