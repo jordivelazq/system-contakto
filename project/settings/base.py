@@ -136,7 +136,7 @@ INSTALLED_APPS = (
     'app.api',
     'debug_toolbar',
     'oauth2_provider',
-    'anymail',
+    'django-ses',
 )
 
 # A sample logging configuration. The only tangible logging
