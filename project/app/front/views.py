@@ -16,7 +16,7 @@ def panel(request):
 	if user.groups.filter(name='contactos').count():
 		return HttpResponseRedirect('/estatus')
 
-	return HttpResponseRedirect('/candidatos/')
+	return HttpResponseRedirect('/candidatos')
 
 def descargar_app(request):
 	return HttpResponseRedirect('https://github.com/garciadiazjaime/app-contakto/releases/download/v1.2.5/app-contakto-Setup-1.2.5.exe')
