@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans 'Forbidden' %} (403){% endblock %}
+
+{% block site_wrapper %}
+<br>
+<br>
+<div class="row">
+  <!-- start: 500 -->
+  <div class="col-sm-12 page-error">
+    <div class="error-number bricky">
+      403
+    </div>
+    <br>
+    <div class="error-details col-sm-12 col-sm-offset-3">
+      <h3>{% trans 'Oops! Forbidden (403)' %}</h3>
+
+      <p>{% if exception %}{{ exception }}{% else %}You're not allowed to access this page.{% endif %}</p>
+      
+      <p>
+        <br><br>
+        <a href="/" class="btn btn-outline-primary btnBlueWhite">
+            {% trans 'Return home' %}
+          </a>
+      </p>
+    </div>
+  </div>
+  <!-- end: 500 -->
+</div>
+
+{% endblock content %}

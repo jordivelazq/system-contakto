@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans 'Page not found' %}{% endblock %}
+
+{% block site_wrapper %}
+
+<br>
+<br>
+
+<div class="row">
+  <!-- start: 404 -->
+  <div class="col-sm-12 page-error">
+    <div class="error-number teal">
+      404
+    </div>
+    <div class="error-details col-sm-12 col-sm-offset-3">
+      <h3>Oops! You are stuck at 404</h3>
+      <p>
+        <br>
+        {% trans 'Unfortunately the page you were looking for could not be found.' %}
+        <br><br> {% trans 'It may be temporarily unavailable, moved or no longer exist.' %}
+        <br><br> {% trans 'Check the URL you entered for any mistakes and try again.' %}
+        <br><br>
+        <a href="/" class="btn btn-outline-primary btnBlueWhite">
+          {% trans 'Return home' %}
+        </a>
+      </p>
+    </div>
+  </div>
+  <!-- end: 404 -->
+</div>
+
+
+{% endblock content %}
