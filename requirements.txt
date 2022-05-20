@@ -29,7 +29,7 @@ python-http-client==1.2.3
 reportlab==3.5.55
 requests==2.24.0
 #sendgrid==2.2.1
-sendgrid==6.9.7
+#sendgrid==6.9.7
 #six==1.15.0
 #smtpapi==0.3.1
 #South==1.0.2
@@ -46,3 +46,4 @@ djangorestframework==3.13.1
 drf-spectacular==0.22.1 # https://drf-spectacular.readthedocs.io/en/latest/
 django-environ==0.8.1  # https://github.com/joke2k/django-environ
 gevent==21.12.0
+django-anymail[amazon_ses]==8.5
