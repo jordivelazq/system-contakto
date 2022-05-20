@@ -75,9 +75,14 @@ EMAIL_SUBJECT_PREFIX = env(
 EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
 ANYMAIL = {
     'AMAZON_SES_CLIENT_PARAMS': {
-        'aws_access_key_id': env('AWS_ACCESS_KEY_FOR_ANYMAIL_SES'),
-        'aws_secret_access_key': env('AWS_SECRET_KEY_FOR_ANYMAIL_SES'),
-        'region_name': env('API_AWS_REGION_NAME'),
+        'aws_access_key_id': os.environ['AWS_ACCESS_KEY_FOR_ANYMAIL_SES'],
+        'aws_secret_access_key': os.environ['AWS_SECRET_KEY_FOR_ANYMAIL_SES'],
+        'region_name': os.environ['API_AWS_REGION_NAME'],
     }
+    # 'AMAZON_SES_CLIENT_PARAMS': {
+    #     'aws_access_key_id': env('AWS_ACCESS_KEY_FOR_ANYMAIL_SES'),
+    #     'aws_secret_access_key': env('AWS_SECRET_KEY_FOR_ANYMAIL_SES'),
+    #     'region_name': env('API_AWS_REGION_NAME'),
+    # }
 
 }
