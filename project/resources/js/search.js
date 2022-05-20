@@ -180,7 +180,7 @@ contacktoApp.controller('SearchAgenteCTRL', function($scope){
         $scope.fecha_final = getDate('fecha_final')
 
         var data = $scope.get_filtros();
-        $.post( "/agente/search_agentes/", data , 'json').done(function( data ) {
+        $.post( "/agente/search_agentes", data , 'json').done(function( data ) {
             if (typeof data.status != 'undefined' && data.status){
                 if ($scope.refresh) { 
                     window.location.replace('/agentes');

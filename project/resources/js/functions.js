@@ -486,7 +486,7 @@ function getCandidatos(filtros) {
   }
 
   return new Promise(resolve => {
-    $.post( "/candidato/search_candidatos/", filtros , 'json')
+    $.post( "/candidato/search_candidatos", filtros , 'json')
       .done(function( data ) {
         if (typeof data.status != 'undefined' && data.status){
           resolve(data.candidatos)
