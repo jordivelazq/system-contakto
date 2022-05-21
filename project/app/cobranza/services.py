@@ -120,7 +120,10 @@ def get_cobranza_csv_row_2(cob):
     cob[14],
     cob[15],
     cob[16],
-    cob[17]
+    cob[17],
+    cob[22],
+    cob[23],
+    cob[24]
   ]
   return item
 
@@ -157,7 +160,10 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       i.status_general as '18',
       contacto.costo_inv_laboral as '19',
       contacto.costo_inv_completa as '20',
-      cs.nombre as '21'
+      cs.nombre as '21',
+      ec.fecha_entrevista as '22',
+      ec.hora_entrevista as '23',
+      ec.entrevistador as '24'
       '''
 
   query += '''
@@ -170,6 +176,7 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       LEFT JOIN cobranza_factura cf ON cf.id = cfi.factura_id
       INNER JOIN persona_direccion pd ON pd.persona_id = pp.id
       INNER JOIN compania_sucursales cs ON i.sucursal_id = cs.id
+      LEFT JOIN entrevista_entrevistacita ec ON i.id = ec.investigacion_id
     WHERE i.fecha_recibido between %s AND %s
       AND i.status_active = 1
     '''
