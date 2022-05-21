@@ -1,5 +1,6 @@
 # from django.core.mail import EmailMultiAlternatives
-import sendgrid
+# import sendgrid
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 import os
 import requests
 
@@ -14,9 +15,18 @@ class EmailHandler:
     @param {object} data object with the email data
     '''
     try:
-        sg = sendgrid.SendGridClient(os.environ['SENDGRID_API_KEY'])
-        message = sendgrid.Mail(to=data['to'], subject=data['subject'], html=data['html_content'], text=data['text_content'], from_email=data['from_email'])
-        status, msg = sg.send(message)
+        # sg = sendgrid.SendGridClient(os.environ['SENDGRID_API_KEY'])
+        # message = sendgrid.Mail(to=data['to'], subject=data['subject'], html=data['html_content'], text=data['text_content'], from_email=data['from_email'])
+        # status, msg = sg.send(message)
+
+        subject, from_email, to = data['subject'], data['from_email'], data['to']
+
+        bcc = ['estudios@contakto.mx']
+        text_content = ''
+        html_content = data['html_content']
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to], bcc=bcc)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
         payload = {
           'to': data['to'],

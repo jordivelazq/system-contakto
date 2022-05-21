@@ -65,7 +65,7 @@ urlpatterns = [
 
 	#AJAX
 	url(r'^existencia/$', existencia, name='existencia_candidato'),
-	url(r'^search_candidatos/$', search_candidatos, name='search_candidatos'),
+	url(r'^search_candidatos$', search_candidatos, name='search_candidatos'),
 	url(r'^reset_filtros/$', reset_filtros, name='reset_filtros_candidatos'),
 
 	#Demanda
