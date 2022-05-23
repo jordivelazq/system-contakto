@@ -24,7 +24,7 @@ class EmailHandler:
         bcc = ['estudios@contakto.mx']
         text_content = ''
         html_content = data['html_content']
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to], bcc=bcc)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, to, bcc=bcc)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
@@ -40,3 +40,21 @@ class EmailHandler:
         return True
     except:
         return False
+
+'''
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+subject, from_email, to = 'Prueba desde subject', 'estudios@contakto.mx', ['hernan.ramirez@gmail.com',]
+
+bcc = ['estudios@contakto.mx']
+text_content = 'demo text'
+html_content = '<b>ok...</b> ok'
+msg = EmailMultiAlternatives(subject, text_content, from_email, to, bcc=bcc)
+msg.attach_alternative(html_content, "text/html")
+msg.send()
+
+
+
+message = EmailMessage(subject, html_content, from_email, to, bcc=bcc)
+message.content_subtype = "html"
+message.send()
+'''
