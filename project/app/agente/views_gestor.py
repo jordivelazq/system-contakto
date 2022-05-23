@@ -126,7 +126,7 @@ def gestor_editar(request, user_id):
     enable_delete_agente = True
     # este el usuario mint admin
     if user.username == 'admin':
-        return HttpResponseRedirect('/agentes/gestor')
+        return HttpResponseRedirect('/agentes/gestor/')
     if request.POST:
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
