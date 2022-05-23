@@ -35,7 +35,9 @@ class EmailHandler:
           'size': len(data['html_content']),
           'account': 'contaktoapp',
         }
-        requests.post(os.environ['EMAIL_LOG_URL'], json=payload)
+        
+        # se elimina, al parecer es por el tema del uso del SendGrid
+        # requests.post(os.environ['EMAIL_LOG_URL'], json=payload)
 
         return True
     except:
