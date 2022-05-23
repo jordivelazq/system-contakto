@@ -95,6 +95,9 @@
 						<th class="text-center col-red">Estatus</th>
 						<th class="text-center col-red">Resultado</th>
 						<th class="text-center col-red">Obs .Investigacion</th>
+						<th class="text-center col-red">Fecha de entrevista</th>
+						<th class="text-center col-red">Hora</th>
+						<th class="text-center col-red">Entrevistador (gestor)</th>
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
@@ -152,6 +155,21 @@
 							</td>
 							<td class="text-center">
 								{{ investigacion.17 }}
+							</td>
+							<td class="text-center">
+								{% if investigacion.22 %}
+									{{ investigacion.22}}
+								{% endif %}
+							</td>
+							<td class="text-center">
+								{% if investigacion.23 %}
+									{{ investigacion.23}}
+								{% endif %}
+							</td>
+							<td class="text-center">
+								{% if investigacion.24 %}
+									{{ investigacion.24}}
+								{% endif %}
 							</td>
 						</tr>
 					{% endfor %}
