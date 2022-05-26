@@ -213,10 +213,10 @@ REST_FRAMEWORK = {
        
     ),
     
-    'DEFAULT_PERMISSION_CLASSES': (
-        'oauth2_provider.ext.rest_framework.TokenHasReadWriteScope',
-        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'oauth2_provider.ext.rest_framework.TokenHasReadWriteScope',
+    #     # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
+    # ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     
 }
