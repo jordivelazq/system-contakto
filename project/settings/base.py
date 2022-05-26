@@ -22,8 +22,7 @@ TIME_ZONE = 'America/Tijuana'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-# LANGUAGE_CODE = 'es-MX'
-LANGUAGE_CODE = 'en-US'
+LANGUAGE_CODE = 'es-MX'
 
 SITE_ID = 1
 
@@ -214,8 +213,7 @@ REST_FRAMEWORK = {
     ),
     
     # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'oauth2_provider.ext.rest_framework.TokenHasReadWriteScope',
-    #     # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
+    #     'oauth2_provider.contrib.rest_framework.TokenHasReadWriteScope',
     # ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     

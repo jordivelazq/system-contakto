@@ -592,7 +592,7 @@ class EntrevistaTipoInmuebleViewSet(viewsets.ModelViewSet):
 class DatosGeneralesFormApiView(APIView):
     authentication_classes = [OAuth2Authentication]
     permission_classes = [TokenHasReadWriteScope,]
-    
+
     def get_field_select(self, field):
         obj = field.get_internal_type()
         if obj == 'OneToOneField':
