@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'app.api',
     'debug_toolbar',
     'oauth2_provider',
+    'anymail',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -197,11 +198,23 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication', 
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+       
     ),
+    
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'oauth2_provider.contrib.rest_framework.TokenHasReadWriteScope',
+    # ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     
 }

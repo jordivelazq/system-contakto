@@ -11,7 +11,7 @@ urlpatterns = [
 
     url(r'^descargar-app$', descargar_app, name='descargar_app'),
     
-    url(r'^agentes', include('app.agente.urls')),
+    url(r'^agentes/', include('app.agente.urls')),
     url(r'^agente/', include('app.agente.urls')),
 
     url(r'^empresas', include('app.compania.urls')),

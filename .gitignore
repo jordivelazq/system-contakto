@@ -20,3 +20,4 @@ newrelic.ini
 .env
 project/resources/media/zip/
 project/resources/static/
+project/media
