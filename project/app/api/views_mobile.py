@@ -6,6 +6,7 @@ from app.agente.models import GestorInfo
 from app.api.serializer import (AdjuntosSerializer,
                                 InvestigacionListSerializer,
                                 InvestigacionSerializer)
+from app.entrevista.entrevista_persona import EntrevistaPersonaService
 from app.entrevista.models import (EntrevistaAcademica,
                                    EntrevistaActividadesHabitos,
                                    EntrevistaAspectoCandidato,
@@ -43,7 +44,6 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaActividadesHabitosSerializer,
                          EntrevistaAspectoCandidatoSerializer,
                          EntrevistaAspectoHogarSerializer,
-                         EntrevistaPersonaSerializer,
                          EntrevistaAutomovilSerializer,
                          EntrevistaBienesRaicesSerializer,
                          EntrevistaCuentaDebitoSerializer,
@@ -59,21 +59,28 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaMiembroMarcoFamiliarSerializer,
                          EntrevistaOrigenSerializer,
                          EntrevistaOtroIdiomaSerializer,
+                         EntrevistaPersonaSerializer,
+                         EntrevistaPrestacionViviendaSerializer,
                          EntrevistaPropietarioViviendaSerializer,
                          EntrevistaReferenciaSerializer,
-                         EntrevistaSeguroSerializer,
+                         EntrevistaSaludSerializer, EntrevistaSeguroSerializer,
                          EntrevistaSituacionViviendaSerializer,
-                         EntrevistaSaludSerializer,
-                         EntrevistaPrestacionViviendaSerializer,
                          EntrevistaTarjetaCreditoComercialSerializer,
                          EntrevistaTelefonoSerializer,
-                         EntrevistaTipoInmuebleSerializer,
-                         )
+                         EntrevistaTipoInmuebleSerializer)
 
-from app.entrevista.entrevista_persona import EntrevistaPersonaService
+# from oauth2_provider.contrib.rest_framework import IsAuthenticatedOrTokenHasScope, TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
 
 class AsignacionInvestigacionApiView(APIView):
-    permission_classes = (IsAuthenticated,)
+    model = Investigacion
+    serializer_class = InvestigacionSerializer
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
+
+    # def get_queryset(self):
+    #     # return Investigacion.objects.filter(pk=self.kwargs.get('pk'))
+    #     return Investigacion.objects.filter(pk=100)
 
     def get(self, request, *args, **kwargs):
         data = {'message': 'Petición no procesada', 'error': 1}
@@ -88,20 +95,42 @@ class AsignacionInvestigacionApiView(APIView):
             data = {'message': 'Ha ocurrido un error interno. {}'.format(
                 e.args), 'error': 2}
         return Response(data=data)
+    
+    # def get(self, request, *args, **kwargs):
+    #     data = {'message': 'Petición no procesada', 'error': 1}
+    #     try:
+    #         gestor = GestorInfo.objects.get(usuario=self.request.user)
+    #     except GestorInfo.DoesNotExist:
+    #         data = {'message': 'Petición no procesada', 'error': 1}
+    #         return Response(data=data)    
+    #     try:
+    #         queryset = Investigacion.objects.filter(
+    #             gestorinvestigacion__gestor=gestor, gestorinvestigacion__estatus=2)
+    #         serializer = InvestigacionListSerializer(queryset, many=True)
+    #         data = {'message': 'Datos correctos',
+    #                 'error': 0, 'data': serializer.data}
+    #     except Exception as e:
+    #         data = {'message': 'Ha ocurrido un error interno. {}'.format(
+    #             e.args), 'error': 2}
+    #     return Response(data=data)
 
 
 class InvestigacionDetailApiView(ListAPIView):
     model = Investigacion
     serializer_class = InvestigacionSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
     def get_queryset(self):
         return Investigacion.objects.filter(pk=self.kwargs.get('pk'))
 
 
 class InvestigacionUploadImageApiView(APIView):
-    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
+    # permission_classes = (IsAuthenticated,)
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
     def get(self, request, *args, **kwargs):
         if self.request.GET.get('inv'):
@@ -274,9 +303,10 @@ class InvestigacionUploadImageApiView(APIView):
                         status=401)
 
 
-
 class VerificaEntrevistaPersona(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
     def post(self, request, *args, **kwargs):
         data = {'message': 'Petición no procesada', 'error': 1}
@@ -297,20 +327,24 @@ class VerificaEntrevistaPersona(APIView):
 
 
 class EliminaEntrevistaPersona(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
     def post(self, request, *args, **kwargs):
         data = {'message': 'Petición no procesada', 'error': 1}
         try:
             investigacion_id = self.kwargs['investigacion_id']
-            ep = EntrevistaPersona.objects.filter(investigacion_id=investigacion_id).delete()
-            
+            ep = EntrevistaPersona.objects.filter(
+                investigacion_id=investigacion_id).delete()
+
             data = {'message': 'Datos eliminados',
-                        'error': 0, 'data': []}
+                    'error': 0, 'data': []}
         except Exception as e:
             data = {'message': 'Ha ocurrido un error interno. {}'.format(
                 e.args), 'error': 2}
         return Response(data=data)
+
 
 '''
  Formularios
@@ -320,7 +354,9 @@ class EliminaEntrevistaPersona(APIView):
 class EntrevistaPersonaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = EntrevistaPersona.objects.all()
     serializer_class = EntrevistaPersonaSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
     def get_queryset(self):
         investigacion_id = self.kwargs['investigacion_id']
@@ -331,172 +367,232 @@ class EntrevistaPersonaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class EntrevistaAcademicaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaAcademica.objects.all()
     serializer_class = EntrevistaAcademicaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
+    
 
 
 class EntrevistaActividadesHabitosViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaActividadesHabitos.objects.all()
     serializer_class = EntrevistaActividadesHabitosSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
+    
 
 
 class EntrevistaAspectoCandidatoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaAspectoCandidato.objects.all()
     serializer_class = EntrevistaAspectoCandidatoSerializer
-    permission_classes = [IsAuthenticated]
-
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 class EntrevistaAspectoHogarViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaAspectoHogar.objects.all()
     serializer_class = EntrevistaAspectoHogarSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaAutomovilViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaAutomovil.objects.all()
     serializer_class = EntrevistaAutomovilSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaBienesRaicesViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaBienesRaices.objects.all()
     serializer_class = EntrevistaBienesRaicesSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaCuentaDebitoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaCuentaDebito.objects.all()
     serializer_class = EntrevistaCuentaDebitoSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaDeudaActualViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaDeudaActual.objects.all()
     serializer_class = EntrevistaDeudaActualSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaDireccionViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaDireccion.objects.all()
     serializer_class = EntrevistaDireccionSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaDistribucionDimensionesViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaDistribucionDimensiones.objects.all()
     serializer_class = EntrevistaDistribucionDimensionesSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaDocumentoCotejadoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaDocumentoCotejado.objects.all()
     serializer_class = EntrevistaDocumentoCotejadoSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaEconomicaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaEconomica.objects.all()
     serializer_class = EntrevistaEconomicaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaGradoEscolaridadViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaGradoEscolaridad.objects.all()
     serializer_class = EntrevistaGradoEscolaridadSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaHistorialEnEmpresaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaHistorialEnEmpresa.objects.all()
     serializer_class = EntrevistaHistorialEnEmpresaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaInfoPersonalViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaInfoPersonal.objects.all()
     serializer_class = EntrevistaInfoPersonalSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaLicenciaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaLicencia.objects.all()
     serializer_class = EntrevistaLicenciaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaMiembroMarcoFamiliarViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaMiembroMarcoFamiliar.objects.all()
     serializer_class = EntrevistaMiembroMarcoFamiliarSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaOrigenViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaOrigen.objects.all()
     serializer_class = EntrevistaOrigenSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaOtroIdiomaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaOtroIdioma.objects.all()
     serializer_class = EntrevistaOtroIdiomaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaPropietarioViviendaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaPropietarioVivienda.objects.all()
     serializer_class = EntrevistaPropietarioViviendaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaReferenciaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaReferencia.objects.all()
     serializer_class = EntrevistaReferenciaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaSeguroViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaSeguro.objects.all()
     serializer_class = EntrevistaSeguroSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaSituacionViviendaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaSituacionVivienda.objects.all()
     serializer_class = EntrevistaSituacionViviendaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaSaludViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaSalud.objects.all()
     serializer_class = EntrevistaSaludSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaPrestacionViviendaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaPrestacionVivienda.objects.all()
     serializer_class = EntrevistaPrestacionViviendaSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaTarjetaCreditoComercialViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaTarjetaCreditoComercial.objects.all()
     serializer_class = EntrevistaTarjetaCreditoComercialSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaTelefonoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaTelefono.objects.all()
     serializer_class = EntrevistaTelefonoSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class EntrevistaTipoInmuebleViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaTipoInmueble.objects.all()
     serializer_class = EntrevistaTipoInmuebleSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 
 class DatosGeneralesFormApiView(APIView):
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
+    
     def get_field_select(self, field):
         obj = field.get_internal_type()
         if obj == 'OneToOneField':
