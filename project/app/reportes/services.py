@@ -37,6 +37,8 @@ class ServiceReporte:
 		if len(contactos_email):
 			for contacto in contactos_email:
 				destinatarios.append(contacto.email)
+				if len(contacto.email_alt):
+					destinatarios.append(contacto.email_alt)
 
 		#Si no es sesión de admin, agregar el email del agente en sesión.
 		if not request.user.is_superuser:
