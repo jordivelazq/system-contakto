@@ -55,3 +55,4 @@ django-allauth==0.51.0 # https://django-allauth.readthedocs.io/en/latest/
 django-braces==1.15.0 # https://django-braces.readthedocs.io/en/latest/
 django-crispy-forms==1.14.0 # https://django-crispy-forms.readthedocs.io/en/latest/
 crispy-bootstrap5==0.6
+djangorestframework-datatables==0.7.0
