@@ -1,8 +1,12 @@
 import os
+import environ
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
+
+
+env = environ.Env()
 
 ADMINS = (
     ('Conctacto Estudio Soporte', 'dti@contakto.mx'),
@@ -63,6 +67,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'resources'),
+    os.path.join(BASE_DIR, 'static'),
     # '/usr/local/django/contrib/admin/static/'
 )
 
@@ -98,6 +103,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'resources/templates/mint'),
+            os.path.join(BASE_DIR, 'templates'),
             # '/usr/local/django/contrib/admin/templates/'
         ],
         'APP_DIRS': True,
@@ -110,6 +116,8 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -123,6 +131,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     'app.agente',
     'app.bitacora',
     'app.compania',
@@ -137,6 +153,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'oauth2_provider',
     'anymail',
+    'app.clientes',
+    'app.core',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -175,10 +193,17 @@ LOGGING = {
     }
 }
 
-AUTHENTICATION_BACKENDS = (
-    'app.front.backends.EmailOrUsernameModelBackend',
-    'django.contrib.auth.backends.ModelBackend'
-)
+# AUTHENTICATION_BACKENDS = (
+#     'app.front.backends.EmailOrUsernameModelBackend',
+#     'django.contrib.auth.backends.ModelBackend'
+# )
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
 
 EXT_RESEARCH_WHITELIST = ('.xlsx', '.xls', '.csv')
 
@@ -206,8 +231,7 @@ OAUTH2_PROVIDER = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        # 'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
        
     ),
     
@@ -215,5 +239,38 @@ REST_FRAMEWORK = {
     #     'oauth2_provider.contrib.rest_framework.TokenHasReadWriteScope',
     # ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework_datatables.renderers.DatatablesRenderer',
+    ),
+
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_datatables.filters.DatatablesFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework_datatables.pagination.DatatablesPageNumberPagination',
+    'PAGE_SIZE': 50,
     
 }
+
+
+# django-allauth
+LOGIN_URL = "account_login"
+ACCOUNT_SIGNUP_REDIRECT_URL='dashboard'
+# ------------------------------------------------------------------------------
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_EMAIL_REQUIRED = True
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_ADAPTER = "wbh.users.adapters.AccountAdapter"
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# SOCIALACCOUNT_ADAPTER = "wbh.users.adapters.SocialAccountAdapter"
+
+# Setting for Crispy Forms on boostrap5
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

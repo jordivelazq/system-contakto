@@ -1,0 +1,65 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% block title %}Sign Out{% endblock title %}
+{% block content %}
+<div class="auth-full-page-content d-flex p-sm-5 p-4">
+    <div class="w-100">
+        <div class="d-flex flex-column h-100">
+            <div class="mb-4 mb-md-5 text-center">
+                <a href="{% url 'dashboard' %}" class="d-block auth-logo">
+                    <img src="{% static 'images/logo-nuevo.png' %}" alt="" height="28">
+                </a>
+            </div>
+            <div class="auth-content my-auto">
+                <div class="text-center">
+                    <div class="avatar-xl mx-auto">
+                        <div class="avatar-title bg-light text-primary h1 rounded-circle">
+                            <i class="bx bxs-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-2">
+                        <h5>¿Esta seguro de cerrar la sesión?</h5>
+                        <p class="text-muted font-size-15">Gracias por estar en <span
+                                class="fw-semibold text-dark">Contakto</span></p>
+                        <form method="post" action="{% url 'account_logout' %}">
+                            {% csrf_token %}
+                            {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+                            <div class="mt-4">
+                                <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Cerrar
+                                    sessión</button>
+
+                                {% comment %}
+                                <a href="{% url 'account_logout' %}"
+                                    class="btn btn-primary w-100 waves-effect waves-light">Cerrar sessión</a>
+
+                                {% endcomment %}
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-5 text-center">
+                    <p class="text-muted mb-0">¿Desea regresar?<a href="{% url 'dashboard' %}"
+                            class="text-primary fw-semibold">Dashboard</a> </p>
+                </div>
+            </div>
+            <div class="mt-4 mt-md-5 text-center">
+                <p class="mb-0">© <script>
+                        document.write(new Date().getFullYear())
+                    </script> Contacto.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end auth full page content -->
+{% endblock content %}
+
+
+{% block extra_js %}
+<!-- password addon init -->
+<!-- <script src="{% static 'js/pages/pass-addon.init.js'%}"></script> -->
+{% endblock extra_js %}

@@ -1,4 +1,6 @@
 from django.conf.urls import include, url
+from django.urls import path
+from rest_framework.routers import DefaultRouter
 
 from app.persona.views import panel, crear, eliminar, editar, nueva_trayectoria, ver_trayectoria, editar_trayectoria_empresa, borrar_trayectoria_empresa, trayectoria_comercial, trayectoria_comercial_borrar, trayectoria_comercial_referencia_borrar, observaciones, ver_reporte, existencia, search_candidatos, reset_filtros, borrar_demanda
 from app.entrevista.views import editar_entrevista, cargar_entrevista, comprimido_entrevista
@@ -6,8 +8,15 @@ from app.investigacion.views import print_reporte_laboral, print_reporte_socioec
 from app.adjuntos.views import panel_adjuntos, editar_adjuntos
 from app.cobranza.views import cobranza_investigacion
 
+from .api import PersonasTemplateView, PersonaViewSet
+
+router = DefaultRouter()
+router.register(r'personas', PersonaViewSet)
+
 
 urlpatterns = [
+	path("api/", include(router.urls)),
+
 	url(r'^$', panel, name='panel_persona'),
 	url(r'^nuevo$', crear, name='crear_persona'),
 	url(r'^nuevo/exito$', crear, name='crear_persona'),
@@ -70,4 +79,7 @@ urlpatterns = [
 
 	#Demanda
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/demanda/(?P<demanda_id>[^/]+)$', borrar_demanda, name='nueva_trayectoria'),
+
+	# Nuevo sistema
+	path('personas/', PersonasTemplateView.as_view(), name='personas_list'),
 ]
