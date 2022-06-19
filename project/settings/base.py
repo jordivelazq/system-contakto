@@ -258,6 +258,7 @@ REST_FRAMEWORK = {
 # django-allauth
 LOGIN_URL = "account_login"
 ACCOUNT_SIGNUP_REDIRECT_URL='dashboard'
+LOGIN_REDIRECT_URL = 'dashboard'
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
