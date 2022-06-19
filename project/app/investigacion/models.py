@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from app.persona.models import Persona, File
 from app.compania.models import Compania, Contacto, Sucursales
 from app.agente.models import Labels, GestorInfo
+from app.clientes.models import Cliente, ClienteSolicitud, ClienteSolicitudCandidato, ClienteUser
+from app.core.models import Estado, Municipio
 
 ACTIVO_OPCIONES = (
 		(0, 'Sí/No'),
@@ -56,15 +58,19 @@ class Investigacion(models.Model):
 		('4', 'Cerrado + Pdt. por Cliente'),
 	)
 	
-	agente = models.ForeignKey(User, on_delete=models.CASCADE)
+	agente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+	cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, blank=True, null=True)
 	candidato = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
 	sucursal = models.ForeignKey(Sucursales, models.SET_NULL, blank=True, null=True)
-	contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
-	fecha_recibido = models.DateField(blank=True, null=True)
+	contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE, blank=True, null=True)
+	fecha_recibido = models.DateField(blank=True, null=True) # Tenerla como fecha de asignacion del agente tomarla del sistema
 	hora_recibido = models.CharField(max_length=30, blank=True, null=True)
 	fecha_entrega = models.DateField(blank=True, null=True)
 	puesto = models.CharField(max_length=140)
+
+	# estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
+	# municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
 
 	observaciones = models.TextField(max_length=200, blank=True, null=True)
 	entrevista = models.DateTimeField(blank=True, null=True)
@@ -80,7 +86,7 @@ class Investigacion(models.Model):
 	status = models.CharField(max_length=140, choices=STATUS_OPCIONES, null=True, blank=True, default='0') #En template: "Estatus de Inv. Laboral"
 	status_active = models.BooleanField(default=True) # revisar si es necesario, si no borrarlo
 	status_general = models.CharField(max_length=140, choices=STATUS_GRAL_OPCIONES, null=True, blank=True, default='0')
-	observaciones_generales = models.TextField(max_length=16000, blank=True, null=True)
+	observaciones_generales = models.TextField(max_length=160000, blank=True, null=True)
 	
 	tipo_investigacion_status = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
 	tipo_investigacion_texto = models.TextField(max_length=16000, blank=True, null=True)
@@ -125,6 +131,7 @@ class Investigacion(models.Model):
 					data[j] = tmp
 
 		return data
+
 
 class InvestigacionExtra(models.Model):
 	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
