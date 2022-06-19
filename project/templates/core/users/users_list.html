@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+<ol class="breadcrumb">
+  <li>
+    <i class="clip-file"></i>
+    <a href="#">
+      {{page.title}}
+    </a>
+  </li>
+  <li class="active">
+    {{page.subtitle}}
+  </li>
+
+</ol>
+<div class="page-header">
+  <h1> {{page.title}}<small>{{page.subtitle}}</small></h1>
+</div>
+
+{% endblock header %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- start: TEXT FIELDS PANEL -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-external-link-square"></i> Project form
+        <div class="panel-tools">
+          <a class="btn btn-xs btn-link panel-collapse collapses" href="#">
+          </a>
+
+        </div>
+      </div>
+      <div class="panel-body">
+
+
+        <h6>Filter by:</h6>
+        <form method="get">
+          {{ filter.form }}
+          <input class="fcbtn btn btn-outline btn-info btn-1e" type="submit" value="Filter" />
+        </form>
+        <br>
+
+
+        <div class="row">
+          <div class="col-md-12 space20">
+
+            <a href="{% url 'administrator_app:usuario_create' %}" title="Add user"
+              class="fcbtn btn btn-outline btn-info btn-1e"><i class="fa fa-plus"></i> {% trans 'Add User' %}</a>
+          </div>
+        </div>
+
+
+        <div class="table-responsive">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>{% trans 'Photo' %}</th>
+                <th>{% trans 'Name' %}</th>
+                <th>{% trans 'Phone' %}</th>
+                <th>{% trans 'Access' %}</th>
+                <th>{% trans 'Accions' %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ope in object_list %}
+              <tr>
+                <td>
+                  {% if ope.photo_user %}
+                  <img src="{{ ope.photo_user.thumbnail.40x40 }}" />
+                  <!--ope.foto.crop.25x25 -->
+                  {% else %}
+                  {% trans 'No Photo' %}
+                  {% endif %}
+                </td>
+                <td>{{ ope.last_name }} {{ ope.first_name }}</td>
+                <td>{{ ope.phone }}</td>
+                <td>
+                  {% for group in ope.groups.all %}
+                  {{ group.name }}
+                  {% endfor %}
+                </td>
+
+                <td class="text-nowrap">
+
+                  <a class="btn btn-primary" href="{% url 'administrator_app:usuario_detail' ope.pk %}">
+                    <i class="clip-info"></i></a>
+
+                  <a class="btn btn-primary" href="{% url 'administrator_app:usuario_edit' ope.pk %}"><i
+                      class="clip-pencil" alt="Edit"></i></a>
+
+                  <a href="{% url 'administrator_app:usuario_edit' ope.pk %}" data-toggle="tooltip"
+                    data-original-title="Editar">
+                    <i class="ti-pencil-alt"></i> </a>
+
+                  <a class="btn btn-primary" href="{% url 'administrator_app:usuario_change_passwd' ope.pk %}"><i
+                      class="clip-key"></i> </a>
+
+                  <a class="btn btn-bricky" href="{% url 'administrator_app:usuario_delete' ope.pk %}" alt="Eliminar">
+                    <i class="fa fa-trash-o"></i> </a>
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% include "_pagination.html" %}
+        </div>
+
+
+      </div>
+    </div>
+    <!-- end: TEXT FIELDS PANEL -->
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}
+
+{% block js %}
+{% endblock js %}
+© 20

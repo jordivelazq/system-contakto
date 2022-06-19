@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+<ol class="breadcrumb">
+  <li>
+    <i class="clip-file"></i>
+    <a href="#">
+      {{page.title}}
+    </a>
+  </li>
+  <li class="active">
+    {{page.subtitle}}
+  </li>
+
+</ol>
+<div class="page-header">
+  <h1> {{page.title}}<small>{{page.subtitle}}</small></h1>
+</div>
+
+{% endblock header %}
+
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+
+<!-- start: PAGE CONTENT -->
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <!-- start: FROM -->
+    <form action="" method="post">{% csrf_token %}
+      <div class="panel-body">
+
+        <table class="table table-bordered">
+
+          <tr>
+            <td><b>{% trans 'Name' %}</b></td>
+            <td>{{ object.last_name }} {{ object.first_name }}</td>
+          </tr>
+          <tr>
+            <td><b>{% trans 'Phone' %}</b></td>
+            <td>{{object.phone}}</td>
+          </tr>
+          <tr>
+
+            <td><b>{% trans 'Photo' %}</b></td>
+            <td>
+              {% if not object.photo_user %}
+              <img src="{% static 'assets/images/wbh/no_photo100x100.png' %}" class="img-circle" height="100"
+                width="100" alt="No photo">
+              {% else %}
+              <img src="{{ object.photo_user.thumbnail.140x140 }}" class="img-circle" alt="User photo" />
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+
+        <p>{% trans 'Are you sure to delete this record?' %}</p>
+
+        <a href="" onclick="document.forms[0].submit();return false;" class="fcbtn btn btn-outline btn-danger btn-1e">
+          <i class="fa fa-trash-o"></i> {% trans 'Delete' %}</a>
+        <a href="{% url 'administrator_app:users_list' %}" class="fcbtn btn btn-outline btn-primary btn-1e"><i
+            class="fa fa-times"></i> {% trans 'Cancel' %}</a>
+
+      </div>
+
+    </form>
+    <!-- end: FROM -->
+
+  </div>
+</div>
+
+<!-- end: PAGE CONTENT-->
+
+{% endblock content %}
