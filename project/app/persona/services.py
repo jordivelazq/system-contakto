@@ -75,7 +75,11 @@ class PersonaService:
 		if len(self.fecha_inicio) and len(self.fecha_final):
 			fecha_inicio_format = datetime.datetime.strptime(self.fecha_inicio, '%d/%m/%y').strftime('%Y-%m-%d')
 			fecha_final_format = datetime.datetime.strptime(self.fecha_final, '%d/%m/%y').strftime('%Y-%m-%d')
-			candidatos = candidatos.filter(fecha_recibido__range=(fecha_inicio_format, fecha_final_format))
+			#Si es cerrado, filtrar por la fecha de entrega
+			if (self.status_id == "2"):
+				candidatos = candidatos.filter(fecha_entrega__range=(fecha_inicio_format, fecha_final_format))
+			else:
+				candidatos = candidatos.filter(fecha_recibido__range=(fecha_inicio_format, fecha_final_format))
 		if len(self.nombre):
 			candidatos = candidatos.filter(Q(candidato__nombre__icontains=self.nombre)|Q(candidato__apellido__icontains=self.nombre))
 		if len(self.compania_id):

@@ -142,12 +142,20 @@ def get_investigaciones_list(filtros_json, agent_id, contacto_id):
 		if len(filtros_json['fecha_final']):
 			fecha_final = datetime.datetime.strptime(filtros_json['fecha_final'], '%d/%m/%y').strftime('%Y-%m-%d')
 
-		if fecha_inicio and fecha_final:
-			investigaciones = investigaciones.filter(fecha_recibido__gte=fecha_inicio, fecha_recibido__lte=fecha_final)
-		elif fecha_inicio:
-			investigaciones = investigaciones.filter(fecha_recibido__gte=fecha_inicio)
-		elif fecha_final:
-			investigaciones = investigaciones.filter(fecha_recibido__lte=fecha_final)
+		if len(filtros_json['status_id']) and filtros_json['status_id'] != '2':
+			if fecha_inicio and fecha_final:
+				investigaciones = investigaciones.filter(fecha_recibido__gte=fecha_inicio, fecha_recibido__lte=fecha_final)
+			elif fecha_inicio:
+				investigaciones = investigaciones.filter(fecha_recibido__gte=fecha_inicio)
+			elif fecha_final:
+				investigaciones = investigaciones.filter(fecha_recibido__lte=fecha_final)
+		else: 
+			if fecha_inicio and fecha_final:
+				investigaciones = investigaciones.filter(fecha_entrega__gte=fecha_inicio, fecha_entrega__lte=fecha_final)
+			elif fecha_inicio:
+				investigaciones = investigaciones.filter(fecha_entrega__gte=fecha_inicio)
+			elif fecha_final:
+				investigaciones = investigaciones.filter(fecha_entrega__lte=fecha_final)
 
 		if 'limit_select' in filtros_json and len(filtros_json['limit_select']):
 			limit_select = int(filtros_json['limit_select'])
