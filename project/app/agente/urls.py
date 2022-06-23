@@ -1,9 +1,20 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 
 from app.agente.views import panel, nuevo, editar, borrar, search_agentes, reset_filtros
 from app.agente.views_gestor import gestor_panel, gestor_editar, gestor_nuevo
+from app.agente.api import GestorInfoTemplateView, GestorInfoViewSet
+
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'gestores', GestorInfoViewSet)
+
 
 urlpatterns = [
+    path("api/", include(router.urls)),
+    path("list/", GestorInfoTemplateView.as_view(), name="gestor_info_list"),
+
 	url(r'^$', panel, name='agent_panel'),
 	url(r'^exito$', panel, name='agent_panel'),
     url(r'^nuevo$', nuevo, name='agent_new'),

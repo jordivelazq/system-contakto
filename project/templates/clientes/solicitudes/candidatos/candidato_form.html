@@ -94,17 +94,23 @@
                                     <div class="col-12">
                                         {{ form.tipo_investigacion|as_crispy_field }}
                                     </div>
-                                  
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ form.archivo_solicitud|as_crispy_field }}
+                                    </div>
                                 </div>
 
                                 <br><br>
 
-                                <button type="submit" 
-                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-user-check label-icon"></i> 
+                                <button type="submit" class="btn btn-primary waves-effect btn-label waves-light"> <i
+                                        class="bx bx-user-check label-icon"></i>
                                     Guardar candidato</button>
 
                                 <a href="{% url 'clientes:clientes_solicitud_detail' solicitud_id %}"
-                                    class="btn btn-warning waves-effect btn-label waves-light"> <i class="bx bx-user-x label-icon"></i>
+                                    class="btn btn-warning waves-effect btn-label waves-light"> <i
+                                        class="bx bx-user-x label-icon"></i>
                                     Cancelar</a>
 
                             </form>
@@ -133,4 +139,3 @@
 {% block extra_js %}
 <script src="{% static 'js/system/estado_municipio.js'%}"></script>
 {% endblock extra_js %}
-

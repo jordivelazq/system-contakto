@@ -292,7 +292,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
 
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
-    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion']
+    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud']
 
 
     page = {
@@ -328,7 +328,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
 
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
-    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion']
+    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud']
 
     page = {
         'title': 'Investor',

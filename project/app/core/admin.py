@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from app.core.models import Estado, Municipio
+from app.core.models import Estado, Municipio, TipoInvestigacionCosto
+
 
 @admin.register(Estado)
 class EstadoAdmin(admin.ModelAdmin):
@@ -11,4 +12,10 @@ class EstadoAdmin(admin.ModelAdmin):
 @admin.register(Municipio)
 class MunicipioAdmin(admin.ModelAdmin):
     list_display = ('id', 'efe_key', 'municipio')
+    #inlines = [ServicioCostoAdicionalInline]
+
+
+@admin.register(TipoInvestigacionCosto)
+class TipoInvestigacionCostoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tipo_investigacion', 'costo')
     #inlines = [ServicioCostoAdicionalInline]
