@@ -59,7 +59,7 @@ def validate_curp(curp):
 
 class Persona(models.Model):
 	EDOCIVIL_OPCIONES = (
-			(0, ''),
+		(0, ''),
 	    (1, 'Soltero(a)'),
 	    (2, 'Casado(a)'),
 	    (3, 'Divorciado(a)'),

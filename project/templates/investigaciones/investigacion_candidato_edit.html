@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Detalle de Investigación</h4>
+                        <h4 class="mb-sm-0 font-size-18">Investigación - Edición de datos del candidato</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -40,59 +40,9 @@
             </div>
             <!-- end page title -->
 
+            {% include 'investigaciones/personas/informacion_personal.html' %}
 
-            <div class="row">
-
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Formulario de canditado</h4>
-                        </div>
-                        <div class="card-body">
-
-                            <form role="form" method="post" action="" enctype="multipart/form-data">
-                                {% csrf_token %}
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        {{ form.agente|as_crispy_field }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        {{ form.fecha_recibido|as_crispy_field }}
-                                    </div>
-                                    <div class="col-6">
-                                        {{ form.hora_recibido|as_crispy_field }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        {{ form.contacto|as_crispy_field }}
-                                    </div>
-                                </div>
-                                
-                                <br><br>
-
-                                <button type="submit" class="btn btn-success waves-effect btn-label waves-light"> <i
-                                        class="bx bx-save label-icon"></i>
-                                    Guardar investigación</button>
-
-                                <a href="{% url 'investigaciones:investigaciones_list' %}"
-                                    class="btn btn-primary waves-effect btn-label waves-light"> <i
-                                        class="bx bx bx-arrow-back label-icon"></i>
-                                    Cancelar</a>
-
-                            </form>
-
-                        </div>
-                    </div>
-                    <!-- end card body -->
-                </div>
-                <!-- end card -->
-            </div>
+          
             <!-- end col -->
         </div>
         <!-- end row -->
