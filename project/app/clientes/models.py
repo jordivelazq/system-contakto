@@ -95,6 +95,8 @@ class ClienteSolicitudCandidato(models.Model):
     status = models.CharField(max_length=140, choices=STATUS_OPCIONES, default='0')
     enviado = models.BooleanField(default=False)
     tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, default=2)
+
+    archivo_solicitud = models.FileField(upload_to='cliente_solicitudes/', blank=True, null=True)
     
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)

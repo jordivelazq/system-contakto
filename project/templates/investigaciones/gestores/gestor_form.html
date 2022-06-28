@@ -9,6 +9,8 @@
 <!-- datepicker css -->
 <link rel="stylesheet" href="{% static 'libs/flatpickr/dist/flatpickr.min.css'%}">
 
+
+
 {% endblock extra_css %}
 
 {% block content %}
@@ -31,7 +33,7 @@
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Listado de solicitudes</li>
                                 <li class="breadcrumb-item active">Detalle</li>
-                                <li class="breadcrumb-item active">Formulario candidato</li>
+                                <li class="breadcrumb-item active">Asignar gestor</li>
                             </ol>
                         </div>
 
@@ -46,41 +48,19 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Formulario de canditado</h4>
+                            <h4>Formulario de gestor</h4>
                         </div>
                         <div class="card-body">
 
-                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                            <form role="form" method="post" action="">
                                 {% csrf_token %}
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        {{ form.agente|as_crispy_field }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        {{ form.fecha_recibido|as_crispy_field }}
-                                    </div>
-                                    <div class="col-6">
-                                        {{ form.hora_recibido|as_crispy_field }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        {{ form.contacto|as_crispy_field }}
-                                    </div>
-                                </div>
-                                
-                                <br><br>
-
+                                {{ form|crispy}}
+                                   
                                 <button type="submit" class="btn btn-success waves-effect btn-label waves-light"> <i
                                         class="bx bx-save label-icon"></i>
-                                    Guardar investigación</button>
+                                    Guardar gestor</button>
 
-                                <a href="{% url 'investigaciones:investigaciones_list' %}"
+                                <a href="{% url 'investigaciones:investigacion_detail' investigacion_id %}"
                                     class="btn btn-primary waves-effect btn-label waves-light"> <i
                                         class="bx bx bx-arrow-back label-icon"></i>
                                     Cancelar</a>
@@ -114,19 +94,10 @@
 
 <script>
     $(document).ready(function () {
-        $('#id_agente').select2();
-        $('#id_contacto').select2();
-        flatpickr("#id_fecha_recibido", {
+        $('#id_gestor').select2();
+        flatpickr("#id_fecha_asignacion", {
             defaultDate: new Date
         });
-        flatpickr("#id_hora_recibido", {
-            enableTime: !0,
-            noCalendar: !0,
-            dateFormat: "H:i",
-            defaultDate: new Date
-        });
-
-
     });
 </script>
 {% endblock extra_js %}

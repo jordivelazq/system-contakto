@@ -27,7 +27,6 @@
                             </a>
                         </li>
                         
-
                         <li class="menu-title" data-key="t-apps">Administradores</li>
 
                         <li>
@@ -40,6 +39,8 @@
                                 <li><a href="{% url 'clientes:clientes_list' %}" data-key="t-inbox">Clientes</a></li>
                                 <li><a href="{% url 'companias_list' %}" data-key="t-inbox">Compañias</a></li>
                                 <li><a href="{% url 'personas_list' %}" data-key="t-inbox">Personas</a></li>
+                                <li><a href="{% url 'gestor_info_list' %}" data-key="t-inbox">Agentes (Gestores)</a></li>
+                                <li><a href="{% url 'core:tipo_investigaciones_costo_list' %}" data-key="t-inbox">Costo investigaciones</a></li>
                             </ul>
                         </li>
 
@@ -63,14 +64,35 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Gestión de solicitudes</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Demandas laborales (Es responsable de formulario actula)</a></li>
                             </ul>
                         </li>
 
+                        
+
                         <li>
-                            <a href="#">
-                                <i data-feather="calendar"></i>
-                                <span data-key="t-calendar">Inv. Laboral</span>
+                           
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="check-circle"></i>
+                                <span data-key="coord-ejecutivos">Ejecutivo Inv. Laboral</span>
                             </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Detalle Inv. Candidato</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Tipo coordinado con Inv. Laboral y Referencias comerciales</a></li>
+                            </ul>
+
+                        </li>
+
+                        <li>
+                           
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="check-circle"></i>
+                                <span data-key="coord-ejecutivos">Coordinador de visitas</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Asigna a un ejecutivo (entrevista)</a></li>
+                            </ul>
+
                         </li>
                         
                         <li>
@@ -79,7 +101,7 @@
                                 <span data-key="t-contacts">Ejecutivo de visitas</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" data-key="t-user-grid">Entrevistas</a></li>
+                                <li><a href="#" data-key="t-user-grid">Entrevistas (Formuoario de entrevista)</a></li>
                             </ul>
                         </li>
 
@@ -89,7 +111,7 @@
                                 <span data-key="t-contacts">Gestor de Entrevista</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" data-key="t-user-grid">Entrevistas</a></li>
+                                <li><a href="#" data-key="t-user-grid">Entrevistas (Foto/app)</a></li>
                                 <li><a href="#" data-key="t-user-list">Mi bancos</a></li>
                                 <li><a href="#" data-key="t-user-list">Mis Pagos</a></li>
                             </ul>
@@ -103,21 +125,29 @@
                                 <span data-key="t-tasks">Coord. Reclutamiento</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" key="t-task-list">Task List</a></li>
-                                <li><a href="#" key="t-kanban-board">Kanban Board</a></li>
-                                <li><a href="#" key="t-create-task">Create Task</a></li>
+                                <li><a href="#" key="t-task-list">Catalogo de gestores (CRUD)</a></li>
+                                
                             </ul>
                         </li>
                         
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="trello"></i>
-                                <span data-key="t-tasks">Ejecutivo</span>
+                                <span data-key="t-tasks">Coordinadoe de Psicometrico</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" key="t-task-list">Task List</a></li>
-                                <li><a href="#" key="t-kanban-board">Kanban Board</a></li>
-                                <li><a href="#" key="t-create-task">Create Task</a></li>
+                                <li><a href="#" key="t-task-list">Asigna ejecutivo</a></li>
+                                
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="trello"></i>
+                                <span data-key="t-tasks">Ejecutivo de Psicometrico</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
                             </ul>
                         </li>
 
@@ -125,7 +155,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="share-2"></i>
-                                <span data-key="t-multi-level">Multi Level</span>
+                                <span data-key="t-multi-level">Cobranaza</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
@@ -141,16 +171,17 @@
 
                     </ul>
 
-                    <div class="card sidebar-alert shadow-none text-center mx-4 mb-0 mt-5">
-                        <div class="card-body">
-                            <img src="{% static 'images/giftbox.png'%}" alt="">
-                            <div class="mt-4">
-                                <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
-                                <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
-                                <a href="#!" class="btn btn-primary mt-2">Upgrade Now</a>
-                            </div>
-                        </div>
-                    </div>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i data-feather="trello"></i>
+                            <span data-key="t-tasks">Cuentas por pagar</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
+                        </ul>
+                    </li>
+
+                   
                 </div>
                 <!-- Sidebar -->
             </div>

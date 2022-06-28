@@ -176,6 +176,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 persona = Persona.objects.get(nss=candidato.nss, curp=candidato.curp)
                 persona.estado_id = candidato.estado_id
                 persona.municipio_id = candidato.municipio_id
+                # Ojo colocar como invalido los catos para corrovolar
                 # persona.save()
             except Persona.DoesNotExist:
                 persona = Persona()
@@ -186,6 +187,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 persona.curp = candidato.curp
                 persona.estado_id = candidato.estado_id
                 persona.municipio_id = candidato.municipio_id
+                # Ojo colocar como invalido los catos para corrovolar
                 persona.save()
                 print('##### Persona creada #####')
                 print('Persona creada', persona.pk)
@@ -200,8 +202,8 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 investigacion.candidato = persona
                 investigacion.compania = solicitud.cliente.compania
                 investigacion.tipo_investigacion_status = candidato.tipo_investigacion
-                # Colocar fehca y hora de envio por parte del cliente
-                # compania sucursa y contacto tomarlo de la compachia del cliente
+                # Colocar fecha y hora de envio por parte del cliente
+                # compania sucursal y contacto tomarlo de la compachia del cliente
                 # colocar en el formulario del cliente la sucursal
                 # investigacion.sucursal = solicitud.cliente.compania.sucursal
                 # investigacion.contacto = candidato.cliente.contacto
@@ -223,7 +225,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 # Puede editar la informacion del candidato el coordinador y ejecutivo de inv. laboral
                 # hasta DOMICILIO ACTUAL (Trabajo del ejecutivo, a traves de llamada con el candidato)
                 # Guardar la bitacora de llamadas
-                # Al estar lleno los datos se activa la invistigacion.
+                # Al estar lleno los datos se activa la investigacion.
                 # 
                 # Demandas laborales el coordinador las llena. Toda investigacion lleva demana 
 
@@ -292,7 +294,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
 
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
-    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion']
+    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud']
 
 
     page = {
@@ -328,7 +330,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
 
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
-    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion']
+    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud']
 
     page = {
         'title': 'Investor',

@@ -154,3 +154,11 @@ class GestorInvestigacion(models.Model):
 
 	def __str__(self):
 		return '{} / {} / {}'.format(self.investigacion,self.gestor, self.get_estatus_display())
+
+
+class InvestigacionBitacora(models.Model):
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	servicio = models.CharField(max_length=120, default='')
+	observaciones = models.TextField(default='')
+	datetime = models.DateTimeField(auto_now_add=True)

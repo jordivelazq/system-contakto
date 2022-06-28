@@ -18,6 +18,23 @@ class Municipio(models.Model):
         return self.municipio
 
 
+class TipoInvestigacionCosto(models.Model):
+    
+    TIPO_INVESTIGACION_OPCIONES = (		
+		(1, 'Laboral'),
+		(2, 'Socioeconómico'),
+		(4, 'Psicometrías'),
+		(5, 'Visita Domiciliaria'),
+		(7, 'Visita Domiciliaria con demandas'),
+		(6, 'Validación de Demandas'),
+	)
+
+    tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
+    costo = models.FloatField(default=0)
+
+    # def __str__(self):
+    #     return self.tipo_investigacion + " - " + str(self.costo)
+
 
 class UserMessage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_messajes')
