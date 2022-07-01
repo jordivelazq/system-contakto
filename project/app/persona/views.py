@@ -41,6 +41,8 @@ from django.db.models import Q
 from reportlab.pdfgen import canvas
 
 import logging
+
+from app.adjuntos.models import Adjuntos
 logger = logging.getLogger(__name__)
 
 ### USUARIO CONTACTO TIENE ACCESO
@@ -234,6 +236,9 @@ def crear(request):
 
 			b = Bitacora(action='candidato-creado: ' + str(investigacion.candidato), user=request.user)
 			b.save()
+
+			#Se crea en Adjuntos
+			Adjuntos(investigacion = investigacion).save()
 
 			if 'guardar_crear_otro' in request.POST:
 				return HttpResponseRedirect('/candidato/nuevo/exito')
