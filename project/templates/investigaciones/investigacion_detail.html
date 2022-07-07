@@ -23,7 +23,11 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Listado de investigacines</li>
+                                <li class="breadcrumb-item ">
+                                    <a href="{% url 'investigaciones:investigaciones_list' %}">
+                                        Inv. Coord. Ejecutivo
+                                    </a>
+                                </li>
                                 <li class="breadcrumb-item active">Detalle de investigación</li>
                             </ol>
                         </div>
@@ -40,406 +44,476 @@
                         <div class="card-body">
                             <h3 class="card-title">Detalle de investigación</h3>
 
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <strong>Tipo de investigación(es):</strong>           
+                                    {% for ti in investigacion.tipo_investigacion.all  %}    
+                                    {{ ti }}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Compañia:</strong>
+                                    {{ investigacion.compania }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Sucursal:</strong>
+                                    {{ investigacion.sucursal }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Contacto:</strong>
+                                    {{ investigacion.contacto }}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
 
 
-                            {% comment %}
 
-                            ####### revisar estas variables para el control de la investigacións
+                                {% if investigacion.candidato_validado %}
 
-                            <h3>
-                                {{investigacion.candidato}} {{investigacion.candidato.apellido}} <span
-                                    class="small-id">({{investigacion.id}})</span> / {{investigacion.compania}} /
-                                {{investigacion.sucursal}}
-                                <small>({{ investigacion.status_general|investigacion_status_gral }})</small>
-                            </h3>
+                                <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                        class="bx bx-check-double font-size-16 align-middle"></i></button>
 
-                            <div>
-                                Estatus de Inv. Laboral:
-                                <strong>{{status_list.investigacion|investigacion_status}}</strong>
-                                <br />
+                                {% else %}
 
-                                Entrevista autorizada:
-                                <strong>{{status_list.entrevista_autorizada|entrevista_status_autorizada}}</strong>
-                                <br />
+                                <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                    data-bs-toggle="popover" title="Data incompleta"
+                                    data-bs-content="Se debe completar los datos del candidato, "><i
+                                        class="bx bx-block font-size-16 align-middle"></i></button>
 
-                                {% if status_list.entrevista_autorizada == 1 %}
-                                Entrevistador: <strong>{{datos_entrevista.entrevistador}}</strong>
-                                <br />
-
-                                Fecha/Hora: <strong>{{datos_entrevista.fecha}} {{datos_entrevista.hora}}</strong>
-                                <br />
                                 {% endif %}
 
-                                Resultado de Inv. Laboral:
-                                <strong>{{status_list.investigacion_resultado|investigacion_resultado}}</strong>
-                               
-                                {% endcomment %}
+                                Datos del candidato
 
-                                <div class="row">
+                            </h3>
 
-                                    <div class="col-md-3">
-                                        <strong>Tipo de investigación:</strong>
-                                        {{ investigacion.get_tipo_investigacion_status_display }}
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <strong>Compañia:</strong>
-                                        {{ investigacion.compania }}
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <strong>Sucursal:</strong>
-                                        {{ investigacion.sucursal }}
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <strong>Contacto:</strong>
-                                        {{ investigacion.contacto }}
-                                    </div>
-
-
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>Nombres:</strong>
+                                    {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>NSS:</strong>
+                                    {{ investigacion.candidato.nss }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Email:</strong>
+                                    {{ investigacion.candidato.email }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>CURP:</strong>
+                                    {{ investigacion.candidato.curp }}
                                 </div>
 
-
                             </div>
+
+                            <br>
+
+
+                            <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
+                                class="btn btn-primary waves-effect btn-label waves-light">
+                                <i class="bx bx-edit label-icon"></i>
+                                Editar datos del candidato
+                            </a>
+
                         </div>
-                    </div><!-- end col -->
+                    </div>
+                </div><!-- end col -->
 
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">
-                                   
-                                    <!-- <button type="button" class="btn btn-soft-success waves-effect waves-light"><i class="bx bx-check-double font-size-16 align-middle"></i></button> -->
-                                    <button type="button" class="btn btn-soft-danger waves-effect waves-light"  data-bs-toggle="popover" title="Data incompleta" data-bs-content="Se debe completar los datos del candidato, "><i class="bx bx-block font-size-16 align-middle"></i></button>
-                                     Datos del candidato
-
-                                    </h3>
-                                  
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <strong>Nombres:</strong>
-                                        {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <strong>NSS:</strong>
-                                        {{ investigacion.candidato.nss }}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <strong>Email:</strong>
-                                        {{ investigacion.candidato.email }}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <strong>CURP:</strong>
-                                        {{ investigacion.candidato.curp }}
-                                    </div>
-
-                                </div>
-
-                                <br>
+            </div>
 
 
-                                <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
-                                    class="btn btn-primary waves-effect waves-light">
-                                    <i class="bx bx-edit font-size-16 align-middle me-2"></i> 
-                                    Editar datos del candidato
-                                </a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
 
-                            </div>
-                        </div>
-                    </div><!-- end col -->
+                                <!-- <button type="button" class="btn btn-soft-success waves-effect waves-light"><i class="bx bx-check-double font-size-16 align-middle"></i></button> -->
+                                <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                    data-bs-toggle="popover" title="Data incompleta"
+                                    data-bs-content="Se debe agragar al menos una investigacion laboral "><i
+                                        class="bx bx-block font-size-16 align-middle"></i></button>
+                                Investigación Laboral
 
-                </div>
+                            </h3>
 
+                            <br />
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">
-                                   
-                                    <!-- <button type="button" class="btn btn-soft-success waves-effect waves-light"><i class="bx bx-check-double font-size-16 align-middle"></i></button> -->
-                                    <button type="button" class="btn btn-soft-danger waves-effect waves-light"  data-bs-toggle="popover" title="Data incompleta" data-bs-content="Se debe agragar al menos una investigacion laboral "><i class="bx bx-block font-size-16 align-middle"></i></button>
-                                     Investigación Laboral
+                            <h5>Empresas investigadas</h5>
 
-                                    </h3>
-
-                                    <br />
-
-                                    <h5>Empresas investigadas</h5>
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive mb-0" data-pattern="priority-columns">
 
                                     <table class="table table-striped table-bordered table-hover table-sm">
-			
+
                                         <thead>
                                             <tr>
-                                                <th>Empresa	Fecha de Ingreso</th>
-                                                <th>Fecha de Egreso	</th>
+                                                <th>Acciones</th>
+                                                <th>Empresa</th>
+                                                <th>Fecha de Ingreso</th>
+                                                <th>Fecha de Egreso </th>
                                                 <th>Puesto</th>
                                                 <th>Motivo de baja</th>
                                                 <th>Terminada</th>
                                                 <th>Visible en Estatus</th>
-                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for tl in tajectorias_laborales %}
                                             <tr>
-                                                <td>
-                                                    {{ t.compania.nombre }} <br />
-                                                    <small>{{ t.observaciones_generales|lower }}</small>
-                                                </td>
-                                                <td class="{% if not t.periodo_alta %}text-danger{% endif %}">
-                                                    {% if t.periodo_alta %}
-                                                        {{t.periodo_alta}}
-                                                    {% else %}
-                                                        <b>Sin Dato</b>
-                                                    {% endif %}
-                                                </td>
-                                                <td class="{% if not t.periodo_baja %}text-danger{% endif %}">
-                                                    {% if t.periodo_baja %}
-                                                        {{t.periodo_baja}}
-                                                    {% else %}
-                                                        <b>Sin Dato</b>
-                                                    {% endif %}
-                                                </td>
-                                                <td>{{t.puesto_final}}</td>
-                                                <td>{{t.datosgenerales.motivo_salida|default:''}}</td>
-                                               
-                                                    <td class="text-center"><span class="glyphicon glyphicon-{% if t.terminada %}ok{% else %}remove{% endif %}"></span></td>
-                                                    <td class="text-center"><span class="glyphicon glyphicon-{% if t.visible_en_status %}ok{% else %}remove{% endif %}"></span></td>
-                                               
-
-                                                <td>
+                                                <td style="text-align: center;">
                                                     <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_edit' investigacion.id tl.pk %}"
-                                                        class="btn btn-primary waves-effect waves-light">
-                                                        <i class="bx bx-edit font-size-16 align-middle me-2"></i> 
-                                                        Editar
+                                                        class="btn btn-soft-primary waves-effect waves-light">
+                                                        <i class="bx bx-edit font-size-16 align-middle"></i>
                                                     </a>
                                                 </td>
+                                                <td>
+                                                    {{ tl.compania.nombre }} <br />
+                                                    <small>{{ tl.observaciones_generales|lower }}</small>
+                                                </td>
+                                                <td class="{% if not tl.periodo_alta %}text-danger{% endif %}">
+                                                    {% if tl.periodo_alta %}
+                                                    {{tl.periodo_alta}}
+                                                    {% else %}
+                                                    <b>Sin Dato</b>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="{% if not tl.periodo_baja %}text-danger{% endif %}">
+                                                    {% if tl.periodo_baja %}
+                                                    {{tl.periodo_baja}}
+                                                    {% else %}
+                                                    <b>Sin Dato</b>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{tl.puesto_final}}</td>
+                                                <td>{{tl.datosgenerales.motivo_salida|default:''}}</td>
+
+
+                                                <td class="text-center">
+                                                    <i
+                                                        class="fa fa-{% if tl.terminada %}check{% else %}times{% endif %}"></i>
+                                                </td>
+                                                <td class="text-center">
+                                                    <i
+                                                        class="fa fa-{% if tl.visible_en_status %}check{% else %}times{% endif %}"></i>
+                                                </td>
+
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
 
-                                    <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
-                                    class="btn btn-primary waves-effect waves-light">
-                                    <i class="bx bx-plus font-size-16 align-middle me-2"></i> 
-                                    Agregar datos de investigación laboral
-                                </a>
+                            <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
+                                class="btn btn-primary waves-effect btn-label waves-light">
+                                <i class="bx bx-plus label-icon"></i>
+                                Agregar datos de investigación laboral
+                            </a>
 
-                                <br /><br />
+                            <br /><br />
 
-                                <h5>Referencias Comerciales</h5>
+                            <h5>Referencias Comerciales</h5>
 
-                                <table class="table table-striped table-bordered table-hover table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Tipo de Negocio</th>
-                                            
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for referencia in investigacion.referencias %}
-                                        <tr>
-                                           
-                                            <td>{{ referencia.tipo_negocio }}</td>
-                                            <td>
-                                                <a href="{% url 'investigaciones:investigacion_referencia_edit' investigacion.id referencia.id %}"
-                                                    class="btn btn-primary waves-effect waves-light">
-                                                    <i class="bx bx-edit font-size-16 align-middle me-2"></i> 
-                                                    Editar
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                            <table class="table table-striped table-bordered table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de Negocio</th>
 
-                                <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
-                                class="btn btn-primary waves-effect waves-light">
-                                <i class="bx bx-plus font-size-16 align-middle me-2"></i> 
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for referencia in tajectorias_comerciales %}
+                                    <tr>
+                                        <td>{{ referencia.tipo_negocio }}</td>
+                                        <td>
+                                            <a href="{% url 'investigaciones:investigacion_persona_trayectoria_comercial_create' investigacion.id referencia.id %}"
+                                                class="btn btn-primary waves-effect btn-label waves-light">
+                                                <i class="bx bx-edit label-icon"></i>
+                                                Editar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="2">No hay registros</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <a href="{% url 'investigaciones:investigacion_persona_trayectoria_comercial_create' investigacion.id 0 %}"
+                                class="btn btn-primary waves-effect btn-label waves-light">
+                                <i class="bx bx-plus label-icon"></i>
                                 Agregar referencia Laboral</a>
 
-                                <br />
-                                <br />
+                            <br />
+                            <br />
 
-                                Observaciones de Estatus de Inv. Laboral (visible en conclusión pdf)
+                            Observaciones de Estatus de Inv. Laboral (visible en conclusión pdf)
 
 
-                                <br />
-                                  
-                        
-
-                                
-
-                            </div>
-                        </div>
-                    </div><!-- end col -->
-
-                </div>
+                            <br /><br />
 
 
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Protocolo</h3>
-
-
-                                <div class="row">
-
-                                    <div class="col-md-12">
-
-
-                                        {% if not gestor %}
-
-
-                                        <a href="#"
-                                            class="btn btn-success waves-effect waves-light">
-                                            <i class="bx bx-check-double font-size-16 align-middle me-2"></i>Asignar
-                                            agente de
-                                            entrevista
-                                        </a>
-
-                                        {% endif %}
-
-                                        <button type="button" class="btn btn-warning waves-effect waves-light">
-                                            <i class="bx bx-error font-size-16 align-middle me-2"></i> Completar demanda
-                                            laboral
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div><!-- end col -->
-
-                </div>
-
-                {% if gestor %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Estado de la entrevista</h3>
-
-
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <strong>Gestor:</strong>
-                                        {{ gestor.gestor }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-
-                                    <div class="col-md-4">
-                                        <strong>Fecha de asignación:</strong>
-                                        {{ gestor.fecha_asignacion }}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <strong>Fecha de Registro:</strong>
-                                        {{ gestor.fecha_registro }}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <strong>Fecha de Registro:</strong>
-                                        {{ gestor.fecha_atencion }}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <strong>Estado:</strong>
-                                        {{ gestor.get_estatus_display }}
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div><!-- end col -->
-
-                </div>
-
-                {% endif %}
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Bitácora</h3>
-
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover"
-                                                id="datatable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fecha</th>
-                                                        <th>Usuario</th>
-                                                        <th>Servicio</th>
-                                                        <th>Observaciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for bitacora in bitacoras %}
-                                                    <tr>
-                                                        <td>{{ bitacora.datetime }}</td>
-                                                        <td>{{ bitacora.user }}</td>
-                                                        <td>{{ bitacora.servicio }}</td>
-                                                        <td>{{ bitacora.observaciones }}</td>
-                                                    </tr>
-
-                                                    {% empty %}
-                                                    <tr>
-                                                        <td colspan="4">No hay bitacoras para esta investigación</td>
-                                                    </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
-
-                                            <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
+                            <!-- <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
                                 class="btn btn-primary waves-effect waves-light">
-                                <i class="bx bx-plus font-size-16 align-middle me-2"></i> 
-                                Agregar bitácora</a>
-                                        </div>
+                                <i class="bx bx-plus font-size-16 align-middle me-2"></i>
+                                Completar la investigación laboral
+                            </a> -->
+
+
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+
+                                Investigación psicométrica
+
+                            </h3>
+
+                           
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>Ejecutivo psicometrico:</strong>
+                                    {{ psicometrico_data.user }}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>Fecha de asignación:</strong>
+                                    {{ psicometrico_data.created }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Última modificación:</strong>
+                                    {{ psicometrico_data.modificated }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Completado:</strong>
+                                    <i class="fa fa-{% if psicometrico_data.completado %}check{%else%}times{%endif%}"></i>
+                                </div>
+                            </div>
+
+                            {% if psicometrico_data.completado %}
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <strong>Observaciones:</strong>
+                                    {{ psicometrico_data.observaciones }}
+                                </div>
+                                <div class="col-md-12">
+                                    <br>
+                                    <strong>Archivo:</strong>
+                                    <br>
+
+                                    {% if  psicometrico_data.archivo.url %}
+                                    <a href="{{ psicometrico_data.archivo.url }}"
+                                        class="btn btn-primary waves-effect waves-light">
+                                        <i class="bx bx-download font-size-16 align-middle me-2"></i>
+                                        Descargar
+                                    </a>
+                                    {%else%}
+                                    Informe no contiene archivo
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Estado de la Investigación</h3>
+
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    Datos del candidato verificados:
+
+                                    {% if investigacion.candidato_validado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+                                    <br>
+                                    <br>
+
+                                    {% if investigacion.entrevista %}
+                                    <strong>Entrevista:</strong><br>
+
+                                    Formulario de entrevista:
+
+                                    {% if investigacion.entrevista_from_completado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
+
+                                    Archivos de entrevista:
+                                    {% if investigacion.entrevista_app_completado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
+
+                                    {% endif %}
+
+                                    <br><br>
+
+                                    {% if investigacion.laboral %}
+                                    <strong>Investigación laboral:</strong><br>
+
+                                    Formulario de entrevista:
+
+                                    {% if investigacion.laboral_completado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                    <br><br>
+
+                                    {% if investigacion.psicometrico %}
+                                    <strong>Investigación Psicométrica:</strong><br>
+
+                                    Psicometrico:
+
+                                    {% if investigacion.psicometrico_completado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Bitácora</h3>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Usuario</th>
+                                                    <th>Servicio</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for bitacora in bitacoras %}
+                                                <tr>
+                                                    <td>{{ bitacora.datetime }}</td>
+                                                    <td>{{ bitacora.user }}</td>
+                                                    <td>{{ bitacora.servicio }}</td>
+                                                    <td>{{ bitacora.observaciones }}</td>
+                                                </tr>
+
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="4">No hay bitacoras para esta investigación</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                        <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
+                                            class="btn btn-primary waves-effect btn-label waves-light">
+                                            <i class="bx bx-plus label-icon"></i>
+                                            Agregar bitácora</a>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
-                    </div><!-- end col -->
+                    </div>
+                </div><!-- end col -->
 
-                </div>
-
-
-            </div> <!-- container-fluid -->
-        </div>
-        <!-- End Page-content -->
+            </div>
 
 
-        {% block footer %}
-        {% include 'partials/footer.html' %}
-        {% endblock footer %}
+            <a href="{% url 'investigaciones:investigaciones_list' %}"
+                class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+                Regresar al listado</a>
+
+            <br /><br />
+
+
+        </div> <!-- container-fluid -->
     </div>
-    <!-- end main content-->
-    {% endblock content %}
+    <!-- End Page-content -->
 
-    
-    {% block extra_js %}
 
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="popover"]').popover();
-        });
-        </script>
-        
-    {% endblock extra_js %}
-        
+    {% block footer %}
+    {% include 'partials/footer.html' %}
+    {% endblock footer %}
+</div>
+<!-- end main content-->
+{% endblock content %}
+
+
+{% block extra_js %}
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
+{% endblock extra_js %}

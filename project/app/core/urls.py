@@ -1,5 +1,6 @@
 from app.core.api import UserTemplateView, UserViewSet
 from app.core.views.users import UserCreateView, UserDetailView, UserUpdateView, UserUpdatePasswdView
+from app.core.views.user_messages import UserMessajeListView, UserMessageDeleteView
 from app.core.views.tipo_investigacion_costo import TipoInvestigacionCostoListView, TipoInvestigacionCostoCreateView,  TipoInvestigacionCostoUpdateView
 
 from django.urls import include, path
@@ -23,5 +24,8 @@ urlpatterns = [
     path("tipo_investigacion_costo/", TipoInvestigacionCostoListView.as_view(), name="tipo_investigaciones_costo_list"),
     path("tipo_investigacion_costo/create/", TipoInvestigacionCostoCreateView.as_view(), name="tipo_investigacion_costo_create"),
     path("tipo_investigacion_costo/update/<int:pk>/", TipoInvestigacionCostoUpdateView.as_view(), name="tipo_investigacion_costo_update"),
+
+    path('messages/list', UserMessajeListView.as_view(), name='user_messages_list'),
+    path('messages/view/<int:pk>', UserMessageDeleteView.as_view(), name='user_messages_delete_list'),
 
 ]

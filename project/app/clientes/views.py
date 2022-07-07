@@ -17,15 +17,16 @@ from django.views.generic import (
 )
 
 from app.clientes.models import Cliente, ClienteSolicitud, ClienteSolicitudCandidato, ClienteUser
-from app.core.models import Estado, Municipio
+from app.core.models import Estado, Municipio, UserMessage
 from django.http import HttpResponse
+from utils.send_mails import send_email
 import json
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 
 from app.persona.models import Persona
-from app.investigacion.models import Investigacion
-from datetime import date
+from app.investigacion.models import Investigacion, Psicometrico
+from datetime import date, datetime
 
 
 class InitialClient(LoginRequiredMixin, TemplateView):
@@ -54,6 +55,10 @@ class ClienteSolicitudListView(GroupRequiredMixin, ListView):
     page = {
         'title': 'Solicitudes',
     }
+
+    def get_queryset(self):
+
+        return ClienteSolicitud.objects.filter(cliente_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudListView, self).get_context_data(**kwargs)
@@ -112,9 +117,11 @@ class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
         context = super(ClienteSolicitudDetailView, self).get_context_data(**kwargs)
 
         context['page'] = self.page
-        context['cliente_solicitud_candidatos'] = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.object.pk)
+        csc = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.object.pk)
+        total_candidatos = csc.count()
+        context['cliente_solicitud_candidatos'] = csc
+        context['total_candidatos'] = total_candidatos
         
-
         return context
 
 
@@ -135,6 +142,16 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
         solicitud = ClienteSolicitud.objects.get(pk=self.kwargs['solicitud_id'])
         candidatos_solicitud = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.kwargs['solicitud_id'])
         today = date.today()
+
+        now = datetime.now()
+        year = '{:02d}'.format(now.year)
+        month = '{:02d}'.format(now.month)
+        day = '{:02d}'.format(now.day)
+        hour = '{:02d}'.format(now.hour)
+        minute = '{:02d}'.format(now.minute)
+        day_month_year = '{}-{}-{}'.format(year, month, day)
+        hora = '{}:{}'.format(hour, minute)
+
 
         # Tipo de investigaciones 
         # Laboral, 
@@ -169,15 +186,16 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
         '''
 
         for candidato in candidatos_solicitud:
-
             
             # Buscar Candidato si no existe crearlo
             try:
                 persona = Persona.objects.get(nss=candidato.nss, curp=candidato.curp)
-                persona.estado_id = candidato.estado_id
-                persona.municipio_id = candidato.municipio_id
-                # Ojo colocar como invalido los catos para corrovolar
-                # persona.save()
+                # persona.estado_id = candidato.estado_id
+                # persona.municipio_id = candidato.municipio_id
+                # Los datos de cada persona se debe validad por cada investigacion en este caso se coloca un flag para validad
+                persona.datos_validados = False
+                persona.puesto = candidato.puesto
+                persona.save()
             except Persona.DoesNotExist:
                 persona = Persona()
                 persona.nss = candidato.nss
@@ -185,67 +203,127 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 persona.apellido = candidato.apellido
                 persona.email = candidato.email
                 persona.curp = candidato.curp
-                persona.estado_id = candidato.estado_id
-                persona.municipio_id = candidato.municipio_id
-                # Ojo colocar como invalido los catos para corrovolar
+                persona.puesto = candidato.puesto
+                # persona.estado_id = candidato.estado_id
+                # persona.municipio_id = candidato.municipio_id
+                
                 persona.save()
                 print('##### Persona creada #####')
                 print('Persona creada', persona.pk)
-                
-
-            if candidato.tipo_investigacion == 2:
-                print('Crear solicitud para candidato')
-
-                investigacion = Investigacion()
-                #investigacion.agente = solicitud.cliente.user
-                investigacion.cliente_solicitud = solicitud
-                investigacion.candidato = persona
-                investigacion.compania = solicitud.cliente.compania
-                investigacion.tipo_investigacion_status = candidato.tipo_investigacion
-                # Colocar fecha y hora de envio por parte del cliente
-                # compania sucursal y contacto tomarlo de la compachia del cliente
-                # colocar en el formulario del cliente la sucursal
-                # investigacion.sucursal = solicitud.cliente.compania.sucursal
-                # investigacion.contacto = candidato.cliente.contacto
-                investigacion.save()
-                print('##############################')
-                print('Investigacion creada con el id: ' + str(investigacion.pk))
-
-                # crear entrevista + adjuntos
-                # Crear laboral
-                # Enviar notificacion a cliente y coordinador de ejecutivos
-                # Coordinador de ejecutivos puede listar las solicitudes para asignarlas
-                # Ejecutivo puede asignar una solicitud a un ejecutivo
-                # Ejecutivo puede ver las solicitudes asignadas
-                # Ejecutivo puede ejectuta solicitud
-                # Ejecutivo termina solicitud
-                # Colocar el costo al tipo de investigacion (Referencia)
-
-                # adicionales
-                # Puede editar la informacion del candidato el coordinador y ejecutivo de inv. laboral
-                # hasta DOMICILIO ACTUAL (Trabajo del ejecutivo, a traves de llamada con el candidato)
-                # Guardar la bitacora de llamadas
-                # Al estar lleno los datos se activa la investigacion.
-                # 
-                # Demandas laborales el coordinador las llena. Toda investigacion lleva demana 
-
-                # Quien auoriza la Entrevista
-                # Enviado a entrevistador eliminar y colocar el gestor con popup de usuarios gestores
-                # Colocar bitacora
-                # Estatus: Atención y concluida
-
-                # Calificación Final cuando todos los procesos estan concluido
-
-                # Investigacion laboral la ejeuta el ejecutivo de inv. laboral
             
-            if candidato.tipo_investigacion == 4:
-                print('Crear psicometria para candidato')
-                # Genera la sicometria
-                # Coordinador de ejecutivos las asigna a un ejecutivo
-                # Ejecutivo puede listar las sicometrias para asignarlas
-                # Enviar notificacion a Ejecutico y coordinador de ejecutivos
-                # Ejecutivo termina la sicometria
-                # ejecutivo recibe notificacion de terminacion de sicometria
+            # Verifica tipo de serivico solicitados por el cliente 
+            entrevista_1 = False
+            investigacion_laboral_2 = False
+            psicometrico_3 = False
+
+            for tInv in candidato.tipo_investigacion.all():
+                if tInv.pk == 1:
+                    investigacion_laboral_2 = True
+                if tInv.pk == 2:
+                    psicometrico_3 = True
+                if tInv.pk == 3:
+                    entrevista_1 = True
+                    investigacion_laboral_2 = True
+                if tInv.pk == 5:
+                    entrevista_1 = True
+
+            print('Crear solicitud para candidato')
+
+            investigacion = Investigacion()
+            #investigacion.agente = solicitud.cliente.user
+            investigacion.cliente_solicitud = solicitud
+            investigacion.candidato = persona
+            investigacion.compania = solicitud.cliente.compania
+          
+            # Programacion de la secuencia de la investigacion
+            investigacion.entrevista = entrevista_1
+            investigacion.laboral = investigacion_laboral_2
+            investigacion.psicometrico = psicometrico_3
+
+            # Colocar fecha y hora de envio por parte del cliente
+            investigacion.fecha_recibido = today
+            investigacion.hora_recibido = hora
+
+            # compania sucursal y contacto tomarlo de la compachia del cliente
+            # colocar en el formulario del cliente la sucursal
+            # investigacion.sucursal = solicitud.cliente.compania.sucursal
+            # investigacion.contacto = candidato.cliente.contacto
+            investigacion.save()
+
+            # Toma los valores de los tipo de solicitud
+
+            for tInv in candidato.tipo_investigacion.all():
+                investigacion.tipo_investigacion.add(tInv)
+
+            # Crear el adjunto
+
+            # Generación de elementos adicionales de la investigacion
+            if entrevista_1:
+                # Crear la entrevista
+                pass
+
+            if psicometrico_3:
+                psicometrico = Psicometrico()
+                psicometrico.investigacion = investigacion
+                psicometrico.save()
+
+
+            print('##############################')
+            print('Investigacion creada con el id: ' + str(investigacion.pk))
+            
+            # Enviar notificacion a cliente y coordinador de ejecutivos
+            # Notificar a Coordinador de Ejecutivos
+
+            # Notificar a los coordinadores de ejecutivos por email
+            # TODO: Se debe crear la lista de coordinadores de ejecutivos para tomar los correos y el username
+            mail_data = {
+            'mensaje': 'Se ha generado una nueva solicitud de investigación',
+            'candidato' : candidato.nombre + ' ' + candidato.apellido,
+            'compania' : solicitud.cliente.compania.nombre,
+            'tipo_de_solicitud' : investigacion.tipo_investigacion.all(),
+            'fecha_solicitud': today,
+            'url_detalles': 'http://localhost:8000/investigaciones/investigaciones/detail/' + str(solicitud.pk) + '/',
+            'texto_url_detalles': 'Detalles de la solicitud',
+            'email_coordinadores_de_ejecutivos': ['e@01.com',],
+                       
+
+            }
+            send_email('notificacion_coordinador_ejecutivo', mail_data)
+            
+            # registrar los mensajes
+            msj = UserMessage()
+            msj.user = self.request.user
+
+            msj.title = "Se ha generado una nueva solicitud de investigación"
+            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
+            msj.link = "/investigaciones/investigaciones/detail/"+str(investigacion.pk)+"/"
+            msj.save()
+
+            # Coordinador de ejecutivos puede listar las solicitudes para asignarlas
+            # Ejecutivo puede asignar una solicitud a un ejecutivo
+            # Ejecutivo puede ver las solicitudes asignadas
+            # Ejecutivo puede ejectuta solicitud
+            # Ejecutivo termina solicitud
+            # Colocar el costo al tipo de investigacion (Referencia)
+
+            # adicionales
+            # Puede editar la informacion del candidato el coordinador y ejecutivo de inv. laboral
+            # hasta DOMICILIO ACTUAL (Trabajo del ejecutivo, a traves de llamada con el candidato)
+            # Guardar la bitacora de llamadas
+            # Al estar lleno los datos se activa la investigacion.
+            # 
+            # Demandas laborales el coordinador las llena. Toda investigacion lleva demana 
+
+            # Quien auoriza la Entrevista
+            # Enviado a entrevistador eliminar y colocar el gestor con popup de usuarios gestores
+            # Colocar bitacora
+            # Estatus: Atención y concluida
+
+            # Calificación Final cuando todos los procesos estan concluido
+
+            # Investigacion laboral la ejeuta el ejecutivo de inv. laboral
+            
+           
 
         # Para ir eliminando
         # Persona creada 26014

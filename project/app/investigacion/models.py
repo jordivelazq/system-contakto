@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from app.persona.models import Persona, File
 from app.compania.models import Compania, Contacto, Sucursales
 from app.agente.models import Labels, GestorInfo
-from app.clientes.models import Cliente, ClienteSolicitud, ClienteSolicitudCandidato, ClienteUser
+from app.clientes.models import Cliente, ClienteSolicitud, ClienteSolicitudCandidato, ClienteUser, ClienteTipoInvestigacion
 from app.core.models import Estado, Municipio
 
 ACTIVO_OPCIONES = (
@@ -69,9 +69,6 @@ class Investigacion(models.Model):
 	fecha_entrega = models.DateField(blank=True, null=True)
 	puesto = models.CharField(max_length=140)
 
-	# estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
-	# municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
-
 	observaciones = models.TextField(max_length=200, blank=True, null=True)
 	entrevista = models.DateTimeField(blank=True, null=True)
 	fecha_registro = models.DateField(auto_now_add=True)
@@ -90,11 +87,24 @@ class Investigacion(models.Model):
 	
 	tipo_investigacion_status = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
 	tipo_investigacion_texto = models.TextField(max_length=16000, blank=True, null=True)
+	tipo_investigacion = models.ManyToManyField(ClienteTipoInvestigacion)
 
 	#Historia en empresa
 	laboro_anteriormente = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	familiar_laborando = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 	label = models.ForeignKey(Labels, blank=True, null=True, on_delete=models.CASCADE)
+
+	# Secuencia de investigaciones
+	candidato_validado = models.BooleanField(default=False)
+	entrevista = models.BooleanField(default=False)
+	entrevista_from_completado = models.BooleanField(default=False)
+	entrevista_app_ejecutivo_asignado = models.BooleanField(default=False)
+	entrevista_app_completado = models.BooleanField(default=False)
+	laboral = models.BooleanField(default=True)
+	laboral_completado = models.BooleanField(default=False)
+	psicometrico = models.BooleanField(default=False)
+	psicometrico_ejecutivo_asignado = models.BooleanField(default=False)
+	psicometrico_completado = models.BooleanField(default=False)
 
 	def __str__(self):
 		return u'%s / %s' % (self.candidato, self.compania)
@@ -162,3 +172,29 @@ class InvestigacionBitacora(models.Model):
 	servicio = models.CharField(max_length=120, default='')
 	observaciones = models.TextField(default='')
 	datetime = models.DateTimeField(auto_now_add=True)
+
+
+class PsicometricoUser(User):
+
+    telefono = models.CharField(max_length=20, blank=True) 
+
+    created = models.DateTimeField(auto_now=True, blank=True)
+    modificated = models.DateTimeField(auto_now_add=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Usuario Psicometrico'
+        verbose_name_plural = 'Usuarios Psicometricos'
+
+    def __str__(self):
+        return u"%s, %s" % (self.first_name, self.last_name)
+
+
+class Psicometrico(models.Model):
+	investigacion = models.OneToOneField(Investigacion, on_delete=models.CASCADE, related_name='investigacion_psicometrico')
+	user = models.ForeignKey(PsicometricoUser, on_delete=models.CASCADE, blank=True, null=True)
+	observaciones = models.TextField(default='')
+	archivo = models.FileField(upload_to='archivo_psicometrico/', blank=True, null=True)
+	completado = models.BooleanField(default=False)
+
+	created = models.DateTimeField(auto_now=True, blank=True)
+	modificated = models.DateTimeField(auto_now_add=True, blank=True)

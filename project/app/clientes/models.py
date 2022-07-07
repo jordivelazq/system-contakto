@@ -60,6 +60,22 @@ class ClienteSolicitud(models.Model):
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
+    @property
+    def get_candidatos_count(self):
+        sc = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.pk).count()
+        return sc
+
+
+class ClienteTipoInvestigacion(models.Model):
+    
+    tipo_investigacion = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ('tipo_investigacion', )
+
+    def __str__(self):
+        return u'%s' % (self.tipo_investigacion)
+
 
 class ClienteSolicitudCandidato(models.Model):
     
@@ -80,7 +96,6 @@ class ClienteSolicitudCandidato(models.Model):
 
     cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, related_name="cliente_solicitud_candidato")
 
-
     nombre = models.CharField(max_length=140)
     apellido = models.CharField(max_length=140, default="")
     nss = models.CharField(max_length=30, default="None", validators=[validate_nss])
@@ -94,7 +109,8 @@ class ClienteSolicitudCandidato(models.Model):
 
     status = models.CharField(max_length=140, choices=STATUS_OPCIONES, default='0')
     enviado = models.BooleanField(default=False)
-    tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, default=2)
+    # tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, default=2)
+    tipo_investigacion = models.ManyToManyField(ClienteTipoInvestigacion)
 
     archivo_solicitud = models.FileField(upload_to='cliente_solicitudes/', blank=True, null=True)
     

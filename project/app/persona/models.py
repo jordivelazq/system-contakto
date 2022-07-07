@@ -84,6 +84,7 @@ class Persona(models.Model):
 	medio_utilizado = models.CharField(max_length=140, blank=True, null=True)
 	fecha_registro = models.DateField(auto_now=True)
 	estatus = models.BooleanField(default=True)
+	datos_validados = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.nombre

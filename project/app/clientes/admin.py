@@ -1,6 +1,6 @@
 from app.clientes.forms import UserChangeForm, UserCreationForm
 from app.clientes.models import (ClienteSolicitud,
-                                 ClienteSolicitudCandidato)
+                                 ClienteSolicitudCandidato, ClienteTipoInvestigacion,)
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from app.clientes.models import ClienteUser
@@ -18,10 +18,10 @@ class ClienteUserAdmin(auth_admin.UserAdmin):
     search_fields = ["username"]
 
 
-# @admin.register(Cliente)
-# class ClienteAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'telefono', 'compania')
-#     #inlines = [ServicioCostoAdicionalInline]
+@admin.register(ClienteTipoInvestigacion)
+class ClienteTipoInvestigacionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tipo_investigacion')
+    #inlines = [ServicioCostoAdicionalInline]
 
 
 @admin.register(ClienteSolicitud)
