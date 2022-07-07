@@ -12,6 +12,7 @@ from app.entrevista.models import (EntrevistaAcademica,
                                    EntrevistaAspectoCandidato,
                                    EntrevistaAspectoHogar, EntrevistaAutomovil,
                                    EntrevistaBienesRaices,
+                                   EntrevistaCaractaristicasVivienda,
                                    EntrevistaCuentaDebito,
                                    EntrevistaDeudaActual, EntrevistaDireccion,
                                    EntrevistaDistribucionDimensiones,
@@ -45,7 +46,7 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaAspectoCandidatoSerializer,
                          EntrevistaAspectoHogarSerializer,
                          EntrevistaAutomovilSerializer,
-                         EntrevistaBienesRaicesSerializer,
+                         EntrevistaBienesRaicesSerializer, EntrevistaCaracteristicasViviendaSerializer,
                          EntrevistaCuentaDebitoSerializer,
                          EntrevistaDeudaActualSerializer,
                          EntrevistaDireccionSerializer,
@@ -412,6 +413,12 @@ class EntrevistaBienesRaicesViewSet(viewsets.ModelViewSet):
     authentication_classes = [OAuth2Authentication]
     permission_classes = [TokenHasReadWriteScope,]
 
+class EntrevistaCaracteristicasViviendaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaCaractaristicasVivienda.objects.all()
+    serializer_class = EntrevistaCaracteristicasViviendaSerializer
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 class EntrevistaCuentaDebitoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaCuentaDebito.objects.all()
