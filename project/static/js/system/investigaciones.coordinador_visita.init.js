@@ -24,8 +24,16 @@ $(document).ready(function () {
                     }
                 },
             },
+            {
+                targets: [6],
+                render: function (data) {
+                    return moment(data).format('DD/MM/YYYY');
+                },
+
+            },
 
         ],
+        
         "columns": [{
                 "title": "Id",
                 "data": "id",
@@ -63,11 +71,17 @@ $(document).ready(function () {
                 "responsivePriority": 1,
             },
             {
-                "title": "Ejecutivo de Visita",
-                "data": "entrevista_app_ejecutivo_asignado",
+                "title": "Ejecutivo de Visita asignado",
+                "data": "psicometrico_ejecutivo_asignado",
+            },
+
+            {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
             }
 
         ],
+        "order": [[6, "desc"]],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

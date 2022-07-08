@@ -160,7 +160,7 @@
 
                             <br>
 
-                            <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
+                            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_update' investigacion.id gestor.pk  %}"
                                 class="btn btn-primary waves-effect waves-light">
                                 <i class="bx bx-edit font-size-16 align-middle me-2"></i>
                                 Editar visita
@@ -239,6 +239,12 @@
                 </div><!-- end col -->
 
             </div>
+
+            <a href="{% url 'investigaciones:investigaciones_coordinador_psicometrico_list' %}"
+            class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+            Regresar al listado</a>
+
+            <br /><br />
             
 
 

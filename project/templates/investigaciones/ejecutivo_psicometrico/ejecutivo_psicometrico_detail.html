@@ -163,8 +163,8 @@
                                     <strong>Archivo:</strong>
                                     <br>
 
-                                    {% if  psicometrico_data.archivo.url %}
-                                    <a href="{{ psicometrico_data.archivo.url }}"
+                                    {% if  psicometrico_data.archivo %}
+                                    <a href="{{ psicometrico_data.archivo }}"
                                         class="btn btn-primary waves-effect waves-light">
                                         <i class="bx bx-download font-size-16 align-middle me-2"></i>
                                         Descargar
@@ -237,6 +237,12 @@
                 </div><!-- end col -->
 
             </div>
+
+            <a href="{% url 'investigaciones:investigaciones_ejecutivo_psicometrico_list' %}"
+            class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+            Regresar al listado</a>
+
+        <br /><br />
 
 
 

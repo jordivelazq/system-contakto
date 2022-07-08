@@ -39,7 +39,7 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         qs = self.queryset.filter(
-            cliente_solicitud__isnull=False,).order_by("cliente_solicitud")
+            cliente_solicitud__isnull=False,).order_by("last_modified")
 
         return qs
 
@@ -137,8 +137,8 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
         self.object.investigacion = inv
         self.object.save()
 
-        # inv.agente_id = self.object.gestor.usuario.pk
-        # inv.save()
+        inv.psicometrico_ejecutivo_asignado = True
+        inv.save()
 
         bitacora = InvestigacionBitacora()
         bitacora.user_id = self.request.user.pk
@@ -153,6 +153,52 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
         messages.add_message(self.request, messages.SUCCESS,
                              'El gestor ha sido asignado')
         return reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+
+
+class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
+
+    # required
+    group_required = u"SuperAdmin"
+    raise_exception = True
+
+    model = GestorInvestigacion
+    fields = ['gestor', 'fecha_asignacion']
+    # success_url = reverse_lazy('investigaciones:investigaciones_list')
+    template_name = 'investigaciones/coordinador_visitas/investigacion_coordinador_visita_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordinadorVisitaUpdateView,
+                        self).get_context_data(**kwargs)
+
+        context['investigacion_id'] = self.kwargs['investigacion_id']
+
+        return context
+
+    def form_valid(self, form):
+
+        inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+
+        self.object = form.save(commit=False)
+        self.object.investigacion = inv
+        self.object.save()
+
+        inv.psicometrico_ejecutivo_asignado = True
+        inv.save()
+
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = inv
+        bitacora.servicio = "Coordinador de visitas"
+        bitacora.observaciones = "Actualizacion de asignación de gestor de visitas"
+        bitacora.save()
+
+        return super(InvestigacionCoordinadorVisitaUpdateView, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El gestor ha sido actualizado')
+        return reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+
 
 
 class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -212,8 +258,7 @@ class InvestigacionDetailView(DetailView):
         
         # TODO: revisar filtro pafra que solo traiga los que no esten asignados a la inv.
 
-        context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(
-            persona=inv.candidato)
+        context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato).order_by('-fecha_creacion')
 
         context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
 
@@ -955,8 +1000,8 @@ class InvestigacionCoordinadorPsicometricoCreateView(CreateView):
         self.object.investigacion = inv
         self.object.save()
 
-        # inv.agente_id = self.object.gestor.usuario.pk
-        # inv.save()
+        inv.psicometrico_ejecutivo_asignado = True
+        inv.save()
 
         bitacora = InvestigacionBitacora()
         bitacora.user_id = self.request.user.pk
@@ -987,6 +1032,25 @@ class InvestigacionCoordinadorPsicometricoUpdateView(GroupRequiredMixin, UpdateV
         context['investigacion_id'] = self.kwargs['investigacion_id']
 
         return context
+    
+    def form_valid(self, form):
+
+        inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+
+        self.object = form.save(commit=False)
+        self.object.save()
+
+        inv.psicometrico_ejecutivo_asignado = True
+        inv.save()
+
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = inv
+        bitacora.servicio = "Coordinador de psicometrico"
+        bitacora.observaciones = "Actualizacion de asignación de gestor de psicometrico"
+        bitacora.save()
+
+        return super(InvestigacionCoordinadorPsicometricoUpdateView, self).form_valid(form)
 
     # send the user back to their own page after a successful update
     def get_success_url(self, **kwargs):
@@ -1007,8 +1071,7 @@ class InvestigacionEjecutivoPsicometricoList(GroupRequiredMixin, ListView):
     template_name = 'investigaciones/ejecutivo_psicometrico/ejecutivo_psicometrico_list.html'
 
     # def get_queryset(self):
-
-    #     return Psicometrico.objects.filter(user_id=self.request.user.id)
+    #     return Psicometrico.objects.filter(user_id=self.request.user.id).order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoPsicometricoList, self).get_context_data(**kwargs)
@@ -1024,8 +1087,28 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
     raise_exception = True
 
     model = Psicometrico
-    fields = ['observaciones', 'archivo',]
+    fields = ['observaciones', 'archivo', 'completado']
     template_name = 'investigaciones/ejecutivo_psicometrico/ejecutivo_psicometrico_form.html'
+
+    def form_valid(self, form):
+
+        inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+
+        self.object = form.save(commit=False)
+        self.object.save()
+
+        if self.object.completado:
+            inv.psicometrico_ejecutivo_completado = True
+            inv.save()
+        
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = inv
+        bitacora.servicio = "Ejecutivo de psicometrico"
+        bitacora.observaciones = "Actualizacion de asignación de gestor de psicometrico"
+        bitacora.save()
+
+        return super(InvestigacionEjecutivoPsicometricoUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoPsicometricoUpdateView, self).get_context_data(**kwargs)
@@ -1039,7 +1122,7 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS, 'El ejecutivo ha sido asignado')
-        return reverse('investigaciones:investigaciones_coordinador_psicometrico_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+        return reverse('investigaciones:investigaciones_ejecutivo_psicometrico_list', kwargs={"investigacion_id": self.kwargs['investigacion_id']})
 
 
 class InvestigacionEjecutivoPsicometricoDetailView(DetailView):

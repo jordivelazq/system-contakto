@@ -172,6 +172,7 @@
                                                 <th>Motivo de baja</th>
                                                 <th>Terminada</th>
                                                 <th>Visible en Estatus</th>
+                                                <th>Fecha de registro</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -212,6 +213,16 @@
                                                 <td class="text-center">
                                                     <i
                                                         class="fa fa-{% if tl.visible_en_status %}check{% else %}times{% endif %}"></i>
+                                                </td>
+
+                                                <td>
+                                                    <small>
+                                                        <strong>Creado:</strong>
+                                                    {{ tl.fecha_creacion }}<br>
+                                                    <strong>Actualizado:</strong>
+                                                    {{ tl.fecha_actualizacion }}
+                                                    </small>
+
                                                 </td>
 
                                             </tr>

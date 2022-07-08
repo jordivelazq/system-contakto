@@ -35,6 +35,24 @@ $(document).ready(function () {
                     }
                 },
             },
+            {
+                targets: 7,
+                className: 'dt-body-center', 
+                render: function (data, type, row) {
+                    if (data==true){
+                        return '<i class="fa fa-check"></i>';
+                    }else{
+                        return '<i class="fa fa-times"></i>';
+                    }
+                },
+            },
+            {
+                targets: [8],
+                render: function (data) {
+                    return moment(data).format('DD/MM/YYYY');
+                },
+
+            },
 
         ],
         "columns": [{
@@ -80,9 +98,18 @@ $(document).ready(function () {
             {
                 "title": "Ejecutivo Asignado",
                 "data": "psicometrico_ejecutivo_asignado",
+            },
+            {
+                "title": "Datos Psicometricos completados",
+                "data": "psicometrico_ejecutivo_asignado",
+            },
+            {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
             }
 
         ],
+        "order": [[7, "desc"]],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },
