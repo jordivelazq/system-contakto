@@ -346,8 +346,8 @@
                                     <strong>Archivo:</strong>
                                     <br>
 
-                                    {% if  psicometrico_data.archivo.url %}
-                                    <a href="{{ psicometrico_data.archivo.url }}"
+                                    {% if  psicometrico_data.archivo %}
+                                    <a href="/media/{{ psicometrico_data.archivo }}"
                                         class="btn btn-primary waves-effect waves-light">
                                         <i class="bx bx-download font-size-16 align-middle me-2"></i>
                                         Descargar
@@ -429,13 +429,20 @@
                                     {% if investigacion.psicometrico %}
                                     <strong>Investigación Psicométrica:</strong><br>
 
-                                    Psicometrico:
+                                        Ejecutivo psicometrico asignado:
+                                            {% if investigacion.psicometrico_ejecutivo_asignado %}
+                                            <i class="fa fa-check"></i>
+                                            {% else %}
+                                            <i class="fa fa-times"></i>
+                                            {% endif %}
 
-                                    {% if investigacion.psicometrico_completado %}
-                                    <i class="fa fa-check"></i>
-                                    {% else %}
-                                    <i class="fa fa-times"></i>
-                                    {% endif %}
+                                        Datos psicométrico completados:
+
+                                            {% if investigacion.psicometrico_completado %}
+                                            <i class="fa fa-check"></i>
+                                            {% else %}
+                                            <i class="fa fa-times"></i>
+                                            {% endif %}
 
                                     {% endif %}
 

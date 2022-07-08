@@ -255,9 +255,6 @@ class InvestigacionDetailView(DetailView):
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
             investigacion_id=self.kwargs['pk']).order_by('-datetime')
 
-        
-        # TODO: revisar filtro pafra que solo traiga los que no esten asignados a la inv.
-
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato).order_by('-fecha_creacion')
 
         context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
@@ -1070,8 +1067,10 @@ class InvestigacionEjecutivoPsicometricoList(GroupRequiredMixin, ListView):
     context_object_name = "psicometricos"
     template_name = 'investigaciones/ejecutivo_psicometrico/ejecutivo_psicometrico_list.html'
 
-    # def get_queryset(self):
-    #     return Psicometrico.objects.filter(user_id=self.request.user.id).order_by('-created')
+    # TODO: add a filter for the user
+    def get_queryset(self):
+        # return Psicometrico.objects.filter(user_id=self.request.user.id).order_by('-created')
+        return Psicometrico.objects.all().order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoPsicometricoList, self).get_context_data(**kwargs)
@@ -1097,9 +1096,13 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
         self.object = form.save(commit=False)
         self.object.save()
 
-        if self.object.completado:
-            inv.psicometrico_ejecutivo_completado = True
+        if self.object.completado and self.object.archivo:
+            inv.psicometrico_completado = True
             inv.save()
+        else:
+            inv.psicometrico_completado = False
+            inv.save()
+            self.object.completado = False    
         
         bitacora = InvestigacionBitacora()
         bitacora.user_id = self.request.user.pk
@@ -1122,7 +1125,7 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS, 'El ejecutivo ha sido asignado')
-        return reverse('investigaciones:investigaciones_ejecutivo_psicometrico_list', kwargs={"investigacion_id": self.kwargs['investigacion_id']})
+        return reverse('investigaciones:investigaciones_ejecutivo_psicometrico_list')
 
 
 class InvestigacionEjecutivoPsicometricoDetailView(DetailView):
