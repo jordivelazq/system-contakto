@@ -1,8 +1,9 @@
 from rest_framework import serializers
 
-from .models import Investigacion
+from .models import Investigacion, Psicometrico
 from app.persona.models import Persona, File
 from app.compania.models import Compania, Sucursales, Contacto
+from app.clientes.models import ClienteTipoInvestigacion
 
 from django.contrib.auth.models import User
 
@@ -48,6 +49,20 @@ class FileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ClienteTipoInvestigacionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ClienteTipoInvestigacion
+        fields = '__all__'
+
+
+class PsicometricoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Psicometrico
+        fields = '__all__'
+
+
 class InvestigacionSerializer(serializers.ModelSerializer):
 
     agente = UserSerializer(read_only=True)
@@ -55,6 +70,8 @@ class InvestigacionSerializer(serializers.ModelSerializer):
     compania = CompaniaSerializer(read_only=True)
     sucursal = SucursalesSerializer(read_only=True)
     contacto = ContactoSerializer(read_only=True)
+    # tipo_investigacion = ClienteTipoInvestigacionSerializer(read_only=True)
+    tipo_investigacion = serializers.StringRelatedField(many=True)
     file = FileSerializer(read_only=True)
 
     class Meta:

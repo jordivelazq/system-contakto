@@ -28,15 +28,17 @@ class CandidatoAltaForm(ModelForm):
 
 	class Meta:  
 		model = Persona
-		fields = ['nombre', 'apellido', 'nss', 'rfc', 'email', 'edad', 'curp', 'estado_civil']
+		fields = ['nombre', 'apellido', 'nss', 'rfc', 'email', 'edad', 'curp', 'estado_civil', 'datos_validados']
 
 	def __init__(self, *args, **kwargs):
 		super(CandidatoAltaForm, self).__init__(*args, **kwargs)
 		self.fields['nss'].widget.attrs.update({'maxlength': '11'})
 		self.fields['curp'].widget.attrs.update({'maxlength': '18'})
 		for field_name, field in self.fields.items():
+			if field_name in ('datos_validados'):
+				continue
+
 			field.widget.attrs['class'] = 'form-control'
-			
 			
 			if field_name in ('nss', 'curp'):
 				field.widget.attrs['ng-change'] = 'validate_candidate()'

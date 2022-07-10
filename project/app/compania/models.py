@@ -31,7 +31,7 @@ class Compania(models.Model):
 		verbose_name = 'Compañia'
 
 class Sucursales(models.Model):
-	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
+	compania = models.ForeignKey(Compania, on_delete=models.CASCADE, related_name='sucursales')
 	nombre = models.CharField(max_length=140, verbose_name='Sucursal')
 	ciudad = models.CharField(max_length=140, verbose_name='Ciudad', blank=True, null=True)
 	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)

@@ -11,6 +11,7 @@
 					<label for="id_candidato-nss">NSS</label>
 					{{ formCandidato.nss }}
 					{{ formCandidato.nss.errors }}
+
 				</div>
 				<div class="col-md-3">
 					<label for="id_candidato-nombre">Nombre *</label>
@@ -46,9 +47,6 @@
 					{{ formInvestigacion.label }}
 				</div>
 			</div>
-
-
-
 
 			<br />
 			<div class="row">
@@ -208,8 +206,7 @@
 					{{ formLegalidad.sindicato.errors }}
 				</div>
 			</div>
-
-
+			<br />
 			<hr class="thin-separator" />
 			<div class="row">
 				<div class="col-md-4">
@@ -234,9 +231,34 @@
 
 	<br />
 
+	<div class="card">
+		<div class="card-header">
+			<h3 class="card-title">Completar los datos del Candidato</h3>
+		</div>
+
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-12">
+					<label for="id_datos_validados">Todos los datos del candidato han sido verificados</label>
+					{{ formCandidato.datos_validados }}
+					{{ formCandidato.datos_validados.errors }}
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
 	<button type="submit" class="btn btn-success waves-effect btn-label waves-light"> <i
 			class="bx bx-save label-icon"></i>
 		Guardar datos</button>
+
+		<a href="{% url 'investigaciones:investigacion_detail' investigacion.pk %}"
+		class="btn btn-primary waves-effect btn-label waves-light"> <i
+			class="bx bx bx-arrow-back label-icon"></i>
+		Cancelar</a>
+		
 	<br /><br />
 
 </form>

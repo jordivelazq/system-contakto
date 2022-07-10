@@ -43,10 +43,10 @@
 
 			<form action="" method="post">
 				{% csrf_token %}
+
 				<div class="card">
 					<div class="card-body">
 						<h3 class="card-title"></h3>
-
 
 						<div class="row">
 							<div {% if request.user.is_staff %}ng-click="open_empresa_modal()" {% endif %}
@@ -56,12 +56,19 @@
 								</div>
 								<label>Empresa</label>
 								<div class="input-group">
+
+									{{formTrayectoria.compania}}
+									
+									{% comment %}
 									<input id="id_trayectoria-compania" name="trayectoria-compania" type="hidden"
 										value="{[{compania_trayectoria}]}">
+
 									<input id="id_trayectoria-compania-nombre" name="trayectoria-compania-nombre"
 										readonly="readonly" ng-model="compania_nombre_trayectoria" type="text"
 										class="form-control">
 									<span class="input-group-addon glyphicon glyphicon-search"></span>
+									{% endcomment %}
+
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -89,25 +96,26 @@
 					<div class="card-body">
 						<h3 class="card-title">Carta Laboral</h3>
 
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							{{ formCartaLaboral.tiene_carta.errors }}
-							<label for="id_trayectoria1-carta_laboral">Carta laboral</label>
-							{{ formCartaLaboral.tiene_carta }}
+						<div class="row">
+							<div class="col-md-4">
+								{{ formCartaLaboral.tiene_carta.errors }}
+								<label for="id_trayectoria1-carta_laboral">Carta laboral</label>
+								{{ formCartaLaboral.tiene_carta }}
+							</div>
+							<div class="col-md-4">
+								{{ formCartaLaboral.fecha.errors }}
+								<label for="id_trayectoria1-carta_laboral_expide">Fecha en la que se expide</label>
+								{{ formCartaLaboral.fecha }}
+							</div>
+							<div class="col-md-4">
+								{{ formCartaLaboral.expide.errors }}
+								<label for="id_trayectoria1-carta_laboral_expide">Nombre y puesto de quien
+									expide</label>
+								{{ formCartaLaboral.expide }}
+							</div>
 						</div>
-						<div class="col-md-4">
-							{{ formCartaLaboral.fecha.errors }}
-							<label for="id_trayectoria1-carta_laboral_expide">Fecha en la que se expide</label>
-							{{ formCartaLaboral.fecha }}
-						</div>
-						<div class="col-md-4">
-							{{ formCartaLaboral.expide.errors }}
-							<label for="id_trayectoria1-carta_laboral_expide">Nombre y puesto de quien expide</label>
-							{{ formCartaLaboral.expide }}
-						</div>
-					</div>
 
+					</div>
 				</div>
 
 

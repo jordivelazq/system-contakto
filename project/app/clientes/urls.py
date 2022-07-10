@@ -1,13 +1,17 @@
 from app.clientes.api import ClienteTemplateView, ClienteUserViewSet
-from app.clientes.views import (ClienteSolicitudCandidatoCreateView,
+from app.clientes.views.solicitudes import (ClienteSolicitudCandidatoCreateView,
+                                ClienteSolicitudCandidatoDeleteView,
                                 ClienteSolicitudCandidatoUpdateView,
                                 ClienteSolicitudCreateTemplateView,
-                                ClienteSolicitudDetailView,
                                 ClienteSolicitudDeleteView,
+                                ClienteSolicitudDetailView,
                                 ClienteSolicitudEnviarTemplateView,
-                                ClienteSolicitudCandidatoDeleteView,
                                 ClienteSolicitudListView, InitialClient,
                                 MunicipiosView)
+from app.clientes.views.clientes_users import (ClienteUserCreateView,
+                                               ClienteUserDetailView,
+                                               ClienteUserUpdatePasswdView,
+                                               ClienteUserUpdateView)
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -21,6 +25,12 @@ urlpatterns = [
 
     path("api/", include(router.urls)),
     path("list/", ClienteTemplateView.as_view(), name="clientes_list"),
+
+    path("user/create/", ClienteUserCreateView.as_view(), name="clientes_users_create"),
+    path("user/detail/<int:pk>/", ClienteUserDetailView.as_view(), name="clientes_users_detail"),
+    path("user/update/<int:pk>/", ClienteUserUpdateView.as_view(), name="clientes_users_update"),
+    path("user/password/update/<int:pk>/", ClienteUserUpdatePasswdView.as_view(), name="clientes_users_password_update"),
+
 
     path('', InitialClient.as_view(), name='clientes_initial'),
     path('solicitudes/', ClienteSolicitudListView.as_view(), name='clientes_solicitudes_list'),

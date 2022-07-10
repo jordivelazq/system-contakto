@@ -14,14 +14,13 @@
                         <li>
                             <a href="{% url 'dashboard' %}">
                                 <i data-feather="home"></i>
-                                <span class="badge rounded-pill bg-soft-success text-success float-end">9+</span>
                                 <span data-key="t-dashboard">Dashboard</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="">
-                                <i data-feather="home"></i>
+                            <a href="{% url 'core:user_messages_list' %}">
+                                <i data-feather="mail"></i>
                                 <span class="badge rounded-pill bg-soft-success text-success float-end">9+</span>
                                 <span data-key="notificaciones">Notificaciones</span>
                             </a>
@@ -63,34 +62,18 @@
                                 <span data-key="coord-ejecutivos">Coord. de Ejecutivos</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Gestión de solicitudes</a></li>
-                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Demandas laborales (Es responsable de formulario actula)</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Investigaciones</a></li>
+                                    
                             </ul>
                         </li>
 
-                        
-
                         <li>
-                           
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="check-circle"></i>
-                                <span data-key="coord-ejecutivos">Ejecutivo Inv. Laboral</span>
+                                <span data-key="ejecutivo-inv-lab">Ejecutivo Inv. Laboral</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Detalle Inv. Candidato</a></li>
-                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Tipo coordinado con Inv. Laboral y Referencias comerciales</a></li>
-                            </ul>
-
-                        </li>
-
-                        <li>
-                           
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <i data-feather="check-circle"></i>
-                                <span data-key="coord-ejecutivos">Coordinador de visitas</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Asigna a un ejecutivo (entrevista)</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_ejecutivo_laboral_list' %}" data-key="gestion-solicitudes">Investigaciones</a></li> 
                             </ul>
 
                         </li>
@@ -98,11 +81,23 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="users"></i>
-                                <span data-key="t-contacts">Ejecutivo de visitas</span>
+                                <span data-key="ejecutivo-visita">Ejecutivo de visitas</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" data-key="t-user-grid">Entrevistas (Formuoario de entrevista)</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_entrevista_list' %}" data-key="t-user-grid">Entrevistas</a></li>
                             </ul>
+                        </li>
+
+                        <li>
+                           
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="check-circle"></i>
+                                <span data-key="coord-visita">Coord. de visitas</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}" data-key="gestion-solicitudes">Asignar ejecutivos</a></li>
+                            </ul>
+
                         </li>
 
                         <li>
@@ -133,10 +128,10 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="trello"></i>
-                                <span data-key="t-tasks">Coordinadoe de Psicometrico</span>
+                                <span data-key="coordinador-psicometrico">Coord. Psicométrico</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" key="t-task-list">Asigna ejecutivo</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_coordinador_psicometrico_list' %}" key="t-task-list">Asigna ejecutivo</a></li>
                                 
                             </ul>
                         </li>
@@ -144,10 +139,10 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="trello"></i>
-                                <span data-key="t-tasks">Ejecutivo de Psicometrico</span>
+                                <span data-key="ejecutivo-psicometrico">Eject. Psicométrico</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
+                                <li><a href="{% url 'investigaciones:investigaciones_ejecutivo_psicometrico_list' %}" key="t-task-list">Listado de Solicitudes</a></li>
                             </ul>
                         </li>
 
@@ -169,17 +164,17 @@
                             </ul>
                         </li>
 
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="trello"></i>
+                                <span data-key="t-tasks">Cuentas por pagar</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
+                            </ul>
+                        </li>
                     </ul>
 
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow">
-                            <i data-feather="trello"></i>
-                            <span data-key="t-tasks">Cuentas por pagar</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
-                        </ul>
-                    </li>
 
                    
                 </div>

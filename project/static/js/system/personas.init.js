@@ -1,6 +1,6 @@
 
-function personaUpdate(id) {
-    var url = "/personas/update/999999999/";
+function personaDetail(id) {
+    var url = "/personas/personas/detail/999999999/";
     document.location.href = url.replace('999999999', id);
 }
 
@@ -9,8 +9,47 @@ $(document).ready(function () {
     $("#datatable-personas").DataTable({
         "serverSide": true,
         "ajax": "/personas/api/personas/?format=datatables",
+        "language": {
+            "url": "/static/libs/datatables.net/lang/es-ES.json"
+        },
+        columnDefs: [
+            {
+                targets: 17,
+                render: function (data) {
+                    return moment(data).format('DD/MM/YYYY');
+                },
+
+            },
+            {
+                targets: 18,
+                className: 'dt-body-center', 
+                render: function (data, type, row) {
+                    if (data==true){
+                        return '<i class="fa fa-check"></i>';
+                    }else{
+                        return '<i class="fa fa-times"></i>';
+                    }
+                },
+            },
+        ],
         "columns": [
-            {"data": "id", "title": "Id", "searchable": false},
+            {"data": "id", "title": "Id", "searchable": false, "visible": false},
+            {
+                "title": "Ver detalles",
+                "data": null,
+                "orderable": false,
+                "searchable": false,
+                "width": "65px",
+                "render": function (data, type, row, meta) {
+
+                    var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
+
+                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="personaDetail(\'' + row.id + '\')" alt="Ver detalles">Ver detalles</a>';
+
+                    a += '</div>'
+                    return a;
+                }
+            },
             {"data": "nombre", "title": "Nombres"},
             {"data": "apellido", "title": "Apellidos"},
             {"data": "nss", "title": "NSS"},
@@ -28,20 +67,7 @@ $(document).ready(function () {
             {"data": "medio_utilizado", "title": "Medio utilizado"},
             {"data": "fecha_registro", "title": "Fecha registro"},
             {"data": "estatus", "title": "Estado"},
-            { "data": null,
-            "orderable": false,
-            "searchable": false,
-            "width": "65px",
-            "render": function (data, type, row, meta) {
-
-              var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
-              a += '<a class="btn btn-primary" onclick="personaUpdate(\'' + row.id + '\')"><i class="bx bxs-user-detail font-size-16 align-middle"></i></a>';
            
-
-              a += '</div>'
-              return a;
-            }
-        },
         ],
         lengthChange: !1,
         // buttons: ["copy", "excel", "pdf", "colvis"],

@@ -12,50 +12,20 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        columnDefs: [{
+        columnDefs: [
+            {
                 targets: 4,
-                render: function (data, type, full, meta) {
-                    var status = {
-                        1: {
-                            'title': 'Laboral',
-                        },
-                        2: {
-                            'title': 'Socioeconómico',
-                        },
-                        4: {
-                            'title': 'Psicometrías',
-                        },
-                        5: {
-                            'title': 'Visita Domiciliaria',
-                        },
-                        5: {
-                            'title': 'Visita Domiciliaria',
-                        },
-                        6: {
-                            'title': 'Validación de Demandas',
-                        },
-                        7: {
-                            'title': 'Visita Domiciliaria con demandas',
-                        },
-                    };
-                    if (data == null) {
-                        return data == null ? "no aplica" : data;
+                className: 'dt-body-center', 
+                render: function (data, type, row) {
+                    if (data==true){
+                        return '<i class="fa fa-check"></i>';
+                    }else{
+                        return '<i class="fa fa-times"></i>';
                     }
-
-                    if (typeof status[data] === 'undefined') {
-                        // console.log(data);
-                        return data;
-                    }
-
-                    return status[data].title;
-
-                    //   return '<span class="badge badge-' + status[data].state +
-                    //     ' badge-dot">&nbsp;' + status[data].title +
-                    //     '</span>';
                 },
             },
             {
-                targets: 5,
+                targets: 7,
                 render: function (data, type, full, meta) {
                     var status = {
                         0: {
@@ -93,7 +63,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: [6],
+                targets: [8],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
@@ -101,38 +71,11 @@ $(document).ready(function () {
             },
 
         ],
-        "columns": [{
-                "data": "id",
+        "columns": [
+            {
                 "title": "Id",
-            },
-            {
-                "data": "candidato.nombre",
-                "title": "Nombres",
-                "responsivePriority": 1,
-            },
-            {
-                "data": "candidato.apellido",
-                "title": "Apellidos",
-                "responsivePriority": 1,
-            },
-            {
-                "data": "compania.nombre",
-                "title": "Compañia",
-                "responsivePriority": 1,
-            },
-            {
-                "title": "Tipo de Investigación",
-                "data": "tipo_investigacion_status",
-                "responsivePriority": 2,
-            },
-            {
-                "title": "Resultado",
-                "data": "resultado",
-                "responsivePriority": 2,
-            },
-            {
-                "data": "fecha_registro",
-                "title": "Fecha de Registro"
+                "data": "id",
+                "visible": false,
             },
             {
                 "title": "Ver detalles",
@@ -149,9 +92,44 @@ $(document).ready(function () {
                     a += '</div>'
                     return a;
                 }
+            },
+            {
+                "title": "Nombres",
+                "data": "candidato.nombre",
+                "responsivePriority": 1,
+            },
+            {
+                "title": "Apellidos",
+                "data": "candidato.apellido",
+                "responsivePriority": 1,
+            },
+            {
+                "title": "Datos verificados",
+                "data": "candidato.datos_validados",
+                "responsivePriority": 1,
+            },
+            {
+                "title": "Compañia",
+                "data": "compania.nombre",
+                "responsivePriority": 1,
+            },
+            {
+                "title": "Tipo de Investigación",
+                "data": "tipo_investigacion",
+                "responsivePriority": 2,
+            },
+            {
+                "title": "Resultado",
+                "data": "resultado",
+                "responsivePriority": 2,
+            },
+            {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
             }
 
         ],
+        "order": [[8, "desc"]],
         // dom: 'Blfrtip',
         // buttons: [{
         //     extend: 'copyHtml5',

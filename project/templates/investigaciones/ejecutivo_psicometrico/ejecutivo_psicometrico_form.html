@@ -31,9 +31,8 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Listado de solicitudes</li>
-                                <li class="breadcrumb-item active">Detalle</li>
-                                <li class="breadcrumb-item active">Asignar gestor</li>
+                                <li class="breadcrumb-item active">Listado de psicometrico</li>
+                                <li class="breadcrumb-item active">Formulario</li>
                             </ol>
                         </div>
 
@@ -48,19 +47,19 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Formulario de gestor</h4>
+                            <h4>Formulario de datos psicometricos</h4>
                         </div>
                         <div class="card-body">
 
-                            <form role="form" method="post" action="">
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ form|crispy}}
                                    
                                 <button type="submit" class="btn btn-success waves-effect btn-label waves-light"> <i
                                         class="bx bx-save label-icon"></i>
-                                    Guardar gestor</button>
+                                    Guardar Investigacion</button>
 
-                                <a href="{% url 'investigaciones:investigacion_detail' investigacion_id %}"
+                                <a href="{% url 'investigaciones:investigaciones_coordinador_psicometrico_detail' investigacion.id %}"
                                     class="btn btn-primary waves-effect btn-label waves-light"> <i
                                         class="bx bx bx-arrow-back label-icon"></i>
                                     Cancelar</a>
