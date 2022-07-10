@@ -14,7 +14,7 @@ app_name = "core"
 urlpatterns = [
 
     path("api/", include(router.urls)),
-    path("list/", UserTemplateView.as_view(), name="users_list"),
+    path("user_list/", UserTemplateView.as_view(), name="users_list"),
 
     path("user/create/", UserCreateView.as_view(), name="users_create"),
     path("user/detail/<int:pk>/", UserDetailView.as_view(), name="users_detail"),

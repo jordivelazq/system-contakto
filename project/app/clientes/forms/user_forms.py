@@ -1,5 +1,3 @@
-from allauth.account.forms import SignupForm
-from django import forms as form2
 from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError

@@ -1,0 +1,270 @@
+{% extends 'partials/base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block title %}DataTables{% endblock title %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Empresas</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'companias_list' %}">Listado de empresas</a></li>
+                <li class="breadcrumb-item active">Detalles</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+
+      <div class="card" id="card_detalle_compania">
+        
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="card-title">Detalle de la empresa</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body">
+
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <tbody>
+                <tr>
+                  <td>Nombre de la compañia:</td>
+                  <td>{{ compania.nombre }} </td>
+                </tr>
+
+                <tr>
+                  <td>Teléfono:</td>
+                  <td>{{ compania.telefono }}</td>
+                </tr>
+
+                <tr>
+                  <td>Teléfono alterno:</td>
+                  <td>{{ compania.telefono_alt }}</td>
+                </tr>
+
+                <tr>
+                  <td>Email:</td>
+                  <td>{{ compania.email }}</td>
+                </tr>
+
+                <tr>
+                  <td>Giro:</td>
+                  <td>{{ compania.role }}</td>
+                </tr>
+
+                <tr>
+                  <td>Dirección fiscal:</td>
+                  <td>{{ compania.rfc_direccion }}</td>
+                </tr>
+
+                <tr>
+                  <td>RFC:</td>
+                  <td>{{ compania.rfc }}</td>
+                </tr>
+
+                <tr>
+                  <td>Razón social:</td>
+                  <td>{{ compania.razon_social }}</td>
+                </tr>
+
+                <tr>
+                  <td>Es Cliene:</td>
+                  <td>{{ compania.es_cliente }}</td>
+                </tr>
+
+                <tr>
+                  <td>Notas:</td>
+                  <td>{{ compania.rfc }}</td>
+                </tr>
+
+                <tr>
+                  <td>Fecha de creación:</td>
+                  <td>{{ compania.fecha_creacion }}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div><!-- end div responsive -->
+
+          <br>
+
+          <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'companias_update' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-edit label-icon"></i>Editar</a>
+            <a href="{% url 'companias_delete' compania.pk %}" class="btn btn-danger waves-effect btn-label waves-light"><i class="bx bx-trash label-icon"></i> Eliminar</a>
+        </div>
+   
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+
+
+      <div class="card" id="card_companida_suscursales">
+        
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="card-title">Sucursales</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body">
+
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>Acciones</th>
+                  <th>Nombre</th>
+                  <th>Ciudad</th>
+                  <th>Teléfono</th>
+                  <th>Email</th>
+                </tr>
+              <tbody>
+
+                {% for sucursal in compania.sucursales.all %}
+
+                <tr>
+                  <td>
+                    <a href="{% url 'companias_sucursal_update' compania.pk sucursal.pk %}" alt="Editar" class="btn btn-soft-primary waves-effect waves-light"><i class="bx bx-edit font-size-16 align-middle"></i></a>
+                    <a href="{% url 'companias_sucursal_delete' compania.pk sucursal.pk %}" alt="Eliminar" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash font-size-16 align-middle"></i></a>
+                  </td>
+                  <td>{{ sucursal.nombre }}</td>
+                  <td>{{ sucursal.ciudad }} </td>
+                  <td>{{ sucursal.telefono }} </td>
+                  <td>{{ sucursal.email }} </td>
+                 
+                </tr>
+
+                {% empty %}
+                <tr>
+                  <td colspan="5">No hay sucursales registradas</td>
+                </tr>  
+                  
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div><!-- end div responsive -->
+
+          <br>
+
+          <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'companias_sucursal_create' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i>Agregar sucursal</a>
+        </div>
+   
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+
+      <div class="card" id="card_compania_contactos">
+        
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="card-title">Contactos</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body">
+
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>Acciones</th>
+                  <th>Nombre</th>
+                  <th>Puesto</th>
+                  <th>Email</th>
+                  <th>Email alterno</th>
+                  <th>Teléfono</th>
+                  <th>Teléfono alterno</th>
+                  <th>Telefono adicional</th>
+                  <th>Costo inv. Laboral</th>
+                  <th>Costo inv. completa</th>
+                  <th>Estatus</th>
+                </tr>
+              <tbody>
+
+                {% for cc in compania.compania_contacto.all %}
+
+                <tr>
+                  <td>
+                    <a href="{% url 'companias_contacto_update' compania.pk cc.pk %}" alt="Editar" class="btn btn-soft-primary waves-effect waves-light"><i class="bx bx-edit font-size-16 align-middle"></i></a>
+                    <a href="{% url 'companias_contacto_delete' compania.pk cc.pk %}" alt="Eliminar" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash font-size-16 align-middle"></i></a>
+                  </td>
+                  <td>{{ cc.nombre }}</td>
+                  <td>{{ cc.puesto }} </td>
+                  <td>{{ cc.email }} </td>
+                  <td>{{ cc.email_alt }} </td>
+                  <td>{{ cc.telefono }} </td>
+                  <td>{{ cc.telefono_celular }} </td>
+                  <td>{{ cc.telefono_otro }} </td>
+                  <td>{{ cc.costo_inv_laboral }} </td>
+                  <td>{{ cc.costo_inv_completa }} </td>
+                  <td>{{ cc.status }} </td>
+                  <td>
+
+                  </td>
+                </tr>
+
+                {% empty %}
+                
+                <tr>
+                  <td colspan="11">No hay contactos registradas</td>
+                </tr>
+                  
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div><!-- end div responsive -->
+
+          <br>
+
+          <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'companias_contacto_create' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i>Agregar contacto</a>
+        </div>
+   
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+
+
+      <a href="{% url 'companias_list' %}" class="btn btn-warning waves-effect btn-label waves-light"> <i
+        class="bx bx-user-x label-icon"></i>
+      Regresar al listado</a>
+      <br><br>
+
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  {% block footer %}
+  {% include 'partials/footer.html' %}
+  {% endblock footer %}
+</div>
+<!-- end main content-->
+{% endblock content %}

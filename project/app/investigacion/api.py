@@ -1122,7 +1122,6 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
 
         return context
 
-
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS, 'El ejecutivo ha sido asignado')
         return reverse('investigaciones:investigaciones_ejecutivo_psicometrico_list')

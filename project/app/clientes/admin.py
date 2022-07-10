@@ -1,4 +1,4 @@
-from app.clientes.forms import UserChangeForm, UserCreationForm
+from app.clientes.forms.user_forms import UserChangeForm, UserCreationForm
 from app.clientes.models import (ClienteSolicitud,
                                  ClienteSolicitudCandidato, ClienteTipoInvestigacion,)
 from django.contrib import admin

@@ -8,7 +8,7 @@ from .serializers import ClienteUserSerializer
 
 class ClienteTemplateView(LoginRequiredMixin, TemplateView):
 
-    template_name = 'clientes/clientes_list.html'
+    template_name = 'clientes/clientes_users/clientes_users_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(ClienteTemplateView, self).get_context_data(**kwargs)
