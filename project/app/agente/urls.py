@@ -3,6 +3,7 @@ from django.conf.urls import url
 from app.agente.views import panel, nuevo, editar, borrar, search_agentes, reset_filtros
 from app.agente.views_gestor import gestor_panel, gestor_editar, gestor_nuevo
 from app.agente.api import GestorInfoTemplateView, GestorInfoViewSet
+from app.agente.new_views.gestores import GestorInfoCreateView, GestorInfoUpdateView, GestorInfoDeleteView
 
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
@@ -14,6 +15,9 @@ router.register(r'gestores', GestorInfoViewSet)
 urlpatterns = [
     path("api/", include(router.urls)),
     path("list/", GestorInfoTemplateView.as_view(), name="gestor_info_list"),
+    path("create/", GestorInfoCreateView.as_view(), name="gestor_info_create"),
+    path("update/<int:pk>/", GestorInfoUpdateView.as_view(), name="gestor_info_update"),
+    path("delete/<int:pk>/", GestorInfoDeleteView.as_view(), name="gestor_info_delete"),
 
 	url(r'^$', panel, name='agent_panel'),
 	url(r'^exito$', panel, name='agent_panel'),

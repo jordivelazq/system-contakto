@@ -57,6 +57,8 @@ class ClienteSolicitud(models.Model):
     cliente = models.ForeignKey(ClienteUser, on_delete=models.CASCADE, related_name='cliente_solicitud')
     enviado = models.BooleanField(default=False)
 
+    # TODO: Colcoar estados segun la secuencia de la solicitud
+
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
