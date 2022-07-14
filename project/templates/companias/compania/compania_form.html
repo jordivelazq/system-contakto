@@ -36,9 +36,13 @@
                 <li class="breadcrumb-item active">
                   <a href="{% url 'companias_list' %}">Listado de empresas</a>
                 </li>
+                
+                {% if compania_id %}
                 <li class="breadcrumb-item active">
                   <a href="{% url 'companias_detail' compania_id %}">Detalle de empresa</a>
                 </li>
+                {% endif %}
+                  
                 <li class="breadcrumb-item active">Formulario de empresa</li>
               </ol>
             </div>
