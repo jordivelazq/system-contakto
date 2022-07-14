@@ -129,6 +129,7 @@ $(document).ready(function () {
             }
 
         ],
+        "order": [[8, "desc"]],
         // dom: 'Blfrtip',
         // buttons: [{
         //     extend: 'copyHtml5',

@@ -59,6 +59,9 @@ class Investigacion(models.Model):
 	)
 	
 	agente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+	coordinador_visitas = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_visitas')
+	coordinador_psicometrico = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_psometrico')
+	
 	cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, blank=True, null=True)
 	candidato = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
@@ -96,7 +99,10 @@ class Investigacion(models.Model):
 
 	# Secuencia de investigaciones
 	candidato_validado = models.BooleanField(default=False)
+	coord_psicometrico_asignadado = models.BooleanField(default=False)
+	coord_visitas_asignado = models.BooleanField(default=False)
 	entrevista = models.BooleanField(default=False)
+	entrevista_asignacion_visita_domiciliaria = models.BooleanField(default=False)
 	entrevista_from_completado = models.BooleanField(default=False)
 	entrevista_app_ejecutivo_asignado = models.BooleanField(default=False)
 	entrevista_app_completado = models.BooleanField(default=False)
@@ -105,6 +111,8 @@ class Investigacion(models.Model):
 	psicometrico = models.BooleanField(default=False)
 	psicometrico_ejecutivo_asignado = models.BooleanField(default=False)
 	psicometrico_completado = models.BooleanField(default=False)
+
+	investigacion_completada = models.BooleanField(default=False)
 
 	def __str__(self):
 		return u'%s / %s' % (self.candidato, self.compania)

@@ -9,6 +9,8 @@ from django.views.generic import (
 )
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.models import User
+from app.clientes.models import ClienteUser
 
 
 class CompaniaDetailView(DetailView):
@@ -19,6 +21,7 @@ class CompaniaDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Detalle de Compañia'
+        context['clientes'] = ClienteUser.objects.filter(compania=self.object)
         return context
 
 
@@ -31,6 +34,7 @@ class CompaniaCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear Compañia'
+        context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coordinador de Ejecutivos')
         return context
 
     def form_valid(self, form):
@@ -54,6 +58,7 @@ class CompaniaUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar Compañia'
         context['compania_id'] = self.kwargs['pk']
+        context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coordinador de Ejecutivos')
         return context
 
     def get_success_url(self, **kwargs):

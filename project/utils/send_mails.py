@@ -19,6 +19,12 @@ def send_email(tipo, data):
         subject, from_email = "Estimado(a) Coordinador de ejecutivos, se ha generdo una nueva solicitud", email_from
         to = data['email_coordinadores_de_ejecutivos']
 
+    if tipo == "notificacion_coordinador_visita":
+        message = render_to_string('mail/coordinadores/notificacion_coordinador_visita.html', data)
+
+        subject, from_email = "Estimado(a) Coordinador de visita, se ha generdo una nueva solicitud", email_from
+        to = data['email_coordinadores_de_visita']
+
     text_content = ''
     html_content = message
     msg = EmailMultiAlternatives(subject, text_content, from_email, to, bcc=bcc)

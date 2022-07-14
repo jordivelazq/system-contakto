@@ -11,17 +11,19 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        columnDefs: [{
-            targets: 3,
-            className: 'dt-body-center',
-            render: function (data, type, row) {
-                if (data == true) {
-                    return '<i class="fa fa-check"></i>';
-                } else {
-                    return '<i class="fa fa-times"></i>';
-                }
-            },
-        }, ],
+        columnDefs: [
+        //     {
+        //     targets: 3,
+        //     className: 'dt-body-center',
+        //     render: function (data, type, row) {
+        //         if (data == true) {
+        //             return '<i class="fa fa-check"></i>';
+        //         } else {
+        //             return '<i class="fa fa-times"></i>';
+        //         }
+        //     },
+        // },
+     ],
         "columns": [
             {
                 "title": "Acciones",
@@ -41,7 +43,22 @@ $(document).ready(function () {
             },
             {"data": "id", "title": "Id", "searchable": false, "visible": false},
             {"data": "nombre", "title": "Compañia", "responsivePriority": 1,},
-            {"data": "es_cliente", "title": "Es cliente", "searchable": false, "responsivePriority": 1,},           
+            // {"data": "es_cliente", "title": "Es cliente", "searchable": false, "responsivePriority": 1,},           
+            {
+                "data": "coordinador_ejecutivos", 
+                "title": "Coord. Ejecutivos", 
+                "responsivePriority": 1,
+                // "orderable": false,
+                "searchable": false,
+                "render": function (data, type, row, meta) {
+                    if (data == null) {
+                        return "";
+                    } else {
+                        return data.first_name + " " + data.last_name;
+                    }
+                }
+
+            },           
             {"data": "telefono", "title": "Teléfono"},
             {"data": "telefono_alt", "title": "Teléfono alterno"},
             {"data": "email", "title": "Correo Electrónico"},

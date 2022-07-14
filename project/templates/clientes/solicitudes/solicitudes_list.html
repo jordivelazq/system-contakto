@@ -75,6 +75,7 @@
                                             <th>Enviado</th>
                                             <th>Fecha de Envio</th>
                                             <th>Nro de Candidatos</th>
+                                            <th>Candidatos Completados</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -94,6 +95,7 @@
                                                 {% endif %}
                                             </td>
                                             <td>{{ solicitud.get_candidatos_count }}</td>
+                                            <td>{{ solicitud.get_candidatos_completados_count }}</td>
                                             <td>
 
                                                 <div class="d-flex flex-wrap gap-2">

@@ -1,6 +1,8 @@
 from multiprocessing import context
 
 from app.compania.forms import *
+from app.compania.models import Compania
+from app.core.models import Estado, Municipio, UserMessage
 from app.entrevista.services import *
 from app.investigacion.forms import *
 from app.persona.form_functions import *
@@ -16,8 +18,11 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 from rest_framework import mixins, viewsets
+from utils.general_utils import GetDataTime
+from utils.send_mails import send_email
 
-from .models import GestorInvestigacion, Investigacion, InvestigacionBitacora, Psicometrico
+from .models import (GestorInvestigacion, Investigacion, InvestigacionBitacora,
+                     Psicometrico)
 from .serializers import InvestigacionSerializer
 
 
@@ -38,8 +43,19 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = InvestigacionSerializer
 
     def get_queryset(self):
-        qs = self.queryset.filter(
-            cliente_solicitud__isnull=False,).order_by("last_modified")
+        user = self.request.user
+
+        # compania = Compania.objects.filter(coordinador_ejecutivos_id=user.pk)
+        
+        try:
+            compania = Compania.objects.get(coordinador_ejecutivos_id=user.pk)    
+            qs = self.queryset.filter(
+                cliente_solicitud__isnull=False,compania=compania ).order_by("last_modified")
+        except Compania.DoesNotExist:
+            return self.queryset.none()
+        
+        # qs = self.queryset.filter(
+        #          cliente_solicitud__isnull=False ).order_by("last_modified")
 
         return qs
 
@@ -200,14 +216,17 @@ class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
         return reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
 
 
-
 class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Investigacion.objects.all()
     serializer_class = InvestigacionSerializer
 
     def get_queryset(self):
         qs = self.queryset.filter(
-            cliente_solicitud__isnull=False, candidato_validado=True, agente__isnull=True,).order_by("cliente_solicitud")
+            cliente_solicitud__isnull=False, 
+            candidato_validado=True, 
+            agente__isnull=True,
+            coordinador_visitas_id=self.request.user.pk
+        ).order_by("cliente_solicitud")
 
         return qs
 
@@ -309,6 +328,147 @@ class InvestigacionUpdateView(UpdateView):
         super(InvestigacionUpdateView, self).form_valid(form)
 
         return redirect(self.success_url)
+
+
+class InvestigacionCoordVisitaUpdateView(UpdateView):
+
+    # required
+    group_required = u"SuperAdmin"
+    raise_exception = True
+
+    model = Investigacion
+    fields = ['coordinador_visitas',]
+    # success_url = reverse_lazy('investigaciones:investigaciones_list')
+    template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordVisitaUpdateView, self).get_context_data(**kwargs)
+ 
+        context['tipo_coordinador'] = "visitas"
+        context['investigacion_id'] = self.kwargs['pk']
+        context['form'].fields['coordinador_visitas'].queryset = User.objects.filter(groups__name='Coordinador de Visitas')
+
+        return context
+
+    def form_valid(self, form):
+
+        # inv = Investigacion.objects.get(id=self.kwargs['pk'])
+        hoy = GetDataTime().get_current_date_time_in_format()        
+       
+        self.object = form.save(commit=False)
+
+        if self.object.coordinador_visitas:
+            self.object.coord_visitas_asignado = True
+            # Genera bitácora
+            bitacora = InvestigacionBitacora()
+            bitacora.user_id = self.request.user.pk
+            bitacora.investigacion = self.object
+            bitacora.servicio = "Coordinador de ejecutivos"
+            bitacora.observaciones = "Asignacion de coordinador de visitas"
+            bitacora.save()
+
+            # Genera email
+            mail_data = {
+            'mensaje': 'Se ha asignado como coordinador de visitas',
+            'candidato' : self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+            'compania' : self.object.cliente_solicitud.cliente.compania.nombre,
+            'tipo_de_solicitud' : self.object.tipo_investigacion.all(),
+            'fecha_solicitud': hoy,
+            'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
+            'texto_url_detalles': 'Detalles de la solicitud',
+            'email_coordinadores_de_visita': [self.object.coordinador_visitas.email,],
+            }
+            send_email('notificacion_coordinador_visita', mail_data)
+            
+            # Genera menaaje a usuario
+            msj = UserMessage()
+            msj.user = self.request.user
+
+            msj.title = "Se ha asignado como coordinador de visita"
+            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
+            msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/"+str(self.object.pk)+"/"
+            msj.save()
+        else:
+            self.object.coord_visitas_asignado = False   
+        
+        self.object.save()
+
+        return super(InvestigacionCoordVisitaUpdateView, self).form_valid(form)
+    
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS, 'El coordiandor ha sido asignado')
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['pk']})
+
+
+class InvestigacionCoordPsicometricoUpdateView(UpdateView):
+
+    # required
+    group_required = u"SuperAdmin"
+    raise_exception = True
+
+    model = Investigacion
+    fields = ['coordinador_psicometrico',]
+    # success_url = reverse_lazy('investigaciones:investigaciones_list')
+    template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordPsicometricoUpdateView, self).get_context_data(**kwargs)
+ 
+        context['tipo_coordinador'] = "psicométrico"
+        context['investigacion_id'] = self.kwargs['pk']
+        context['form'].fields['coordinador_psicometrico'].queryset = User.objects.filter(groups__name='Coordinador Psicometrico')
+
+        return context
+
+    def form_valid(self, form):
+
+        # inv = Investigacion.objects.get(id=self.kwargs['pk'])
+        hoy = GetDataTime().get_current_date_time_in_format()        
+       
+        self.object = form.save(commit=False)
+
+        if self.object.coordinador_psicometrico:
+            self.object.coord_psicometrico_asignadado = True
+            # Genera bitácora
+            bitacora = InvestigacionBitacora()
+            bitacora.user_id = self.request.user.pk
+            bitacora.investigacion = self.object
+            bitacora.servicio = "Coordinador de ejecutivos"
+            bitacora.observaciones = "Asignacion de coordinador de psicométrico"
+            bitacora.save()
+
+            # Genera email
+            mail_data = {
+            'mensaje': 'Se ha asignado como coordinador de visitas',
+            'candidato' : self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+            'compania' : self.object.cliente_solicitud.cliente.compania.nombre,
+            'tipo_de_solicitud' : self.object.tipo_investigacion.all(),
+            'fecha_solicitud': hoy,
+            'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-psicometrico/detail/' + str(self.object.pk) + '/',
+            'texto_url_detalles': 'Detalles de la solicitud',
+            'email_coordinadores_de_visita': [self.object.coordinador_psicometrico.email,],
+            }
+            send_email('notificacion_coordinador_visita', mail_data)
+            
+            # Genera menaaje a usuario
+            msj = UserMessage()
+            msj.user = self.request.user
+
+            msj.title = "Asignacion de coordinador de psicométrico"
+            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
+            msj.link = "/investigaciones/investigaciones/coordinador-psicometrico/detail/"+str(self.object.pk)+"/"
+            msj.save()
+        else:
+            self.object.coord_psicometrico_asignadado = False   
+        
+        self.object.save()
+
+        return super(InvestigacionCoordPsicometricoUpdateView, self).form_valid(form)
+    
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS, 'El coordiandor ha sido asignado')
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['pk']})
+
 
 
 class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
@@ -924,7 +1084,11 @@ class InvestigacionCoordinadorPsicometricoViewSet(mixins.ListModelMixin, viewset
 
     def get_queryset(self):
         qs = self.queryset.filter(
-            cliente_solicitud__isnull=False, candidato_validado=True, psicometrico=True,).order_by("cliente_solicitud")
+            cliente_solicitud__isnull=False,
+            candidato_validado=True,
+            psicometrico=True,
+            coordinador_psicometrico_id=self.request.user.pk
+        ).order_by("cliente_solicitud")
 
         return qs
 
