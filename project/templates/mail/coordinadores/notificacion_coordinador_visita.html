@@ -1,0 +1,25 @@
+{% extends 'mail/base.html' %}
+
+{% block content %}
+<p style="font-weight: bold;">
+    Estimado coordinador de Visitas
+</p>
+<p>
+    <span style="font-weight: bold;">Se ha generado una nueva solicitud</span><br />
+</p>
+
+<p>
+    <span style="font-weight: bold;">Candidato</span><br />
+    <span style="font-weight: normal;">{{candidato}}</span>
+</p>
+
+<p>
+    <span style="font-weight: bold;">Compañia</span><br />
+    <span style="font-weight: normal;">{{compania}}</span>
+</p>
+
+<p>
+    Por favor hacer la asignación de la visita en el sistema.
+</p>
+
+{% endblock content %}

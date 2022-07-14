@@ -88,10 +88,10 @@
                   <td>{{ compania.razon_social }}</td>
                 </tr>
 
-                <tr>
+                <!-- <tr>
                   <td>Es Cliene:</td>
                   <td>{{ compania.es_cliente }}</td>
-                </tr>
+                </tr> -->
 
                 <tr>
                   <td>Notas:</td>
@@ -183,7 +183,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-12">
-              <h4 class="card-title">Contactos</h4>
+              <h4 class="card-title">Clientes</h4>
             </div>
           </div>
         </div>
@@ -194,46 +194,24 @@
             <table class="table table-striped mb-0">
               <thead>
                 <tr>
-                  <th>Acciones</th>
                   <th>Nombre</th>
-                  <th>Puesto</th>
                   <th>Email</th>
-                  <th>Email alterno</th>
                   <th>Teléfono</th>
-                  <th>Teléfono alterno</th>
-                  <th>Telefono adicional</th>
-                  <th>Costo inv. Laboral</th>
-                  <th>Costo inv. completa</th>
-                  <th>Estatus</th>
                 </tr>
               <tbody>
 
-                {% for cc in compania.compania_contacto.all %}
+                {% for cliente in clientes %}
 
                 <tr>
-                  <td>
-                    <a href="{% url 'companias_contacto_update' compania.pk cc.pk %}" alt="Editar" class="btn btn-soft-primary waves-effect waves-light"><i class="bx bx-edit font-size-16 align-middle"></i></a>
-                    <a href="{% url 'companias_contacto_delete' compania.pk cc.pk %}" alt="Eliminar" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash font-size-16 align-middle"></i></a>
-                  </td>
-                  <td>{{ cc.nombre }}</td>
-                  <td>{{ cc.puesto }} </td>
-                  <td>{{ cc.email }} </td>
-                  <td>{{ cc.email_alt }} </td>
-                  <td>{{ cc.telefono }} </td>
-                  <td>{{ cc.telefono_celular }} </td>
-                  <td>{{ cc.telefono_otro }} </td>
-                  <td>{{ cc.costo_inv_laboral }} </td>
-                  <td>{{ cc.costo_inv_completa }} </td>
-                  <td>{{ cc.status }} </td>
-                  <td>
-
-                  </td>
+                  <td>{{ cliente.first_name }} {{ cliente.last_name}} </td>
+                  <td>{{ cliente.email }} </td>
+                  <td>{{ cliente.telefono }} </td>
                 </tr>
 
                 {% empty %}
                 
                 <tr>
-                  <td colspan="11">No hay contactos registradas</td>
+                  <td colspan="3">No hay contactos registradas</td>
                 </tr>
                   
                 {% endfor %}
@@ -244,9 +222,13 @@
 
           <br>
 
-          <div class="d-flex flex-wrap gap-2">
-            <a href="{% url 'companias_contacto_create' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i>Agregar contacto</a>
-        </div>
+          
+          {% comment %}
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'companias_contacto_create' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i>Agregar contacto</a>
+          </div>
+          {% endcomment %}
+            
    
 
         </div> <!-- end card-body -->

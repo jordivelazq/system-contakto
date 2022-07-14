@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Investigaciones</h4>
+                        <h4 class="mb-sm-0 font-size-18">Investigaciones - Coordinador de ejecutivos</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -38,7 +38,7 @@
             <!-- end page title -->
 
 
-            <div class="row">
+            <div class="row" id="detalle_investigacions">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -47,8 +47,8 @@
                             <div class="row">
 
                                 <div class="col-md-3">
-                                    <strong>Tipo de investigación(es):</strong>           
-                                    {% for ti in investigacion.tipo_investigacion.all  %}    
+                                    <strong>Tipo de investigación(es):</strong>
+                                    {% for ti in investigacion.tipo_investigacion.all  %}
                                     {{ ti }}
                                     {% endfor %}
                                 </div>
@@ -65,7 +65,7 @@
 
                                 <div class="col-md-3">
                                     <strong>Contacto:</strong>
-                                    {{ investigacion.contacto }}
+                                    {{ investigacion.cliente_solicitud }}
                                 </div>
 
                             </div>
@@ -76,7 +76,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" id="candidato">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -137,8 +137,76 @@
 
             </div>
 
+            <div class="row" id="asignacion_coordinadores">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Asignación de coordinadores</h3>
 
-            <div class="row">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <br />
+                                    <strong>Coordinador de Visitas:</strong><br>
+                                    {% if investigacion.coordinador_visitas %}
+                                    {{ investigacion.coordinador_visitas }}
+                                    <br>
+
+                                    <a href="{% url 'investigaciones:investigaciones_coordinador_ejecutivo_update_coord_visita' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Editar coordinador de visita
+                                    </a>
+
+                                    {% else %}
+                                    <span class="text-danger">No asignado</span><br>
+                                    <a href="{% url 'investigaciones:investigaciones_coordinador_ejecutivo_update_coord_visita' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Asignar Coordinador de Visita
+                                    </a>
+                                    {% endif %}
+
+                                    <br>
+                                    <br>
+
+
+                                    <strong>Coordinador de psicometrico</strong><br>
+
+                                    {% if investigacion.coordinador_psicometrico %}
+                                    {{ investigacion.coordinador_psicometrico }}
+                                    <br>
+
+                                    <a href="{% url 'investigaciones:investigaciones_coordinador_ejecutivo_update_coord_psicometrico' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Editar coordinador de psicometría
+                                    </a>
+
+                                    {% else %}
+                                    <span class="text-danger">No asignado</span><br>
+                                    <a href="{% url 'investigaciones:investigaciones_coordinador_ejecutivo_update_coord_psicometrico' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Asignar Coordinador de psicometría
+                                    </a>
+                                    {% endif %}
+
+
+                                     <br>
+                                     <br>
+                                    Colocar el ejecutivo laboral
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row" id="investigacion_laboral">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -218,9 +286,9 @@
                                                 <td>
                                                     <small>
                                                         <strong>Creado:</strong>
-                                                    {{ tl.fecha_creacion }}<br>
-                                                    <strong>Actualizado:</strong>
-                                                    {{ tl.fecha_actualizacion }}
+                                                        {{ tl.fecha_creacion }}<br>
+                                                        <strong>Actualizado:</strong>
+                                                        {{ tl.fecha_actualizacion }}
                                                     </small>
 
                                                 </td>
@@ -285,11 +353,11 @@
 
 
 
-                            <!-- <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
+                            <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
                                 class="btn btn-primary waves-effect waves-light">
                                 <i class="bx bx-plus font-size-16 align-middle me-2"></i>
                                 Completar la investigación laboral
-                            </a> -->
+                            </a>
 
 
 
@@ -299,7 +367,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" id="investigacion_psicometric">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -308,8 +376,6 @@
                                 Investigación psicométrica
 
                             </h3>
-
-                           
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -329,7 +395,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <strong>Completado:</strong>
-                                    <i class="fa fa-{% if psicometrico_data.completado %}check{%else%}times{%endif%}"></i>
+                                    <i
+                                        class="fa fa-{% if psicometrico_data.completado %}check{%else%}times{%endif%}"></i>
                                 </div>
                             </div>
 
@@ -366,7 +433,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" id="estado_investigacion">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -387,8 +454,35 @@
                                     <br>
                                     <br>
 
+                                    <strong>Asignación de Coordinadores:</strong><br>
+
+                                    Coordinador de psicométrico
+                                    {% if investigacion.coord_psicometrico_asignadado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
+                                    Coordinador de visitas
+                                    {% if investigacion.coord_visitas_asignado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
+                                    <br>
+                                    <br>
+
                                     {% if investigacion.entrevista %}
                                     <strong>Entrevista:</strong><br>
+
+                                    Asignación de visita domiciliaria
+                                    {% if investigacion.entrevista_asignacion_visita_domiciliaria %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
+
 
                                     Formulario de entrevista:
 
@@ -429,20 +523,20 @@
                                     {% if investigacion.psicometrico %}
                                     <strong>Investigación Psicométrica:</strong><br>
 
-                                        Ejecutivo psicometrico asignado:
-                                            {% if investigacion.psicometrico_ejecutivo_asignado %}
-                                            <i class="fa fa-check"></i>
-                                            {% else %}
-                                            <i class="fa fa-times"></i>
-                                            {% endif %}
+                                    Ejecutivo psicometrico asignado:
+                                    {% if investigacion.psicometrico_ejecutivo_asignado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
 
-                                        Datos psicométrico completados:
+                                    Datos psicométrico completados:
 
-                                            {% if investigacion.psicometrico_completado %}
-                                            <i class="fa fa-check"></i>
-                                            {% else %}
-                                            <i class="fa fa-times"></i>
-                                            {% endif %}
+                                    {% if investigacion.psicometrico_completado %}
+                                    <i class="fa fa-check"></i>
+                                    {% else %}
+                                    <i class="fa fa-times"></i>
+                                    {% endif %}
 
                                     {% endif %}
 
@@ -455,7 +549,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" id="bitacora">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">

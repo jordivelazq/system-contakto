@@ -2,6 +2,14 @@
 {% load static crispy_forms_tags %}
 {% block title %}Lisado de solicitudes | Contakcto{% endblock title %}
 
+
+{% block extra_css %}
+<!-- select2 css -->
+<link href="{% static 'libs/select2/dist/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+
+{% endblock extra_css %}
+
+
 {% block content %}
 <!-- ============================================================== -->
 <!-- Start right Content here -->
@@ -95,6 +103,12 @@
                                         {{ form.tipo_investigacion|as_crispy_field }}
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ form.sucursal|as_crispy_field }}
+                                    </div>
+                                </div>
                                 
                                 <div class="row">
                                     <div class="col-12">
@@ -138,4 +152,14 @@
 
 {% block extra_js %}
 <script src="{% static 'js/system/estado_municipio.js'%}"></script>
+<script src="{% static 'libs/select2/dist/js/select2.min.js'%}"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#id_tipo_investigacion').select2();
+    $('#id_estado').select2();
+    $('#id_municipio').select2();
+    $('#id_sucursal').select2();
+  });
+</script>
 {% endblock extra_js %}

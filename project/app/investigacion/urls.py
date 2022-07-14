@@ -14,7 +14,7 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCoordinadorPsicometricoViewSet,
                   InvestigacionCoordinadorVisitaCreateView,
                   InvestigacionCoordinadorVisitaUpdateView,
-                  InvestigacionDetailView,
+                  InvestigacionCoordVisitaUpdateView, InvestigacionCoordPsicometricoUpdateView, InvestigacionDetailView,
                   InvestigacionEjecutivoLaboralDetailView,
                   InvestigacionEjecutivoLaboralTemplateView,
                   InvestigacionEjecutivoPsicometricoDetailView,
@@ -31,11 +31,9 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
 router.register(r'investigaciones_candidatos', InvestigacionCandidatoViewSet)
-router.register(r'investigaciones_coordinador_visita',
-                InvestigacionCoodinadorVisitaViewSet)
+router.register(r'investigaciones_coordinador_visita', InvestigacionCoodinadorVisitaViewSet)
 router.register(r'investigaciones_entrevista', InvestigacionEntrevistaViewSet)
-router.register(r'investigaciones_psicometrico',
-                InvestigacionCoordinadorPsicometricoViewSet)
+router.register(r'investigaciones_psicometrico', InvestigacionCoordinadorPsicometricoViewSet)
 
 app_name = "investigaciones"
 
@@ -43,20 +41,20 @@ app_name = "investigaciones"
 urlpatterns = [
     path("api/", include(router.urls)),
 
-    path('investigaciones/', InvestigacionTemplateView.as_view(),
-         name='investigaciones_list'),
+    path('investigaciones/', 
+         InvestigacionTemplateView.as_view(), name='investigaciones_list'),
     path('investigaciones/detail/<int:pk>/',
          InvestigacionDetailView.as_view(), name='investigacion_detail'),
     path('investigaciones/update/<int:pk>/',
          InvestigacionUpdateView.as_view(), name='investigacion_edit'),
 
-    path('investigaciones/candidato/', InvestigacionCandidatoTemplateView.as_view(),
-         name='investigaciones_candidato'),
+    path('investigaciones/candidato/',
+         InvestigacionCandidatoTemplateView.as_view(), name='investigaciones_candidato'),
 
     path('investigaciones/candidatos/<int:investigacion_id>/',
          CandidatoTemplateView.as_view(), name='investigacion_candidato_edit'),
 
-    # Trjactoria laboral
+    # Trayectoria laboral
 
     path('investigaciones/persona/trayectoria-laboral/create/<int:investigacion_id>/',
          PersonaTrayectoriaCrearTemplateView.as_view(),
@@ -79,6 +77,15 @@ urlpatterns = [
          PersonaTrajectoriaComercialDeleteTemplateView.as_view(),
          name='investigacion_persona_trayectoria_comercial_delete'
          ),
+
+    
+    # Coordinador de Ejecutivo Asignaciones Coordinador de visitas
+    path('investigaciones/coordinador_ejecutivo/update_coord_visita/<int:pk>/', 
+         InvestigacionCoordVisitaUpdateView.as_view(), name='investigaciones_coordinador_ejecutivo_update_coord_visita'),
+
+    # Coordinador de Ejecutivo Asignaciones Coordinador de psicometricos
+    path('investigaciones/coordinador_ejecutivo/update_coord_psicometrico/<int:pk>/', 
+         InvestigacionCoordPsicometricoUpdateView.as_view(), name='investigaciones_coordinador_ejecutivo_update_coord_psicometrico'),
 
     # Asignacion de coordinadores de visita
     path('investigaciones/coordinador-visitas', 
@@ -108,10 +115,8 @@ urlpatterns = [
 
     path('investigaciones/ejecutivo-psicometrico',
          InvestigacionEjecutivoPsicometricoList.as_view(), name='investigaciones_ejecutivo_psicometrico_list'),
-
     path('investigaciones/ejecutivo-psicometrico/update/<int:investigacion_id>/<int:pk>/',
          InvestigacionEjecutivoPsicometricoUpdateView.as_view(), name='investigaciones_ejecutivo_psicometrico_update'),
-
     path('investigaciones/ejecutivo-psicometrico/detail/<int:investigacion_id>/<int:pk>/',
          InvestigacionEjecutivoPsicometricoDetailView.as_view(), name='investigaciones_ejecutivo_psicometrico_detail'),
 
@@ -120,6 +125,6 @@ urlpatterns = [
     path('investigaciones/ejecutivo-laboral',
          InvestigacionEjecutivoLaboralTemplateView.as_view(), name='investigaciones_ejecutivo_laboral_list'),
 	path('investigaciones/ejecutivo-laboral/detail/<int:pk>/',
-         InvestigacionEjecutivoLaboralDetailView.as_view(), name='investigacion_detail'),
+         InvestigacionEjecutivoLaboralDetailView.as_view(), name='investigacion_ejecutivo_laboral_detail'),
 
 ]

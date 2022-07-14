@@ -1,5 +1,5 @@
 from allauth.account.signals import user_logged_in
-from app.compania.models import Compania
+from app.compania.models import Compania, Sucursales
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -66,6 +66,16 @@ class ClienteSolicitud(models.Model):
     def get_candidatos_count(self):
         sc = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.pk).count()
         return sc
+    
+    @property
+    def get_candidatos_completados_count(self):
+
+        from app.investigacion.models import Investigacion
+        candidatos_completados = Investigacion.objects.filter(cliente_solicitud_id=self.pk, investigacion_completada=True).count()
+        return candidatos_completados
+    
+    def __str__(self):
+        return u'%s  (%s)' % (self.cliente, self.cliente.email)
 
 
 class ClienteTipoInvestigacion(models.Model):
@@ -105,6 +115,7 @@ class ClienteSolicitudCandidato(models.Model):
     edad = models.IntegerField( blank=True, null=True) #choices=EDAD_CHOICES,
     curp = models.CharField(max_length=20, default="None", validators=[validate_curp])
     puesto = models.CharField(max_length=140, blank=True, null=True)
+    #TODO agregar telefono del candidato
 
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
     municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
@@ -113,6 +124,7 @@ class ClienteSolicitudCandidato(models.Model):
     enviado = models.BooleanField(default=False)
     # tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, default=2)
     tipo_investigacion = models.ManyToManyField(ClienteTipoInvestigacion)
+    sucursal = models.ForeignKey(Sucursales, on_delete=models.CASCADE, blank=True, null=True)
 
     archivo_solicitud = models.FileField(upload_to='cliente_solicitudes/', blank=True, null=True)
     

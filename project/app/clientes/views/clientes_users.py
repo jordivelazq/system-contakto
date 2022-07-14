@@ -13,6 +13,7 @@ from django.views.generic import (
     UpdateView,
 )
 from app.clientes.models import ClienteUser
+from app.compania.models import Compania
 from ..forms.clientes_users_form import ClienteUserForm, ClienteUserEditForm, ClienteUserPasswdForm
 
 
@@ -27,14 +28,10 @@ class ClienteUserCreateView(GroupRequiredMixin, CreateView):
     success_url = reverse_lazy('clientes:clientes_list')
     template_name = 'clientes/clientes_users/clientes_user_form.html'
 
-    page = {
-        'title': _('User'),
-        'subtitle': _('Add')
-    }
-
     def get_context_data(self, **kwargs):
         context = super(ClienteUserCreateView, self).get_context_data(**kwargs)
-        context['page'] = self.page
+
+        context['form'].fields['compania'].queryset = Compania.objects.filter(es_cliente=True)
 
         return context
 
@@ -64,14 +61,9 @@ class ClienteUserDetailView(GroupRequiredMixin, DetailView):
     model = ClienteUser
     template_name = 'clientes/clientes_users/clientes_user_detail.html'
 
-    page = {
-        'title': _('User'),
-        'subtitle': _('Detail')
-    }
-
     def get_context_data(self, **kwargs):
         context = super(ClienteUserDetailView, self).get_context_data(**kwargs)
-        context['page'] = self.page
+        context['form'].fields['compania'].queryset = Compania.objects.filter(es_cliente=True)
         return context
 
 
