@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from ..models import Compania, Sucursales, Contacto
+from ..models import Compania, Sucursales, Contacto, DireccionFiscal
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -83,7 +83,7 @@ class CompaniaSucursalCreateView(CreateView):
 
     model = Sucursales
     template_name = 'companias/sucursales/sucursal_form.html'
-    fields = ['nombre', 'ciudad', 'telefono', 'email']
+    fields = ['nombre', 'ciudad', 'telefono', 'email', 'estado', 'municipio',]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -107,7 +107,7 @@ class CompaniaSucursalUpdateView(UpdateView):
 
     model = Sucursales
     template_name = 'companias/sucursales/sucursal_form.html'
-    fields = ['nombre', 'ciudad', 'telefono', 'email']
+    fields = ['nombre', 'ciudad', 'telefono', 'email', 'estado', 'municipio',]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -125,6 +125,66 @@ class CompaniaSucursalDeleteView(DeleteView):
     model = Sucursales
     context_object_name = 'sucursal'
     template_name = 'companias/sucursales/sucursal_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Eliminar Sucursal'
+        context['compania_id'] = self.kwargs['compania_id']
+        return context
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El empresa ha sido eliminada correctamente')
+        return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
+
+
+
+class DireccionFiscalCreateView(CreateView):
+
+    model = DireccionFiscal
+    template_name = 'companias/direcciones_fiscales/direccion_fiscal_form.html'
+    fields = ['regimen_fiscal', 'rfc', 'nombre', 'direccion', 'codigo_postal', 'estado', 'municipio', 'activo']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Crear Compañia'
+        context['compania_id'] = self.kwargs['compania_id']
+        return context
+
+    def form_valid(self, form, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.compania_id = self.kwargs['compania_id']
+        self.object.save()
+        return super(DireccionFiscalCreateView, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'La sucursal ha sido agregada correctamente')
+        return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
+
+
+class DireccionFiscalUpdateView(UpdateView):
+
+    model = DireccionFiscal
+    template_name = 'companias/direcciones_fiscales/direccion_fiscal_form.html'
+    fields = ['regimen_fiscal', 'rfc', 'nombre', 'direccion', 'codigo_postal', 'estado', 'municipio', 'activo']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Editar Compañia'
+        context['compania_id'] = self.kwargs['compania_id']
+        return context
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El empresa ha sido actualizada correctamente')
+        return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
+
+
+class DireccionFiscalDeleteView(DeleteView):
+    model = DireccionFiscal
+    context_object_name = 'direccion_fiscal'
+    template_name = 'companias/direcciones_fiscales/direccion_fiscal_delete.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

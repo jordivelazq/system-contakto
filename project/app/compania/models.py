@@ -42,11 +42,36 @@ class Sucursales(models.Model):
     telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True, null=True)
     email = models.EmailField(max_length=140, verbose_name='Correo', blank=True, null=True)
 
-    # estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
-    # municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
+    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return u'%s' % (self.nombre)
+
+
+class RegimenFiscal(models.Model):
+    id = models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=140, verbose_name='Regimen Fiscal')
+   
+    def __str__(self):
+        return u'%s' % (self.nombre)
+
+
+class DireccionFiscal(models.Model):
+    compania = models.ForeignKey(Compania, on_delete=models.CASCADE, related_name='direcciones_fiscales')
+    regimen_fiscal = models.ForeignKey(RegimenFiscal, on_delete=models.CASCADE, related_name='regimen_fiscal')
+    rfc = models.CharField(max_length=14, verbose_name='RFC')
+    nombre = models.CharField(max_length=140, verbose_name='Nombre')
+    direccion = models.CharField(max_length=140, verbose_name='Dirección', blank=True, null=True)
+    codigo_postal = models.CharField(max_length=5, verbose_name='Código postal', blank=True, null=True)
+   
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, verbose_name='Estado')
+    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, verbose_name='Municipio')
+    activo = models.BooleanField(default=True, verbose_name='Activo')
+
+    def __str__(self):
+        return u'%s' % (self.nombre)
+
 
 class Contacto(models.Model):
     compania = models.ForeignKey(Compania, related_name='compania_contacto', on_delete=models.CASCADE)

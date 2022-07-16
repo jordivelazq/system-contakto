@@ -1,0 +1,115 @@
+[{
+    "model": "compania.regimenfiscal",
+    "pk": 601,
+    "fields": {
+        "nombre": "General de Ley Personas Morales"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 603,
+    "fields": {
+        "nombre": "Personas Morales con Fines no Lucrativos"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 605,
+    "fields": {
+        "nombre": "Sueldos y Salarios e Ingresos Asimilados a Salarios"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 606,
+    "fields": {
+        "nombre": "Arrendamiento"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 607,
+    "fields": {
+        "nombre": "R\u00e9gimen de Enajenaci\u00f3n o Adquisici\u00f3n de Bienes"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 608,
+    "fields": {
+        "nombre": "Dem\u00e1s ingresos"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 610,
+    "fields": {
+        "nombre": "Residentes en el Extranjero sin Establecimiento Permanente en M\u00e9xico"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 611,
+    "fields": {
+        "nombre": "Ingresos por Dividendos (socios y accionistas)"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 612,
+    "fields": {
+        "nombre": "Personas F\u00edsicas con Actividades Empresariales y Profesionales"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 614,
+    "fields": {
+        "nombre": "Ingresos por intereses"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 615,
+    "fields": {
+        "nombre": "R\u00e9gimen de los ingresos por obtenci\u00f3n de premios"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 616,
+    "fields": {
+        "nombre": "Sin obligaciones fiscales"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 620,
+    "fields": {
+        "nombre": "Sociedades Cooperativas de Producci\u00f3n que optan por diferir sus ingresos"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 621,
+    "fields": {
+        "nombre": "Incorporaci\u00f3n Fiscal"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 622,
+    "fields": {
+        "nombre": "Actividades Agr\u00edcolas, Ganaderas, Silv\u00edcolas y Pesqueras"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 623,
+    "fields": {
+        "nombre": "Opcional para Grupos de Sociedades"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 624,
+    "fields": {
+        "nombre": "Coordinados"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 625,
+    "fields": {
+        "nombre": "R\u00e9gimen de las Actividades Empresariales con ingresos a trav\u00e9s de Plataformas Tecnol\u00f3gicas"
+    }
+}, {
+    "model": "compania.regimenfiscal",
+    "pk": 626,
+    "fields": {
+        "nombre": "R\u00e9gimen Simplificado de Confianza"
+    }
+}]

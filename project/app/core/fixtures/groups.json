@@ -1,0 +1,71 @@
+[{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "contactos",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "captura",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+        "name": "Coordinador de Ejecutivos",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+        "name": "Ejecutivo de Inv. Laboral",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 5,
+    "fields": {
+        "name": "Coordinador de Visitas",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 6,
+    "fields": {
+        "name": "Coordinador Psicometrico",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 7,
+    "fields": {
+        "name": "Administrador de Catalogos",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 8,
+    "fields": {
+        "name": "Ejecutivo de Psicomettrico",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 9,
+    "fields": {
+        "name": "Ejecutivo de Visitas",
+        "permissions": []
+    }
+}, {
+    "model": "auth.group",
+    "pk": 10,
+    "fields": {
+        "name": "Coordinador de Reclutamiento",
+        "permissions": []
+    }
+}]
