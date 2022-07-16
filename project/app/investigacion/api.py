@@ -43,14 +43,13 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = InvestigacionSerializer
 
     def get_queryset(self):
-        user = self.request.user
-
-        # compania = Compania.objects.filter(coordinador_ejecutivos_id=user.pk)
         
+        user = self.request.user
+        companias_pk = Compania.objects.filter(coordinador_ejecutivos_id=user.pk).values_list('pk', flat=True)
+
         try:
-            compania = Compania.objects.get(coordinador_ejecutivos_id=user.pk)    
             qs = self.queryset.filter(
-                cliente_solicitud__isnull=False,compania=compania ).order_by("last_modified")
+                cliente_solicitud__isnull=False,compania__in=companias_pk ).order_by("last_modified")
         except Compania.DoesNotExist:
             return self.queryset.none()
         

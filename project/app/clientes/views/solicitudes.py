@@ -9,7 +9,7 @@ from app.compania.models import Sucursales
 from app.core.models import Estado, Municipio, UserMessage
 from app.entrevista.entrevista_persona import EntrevistaPersonaService
 from app.investigacion.models import Investigacion, Psicometrico
-from app.persona.models import Persona
+from app.persona.models import Persona, Telefono
 from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.models import Group, User
@@ -210,6 +210,21 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 print('##### Persona creada #####')
                 print('Persona creada', persona.pk)
 
+            # agergar telefonos
+            if candidato.telefono_casa:
+                tel_casa = Telefono()
+                tel_casa.persona = persona
+                tel_casa.numero = candidato.telefono_casa
+                tel_casa.categoria = 'casa'
+                tel_casa.save()
+            
+            if candidato.telefono_movil:
+                tel_casa = Telefono()
+                tel_casa.persona = persona
+                tel_casa.numero = candidato.telefono_movil
+                tel_casa.categoria = 'movil'
+                tel_casa.save()
+
             # Verifica tipo de serivico solicitados por el cliente
             entrevista_1 = False
             investigacion_laboral_2 = False
@@ -370,7 +385,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
     fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
-              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud']
+              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil']
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudCandidatoCreateView,
@@ -405,7 +420,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
     fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
-              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud']
+              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil']
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudCandidatoUpdateView,

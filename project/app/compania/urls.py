@@ -3,15 +3,18 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from .api import CompaniaTemplateView, CompaniaViewSet
-from .new_views.companias import (CompaniaCreateView, CompaniaDeleteView,
+from .new_views.companias import (CompaniaContactoCreateView,
+                                  CompaniaContactoDeleteView,
+                                  CompaniaContactoUpdateView,
+                                  CompaniaCreateView, CompaniaDeleteView,
                                   CompaniaDetailView,
                                   CompaniaSucursalCreateView,
                                   CompaniaSucursalDeleteView,
                                   CompaniaSucursalUpdateView,
-								  CompaniaContactoCreateView,
-								  CompaniaContactoDeleteView,
-								  CompaniaContactoUpdateView,
-                                  CompaniaUpdateView)
+                                  CompaniaUpdateView,
+                                  DireccionFiscalCreateView,
+                                  DireccionFiscalDeleteView,
+                                  DireccionFiscalUpdateView)
 
 router = DefaultRouter()
 router.register(r'companias', CompaniaViewSet)
@@ -35,6 +38,10 @@ urlpatterns = [
     path("sucursal/create/<int:compania_id>/", CompaniaSucursalCreateView.as_view(), name="companias_sucursal_create"),
     path("sucursal/update/<int:compania_id>/<int:pk>/", CompaniaSucursalUpdateView.as_view(), name="companias_sucursal_update"),
     path("sucursal/delete/<int:compania_id>/<int:pk>/", CompaniaSucursalDeleteView.as_view(), name="companias_sucursal_delete"),
+   
+    path("direccion_fiscal/create/<int:compania_id>/", DireccionFiscalCreateView.as_view(), name="companias_direccion_fiscal_create"),
+    path("direccion_fiscal/update/<int:compania_id>/<int:pk>/", DireccionFiscalUpdateView.as_view(), name="companias_direccion_fiscal_update"),
+    path("direccion_fiscal/delete/<int:compania_id>/<int:pk>/", DireccionFiscalDeleteView.as_view(), name="companias_direccion_fiscal_delete"),
 
 	path("contacto/create/<int:compania_id>/", CompaniaContactoCreateView.as_view(), name="companias_contacto_create"),
     path("contacto/update/<int:compania_id>/<int:pk>/", CompaniaContactoUpdateView.as_view(), name="companias_contacto_update"),
