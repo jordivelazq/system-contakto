@@ -17,12 +17,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Empresas</h4>
+            <h4 class="mb-sm-0 font-size-18">Clientes</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'companias_list' %}">Listado de empresas</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'companias_list' %}">Listado de clientes</a></li>
                 <li class="breadcrumb-item active">Detalles</li>
               </ol>
             </div>
@@ -38,7 +38,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-12">
-              <h4 class="card-title">Detalle de la empresa</h4>
+              <h4 class="card-title">Detalle del cliente</h4>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
             <table class="table table-striped mb-0">
               <tbody>
                 <tr>
-                  <td>Nombre de la compañia:</td>
+                  <td>Nombre:</td>
                   <td>{{ compania.nombre }} </td>
                 </tr>
 
@@ -89,7 +89,7 @@
                 </tr>
 
                 <tr>
-                  <td>Coordinador de ejecutivos:</td>
+                  <td>Coordinador de Atención a Clientes:</td>
                   <td>{{ compania.coordinador_ejecutivos }}</td>
                 </tr>
 
@@ -192,7 +192,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-12">
-              <h4 class="card-title">Direcciones fiscales</h4>
+              <h4 class="card-title">Datos fiscales</h4>
             </div>
           </div>
         </div>
@@ -204,7 +204,7 @@
               <thead>
                 <tr>
                   <th>Acciones</th>
-                  <th>Regimen fiscal</th>
+                  <th>Régimen fiscal</th>
                   <th>RFC</th>
                   <th>Nombre</th>
                   <th>Dirección</th>
@@ -235,7 +235,7 @@
 
                 {% empty %}
                 <tr>
-                  <td colspan="5">No hay direcciones fiscales registradas</td>
+                  <td colspan="5">No hay datos fiscales registradas</td>
                 </tr>  
                   
                 {% endfor %}
@@ -247,7 +247,7 @@
           <br>
 
           <div class="d-flex flex-wrap gap-2">
-            <a href="{% url 'companias_direccion_fiscal_create' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i>Agregar direccion fiscal</a>
+            <a href="{% url 'companias_direccion_fiscal_create' compania.pk %}" class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i>Agregar datos fiscales</a>
         </div>
    
 
@@ -259,7 +259,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-12">
-              <h4 class="card-title">Clientes</h4>
+              <h4 class="card-title">Contactos</h4>
             </div>
           </div>
         </div>
@@ -287,7 +287,7 @@
                 {% empty %}
                 
                 <tr>
-                  <td colspan="3">No hay contactos registradas</td>
+                  <td colspan="3">No hay contactos registrados</td>
                 </tr>
                   
                 {% endfor %}

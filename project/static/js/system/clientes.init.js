@@ -70,7 +70,7 @@ $(document).ready(function () {
             },
             {
                 "data": "compania.nombre",
-                "title": "Compañia"
+                "title": "Cliente"
             },
             {
                 "data": "is_active",
