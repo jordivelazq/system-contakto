@@ -26,6 +26,15 @@ class EntrevistaPersonaService():
             return False
         
         print(ep, "Persona: " , "Se creo", create)
+
+        ep.nombre = investigacion.candidato.nombre
+        ep.apellido = investigacion.candidato.apellido
+        ep.nss = investigacion.candidato.nss
+        ep.email = investigacion.candidato.email
+        ep.edad = investigacion.candidato.edad
+        ep.curp = investigacion.candidato.curp
+        ep.save()
+
         EntrevistaDireccion.objects.get_or_create(investigacion_id=self.investigacion_id, persona_id=ep.pk)
         EntrevistaAcademica.objects.get_or_create(person_id=ep.pk)
         EntrevistaActividadesHabitos.objects.get_or_create(persona_id=ep.pk)
@@ -45,6 +54,7 @@ class EntrevistaPersonaService():
 
         EntrevistaCaractaristicasVivienda.objects.get_or_create(person_id=ep.pk)
         EntrevistaInvestigacion.objects.get_or_create(investigacion_id=self.investigacion_id, agente_id=investigacion.agente.pk, persona_id=ep.pk)
+       
        
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk, tipo="acta_nacimiento")
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk , tipo="acta_matrimonio")

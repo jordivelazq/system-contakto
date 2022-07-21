@@ -65,13 +65,13 @@ class InvestigacionEditarForm(ModelForm):
     }
 
 	def __init__(self, *args, **kwargs):
-		# self.agt_id = kwargs.pop('agt_id')
+		self.agt_id = kwargs.pop('agt_id')
 		super(InvestigacionEditarForm, self).__init__(*args, **kwargs)
 		self.fields['fecha_recibido'].widget.attrs.update({'placeholder': 'dd/mm/yyyy', 'value': time.strftime("%d/%m/%Y")})
 		self.fields['entrevista'].widget.attrs.update({'placeholder': 'dd/mm/yyyy HH:mm:ss'})
 		self.fields['compania'].widget.attrs.update({'ng-model':'compania', 'ng-change': 'getContactsFromCompany()'})
 		self.fields['observaciones'].widget.attrs.update({'rows':'2'})
-		# self.fields['agente'].queryset = User.objects.filter(Q(is_staff=True, is_active=True) | Q(is_staff=True,id=self.agt_id)).exclude(username='info@mintitmedia.com')
+		self.fields['agente'].queryset = User.objects.filter(Q(is_staff=True, is_active=True) | Q(is_staff=True,id=self.agt_id)).exclude(username='info@mintitmedia.com')
 		self.fields['hora_recibido'].required = True
 
 		for field_name, field in self.fields.items():

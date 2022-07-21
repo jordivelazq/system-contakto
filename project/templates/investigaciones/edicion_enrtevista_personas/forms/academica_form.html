@@ -1,0 +1,136 @@
+{% load fe_extras %}
+<form action="#" method="post">{% csrf_token %}
+	
+	{% include 'sections/entrevista/forms/cta.html' %}
+	
+	{{ gradosescolaridad_formset.management_form }}
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-1 text-center"><label><small>ESCOLARIDAD</small></label></div>
+				<div class="col-xs-5 text-center"><label><small>INSTITUCIÓN</small></label></div>
+				<div class="col-xs-2 text-center"><label><small>LUGAR (CIUDAD)</small></label></div>
+				<div class="col-xs-2 text-center"><label><small>AÑOS</small></label></div>
+				<div class="col-xs-2 text-center"><label><small>CERTIFICADO</small></label></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-10">
+					<hr class="thin-separator" />
+				</div>
+			</div>
+			{% for form in gradosescolaridad_formset %}
+			{{ form.id }}
+			<div class="row">
+				<div class="col-xs-1">
+					<label><small>{{ form.instance.grado|entrevista_grado_academico }}:</small></label>
+				</div>
+				<div class="col-xs-5">
+					<div class="text-danger">
+						{{form.institucion.errors}}
+					</div>
+					{{form.institucion}}
+				</div>
+				<div class="col-xs-2">
+					<div class="text-danger">
+						{{form.ciudad.errors}}
+					</div>
+					{{form.ciudad}}
+				</div>
+				<div class="col-xs-2">
+					<div class="text-danger">
+						{{form.anos.errors}}
+					</div>
+					{{form.anos}}
+				</div>
+				<div class="col-xs-2">
+					<div class="text-danger">
+						{{form.certificado.errors}}
+					</div>
+					{{form.certificado}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-10">
+					<hr class="thin-separator" />
+				</div>
+			</div>
+			{% endfor %}
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="text-danger">{{ academica_form.cedula_profesional.errors }}</div>
+					<label>Cédula profesional:</label>
+					{{ academica_form.cedula_profesional }}
+				</div>
+				<div class="col-xs-6">
+					<div class="text-danger">{{ academica_form.cedula_prof_ano_exp.errors }}</div>
+					<label>Año de expedición:</label>
+					{{ academica_form.cedula_prof_ano_exp }}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="text-danger">{{ otro_idioma_form.idioma.errors }}</div>
+					<label>Dominio de otro idioma:</label>
+					{{ otro_idioma_form.idioma }}
+				</div>
+				<div class="col-xs-3">
+					<div class="text-danger">{{ otro_idioma_form.hablado.errors }}</div>
+					<label>Hablado</label>
+					{{ otro_idioma_form.hablado }}
+				</div>
+				<div class="col-xs-3">
+					<div class="text-danger">{{ otro_idioma_form.leido.errors }}</div>
+					<label>Leido</label>
+					{{ otro_idioma_form.leido }}
+				</div>
+				<div class="col-xs-3">
+					<div class="text-danger">{{ otro_idioma_form.escuchado.errors }}</div>
+					<label>Escuchado</label>
+					{{ otro_idioma_form.escuchado }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Estudios</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="id_prestacion_vivienda_infonavit-activo">Estudia Actualmente</label>
+					{% include 'share/radiobutton.html' with value=academica_form.instance.activo name=academica_form.activo.html_name %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<div class="text-danger">{{ academica_form.estudios_institucion.errors }}</div>
+					<label>Institución</label>
+					{{ academica_form.estudios_institucion }}
+				</div>
+				<div class="col-xs-3">
+					<div class="text-danger">{{ academica_form.estudios_que.errors }}</div>
+					<label>Qué estudia?</label>
+					{{ academica_form.estudios_que }}
+				</div>
+				<div class="col-xs-3">
+					<div class="text-danger">{{ academica_form.estudios_horarios.errors }}</div>
+					<label>Horarios</label>
+					{{ academica_form.estudios_horarios }}
+				</div>
+				<div class="col-xs-3">
+					<div class="text-danger">{{ academica_form.estudios_dias.errors }}</div>
+					<label>Días</label>
+					{{ academica_form.estudios_dias }}
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

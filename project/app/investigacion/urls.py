@@ -21,12 +21,16 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionEjecutivoPsicometricoList,
                   InvestigacionEjecutivoPsicometricoUpdateView,
                   InvestigacionEntrevistaTemplateView,
-                  InvestigacionEntrevistaViewSet, InvestigacionTemplateView,
+                  InvestigacionEntrevistaViewSet,
+                  InvestigacionEntrevistaDetailView,
+                  InvestigacionTemplateView,
                   InvestigacionUpdateView, InvestigacionViewSet,
                   PersonaTrajectoriaComercialCrearTemplateView,
                   PersonaTrajectoriaComercialDeleteTemplateView,
                   PersonaTrayectoriaCrearTemplateView,
                   PersonaTrayectoriaEditTemplateView)
+
+from app.investigacion.new_view.edicion_entrevista_persona import EdicionEntrevistaPersonaTemplateView
 
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
@@ -97,9 +101,6 @@ urlpatterns = [
     path('investigaciones/coordinador-visitas/create/<int:investigacion_id>/<int:pk>/',
          InvestigacionCoordinadorVisitaUpdateView.as_view(), name='investigaciones_coordinador_visitas_update'),
 
-    # Llenado del formulario de entrevistas
-    path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
-         name='investigaciones_entrevista_list'),
 
     # Llenado ciclo de psicometria
     path('investigaciones/coordinador-psicometrico',
@@ -124,7 +125,18 @@ urlpatterns = [
 
     path('investigaciones/ejecutivo-laboral',
          InvestigacionEjecutivoLaboralTemplateView.as_view(), name='investigaciones_ejecutivo_laboral_list'),
-	path('investigaciones/ejecutivo-laboral/detail/<int:pk>/',
+    path('investigaciones/ejecutivo-laboral/detail/<int:pk>/',
          InvestigacionEjecutivoLaboralDetailView.as_view(), name='investigacion_ejecutivo_laboral_detail'),
+
+     # Entrvistas de investigaciones
+     # Llenado del formulario de entrevistas
+     path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
+         name='investigaciones_entrevista_list'),
+     
+     # path('investigaciones/entrevistal/detail/<str:>/<int:pk>/',
+     #     EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
+     path('investigaciones/entrevistal/detail/<str:seccion_entrevista>/<int:investigacion_id>/',
+         EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
+
 
 ]

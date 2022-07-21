@@ -1,5 +1,5 @@
 function investigacionDetail(id) {
-    var url = "/investigaciones/investigaciones/detail/999999999/";
+    var url = "/investigaciones/investigaciones/entrevistal/detail/999999999/";
     document.location.href = url.replace('999999999', id);
 }
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
-                targets: 3,
+                targets: 4,
                 className: 'dt-body-center', 
                 render: function (data, type, row) {
                     if (data==true){
@@ -33,9 +33,27 @@ $(document).ready(function () {
             },
 
         ],
-        "columns": [{
+        "columns": [
+            {
                 "title": "Id",
                 "data": "id",
+                "visible": false,
+            },
+            {
+                "title": "Ver detalles",
+                "data": null,
+                "orderable": false,
+                "searchable": false,
+                "width": "65px",
+                "render": function (data, type, row, meta) {
+
+                    var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
+
+                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')" alt="Editar investigación">Ver detalles</a>';
+
+                    a += '</div>'
+                    return a;
+                }
             },
             {
                 "title": "Nombres",
@@ -67,22 +85,7 @@ $(document).ready(function () {
                 "title": "Fecha de Registro",
                 "data": "fecha_registro",
             },
-            {
-                "title": "Ver detalles",
-                "data": null,
-                "orderable": false,
-                "searchable": false,
-                "width": "65px",
-                "render": function (data, type, row, meta) {
-
-                    var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
-
-                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')" alt="Editar investigación">Ver detalles</a>';
-
-                    a += '</div>'
-                    return a;
-                }
-            }
+            
 
         ],
         // dom: 'Blfrtip',

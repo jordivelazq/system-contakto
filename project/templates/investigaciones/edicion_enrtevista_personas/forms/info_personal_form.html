@@ -1,0 +1,83 @@
+{% load fe_extras %}
+<form action="#" method="post">{% csrf_token %}
+	
+	{% include 'sections/entrevista/forms/cta.html' %}
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="text-danger">{{infopersonal_form.antecedentes_penales.errors}}</div>
+							{{infopersonal_form.antecedentes_penales.label_tag}}
+							{{infopersonal_form.antecedentes_penales}}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="text-danger">{{infopersonal_form.tatuajes.errors}}</div>
+							{{infopersonal_form.tatuajes.label_tag}}
+							{{infopersonal_form.tatuajes}}
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Historial en empresa</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				{{ historialempresa_formset.management_form }}
+				{% for form in historialempresa_formset %}
+					<div class="col-md-6">
+						<h4>{{ form.instance.categoria|clean_type }}</h4>
+						{{ form.id }}
+	
+						<div class="text-danger">{{form.tiene.errors}}</div>
+						{{form.tiene}}
+						<br />
+						
+						<label>Puesto:</label>
+						<div class="text-danger">{{form.puesto.errors}}</div>
+						{{form.puesto}}
+						
+						{% if form.instance.categoria == 'trabajo' %}
+							<label>Periodo:</label>
+							<div class="text-danger">{{form.periodo.errors}}</div>
+							{{form.periodo}}
+						{% endif %}
+	
+						{% if form.instance.categoria == 'familiar' %}
+							<label>Nombre:</label>
+							<div class="text-danger">{{form.nombre.errors}}</div>
+							{{form.nombre}}
+						{% endif %}
+						
+						<label>Sucursal:</label>
+						<div class="text-danger">{{form.sucursal.errors}}</div>
+						{{form.sucursal}}
+						
+						{% if form.instance.categoria == 'trabajo' %}
+							<label>Motivo de Salida:</label>
+							<div class="text-danger">{{form.motivo_salida.errors}}</div>
+							{{form.motivo_salida}}
+						{% endif %}
+
+						{% if form.instance.categoria == 'familiar' %}
+							<label>Parentesco:</label>
+							<div class="text-danger">{{form.parentesco.errors}}</div>
+							{{form.parentesco}}
+						{% endif %}
+	
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+</form>
