@@ -17,12 +17,12 @@
       <div class="row">
         <div class="col-12">
           <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Empresas</h4>
+            <h4 class="mb-sm-0 font-size-18">Candidato</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'personas_list' %}">Listado de personas</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'personas_list' %}">Listado de candidatos</a></li>
                 <li class="breadcrumb-item active">Detalles</li>
               </ol>
             </div>
@@ -38,7 +38,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-12">
-              <h4 class="card-title">Detalle de persona</h4>
+              <h4 class="card-title">Detalle de candidato</h4>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
                 </tr>
 
                 <tr>
-                  <td>IFE:</td>
+                  <td>INE:</td>
                   <td>{{ persona.ife }}</td>
                 </tr>
 
@@ -105,7 +105,7 @@
                 </tr>
 
                 <tr>
-                  <td>Religion:</td>
+                  <td>Religión:</td>
                   <td>{{ persona.religion }}</td>
                 </tr>
 
@@ -162,7 +162,7 @@
               <thead>
                 <tr>
                  
-                  <th>Categoria</th>
+                  <th>Categoría</th>
                   <th>Número</th>
                   <th>Parentesco</th>
                 </tr>
@@ -179,7 +179,7 @@
 
                 {% empty %}
                 <tr>
-                  <td colspan="5">No hay numero telefónicos registradas</td>
+                  <td colspan="5">No hay números telefónicos registrados</td>
                 </tr>  
                   
                 {% endfor %}
@@ -201,7 +201,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-12">
-              <h4 class="card-title">Direccion</h4>
+              <h4 class="card-title">Domicilio</h4>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@
                 {% empty %}
                 
                 <tr>
-                  <td colspan="11">No hay direcciones registradas</td>
+                  <td colspan="11">No hay domicilios registradas</td>
                 </tr>
                   
                 {% endfor %}

@@ -21,8 +21,8 @@
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                <li class="breadcrumb-item "><a href="{% url 'gestor_info_list' %}">Listado de agentes</a></li>
-                <li class="breadcrumb-item active">Eliminar agente</li>
+                <li class="breadcrumb-item "><a href="{% url 'gestor_info_list' %}">Listado de gestores</a></li>
+                <li class="breadcrumb-item active">Eliminar gestor</li>
               </ol>
             </div>
 
@@ -55,7 +55,7 @@
                       </tr>
       
                       <tr>
-                        <td>Nomre:</td>
+                        <td>Nombre completo:</td>
                         <td>{{ gestor_info.usuario.first_name }} {{ gestor_info.usuario.last_name }}</td>
                       </tr>
       
@@ -103,7 +103,7 @@
 
                  <br>
 
-                  <p>¿Estas seguro de eliminar esta empresa?</p>
+                  <p>¿Estas seguro de eliminar este gestor?</p>
 
                   <a href="{% url 'gestor_info_list' %}" 
                   class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i>Cancelar</a>

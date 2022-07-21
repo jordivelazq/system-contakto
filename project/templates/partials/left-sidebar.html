@@ -38,7 +38,7 @@
                                 <li><a href="{% url 'companias_list' %}" data-key="t-inbox">Clientes</a></li>
                                 <li><a href="{% url 'clientes:clientes_list' %}" data-key="t-inbox">Contactos</a></li>
                                 <li><a href="{% url 'gestor_info_list' %}" data-key="t-inbox">Gestores</a></li>
-                                <li><a href="{% url 'personas_list' %}" data-key="t-inbox">Personas</a></li>
+                                <li><a href="{% url 'personas_list' %}" data-key="t-inbox">Candidatos</a></li>
                                 <li><a href="{% url 'core:tipo_investigaciones_costo_list' %}" data-key="t-inbox">Costo de servicios</a></li>
                             </ul>
                         </li>
@@ -59,7 +59,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="check-circle"></i>
-                                <span data-key="coord-ejecutivos">Coord. de Ejecutivos</span>
+                                <span data-key="coord-ejecutivos">Coord. de Atención a Clientes</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Investigaciones</a></li>
@@ -70,7 +70,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="check-circle"></i>
-                                <span data-key="ejecutivo-inv-lab">Ejecutivo Inv. Laboral</span>
+                                <span data-key="ejecutivo-inv-lab">Ejecutivo de cuenta</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{% url 'investigaciones:investigaciones_ejecutivo_laboral_list' %}" data-key="gestion-solicitudes">Investigaciones</a></li> 
@@ -81,7 +81,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="users"></i>
-                                <span data-key="ejecutivo-visita">Ejecutivo de visitas</span>
+                                <span data-key="ejecutivo-visita">Ejecutivo de visita domiciliaria</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{% url 'investigaciones:investigaciones_entrevista_list' %}" data-key="t-user-grid">Entrevistas</a></li>
@@ -92,7 +92,7 @@
                            
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="check-circle"></i>
-                                <span data-key="coord-visita">Coord. de visitas</span>
+                                <span data-key="coord-visita">Coord. de visitas domiciliarias</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}" data-key="gestion-solicitudes">Asignar ejecutivos</a></li>
@@ -150,7 +150,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="share-2"></i>
-                                <span data-key="t-multi-level">Cobranaza</span>
+                                <span data-key="t-multi-level">Cobranza</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
@@ -167,7 +167,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="trello"></i>
-                                <span data-key="t-tasks">Cuentas por pagar</span>
+                                <span data-key="t-tasks">Pago de gestores</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
