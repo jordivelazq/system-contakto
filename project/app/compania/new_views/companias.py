@@ -45,7 +45,7 @@ class CompaniaCreateView(CreateView):
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido agregada correctamente')
+                             'El cliente ha sido agregado correctamente')
         return reverse('companias_detail', kwargs={"pk": self.compania_id})
 
 
@@ -56,14 +56,14 @@ class CompaniaUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Compañia'
+        context['title'] = 'Editar cliente'
         context['compania_id'] = self.kwargs['pk']
         context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coordinador de Ejecutivos')
         return context
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido actualizada correctamente')
+                             'El cliente ha sido actualizado correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['pk']})
 
 
@@ -75,7 +75,7 @@ class CompaniaDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminar Compañia'
+        context['title'] = 'Eliminar cliente'
         return context
 
 
@@ -87,7 +87,7 @@ class CompaniaSucursalCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Crear Compañia'
+        context['title'] = 'Crear sucursal'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
@@ -111,13 +111,13 @@ class CompaniaSucursalUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Compañia'
+        context['title'] = 'Editar sucursal'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido actualizada correctamente')
+                             'La sucursal ha sido actualizada correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -134,7 +134,7 @@ class CompaniaSucursalDeleteView(DeleteView):
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido eliminada correctamente')
+                             'La sucursal ha sido eliminada correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -147,7 +147,7 @@ class DireccionFiscalCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Crear Compañia'
+        context['title'] = 'Crear datos fiscales'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
@@ -159,7 +159,7 @@ class DireccionFiscalCreateView(CreateView):
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'La sucursal ha sido agregada correctamente')
+                             'Los datos fiscales han sido agregados correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -171,13 +171,13 @@ class DireccionFiscalUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Compañia'
+        context['title'] = 'Editar datos fiscales'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido actualizada correctamente')
+                             'Los datos fiscales han sido actualizados correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -188,13 +188,13 @@ class DireccionFiscalDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminar Sucursal'
+        context['title'] = 'Eliminar datos fiscales'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido eliminada correctamente')
+                             'Los datos fiscales han sido eliminados correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -207,7 +207,7 @@ class CompaniaContactoCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Crear Compañia'
+        context['title'] = 'Crear contacto'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
@@ -219,7 +219,7 @@ class CompaniaContactoCreateView(CreateView):
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'La sucursal ha sido agregada correctamente')
+                             'El contacto ha sido agregado correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -232,13 +232,13 @@ class CompaniaContactoUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar contacto de emprea'
+        context['title'] = 'Editar contacto'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido actualizada correctamente')
+                             'El contacto ha sido actualizado correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})
 
 
@@ -250,11 +250,11 @@ class CompaniaContactoDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminar contacto de empresa'
+        context['title'] = 'Eliminar contacto'
         context['compania_id'] = self.kwargs['compania_id']
         return context
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             'El empresa ha sido eliminada correctamente')
+                             'El contacto ha sido eliminado correctamente')
         return reverse('companias_detail', kwargs={"pk": self.kwargs['compania_id']})

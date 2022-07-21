@@ -42,11 +42,11 @@ $(document).ready(function () {
                 }
             },
             {"data": "id", "title": "Id", "searchable": false, "visible": false},
-            {"data": "nombre", "title": "Compañia", "responsivePriority": 1,},
+            {"data": "nombre", "title": "Cliente", "responsivePriority": 1,},
             // {"data": "es_cliente", "title": "Es cliente", "searchable": false, "responsivePriority": 1,},           
             {
                 "data": "coordinador_ejecutivos", 
-                "title": "Coord. Ejecutivos", 
+                "title": "Coord. Atn. Ctes.", 
                 "responsivePriority": 1,
                 // "orderable": false,
                 "searchable": false,
