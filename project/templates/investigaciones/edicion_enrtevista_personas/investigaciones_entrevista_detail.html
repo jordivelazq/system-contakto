@@ -165,11 +165,141 @@
                     <div class="card">
                         <div class="card-body">
                             
-                            {% if seccion_entrevista == 'datos-generales' %}
 
-                            {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form.html' %}
-                                
-                            {% endif %}
+
+                            <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#datos-generales" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                        <span class="d-none d-sm-block">Datos Generales</span> 
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#info-personal" role="tab">
+                                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                        <span class="d-none d-sm-block">Inf. Personal</span> 
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#salud" role="tab">
+                                        <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                        <span class="d-none d-sm-block">Salud, actividades y hábitos</span>   
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#academica" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                        <span class="d-none d-sm-block">Inf. Académica</span>    
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#vivienda" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                        <span class="d-none d-sm-block">Inf. Académica</span>    
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#familia" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                        <span class="d-none d-sm-block">Marco familiar</span>    
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#inf-economica" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                        <span class="d-none d-sm-block">Inf. Económica</span>    
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#bienes" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                        <span class="d-none d-sm-block">Bienes</span>    
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#bienes" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                        <span class="d-none d-sm-block">Evaluación</span>    
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content p-3 text-muted">
+                                <div class="tab-pane active" id="datos-generales" role="tabpanel">
+                                    <p class="mb-0">
+
+                                        {% if seccion_entrevista == 'datos-generales' %}
+                                        {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form.html' %}   
+                                        {% endif %}
+                                        
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="info-personal" role="tabpanel">
+                                    <p class="mb-0">
+                                        Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                                        single-origin coffee squid. Exercitation +1 labore velit, blog
+                                        sartorial PBR leggings next level wes anderson artisan four loko
+                                        farm-to-table craft beer twee. Qui photo booth letterpress,
+                                        commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                                        vinyl cillum PBR. Homo nostrud organic, assumenda labore
+                                        aesthetic magna delectus.
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="salud" role="tabpanel">
+                                    <p class="mb-0">
+                                        Etsy mixtape wayfarers, ethical wes anderson tofu before they
+                                        sold out mcsweeney's organic lomo retro fanny pack lo-fi
+                                        farm-to-table readymade. Messenger bag gentrify pitchfork
+                                        tattooed craft beer, iphone skateboard locavore carles etsy
+                                        salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                                        Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh
+                                        mi whatever gluten-free carles.
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="academica" role="tabpanel">
+                                    <p class="mb-0">
+                                        Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                                        art party before they sold out master cleanse gluten-free squid
+                                        scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                                        art party locavore wolf cliche high life echo park Austin. Cred
+                                        vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+                                        farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
+                                        mustache readymade keffiyeh craft.
+                                    </p>
+                                </div>
+
+                                <div class="tab-pane" id="vivienda" role="tabpanel">
+                                    <p class="mb-0">
+                                       
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="familia" role="tabpanel">
+                                    <p class="mb-0">
+                                       
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="inf-economica" role="tabpanel">
+                                    <p class="mb-0">
+                                       
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="bienes" role="tabpanel">
+                                    <p class="mb-0">
+                                       bienes
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="evaluacion" role="tabpanel">
+                                    <p class="mb-0">
+                                       evaluacion
+                                    </p>
+                                </div>
+
+
+
+
+
+                           
                                 
 
                         </div>

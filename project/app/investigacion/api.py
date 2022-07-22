@@ -244,7 +244,7 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
 
 class InvestigacionEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
 
-    template_name = 'investigaciones/entrevistas/investigaciones_entrevistas_list.html'
+    template_name = 'investigaciones/edicion_enrtevista_personas/investigaciones_entrevistas_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEntrevistaTemplateView,
