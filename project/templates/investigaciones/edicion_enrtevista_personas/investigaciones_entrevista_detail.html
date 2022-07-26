@@ -82,10 +82,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">
-
-                                Información personal
-
+                            <h3 class="card-title"> 
+                                Información personal 
                             </h3>
 
                             <div class="row">
@@ -106,7 +104,7 @@
                                     {{ investigacion.candidato.email }}
                                 </div>
                             </div>
-                            
+
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
@@ -117,7 +115,7 @@
                                     <strong>CURP:</strong>
                                     {{ investigacion.candidato.curp}}
                                 </div>
-                               
+
                             </div>
 
                             <br>
@@ -135,7 +133,7 @@
                                     <strong>Hora recibido:</strong>
                                     {{ investigacion.hora_recibido}}
                                 </div>
-                               
+
                             </div>
 
                             <br>
@@ -143,172 +141,154 @@
                                 <div class="col-md-12">
                                     <strong>Teléfonos</strong><br><br>
                                     {% for tel in telefonos  %}
-                                        <strong>{{tel.categoria}}:</strong> {{tel.numero}}<br> 
+                                    <strong>{{tel.categoria}}:</strong> {{tel.numero}}<br>
                                     {% empty %}
-                                        No tiene teléfonos
+                                    No tiene teléfonos
                                     {% endfor %}
-                                   
-                                        
+
+
                                 </div>
-                               
+
                             </div>
-                          
+
 
                         </div>
                     </div>
                 </div><!-- end col -->
 
             </div>
+
 
             <div class="row" id="entrevista_direccion">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            
 
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="datos_generales-tab" data-bs-toggle="tab"
+                                        data-bs-target="#datos_generales" type="button" role="tab"
+                                        aria-controls="datos_generales" aria-selected="true">Datos Generales</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="info_personal-tab" data-bs-toggle="tab"
+                                        data-bs-target="#info_personal" type="button" role="tab"
+                                        aria-controls="info_personal" aria-selected="false">inf. Personal</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="salud-tab" data-bs-toggle="tab"
+                                        data-bs-target="#salud" type="button" role="tab" aria-controls="salud"
+                                        aria-selected="false">Salud</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="academica-tab" data-bs-toggle="tab"
+                                        data-bs-target="#academica" type="button" role="tab" aria-controls="academica"
+                                        aria-selected="false">Inf. Académica</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="vivienda-tab" data-bs-toggle="tab"
+                                        data-bs-target="#vivienda" type="button" role="tab" aria-controls="vivienda"
+                                        aria-selected="false">Vivienda</button>
+                                </li>
 
-                            <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-bs-toggle="tab" href="#datos-generales" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                        <span class="d-none d-sm-block">Datos Generales</span> 
-                                    </a>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="familia-tab" data-bs-toggle="tab"
+                                        data-bs-target="#familia" type="button" role="tab" aria-controls="familia"
+                                        aria-selected="false">Marco Familiar</button>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#info-personal" role="tab">
-                                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                        <span class="d-none d-sm-block">Inf. Personal</span> 
-                                    </a>
+                                
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="inf_economica-tab" data-bs-toggle="tab"
+                                        data-bs-target="#inf_economica" type="button" role="tab" aria-controls="inf_economica"
+                                        aria-selected="false">Inf. Económica</button>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#salud" role="tab">
-                                        <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                        <span class="d-none d-sm-block">Salud, actividades y hábitos</span>   
-                                    </a>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="bienes-tab" data-bs-toggle="tab"
+                                        data-bs-target="#bienes" type="button" role="tab" aria-controls="bienes"
+                                        aria-selected="false">Bienes</button>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#academica" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                                        <span class="d-none d-sm-block">Inf. Académica</span>    
-                                    </a>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="evaluacion-tab" data-bs-toggle="tab"
+                                        data-bs-target="#evaluacion" type="button" role="tab" aria-controls="evaluacion"
+                                        aria-selected="false">Evaluación</button>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#vivienda" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                                        <span class="d-none d-sm-block">Inf. Académica</span>    
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#familia" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                                        <span class="d-none d-sm-block">Marco familiar</span>    
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#inf-economica" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                                        <span class="d-none d-sm-block">Inf. Económica</span>    
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#bienes" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                                        <span class="d-none d-sm-block">Bienes</span>    
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#bienes" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                                        <span class="d-none d-sm-block">Evaluación</span>    
-                                    </a>
-                                </li>
+                                
                             </ul>
 
                             <!-- Tab panes -->
-                            <div class="tab-content p-3 text-muted">
-                                <div class="tab-pane active" id="datos-generales" role="tabpanel">
-                                    <p class="mb-0">
-
-                                        {% if seccion_entrevista == 'datos-generales' %}
-                                        {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form.html' %}   
-                                        {% endif %}
-                                        
-                                    </p>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="datos_generales" role="tabpanel"
+                                    aria-labelledby="datos_generales-tab" tabindex="0">
+                                    <br>
+                                    {% if seccion_entrevista == 'datos_generales' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form.html' %}
+                                    {% endif %}
                                 </div>
-                                <div class="tab-pane" id="info-personal" role="tabpanel">
-                                    <p class="mb-0">
-                                        Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-                                        single-origin coffee squid. Exercitation +1 labore velit, blog
-                                        sartorial PBR leggings next level wes anderson artisan four loko
-                                        farm-to-table craft beer twee. Qui photo booth letterpress,
-                                        commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-                                        vinyl cillum PBR. Homo nostrud organic, assumenda labore
-                                        aesthetic magna delectus.
-                                    </p>
-                                </div>
-                                <div class="tab-pane" id="salud" role="tabpanel">
-                                    <p class="mb-0">
-                                        Etsy mixtape wayfarers, ethical wes anderson tofu before they
-                                        sold out mcsweeney's organic lomo retro fanny pack lo-fi
-                                        farm-to-table readymade. Messenger bag gentrify pitchfork
-                                        tattooed craft beer, iphone skateboard locavore carles etsy
-                                        salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
-                                        Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh
-                                        mi whatever gluten-free carles.
-                                    </p>
-                                </div>
-                                <div class="tab-pane" id="academica" role="tabpanel">
-                                    <p class="mb-0">
-                                        Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
-                                        art party before they sold out master cleanse gluten-free squid
-                                        scenester freegan cosby sweater. Fanny pack portland seitan DIY,
-                                        art party locavore wolf cliche high life echo park Austin. Cred
-                                        vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
-                                        farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
-                                        mustache readymade keffiyeh craft.
-                                    </p>
-                                </div>
-
-                                <div class="tab-pane" id="vivienda" role="tabpanel">
-                                    <p class="mb-0">
-                                       
-                                    </p>
-                                </div>
-                                <div class="tab-pane" id="familia" role="tabpanel">
-                                    <p class="mb-0">
-                                       
-                                    </p>
-                                </div>
-                                <div class="tab-pane" id="inf-economica" role="tabpanel">
-                                    <p class="mb-0">
-                                       
-                                    </p>
-                                </div>
-                                <div class="tab-pane" id="bienes" role="tabpanel">
-                                    <p class="mb-0">
-                                       bienes
-                                    </p>
-                                </div>
-                                <div class="tab-pane" id="evaluacion" role="tabpanel">
-                                    <p class="mb-0">
-                                       evaluacion
-                                    </p>
-                                </div>
-
-
-
-
-
-                           
+                                <div class="tab-pane" id="info_personal" role="tabpanel" aria-labelledby="info_personal-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'info_personal' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/info_personal_form.html' %}
+                                    {% endif %}
                                 
+                                </div>
+                                <div class="tab-pane" id="salud" role="tabpanel" aria-labelledby="salud-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'salud' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/salud_form.html' %}
+                                    {% endif %}
+                                </div>
+                                <div class="tab-pane" id="academica" role="tabpanel" aria-labelledby="academica-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'academica' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/academica_form.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="vivienda" role="tabpanel" aria-labelledby="vivienda-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'vivienda' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/vivienda_form.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="familia" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'familia' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/familia_form.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="inf_economica" role="tabpanel" aria-labelledby="inf_economica-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'inf_economica' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/sit_economica_form.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="bienes" role="tabpanel" aria-labelledby="bienes-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'bienes' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/bienes_form.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="evaluacion" role="tabpanel" aria-labelledby="evaluacion-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'evaluacion' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/evaluacion_form.html' %}
+                                    {% endif %}
+                                </div>
+
+                            </div>
 
                         </div>
                     </div>
-                </div><!-- end col -->
-
+                </div>
             </div>
-
-
 
             <div class="row" id="bitacora">
                 <div class="col-md-12">
@@ -359,34 +339,148 @@
                 </div><!-- end col -->
 
             </div>
+        </div>
 
 
-            <a href="{% url 'investigaciones:investigaciones_list' %}"
-                class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
-                Regresar al listado</a>
+        <a href="{% url 'investigaciones:investigaciones_list' %}"
+            class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+            Regresar al listado</a>
 
-            <br /><br />
+        <br /><br />
 
 
-        </div> <!-- container-fluid -->
+        {% block footer %}
+        {% include 'partials/footer.html' %}
+        {% endblock footer %}
     </div>
-    <!-- End Page-content -->
+    <!-- end main content-->
+    <input type="hidden" id="investigacion_id" value="{{ investigacion.pk }}">
+    <input type="hidden" id="seccion_entrevista" value="{{ seccion_entrevista }}">
+
+    {% endblock content %}
 
 
-    {% block footer %}
-    {% include 'partials/footer.html' %}
-    {% endblock footer %}
-</div>
-<!-- end main content-->
-{% endblock content %}
+    {% block extra_js %}
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
 
 
-{% block extra_js %}
+        const triggerTabList = document.querySelectorAll('#myTab button')
+        triggerTabList.forEach(triggerEl => {
+            const tabTrigger = new bootstrap.Tab(triggerEl)
 
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-</script>
+            triggerEl.addEventListener('click', event => {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        })
 
-{% endblock extra_js %}
+
+        if ($('#seccion_entrevista').val() == 'info_personal') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#info_personal"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+
+        if ($('#seccion_entrevista').val() == 'datos_generales') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#datos_generales"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'salud') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#salud"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'academica') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#academica"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'vivienda') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#vivienda"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'familia') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#familia"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'inf_economica') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#inf_economica"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'bienes') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#bienes"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        if ($('#seccion_entrevista').val() == 'evaluacion') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#evaluacion"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
+        // for redirecting to select tab
+
+        $("#datos_generales-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/datos_generales/'+inv_id+'/');
+        });
+
+
+        $("#info_personal-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/info_personal/'+inv_id+'/');
+        });
+
+        $("#salud-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/salud/'+inv_id+'/');
+        });
+
+        $("#academica-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/academica/'+inv_id+'/');
+        });
+
+        $("#vivienda-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/vivienda/'+inv_id+'/');
+        });
+
+        $("#familia-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/familia/'+inv_id+'/');
+        });
+
+        $("#inf_economica-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/inf_economica/'+inv_id+'/');
+        });
+
+        $("#bienes-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/bienes/'+inv_id+'/');
+        });
+
+        $("#evaluacion-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/evaluacion/'+inv_id+'/');
+        });
+
+    </script>
+
+    {% endblock extra_js %}

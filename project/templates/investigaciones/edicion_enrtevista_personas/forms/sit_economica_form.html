@@ -1,8 +1,7 @@
 {% load fe_extras %}
+{% load static crispy_forms_tags %}
 <form action="#" method="post">{% csrf_token %}
-	
-	{% include 'sections/entrevista/forms/cta.html' %}
-	
+
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
@@ -15,106 +14,100 @@
 		</div>
 	</div>
 
+	<br>
+
 	{{ pv_formset.management_form }}
 	{% for form in pv_formset %}
-	<div class="panel panel-default">
-		{{ form.id }}
-		<div class="panel-heading">
-			<h3 class="panel-title">{{ form.instance.categoria_viv|title }}</h3>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-3">
-					<div class="text-danger">{{ form.activo.errors }}</div>
-					{{ form.activo.label_tag }}
-					{{ form.activo }}
-				</div>
-				<div class="col-md-3">
-					<div class="text-danger">{{ form.numero_credito.errors }}</div>
-					{{ form.numero_credito.label_tag }}
-					{{ form.numero_credito }}
-				</div>
-				<div class="col-md-3">
-					<div class="text-danger">{{ form.fecha_tramite.errors }}</div>
-					{{ form.fecha_tramite.label_tag }}
-					{{ form.fecha_tramite }}
-				</div>
-				<div class="col-md-3">
-					<div class="text-danger">{{ form.uso.errors }}</div>
-					{{ form.uso.label_tag }}
-					{{ form.uso }}
-				</div>
-				{% if forloop.counter == 1 %}
-				<div class="col-md-12">
-					<div class="text-danger">{{ form.motivo.errors }}</div>
-					{{ form.motivo.label_tag }}
-					{{ form.motivo }}
-				</div>
-				{% endif %}
+
+	{{ form.id }}
+
+	<h5>{{ form.instance.categoria_viv|title }}</h5>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3">
+				{{ form.activo|as_crispy_field }}
 			</div>
-			
+			<div class="col-md-3">
+				{{ form.numero_credito|as_crispy_field }}
+			</div>
+			<div class="col-md-3">
+				{{ form.fecha_tramite|as_crispy_field }}
+			</div>
+			<div class="col-md-3">
+				{{ form.uso|as_crispy_field }}
+			</div>
+			{% if forloop.counter == 1 %}
+			<div class="col-md-12">
+				{{ form.motivo|as_crispy_field }}
+			</div>
+			{% endif %}
 		</div>
+
 	</div>
 	{% endfor %}
 
+	<br>
+
 	<div class="row">
-		<div class="col-xs-3">
+		<div class="col-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">INGRESOS</h3>
+					<h5>Ingresos</h5>
 				</div>
 				<div class="panel-body">
 					{{ ingresos_formset.management_form }}
 					{% for form in ingresos_formset %}
-							{{ form.id }}
-						<div class="row">
-							<div class="col-xs-6" >
-								{% if form.instance.concepto == "otros" %}
-									{{form.detalle}}
-								{% else %}
-								<label>{{form.instance.concepto|clean_type}}:</label>
-								{% endif %}
-							</div>
-							<div class="col-xs-6">
-								<div class="text-danger">{{ form.monto.errors }}</div>
-								{{form.monto}}
-							</div>
+					{{ form.id }}
+					<div class="row">
+						<div class="col-6">
+							{% if form.instance.concepto == "otros" %}
+							{{form.detalle|as_crispy_field}}
+							{% else %}
+							<label>{{form.instance.concepto|clean_type}}:</label>
+							{% endif %}
 						</div>
-						<hr  class="thin-separator" />
+						<div class="col-6">
+
+							{{form.monto|as_crispy_field}}
+						</div>
+					</div>
+					<hr class="thin-separator" />
 					{% endfor %}
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-8">
+		<div class="col-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">EGRESOS</h3>
+					<h5>Egresos</h5>
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-6">
 							{{ egresos_formset.management_form }}
 							{% for form in egresos_formset %}
-									{{ form.id }}
-								<div class="row">
-									<div class="col-xs-6" >
-										{% if form.instance.concepto != 'deuda1' and form.instance.concepto != 'deuda2' %}
-										<label>{{form.instance.concepto|clean_type}}:</label>
-										{% else %}
-										{{form.detalle}}
-										{% endif %}
-									</div>
-									<div class="col-xs-6">
-										<div class="text-danger">{{ form.monto.errors }}</div>
-										{{form.monto}}
-									</div>
+							{{ form.id }}
+							<div class="row">
+								<div class="col-6">
+									{% if form.instance.concepto != 'deuda1' and form.instance.concepto != 'deuda2' %}
+									<label>{{form.instance.concepto|clean_type}}:</label>
+									{% else %}
+									{{form.detalle|as_crispy_field}}
+									{% endif %}
 								</div>
-								{% if forloop.counter == 7 %}<!--  Ajuste para hacer 2 columnas con este formset (egresos) -->
-									</div>
-									<div class="col-xs-6">
-								{% else %}
-									<hr  class="thin-separator" />
-								{% endif %}
+								<div class="col-6">
+									<div class="text-danger">{{ form.monto.errors }}</div>
+									{{form.monto}}
+								</div>
+							</div>
+							{% if forloop.counter == 7 %}
+							<!--  Ajuste para hacer 2 columnas con este formset (egresos) -->
+						</div>
+						<div class="col-6">
+							{% else %}
+							<hr class="thin-separator" />
+							{% endif %}
 							{% endfor %}
 						</div>
 					</div>
@@ -122,4 +115,6 @@
 			</div>
 		</div>
 	</div>
+
+	{% include 'sections/entrevista/forms/cta.html' %}
 </form>

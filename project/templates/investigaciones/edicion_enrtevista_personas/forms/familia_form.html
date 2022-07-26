@@ -1,73 +1,46 @@
+{% load static crispy_forms_tags %}
+
 <form action="#" method="post">{% csrf_token %}
-	
-	{% include 'sections/entrevista/forms/cta.html' %}
-	
+
 	{{ marcofamiliar_formset.management_form }}
-	<div class="row">
-		<div class="col-xs-1 text-center"><label><small>PARENTESCO</small></label></div>
-		<div class="col-xs-2 text-center"><label><small>NOMBRE</small></label></div>
-		<div class="col-xs-1 text-center"><label><small>EDAD</small></label></div>
-		<div class="col-xs-2 text-center"><label><small>OCUPACIÓN</small></label></div>
-		<div class="col-xs-2 text-center"><label><small>EMPRESA</small></label></div>
-		<div class="col-xs-2 text-center"><label><small>RESIDENCIA</small></label></div>
-		<div class="col-xs-2 text-center"><label><small>TELÉFONO</small></label></div>
-	</div>
-	<div class="row">
-		<div class="col-xs-10">
-			<hr class="thin-separator" />
-		</div>
-	</div>
+
 	{% for form in marcofamiliar_formset %}
 		{{ form.id }}
+		<div class="col-2">
+			{% if form.instance.tipo != "otro" %}
+			<h5>{{ form.instance.tipo|title }}:</h5>
+			{% else %}
+			{{form.parentesco|as_crispy_field}}
+			{% endif %}
+		</div>
 		<div class="row">
-			<div class="col-xs-1">
-				{% if form.instance.tipo != "otro" %}
-				<label>{{ form.instance.tipo|title }}:</label>
-				{% else %}
-				{{form.parentesco}}
-				{% endif %}
+			
+			<div class="col-2">
+				{{form.nombre|as_crispy_field}}
 			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">
-					{{form.nombre.errors}}
-				</div>
-				{{form.nombre}}
+			<div class="col-2">
+				{{form.edad|as_crispy_field}}
 			</div>
-			<div class="col-xs-1">
-				<div class="text-danger">
-					{{form.edad.errors}}
-				</div>
-				{{form.edad}}
+			<div class="col-2">
+				{{form.ocupacion|as_crispy_field}}
 			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">
-					{{form.ocupacion.errors}}
-				</div>
-				{{form.ocupacion}}
+			<div class="col-2">
+				{{form.empresa|as_crispy_field}}
 			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">
-					{{form.empresa.errors}}
-				</div>
-				{{form.empresa}}
+			<div class="col-2">
+				{{form.residencia|as_crispy_field}}
 			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">
-					{{form.residencia.errors}}
-				</div>
-				{{form.residencia}}
-			</div>
-			<div class="col-xs-2">
-				<div class="text-danger">
-					{{form.telefono.errors}}
-				</div>
-				{{form.telefono}}
+			<div class="col-2">
+				{{form.telefono|as_crispy_field}}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-10">
+			<div class="col-10">
 				<hr class="thin-separator" />
 			</div>
 		</div>
 	{% endfor %}
+
+	<br>
+	{% include 'sections/entrevista/forms/cta.html' %}
 </form>

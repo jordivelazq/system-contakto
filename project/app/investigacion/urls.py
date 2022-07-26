@@ -1,3 +1,8 @@
+from app.investigacion.new_view.adjuntos import (
+    InvestigacionAdjuntosDetailView, InvestigacionAdjuntosFormTemplateView,
+    InvestigacionAdjuntosTemplateView, InvestigacionAdjuntosViewSet)
+from app.investigacion.new_view.edicion_entrevista_persona import \
+    EdicionEntrevistaPersonaTemplateView
 from django.conf.urls import include, url
 from django.urls import path
 from rest_framework.routers import DefaultRouter
@@ -14,23 +19,21 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCoordinadorPsicometricoViewSet,
                   InvestigacionCoordinadorVisitaCreateView,
                   InvestigacionCoordinadorVisitaUpdateView,
-                  InvestigacionCoordVisitaUpdateView, InvestigacionCoordPsicometricoUpdateView, InvestigacionDetailView,
+                  InvestigacionCoordPsicometricoUpdateView,
+                  InvestigacionCoordVisitaUpdateView, InvestigacionDetailView,
                   InvestigacionEjecutivoLaboralDetailView,
                   InvestigacionEjecutivoLaboralTemplateView,
                   InvestigacionEjecutivoPsicometricoDetailView,
                   InvestigacionEjecutivoPsicometricoList,
                   InvestigacionEjecutivoPsicometricoUpdateView,
-                  InvestigacionEntrevistaTemplateView,
-                  InvestigacionEntrevistaViewSet,
                   InvestigacionEntrevistaDetailView,
-                  InvestigacionTemplateView,
+                  InvestigacionEntrevistaTemplateView,
+                  InvestigacionEntrevistaViewSet, InvestigacionTemplateView,
                   InvestigacionUpdateView, InvestigacionViewSet,
                   PersonaTrajectoriaComercialCrearTemplateView,
                   PersonaTrajectoriaComercialDeleteTemplateView,
                   PersonaTrayectoriaCrearTemplateView,
                   PersonaTrayectoriaEditTemplateView)
-
-from app.investigacion.new_view.edicion_entrevista_persona import EdicionEntrevistaPersonaTemplateView
 
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
@@ -38,6 +41,7 @@ router.register(r'investigaciones_candidatos', InvestigacionCandidatoViewSet)
 router.register(r'investigaciones_coordinador_visita', InvestigacionCoodinadorVisitaViewSet)
 router.register(r'investigaciones_entrevista', InvestigacionEntrevistaViewSet)
 router.register(r'investigaciones_psicometrico', InvestigacionCoordinadorPsicometricoViewSet)
+router.register(r'investigaciones_adjuntos', InvestigacionAdjuntosViewSet)
 
 app_name = "investigaciones"
 
@@ -137,6 +141,16 @@ urlpatterns = [
      #     EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
      path('investigaciones/entrevistal/detail/<str:seccion_entrevista>/<int:investigacion_id>/',
          EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
+
+     # Adjuntos de Investigaciones
+     path('investigaciones/entrevista', InvestigacionAdjuntosTemplateView.as_view(),
+         name='investigaciones_adjuntos_list'),
+
+     path('investigaciones/adjuntos/detail/<int:pk>/',
+         InvestigacionAdjuntosDetailView.as_view(), name='investigaciones_adjuntos_detail'),
+
+      path('investigaciones/adjuntos/detail/update/<int:investigacion_id>/',
+         InvestigacionAdjuntosFormTemplateView.as_view(), name='investigaciones_adjuntos_update'),
 
 
 ]

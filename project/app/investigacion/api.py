@@ -275,7 +275,7 @@ class InvestigacionDetailView(DetailView):
 
     model = Investigacion
     context_object_name = 'investigacion'
-    template_name = 'investigaciones/investigacion_entrevista_detail.html'
+    template_name = 'investigaciones/investigacion_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionDetailView, self).get_context_data(**kwargs)
