@@ -143,7 +143,7 @@ urlpatterns = [
          EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
 
      # Adjuntos de Investigaciones
-     path('investigaciones/entrevista', InvestigacionAdjuntosTemplateView.as_view(),
+     path('investigaciones/adjuntos', InvestigacionAdjuntosTemplateView.as_view(),
          name='investigaciones_adjuntos_list'),
 
      path('investigaciones/adjuntos/detail/<int:pk>/',

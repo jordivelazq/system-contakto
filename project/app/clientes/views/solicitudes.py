@@ -5,7 +5,7 @@ from operator import inv
 
 from app.clientes.models import (Cliente, ClienteSolicitud,
                                  ClienteSolicitudCandidato, ClienteUser)
-from app.compania.models import Sucursales
+from app.compania.models import Sucursales, DireccionFiscal
 from app.core.models import Estado, Municipio, UserMessage
 from app.entrevista.entrevista_persona import EntrevistaPersonaService
 from app.investigacion.models import Investigacion, Psicometrico
@@ -112,8 +112,7 @@ class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
                         self).get_context_data(**kwargs)
 
         context['page'] = self.page
-        csc = ClienteSolicitudCandidato.objects.filter(
-            cliente_solicitud_id=self.object.pk)
+        csc = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.object.pk)
         total_candidatos = csc.count()
         context['cliente_solicitud_candidatos'] = csc
         context['total_candidatos'] = total_candidatos
@@ -385,7 +384,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
     fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
-              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil']
+              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil', 'direccion_fiscal']
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudCandidatoCreateView,
@@ -393,6 +392,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
 
         solicitud = ClienteSolicitud.objects.get(pk=self.kwargs['solicitud_id'])
         context['form'].fields['sucursal'].queryset = Sucursales.objects.filter(compania_id=solicitud.cliente.compania_id)
+        context['form'].fields['direccion_fiscal'].queryset = DireccionFiscal.objects.filter(compania_id=solicitud.cliente.compania_id)
 
         context['solicitud_id'] = self.kwargs['solicitud_id']
         return context
@@ -420,7 +420,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
     fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
-              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil']
+              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil', 'direccion_fiscal']
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudCandidatoUpdateView,
@@ -428,6 +428,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
         
         solicitud = ClienteSolicitud.objects.get(pk=self.kwargs['solicitud_id'])
         context['form'].fields['sucursal'].queryset = Sucursales.objects.filter(compania_id=solicitud.cliente.compania_id)
+        context['form'].fields['direccion_fiscal'].queryset = DireccionFiscal.objects.filter(compania_id=solicitud.cliente.compania_id)
 
         context['solicitud_id'] = self.kwargs['solicitud_id']
         return context

@@ -120,13 +120,11 @@
                                             <td>{{ candidato.nss }}</td>
                                             <td>{{ candidato.email }}</td>
                                             <td>
-                                                
-                                                
+                                                                  
                                                 {% for ti in candidato.tipo_investigacion.all  %}
                                                     {{ti}}
                                                 {% endfor %}
-                                                    
-                                            
+                                    
                                             </td>
                                             <td>
 
@@ -186,8 +184,6 @@
 <!-- Sweet Alerts js -->
 <script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
 
-<!-- Sweet alert init js-->
-<script src="{% static 'js/system/solicitudes.canditados.list.init.js' %}"></script>
 
 <script>
     var user_login = document.getElementById("login-msg"),

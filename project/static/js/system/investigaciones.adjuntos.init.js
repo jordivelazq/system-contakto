@@ -1,5 +1,5 @@
 function investigacionCoordinadoVisitaDetail(id) {
-    var url = "/investigaciones/investigaciones/coordinador-psicometrico/detail/999999999/";
+    var url = "/investigaciones/investigaciones/adjuntos/detail/999999999/";
     document.location.href = url.replace('999999999', id);
 }
 
@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
         "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones_psicometrico/?format=datatables",
+        "ajax": "/investigaciones/api/investigaciones_adjuntos/?format=datatables",
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
