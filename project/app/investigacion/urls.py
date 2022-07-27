@@ -1,3 +1,8 @@
+from app.investigacion.new_view.adjuntos import (
+    InvestigacionAdjuntosDetailView, InvestigacionAdjuntosFormTemplateView,
+    InvestigacionAdjuntosTemplateView, InvestigacionAdjuntosViewSet)
+from app.investigacion.new_view.edicion_entrevista_persona import \
+    EdicionEntrevistaPersonaTemplateView
 from django.conf.urls import include, url
 from django.urls import path
 from rest_framework.routers import DefaultRouter
@@ -14,12 +19,14 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCoordinadorPsicometricoViewSet,
                   InvestigacionCoordinadorVisitaCreateView,
                   InvestigacionCoordinadorVisitaUpdateView,
-                  InvestigacionCoordVisitaUpdateView, InvestigacionCoordPsicometricoUpdateView, InvestigacionDetailView,
+                  InvestigacionCoordPsicometricoUpdateView,
+                  InvestigacionCoordVisitaUpdateView, InvestigacionDetailView,
                   InvestigacionEjecutivoLaboralDetailView,
                   InvestigacionEjecutivoLaboralTemplateView,
                   InvestigacionEjecutivoPsicometricoDetailView,
                   InvestigacionEjecutivoPsicometricoList,
                   InvestigacionEjecutivoPsicometricoUpdateView,
+                  InvestigacionEntrevistaDetailView,
                   InvestigacionEntrevistaTemplateView,
                   InvestigacionEntrevistaViewSet, InvestigacionTemplateView,
                   InvestigacionUpdateView, InvestigacionViewSet,
@@ -34,6 +41,7 @@ router.register(r'investigaciones_candidatos', InvestigacionCandidatoViewSet)
 router.register(r'investigaciones_coordinador_visita', InvestigacionCoodinadorVisitaViewSet)
 router.register(r'investigaciones_entrevista', InvestigacionEntrevistaViewSet)
 router.register(r'investigaciones_psicometrico', InvestigacionCoordinadorPsicometricoViewSet)
+router.register(r'investigaciones_adjuntos', InvestigacionAdjuntosViewSet)
 
 app_name = "investigaciones"
 
@@ -97,9 +105,6 @@ urlpatterns = [
     path('investigaciones/coordinador-visitas/create/<int:investigacion_id>/<int:pk>/',
          InvestigacionCoordinadorVisitaUpdateView.as_view(), name='investigaciones_coordinador_visitas_update'),
 
-    # Llenado del formulario de entrevistas
-    path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
-         name='investigaciones_entrevista_list'),
 
     # Llenado ciclo de psicometria
     path('investigaciones/coordinador-psicometrico',
@@ -124,7 +129,28 @@ urlpatterns = [
 
     path('investigaciones/ejecutivo-laboral',
          InvestigacionEjecutivoLaboralTemplateView.as_view(), name='investigaciones_ejecutivo_laboral_list'),
-	path('investigaciones/ejecutivo-laboral/detail/<int:pk>/',
+    path('investigaciones/ejecutivo-laboral/detail/<int:pk>/',
          InvestigacionEjecutivoLaboralDetailView.as_view(), name='investigacion_ejecutivo_laboral_detail'),
+
+     # Entrvistas de investigaciones
+     # Llenado del formulario de entrevistas
+     path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
+         name='investigaciones_entrevista_list'),
+     
+     # path('investigaciones/entrevistal/detail/<str:>/<int:pk>/',
+     #     EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
+     path('investigaciones/entrevistal/detail/<str:seccion_entrevista>/<int:investigacion_id>/',
+         EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
+
+     # Adjuntos de Investigaciones
+     path('investigaciones/adjuntos', InvestigacionAdjuntosTemplateView.as_view(),
+         name='investigaciones_adjuntos_list'),
+
+     path('investigaciones/adjuntos/detail/<int:pk>/',
+         InvestigacionAdjuntosDetailView.as_view(), name='investigaciones_adjuntos_detail'),
+
+      path('investigaciones/adjuntos/detail/update/<int:investigacion_id>/',
+         InvestigacionAdjuntosFormTemplateView.as_view(), name='investigaciones_adjuntos_update'),
+
 
 ]

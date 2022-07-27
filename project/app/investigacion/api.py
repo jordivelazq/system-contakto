@@ -3,6 +3,8 @@ from multiprocessing import context
 from app.compania.forms import *
 from app.compania.models import Compania
 from app.core.models import Estado, Municipio, UserMessage
+from app.entrevista.entrevista_persona import EntrevistaPersonaService
+from app.entrevista.models import EntrevistaPersona
 from app.entrevista.services import *
 from app.investigacion.forms import *
 from app.persona.form_functions import *
@@ -152,7 +154,11 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
         self.object.investigacion = inv
         self.object.save()
 
-        inv.psicometrico_ejecutivo_asignado = True
+        ep = EntrevistaPersonaService(inv.id).verifyData()
+        inv.agente_id = self.object.gestor.usuario.pk
+        inv.save()
+
+        inv.entrevista_asignacion_visita_domiciliaria = True
         inv.save()
 
         bitacora = InvestigacionBitacora()
@@ -197,7 +203,13 @@ class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
         self.object.investigacion = inv
         self.object.save()
 
-        inv.psicometrico_ejecutivo_asignado = True
+        # elimnar es solo para pruebas
+        EntrevistaPersona.objects.get(investigacion=inv).delete()
+
+        ep = EntrevistaPersonaService(inv.id).verifyData()
+        
+        inv.entrevista_asignacion_visita_domiciliaria = True
+        inv.agente_id = self.object.gestor.usuario.pk
         inv.save()
 
         bitacora = InvestigacionBitacora()
@@ -223,8 +235,8 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False, 
             candidato_validado=True, 
-            agente__isnull=True,
-            coordinador_visitas_id=self.request.user.pk
+            # agente__isnull=True,
+            # coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")
 
         return qs
@@ -232,7 +244,7 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
 
 class InvestigacionEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
 
-    template_name = 'investigaciones/entrevistas/investigaciones_entrevistas_list.html'
+    template_name = 'investigaciones/edicion_enrtevista_personas/investigaciones_entrevistas_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEntrevistaTemplateView,
@@ -248,7 +260,7 @@ class InvestigacionEntrevistaViewSet(mixins.ListModelMixin, viewsets.GenericView
 
     def get_queryset(self):
         qs = self.queryset.filter(
-            cliente_solicitud__isnull=False, candidato_validado=True, entrevista__isnull=False,).order_by("cliente_solicitud")
+            cliente_solicitud__isnull=False, candidato_validado=True,).order_by("cliente_solicitud")
 
         return qs
 
@@ -270,27 +282,61 @@ class InvestigacionDetailView(DetailView):
         
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
        
-        context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion_id=self.kwargs['pk']).order_by('-datetime')
-
-        context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato).order_by('-fecha_creacion')
-
-        context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
-
         try:
-            gInv = GestorInvestigacion.objects.get(
-                investigacion_id=self.kwargs['pk'])
-        except GestorInvestigacion.DoesNotExist:
-            gInv = None
+            entrevista_persona = EntrevistaPersona.objects.get(
+                investigacion=inv)
+        except EntrevistaPersona.DoesNotExist:
+            entrevista_persona = None
 
-        context['gestor'] = gInv  
+        context['entrevista_persona'] = entrevista_persona  
 
-        try:
-            psicometrico = Psicometrico.objects.get(investigacion=inv)
-        except Psicometrico.DoesNotExist:
-            psicometrico = None
+        return context
 
-        context['psicometrico_data'] = psicometrico
+
+class InvestigacionEntrevistaDetailView(DetailView):
+
+    '''Detalle general para el Coorsinador de Ejecutivos'''
+
+    # required
+    group_required = u"SuperAdmin"
+    raise_exception = True
+
+    model = Investigacion
+    context_object_name = 'investigacion'
+    template_name = 'investigaciones/entrevistas/investigaciones_entrevista_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEntrevistaDetailView, self).get_context_data(**kwargs)
+        
+        inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+        persona = Persona.objects.get(pk=inv.candidato.pk)
+
+        telefonos = Telefono.objects.filter(persona=persona)
+
+        context['telefonos'] = telefonos
+       
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion_id=self.kwargs['pk']).order_by('-datetime')
+
+        # context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato).order_by('-fecha_creacion')
+
+        # context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
+
+        # try:
+        #     gInv = GestorInvestigacion.objects.get(
+        #         investigacion_id=self.kwargs['pk'])
+        # except GestorInvestigacion.DoesNotExist:
+        #     gInv = None
+
+        # context['gestor'] = gInv  
+
+        # try:
+        #     psicometrico = Psicometrico.objects.get(investigacion=inv)
+        # except Psicometrico.DoesNotExist:
+        #     psicometrico = None
+
+        # context['psicometrico_data'] = psicometrico
 
         return context
 
@@ -467,7 +513,6 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS, 'El coordiandor ha sido asignado')
         return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['pk']})
-
 
 
 class CandidatoTemplateView(LoginRequiredMixin, TemplateView):

@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from app.core.models import Estado, Municipio
+from app.compania.models import DireccionFiscal
+
 
 def validate_nss(nss):
 	if nss != '' and len(nss) != 11:
@@ -117,11 +119,14 @@ class ClienteSolicitudCandidato(models.Model):
     edad = models.IntegerField( blank=True, null=True) #choices=EDAD_CHOICES,
     curp = models.CharField(max_length=20, default="None", validators=[validate_curp])
     puesto = models.CharField(max_length=140, blank=True, null=True)
-    #TODO agregar telefono del candidato
 
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
     municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
 
+    direccion_fiscal = models.ForeignKey(DireccionFiscal, 
+        on_delete=models.CASCADE,
+        blank=True, null=True, related_name="direccion_fiscal_candidato", verbose_name="Dirección fiscal de facturación")
+    
     status = models.CharField(max_length=140, choices=STATUS_OPCIONES, default='0')
     enviado = models.BooleanField(default=False)
     # tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, default=2)

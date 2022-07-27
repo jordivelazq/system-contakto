@@ -26,6 +26,15 @@ class EntrevistaPersonaService():
             return False
         
         print(ep, "Persona: " , "Se creo", create)
+
+        ep.nombre = investigacion.candidato.nombre
+        ep.apellido = investigacion.candidato.apellido
+        ep.nss = investigacion.candidato.nss
+        ep.email = investigacion.candidato.email
+        ep.edad = investigacion.candidato.edad
+        ep.curp = investigacion.candidato.curp
+        ep.save()
+
         EntrevistaDireccion.objects.get_or_create(investigacion_id=self.investigacion_id, persona_id=ep.pk)
         EntrevistaAcademica.objects.get_or_create(person_id=ep.pk)
         EntrevistaActividadesHabitos.objects.get_or_create(persona_id=ep.pk)
@@ -45,6 +54,7 @@ class EntrevistaPersonaService():
 
         EntrevistaCaractaristicasVivienda.objects.get_or_create(person_id=ep.pk)
         EntrevistaInvestigacion.objects.get_or_create(investigacion_id=self.investigacion_id, agente_id=investigacion.agente.pk, persona_id=ep.pk)
+       
        
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk, tipo="acta_nacimiento")
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk , tipo="acta_matrimonio")
@@ -76,6 +86,22 @@ class EntrevistaPersonaService():
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="padres", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="**", concepto="hermanos", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="otros", tipo="ingreso")
+
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="vestimenta", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="gastos_automovil", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="transporte_publico", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="alimentacion", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="educacion", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="medico", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="diversos", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="servicios", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="serv_domestico", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="seguros", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="deuda1", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="deuda2", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="otros", tipo="egreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="*", concepto="total", tipo="egreso")
+        
       
         EntrevistaGradoEscolaridad.objects.get_or_create(person_id=ep.pk, grado="primaria", anos="*", institucion="**", ciudad="*", certificado="*")
         EntrevistaGradoEscolaridad.objects.get_or_create(person_id=ep.pk, grado="secundaria", anos="*", institucion="*", ciudad="*", certificado="*")
@@ -86,20 +112,35 @@ class EntrevistaPersonaService():
         EntrevistaHistorialEnEmpresa.objects.get_or_create(persona_id=ep.pk, categoria="trabajo",)
         EntrevistaHistorialEnEmpresa.objects.get_or_create(persona_id=ep.pk, categoria="familiar",)
     
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="*", tipo="padre", residencia="*", nombre="**", telefono="**")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="**", empresa="**", ocupacion="", tipo="madre", residencia="*",  nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hermano", residencia="*",  nombre="**", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="*", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="**", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="**", empresa="*", ocupacion="*", tipo="hermano", residencia="*", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="esposa", residencia="**", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="**", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hijo", residencia="*",nombre="**", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*",  nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="**", ocupacion="*", tipo="otro", residencia="*", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="**", ocupacion="*", tipo="otro", residencia="*", nombre="**", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="otro", residencia="**",  nombre="**", telefono="*")
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="*", tipo="padre", residencia="*", nombre="**", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="**", empresa="**", ocupacion="", tipo="madre", residencia="*",  nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hermano", residencia="*",  nombre="**", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="*", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="**", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="**", empresa="*", ocupacion="*", tipo="hermano", residencia="*", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="esposa", residencia="**", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="**", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hijo", residencia="*",nombre="**", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*",  nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="**", ocupacion="*", tipo="otro", residencia="*", nombre="*", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="**", ocupacion="*", tipo="otro", residencia="*", nombre="**", telefono="*", category=1)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="otro", residencia="**",  nombre="**", telefono="*", category=1)
+
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="*", tipo="padre", residencia="*", nombre="**", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="**", empresa="**", ocupacion="", tipo="madre", residencia="*",  nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hermano", residencia="*",  nombre="**", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="*", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="**", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="**", empresa="*", ocupacion="*", tipo="hermano", residencia="*", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="esposa", residencia="**", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="**", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hijo", residencia="*",nombre="**", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*",  nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="**", ocupacion="*", tipo="otro", residencia="*", nombre="*", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="**", ocupacion="*", tipo="otro", residencia="*", nombre="**", telefono="*", category=2)
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="otro", residencia="**",  nombre="**", telefono="*", category=2)
              
         EntrevistaPrestacionVivienda.objects.get_or_create(persona_id=ep.pk, uso="*", fecha_tramite="*", categoria_viv="infonavit", activo="*", numero_credito="*")
         EntrevistaPrestacionVivienda.objects.get_or_create(persona_id=ep.pk,  uso="*", fecha_tramite="*", categoria_viv="fonacot", activo="*", numero_credito="*")

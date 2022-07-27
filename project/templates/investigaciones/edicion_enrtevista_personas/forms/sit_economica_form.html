@@ -1,0 +1,120 @@
+{% load fe_extras %}
+{% load static crispy_forms_tags %}
+<form action="#" method="post">{% csrf_token %}
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="text-danger">{{ candidato_form.dependientes_economicos.errors }}</div>
+					{{ candidato_form.dependientes_economicos.label_tag }}
+					{{ candidato_form.dependientes_economicos }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	{{ pv_formset.management_form }}
+	{% for form in pv_formset %}
+
+	{{ form.id }}
+
+	<h5>{{ form.instance.categoria_viv|title }}</h5>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3">
+				{{ form.activo|as_crispy_field }}
+			</div>
+			<div class="col-md-3">
+				{{ form.numero_credito|as_crispy_field }}
+			</div>
+			<div class="col-md-3">
+				{{ form.fecha_tramite|as_crispy_field }}
+			</div>
+			<div class="col-md-3">
+				{{ form.uso|as_crispy_field }}
+			</div>
+			{% if forloop.counter == 1 %}
+			<div class="col-md-12">
+				{{ form.motivo|as_crispy_field }}
+			</div>
+			{% endif %}
+		</div>
+
+	</div>
+	{% endfor %}
+
+	<br>
+
+	<div class="row">
+		<div class="col-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h5>Ingresos</h5>
+				</div>
+				<div class="panel-body">
+					{{ ingresos_formset.management_form }}
+					{% for form in ingresos_formset %}
+					{{ form.id }}
+					<div class="row">
+						<div class="col-6">
+							{% if form.instance.concepto == "otros" %}
+							{{form.detalle|as_crispy_field}}
+							{% else %}
+							<label>{{form.instance.concepto|clean_type}}:</label>
+							{% endif %}
+						</div>
+						<div class="col-6">
+
+							{{form.monto|as_crispy_field}}
+						</div>
+					</div>
+					<hr class="thin-separator" />
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h5>Egresos</h5>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-6">
+							{{ egresos_formset.management_form }}
+							{% for form in egresos_formset %}
+							{{ form.id }}
+							<div class="row">
+								<div class="col-6">
+									{% if form.instance.concepto != 'deuda1' and form.instance.concepto != 'deuda2' %}
+									<label>{{form.instance.concepto|clean_type}}:</label>
+									{% else %}
+									{{form.detalle|as_crispy_field}}
+									{% endif %}
+								</div>
+								<div class="col-6">
+									<div class="text-danger">{{ form.monto.errors }}</div>
+									{{form.monto}}
+								</div>
+							</div>
+							{% if forloop.counter == 7 %}
+							<!--  Ajuste para hacer 2 columnas con este formset (egresos) -->
+						</div>
+						<div class="col-6">
+							{% else %}
+							<hr class="thin-separator" />
+							{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include 'sections/entrevista/forms/cta.html' %}
+</form>

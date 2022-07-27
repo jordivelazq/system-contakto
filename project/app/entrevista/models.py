@@ -106,6 +106,7 @@ class EntrevistaTelefono(models.Model):
 	def __str__(self):
 		return self.numero
 
+
 class EntrevistaDireccion(models.Model):
 	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
@@ -231,6 +232,7 @@ class EntrevistaAcademica(models.Model):
 	estudios_dias = models.CharField(max_length=200, null=True, blank=True)
 	activo = models.IntegerField(default=0, choices=ACTIVO_OPCIONES, blank=True, null=True)
 
+
 class EntrevistaGradoEscolaridad(models.Model):
 	GRADO_OPCIONES = (
 		('primaria' , 'Primaria'),
@@ -248,6 +250,7 @@ class EntrevistaGradoEscolaridad(models.Model):
 
 	def __str__(self):
 		return '%s' % (self.grado)
+
 
 class EntrevistaOtroIdioma(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
@@ -276,6 +279,7 @@ class EntrevistaSituacionVivienda(models.Model):
 	def __str__(self):
 		return '%s, %s' % (self.tiempo_radicando, self.conservacion)
 
+
 class EntrevistaPropietarioVivienda(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	nombre = models.CharField(verbose_name='Nombre del propietario' , max_length=200, null=True, blank=True)
@@ -283,6 +287,7 @@ class EntrevistaPropietarioVivienda(models.Model):
 
 	def __str__(self):
 		return '%s, %s' % (self.nombre, self.parentesco)
+
 
 class EntrevistaCaractaristicasVivienda(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
@@ -297,6 +302,7 @@ class EntrevistaCaractaristicasVivienda(models.Model):
 	def __str__(self):
 		return '%s, %s' % (self.propia, self.rentada)
 
+
 class EntrevistaTipoInmueble(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	casa = models.CharField(max_length=50, null=True, blank=True)
@@ -307,6 +313,7 @@ class EntrevistaTipoInmueble(models.Model):
 
 	def __str__(self):
 		return '%s, %s' % (self.casa, self.departamento)
+
 
 class EntrevistaDistribucionDimensiones(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
@@ -381,6 +388,7 @@ class EntrevistaTarjetaCreditoComercial(models.Model):
 	def __str__(self):
 		return '%s, %s' % (self.institucion, self.limite_credito)
 
+
 class EntrevistaCuentaDebito(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	institucion = models.CharField(max_length=140, null=True, blank=True)
@@ -390,6 +398,7 @@ class EntrevistaCuentaDebito(models.Model):
 
 	def __str__(self):
 		return '%s, %s' % (self.institucion, self.saldo_mensual)
+
 
 class EntrevistaAutomovil(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
@@ -401,6 +410,7 @@ class EntrevistaAutomovil(models.Model):
 	def __str__(self):
 		return '%s, %s' % (self.modelo_ano, self.liquidacion)
 
+
 class EntrevistaBienesRaices(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	tipo_inmueble = models.CharField(max_length=140, null=True, blank=True)
@@ -411,6 +421,7 @@ class EntrevistaBienesRaices(models.Model):
 	def __str__(self):
 		return '%s, %s' % (self.tipo_inmueble, self.ubicacion)
 
+
 class EntrevistaSeguro(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
 	empresa = models.CharField(max_length=140, null=True, blank=True)
@@ -420,6 +431,7 @@ class EntrevistaSeguro(models.Model):
 
 	def __str__(self):
 		return '%s, %s' % (self.empresa, self.tipo)
+
 
 class EntrevistaDeudaActual(models.Model):
 	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)

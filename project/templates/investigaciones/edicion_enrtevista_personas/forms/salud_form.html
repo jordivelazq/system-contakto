@@ -1,0 +1,163 @@
+<form action="#" method="post">{% csrf_token %}
+
+	<div class="row">
+		<div class="col-2">
+			<div class="text-danger">{{ salud_form.peso_kg.errors }}</div>
+			<!-- {{ salud_form.peso_kg.label_tag }} -->
+			<label>Peso (kg):</label>
+			{{ salud_form.peso_kg }}
+		</div>
+		<div class="col-2">
+			<div class="text-danger">{{ salud_form.estatura_mts.errors }}</div>
+			<label>Estatura (mts):</label>
+			{{ salud_form.estatura_mts }}
+		</div>
+		<div class="col-2">
+			<div class="text-danger">{{ salud_form.salud_fisica.errors }}</div>
+			<label>Salud física:</label>
+			{{ salud_form.salud_fisica }}
+		</div>
+		<div class="col-2">
+			<div class="text-danger">{{ salud_form.salud_visual.errors }}</div>
+			<label>Salud visual:</label>
+			{{ salud_form.salud_visual }}
+		</div>
+		<div class="col-2">
+			<div class="text-danger">{{ salud_form.embarazo_meses.errors }}</div>
+			<label>Embarazada (# meses):</label>
+			{{ salud_form.embarazo_meses }}
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-10">
+			<div class="text-danger">{{ salud_form.ejercicio_tipo_frecuencia.errors }}</div>
+			<label>Ejercicio que practica y con qué frecuencia lo hace:</label>
+			{{ salud_form.ejercicio_tipo_frecuencia }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-5">
+			<div class="text-danger">{{ salud_form.accidentes.errors }}</div>
+			<label>Accidentes:</label>
+			{{ salud_form.accidentes }}
+		</div>
+		<div class="col-5">
+			<div class="text-danger">{{ salud_form.intervenciones_quirurgicas.errors }}</div>
+			<label>Intervenciones quirúrgicas:</label>
+			{{ salud_form.intervenciones_quirurgicas }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-5">
+			<div class="text-danger">{{ salud_form.enfermedades_familiares.errors }}</div>
+			<label>Enfermedades que padecen familiares:</label>
+			{{ salud_form.enfermedades_familiares }}
+		</div>
+		<div class="col-5">
+			<div class="text-danger">{{ salud_form.tratamiento_medico_psicologico.errors }}</div>
+			<label>Ha estado bajo algún tratamiento médico o psicológico:</label>
+			{{ salud_form.tratamiento_medico_psicologico }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-5">
+			<div class="text-danger">{{ salud_form.enfermedades_mayor_frecuencia.errors }}</div>
+			<label>Enfermedades padecidas con mayor frecuencia:</label>
+			{{ salud_form.enfermedades_mayor_frecuencia }}
+		</div>
+		<div class="col-5">
+			<div class="text-danger">{{ salud_form.institucion_medica.errors }}</div>
+			<label>Institución médica a la que acude:</label>
+			{{ salud_form.institucion_medica }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-5">
+			<div class="text-danger">{{ candidato_form.religion.errors }}</div>
+			<label>Religión:</label>
+			{{ candidato_form.religion }}
+		</div>
+		<div class="col-5">
+			<div class="text-danger">{{ candidato_form.religion_tiempo.errors }}</div>
+			<label>Horarios y días en los que las practica:</label>
+			{{ candidato_form.religion_tiempo }}
+		</div>
+	</div>
+
+    <br>
+
+
+	<div class="panel panel-default">
+		
+			<h4 class="panel-title">Inactividad laboral</h4>
+		
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="text-danger">{{ actividades_form.inactividad_laboral.errors }}</div>
+					<label>Periodos:</label>
+					{{ actividades_form.inactividad_laboral }}
+				</div>
+				<div class="col-xs-6">
+					<div class="text-danger">{{ actividades_form.inactividad_laboral_actividad.errors }}</div>
+					<label>Actividades que realizó:</label>
+					{{ actividades_form.inactividad_laboral_actividad }}
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="panel panel-default">
+		
+			<h4 class="panel-title">Negocios por cuenta propia</h4>
+	
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="text-danger">{{ actividades_form.negocios.errors }}</div>
+					<label>Periodos:</label>
+					{{ actividades_form.negocios }}
+				</div>
+				<div class="col-xs-6">
+					<div class="text-danger">{{ actividades_form.negocios_actividad.errors }}</div>
+					<label>Actividades que realizó:</label>
+					{{ actividades_form.negocios_actividad }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<div class="panel panel-default">
+		
+		<h4 class="panel-title">Especificar cada cuanto consume</h4>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="text-danger">{{ actividades_form.frecuencia_tabaco.errors }}</div>
+					<label>Tabaco:</label>
+					{{ actividades_form.frecuencia_tabaco }}
+				</div>
+				<div class="col-xs-4">
+					<div class="text-danger">{{ actividades_form.frecuencia_alcohol.errors }}</div>
+					<label>Alcohol:</label>
+					{{ actividades_form.frecuencia_alcohol }}
+				</div>
+				<div class="col-xs-4">
+					<div class="text-danger">{{ actividades_form.frecuencia_otras_sust.errors }}</div>
+					<label>Otras:</label>
+					{{ actividades_form.frecuencia_otras_sust }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<br>
+	{% include 'sections/entrevista/forms/cta.html' %}
+
+</form>
