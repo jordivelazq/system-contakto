@@ -15,7 +15,7 @@ class EntrevistaPersonaService():
         print('verifyData')
         try:
             investigacion = Investigacion.objects.get(pk=self.investigacion_id)
-            ep, create = EntrevistaPersona.objects.get_or_create(investigacion_id=self.investigacion_id)
+            ep, create = EntrevistaPersona.objects.get_or_create(investigacion=investigacion)
 
             if not create:
                 print('EntrevistaPersona existente')
@@ -53,7 +53,9 @@ class EntrevistaPersonaService():
         EntrevistaCita.objects.get_or_create(investigacion_id=self.investigacion_id)
 
         EntrevistaCaractaristicasVivienda.objects.get_or_create(person_id=ep.pk)
-        EntrevistaInvestigacion.objects.get_or_create(investigacion_id=self.investigacion_id, agente_id=investigacion.agente.pk, persona_id=ep.pk)
+
+        print("inv pk", investigacion.agente.pk, "ep id", ep.pk)
+        EntrevistaInvestigacion.objects.get_or_create(investigacion_id=self.investigacion_id, agente_id=investigacion.agente.pk, persona=ep)
        
        
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk, tipo="acta_nacimiento")

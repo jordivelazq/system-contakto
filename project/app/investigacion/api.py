@@ -154,9 +154,10 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
         self.object.investigacion = inv
         self.object.save()
 
-        ep = EntrevistaPersonaService(inv.id).verifyData()
         inv.agente_id = self.object.gestor.usuario.pk
         inv.save()
+
+        ep = EntrevistaPersonaService(inv.id).verifyData()
 
         inv.entrevista_asignacion_visita_domiciliaria = True
         inv.save()
