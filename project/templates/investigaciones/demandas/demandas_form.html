@@ -1,0 +1,103 @@
+{% extends 'partials/base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block extra_css %}
+<!-- DataTables -->
+<link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css'%}" rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css'%}" rel="stylesheet"
+  type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css'%}" rel="stylesheet"
+  type="text/css" />
+<!-- select2 css -->
+<link href="{% static 'libs/select2/dist/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Investigaciones - Coordinador de atencion al cliente</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                <li class="breadcrumb-item active">Listado de Investigacion</li>
+                <li class="breadcrumb-item active">Detalle</li>
+                <li class="breadcrumb-item active">Formulario de demanda laboral</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="card-title">Formulario de demanda Laboral</h4>
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body">
+
+              <form role="form" method="post" action="">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <button type="submit" class="btn btn-success waves-effect btn-label waves-light"> <i
+                    class="bx bx-user-check label-icon"></i>
+                  Guardar demanda laboral</button>
+
+
+                <a href="{% url 'investigaciones:investigacion_detail' investigacion_id %}"
+                  class="btn btn-primary waves-effect btn-label waves-light">
+                  <i class="bx bx-edit label-icon"></i>
+                  Cancelar
+                </a>
+
+            </div>
+            </form>
+          </div>
+        </div>
+      </div> <!-- end col -->
+    </div> <!-- end row -->
+
+  </div> <!-- container-fluid -->
+
+
+  {% block footer %}
+  {% include 'partials/footer.html' %}
+  {% endblock footer %}
+</div>
+<!-- end main content-->
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'libs/select2/dist/js/select2.min.js'%}"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#id_compania').select2();
+  });
+</script>
+{% endblock extra_js %}

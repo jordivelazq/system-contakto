@@ -1,0 +1,177 @@
+{% extends 'partials/base.html' %}
+{% load static  %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Detalle de solicitud</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Listado de solicitudes</li>
+                                <li class="breadcrumb-item active">Detalle</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Solicitud # {{cliente_solicitud.pk}}</h4>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="card-title-desc">
+                                    Fecha de solicitud: {{cliente_solicitud.fecha_solicitud}}
+                                    </p>
+                                </div>
+
+                                <div class="col-lg-6 text-end">
+                                    
+                                    <a href="#"
+                                    class="btn btn-success waves-effect btn-label waves-light"> <i class="bx bx-printer label-icon"></i>Imprimir factura</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            {% if messages %}
+                            {% for message in messages %}
+                            <input type="hidden" id="login-msg" value="{{message}}">
+                            <button type="button" class="btn btn-primary" id="borderedToast1Btn" hidden>Primary toast</button>
+                            <div style="z-index: 11">
+                                <div id="borderedToast1" class="toast overflow-hidden mt-3 position-absolute top-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div class="align-items-center text-white bg-primary border-0">
+                                        <div class="d-flex">
+                                            <div class="toast-body">
+                                                {{message}}
+                                            </div>
+                                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                            <h4>Listado de servicios completados de la solicitud</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Cantidad</th>
+                                            <th>Descripción</th>
+                                            <th>Monto</th>
+                                            <th>Descuento</th>
+                                            <th>Sub total</th>
+                                            
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for candidato in cliente_solicitud_candidatos_facturas %}
+                                        <tr>
+                                            <td>{{ candidato.cantidad }}</td>
+                                            <td>{{ candidato.descripcion }} / ( Candidato: {{candidato.cliente_solicitud_candidato.nombre}} {{candidato.cliente_solicitud_candidato.apellido}})</td>
+                                            <td><div class="float-end">{{ candidato.monto }}</div></td>
+                                            <td><div class="float-end">{{ candidato.descuento }}</div></td>
+                                            <td><div class="float-end">{{ candidato.get_subtotal }}</div></td>
+                                           
+                             
+                                            <td>
+                                                <i class="fa fa-{% if candidato.completado %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                           
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <a href="{% url 'cobranza_facturas_update' object.pk candidato.pk %}"
+                                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Editar</a>       
+                                                </div>
+                                                        
+                                            </td>
+                                        </tr>
+                                    
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="4">Solicitud no tiene candidatos registrados</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="4"><div class="float-end"> <strong>Total</strong></div> </td>
+                                            <td>{{cliente_solicitud.get_total_facturado}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <br>
+
+                                <a href="{% url 'cobranza_facturas_list' %}"
+                                class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
+                               
+
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+    {% block footer %}
+    {% include 'partials/footer.html' %}
+    {% endblock footer %}
+</div>
+<!-- end main content-->
+
+<input type="hidden" id="cliente_solicitud_id" name="cliente_solicitud_id" value="{{ cliente_solicitud.pk }}">
+{% endblock content %}
+
+
+{% block extra_js %}
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+<script src="{% static 'js/system/solicitudes.canditados.list.init.js' %}"></script>
+<script>
+    var user_login = document.getElementById("login-msg"),
+    toastTrigger = document.getElementById("borderedToast1Btn"),
+    toastLive = document.getElementById("borderedToast1");
+    user_login && (toastTrigger.addEventListener("click", function () {
+    new bootstrap.Toast(toastLive).show()
+    }), toastTrigger.click());
+</script>
+{% endblock extra_js %}
+    

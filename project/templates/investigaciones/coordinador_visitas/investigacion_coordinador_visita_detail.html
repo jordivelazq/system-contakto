@@ -1,7 +1,7 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 
-{% block title %}DataTables{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 
 {% block content %}
@@ -51,7 +51,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <strong>Compañia:</strong>
+                                    <strong>Cliente:</strong>
                                     {{ investigacion.compania }}
                                 </div>
 
@@ -106,8 +106,8 @@
                                     {{ investigacion.candidato.nss }}
                                 </div>
                                 <div class="col-md-3">
-                                    <strong>Email:</strong>
-                                    {{ investigacion.candidato.email }}
+                                    <strong>Teléfono móvil:</strong>
+                                    {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
                                 </div>
                                 <div class="col-md-3">
                                     <strong>CURP:</strong>
@@ -240,7 +240,7 @@
 
             </div>
 
-            <a href="{% url 'investigaciones:investigaciones_coordinador_psicometrico_list' %}"
+            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}"
             class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
             Regresar al listado</a>
 

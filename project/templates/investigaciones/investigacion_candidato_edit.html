@@ -1,6 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static crispy_forms_tags %}
-{% block title %}Lisado de solicitudes | Contakcto{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block extra_css %}
 
@@ -76,6 +76,8 @@
             defaultDate: new Date
         });
 
+        $('#id_investigacion-fecha_recibido').prop("readonly", true);
+        $('#id_investigacion-hora_recibido').prop("readonly", true);
 
     });
 </script>

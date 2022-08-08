@@ -63,6 +63,7 @@ class Investigacion(models.Model):
 	coordinador_psicometrico = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_psometrico')
 	
 	cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, blank=True, null=True)
+	cliente_solicitud_candidato = models.ForeignKey(ClienteSolicitudCandidato, on_delete=models.CASCADE, blank=True, null=True)
 	candidato = models.ForeignKey(Persona, on_delete=models.CASCADE)
 	compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
 	sucursal = models.ForeignKey(Sucursales, models.SET_NULL, blank=True, null=True)

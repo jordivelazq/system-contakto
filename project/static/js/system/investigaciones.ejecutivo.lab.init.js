@@ -1,5 +1,5 @@
 function investigacionDetail(id) {
-    var url = "/investigaciones/investigaciones/ejecutivo-laboral/detail/999999999/";
+    var url = "/investigaciones/investigaciones/ejecutivo-de-cuenta/detail/999999999/";
     document.location.href = url.replace('999999999', id);
 }
 
@@ -109,7 +109,7 @@ $(document).ready(function () {
                 "responsivePriority": 1,
             },
             {
-                "title": "Compañia",
+                "title": "Cliente",
                 "data": "compania.nombre",
                 "responsivePriority": 1,
             },

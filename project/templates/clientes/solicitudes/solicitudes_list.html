@@ -1,6 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-{% block title %}Lisado de solicitudes | Contakcto{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 
 {% block extra_css %}
@@ -42,15 +42,15 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Solicitudes de: {{user.first_name}} {{user.last_name}} / Compañia: {{uc.get_compania}} </h4>
+                            <h4 class="card-title">Solicitudes de: {{user.first_name}} {{user.last_name}} / Cliente: {{uc.get_compania}} </h4>
                             <div class="row">
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <p class="card-title-desc">
                                         Total de solicitudes enviadas / Total de solicitudes en proceso / Total de solicitudes finalizadas
                                     </p>
-                                </div>
+                                </div> -->
 
-                                <div class="col-md-6 text-end">
+                                <div class="col-md-12 text-end">
                                     <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="sa-params">
                                         <i class="bx bx-plus label-icon"></i>Crear solicitud
                                     </button>
@@ -70,8 +70,7 @@
 
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Fecha de solicitud</th>
+                                            <th>Fecha de creación</th>
                                             <th>Enviado</th>
                                             <th>Fecha de Envio</th>
                                             <th>Nro de Candidatos</th>
@@ -82,7 +81,6 @@
                                     <tbody>
                                         {% for solicitud in cliente_solicitudes %}
                                         <tr>
-                                            <td>{{ solicitud.id }}</td>
                                             <td>{{ solicitud.fecha_solicitud }}</td>
                                             <td>
                                                 <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>

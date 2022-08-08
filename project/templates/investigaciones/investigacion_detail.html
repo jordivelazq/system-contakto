@@ -1,8 +1,12 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 
-{% block title %}DataTables{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
 
 {% block content %}
 
@@ -25,7 +29,7 @@
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
                                 <li class="breadcrumb-item ">
                                     <a href="{% url 'investigaciones:investigaciones_list' %}">
-                                        Inv. Coord. Ejecutivo
+                                        Coord. Atn. Ctes
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">Detalle de investigación</li>
@@ -54,7 +58,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <strong>Compañia:</strong>
+                                    <strong>Cliente:</strong>
                                     {{ investigacion.compania }}
                                 </div>
 
@@ -112,8 +116,8 @@
                                     {{ investigacion.candidato.nss }}
                                 </div>
                                 <div class="col-md-3">
-                                    <strong>Email:</strong>
-                                    {{ investigacion.candidato.email }}
+                                    <strong>Teléfono móvil:</strong>
+                                    {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
                                 </div>
                                 <div class="col-md-3">
                                     <strong>CURP:</strong>
@@ -136,6 +140,81 @@
                 </div><!-- end col -->
 
             </div>
+
+
+            <div class="row" id="demandas_laborales">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Demandas laborales</h3>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Demanda Laboral</th>
+                                                    <th>Empresa</th>
+                                                    <th>Motivo</th>
+                                                    <th>Ubicacion</th>
+                                                    <th>Fecha</th>
+                                                    <th>Audencia</th>
+                                                    <th>Conclusión</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for demanda in demandas %}
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        {% if demanda.tiene_demanda == 0 %}
+                                                            No
+                                                        {% elif demanda.tiene_demanda == 1 %}
+                                                            Si
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ demanda.empresa }}</td>
+                                                    <td>{{ demanda.motivo }}</td>
+                                                    <td>{{ demanda.ubicacion }}</td>
+                                                    <td>{{ demanda.fecha }}</td>
+                                                    <td>{{ demanda.audiencias }}</td>
+                                                    <td>{{ demanda.conclusion }}</td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
+                                                            <a class="btn btn-primary" href="{% url 'investigaciones:investigaciones_demanada_update' investigacion.id demanda.pk %}" ><i class="bx bx-edit-alt font-size-16 align-middle"></i></a>
+                                                            <a class="btn btn-danger"  href="{% url 'investigaciones:investigaciones_demanada_delete' investigacion.id demanda.pk  %}"  ><i class="bx bx bx-trash font-size-16 align-middle"></i></a>
+                                                        </div>
+                                        
+                                                    </td>
+                                                </tr>
+
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="4">No existen demandas laborales para esta investigación</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                        <a href="{% url 'investigaciones:investigaciones_demanada_create' investigacion.id %}"
+                                            class="btn btn-primary waves-effect btn-label waves-light">
+                                            <i class="bx bx-plus label-icon"></i>
+                                            Agregar demanda laboral</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            
+
+            </div>
+
 
             <div class="row" id="asignacion_coordinadores">
                 <div class="col-md-12">
@@ -542,6 +621,16 @@
 
                                 </div>
                             </div>
+                            <br>
+
+                            
+                            {% if not investigacion %}                            
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-pregunta">
+                                <i class="bx bx-check label-icon"></i> Completar Investigación
+                            </button>
+                            {% else %}
+                            <h5>La investigación ha sido completada</h5>
+                            {% endif %}
 
                         </div>
                     </div>
@@ -617,13 +706,21 @@
     {% endblock footer %}
 </div>
 <!-- end main content-->
-{% endblock content %}
 
+<input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion.pk }}">
+{% endblock content %}
 
 {% block extra_js %}
 
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+<!-- Sweet alert init js-->
+<script src="{% static 'js/system/sweetalert.investigaciones.detail.init.js' %}"></script>
+
 <script>
     $(document).ready(function () {
+        investigacion_id = $('#investigacion_id').val();
         $('[data-toggle="popover"]').popover();
     });
 </script>

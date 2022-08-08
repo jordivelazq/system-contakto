@@ -8,7 +8,7 @@
 {% endblock extra_css %}
 
 
-{% block title %}DataTables{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 
 {% block content %}
@@ -61,7 +61,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <strong>Compañia:</strong>
+                                    <strong>Cliente:</strong>
                                     {{ investigacion.compania }}
                                 </div>
 
@@ -107,8 +107,8 @@
                                     {{ investigacion.candidato.apellido }}
                                 </div>
                                 <div class="col-md-3">
-                                    <strong>Email:</strong>
-                                    {{ investigacion.candidato.email }}
+                                    <strong>Teléfono móvil:</strong>
+                                    {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
                                 </div>
                             </div>
 
