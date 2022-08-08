@@ -54,10 +54,8 @@ class EntrevistaPersonaService():
 
         EntrevistaCaractaristicasVivienda.objects.get_or_create(person_id=ep.pk)
 
-        print("inv pk", investigacion.agente.pk, "ep id", ep.pk)
         EntrevistaInvestigacion.objects.get_or_create(investigacion_id=self.investigacion_id, agente_id=investigacion.agente.pk, persona=ep)
-       
-       
+
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk, tipo="acta_nacimiento")
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk , tipo="acta_matrimonio")
         EntrevistaDocumentoCotejado.objects.get_or_create(person_id=ep.pk , tipo="comprobante_domicilio")

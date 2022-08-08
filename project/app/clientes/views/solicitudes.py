@@ -20,6 +20,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView, View)
 from utils.send_mails import send_email
+from ..forms.cliente_solicitud_candidato_forms import ClienteSolicitudCandidatoForm
+from app.adjuntos.models import Adjuntos
 
 
 class InitialClient(LoginRequiredMixin, TemplateView):
@@ -45,10 +47,7 @@ class ClienteSolicitudListView(GroupRequiredMixin, ListView):
     context_object_name = "cliente_solicitudes"
     template_name = 'clientes/solicitudes/solicitudes_list.html'
 
-    page = {
-        'title': 'Solicitudes',
-    }
-
+   
     def get_queryset(self):
 
         return ClienteSolicitud.objects.filter(cliente_id=self.request.user.id).order_by('-id')
@@ -57,7 +56,7 @@ class ClienteSolicitudListView(GroupRequiredMixin, ListView):
         context = super(ClienteSolicitudListView,
                         self).get_context_data(**kwargs)
 
-        context['page'] = self.page
+        context['title'] = "Cliente / Listado de solicitudes"
         u = User.objects.get(id=self.request.user.pk)
 
         cliente_user = None
@@ -103,15 +102,11 @@ class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
     context_object_name = "cliente_solicitud"
     template_name = 'clientes/solicitudes/solicitud_detail.html'
 
-    page = {
-        'title': 'Detalle de Solicitud',
-    }
-
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudDetailView,
                         self).get_context_data(**kwargs)
 
-        context['page'] = self.page
+        context['title'] = "Cliente / Detalle de solicitud"
         csc = ClienteSolicitudCandidato.objects.filter(cliente_solicitud_id=self.object.pk)
         total_candidatos = csc.count()
         context['cliente_solicitud_candidatos'] = csc
@@ -184,10 +179,12 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
 
         for candidato in candidatos_solicitud:
 
+            candidato.fecha_envio = now
+            candidato.save()
+
             # Buscar Candidato si no existe crearlo
             try:
-                persona = Persona.objects.get(
-                    nss=candidato.nss, curp=candidato.curp)
+                persona = Persona.objects.get(nss=candidato.nss, curp=candidato.curp)
                 # persona.estado_id = candidato.estado_id
                 # persona.municipio_id = candidato.municipio_id
                 # Los datos de cada persona se debe validad por cada investigacion en este caso se coloca un flag para validad
@@ -243,7 +240,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
             print('Crear solicitud para candidato')
 
             investigacion = Investigacion()
-            #investigacion.agente = solicitud.cliente.user
+            investigacion.cliente_solicitud_candidato = candidato
             investigacion.cliente_solicitud = solicitud
             investigacion.candidato = persona
             investigacion.compania = candidato.cliente_solicitud.cliente.compania
@@ -259,6 +256,8 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
             investigacion.fecha_recibido = today
             investigacion.hora_recibido = hora
             investigacion.save()
+
+            adjuntos = Adjuntos(investigacion=investigacion).save()
 
             # Toma los valores de los tipo de solicitud
 
@@ -381,14 +380,17 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
     group_required = [u"Admin", u"SuperAdmin"]
     raise_exception = True
 
-    model = ClienteSolicitudCandidato
+    # model = ClienteSolicitudCandidato
+    form_class = ClienteSolicitudCandidatoForm  
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
-    fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
-              'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil', 'direccion_fiscal']
+    # fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
+    #           'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil', 'direccion_fiscal']
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudCandidatoCreateView,
                         self).get_context_data(**kwargs)
+        
+        context['title'] = "Cliente / Formulario de candidatos"
 
         solicitud = ClienteSolicitud.objects.get(pk=self.kwargs['solicitud_id'])
         context['form'].fields['sucursal'].queryset = Sucursales.objects.filter(compania_id=solicitud.cliente.compania_id)

@@ -35,7 +35,7 @@ $(document).ready(function () {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
-                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="companiaDetail(\'' + row.id + '\')" alt="Ver detalle de la compañia">Ver detalles</a>';
+                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="companiaDetail(\'' + row.id + '\')" alt="Ver detalle del cliente">Ver detalles</a>';
 
                     a += '</div>'
                     return a;

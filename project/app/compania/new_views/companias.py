@@ -20,7 +20,7 @@ class CompaniaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Detalle de Compañia'
+        context['title'] = 'Detalle del cliente'
         context['clientes'] = ClienteUser.objects.filter(compania=self.object)
         return context
 
@@ -33,7 +33,7 @@ class CompaniaCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Crear Compañia'
+        context['title'] = 'Crear cliente'
         context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coordinador de Ejecutivos')
         return context
 

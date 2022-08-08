@@ -1,5 +1,6 @@
 from multiprocessing import context
 
+from app.clientes.models import ClienteSolicitudFactura, ClienteSolicitudCandidato, ClienteSolicitud, Cliente, ClienteTipoInvestigacion
 from app.compania.forms import *
 from app.compania.models import Compania
 from app.core.models import Estado, Municipio, UserMessage
@@ -35,7 +36,7 @@ class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(InvestigacionTemplateView,
                         self).get_context_data(**kwargs)
-        context['title'] = 'Investigaciones'
+        context['title'] = 'Investigaciones /  Coordinador de atención al cliente'
 
         return context
 
@@ -45,16 +46,17 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = InvestigacionSerializer
 
     def get_queryset(self):
-        
+
         user = self.request.user
-        companias_pk = Compania.objects.filter(coordinador_ejecutivos_id=user.pk).values_list('pk', flat=True)
+        companias_pk = Compania.objects.filter(
+            coordinador_ejecutivos_id=user.pk).values_list('pk', flat=True)
 
         try:
             qs = self.queryset.filter(
-                cliente_solicitud__isnull=False,compania__in=companias_pk ).order_by("last_modified")
+                cliente_solicitud__isnull=False, compania__in=companias_pk).order_by("last_modified")
         except Compania.DoesNotExist:
             return self.queryset.none()
-        
+
         # qs = self.queryset.filter(
         #          cliente_solicitud__isnull=False ).order_by("last_modified")
 
@@ -91,7 +93,7 @@ class InvestigacionCoordiandorVisitaTemplateView(LoginRequiredMixin, TemplateVie
     def get_context_data(self, **kwargs):
         context = super(InvestigacionCoordiandorVisitaTemplateView,
                         self).get_context_data(**kwargs)
-        context['title'] = 'Investigaciones'
+        context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias'
 
         return context
 
@@ -109,20 +111,25 @@ class InvestigacionCoodinadorVisitaDetailView(DetailView):
     template_name = 'investigaciones/coordinador_visitas/investigacion_coordinador_visita_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoodinadorVisitaDetailView, self).get_context_data(**kwargs)
-        
+        context = super(InvestigacionCoodinadorVisitaDetailView,
+                        self).get_context_data(**kwargs)
+
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
-       
+
+        context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
             investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
 
+        context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
+        print(context['demandas'])
         try:
             gInv = GestorInvestigacion.objects.get(
                 investigacion=inv)
         except GestorInvestigacion.DoesNotExist:
             gInv = None
 
-        context['gestor'] = gInv  
+        context['gestor'] = gInv
 
         return context
 
@@ -204,11 +211,8 @@ class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
         self.object.investigacion = inv
         self.object.save()
 
-        # elimnar es solo para pruebas
-        EntrevistaPersona.objects.get(investigacion=inv).delete()
-
         ep = EntrevistaPersonaService(inv.id).verifyData()
-        
+
         inv.entrevista_asignacion_visita_domiciliaria = True
         inv.agente_id = self.object.gestor.usuario.pk
         inv.save()
@@ -234,8 +238,8 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
 
     def get_queryset(self):
         qs = self.queryset.filter(
-            cliente_solicitud__isnull=False, 
-            candidato_validado=True, 
+            cliente_solicitud__isnull=False,
+            candidato_validado=True,
             # agente__isnull=True,
             # coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")
@@ -250,10 +254,10 @@ class InvestigacionEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEntrevistaTemplateView,
                         self).get_context_data(**kwargs)
-        context['title'] = 'Investigaciones'
+        context['title'] = 'Investigaciones / Ejecutivo de visita domiciliaria'
 
         return context
-        
+
 
 class InvestigacionEntrevistaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Investigacion.objects.all()
@@ -261,7 +265,7 @@ class InvestigacionEntrevistaViewSet(mixins.ListModelMixin, viewsets.GenericView
 
     def get_queryset(self):
         qs = self.queryset.filter(
-            cliente_solicitud__isnull=False, candidato_validado=True,).order_by("cliente_solicitud")
+            cliente_solicitud__isnull=False, candidato_validado=True, agente__isnull=False).order_by("cliente_solicitud")
 
         return qs
 
@@ -279,17 +283,22 @@ class InvestigacionDetailView(DetailView):
     template_name = 'investigaciones/investigacion_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionDetailView, self).get_context_data(**kwargs)
-        
+        context = super(InvestigacionDetailView,
+                        self).get_context_data(**kwargs)
+
+        context['title'] = 'Investigaciones / Detalle de solicitud'
+
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
-       
+
+        context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
+
         try:
             entrevista_persona = EntrevistaPersona.objects.get(
                 investigacion=inv)
         except EntrevistaPersona.DoesNotExist:
             entrevista_persona = None
 
-        context['entrevista_persona'] = entrevista_persona  
+        context['entrevista_persona'] = entrevista_persona
 
         return context
 
@@ -307,8 +316,9 @@ class InvestigacionEntrevistaDetailView(DetailView):
     template_name = 'investigaciones/entrevistas/investigaciones_entrevista_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEntrevistaDetailView, self).get_context_data(**kwargs)
-        
+        context = super(InvestigacionEntrevistaDetailView,
+                        self).get_context_data(**kwargs)
+
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
 
         persona = Persona.objects.get(pk=inv.candidato.pk)
@@ -316,7 +326,7 @@ class InvestigacionEntrevistaDetailView(DetailView):
         telefonos = Telefono.objects.filter(persona=persona)
 
         context['telefonos'] = telefonos
-       
+
         # context['bitacoras'] = InvestigacionBitacora.objects.filter(
         #     investigacion_id=self.kwargs['pk']).order_by('-datetime')
 
@@ -330,7 +340,7 @@ class InvestigacionEntrevistaDetailView(DetailView):
         # except GestorInvestigacion.DoesNotExist:
         #     gInv = None
 
-        # context['gestor'] = gInv  
+        # context['gestor'] = gInv
 
         # try:
         #     psicometrico = Psicometrico.objects.get(investigacion=inv)
@@ -383,24 +393,26 @@ class InvestigacionCoordVisitaUpdateView(UpdateView):
     raise_exception = True
 
     model = Investigacion
-    fields = ['coordinador_visitas',]
+    fields = ['coordinador_visitas', ]
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordVisitaUpdateView, self).get_context_data(**kwargs)
- 
+        context = super(InvestigacionCoordVisitaUpdateView,
+                        self).get_context_data(**kwargs)
+
         context['tipo_coordinador'] = "visitas"
         context['investigacion_id'] = self.kwargs['pk']
-        context['form'].fields['coordinador_visitas'].queryset = User.objects.filter(groups__name='Coordinador de Visitas')
+        context['form'].fields['coordinador_visitas'].queryset = User.objects.filter(
+            groups__name='Coordinador de Visitas')
 
         return context
 
     def form_valid(self, form):
 
         # inv = Investigacion.objects.get(id=self.kwargs['pk'])
-        hoy = GetDataTime().get_current_date_time_in_format()        
-       
+        hoy = GetDataTime().get_current_date_time_in_format()
+
         self.object = form.save(commit=False)
 
         if self.object.coordinador_visitas:
@@ -415,34 +427,36 @@ class InvestigacionCoordVisitaUpdateView(UpdateView):
 
             # Genera email
             mail_data = {
-            'mensaje': 'Se ha asignado como coordinador de visitas',
-            'candidato' : self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
-            'compania' : self.object.cliente_solicitud.cliente.compania.nombre,
-            'tipo_de_solicitud' : self.object.tipo_investigacion.all(),
-            'fecha_solicitud': hoy,
-            'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
-            'texto_url_detalles': 'Detalles de la solicitud',
-            'email_coordinadores_de_visita': [self.object.coordinador_visitas.email,],
+                'mensaje': 'Se ha asignado como coordinador de visitas',
+                'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+                'compania': self.object.cliente_solicitud.cliente.compania.nombre,
+                'tipo_de_solicitud': self.object.tipo_investigacion.all(),
+                'fecha_solicitud': hoy,
+                'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
+                'texto_url_detalles': 'Detalles de la solicitud',
+                'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
             }
             send_email('notificacion_coordinador_visita', mail_data)
-            
+
             # Genera menaaje a usuario
             msj = UserMessage()
             msj.user = self.request.user
 
             msj.title = "Se ha asignado como coordinador de visita"
             msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
-            msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/"+str(self.object.pk)+"/"
+            msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/" + \
+                str(self.object.pk)+"/"
             msj.save()
         else:
-            self.object.coord_visitas_asignado = False   
-        
+            self.object.coord_visitas_asignado = False
+
         self.object.save()
 
         return super(InvestigacionCoordVisitaUpdateView, self).form_valid(form)
-    
+
     def get_success_url(self, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS, 'El coordiandor ha sido asignado')
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El coordiandor ha sido asignado')
         return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['pk']})
 
 
@@ -453,24 +467,26 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
     raise_exception = True
 
     model = Investigacion
-    fields = ['coordinador_psicometrico',]
+    fields = ['coordinador_psicometrico', ]
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordPsicometricoUpdateView, self).get_context_data(**kwargs)
- 
+        context = super(InvestigacionCoordPsicometricoUpdateView,
+                        self).get_context_data(**kwargs)
+
         context['tipo_coordinador'] = "psicométrico"
         context['investigacion_id'] = self.kwargs['pk']
-        context['form'].fields['coordinador_psicometrico'].queryset = User.objects.filter(groups__name='Coordinador Psicometrico')
+        context['form'].fields['coordinador_psicometrico'].queryset = User.objects.filter(
+            groups__name='Coordinador Psicometrico')
 
         return context
 
     def form_valid(self, form):
 
         # inv = Investigacion.objects.get(id=self.kwargs['pk'])
-        hoy = GetDataTime().get_current_date_time_in_format()        
-       
+        hoy = GetDataTime().get_current_date_time_in_format()
+
         self.object = form.save(commit=False)
 
         if self.object.coordinador_psicometrico:
@@ -485,34 +501,36 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
 
             # Genera email
             mail_data = {
-            'mensaje': 'Se ha asignado como coordinador de visitas',
-            'candidato' : self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
-            'compania' : self.object.cliente_solicitud.cliente.compania.nombre,
-            'tipo_de_solicitud' : self.object.tipo_investigacion.all(),
-            'fecha_solicitud': hoy,
-            'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-psicometrico/detail/' + str(self.object.pk) + '/',
-            'texto_url_detalles': 'Detalles de la solicitud',
-            'email_coordinadores_de_visita': [self.object.coordinador_psicometrico.email,],
+                'mensaje': 'Se ha asignado como coordinador de visitas',
+                'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+                'compania': self.object.cliente_solicitud.cliente.compania.nombre,
+                'tipo_de_solicitud': self.object.tipo_investigacion.all(),
+                'fecha_solicitud': hoy,
+                'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-psicometrico/detail/' + str(self.object.pk) + '/',
+                'texto_url_detalles': 'Detalles de la solicitud',
+                'email_coordinadores_de_visita': [self.object.coordinador_psicometrico.email, ],
             }
             send_email('notificacion_coordinador_visita', mail_data)
-            
+
             # Genera menaaje a usuario
             msj = UserMessage()
             msj.user = self.request.user
 
             msj.title = "Asignacion de coordinador de psicométrico"
             msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
-            msj.link = "/investigaciones/investigaciones/coordinador-psicometrico/detail/"+str(self.object.pk)+"/"
+            msj.link = "/investigaciones/investigaciones/coordinador-psicometrico/detail/" + \
+                str(self.object.pk)+"/"
             msj.save()
         else:
-            self.object.coord_psicometrico_asignadado = False   
-        
+            self.object.coord_psicometrico_asignadado = False
+
         self.object.save()
 
         return super(InvestigacionCoordPsicometricoUpdateView, self).form_valid(form)
-    
+
     def get_success_url(self, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS, 'El coordiandor ha sido asignado')
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El coordiandor ha sido asignado')
         return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['pk']})
 
 
@@ -522,7 +540,8 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
 
-        investigacion = Investigacion.objects.select_related('compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
 
         # agente_id = investigacion.agente.id
         origen = investigacion.candidato.origen_set.all()
@@ -530,20 +549,34 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
         tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
         tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
         tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
-        infonavit = investigacion.candidato.prestacionvivienda_set.filter(categoria_viv='infonavit')
-        fonacot = investigacion.candidato.prestacionvivienda_set.filter(categoria_viv='fonacot')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
         legalidad = investigacion.candidato.legalidad_set.all()
         demanda = investigacion.candidato.demanda_set.all()
         seguro = investigacion.candidato.seguro_set.all()
 
-        formCandidato = CandidatoAltaForm(request.POST, prefix='candidato', instance=investigacion.candidato)
+        formCandidato = CandidatoAltaForm(
+            request.POST, prefix='candidato', instance=investigacion.candidato)
 
         if formCandidato.is_valid():
-            messages.add_message(request, messages.SUCCESS, 'El candidato ha sido guardado')
+            messages.add_message(request, messages.SUCCESS,
+                                 'El candidato ha sido guardado')
             formCandidato.save()
             investigacion.candidato_validado = formCandidato.cleaned_data['datos_validados']
+            if investigacion.candidato_validado:
+                try:
+                    csc = ClienteSolicitudCandidato.objects.get(
+                        pk=investigacion.cliente_solicitud_candidato_id)
+                    if not csc.fecha_inicio:
+                        csc.fecha_inicio = datetime.datetime.now()
+                        csc.save()
+                except:
+                    pass
             investigacion.save()
-            InvestigacionBitacora(investigacion_id=investigacion.id,user_id=request.user.pk,servicio='Candidato',observaciones='Candidato actualizado').save()
+            InvestigacionBitacora(investigacion_id=investigacion.id, user_id=request.user.pk,
+                                  servicio='Candidato', observaciones='Candidato actualizado').save()
         else:
             msg_param = ''
         ####################### Origen #######################
@@ -706,11 +739,15 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
         demanda = investigacion.candidato.demanda_set.all()
         seguro = investigacion.candidato.seguro_set.all()
 
-        DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=1, extra=1)
-        
+        DemandaFormSet = modelformset_factory(
+            Demanda, form=DemandaAltaForma, max_num=1, extra=1)
+
+        context['title'] = "Investigaciones / Actualizacion datos del candidato"
+
         context['investigacion'] = investigacion
 
-        context['formCandidato'] = CandidatoAltaForm(prefix='candidato', instance=investigacion.candidato)
+        context['formCandidato'] = CandidatoAltaForm(
+            prefix='candidato', instance=investigacion.candidato)
         # context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
         #                                                        'compania': investigacion.compania.id}, agt_id=agente_id)
         context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
@@ -731,7 +768,8 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
             prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
         context['formLegalidad'] = LegalidadAltaForma(
             prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
-        context['formDemanda'] = DemandaFormSet(queryset=Demanda.objects.filter(persona=investigacion.candidato))
+        context['formDemanda'] = DemandaFormSet(
+            queryset=Demanda.objects.filter(persona=investigacion.candidato))
         context['formSeguro'] = SeguroAltaForma(
             prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
         context['formSucursal'] = CompaniaSucursalForm(
@@ -833,11 +871,15 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
         exito = True
 
-        investigacion = Investigacion.objects.get( id=self.kwargs['investigacion_id'])
-        trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(pk=self.kwargs['pk'])
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+        trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(
+            pk=self.kwargs['pk'])
         evaluacion = trayectoria_empresa.evaluacion_set.all()
-        opinion_jefe = trayectoria_empresa.opinion_set.filter(categoria=1) if evaluacion else None
-        opinion_rh = trayectoria_empresa.opinion_set.filter(categoria=2) if evaluacion else None
+        opinion_jefe = trayectoria_empresa.opinion_set.filter(
+            categoria=1) if evaluacion else None
+        opinion_rh = trayectoria_empresa.opinion_set.filter(
+            categoria=2) if evaluacion else None
 
         carta_laboral = trayectoria_empresa.cartalaboral if hasattr(
             trayectoria_empresa, 'cartalaboral') else None
@@ -970,13 +1012,18 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
         context = super(PersonaTrayectoriaEditTemplateView,
                         self).get_context_data(**kwargs)
 
-        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
 
-        trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get( pk=self.kwargs['pk'])
+        trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(
+            pk=self.kwargs['pk'])
         evaluacion = trayectoria_empresa.evaluacion_set.all()
-        opinion_jefe = trayectoria_empresa.opinion_set.filter(categoria=1) if evaluacion else None
-        opinion_rh = trayectoria_empresa.opinion_set.filter(categoria=2) if evaluacion else None
-        carta_laboral = trayectoria_empresa.cartalaboral if hasattr( trayectoria_empresa, 'cartalaboral') else None
+        opinion_jefe = trayectoria_empresa.opinion_set.filter(
+            categoria=1) if evaluacion else None
+        opinion_rh = trayectoria_empresa.opinion_set.filter(
+            categoria=2) if evaluacion else None
+        carta_laboral = trayectoria_empresa.cartalaboral if hasattr(
+            trayectoria_empresa, 'cartalaboral') else None
         datos_generales = trayectoria_empresa.datosgenerales if hasattr(
             trayectoria_empresa, 'datosgenerales') else None
 
@@ -991,23 +1038,32 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
         formSucursal = CompaniaSucursalForm(
             trayectoria_empresa.compania.id, trayectoria_empresa.sucursal.id if trayectoria_empresa.sucursal else None, prefix='trayectoria')
 
-        formTrayectoria = TrayectoriaForm(prefix='trayectoria', instance=trayectoria_empresa)
+        formTrayectoria = TrayectoriaForm(
+            prefix='trayectoria', instance=trayectoria_empresa)
 
-        formCartaLaboral = CartaLaboralForma(instance=carta_laboral) if carta_laboral else CartaLaboralForma()
+        formCartaLaboral = CartaLaboralForma(
+            instance=carta_laboral) if carta_laboral else CartaLaboralForma()
 
-        formDatosGenerales = DatosGeneralesForma(instance=datos_generales) if datos_generales else DatosGeneralesForma()
+        formDatosGenerales = DatosGeneralesForma(
+            instance=datos_generales) if datos_generales else DatosGeneralesForma()
 
-        formEvaluacion = EvaluacionForm(prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
+        formEvaluacion = EvaluacionForm(
+            prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
 
-        formEvaluacion = EvaluacionForm(prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
-        
-        formOpinionJefe = OpinionAltaForma(prefix='opinion_jefe', instance=opinion_jefe[0]) if opinion_jefe else OpinionAltaForma(prefix='opinion_jefe')
-        
-        formOpinionRH = OpinionAltaForma(prefix='opinion_rh', instance=opinion_rh[0]) if opinion_rh else OpinionAltaForma(prefix='opinion_rh')
-        
-        formInformante1 = InformanteAltaForma(prefix='informante1', instance=informante1) if informante1 else InformanteAltaForma(prefix='informante1')
-        
-        formInformante2 = InformanteAltaForma(prefix='informante2', instance=informante2) if informante2 else InformanteAltaForma(prefix='informante2')
+        formEvaluacion = EvaluacionForm(
+            prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
+
+        formOpinionJefe = OpinionAltaForma(
+            prefix='opinion_jefe', instance=opinion_jefe[0]) if opinion_jefe else OpinionAltaForma(prefix='opinion_jefe')
+
+        formOpinionRH = OpinionAltaForma(
+            prefix='opinion_rh', instance=opinion_rh[0]) if opinion_rh else OpinionAltaForma(prefix='opinion_rh')
+
+        formInformante1 = InformanteAltaForma(
+            prefix='informante1', instance=informante1) if informante1 else InformanteAltaForma(prefix='informante1')
+
+        formInformante2 = InformanteAltaForma(
+            prefix='informante2', instance=informante2) if informante2 else InformanteAltaForma(prefix='informante2')
 
         context['investigacion'] = investigacion
         context['trayectoria_empresa'] = trayectoria_empresa
@@ -1040,26 +1096,32 @@ class PersonaTrajectoriaComercialCrearTemplateView(GroupRequiredMixin, TemplateV
 
     template_name = 'investigaciones/personas/trayectoria_comercial_form.html'
 
-   
     def post(self, request, *args, **kwargs):
 
-        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
-        trayectoria_instance = TrayectoriaComercial.objects.get(id=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else None
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+        trayectoria_instance = TrayectoriaComercial.objects.get(
+            id=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else None
 
-        referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=self.kwargs['trayectoria_id']).count() if self.kwargs['trayectoria_id'] else 3
-        referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
+        referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(
+            trayectoria_comercial=self.kwargs['trayectoria_id']).count() if self.kwargs['trayectoria_id'] else 3
+        referencia_formset = modelformset_factory(
+            TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
 
-       
-        trayectoria_comercial_form = TrayectoriaComercialForm(request.POST, instance=trayectoria_instance)
-        trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
+        trayectoria_comercial_form = TrayectoriaComercialForm(
+            request.POST, instance=trayectoria_instance)
+        trayectoria_comercial_referencia_formset = referencia_formset(
+            request.POST)
 
         if trayectoria_comercial_form.is_valid():
-            trayectoria_comercial = trayectoria_comercial_form.save(commit=False)
+            trayectoria_comercial = trayectoria_comercial_form.save(
+                commit=False)
             trayectoria_comercial.persona = investigacion.candidato
             trayectoria_comercial.save()
 
             if trayectoria_comercial_referencia_formset.is_valid():
-                trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(commit=False)
+                trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(
+                    commit=False)
                 for referencia in trayectoria_comercial_referencia:
                     referencia.trayectoria_comercial = trayectoria_comercial
                     referencia.save()
@@ -1070,25 +1132,32 @@ class PersonaTrajectoriaComercialCrearTemplateView(GroupRequiredMixin, TemplateV
                 bitacora.servicio = "Coord. Ejecutivo"
                 bitacora.observaciones = "Creación de trayectoria comercial"
                 bitacora.save()
-                
+
                 return redirect(reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
 
     def get_context_data(self, **kwargs):
 
-        context = super(PersonaTrajectoriaComercialCrearTemplateView    , self).get_context_data(**kwargs)
-        
+        context = super(PersonaTrajectoriaComercialCrearTemplateView,
+                        self).get_context_data(**kwargs)
 
-        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
-        trayectoria_instance = TrayectoriaComercial.objects.get(id=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else None
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+        trayectoria_instance = TrayectoriaComercial.objects.get(
+            id=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else None
 
-        referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial_id=self.kwargs['trayectoria_id']).count() if self.kwargs['trayectoria_id'] else 3
-        referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
+        referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(
+            trayectoria_comercial_id=self.kwargs['trayectoria_id']).count() if self.kwargs['trayectoria_id'] else 3
+        referencia_formset = modelformset_factory(
+            TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
 
-        trayectoria_comercial_form = TrayectoriaComercialForm(instance=trayectoria_instance)
-        
+        trayectoria_comercial_form = TrayectoriaComercialForm(
+            instance=trayectoria_instance)
+
         # referencial_queryset = TrayectoriaComercialReferencia.objects.none()
-        referencial_queryset = TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else TrayectoriaComercialReferencia.objects.none()
-        trayectoria_comercial_referencia_formset = referencia_formset(queryset=referencial_queryset)
+        referencial_queryset = TrayectoriaComercialReferencia.objects.filter(
+            trayectoria_comercial=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else TrayectoriaComercialReferencia.objects.none()
+        trayectoria_comercial_referencia_formset = referencia_formset(
+            queryset=referencial_queryset)
 
         context['investigacion'] = investigacion
         context['trayectoria_comercial_form'] = trayectoria_comercial_form
@@ -1100,17 +1169,19 @@ class PersonaTrajectoriaComercialCrearTemplateView(GroupRequiredMixin, TemplateV
 class PersonaTrajectoriaComercialDeleteTemplateView(GroupRequiredMixin, TemplateView):
 
     # required
-    group_required = [u"Client",]
+    group_required = [u"Client", ]
     raise_exception = True
 
     def get(self, request, *args, **kwargs):
 
-        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
 
         trayectoria_id = str(self.kwargs['trayectoria_id'])
         investigacion_id = str(self.kwargs['investigacion_id'])
 
-        trayectoria_comercial_referencia = TrayectoriaComercialReferencia.objects.get(id=self.kwargs['pk'])
+        trayectoria_comercial_referencia = TrayectoriaComercialReferencia.objects.get(
+            id=self.kwargs['pk'])
         trayectoria_comercial_referencia.delete()
 
         bitacora = InvestigacionBitacora()
@@ -1143,7 +1214,10 @@ class InvestigacionCoordinadorPsicometricoTemplateView(LoginRequiredMixin, Templ
     template_name = 'investigaciones/coordinador_psicometrico/investigaciones_coordinador_psicometrico_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordinadorPsicometricoTemplateView, self).get_context_data(**kwargs)
+        context = super(InvestigacionCoordinadorPsicometricoTemplateView,
+                        self).get_context_data(**kwargs)
+
+        context['title'] = "Investigaciones / Coordinador psicométrico"
 
         return context
 
@@ -1161,10 +1235,11 @@ class InvestigacionCoordinadorPsicometricoDetailView(DetailView):
     template_name = 'investigaciones/coordinador_psicometrico/investigaciones_coordinador_psicometrico_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordinadorPsicometricoDetailView, self).get_context_data(**kwargs)
-        
+        context = super(InvestigacionCoordinadorPsicometricoDetailView,
+                        self).get_context_data(**kwargs)
+
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
-       
+
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
             investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
 
@@ -1186,7 +1261,7 @@ class InvestigacionCoordinadorPsicometricoCreateView(CreateView):
     raise_exception = True
 
     model = Psicometrico
-    fields = ['user',]
+    fields = ['user', ]
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'investigaciones/coordinador_psicometrico/investigaciones_coordinador_psicometrico_form.html'
 
@@ -1219,7 +1294,8 @@ class InvestigacionCoordinadorPsicometricoCreateView(CreateView):
         return super(InvestigacionCoordinadorPsicometricoCreateView, self).form_valid(form)
 
     def get_success_url(self, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS, 'El ejecutivo ha sido asignado')
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El ejecutivo ha sido asignado')
         return reverse('investigaciones:investigaciones_coordinador_psicometrico_detail', kwargs={"investigacion_id": self.kwargs['investigacion_id']})
 
 
@@ -1230,15 +1306,16 @@ class InvestigacionCoordinadorPsicometricoUpdateView(GroupRequiredMixin, UpdateV
     raise_exception = True
 
     model = Psicometrico
-    fields = ['user',]
+    fields = ['user', ]
     template_name = 'investigaciones/coordinador_psicometrico/investigaciones_coordinador_psicometrico_form.html'
-  
+
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordinadorPsicometricoUpdateView, self).get_context_data(**kwargs)
+        context = super(InvestigacionCoordinadorPsicometricoUpdateView,
+                        self).get_context_data(**kwargs)
         context['investigacion_id'] = self.kwargs['investigacion_id']
 
         return context
-    
+
     def form_valid(self, form):
 
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
@@ -1260,7 +1337,8 @@ class InvestigacionCoordinadorPsicometricoUpdateView(GroupRequiredMixin, UpdateV
 
     # send the user back to their own page after a successful update
     def get_success_url(self, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS, 'Ejecutivo ha sido actualizado')
+        messages.add_message(self.request, messages.SUCCESS,
+                             'Ejecutivo ha sido actualizado')
         return reverse('investigaciones:investigaciones_coordinador_psicometrico_detail', kwargs={"pk": self.kwargs['investigacion_id']})
 
 
@@ -1282,8 +1360,10 @@ class InvestigacionEjecutivoPsicometricoList(GroupRequiredMixin, ListView):
         return Psicometrico.objects.all().order_by('-created')
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEjecutivoPsicometricoList, self).get_context_data(**kwargs)
-        # context['investigacion_id'] = self.kwargs['investigacion_id']
+        context = super(InvestigacionEjecutivoPsicometricoList,
+                        self).get_context_data(**kwargs)
+
+        context['title'] = "Inveatigaciones / Ejecutivo de psicométrico"
 
         return context
 
@@ -1311,8 +1391,8 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
         else:
             inv.psicometrico_completado = False
             inv.save()
-            self.object.completado = False    
-        
+            self.object.completado = False
+
         bitacora = InvestigacionBitacora()
         bitacora.user_id = self.request.user.pk
         bitacora.investigacion = inv
@@ -1323,16 +1403,21 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
         return super(InvestigacionEjecutivoPsicometricoUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEjecutivoPsicometricoUpdateView, self).get_context_data(**kwargs)
+        context = super(InvestigacionEjecutivoPsicometricoUpdateView,
+                        self).get_context_data(**kwargs)
 
-        investigacion = Investigacion.objects.get(pk=self.kwargs['investigacion_id'])
+        investigacion = Investigacion.objects.get(
+            pk=self.kwargs['investigacion_id'])
+
+        context['title'] = "Inveatigaciones / Ejecutivo de psicométrico / Formulario"
 
         context['investigacion'] = investigacion
 
         return context
 
     def get_success_url(self, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS, 'El ejecutivo ha sido asignado')
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El ejecutivo ha sido asignado')
         return reverse('investigaciones:investigaciones_ejecutivo_psicometrico_list')
 
 
@@ -1347,10 +1432,13 @@ class InvestigacionEjecutivoPsicometricoDetailView(DetailView):
     template_name = 'investigaciones/ejecutivo_psicometrico/ejecutivo_psicometrico_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEjecutivoPsicometricoDetailView, self).get_context_data(**kwargs)
+        context = super(InvestigacionEjecutivoPsicometricoDetailView,
+                        self).get_context_data(**kwargs)
 
-        investigacion = Investigacion.objects.get(pk=self.kwargs['investigacion_id'])
-        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
+        investigacion = Investigacion.objects.get(
+            pk=self.kwargs['investigacion_id'])
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(
+            investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
 
         context['investigacion'] = investigacion
 
@@ -1362,8 +1450,9 @@ class InvestigacionEjecutivoLaboralTemplateView(LoginRequiredMixin, TemplateView
     template_name = 'investigaciones/ejecutivo_laboral/investigaciones_ejecutivo_lab_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEjecutivoLaboralTemplateView, self).get_context_data(**kwargs)
-        context['title'] = 'Investigaciones'
+        context = super(InvestigacionEjecutivoLaboralTemplateView,
+                        self).get_context_data(**kwargs)
+        context['title'] = 'Investigaciones / Ejecutivo de cuentas'
 
         return context
 
@@ -1381,17 +1470,162 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
     template_name = 'investigaciones/ejecutivo_laboral/investigaciones_ejecutivo_lab_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEjecutivoLaboralDetailView, self).get_context_data(**kwargs)
-        
+        context = super(InvestigacionEjecutivoLaboralDetailView,
+                        self).get_context_data(**kwargs)
+
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
-       
+
+        context['title'] = "Inveatigaciones / Ejecutivo de cuenta / Detalle de solicitud "
+
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
             investigacion_id=self.kwargs['pk'], user=self.request.user).order_by('-datetime')
 
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(
             persona=inv.candidato)
 
-        context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
-
+        context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(
+            persona=inv.candidato)
 
         return context
+
+
+class InvestigacionCoordinadorDemandasCreateView(CreateView):
+
+    # required
+    group_required = u"SuperAdmin"
+    raise_exception = True
+
+    model = Demanda
+    fields = ['tiene_demanda', 'empresa', 'motivo',
+              'ubicacion', 'fecha', 'audiencias', 'conclusion']
+    template_name = 'investigaciones/demandas/demandas_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordinadorDemandasCreateView,
+                        self).get_context_data(**kwargs)
+
+        context['investigacion_id'] = self.kwargs['investigacion_id']
+
+        return context
+
+    def form_valid(self, form):
+
+        inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+
+        self.object = form.save(commit=False)
+        self.object.persona = inv.candidato
+        self.object.save()
+
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = inv
+        bitacora.servicio = "Coordinador de Atenceon al clientei"
+        bitacora.observaciones = "Creacion de demanda laboral"
+        bitacora.save()
+
+        return super(InvestigacionCoordinadorDemandasCreateView, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'La demanada laboral se ha creado satisfactoriamente')
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+
+
+class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
+
+    # required
+    group_required = u"SuperAdmin"
+    raise_exception = True
+
+    model = Demanda
+    fields = ['tiene_demanda', 'empresa', 'motivo',
+              'ubicacion', 'fecha', 'audiencias', 'conclusion']
+    # success_url = reverse_lazy('investigaciones:investigaciones_list')
+    template_name = 'investigaciones/demandas/demandas_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordinadorDemandasUpdateView,
+                        self).get_context_data(**kwargs)
+
+        context['investigacion_id'] = self.kwargs['investigacion_id']
+
+        return context
+
+    def form_valid(self, form):
+
+        inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+
+        self.object = form.save(commit=False)
+        self.object.save()
+
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = inv
+        bitacora.servicio = "Coordinador de visitas"
+        bitacora.observaciones = "Actualizacion de demanda laboral"
+        bitacora.save()
+
+        return super(InvestigacionCoordinadorDemandasUpdateView, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'La demanda ha sido actualizado')
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+
+
+class InvestigacionCoordinadorDemandasDeleteView(GroupRequiredMixin, DeleteView):
+
+    # required
+    group_required = [u"Admin", u"SuperAdmin"]
+    raise_exception = True
+
+    model = Demanda
+    template_name = 'investigaciones/demandas/demandas_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordinadorDemandasDeleteView,
+                        self).get_context_data(**kwargs)
+
+        context['investigacion'] = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+
+        return context
+
+     # send the user back to their own page after a successful update
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'La demanda ha sido eliminado satisfactoriamente.')
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+
+
+class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, TemplateView):
+
+    # required
+    group_required = [u"Client", ]
+    raise_exception = True
+
+    template_name = ''
+
+    def get(self, request, **kwargs):
+        investigacion_id = self.kwargs['investigacion_id']
+        inv = Investigacion.objects.get(id=investigacion_id)
+
+        cliente_solicitud_candidato = ClienteSolicitudCandidato.objects.get(pk=inv.cliente_solicitud_candidato_id)
+
+        for csc in cliente_solicitud_candidato.tipo_investigacion.all():
+            factura = ClienteSolicitudFactura()
+            factura.cliente_solicitud_id = inv.cliente_solicitud_id
+            factura.cliente_solicitud_candidato_id = inv.cliente_solicitud_candidato_id
+            factura.cantidad = 1
+            factura.descripcion = csc
+            factura.monto = csc.costo
+            factura.save()
+
+        cliente_solicitud_candidato.completado = True
+        cliente_solicitud_candidato.factura_creada = True
+        cliente_solicitud_candidato.save()
+        
+        inv.investigacion_completada = True
+        inv.save()
+
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id']})

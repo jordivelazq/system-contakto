@@ -12,6 +12,10 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCoodinadorVisitaDetailView,
                   InvestigacionCoodinadorVisitaViewSet,
                   InvestigacionCoordiandorVisitaTemplateView,
+                  InvestigacionCoordinadorCompletarTemplateView,
+                  InvestigacionCoordinadorDemandasCreateView,
+                  InvestigacionCoordinadorDemandasDeleteView,
+                  InvestigacionCoordinadorDemandasUpdateView,
                   InvestigacionCoordinadorPsicometricoCreateView,
                   InvestigacionCoordinadorPsicometricoDetailView,
                   InvestigacionCoordinadorPsicometricoTemplateView,
@@ -127,18 +131,16 @@ urlpatterns = [
 
     # Ejecutivo de investigacion laboral
 
-    path('investigaciones/ejecutivo-laboral',
+    path('investigaciones/ejecutivo-de-cuenta',
          InvestigacionEjecutivoLaboralTemplateView.as_view(), name='investigaciones_ejecutivo_laboral_list'),
-    path('investigaciones/ejecutivo-laboral/detail/<int:pk>/',
+    path('investigaciones/ejecutivo-de-cuenta/detail/<int:pk>/',
          InvestigacionEjecutivoLaboralDetailView.as_view(), name='investigacion_ejecutivo_laboral_detail'),
 
      # Entrvistas de investigaciones
      # Llenado del formulario de entrevistas
      path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
          name='investigaciones_entrevista_list'),
-     
-     # path('investigaciones/entrevistal/detail/<str:>/<int:pk>/',
-     #     EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
+
      path('investigaciones/entrevistal/detail/<str:seccion_entrevista>/<int:investigacion_id>/',
          EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
 
@@ -149,8 +151,19 @@ urlpatterns = [
      path('investigaciones/adjuntos/detail/<int:pk>/',
          InvestigacionAdjuntosDetailView.as_view(), name='investigaciones_adjuntos_detail'),
 
-      path('investigaciones/adjuntos/detail/update/<int:investigacion_id>/',
+     path('investigaciones/adjuntos/detail/update/<int:investigacion_id>/',
          InvestigacionAdjuntosFormTemplateView.as_view(), name='investigaciones_adjuntos_update'),
 
+     # Demandas laborales
+     path('investigaciones/demandas/create/<int:investigacion_id>/',
+         InvestigacionCoordinadorDemandasCreateView.as_view(), name='investigaciones_demanada_create'),
+     path('investigaciones/demandas/update/<int:investigacion_id>/<int:pk>/',
+         InvestigacionCoordinadorDemandasUpdateView.as_view(), name='investigaciones_demanada_update'),
+     path('investigaciones/demandas/delete/<int:investigacion_id>/<int:pk>/',
+         InvestigacionCoordinadorDemandasDeleteView.as_view(), name='investigaciones_demanada_delete'),
+
+     # Completar la investigacion
+     path('investigaciones/completar/<int:investigacion_id>/',
+         InvestigacionCoordinadorCompletarTemplateView.as_view(), name='investigaciones_completar'),
 
 ]

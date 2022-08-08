@@ -87,7 +87,7 @@ $(document).ready(function () {
                 "responsivePriority": 1,
             },
             {
-                "title": "Compañia",
+                "title": "Cliente",
                 "data": "compania.nombre",
                 "responsivePriority": 1,
             },

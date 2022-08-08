@@ -48,7 +48,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i data-feather="plus-circle"></i>
-                                <span data-key="clientes">Contactos</span>
+                                <span data-key="clientes">Cliente</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{% url 'clientes:clientes_solicitudes_list' %}" data-key="t-inbox">Solicitudes</a></li>
@@ -146,23 +146,37 @@
                             </ul>
                         </li>
 
-
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
-                                <i data-feather="share-2"></i>
-                                <span data-key="t-multi-level">Cobranza</span>
+                                <i data-feather="trello"></i>
+                                <span data-key="ejecutivo-psicometrico">Cobranzas</span>
                             </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2">Level 1.2</a>
-                                    <ul class="sub-menu" aria-expanded="true">
-                                        <li><a href="javascript: void(0);" data-key="t-level-2-1">Level 2.1</a></li>
-                                        <li><a href="javascript: void(0);" data-key="t-level-2-2">Level 2.2</a></li>
-                                    </ul>
-                                </li>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'cobranza_facturas_list' %}" key="t-task-list">Facturas</a></li>
                             </ul>
                         </li>
+
+
+                       
+                       {% comment %}
+                         <li>
+                             <a href="javascript: void(0);" class="has-arrow">
+                                 <i data-feather="share-2"></i>
+                                 <span data-key="t-multi-level">Cobranza</span>
+                             </a>
+                             <ul class="sub-menu" aria-expanded="true">
+                                 <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
+                                 <li>
+                                     <a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2">Level 1.2</a>
+                                     <ul class="sub-menu" aria-expanded="true">
+                                         <li><a href="javascript: void(0);" data-key="t-level-2-1">Level 2.1</a></li>
+                                         <li><a href="javascript: void(0);" data-key="t-level-2-2">Level 2.2</a></li>
+                                     </ul>
+                                 </li>
+                             </ul>
+                         </li>
+                       {% endcomment %}
+                        
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">

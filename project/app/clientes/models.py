@@ -75,7 +75,20 @@ class ClienteSolicitud(models.Model):
         from app.investigacion.models import Investigacion
         candidatos_completados = Investigacion.objects.filter(cliente_solicitud_id=self.pk, investigacion_completada=True).count()
         return candidatos_completados
-    
+
+    @property
+    def get_total_facturado(self):
+
+        total = 0
+
+        cliente_solicitud_facturas = ClienteSolicitudFactura.objects.filter(cliente_solicitud_id=self.pk)
+       
+        for f in cliente_solicitud_facturas:
+            print(f.monto)
+            total += (f.monto * f.cantidad) - f.descuento
+        return total
+
+
     def __str__(self):
         return u'%s  (%s)' % (self.cliente, self.cliente.email)
 
@@ -83,6 +96,7 @@ class ClienteSolicitud(models.Model):
 class ClienteTipoInvestigacion(models.Model):
     
     tipo_investigacion = models.CharField(max_length=100)
+    costo = models.FloatField(default=0)
 
     class Meta:
         ordering = ('tipo_investigacion', )
@@ -112,13 +126,13 @@ class ClienteSolicitudCandidato(models.Model):
 
     nombre = models.CharField(max_length=140)
     apellido = models.CharField(max_length=140, default="")
-    nss = models.CharField(max_length=30, default="None", validators=[validate_nss])
+    nss = models.CharField("NSS" ,max_length=30, default="", validators=[validate_nss])
     email = models.CharField(max_length=140, blank=True, null=True)
     telefono_casa = models.CharField('Teléfono de casa', max_length=20, blank=True, null=True)
-    telefono_movil = models.CharField('Teléfono móvil', max_length=20, blank=True, null=True)
+    telefono_movil = models.CharField('Teléfono móvil', max_length=20,)
     edad = models.IntegerField( blank=True, null=True) #choices=EDAD_CHOICES,
-    curp = models.CharField(max_length=20, default="None", validators=[validate_curp])
-    puesto = models.CharField(max_length=140, blank=True, null=True)
+    curp = models.CharField("CURP", max_length=20, default="", validators=[validate_curp])
+    puesto = models.CharField(max_length=140)
 
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
     municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
@@ -133,8 +147,34 @@ class ClienteSolicitudCandidato(models.Model):
     tipo_investigacion = models.ManyToManyField(ClienteTipoInvestigacion)
     sucursal = models.ForeignKey(Sucursales, on_delete=models.CASCADE, blank=True, null=True)
 
+    fecha_envio = models.DateTimeField(blank=True, null=True)
+    fecha_inicio = models.DateTimeField(blank=True, null=True)
+    
+    completado = models.BooleanField(default=False)
+
+    factura_creada = models.BooleanField(default=False)
+    factura_pagaga = models.BooleanField(default=False)
+
     archivo_solicitud = models.FileField(upload_to='cliente_solicitudes/', blank=True, null=True)
     
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
+
+class ClienteSolicitudFactura(models.Model):
+    cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, related_name="cliente_solicitud_factura", blank=True, null=True)
+    cliente_solicitud_candidato = models.ForeignKey(ClienteSolicitudCandidato, on_delete=models.CASCADE, related_name="cliente_solicitud_candidato_factura", blank=True, null=True)
+
+    cantidad = models.PositiveSmallIntegerField(default=0)
+    descripcion = models.CharField(max_length=140)
+    monto = models.FloatField(default=0)
+    descuento = models.FloatField(default=0)
+    
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+
+    @property
+    def get_subtotal(self):
+        return (self.monto * self.cantidad) - self.descuento
+        

@@ -1,6 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static  %}
-{% block title %}Lisado de candidatos | Contakcto{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block extra_css %}
  <!-- Sweet Alert-->
@@ -42,7 +42,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Solicitud nro: {{cliente_solicitud.pk}}</h4>
+                            <h4 class="card-title">Solicitud # {{cliente_solicitud.pk}}</h4>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <p class="card-title-desc">
@@ -102,23 +102,26 @@
 
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Nombre</th>
                                             <th>Apellido</th>
                                             <th>NSS</th>
-                                            <th>Email</th>
+                                            <th>CURP</th>
+                                            <th>Teléfono móvil</th>
                                             <th>Tipo de investigación</th>
+                                            <th>Fecha de envío</th>
+                                            <th>Fecha de inicio</th>
+                                            <th>Completada</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for candidato in cliente_solicitud_candidatos %}
                                         <tr>
-                                            <td>{{ candidato.id }}</td>
                                             <td>{{ candidato.nombre }}</td>
                                             <td>{{ candidato.apellido }}</td>
                                             <td>{{ candidato.nss }}</td>
-                                            <td>{{ candidato.email }}</td>
+                                            <td>{{ candidato.curp }}</td>
+                                            <td>{{ candidato.telefono_movil }}</td>
                                             <td>
                                                                   
                                                 {% for ti in candidato.tipo_investigacion.all  %}
@@ -126,6 +129,12 @@
                                                 {% endfor %}
                                     
                                             </td>
+                                            <td>{{ candidato.fecha_envio }}</td>
+                                            <td>{{ candidato.fecha_inicio }}</td>
+                                            <td>
+                                                <i class="fa fa-{% if candidato.completado %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                           
                                             <td>
 
                                                 {% if not cliente_solicitud.enviado %}
@@ -138,7 +147,7 @@
                                                    
                                                 </div>
                                                 {% else %}
-                                                Solicitud está en proceso
+                                                Solicitud ha sido enviada
                                                 {% endif %}
                                                 
                                                    
@@ -151,6 +160,8 @@
                                         {% endfor %}
                                     </tbody>
                                 </table>
+
+                                <br>
 
                                 <a href="{% url 'clientes:clientes_solicitudes_list' %}"
                                 class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
