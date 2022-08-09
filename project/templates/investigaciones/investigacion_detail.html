@@ -596,7 +596,7 @@
                                     {% endif %}
 
                                     {% endif %}
-
+                                    
                                     <br><br>
 
                                     {% if investigacion.psicometrico %}
@@ -624,7 +624,7 @@
                             <br>
 
                             
-                            {% if not investigacion %}                            
+                            {% if not investigacion.investigacion_completada %}                            
                             <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-pregunta">
                                 <i class="bx bx-check label-icon"></i> Completar Investigación
                             </button>

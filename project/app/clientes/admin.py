@@ -1,6 +1,6 @@
 from app.clientes.forms.user_forms import UserChangeForm, UserCreationForm
 from app.clientes.models import (ClienteSolicitud,
-                                 ClienteSolicitudCandidato, ClienteTipoInvestigacion, ClienteSolicitudFactura)
+                                 ClienteSolicitudCandidato, ClienteTipoInvestigacion, )
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from app.clientes.models import ClienteUser
@@ -26,11 +26,6 @@ class ClienteTipoInvestigacionAdmin(admin.ModelAdmin):
 @admin.register(ClienteSolicitud)
 class ClienteSolicitudAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(ClienteSolicitudFactura)
-class ClienteSolicitudFacturaAdmin(admin.ModelAdmin):
-    list_display = ["descripcion", "monto", "cliente_solicitud"]
 
 
 @admin.register(ClienteSolicitudCandidato)

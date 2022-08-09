@@ -1,20 +1,31 @@
+from app.cobranza.new_views.cobranzas_investigaciones import (
+    InvestigacionFacturaArchivosUpdateView, InvestigacionFacturaArchivosCreateView,
+    InvestigacionFacturalDetailView, InvestigacionFacturaListView,
+    InvestigacionFacturaUpdateView)
+from app.cobranza.views import (cobranza_facturas, cobranza_investigacion,
+                                eliminar_cobranza_investigacion,
+                                generar_reporte, panel, reset_filtros,
+                                search_cobranza)
 from django.conf.urls import include, url
 from django.urls import path
-
-from app.cobranza.views import panel, generar_reporte, search_cobranza, reset_filtros, cobranza_investigacion, cobranza_facturas, eliminar_cobranza_investigacion
-
-from app.cobranza.new_views.cobranzas import ClienteSolicitudesCanditatosFacturasListView, ClienteSolicitudDetaiFacturalView, ClienteSolicitudFacturaUpdateView
 
 # app_name = "cobranza_app"
 
 urlpatterns = [
 
     path('facturas/', 
-         ClienteSolicitudesCanditatosFacturasListView.as_view(), name='cobranza_facturas_list'),
+         InvestigacionFacturaListView.as_view(), name='cobranza_facturas_list'),
     path('facturas/detail/<int:pk>/', 
-         ClienteSolicitudDetaiFacturalView.as_view(), name='cobranza_facturas_detail'),
-    path('facturas/update/<int:solicitud_id>/<int:pk>/', 
-         ClienteSolicitudFacturaUpdateView.as_view(), name='cobranza_facturas_update'),
+         InvestigacionFacturalDetailView.as_view(), name='cobranza_facturas_detail'),
+    path('facturas/update/<int:investigacion_id>/<int:pk>/', 
+         InvestigacionFacturaUpdateView.as_view(), name='cobranza_facturas_update'),
+    
+	# archivos de facturas
+	path('facturas/archivos/create/<int:investigacion_id>/', 
+         InvestigacionFacturaArchivosCreateView.as_view(), name='cobranza_facturas_archivo_create'),
+	path('facturas/archivos/update/<int:investigacion_id>/<int:pk>/', 
+         InvestigacionFacturaArchivosUpdateView.as_view(), name='cobranza_facturas_archivo_update'),
+
 
 	url(r'^$', panel, name='panel_cobranza'),
 	url(r'^exito/$', panel, name='panel_cobranza'),

@@ -1,6 +1,6 @@
 from multiprocessing import context
 
-from app.clientes.models import ClienteSolicitudFactura, ClienteSolicitudCandidato, ClienteSolicitud, Cliente, ClienteTipoInvestigacion
+from app.clientes.models import ClienteSolicitudCandidato, ClienteSolicitud, Cliente, ClienteTipoInvestigacion
 from app.compania.forms import *
 from app.compania.models import Compania
 from app.core.models import Estado, Municipio, UserMessage
@@ -1613,9 +1613,9 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         cliente_solicitud_candidato = ClienteSolicitudCandidato.objects.get(pk=inv.cliente_solicitud_candidato_id)
 
         for csc in cliente_solicitud_candidato.tipo_investigacion.all():
-            factura = ClienteSolicitudFactura()
-            factura.cliente_solicitud_id = inv.cliente_solicitud_id
-            factura.cliente_solicitud_candidato_id = inv.cliente_solicitud_candidato_id
+            factura = InvestigacionFactura()
+            factura.investigacion_id = investigacion_id
+            #factura.cliente_solicitud_candidato_id = inv.cliente_solicitud_candidato_id
             factura.cantidad = 1
             factura.descripcion = csc
             factura.monto = csc.costo
@@ -1628,4 +1628,4 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         inv.investigacion_completada = True
         inv.save()
 
-        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+        return redirect('investigaciones:investigacion_detail', self.kwargs['investigacion_id'])

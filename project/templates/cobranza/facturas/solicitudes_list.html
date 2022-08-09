@@ -63,31 +63,31 @@
                                     <thead>
                                         <tr>
                                             <th>Contacto</th>
-                                            <th>Fecha de creación</th>
-                                            <th>Enviado</th>
-                                            <th>Fecha de Envio</th>
-                                            <th>Nro de Candidatos</th>
-                                            <th>Candidatos Completados</th>
+                                            <th>Candidato</th>
+                                            <th>Total facturado</th>
+                                            <th>Fecha recibido</th>
+                                            <th>Fecha enviado</th>
+                                            <th>Fecha completado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for solicitud in cliente_solicitudes %}
+                                        {% for solicitud in investigaciones_completadas %}
                                         <tr>
-                                            <td>{{ solicitud }}</td>
-                                            <td>{{ solicitud.fecha_solicitud }}</td>
+                                            <td>{{ solicitud.cliente_solicitud }}</td>
                                             <td>
-                                                <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>
+                                                {{ solicitud.cliente_solicitud_candidato.nombre }}
+                                                {{ solicitud.cliente_solicitud_candidato.apellido }}
                                             </td>
                                             <td>
-                                                {% if solicitud.enviado %}
-                                                {{ solicitud.fecha_actualizacion }}
-                                                {% else %}
-                                                -
-                                                {% endif %}
+                                                <div class="float-end">{{ solicitud.get_total_facturado }}</div>
                                             </td>
-                                            <td>{{ solicitud.get_candidatos_count }}</td>
-                                            <td>{{ solicitud.get_candidatos_completados_count }}</td>
+                                            <td>
+                                                
+                                                {{ solicitud.fecha_recibido }}   {{ solicitud.hora }}
+                                                                                            </td>
+                                            <td>{{ solicitud.fecha_entrega }}</td>
+                                            <td>{{ solicitud.last_modified }}</td>
                                             <td>
 
                                                 <div class="d-flex flex-wrap gap-2">

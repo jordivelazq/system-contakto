@@ -44,18 +44,59 @@
                         <div class="card-header">
                             <h4 class="card-title">Solicitud # {{cliente_solicitud.pk}}</h4>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <p class="card-title-desc">
-                                    Fecha de solicitud: {{cliente_solicitud.fecha_solicitud}}
+                                       Fecha de solicitud: {{ cliente_solicitud.fecha_recibido }} <br>
+                                       Finalizado: {{ cliente_solicitud.last_modified }}<br>
+                                    </p>
+
+                                    <p class="card-title-desc">
+                                    Dirección fiscal:
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.direccion}}<br>
+                                    Regimen fiscal:
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.regimen_fiscal}}<br>
+                                    RCF:
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.rfc}}<br>
+                                    
+                                   
+                                    </p>
+
+                                    <p class="card-title-desc">
+
+                                       <br>
+                                      
+                                        {% if inv_factura_archivos %}
+
+                                            {% if inv_factura_archivos.archivo_pdf %}
+                                            <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                    onclick="window.location.href='/media/{{inv_factura_archivos.archivo_pdf}}';">
+                                                    <i class="bx bxs-user-detail label-icon"></i>Descargar PDF</button>
+                                            {% endif %}
+                                        
+
+                                            {% if inv_factura_archivos.archivo_xml %}
+                                            <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                    onclick="window.location.href='/media/{{inv_factura_archivos.archivo_xml}}';">
+                                                    <i class="bx bxs-user-detail label-icon"></i>Descargar XML</button>
+                                            {% endif %}
+                                            
+                                            <br><br>
+
+                                            <a href="{% url 'cobranza_facturas_archivo_update' cliente_solicitud.pk inv_factura_archivos.pk %}"
+                                                class="btn btn-primary waves-effect btn-label waves-light">
+                                                <i class="bx bxs-user-detail label-icon"></i> Actualizar archivos fiscales</a>       
+                                                
+                                        
+                                        {% else %}
+                                            <a href="{% url 'cobranza_facturas_archivo_create' cliente_solicitud.pk %}"
+                                            class="btn btn-primary waves-effect btn-label waves-light">
+                                            <i class="bx bxs-user-detail label-icon"></i> Crear archivos fiscales</a>       
+                                             
+                                        {% endif %}
+                                            
                                     </p>
                                 </div>
-
-                                <div class="col-lg-6 text-end">
-                                    
-                                    <a href="#"
-                                    class="btn btn-success waves-effect btn-label waves-light"> <i class="bx bx-printer label-icon"></i>Imprimir factura</a>
-                                    
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="card-body">
@@ -98,15 +139,13 @@
                                         {% for candidato in cliente_solicitud_candidatos_facturas %}
                                         <tr>
                                             <td>{{ candidato.cantidad }}</td>
-                                            <td>{{ candidato.descripcion }} / ( Candidato: {{candidato.cliente_solicitud_candidato.nombre}} {{candidato.cliente_solicitud_candidato.apellido}})</td>
+                                            <td>{{ candidato.descripcion }} / ( Candidato: {{candidato.investigacion.candidato.nombre}} {{candidato.investigacion.candidato.apellido}})</td>
                                             <td><div class="float-end">{{ candidato.monto }}</div></td>
                                             <td><div class="float-end">{{ candidato.descuento }}</div></td>
                                             <td><div class="float-end">{{ candidato.get_subtotal }}</div></td>
                                            
                              
-                                            <td>
-                                                <i class="fa fa-{% if candidato.completado %}check{% else %}times{%endif%}"></i>
-                                            </td>
+                                            
                                            
                                             <td>
                                                 <div class="d-flex flex-wrap gap-2">
