@@ -76,18 +76,6 @@ class ClienteSolicitud(models.Model):
         candidatos_completados = Investigacion.objects.filter(cliente_solicitud_id=self.pk, investigacion_completada=True).count()
         return candidatos_completados
 
-    @property
-    def get_total_facturado(self):
-
-        total = 0
-
-        cliente_solicitud_facturas = ClienteSolicitudFactura.objects.filter(cliente_solicitud_id=self.pk)
-       
-        for f in cliente_solicitud_facturas:
-            print(f.monto)
-            total += (f.monto * f.cantidad) - f.descuento
-        return total
-
 
     def __str__(self):
         return u'%s  (%s)' % (self.cliente, self.cliente.email)
@@ -160,21 +148,4 @@ class ClienteSolicitudCandidato(models.Model):
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
-
-class ClienteSolicitudFactura(models.Model):
-    cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, related_name="cliente_solicitud_factura", blank=True, null=True)
-    cliente_solicitud_candidato = models.ForeignKey(ClienteSolicitudCandidato, on_delete=models.CASCADE, related_name="cliente_solicitud_candidato_factura", blank=True, null=True)
-
-    cantidad = models.PositiveSmallIntegerField(default=0)
-    descripcion = models.CharField(max_length=140)
-    monto = models.FloatField(default=0)
-    descuento = models.FloatField(default=0)
-    
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_actualizacion = models.DateTimeField(auto_now=True)
-
-
-    @property
-    def get_subtotal(self):
-        return (self.monto * self.cantidad) - self.descuento
         
