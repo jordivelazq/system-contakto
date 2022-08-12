@@ -10,6 +10,10 @@
         <p>
           {{entrevista_investigacion.conclusiones|print_text|safe}}
 
+          {% if investigacion.observaciones_generales %}
+            <br />
+            {{investigacion.observaciones_generales|print_text|safe}}
+          {% endif %}
         </p>
 
         <table>
