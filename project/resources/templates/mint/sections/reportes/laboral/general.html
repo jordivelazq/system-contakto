@@ -35,20 +35,6 @@
       {% include 'sections/reportes/compartido/demanda.html' %}
     </div>
 
-    <div class="general-observations">
-      <h3>OBSERVACIONES SOBRE LA INVESTIGACIÓN</h3>
-      <div>
-        {% if investigacion.observaciones_generales %}
-          {{investigacion.observaciones_generales|print_text|safe}}
-        {% endif %}
-
-        {% if investigacion.tipo_investigacion_texto %}
-          <br /><br />
-          OBSERVACIÓN: {{investigacion.tipo_investigacion_texto|print_text|safe}}
-        {% endif %}
-      </div>
-    </div>
-
     <div class="footer">
       <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
       <i>2</i>

@@ -146,7 +146,7 @@ def editar(request, compania_id, investigacion_id='', trayectoria_id=''):
 		form = CompaniaForm(request.POST, instance=company)
 		if form.is_valid():
 			form.save()
-			b = Bitacora(action='empresas-editada: ' + str(request.POST.get('name')), user=request.user)
+			b = Bitacora(action='empresas-editada: ' + str(company), user=request.user)
 			b.save()
 			if investigacion_id:
 				return HttpResponseRedirect('/candidato/investigacion/'+str(investigacion_id)+'/editar/trayectoria/'+str(trayectoria_id)+'/exito')
