@@ -86,6 +86,99 @@ class InvestigacionCandidatoViewSet(mixins.ListModelMixin, viewsets.GenericViewS
         return qs
 
 
+# Ejecutivo de visitas domiciliarias
+class InvestigacionEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visitas_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEjecutivoVisitaTemplateView,
+                        self).get_context_data(**kwargs)
+        context['title'] = 'Investigaciones / Ejecutivo de visitas domiciliarias'
+
+        return context
+
+
+class InvestigacionEjecutivoVisitaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Investigacion.objects.all()
+    serializer_class = InvestigacionSerializer
+
+    def get_queryset(self):
+        qs = self.queryset.filter(
+            cliente_solicitud__isnull=False,
+            candidato_validado=True,
+            # agente__isnull=True,
+            # coordinador_visitas_id=self.request.user.pk
+        ).order_by("cliente_solicitud")
+
+        return qs
+
+
+class InvestigacionEjecutivoVisitaDetailView(DetailView):
+
+    '''Detalle general para el Coorsinador de visitas'''
+
+    # required
+    group_required = u"Coord. de Atención a Clientes"
+    raise_exception = True
+
+    model = Investigacion
+    context_object_name = 'investigacion'
+    template_name = 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEjecutivoVisitaDetailView,
+                        self).get_context_data(**kwargs)
+
+        inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+        context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(
+            investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+        
+
+        return context
+
+
+class InvestigacionEjecutivoVisitaUpdateView(UpdateView):
+
+    # required
+    group_required = u"Coord. de Atención a Clientes"
+    raise_exception = True
+
+    model = Investigacion
+    fields = ['ejecutivo_visitas']
+    # success_url = reverse_lazy('investigaciones:investigaciones_list')
+    template_name = 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEjecutivoVisitaUpdateView, self).get_context_data(**kwargs)
+
+        return context
+
+    def form_valid(self, form):
+
+        self.object = form.save(commit=False)
+        self.object.save()
+
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = self.object
+        bitacora.servicio = "Coordinador de visitas"
+        bitacora.observaciones = "Actualizacion de asignación de gestor de visitas"
+        bitacora.save()
+
+        return super(InvestigacionEjecutivoVisitaUpdateView, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El ejecutivo de visita ha sido actualizado')
+        return reverse('investigaciones:investigaciones_ejecutivo_visitas_detail', kwargs={"pk": self.kwargs['pk']})
+
+
+# --------------------------------------------------------------
+# Cambiar coordinador de visita por ejecutivo
 class InvestigacionCoordiandorVisitaTemplateView(LoginRequiredMixin, TemplateView):
 
     template_name = 'investigaciones/coordinador_visitas/investigaciones_coordinador_visitas_list.html'
@@ -98,12 +191,13 @@ class InvestigacionCoordiandorVisitaTemplateView(LoginRequiredMixin, TemplateVie
         return context
 
 
+
 class InvestigacionCoodinadorVisitaDetailView(DetailView):
 
     '''Detalle general para el Coorsinador de visitas'''
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -122,7 +216,7 @@ class InvestigacionCoodinadorVisitaDetailView(DetailView):
             investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
 
         context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
-        print(context['demandas'])
+
         try:
             gInv = GestorInvestigacion.objects.get(
                 investigacion=inv)
@@ -137,7 +231,7 @@ class InvestigacionCoodinadorVisitaDetailView(DetailView):
 class InvestigacionCoordinadorVisitaCreateView(CreateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = GestorInvestigacion
@@ -187,7 +281,7 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
 class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = GestorInvestigacion
@@ -275,7 +369,7 @@ class InvestigacionDetailView(DetailView):
     '''Detalle general para el Coorsinador de Ejecutivos'''
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -308,7 +402,7 @@ class InvestigacionEntrevistaDetailView(DetailView):
     '''Detalle general para el Coorsinador de Ejecutivos'''
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -316,14 +410,15 @@ class InvestigacionEntrevistaDetailView(DetailView):
     template_name = 'investigaciones/entrevistas/investigaciones_entrevista_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEntrevistaDetailView,
-                        self).get_context_data(**kwargs)
+        context = super(InvestigacionEntrevistaDetailView, self).get_context_data(**kwargs)
 
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
 
         persona = Persona.objects.get(pk=inv.candidato.pk)
 
         telefonos = Telefono.objects.filter(persona=persona)
+
+        context['title'] = 'Investigaciones / Detalle de entrevista'
 
         context['telefonos'] = telefonos
 
@@ -355,7 +450,7 @@ class InvestigacionEntrevistaDetailView(DetailView):
 class InvestigacionUpdateView(UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -365,8 +460,7 @@ class InvestigacionUpdateView(UpdateView):
     template_name = 'investigaciones/investigacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionUpdateView,
-                        self).get_context_data(**kwargs)
+        context = super(InvestigacionUpdateView, self).get_context_data(**kwargs)
 
         return context
 
@@ -378,8 +472,7 @@ class InvestigacionUpdateView(UpdateView):
         self.object.status_general = 0
         self.object.save()
 
-        messages.add_message(self.request, messages.SUCCESS,
-                             'La investigación ha sido actualizada')
+        messages.add_message(self.request, messages.SUCCESS, 'La investigación ha sido actualizada')
 
         super(InvestigacionUpdateView, self).form_valid(form)
 
@@ -389,22 +482,21 @@ class InvestigacionUpdateView(UpdateView):
 class InvestigacionCoordVisitaUpdateView(UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
     fields = ['coordinador_visitas', ]
-    # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordVisitaUpdateView,
-                        self).get_context_data(**kwargs)
+        context = super(InvestigacionCoordVisitaUpdateView,  self).get_context_data(**kwargs)
+
+        context['title'] = 'Investigaciones - actualización de coordinador de visita'
 
         context['tipo_coordinador'] = "visitas"
         context['investigacion_id'] = self.kwargs['pk']
-        context['form'].fields['coordinador_visitas'].queryset = User.objects.filter(
-            groups__name='Coordinador de Visitas')
+        context['form'].fields['coordinador_visitas'].queryset = User.objects.filter(groups__name='Coordinador de visitas domiciliarias')
 
         return context
 
@@ -463,7 +555,7 @@ class InvestigacionCoordVisitaUpdateView(UpdateView):
 class InvestigacionCoordPsicometricoUpdateView(UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -472,13 +564,13 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
     template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordPsicometricoUpdateView,
-                        self).get_context_data(**kwargs)
+        context = super(InvestigacionCoordPsicometricoUpdateView, self).get_context_data(**kwargs)
+
+        context['title'] = 'Investigaciones - actualización de coordinador de psicometrico'
 
         context['tipo_coordinador'] = "psicométrico"
         context['investigacion_id'] = self.kwargs['pk']
-        context['form'].fields['coordinador_psicometrico'].queryset = User.objects.filter(
-            groups__name='Coordinador Psicometrico')
+        context['form'].fields['coordinador_psicometrico'].queryset = User.objects.filter(groups__name='Coordinador Psicometrico')
 
         return context
 
@@ -803,7 +895,7 @@ class ClienteSolicitudCreateTemplateView(GroupRequiredMixin, TemplateView):
 class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
 
     # required
-    group_required = [u"Client", u"SuperAdmin"]
+    group_required = [u"Client", u"Coord. de Atención a Clientes"]
     raise_exception = True
 
     model = ClienteSolicitud
@@ -1227,7 +1319,7 @@ class InvestigacionCoordinadorPsicometricoDetailView(DetailView):
     '''Detalle general para el Coorsinador de visitas'''
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -1257,7 +1349,7 @@ class InvestigacionCoordinadorPsicometricoDetailView(DetailView):
 class InvestigacionCoordinadorPsicometricoCreateView(CreateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Psicometrico
@@ -1371,7 +1463,7 @@ class InvestigacionEjecutivoPsicometricoList(GroupRequiredMixin, ListView):
 class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Psicometrico
@@ -1424,7 +1516,7 @@ class InvestigacionEjecutivoPsicometricoUpdateView(UpdateView):
 class InvestigacionEjecutivoPsicometricoDetailView(DetailView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Psicometrico
@@ -1462,7 +1554,7 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
     '''Detalle general para el Coorsinador de Ejecutivos'''
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Investigacion
@@ -1492,7 +1584,7 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
 class InvestigacionCoordinadorDemandasCreateView(CreateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Demanda
@@ -1534,7 +1626,7 @@ class InvestigacionCoordinadorDemandasCreateView(CreateView):
 class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
 
     model = Demanda
@@ -1576,7 +1668,7 @@ class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
 class InvestigacionCoordinadorDemandasDeleteView(GroupRequiredMixin, DeleteView):
 
     # required
-    group_required = [u"Admin", u"SuperAdmin"]
+    group_required = [u"Admin", u"Coord. de Atención a Clientes"]
     raise_exception = True
 
     model = Demanda
@@ -1629,3 +1721,53 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         inv.save()
 
         return redirect('investigaciones:investigacion_detail', self.kwargs['investigacion_id'])
+
+
+class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin, TemplateView):
+
+    # # required
+    # group_required = [u"Client", ]
+    # raise_exception = True
+
+    template_name = ''
+
+    def get(self, request, **kwargs):
+        investigacion_id = self.kwargs['investigacion_id']
+        inv = Investigacion.objects.get(id=investigacion_id)
+        
+        inv.laboral_completado = True
+        inv.save()
+
+        return redirect('investigaciones:investigacion_detail', self.kwargs['investigacion_id'])
+
+
+class InvestigacionCoordinadorCompletarEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
+
+    template_name = ''
+
+    def get(self, request, **kwargs):
+        investigacion_id = self.kwargs['investigacion_id']
+        inv = Investigacion.objects.get(id=investigacion_id)
+        
+        inv.entrevista_from_completado = True
+        inv.save()
+
+        return redirect('investigaciones:investigaciones_entrevista_detail', seccion_entrevista='info_personal', investigacion_id=self.kwargs['investigacion_id'])
+    
+
+class InvestigacionCoordinadorCompletarAdjuntosTemplateView(LoginRequiredMixin, TemplateView):
+
+    # # required
+    # group_required = [u"Client", ]
+    # raise_exception = True
+
+    template_name = ''
+
+    def get(self, request, **kwargs):
+        investigacion_id = self.kwargs['investigacion_id']
+        inv = Investigacion.objects.get(id=investigacion_id)
+        
+        inv.entrevista_app_completado = True
+        inv.save()
+
+        return redirect('investigaciones:investigaciones_adjuntos_detail', self.kwargs['investigacion_id'])

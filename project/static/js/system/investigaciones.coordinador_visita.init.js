@@ -13,17 +13,17 @@ $(document).ready(function () {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
         columnDefs: [
-            {
-                targets: 5,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
+            // {
+            //     targets: 5,
+            //     className: 'dt-body-center', 
+            //     render: function (data, type, row) {
+            //         if (data==true){
+            //             return '<i class="fa fa-check"></i>';
+            //         }else{
+            //             return '<i class="fa fa-times"></i>';
+            //         }
+            //     },
+            // },
             {
                 targets: [6],
                 render: function (data) {
@@ -72,7 +72,8 @@ $(document).ready(function () {
             },
             {
                 "title": "Ejecutivo de Visita asignado",
-                "data": "psicometrico_ejecutivo_asignado",
+                "data": "agente.email",
+                "defaultContent": "No asignado",
             },
 
             {

@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Investigaciones - Coordinador de ejecutivos</h4>
+                        <h4 class="mb-sm-0 font-size-18">Investigaciones</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -32,7 +32,7 @@
                                         Coord. Atn. Ctes
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item active">Detalle de investigación</li>
+                                <li class="breadcrumb-item active">Detalles</li>
                             </ol>
                         </div>
 
@@ -46,7 +46,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Detalle de investigación</h3>
+                            <h3 class="card-title">Coordinación de atención al cliente - Detalle</h3>
+                            <br>
 
                             <div class="row">
 
@@ -291,11 +292,24 @@
                         <div class="card-body">
                             <h3 class="card-title">
 
-                                <!-- <button type="button" class="btn btn-soft-success waves-effect waves-light"><i class="bx bx-check-double font-size-16 align-middle"></i></button> -->
+
+
+                                {% if investigacion.laboral_completado %}
+
+                                <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                        class="bx bx-check-double font-size-16 align-middle"></i></button>
+
+                                {% else %}
+
                                 <button type="button" class="btn btn-soft-danger waves-effect waves-light"
                                     data-bs-toggle="popover" title="Data incompleta"
-                                    data-bs-content="Se debe agragar al menos una investigacion laboral "><i
+                                    data-bs-content="La investigación laboral no ha sido completada"><i
                                         class="bx bx-block font-size-16 align-middle"></i></button>
+
+                                {% endif %}
+
+                                <!-- <button type="button" class="btn btn-soft-success waves-effect waves-light"><i class="bx bx-check-double font-size-16 align-middle"></i></button> -->
+                                
                                 Investigación Laboral
 
                             </h3>
@@ -427,17 +441,15 @@
 
                             Observaciones de Estatus de Inv. Laboral (visible en conclusión pdf)
 
-
                             <br /><br />
 
-
-
-                            <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
-                                class="btn btn-primary waves-effect waves-light">
-                                <i class="bx bx-plus font-size-16 align-middle me-2"></i>
-                                Completar la investigación laboral
-                            </a>
-
+                            {% if not investigacion.laboral_completado %}                            
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-laboral-pregunta">
+                                <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
+                            </button>
+                            {% else %}
+                            <h5>La investigación laboral ha sido completada</h5>
+                            {% endif %}
 
 
                         </div>
@@ -512,7 +524,7 @@
 
             </div>
 
-            <div class="row" id="estado_investigacion">
+            <div class="row" id="estado_investigacion"> 
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -587,7 +599,7 @@
                                     {% if investigacion.laboral %}
                                     <strong>Investigación laboral:</strong><br>
 
-                                    Formulario de entrevista:
+                                    Invertigación laboral: 
 
                                     {% if investigacion.laboral_completado %}
                                     <i class="fa fa-check"></i>
@@ -601,13 +613,6 @@
 
                                     {% if investigacion.psicometrico %}
                                     <strong>Investigación Psicométrica:</strong><br>
-
-                                    Ejecutivo psicometrico asignado:
-                                    {% if investigacion.psicometrico_ejecutivo_asignado %}
-                                    <i class="fa fa-check"></i>
-                                    {% else %}
-                                    <i class="fa fa-times"></i>
-                                    {% endif %}
 
                                     Datos psicométrico completados:
 

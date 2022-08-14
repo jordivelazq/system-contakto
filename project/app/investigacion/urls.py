@@ -37,12 +37,21 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   PersonaTrajectoriaComercialCrearTemplateView,
                   PersonaTrajectoriaComercialDeleteTemplateView,
                   PersonaTrayectoriaCrearTemplateView,
-                  PersonaTrayectoriaEditTemplateView)
+                  PersonaTrayectoriaEditTemplateView,
+                  InvestigacionEjecutivoVisitaTemplateView,
+                  InvestigacionEjecutivoVisitaViewSet,
+                  InvestigacionEjecutivoVisitaDetailView,
+                  InvestigacionEjecutivoVisitaUpdateView,
+                  InvestigacionCoordinadorCompletarInvLaboralTemplateView,
+                  InvestigacionCoordinadorCompletarEntrevistaTemplateView,
+                  InvestigacionCoordinadorCompletarAdjuntosTemplateView,
+                  )
 
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
 router.register(r'investigaciones_candidatos', InvestigacionCandidatoViewSet)
 router.register(r'investigaciones_coordinador_visita', InvestigacionCoodinadorVisitaViewSet)
+router.register(r'investigaciones_ejecutivo_visita', InvestigacionEjecutivoVisitaViewSet)
 router.register(r'investigaciones_entrevista', InvestigacionEntrevistaViewSet)
 router.register(r'investigaciones_psicometrico', InvestigacionCoordinadorPsicometricoViewSet)
 router.register(r'investigaciones_adjuntos', InvestigacionAdjuntosViewSet)
@@ -90,7 +99,6 @@ urlpatterns = [
          name='investigacion_persona_trayectoria_comercial_delete'
          ),
 
-    
     # Coordinador de Ejecutivo Asignaciones Coordinador de visitas
     path('investigaciones/coordinador_ejecutivo/update_coord_visita/<int:pk>/', 
          InvestigacionCoordVisitaUpdateView.as_view(), name='investigaciones_coordinador_ejecutivo_update_coord_visita'),
@@ -99,6 +107,16 @@ urlpatterns = [
     path('investigaciones/coordinador_ejecutivo/update_coord_psicometrico/<int:pk>/', 
          InvestigacionCoordPsicometricoUpdateView.as_view(), name='investigaciones_coordinador_ejecutivo_update_coord_psicometrico'),
 
+     # asignacion de ejecutivos de visitas
+     path('investigaciones/ejecutivo-visitas', 
+         InvestigacionEjecutivoVisitaTemplateView.as_view(), name='investigaciones_ejecutivo_visitas_list'),
+     path('investigaciones/ejecutivo-visitas/detail/<int:pk>/',
+          InvestigacionEjecutivoVisitaDetailView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
+     
+     path('investigaciones/ejecutivo-visitas/update/<int:pk>/',
+         InvestigacionEjecutivoVisitaUpdateView.as_view(), name='investigaciones_ejecutivo_visitas_update'),
+     
+
     # Asignacion de coordinadores de visita
     path('investigaciones/coordinador-visitas', 
          InvestigacionCoordiandorVisitaTemplateView.as_view(), name='investigaciones_coordinador_visitas_list'),
@@ -106,7 +124,7 @@ urlpatterns = [
          InvestigacionCoodinadorVisitaDetailView.as_view(), name='investigaciones_coordinador_visitas_detail'),
     path('investigaciones/coordinador-visitas/create/<int:investigacion_id>/',
          InvestigacionCoordinadorVisitaCreateView.as_view(), name='investigaciones_coordinador_visitas_create'),
-    path('investigaciones/coordinador-visitas/create/<int:investigacion_id>/<int:pk>/',
+    path('investigaciones/coordinador-visitas/update/<int:investigacion_id>/<int:pk>/',
          InvestigacionCoordinadorVisitaUpdateView.as_view(), name='investigaciones_coordinador_visitas_update'),
 
 
@@ -136,7 +154,7 @@ urlpatterns = [
     path('investigaciones/ejecutivo-de-cuenta/detail/<int:pk>/',
          InvestigacionEjecutivoLaboralDetailView.as_view(), name='investigacion_ejecutivo_laboral_detail'),
 
-     # Entrvistas de investigaciones
+     # Entrevistas de investigaciones
      # Llenado del formulario de entrevistas
      path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
          name='investigaciones_entrevista_list'),
@@ -147,10 +165,8 @@ urlpatterns = [
      # Adjuntos de Investigaciones
      path('investigaciones/adjuntos', InvestigacionAdjuntosTemplateView.as_view(),
          name='investigaciones_adjuntos_list'),
-
      path('investigaciones/adjuntos/detail/<int:pk>/',
          InvestigacionAdjuntosDetailView.as_view(), name='investigaciones_adjuntos_detail'),
-
      path('investigaciones/adjuntos/detail/update/<int:investigacion_id>/',
          InvestigacionAdjuntosFormTemplateView.as_view(), name='investigaciones_adjuntos_update'),
 
@@ -165,5 +181,16 @@ urlpatterns = [
      # Completar la investigacion
      path('investigaciones/completar/<int:investigacion_id>/',
          InvestigacionCoordinadorCompletarTemplateView.as_view(), name='investigaciones_completar'),
+
+     path('investigaciones/completar_inv_laboral/<int:investigacion_id>/',
+         InvestigacionCoordinadorCompletarInvLaboralTemplateView.as_view(), name='investigaciones_completar_inv_laboral'),
+
+     path('investigaciones/completar_entrevista/<int:investigacion_id>/',
+         InvestigacionCoordinadorCompletarEntrevistaTemplateView.as_view(), name='investigaciones_completar_inv_laboral'),
+
+     path('investigaciones/completar_adjuntos/<int:investigacion_id>/',
+         InvestigacionCoordinadorCompletarAdjuntosTemplateView.as_view(), name='investigaciones_completar_adjuntos'),
+
+
 
 ]

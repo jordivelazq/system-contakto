@@ -20,7 +20,7 @@ from ..forms.clientes_users_form import ClienteUserForm, ClienteUserEditForm, Cl
 class ClienteUserCreateView(GroupRequiredMixin, CreateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteUser
@@ -55,7 +55,7 @@ class ClienteUserCreateView(GroupRequiredMixin, CreateView):
 class ClienteUserDetailView(GroupRequiredMixin, DetailView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteUser
@@ -70,7 +70,7 @@ class ClienteUserDetailView(GroupRequiredMixin, DetailView):
 class ClienteUserUpdateView(GroupRequiredMixin, UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteUser
@@ -98,7 +98,7 @@ class ClienteUserUpdateView(GroupRequiredMixin, UpdateView):
 class ClienteUserUpdatePasswdView(GroupRequiredMixin, UpdateView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteUser
@@ -132,7 +132,7 @@ class ClienteUserUpdatePasswdView(GroupRequiredMixin, UpdateView):
 class ClienteUserDelete(GroupRequiredMixin, DeleteView):
 
     # required
-    group_required = u"SuperAdmin"
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteUser
