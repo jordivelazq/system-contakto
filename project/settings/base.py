@@ -119,6 +119,9 @@ TEMPLATES = [
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
             ],
+            'libraries': { # Adding this section should work around the issue.
+                'custom_tags' : 'app.core.templatetags.core_extras',#to add new tags module.
+            },
         },
     },
 ]

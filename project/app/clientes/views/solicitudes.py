@@ -38,7 +38,7 @@ class InitialClient(LoginRequiredMixin, TemplateView):
 class ClienteSolicitudListView(GroupRequiredMixin, ListView):
 
     # required
-    group_required = [u"Admin", u"SuperAdmin"]
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteSolicitud
@@ -73,7 +73,7 @@ class ClienteSolicitudListView(GroupRequiredMixin, ListView):
 class ClienteSolicitudCreateTemplateView(GroupRequiredMixin, TemplateView):
 
     # required
-    group_required = [u"Client", ]
+    group_required = u"Cliente"
     raise_exception = True
 
     template_name = ''
@@ -118,7 +118,7 @@ class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
 class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
 
     # required
-    group_required = [u"Client", ]
+    group_required = u"Cliente"
     raise_exception = True
 
     template_name = ''
@@ -297,7 +297,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
                 'texto_url_detalles': 'Detalles de la solicitud',
                 'email_coordinadores_de_ejecutivos': ['e@01.com', ],
             }
-            send_email('notificacion_coordinador_ejecutivo', mail_data)
+            # send_email('notificacion_coordinador_ejecutivo', mail_data)
 
             # registrar los mensajes
             msj = UserMessage()
@@ -354,7 +354,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
 class ClienteSolicitudDeleteView(GroupRequiredMixin, DeleteView):
 
     # required
-    group_required = [u"Admin", u"SuperAdmin"]
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteSolicitud
@@ -377,7 +377,7 @@ class ClienteSolicitudDeleteView(GroupRequiredMixin, DeleteView):
 class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
 
     # required
-    group_required = [u"Admin", u"SuperAdmin"]
+    group_required = u"Cliente"
     raise_exception = True
 
     # model = ClienteSolicitudCandidato
@@ -416,7 +416,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
 class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
 
     # required
-    group_required = [u"Admin", u"SuperAdmin"]
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteSolicitudCandidato
@@ -445,7 +445,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
 class ClienteSolicitudCandidatoDeleteView(GroupRequiredMixin, DeleteView):
 
     # required
-    group_required = [u"Admin", u"SuperAdmin"]
+    group_required = u"Cliente"
     raise_exception = True
 
     model = ClienteSolicitudCandidato

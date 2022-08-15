@@ -66,6 +66,7 @@ class PsicometricoSerializer(serializers.ModelSerializer):
 class InvestigacionSerializer(serializers.ModelSerializer):
 
     agente = UserSerializer(read_only=True)
+    ejecutivo_visitas = UserSerializer(read_only=True)
     candidato = PersonaSerializer(read_only=True)
     compania = CompaniaSerializer(read_only=True)
     sucursal = SucursalesSerializer(read_only=True)

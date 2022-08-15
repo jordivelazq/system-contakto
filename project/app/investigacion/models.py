@@ -60,6 +60,7 @@ class Investigacion(models.Model):
     
     agente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     coordinador_visitas = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_visitas')
+    ejecutivo_visitas = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='ejecutivo_visitas')
     coordinador_psicometrico = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_psometrico')
     
     cliente_solicitud = models.ForeignKey(ClienteSolicitud, on_delete=models.CASCADE, blank=True, null=True)

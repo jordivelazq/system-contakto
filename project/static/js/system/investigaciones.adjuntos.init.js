@@ -13,41 +13,41 @@ $(document).ready(function () {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
         columnDefs: [
+            // {
+            //     targets: 5,
+            //     className: 'dt-body-center', 
+            //     render: function (data, type, row) {
+            //         if (data==true){
+            //             return '<i class="fa fa-check"></i>';
+            //         }else{
+            //             return '<i class="fa fa-times"></i>';
+            //         }
+            //     },
+            // },
+            // {
+            //     targets: 6,
+            //     className: 'dt-body-center', 
+            //     render: function (data, type, row) {
+            //         if (data==true){
+            //             return '<i class="fa fa-check"></i>';
+            //         }else{
+            //             return '<i class="fa fa-times"></i>';
+            //         }
+            //     },
+            // },
+            // {
+            //     targets: 7,
+            //     className: 'dt-body-center', 
+            //     render: function (data, type, row) {
+            //         if (data==true){
+            //             return '<i class="fa fa-check"></i>';
+            //         }else{
+            //             return '<i class="fa fa-times"></i>';
+            //         }
+            //     },
+            // },
             {
-                targets: 5,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-            {
-                targets: 6,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-            {
-                targets: 7,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-            {
-                targets: [8],
+                targets: [5],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
@@ -91,25 +91,25 @@ $(document).ready(function () {
                 "data": "compania.nombre",
                 "responsivePriority": 1,
             },
-            {
-                "title": "Psicométrico",
-                "data": "psicometrico",
-            },
-            {
-                "title": "Ejecutivo Asignado",
-                "data": "psicometrico_ejecutivo_asignado",
-            },
-            {
-                "title": "Datos Psicometricos completados",
-                "data": "psicometrico_ejecutivo_asignado",
-            },
+            // {
+            //     "title": "Psicométrico",
+            //     "data": "psicometrico",
+            // },
+            // {
+            //     "title": "Ejecutivo Asignado",
+            //     "data": "psicometrico_ejecutivo_asignado",
+            // },
+            // {
+            //     "title": "Datos Psicometricos completados",
+            //     "data": "psicometrico_ejecutivo_asignado",
+            // },
             {
                 "title": "Fecha de Registro",
                 "data": "fecha_registro",
             }
 
         ],
-        "order": [[7, "desc"]],
+        "order": [[5, "desc"]],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

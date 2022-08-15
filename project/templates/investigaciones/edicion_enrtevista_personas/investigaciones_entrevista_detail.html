@@ -3,6 +3,10 @@
 
 {% block title %}{{ title }}{% endblock title %}
 
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
 
 {% block content %}
 
@@ -283,6 +287,16 @@
                                     {% endif %}
                                 </div>
 
+                                <br>
+
+                                {% if not investigacion.entrevista_app_completado %}                            
+                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-adjuntos-pregunta">
+                                    <i class="bx bx-check label-icon"></i> Completar adjuntos de la entrevista
+                                </button>
+                                {% else %}
+                                <h5>Los archivos de la entrevista han sido completado</h5>
+                                {% endif %}
+
                             </div>
 
                         </div>
@@ -361,8 +375,14 @@
 
 
     {% block extra_js %}
+    <!-- Sweet Alerts js -->
+    <script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+   
     <script>
+        
         $(document).ready(function () {
+            investigacion_id = $('#investigacion_id').val();
             $('[data-toggle="popover"]').popover();
         });
 
@@ -482,5 +502,9 @@
         });
 
     </script>
+
+     <!-- Sweet alert init js-->
+     <script src="{% static 'js/system/sweetalert.entrevistas.list.init.js' %}"></script>
+
 
     {% endblock extra_js %}
