@@ -229,9 +229,9 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
             for tInv in candidato.tipo_investigacion.all():
                 if tInv.pk == 1:
                     investigacion_laboral_2 = True
-                if tInv.pk == 2:
-                    psicometrico_3 = True
                 if tInv.pk == 3:
+                    psicometrico_3 = True
+                if tInv.pk == 2:
                     entrevista_1 = True
                     investigacion_laboral_2 = True
                 if tInv.pk == 5:

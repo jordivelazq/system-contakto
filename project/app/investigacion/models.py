@@ -59,6 +59,7 @@ class Investigacion(models.Model):
     )
     
     agente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    ejecutivo_de_cuentas = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='ejecutivo_de_cuentas')
     coordinador_visitas = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_visitas')
     ejecutivo_visitas = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='ejecutivo_visitas')
     coordinador_psicometrico = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='coordinador_psometrico')
@@ -101,6 +102,7 @@ class Investigacion(models.Model):
 
     # Secuencia de investigaciones
     candidato_validado = models.BooleanField(default=False)
+    ejecutivo_de_cuentas_asignado = models.BooleanField(default=False)
     coord_psicometrico_asignadado = models.BooleanField(default=False)
     coord_visitas_asignado = models.BooleanField(default=False)
     entrevista = models.BooleanField(default=False)
