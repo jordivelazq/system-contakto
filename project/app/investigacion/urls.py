@@ -45,11 +45,15 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCoordinadorCompletarInvLaboralTemplateView,
                   InvestigacionCoordinadorCompletarEntrevistaTemplateView,
                   InvestigacionCoordinadorCompletarAdjuntosTemplateView,
+                  InvestigacionEjecutivoDeCuentaUpdateView,
+                  InvestigacionEjecutivoLaboralViewSet,
+                  InvestigacionEjecutivoLaboralCandidatoTemplateView,
                   )
 
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
 router.register(r'investigaciones_candidatos', InvestigacionCandidatoViewSet)
+router.register(r'ejecutivo_de_cuentas', InvestigacionEjecutivoLaboralViewSet)
 router.register(r'investigaciones_coordinador_visita', InvestigacionCoodinadorVisitaViewSet)
 router.register(r'investigaciones_ejecutivo_visita', InvestigacionEjecutivoVisitaViewSet)
 router.register(r'investigaciones_entrevista', InvestigacionEntrevistaViewSet)
@@ -69,11 +73,15 @@ urlpatterns = [
     path('investigaciones/update/<int:pk>/',
          InvestigacionUpdateView.as_view(), name='investigacion_edit'),
 
+    # edicion datos del candidato por parte del coordinado y el ejecutivo de venta
     path('investigaciones/candidato/',
          InvestigacionCandidatoTemplateView.as_view(), name='investigaciones_candidato'),
-
+    
     path('investigaciones/candidatos/<int:investigacion_id>/',
          CandidatoTemplateView.as_view(), name='investigacion_candidato_edit'),
+ 
+    path('investigaciones/ejecutivo-de-ventas/candidatos/<int:investigacion_id>/',
+         InvestigacionEjecutivoLaboralCandidatoTemplateView.as_view(), name='investigacion_edv_candidato_edit'),
 
     # Trayectoria laboral
 
@@ -115,8 +123,12 @@ urlpatterns = [
      
      path('investigaciones/ejecutivo-visitas/update/<int:pk>/',
          InvestigacionEjecutivoVisitaUpdateView.as_view(), name='investigaciones_ejecutivo_visitas_update'),
-     
 
+     # Asignacion de ejecutivos de ventas
+     
+     path('investigaciones/cood-atc-cliente/ejecutivo-de-cuentea/update/<int:pk>/',
+         InvestigacionEjecutivoDeCuentaUpdateView.as_view(), name='investigaciones_coord_de_visitas_eject_venta_update'),
+     
     # Asignacion de coordinadores de visita
     path('investigaciones/coordinador-visitas', 
          InvestigacionCoordiandorVisitaTemplateView.as_view(), name='investigaciones_coordinador_visitas_list'),
@@ -126,7 +138,6 @@ urlpatterns = [
          InvestigacionCoordinadorVisitaCreateView.as_view(), name='investigaciones_coordinador_visitas_create'),
     path('investigaciones/coordinador-visitas/update/<int:investigacion_id>/<int:pk>/',
          InvestigacionCoordinadorVisitaUpdateView.as_view(), name='investigaciones_coordinador_visitas_update'),
-
 
     # Llenado ciclo de psicometria
     path('investigaciones/coordinador-psicometrico',
@@ -190,7 +201,5 @@ urlpatterns = [
 
      path('investigaciones/completar_adjuntos/<int:investigacion_id>/',
          InvestigacionCoordinadorCompletarAdjuntosTemplateView.as_view(), name='investigaciones_completar_adjuntos'),
-
-
 
 ]

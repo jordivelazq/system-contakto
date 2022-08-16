@@ -122,8 +122,8 @@ class ClienteSolicitudCandidato(models.Model):
     curp = models.CharField("CURP", max_length=20, default="", validators=[validate_curp])
     puesto = models.CharField(max_length=140)
 
-    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, blank=True, null=True)
-    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
+    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, default=1)
 
     direccion_fiscal = models.ForeignKey(DireccionFiscal, 
         on_delete=models.CASCADE,

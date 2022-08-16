@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
         "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones/?format=datatables",
+        "ajax": "/investigaciones/api/ejecutivo_de_cuentas/?format=datatables",
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },

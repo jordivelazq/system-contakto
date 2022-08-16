@@ -447,7 +447,7 @@ class InvestigacionEntrevistaDetailView(DetailView):
         return context
 
 
-class InvestigacionUpdateView(UpdateView):
+class InvestigacionUpdateView(LoginRequiredMixin, UpdateView):
 
     # required
     group_required = u"Coord. de Atención a Clientes"
@@ -479,7 +479,79 @@ class InvestigacionUpdateView(UpdateView):
         return redirect(self.success_url)
 
 
-class InvestigacionCoordVisitaUpdateView(UpdateView):
+class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
+
+    # required
+    group_required = u"Coord. de Atención a Clientes"
+    raise_exception = True
+
+    model = Investigacion
+    fields = ['ejecutivo_de_cuentas', ]
+    template_name = 'investigaciones/ejecutivo_de_cuenta/asignacion/asignacion_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEjecutivoDeCuentaUpdateView,  self).get_context_data(**kwargs)
+
+        context['title'] = 'Investigaciones - actualización de ejecutivo de cuenta'
+
+        context['tipo_coordinador'] = "visitas"
+        context['investigacion_id'] = self.kwargs['pk']
+        context['form'].fields['ejecutivo_de_cuentas'].queryset = User.objects.filter(groups__name='Ejecutivo de cuentas')
+
+        return context
+
+    def form_valid(self, form):
+
+        # inv = Investigacion.objects.get(id=self.kwargs['pk'])
+        hoy = GetDataTime().get_current_date_time_in_format()
+
+        self.object = form.save(commit=False)
+
+        if self.object.coordinador_visitas:
+            self.object.coord_visitas_asignado = True
+            # Genera bitácora
+            bitacora = InvestigacionBitacora()
+            bitacora.user_id = self.request.user.pk
+            bitacora.investigacion = self.object
+            bitacora.servicio = "Coordinaron visitas"
+            bitacora.observaciones = "Asignacion de ejecutivo de cuentas"
+            bitacora.save()
+
+            # Genera email
+            mail_data = {
+                'mensaje': 'Se ha asignado como coordinador de visitas',
+                'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+                'compania': self.object.cliente_solicitud.cliente.compania.nombre,
+                'tipo_de_solicitud': self.object.tipo_investigacion.all(),
+                'fecha_solicitud': hoy,
+                'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
+                'texto_url_detalles': 'Detalles de la solicitud',
+                'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
+            }
+            # send_email('notificacion_coordinador_visita', mail_data)
+
+            # Genera menaaje a usuario
+            msj = UserMessage()
+            msj.user = self.request.user
+
+            msj.title = "Se ha asignado como ejecutivo de cuentas"
+            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
+            msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/" +  str(self.object.pk)+"/"
+            msj.save()
+        else:
+            self.object.coord_visitas_asignado = False
+
+        self.object.save()
+
+        return super(InvestigacionEjecutivoDeCuentaUpdateView, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El coordiandor ha sido asignado')
+        return reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['pk']})
+
+
+class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
 
     # required
     group_required = u"Coord. de Atención a Clientes"
@@ -1088,18 +1160,9 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
             informante2.evaluacion = evaluacion
             informante2.save()
 
-        # b = Bitacora(action='trayectoria-editar: ' + str(trayectoria_empresa), user=request.user)
-        # b.save()
         if exito:
-            return redirect(reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
-            # if 'guardar_sucursal' in request.POST:
-            #     return HttpResponseRedirect('/empresa/' + str(trayectoria_empresa.compania.id) + '/sucursal/nueva?investigacion_id=' + investigacion_id + '&trayectoria=' + trayectoria_id)
-
-            # if 'redirect' in request.POST:
-            #     return HttpResponseRedirect(request.POST.get('redirect'))
-
-            # return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/editar/trayectoria/'+trayectoria_id+'/exito')
-
+            return redirect(reverse('investigaciones:investigacion_ejecutivo_laboral_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
+            
     def get_context_data(self, **kwargs):
         context = super(PersonaTrayectoriaEditTemplateView,
                         self).get_context_data(**kwargs)
@@ -1536,10 +1599,10 @@ class InvestigacionEjecutivoPsicometricoDetailView(DetailView):
 
         return context
 
-
+# se cambia el nombre de ejecutivo laboral por ejecutivo de cuenta en la interfaz
 class InvestigacionEjecutivoLaboralTemplateView(LoginRequiredMixin, TemplateView):
 
-    template_name = 'investigaciones/ejecutivo_laboral/investigaciones_ejecutivo_lab_list.html'
+    template_name = 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoLaboralTemplateView,
@@ -1547,6 +1610,18 @@ class InvestigacionEjecutivoLaboralTemplateView(LoginRequiredMixin, TemplateView
         context['title'] = 'Investigaciones / Ejecutivo de cuentas'
 
         return context
+
+
+class InvestigacionEjecutivoLaboralViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Investigacion.objects.all()
+    serializer_class = InvestigacionSerializer
+
+    def get_queryset(self):
+
+        qs = self.queryset.filter(
+                 cliente_solicitud__isnull=False, ejecutivo_de_cuentas=self.request.user).order_by("last_modified")
+
+        return qs
 
 
 class InvestigacionEjecutivoLaboralDetailView(DetailView):
@@ -1559,7 +1634,7 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
 
     model = Investigacion
     context_object_name = 'investigacion'
-    template_name = 'investigaciones/ejecutivo_laboral/investigaciones_ejecutivo_lab_detail.html'
+    template_name = 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoLaboralDetailView,
@@ -1577,6 +1652,201 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
 
         context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(
             persona=inv.candidato)
+
+        return context
+
+
+class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'investigaciones/investigacion_edv_candidato_edit.html'
+
+    def post(self, request, *args, **kwargs):
+
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+        # agente_id = investigacion.agente.id
+        origen = investigacion.candidato.origen_set.all()
+        direccion = investigacion.candidato.direccion_set.all()
+        tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
+        tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
+        tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
+        legalidad = investigacion.candidato.legalidad_set.all()
+        demanda = investigacion.candidato.demanda_set.all()
+        seguro = investigacion.candidato.seguro_set.all()
+
+        formCandidato = CandidatoAltaForm(
+            request.POST, prefix='candidato', instance=investigacion.candidato)
+
+        if formCandidato.is_valid():
+            messages.add_message(request, messages.SUCCESS,
+                                 'El candidato ha sido guardado')
+            formCandidato.save()
+            investigacion.candidato_validado = formCandidato.cleaned_data['datos_validados']
+            if investigacion.candidato_validado:
+                try:
+                    csc = ClienteSolicitudCandidato.objects.get(
+                        pk=investigacion.cliente_solicitud_candidato_id)
+                    if not csc.fecha_inicio:
+                        csc.fecha_inicio = datetime.datetime.now()
+                        csc.save()
+                except:
+                    pass
+            investigacion.save()
+            InvestigacionBitacora(investigacion_id=investigacion.id, user_id=request.user.pk,
+                                  servicio='Candidato', observaciones='Candidato actualizado').save()
+        else:
+            msg_param = ''
+        ####################### Origen #######################
+        formOrigen = OrigenAltaForma(request.POST, prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(
+            request.POST, prefix='origen')
+        if has_info(request.POST, prefix='origen', investigacion=investigacion):
+            if formOrigen.is_valid():
+                origen = formOrigen.save(commit=False)
+                origen.persona = investigacion.candidato
+                origen.save()
+            else:
+                msg_param = ''
+        ####################### Dirección #######################
+        formDireccion = DireccionForm(request.POST, prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(
+            request.POST, prefix='direccion')
+        if has_info(request.POST, prefix='direccion', investigacion=investigacion):
+            if formDireccion.is_valid():
+                direccion = formDireccion.save(commit=False)
+                direccion.persona = investigacion.candidato
+                direccion.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono1 (casa)  #######################
+        formTelefono1 = TelefonoForm(request.POST, prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(
+            request.POST, prefix='telefono1')
+        if has_info(request.POST, prefix='telefono1', investigacion=investigacion):
+            if formTelefono1.is_valid():
+                tel1 = formTelefono1.save(commit=False)
+                tel1.persona = investigacion.candidato
+                tel1.categoria = 'casa'
+                tel1.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono2 (movil)  #######################
+        formTelefono2 = TelefonoForm(request.POST, prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(
+            request.POST, prefix='telefono2')
+        if has_info(request.POST, prefix='telefono2', investigacion=investigacion):
+            if formTelefono2.is_valid():
+                tel2 = formTelefono2.save(commit=False)
+                tel2.persona = investigacion.candidato
+                tel2.categoria = 'movil'
+                tel2.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono3 (recado)  #######################
+        formTelefono3 = TelefonoForm(request.POST, prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(
+            request.POST, prefix='telefono3')
+        if has_info(request.POST, prefix='telefono3', investigacion=investigacion):
+            if formTelefono3.is_valid():
+                tel3 = formTelefono3.save(commit=False)
+                tel3.persona = investigacion.candidato
+                tel3.categoria = 'recado'
+                tel3.save()
+            else:
+                msg_param = ''
+        ####################### PrestacionVivienda Infonavit #######################
+        formPrestacionViviendaInfonavit = PrestacionViviendaForma(
+            request.POST, prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_infonavit')
+        if has_info(request.POST, prefix='prestacion_vivienda_infonavit', investigacion=investigacion):
+            if formPrestacionViviendaInfonavit.is_valid():
+                prestacionViviendaInfonavit = formPrestacionViviendaInfonavit.save(
+                    commit=False)
+                prestacionViviendaInfonavit.persona = investigacion.candidato
+                prestacionViviendaInfonavit.categoria_viv = 'infonavit'
+                prestacionViviendaInfonavit.save()
+            else:
+                msg_param = ''
+        ####################### PrestacionVivienda Fonacot #######################
+        formPrestacionViviendaFonacot = PrestacionViviendaForma(
+            request.POST, prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_fonacot')
+        if has_info(request.POST, prefix='prestacion_vivienda_fonacot', investigacion=investigacion):
+            if formPrestacionViviendaFonacot.is_valid():
+                prestacionViviendaFonacot = formPrestacionViviendaFonacot.save(
+                    commit=False)
+                prestacionViviendaFonacot.persona = investigacion.candidato
+                prestacionViviendaFonacot.categoria_viv = 'fonacot'
+                prestacionViviendaFonacot.save()
+            else:
+                msg_param = ''
+        ####################### Legalidad #######################
+        formLegalidad = LegalidadAltaForma(
+            request.POST, prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(request.POST, prefix='legalidad')
+        if has_info(request.POST, prefix='legalidad', investigacion=investigacion):
+            if formLegalidad.is_valid():
+                legalidad = formLegalidad.save(commit=False)
+                legalidad.persona = investigacion.candidato
+                legalidad.save()
+            else:
+                msg_param = ''
+
+        return redirect(reverse('investigaciones:investigacion_ejecutivo_laboral_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
+
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEjecutivoLaboralCandidatoTemplateView, self).get_context_data(**kwargs)
+
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+        # agente_id = investigacion.agente.id
+        origen = investigacion.candidato.origen_set.all()
+        direccion = investigacion.candidato.direccion_set.all()
+        tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
+        tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
+        tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
+        legalidad = investigacion.candidato.legalidad_set.all()
+        demanda = investigacion.candidato.demanda_set.all()
+        seguro = investigacion.candidato.seguro_set.all()
+
+        DemandaFormSet = modelformset_factory(
+            Demanda, form=DemandaAltaForma, max_num=1, extra=1)
+
+        context['title'] = "Investigaciones / Actualizacion datos del candidato"
+
+        context['investigacion'] = investigacion
+
+        context['formCandidato'] = CandidatoAltaForm(
+            prefix='candidato', instance=investigacion.candidato)
+        # context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
+        #                                                        'compania': investigacion.compania.id}, agt_id=agente_id)
+        context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
+                                                               'compania': investigacion.compania.id})
+        context['formOrigen'] = OrigenAltaForma(
+            prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')
+        context['formDireccion'] = DireccionForm(
+            prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
+        context['formTelefono1'] = TelefonoForm(
+            prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
+        context['formTelefono2'] = TelefonoForm(
+            prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(prefix='telefono2')
+        context['formTelefono3'] = TelefonoForm(
+            prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(prefix='telefono3')
+        context['formPrestacionViviendaInfonavit'] = PrestacionViviendaForma(
+            prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
+        context['formPrestacionViviendaFonacot'] = PrestacionViviendaForma(
+            prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
+        context['formLegalidad'] = LegalidadAltaForma(
+            prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
+        context['formDemanda'] = DemandaFormSet(
+            queryset=Demanda.objects.filter(persona=investigacion.candidato))
+        context['formSeguro'] = SeguroAltaForma(
+            prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
+        context['formSucursal'] = CompaniaSucursalForm(
+            investigacion.compania.id, investigacion.sucursal.id if investigacion.sucursal else None, prefix='investigacion')
 
         return context
 
