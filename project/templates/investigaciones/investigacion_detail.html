@@ -482,13 +482,14 @@
                             </div>
                             <br>
 
-                            
-                            {% if not investigacion.investigacion_completada %}                            
-                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-pregunta">
-                                <i class="bx bx-check label-icon"></i> Completar Investigación
-                            </button>
-                            {% else %}
-                            <h5>La investigación ha sido completada</h5>
+                            {% if investigacion.entrevista_from_completado %}
+                                {% if not investigacion.investigacion_completada %}                            
+                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-pregunta">
+                                    <i class="bx bx-check label-icon"></i> Completar Investigación
+                                </button>
+                                {% else %}
+                                <h5>La investigación ha sido completada</h5>
+                                {% endif %}
                             {% endif %}
 
                         </div>
