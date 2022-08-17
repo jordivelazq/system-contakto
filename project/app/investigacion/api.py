@@ -1243,7 +1243,7 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class PersonaTrajectoriaComercialCrearTemplateView(GroupRequiredMixin, TemplateView):
+class PersonaTrajectoriaComercialCrearTemplateView(LoginRequiredMixin, TemplateView):
 
     # required
     group_required = [u"Client", ]
@@ -1321,7 +1321,7 @@ class PersonaTrajectoriaComercialCrearTemplateView(GroupRequiredMixin, TemplateV
         return context
 
 
-class PersonaTrajectoriaComercialDeleteTemplateView(GroupRequiredMixin, TemplateView):
+class PersonaTrajectoriaComercialDeleteTemplateView(LoginRequiredMixin, TemplateView):
 
     # required
     group_required = [u"Client", ]
@@ -1377,7 +1377,7 @@ class InvestigacionCoordinadorPsicometricoTemplateView(LoginRequiredMixin, Templ
         return context
 
 
-class InvestigacionCoordinadorPsicometricoDetailView(DetailView):
+class InvestigacionCoordinadorPsicometricoDetailView(LoginRequiredMixin, DetailView):
 
     '''Detalle general para el Coorsinador de visitas'''
 
@@ -1409,7 +1409,7 @@ class InvestigacionCoordinadorPsicometricoDetailView(DetailView):
         return context
 
 
-class InvestigacionCoordinadorPsicometricoCreateView(CreateView):
+class InvestigacionCoordinadorPsicometricoCreateView(LoginRequiredMixin, CreateView):
 
     # required
     group_required = u"Coord. de Atención a Clientes"
@@ -1454,7 +1454,7 @@ class InvestigacionCoordinadorPsicometricoCreateView(CreateView):
         return reverse('investigaciones:investigaciones_coordinador_psicometrico_detail', kwargs={"investigacion_id": self.kwargs['investigacion_id']})
 
 
-class InvestigacionCoordinadorPsicometricoUpdateView(GroupRequiredMixin, UpdateView):
+class InvestigacionCoordinadorPsicometricoUpdateView(LoginRequiredMixin, UpdateView):
 
     # required
     group_required = [u"Administrator", ]
