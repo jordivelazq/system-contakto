@@ -70,7 +70,7 @@ class DireccionFiscal(models.Model):
     activo = models.BooleanField(default=True, verbose_name='Activo')
 
     def __str__(self):
-        return u'%s' % (self.nombre)
+        return u'%s - %s' % (self.rfc, self.nombre)
 
 
 class Contacto(models.Model):

@@ -76,32 +76,26 @@ urlpatterns = [
     # edicion datos del candidato por parte del coordinado y el ejecutivo de venta
     path('investigaciones/candidato/',
          InvestigacionCandidatoTemplateView.as_view(), name='investigaciones_candidato'),
-    
     path('investigaciones/candidatos/<int:investigacion_id>/',
          CandidatoTemplateView.as_view(), name='investigacion_candidato_edit'),
- 
     path('investigaciones/ejecutivo-de-ventas/candidatos/<int:investigacion_id>/',
          InvestigacionEjecutivoLaboralCandidatoTemplateView.as_view(), name='investigacion_edv_candidato_edit'),
 
     # Trayectoria laboral
-
     path('investigaciones/persona/trayectoria-laboral/create/<int:investigacion_id>/',
          PersonaTrayectoriaCrearTemplateView.as_view(),
          name='investigacion_persona_trayectoria_laboral_create'
          ),
-
     path('investigaciones/persona/trayectoria-laboral/edit/<int:investigacion_id>/<int:pk>/',
          PersonaTrayectoriaEditTemplateView.as_view(),
          name='investigacion_persona_trayectoria_laboral_edit'
          ),
 
     # Trayectoria comercial
-
     path('investigaciones/persona/trayectoria-comercial/create/<int:investigacion_id>/<int:trayectoria_id>/',
          PersonaTrajectoriaComercialCrearTemplateView.as_view(),
          name='investigacion_persona_trayectoria_comercial_create'
          ),
-
     path('investigaciones/persona/trayectoria-comercial/delete/<int:investigacion_id>/<int:trayectoria_id>/<int:pk>/',
          PersonaTrajectoriaComercialDeleteTemplateView.as_view(),
          name='investigacion_persona_trayectoria_comercial_delete'
@@ -120,12 +114,10 @@ urlpatterns = [
          InvestigacionEjecutivoVisitaTemplateView.as_view(), name='investigaciones_ejecutivo_visitas_list'),
      path('investigaciones/ejecutivo-visitas/detail/<int:pk>/',
           InvestigacionEjecutivoVisitaDetailView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
-     
      path('investigaciones/ejecutivo-visitas/update/<int:pk>/',
          InvestigacionEjecutivoVisitaUpdateView.as_view(), name='investigaciones_ejecutivo_visitas_update'),
 
      # Asignacion de ejecutivos de ventas
-     
      path('investigaciones/cood-atc-cliente/ejecutivo-de-cuentea/update/<int:pk>/',
          InvestigacionEjecutivoDeCuentaUpdateView.as_view(), name='investigaciones_coord_de_visitas_eject_venta_update'),
      
@@ -150,7 +142,6 @@ urlpatterns = [
          InvestigacionCoordinadorPsicometricoUpdateView.as_view(), name='investigaciones_coordinador_psicometrico_update'),
 
     # Ejecutivo de psicometrico
-
     path('investigaciones/ejecutivo-psicometrico',
          InvestigacionEjecutivoPsicometricoList.as_view(), name='investigaciones_ejecutivo_psicometrico_list'),
     path('investigaciones/ejecutivo-psicometrico/update/<int:investigacion_id>/<int:pk>/',
@@ -159,7 +150,6 @@ urlpatterns = [
          InvestigacionEjecutivoPsicometricoDetailView.as_view(), name='investigaciones_ejecutivo_psicometrico_detail'),
 
     # Ejecutivo de investigacion laboral
-
     path('investigaciones/ejecutivo-de-cuenta',
          InvestigacionEjecutivoLaboralTemplateView.as_view(), name='investigaciones_ejecutivo_laboral_list'),
     path('investigaciones/ejecutivo-de-cuenta/detail/<int:pk>/',
@@ -169,7 +159,6 @@ urlpatterns = [
      # Llenado del formulario de entrevistas
      path('investigaciones/entrevista', InvestigacionEntrevistaTemplateView.as_view(),
          name='investigaciones_entrevista_list'),
-
      path('investigaciones/entrevistal/detail/<str:seccion_entrevista>/<int:investigacion_id>/',
          EdicionEntrevistaPersonaTemplateView.as_view(), name='investigaciones_entrevista_detail'),
 

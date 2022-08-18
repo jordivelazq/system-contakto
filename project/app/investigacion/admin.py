@@ -7,6 +7,7 @@ from .forms import UserChangeForm, UserCreationForm
 @admin.register(Investigacion)
 class InvestigacionAdmin(admin.ModelAdmin):
     list_display = ('id', 'candidato','puesto', 'status_general')
+    readonly_fields = ["agente", 'ejecutivo_de_cuentas', 'coordinador_visitas', 'ejecutivo_visitas', 'coordinador_psicometrico']
     #search_fields = ['name', 'telephone', 'email', 'telephone_b', 'rfc']
     #list_filer = ('role')
 

@@ -68,7 +68,7 @@
 
                                 <div class="col-md-3">
                                     <strong>Contacto:</strong>
-                                    {{ investigacion.contacto }}
+                                    {{ investigacion.cliente_solicitud }}
                                 </div>
 
                             </div>
@@ -127,13 +127,6 @@
 
                             <br>
 
-
-                            <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
-                                class="btn btn-primary waves-effect btn-label waves-light">
-                                <i class="bx bx-edit label-icon"></i>
-                                Editar datos del candidato
-                            </a>
-
                         </div>
                     </div>
                 </div><!-- end col -->
@@ -141,39 +134,64 @@
             </div>
 
 
-            <div class="row" id="asignacion_coordinadores">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Asignación de ejecutivo de visita</h3>
+                            <h3 class="card-title">
+
+                                Datos de la visita
+
+                            </h3>
+
+                            {% if gestor %}
 
                             <div class="row">
-
                                 <div class="col-md-12">
-                                    <br />
-                                    <strong>Ejecutivo de Visitas:</strong><br>
-                                    {% if investigacion.ejecutivo_visitas %}
-                                    {{ investigacion.ejecutivo_visitas }}
-                                    <br>
-
-                                    <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
-                                        class="btn btn-primary waves-effect btn-label waves-light">
-                                        <i class="bx bx-edit label-icon"></i>
-                                        Editar ejecutivo de visita
-                                    </a>
-
-                                    {% else %}
-                                    <span class="text-danger">No asignado</span><br>
-                                    <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
-                                        class="btn btn-primary waves-effect btn-label waves-light">
-                                        <i class="bx bx-edit label-icon"></i>
-                                        Asignar ejecutivo de visita
-                                    </a>
-                                    {% endif %}
-
+                                    <strong>Gestor de entrevista:</strong>
+                                    {{ gestor }}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">    
+                                <div class="col-md-4">
+                                    <strong>Fecha de asignación:</strong>
+                                    {{ gestor.fecha_asignacion }}
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Fecha de registro:</strong>
+                                    {{ gestor.fecha_registro }}
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Fecha de atención:</strong>
+                                    {{ gestor.fecha_atencion }}
                                 </div>
 
                             </div>
+
+                            <br>
+
+
+                                 <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_update' investigacion.id gestor.pk  %}"
+                                     class="btn btn-primary waves-effect waves-light">
+                                     <i class="bx bx-edit font-size-16 align-middle me-2"></i>
+                                     Editar visita
+                                 </a>
+                            
+                                
+  
+                              {% else %}
+                              <h4>No se ha creado una visita para esta entrevista</h4>
+  
+                              <br />
+  
+                              <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_create' investigacion.id %}"
+                                  class="btn btn-primary waves-effect waves-light">
+                                  <i class="bx bx-edit font-size-16 align-middle me-2"></i>
+                                  Crear visita
+                              </a>
+                              {% endif %}
+  
 
                         </div>
                     </div>
