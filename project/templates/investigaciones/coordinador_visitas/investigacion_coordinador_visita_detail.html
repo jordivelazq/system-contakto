@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Investigaciones</h4>
+                        <h4 class="mb-sm-0 font-size-18">Investigaciones - Coordinador de Visitas Domiciliarias</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -44,9 +44,9 @@
 
                                 <div class="col-md-3">
                                     <strong>Tipo de investigación:</strong>
-                                    {% comment %}
-                                    {{ investigacion.tipo_investigacion }}
-                                    {% endcomment %}
+                                    {% for ti in investigacion.tipo_investigacion.all  %}    
+                                    {{ ti }}
+                                    {% endfor %}
 
                                 </div>
 
@@ -62,7 +62,7 @@
 
                                 <div class="col-md-3">
                                     <strong>Contacto:</strong>
-                                    {{ investigacion.contacto }}
+                                    {{ investigacion.cliente_solicitud }}
                                 </div>
                             </div>
 
@@ -122,65 +122,39 @@
 
             </div>
 
-
-            <div class="row">
+            <div class="row" id="asignacion_coordinadores">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">
-
-                                Datos de la visita
-
-                            </h3>
-
-                            {% if gestor %}
+                            <h3 class="card-title">Asignación de ejecutivo de visita</h3>
 
                             <div class="row">
+
                                 <div class="col-md-12">
-                                    <strong>Gestor de entrevista:</strong>
-                                    {{ gestor }}
+                                    <br />
+                                    <strong>Ejecutivo de Visitas:</strong><br>
+                                    {% if investigacion.ejecutivo_visitas %}
+                                    {{ investigacion.ejecutivo_visitas }}
+                                    <br>
+
+                                    <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Editar ejecutivo de visita
+                                    </a>
+
+                                    {% else %}
+                                    <span class="text-danger">No asignado</span><br>
+                                    <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Asignar ejecutivo de visita
+                                    </a>
+                                    {% endif %}
+
                                 </div>
+
                             </div>
-                            <br>
-                            <div class="row">    
-                                <div class="col-md-4">
-                                    <strong>Fecha de asignación:</strong>
-                                    {{ gestor.fecha_asignacion }}
-                                </div>
-                                <div class="col-md-4">
-                                    <strong>Fecha de registro:</strong>
-                                    {{ gestor.fecha_registro }}
-                                </div>
-                                <div class="col-md-4">
-                                    <strong>Fecha de atención:</strong>
-                                    {{ gestor.fecha_atencion }}
-                                </div>
-
-                            </div>
-
-                            <br>
-
-                            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_update' investigacion.id gestor.pk  %}"
-                                class="btn btn-primary waves-effect waves-light">
-                                <i class="bx bx-edit font-size-16 align-middle me-2"></i>
-                                Editar visita
-                            </a>
-
-                            {% else %}
-                            <h4>No se ha creado una visita para esta entrevista</h4>
-
-                            <br />
-
-                            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_create' investigacion.id %}"
-                                class="btn btn-primary waves-effect waves-light">
-                                <i class="bx bx-edit font-size-16 align-middle me-2"></i>
-                                Crear visita
-                            </a>
-                            {% endif %}
-
-
-
-                            
 
                         </div>
                     </div>

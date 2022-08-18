@@ -63,7 +63,6 @@ class ClienteUserDetailView(GroupRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ClienteUserDetailView, self).get_context_data(**kwargs)
-        context['form'].fields['compania'].queryset = Compania.objects.filter(es_cliente=True)
         return context
 
 

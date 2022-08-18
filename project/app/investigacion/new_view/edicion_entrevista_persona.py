@@ -1,16 +1,17 @@
+from app.adjuntos.models import Adjuntos
 from app.entrevista.forms import *
 from app.entrevista.models import *
+from app.entrevista.services import EntrevistaService
+from app.util.parallel import run_io_tasks_in_parallel
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelformset_factory
-from django.shortcuts import redirect
+from django.shortcuts import HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView
 from rest_framework import mixins, viewsets
-from app.entrevista.services import EntrevistaService
-from app.util.parallel import run_io_tasks_in_parallel
 
 from ..models import Investigacion
-from django.shortcuts import HttpResponseRedirect
+
 
 class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
 
@@ -258,6 +259,10 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
         
         investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
         candidato = investigacion.candidato
+
+        adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+        context['adjuntos'] = adjuntos
+
         ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
         
         context['investigacion'] = investigacion
@@ -281,6 +286,8 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
             context['direccion_form'] = EntrevistaDireccionForm(instance=direccion)
             context['origen_form'] = EntrevistaOrigenForm(instance=origen, prefix='origen')
             context['licencia_form'] = EntrevistaLicenciaForm(instance=licencia)
+
+            
 
         #INFO PERSONAL
         if seccion_entrevista == 'info_personal':

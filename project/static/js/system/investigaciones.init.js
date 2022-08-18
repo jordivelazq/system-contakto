@@ -126,6 +126,10 @@ $(document).ready(function () {
             {
                 "title": "Fecha de Registro",
                 "data": "fecha_registro",
+            },
+            {
+                "title": "Hora",
+                "data": "hora_recibido",
             }
 
         ],

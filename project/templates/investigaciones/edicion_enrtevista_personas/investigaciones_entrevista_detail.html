@@ -220,6 +220,12 @@
                                         data-bs-target="#evaluacion" type="button" role="tab" aria-controls="evaluacion"
                                         aria-selected="false">Evaluación</button>
                                 </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="fotos-tab" data-bs-toggle="tab"
+                                        data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos"
+                                        aria-selected="false">Fotos</button>
+                                </li>
                                 
                             </ul>
 
@@ -287,14 +293,21 @@
                                     {% endif %}
                                 </div>
 
+                                <div class="tab-pane" id="fotos" role="tabpanel" aria-labelledby="fotos-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'fotos' %}
+                                    {% include 'investigaciones/adjuntos/investigaciones_adjuntos_solo_detail.html' %}
+                                    {% endif %}
+                                </div>
+
                                 <br>
 
-                                {% if not investigacion.entrevista_app_completado %}                            
-                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-adjuntos-pregunta">
-                                    <i class="bx bx-check label-icon"></i> Completar adjuntos de la entrevista
+                                {% if not investigacion.entrevista_from_completado %}                            
+                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-entrevista-pregunta">
+                                    <i class="bx bx-check label-icon"></i> Completar entrevista
                                 </button>
                                 {% else %}
-                                <h5>Los archivos de la entrevista han sido completado</h5>
+                                <h5>La entrevista ha sido completada</h5>
                                 {% endif %}
 
                             </div>
@@ -444,6 +457,11 @@
             bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
         }
 
+        if ($('#seccion_entrevista').val() == 'fotos') {
+            const triggerEl = document.querySelector('#myTab button[data-bs-target="#fotos"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        }
+
         // for redirecting to select tab
 
         $("#datos_generales-tab").click(function () {
@@ -499,6 +517,12 @@
             console.log('click')
             let inv_id = $('#investigacion_id').val();
             window.location.replace('/investigaciones/investigaciones/entrevistal/detail/evaluacion/'+inv_id+'/');
+        });
+        
+        $("#fotos-tab").click(function () {
+            console.log('click')
+            let inv_id = $('#investigacion_id').val();
+            window.location.replace('/investigaciones/investigaciones/entrevistal/detail/fotos/'+inv_id+'/');
         });
 
     </script>
