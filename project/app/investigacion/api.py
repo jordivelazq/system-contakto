@@ -604,7 +604,7 @@ class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
                 'texto_url_detalles': 'Detalles de la solicitud',
                 'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
             }
-            send_email('notificacion_coordinador_visita', mail_data)
+            # send_email('notificacion_coordinador_visita', mail_data)
 
             # Genera menaaje a usuario
             msj = UserMessage()
@@ -678,7 +678,7 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
                 'texto_url_detalles': 'Detalles de la solicitud',
                 'email_coordinadores_de_visita': [self.object.coordinador_psicometrico.email, ],
             }
-            send_email('notificacion_coordinador_visita', mail_data)
+            # send_email('notificacion_coordinador_visita', mail_data)
 
             # Genera menaaje a usuario
             msj = UserMessage()
