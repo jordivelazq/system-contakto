@@ -1,5 +1,5 @@
 function investigacionDetail(id) {
-    var url = "/investigaciones/investigaciones/ejecutivo-visitas/detail/999999999/";
+    var url = "/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/999999999/";
     document.location.href = url.replace('999999999', id);
 }
 

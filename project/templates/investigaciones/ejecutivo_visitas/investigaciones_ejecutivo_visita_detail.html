@@ -134,7 +134,7 @@
             </div>
 
 
-            <div class="row">
+            <div class="row" id="datos_de_la_visita">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -198,6 +198,177 @@
                 </div><!-- end col -->
 
             </div>
+
+            {% if entrevista %}
+
+            <div class="row" id="entrevista_direccion">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="datos_generales-tab" data-bs-toggle="tab"
+                                        data-bs-target="#datos_generales" type="button" role="tab"
+                                        aria-controls="datos_generales" aria-selected="true">Datos Generales</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="info_personal-tab" data-bs-toggle="tab"
+                                        data-bs-target="#info_personal" type="button" role="tab"
+                                        aria-controls="info_personal" aria-selected="false">inf. Personal</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="salud-tab" data-bs-toggle="tab"
+                                        data-bs-target="#salud" type="button" role="tab" aria-controls="salud"
+                                        aria-selected="false">Salud</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="academica-tab" data-bs-toggle="tab"
+                                        data-bs-target="#academica" type="button" role="tab" aria-controls="academica"
+                                        aria-selected="false">Inf. Académica</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="vivienda-tab" data-bs-toggle="tab"
+                                        data-bs-target="#vivienda" type="button" role="tab" aria-controls="vivienda"
+                                        aria-selected="false">Vivienda</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="familia-tab" data-bs-toggle="tab"
+                                        data-bs-target="#familia" type="button" role="tab" aria-controls="familia"
+                                        aria-selected="false">Marco Familiar</button>
+                                </li>
+                                
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="inf_economica-tab" data-bs-toggle="tab"
+                                        data-bs-target="#inf_economica" type="button" role="tab" aria-controls="inf_economica"
+                                        aria-selected="false">Inf. Económica</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="bienes-tab" data-bs-toggle="tab"
+                                        data-bs-target="#bienes" type="button" role="tab" aria-controls="bienes"
+                                        aria-selected="false">Bienes</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="evaluacion-tab" data-bs-toggle="tab"
+                                        data-bs-target="#evaluacion" type="button" role="tab" aria-controls="evaluacion"
+                                        aria-selected="false">Evaluación</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="fotos-tab" data-bs-toggle="tab"
+                                        data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos"
+                                        aria-selected="false">Fotos</button>
+                                </li>
+                                
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="datos_generales" role="tabpanel"
+                                    aria-labelledby="datos_generales-tab" tabindex="0">
+                                    <br>
+                                    {% if seccion_entrevista == 'datos_generales' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+                                <div class="tab-pane" id="info_personal" role="tabpanel" aria-labelledby="info_personal-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'info_personal' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/info_personal_form_no_save.html' %}
+                                    {% endif %}
+                                
+                                </div>
+                                <div class="tab-pane" id="salud" role="tabpanel" aria-labelledby="salud-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'salud' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/salud_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+                                <div class="tab-pane" id="academica" role="tabpanel" aria-labelledby="academica-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'academica' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/academica_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="vivienda" role="tabpanel" aria-labelledby="vivienda-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'vivienda' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/vivienda_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="familia" role="tabpanel" aria-labelledby="familia-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'familia' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/familia_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="inf_economica" role="tabpanel" aria-labelledby="inf_economica-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'inf_economica' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/sit_economica_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="bienes" role="tabpanel" aria-labelledby="bienes-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'bienes' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/bienes_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="evaluacion" role="tabpanel" aria-labelledby="evaluacion-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'evaluacion' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/evaluacion_form_no_save.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="fotos" role="tabpanel" aria-labelledby="fotos-tab" tabindex="0">
+                                    <br />
+                                    {% if seccion_entrevista == 'fotos' %}
+                                    {% include 'investigaciones/adjuntos/investigaciones_adjuntos_solo_detail.html' %}
+                                    {% endif %}
+                                </div>
+
+                                <br>
+
+                              
+                              {% comment %}
+                                  {% if not investigacion.entrevista_from_completado %}                            
+                                  <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-entrevista-pregunta">
+                                      <i class="bx bx-check label-icon"></i> Completar entrevista
+                                  </button>
+                                  {% else %}
+                                  <h5>La entrevista ha sido completada</h5>
+                                  {% endif %}
+                              {% endcomment %}
+                                
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Para ver datos de la entrevista se debe asignar al gestor de visita</h4>
+                        </div>
+                    </div>
+                </div>
+            {%endif%}
 
 
 
@@ -269,6 +440,9 @@
     {% endblock footer %}
 </div>
 <!-- end main content-->
+<input type="hidden" id="investigacion_id" value="{{ investigacion.pk }}">
+<input type="hidden" id="seccion_entrevista" value="{{ seccion_entrevista }}">
+
 {% endblock content %}
 
 
@@ -278,6 +452,141 @@
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
     });
+</script>
+
+<script>
+        
+    $(document).ready(function () {
+        investigacion_id = $('#investigacion_id').val();
+        $('[data-toggle="popover"]').popover();
+    });
+
+
+    const triggerTabList = document.querySelectorAll('#myTab button')
+    triggerTabList.forEach(triggerEl => {
+        const tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', event => {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
+
+
+    if ($('#seccion_entrevista').val() == 'info_personal') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#info_personal"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+
+    if ($('#seccion_entrevista').val() == 'datos_generales') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#datos_generales"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'salud') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#salud"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'academica') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#academica"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'vivienda') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#vivienda"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'familia') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#familia"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'inf_economica') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#inf_economica"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'bienes') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#bienes"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'evaluacion') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#evaluacion"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    if ($('#seccion_entrevista').val() == 'fotos') {
+        const triggerEl = document.querySelector('#myTab button[data-bs-target="#fotos"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    // for redirecting to select tab
+
+    $("#datos_generales-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+inv_id+'/');
+    });
+
+
+    $("#info_personal-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+inv_id+'/');
+    });
+
+    $("#salud-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/salud/'+inv_id+'/');
+    });
+
+    $("#academica-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/academica/'+inv_id+'/');
+    });
+
+    $("#vivienda-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/vivienda/'+inv_id+'/');
+    });
+
+    $("#familia-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/familia/'+inv_id+'/');
+    });
+
+    $("#inf_economica-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/inf_economica/'+inv_id+'/');
+    });
+
+    $("#bienes-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/bienes/'+inv_id+'/');
+    });
+
+    $("#evaluacion-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/evaluacion/'+inv_id+'/');
+    });
+    
+    $("#fotos-tab").click(function () {
+        console.log('click')
+        let inv_id = $('#investigacion_id').val();
+        window.location.replace('/investigaciones/investigaciones/ejecutivo-visitas/detail/fotos/'+inv_id+'/');
+    });
+
 </script>
 
 {% endblock extra_js %}
