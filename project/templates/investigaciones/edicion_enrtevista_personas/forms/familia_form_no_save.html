@@ -1,0 +1,45 @@
+{% load static crispy_forms_tags %}
+
+<form action="#" method="post">{% csrf_token %}
+
+	{{ marcofamiliar_formset.management_form }}
+
+	{% for form in marcofamiliar_formset %}
+		{{ form.id }}
+		<div class="col-2">
+			{% if form.instance.tipo != "otro" %}
+			<h5>{{ form.instance.tipo|title }}:</h5>
+			{% else %}
+			{{form.parentesco|as_crispy_field}}
+			{% endif %}
+		</div>
+		<div class="row">
+			
+			<div class="col-2">
+				{{form.nombre|as_crispy_field}}
+			</div>
+			<div class="col-2">
+				{{form.edad|as_crispy_field}}
+			</div>
+			<div class="col-2">
+				{{form.ocupacion|as_crispy_field}}
+			</div>
+			<div class="col-2">
+				{{form.empresa|as_crispy_field}}
+			</div>
+			<div class="col-2">
+				{{form.residencia|as_crispy_field}}
+			</div>
+			<div class="col-2">
+				{{form.telefono|as_crispy_field}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-10">
+				<hr class="thin-separator" />
+			</div>
+		</div>
+	{% endfor %}
+
+	<br>
+</form>

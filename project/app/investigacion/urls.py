@@ -50,6 +50,8 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionEjecutivoLaboralCandidatoTemplateView,
                   )
 
+from app.investigacion.new_view.edicion_entrevista_persona import EdicionEntrevistaEjecutivoVisitaTemplateView
+
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
 router.register(r'investigaciones_candidatos', InvestigacionCandidatoViewSet)
@@ -112,10 +114,10 @@ urlpatterns = [
      # asignacion de ejecutivos de visitas
      path('investigaciones/ejecutivo-visitas', 
          InvestigacionEjecutivoVisitaTemplateView.as_view(), name='investigaciones_ejecutivo_visitas_list'),
-     path('investigaciones/ejecutivo-visitas/detail/<int:pk>/',
-          InvestigacionEjecutivoVisitaDetailView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
-     path('investigaciones/ejecutivo-visitas/update/<int:pk>/',
-         InvestigacionEjecutivoVisitaUpdateView.as_view(), name='investigaciones_ejecutivo_visitas_update'),
+     # path('investigaciones/ejecutivo-visitas/detail/<int:pk>/',
+     #      InvestigacionEjecutivoVisitaDetailView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
+     path('investigaciones/ejecutivo-visitas/detail/<str:seccion_entrevista>/<int:pk>/',
+          EdicionEntrevistaEjecutivoVisitaTemplateView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
 
      # Asignacion de ejecutivos de ventas
      path('investigaciones/cood-atc-cliente/ejecutivo-de-cuentea/update/<int:pk>/',
@@ -124,10 +126,16 @@ urlpatterns = [
     # Asignacion de coordinadores de visita
     path('investigaciones/coordinador-visitas', 
          InvestigacionCoordiandorVisitaTemplateView.as_view(), name='investigaciones_coordinador_visitas_list'),
-    path('investigaciones/coordinador-visitas/detail/<int:pk>/',
+     path('investigaciones/coordinador-visitas/detail/<int:pk>/',
          InvestigacionCoodinadorVisitaDetailView.as_view(), name='investigaciones_coordinador_visitas_detail'),
     path('investigaciones/coordinador-visitas/create/<int:investigacion_id>/',
          InvestigacionCoordinadorVisitaCreateView.as_view(), name='investigaciones_coordinador_visitas_create'),
+
+
+     path('investigaciones/coordinador-visitas/ejecutivo/update/<int:pk>/',
+         InvestigacionEjecutivoVisitaUpdateView.as_view(), name='investigaciones_ejecutivo_visitas_update'),
+
+
     path('investigaciones/coordinador-visitas/update/<int:investigacion_id>/<int:pk>/',
          InvestigacionCoordinadorVisitaUpdateView.as_view(), name='investigaciones_coordinador_visitas_update'),
 

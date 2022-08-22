@@ -28,6 +28,7 @@ from utils.send_mails import send_email
 from .models import (GestorInvestigacion, Investigacion, InvestigacionBitacora,
                      Psicometrico)
 from .serializers import InvestigacionSerializer
+from app.persona.models import Demanda
 
 
 class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
@@ -186,7 +187,7 @@ class InvestigacionEjecutivoVisitaUpdateView(UpdateView):
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
                              'El ejecutivo de visita ha sido actualizado')
-        return reverse('investigaciones:investigaciones_ejecutivo_visitas_detail', kwargs={"pk": self.kwargs['pk']})
+        return reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['pk']})
 
 
 # --------------------------------------------------------------
@@ -279,7 +280,7 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
                              'El gestor ha sido asignado')
-        return reverse('investigaciones:investigaciones_ejecutivo_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+        return reverse('investigaciones:investigaciones_ejecutivo_visitas_detail', kwargs={"seccion_entrevista": "datos_generales", "pk": self.kwargs['investigacion_id']})
 
 
 class InvestigacionCoordinadorVisitaUpdateView(UpdateView):

@@ -1,0 +1,197 @@
+<form action="#" method="post">{% csrf_token %}
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h5 class="panel-title">Domicilio</h5>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="text-danger">{{ direccion_form.calle.errors }}</div>
+					{{ direccion_form.calle.label_tag }}
+					{{ direccion_form.calle }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ direccion_form.colonia.errors }}</div>
+					{{ direccion_form.colonia.label_tag }}
+					{{ direccion_form.colonia }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ direccion_form.num.errors }}</div>
+					{{ direccion_form.num.label_tag }}
+					{{ direccion_form.num }}
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="text-danger">{{ direccion_form.ciudad.errors }}</div>
+					{{ direccion_form.ciudad.label_tag }}
+					{{ direccion_form.ciudad }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ direccion_form.estado.errors }}</div>
+					{{ direccion_form.estado.label_tag }}
+					{{ direccion_form.estado }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ direccion_form.cp.errors }}</div>
+					{{ direccion_form.cp.label_tag }}
+					{{ direccion_form.cp }}
+				</div>		
+			</div>
+		</div>
+	</div>
+	<br>
+	
+	<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5 class="panel-title">Teléfonos</h5>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					{{ tel_formset.management_form }}
+					{% for form in tel_formset %}
+						<div class="col-md-3">
+							<strong>{{ form.instance.categoria|title }}</strong>
+							{{ form.id }}
+							<div class="text-danger">
+								{{form.numero.errors}}
+							</div>
+							<label>Número:</label>
+							{{form.numero}}
+							{% if form.instance.categoria == 'recado' or form.instance.categoria == 'otro' %}
+							<div class="text-danger">
+								{{form.parentesco.errors}}
+							</div>
+							<label>Parentesco:</label>
+							{{form.parentesco}}
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+		</div>
+	</div>
+
+	<br>
+
+	<h5>Datos Personales</h5>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="text-danger">{{ origen_form.lugar.errors }}</div>
+					{{ origen_form.lugar.label_tag }}
+					{{ origen_form.lugar }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ origen_form.fecha.errors }}</div>
+					{{ origen_form.fecha.label_tag }}
+					{{ origen_form.fecha }}
+				</div>
+				<div class="col-md-4">
+					<div class="text-danger">{{ origen_form.nacionalidad.errors }}</div>
+					{{ origen_form.nacionalidad.label_tag }}
+					{{ origen_form.nacionalidad }}
+				</div>
+			</div>
+			<br>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.rfc.errors }}</div>
+					{{ candidato_form.rfc.label_tag }}
+					{{ candidato_form.rfc }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.curp.errors }}</div>
+					{{ candidato_form.curp.label_tag }}
+					{{ candidato_form.curp }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.ife.errors }}</div>
+					{{ candidato_form.ife.label_tag }}
+					{{ candidato_form.ife }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.smn.errors }}</div>
+					{{ candidato_form.smn.label_tag }}
+					{{ candidato_form.smn }}
+				</div>
+			</div>
+			<br>
+	
+			<div class="row">
+				<div class="col-md-3">
+					<div class="text-danger">{{ licencia_form.tipo.errors }}</div>
+					{{ licencia_form.tipo.label_tag }}
+					{{ licencia_form.tipo }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ licencia_form.numero.errors }}</div>
+					{{ licencia_form.numero.label_tag }}
+					{{ licencia_form.numero }}
+				</div>
+				<div class="col-md-6">
+					<div class="text-danger">{{ candidato_form.pasaporte.errors }}</div>
+					{{ candidato_form.pasaporte.label_tag }}
+					{{ candidato_form.pasaporte }}
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.nss.errors }}</div>
+					{{ candidato_form.nss.label_tag }}
+					{{ candidato_form.nss }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.estado_civil.errors }}</div>
+					{{ candidato_form.estado_civil.label_tag }}
+					{{ candidato_form.estado_civil }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.fecha_matrimonio.errors }}</div>
+					{{ candidato_form.fecha_matrimonio.label_tag }}
+					{{ candidato_form.fecha_matrimonio }}
+				</div>
+				<div class="col-md-3">
+					<div class="text-danger">{{ candidato_form.religion.errors }}</div>
+					{{ candidato_form.religion.label_tag }}
+					{{ candidato_form.religion }}
+				</div>
+			</div>
+
+			<br>
+	
+			<div class="row">
+				<div class="col-md-6">
+					<div class="text-danger">{{ candidato_form.tiempo_radicando.errors }}</div>
+					{{ candidato_form.tiempo_radicando.label_tag }}
+					{{ candidato_form.tiempo_radicando }}
+				</div>
+				<div class="col-md-6">
+					<div class="text-danger">{{ candidato_form.medio_utilizado.errors }}</div>
+					{{ candidato_form.medio_utilizado.label_tag }}
+					{{ candidato_form.medio_utilizado }}
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="text-danger">{{ candidato_form.referencia_vacante.errors }}</div>
+					{{ candidato_form.referencia_vacante.label_tag }}
+					{{ candidato_form.referencia_vacante }}
+				</div>
+				<div class="col-md-6">
+					<div class="text-danger">{{ candidato_form.tiempo_transporte.errors }}</div>
+					{{ candidato_form.tiempo_transporte.label_tag }}
+					{{ candidato_form.tiempo_transporte }}
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	
+</form>

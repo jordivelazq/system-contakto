@@ -163,6 +163,7 @@
             </div>
 
 
+          
             <div class="row" id="entrevista_direccion">
                 <div class="col-md-12">
                     <div class="card">
@@ -317,6 +318,7 @@
                 </div>
             </div>
 
+
             <div class="row" id="bitacora">
                 <div class="col-md-12">
                     <div class="card">
@@ -368,6 +370,7 @@
             </div>
         </div>
 
+        
 
         <a href="{% url 'investigaciones:investigaciones_list' %}"
             class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
@@ -381,6 +384,7 @@
         {% endblock footer %}
     </div>
     <!-- end main content-->
+
     <input type="hidden" id="investigacion_id" value="{{ investigacion.pk }}">
     <input type="hidden" id="seccion_entrevista" value="{{ seccion_entrevista }}">
 
