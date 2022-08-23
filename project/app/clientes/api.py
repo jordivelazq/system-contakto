@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from rest_framework import mixins, viewsets
 
-from .models import ClienteUser
-from .serializers import ClienteUserSerializer
+from .models import ClienteSolicitud, ClienteUser
+from .serializers import ClienteSolicitudSerializer, ClienteUserSerializer
 
 
 class ClienteTemplateView(LoginRequiredMixin, TemplateView):
@@ -20,3 +20,15 @@ class ClienteTemplateView(LoginRequiredMixin, TemplateView):
 class ClienteUserViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = ClienteUser.objects.all()
     serializer_class = ClienteUserSerializer
+
+
+class ClienteSolicitudViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = ClienteSolicitud.objects.all()
+    serializer_class = ClienteSolicitudSerializer
+
+    def get_queryset(self):
+
+        qs = self.queryset.filter(
+            user=self.request.user).order_by("last_modified")
+
+        return qs

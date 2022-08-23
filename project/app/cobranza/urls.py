@@ -1,7 +1,9 @@
 from app.cobranza.new_views.cobranzas_investigaciones import (
-    InvestigacionFacturaArchivosUpdateView, InvestigacionFacturaArchivosCreateView,
-    InvestigacionFacturalDetailView, InvestigacionFacturaListView,
-    InvestigacionFacturaUpdateView)
+    InvestigacionFacturaArchivosCreateView,
+    InvestigacionFacturaArchivosUpdateView, InvestigacionFacturalDetailView,
+    InvestigacionFacturaTemplateView, InvestigacionFacturaUpdateView, InvestigacionFacturaDireccionFiscalUpdateView
+    )
+
 from app.cobranza.views import (cobranza_facturas, cobranza_investigacion,
                                 eliminar_cobranza_investigacion,
                                 generar_reporte, panel, reset_filtros,
@@ -9,12 +11,10 @@ from app.cobranza.views import (cobranza_facturas, cobranza_investigacion,
 from django.conf.urls import include, url
 from django.urls import path
 
-# app_name = "cobranza_app"
-
 urlpatterns = [
 
     path('facturas/', 
-         InvestigacionFacturaListView.as_view(), name='cobranza_facturas_list'),
+         InvestigacionFacturaTemplateView.as_view(), name='cobranza_facturas_list'),
     path('facturas/detail/<int:pk>/', 
          InvestigacionFacturalDetailView.as_view(), name='cobranza_facturas_detail'),
     path('facturas/update/<int:investigacion_id>/<int:pk>/', 
@@ -25,7 +25,10 @@ urlpatterns = [
          InvestigacionFacturaArchivosCreateView.as_view(), name='cobranza_facturas_archivo_create'),
 	path('facturas/archivos/update/<int:investigacion_id>/<int:pk>/', 
          InvestigacionFacturaArchivosUpdateView.as_view(), name='cobranza_facturas_archivo_update'),
-
+    
+    # actualizar direccion fiscal
+    path('facturas/direccion-dical/update/<int:investigacion_id>/<int:pk>/', 
+         InvestigacionFacturaDireccionFiscalUpdateView.as_view(), name='cobranza_facturas_direccion_fiscal_update'),
 
 	url(r'^$', panel, name='panel_cobranza'),
 	url(r'^exito/$', panel, name='panel_cobranza'),

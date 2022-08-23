@@ -117,6 +117,10 @@ class Investigacion(models.Model):
     psicometrico_completado = models.BooleanField(default=False)
 
     investigacion_completada = models.BooleanField(default=False)
+    
+    investigacion_factura_completada = models.BooleanField(default=False)
+    investigacion_factura_pago_completado = models.BooleanField(default=False)
+    investigacion_factura_pago_verificado = models.BooleanField(default=False)
 
     def __str__(self):
         return u'%s / %s' % (self.candidato, self.compania)

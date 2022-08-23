@@ -12,11 +12,13 @@ from app.clientes.views.clientes_users import (ClienteUserCreateView,
                                                ClienteUserDetailView,
                                                ClienteUserUpdatePasswdView,
                                                ClienteUserUpdateView)
+from app.clientes.views.pagos import ClientesFacturaTemplateView, InvestigacionClienteFacturaViewSet
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'clientes', ClienteUserViewSet)
+router.register(r'clientes_facturas', InvestigacionClienteFacturaViewSet)
 
 
 app_name = "clientes"
@@ -43,5 +45,8 @@ urlpatterns = [
     path('solicitudes/candidato/update/<int:solicitud_id>/<int:pk>', ClienteSolicitudCandidatoUpdateView.as_view(), name='clientes_solicitud_candidato_update'),
     path('solicitudes/candidato/delete/<int:solicitud_id>/<int:pk>', ClienteSolicitudCandidatoDeleteView.as_view(), name='clientes_solicitud_candidato_delete'),
     
+    # facturas
+    path("faturas/list/", ClientesFacturaTemplateView.as_view(), name="clientes_facturas_list"),
+
     path('municipios/<str:efe_key>/', MunicipiosView.as_view(), name='clientes_municipios'),
 ]

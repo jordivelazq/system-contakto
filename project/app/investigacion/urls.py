@@ -7,6 +7,7 @@ from django.conf.urls import include, url
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
+from app.cobranza.new_views.cobranzas_investigaciones import InvestigacionFacturaViewSet
 from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCandidatoViewSet,
                   InvestigacionCoodinadorVisitaDetailView,
@@ -48,6 +49,7 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionEjecutivoDeCuentaUpdateView,
                   InvestigacionEjecutivoLaboralViewSet,
                   InvestigacionEjecutivoLaboralCandidatoTemplateView,
+                  InvestigacionCobranzasCompletarFacturaTemplateView,
                   )
 
 from app.investigacion.new_view.edicion_entrevista_persona import EdicionEntrevistaEjecutivoVisitaTemplateView
@@ -61,6 +63,7 @@ router.register(r'investigaciones_ejecutivo_visita', InvestigacionEjecutivoVisit
 router.register(r'investigaciones_entrevista', InvestigacionEntrevistaViewSet)
 router.register(r'investigaciones_psicometrico', InvestigacionCoordinadorPsicometricoViewSet)
 router.register(r'investigaciones_adjuntos', InvestigacionAdjuntosViewSet)
+router.register(r'investigaciones_facturas', InvestigacionFacturaViewSet)
 
 app_name = "investigaciones"
 
@@ -198,5 +201,8 @@ urlpatterns = [
 
      path('investigaciones/completar_adjuntos/<int:investigacion_id>/',
          InvestigacionCoordinadorCompletarAdjuntosTemplateView.as_view(), name='investigaciones_completar_adjuntos'),
+
+     path('investigaciones/completar_factura/<int:investigacion_id>/',
+         InvestigacionCobranzasCompletarFacturaTemplateView.as_view(), name='investigaciones_completar_factura'),
 
 ]
