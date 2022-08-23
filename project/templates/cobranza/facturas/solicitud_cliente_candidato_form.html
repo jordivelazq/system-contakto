@@ -1,0 +1,112 @@
+{% extends 'partials/base.html' %}
+{% load static crispy_forms_tags %}
+{% block title %}{{ title }}{% endblock title %}
+
+
+{% block extra_css %}
+<!-- select2 css -->
+<link href="{% static 'libs/select2/dist/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+<style>
+  .popover-inner {
+   width: 500px !important;
+   max-width:500px !important;
+}
+.popover {
+   width: 500px !important;
+   max-width:500px !important;
+}
+</style>
+{% endblock extra_css %}
+
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Candidatos Solicitud</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Listado de solicitudes</li>
+                                <li class="breadcrumb-item active">Detalle</li>
+                                <li class="breadcrumb-item active">Formulario candidato solicitus</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Formulario de archivos</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy}}
+                               
+
+                                <button type="submit" class="btn btn-primary waves-effect btn-label waves-light"> <i
+                                        class="bx bx-user-check label-icon"></i>
+                                    Guardar direccion fiscal</button>
+
+                                <a href="{% url 'cobranza_facturas_detail' investigacion_id %}"
+                                    class="btn btn-warning waves-effect btn-label waves-light"> <i
+                                        class="bx bx-user-x label-icon"></i>
+                                    Cancelar</a>
+
+                            </form>
+
+                        </div>
+                    </div>
+                    <!-- end card body -->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock footer %}
+</div>
+<!-- end main content-->
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/system/estado_municipio.js'%}"></script>
+<script src="{% static 'libs/select2/dist/js/select2.min.js'%}"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#id_tipo_investigacion').select2();
+    $('#id_estado').select2();
+    $('#id_municipio').select2();
+    $('#id_sucursal').select2();
+    $('[data-toggle="popover"]').popover();
+
+  });
+</script>
+{% endblock extra_js %}

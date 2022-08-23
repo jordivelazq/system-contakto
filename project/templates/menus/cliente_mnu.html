@@ -6,7 +6,7 @@
     </a>
     <ul class="sub-menu" aria-expanded="false">
         <li><a href="{% url 'clientes:clientes_solicitudes_list' %}" data-key="t-inbox">Solicitudes</a></li>
-        <li><a href="#" data-key="t-read-email">Pagos</a></li>
+        <li><a href="{% url 'clientes:clientes_facturas_list' %}" data-key="t-read-email">Facturas</a></li>
     </ul>
 </li>
 {% endif %}

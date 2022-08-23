@@ -46,17 +46,27 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <p class="card-title-desc">
-                                       Fecha de solicitud: {{ cliente_solicitud.fecha_recibido }} <br>
-                                       Finalizado: {{ cliente_solicitud.last_modified }}<br>
+                                        <strong>Contacto: </strong> {{cliente_solicitud.compania.nombre}} <br>
+                                        <strong>Teléfono: </strong> {{cliente_solicitud.compania.telefono}}<br>
+                                        <strong>Correo electrónico: </strong> {{cliente_solicitud.compania.email}}<br><br>
+
+                                       <strong>Fecha de solicitud:</strong> {{ cliente_solicitud.fecha_recibido }} <br>
+                                       <strong>Finalizado:</strong> {{ cliente_solicitud.last_modified }}<br>
                                     </p>
 
                                     <p class="card-title-desc">
-                                    Dirección fiscal:
+                                   <strong> Dirección fiscal:</strong>
                                     {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.direccion}}<br>
-                                    Regimen fiscal:
+                                   <strong> Regimen fiscal:</strong>
                                     {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.regimen_fiscal}}<br>
-                                    RFC:
-                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.rfc}}<br>
+                                    <strong>RFC:</strong>
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.rfc}}<br><br>
+
+                                    
+                                     <a href="{% url 'cobranza_facturas_direccion_fiscal_update' investigacion.pk cliente_solicitud.cliente_solicitud_candidato.pk %}"
+                                             class="btn btn-primary waves-effect btn-label waves-light">
+                                             <i class="bx bxs-user-detail label-icon"></i> Cambiar dirección fiscal</a>
+                                 
                                 
                                     </p>
 
@@ -92,6 +102,26 @@
                                             <i class="bx bxs-user-detail label-icon"></i> Crear archivos fiscales</a>       
                                              
                                         {% endif %}
+
+                                        {% if not investigacion.investigacion_factura_completada %}
+                                                      
+                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-factura-pregunta">
+                                            <i class="bx bx-check label-icon"></i> Enviar factura al cliente
+                                        </button>
+                                       
+                                        {% endif %}
+
+                                        
+                                        {% if investigacion.investigacion_factura_pago_completado and investigacion.investigacion_factura_completada  %}
+
+                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" >
+                                            <i class="bx bx-check label-icon"></i> Verificar pago
+                                        </button>
+
+                                        {% elif investigacion.investigacion_factura_completada %}
+                                        Contacto no a realizado el pago de la factura
+                                        {% endif %}
+                                       
                                             
                                     </p>
                                 </div>
@@ -130,8 +160,11 @@
                                             <th>Monto</th>
                                             <th>Descuento</th>
                                             <th>Sub total</th>
-                                            
+
+                                            {% if not investigacion.investigacion_factura_completada %}
                                             <th>Acciones</th>
+                                            {% endif %}
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -145,7 +178,7 @@
                                            
                              
                                             
-                                           
+                                            {% if not investigacion.investigacion_factura_completada %}
                                             <td>
                                                 <div class="d-flex flex-wrap gap-2">
                                                     <a href="{% url 'cobranza_facturas_update' object.pk candidato.pk %}"
@@ -153,6 +186,7 @@
                                                 </div>
                                                         
                                             </td>
+                                            {% endif %}
                                         </tr>
                                     
                                         {% empty %}
@@ -169,7 +203,10 @@
                                     </tbody>
                                 </table>
 
-                                <br>
+                                
+                                <br><br>
+
+                                
 
                                 <a href="{% url 'cobranza_facturas_list' %}"
                                 class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
@@ -196,20 +233,25 @@
 <!-- end main content-->
 
 <input type="hidden" id="cliente_solicitud_id" name="cliente_solicitud_id" value="{{ cliente_solicitud.pk }}">
+<input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion.pk }}">
 {% endblock content %}
 
 
 {% block extra_js %}
 <!-- Sweet Alerts js -->
 <script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
-<script src="{% static 'js/system/solicitudes.canditados.list.init.js' %}"></script>
 <script>
+    $(document).ready(function () {
+            investigacion_id = $('#investigacion_id').val();
+    });
+
     var user_login = document.getElementById("login-msg"),
     toastTrigger = document.getElementById("borderedToast1Btn"),
     toastLive = document.getElementById("borderedToast1");
     user_login && (toastTrigger.addEventListener("click", function () {
-    new bootstrap.Toast(toastLive).show()
+        new bootstrap.Toast(toastLive).show()
     }), toastTrigger.click());
 </script>
+<script src="{% static 'js/system/sweetalert.cobranzas.list.init.js' %}"></script>
 {% endblock extra_js %}
     
