@@ -189,9 +189,35 @@ class GestorInvestigacion(models.Model):
     fecha_registro = models.DateTimeField(null=True, blank=True)
     fecha_atencion = models.DateTimeField(null=True, blank=True)
     estatus = models.PositiveSmallIntegerField(choices=ESTATUS, default=1)
+    completado = models.BooleanField(default=False)
+    pagado = models.BooleanField(default=False)
 
+    @property
+    def get_gestor_name(self):
+        sc = User.objects.get(pk=self.gestor.usuario.id)
+        return sc
+
+    # def __str__(self):
+    #     return '{} / {} / {}'.format(self.investigacion,self.gestor, self.get_estatus_display())
+    
     def __str__(self):
-        return '{} / {} / {}'.format(self.investigacion,self.gestor, self.get_estatus_display())
+        return '{}'.format(self.gestor)
+
+
+class GestorInvestigacionPago(models.Model):
+    gestor = models.ForeignKey(GestorInfo, on_delete=models.CASCADE)
+
+    pagado = models.BooleanField(default=False)
+    fecha_de_pago = models.DateTimeField(null=True, blank=True)
+    comprobante = models.FileField(upload_to='gestor_investigacion_pago', blank=True, null=True)
+
+    created = models.DateTimeField(auto_now=True, blank=True)
+    modificated = models.DateTimeField(auto_now_add=True, blank=True)
+
+
+class GestorInvestigacionPagoInv(models.Model):
+    gestor_investigacion_pago = models.ForeignKey(GestorInvestigacionPago, on_delete=models.CASCADE)
+    investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
 
 
 class InvestigacionBitacora(models.Model):
@@ -255,3 +281,14 @@ class InvestigacionFacturaArchivos(models.Model):
     property
     def get_subtotal(self):
         return (self.monto * self.cantidad) - self.descuento
+
+
+class InvestigacionFacturaClienteArchivo(models.Model):
+    investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE, related_name='investigacion_factura_archivo')
+    notas = models.TextField(blank=True, null=True)
+    fecha = models.DateField()
+    comprobante = models.FileField("Archivo en formato PDF o JPG", upload_to='comprobantes/pago/clientes', blank=True, null=True)
+    verificado_por_cobranzas = models.BooleanField(default=False)
+    
+    created = models.DateTimeField(auto_now=True, blank=True)
+    modificated = models.DateTimeField(auto_now_add=True, blank=True)

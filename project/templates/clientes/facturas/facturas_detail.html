@@ -1,0 +1,265 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Investigaciones - Registro de pago de factura </h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Listado de investigacines</li>
+                                <li class="breadcrumb-item active">Detalle de investigación</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Detalle de investigación</h3>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <strong>Tipo de investigación:</strong>
+                                    {% for ti in investigacion.tipo_investigacion.all  %}    
+                                    {{ ti }}
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Cliente:</strong>
+                                    {{ investigacion.compania }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Sucursal:</strong>
+                                    {{ investigacion.sucursal }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Contacto:</strong>
+                                    {{ investigacion.cliente_solicitud }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row" id="Datos del candidato">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+
+                                {% if investigacion.candidato_validado %}
+
+                                <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                        class="bx bx-check-double font-size-16 align-middle"></i></button>
+
+                                {% else %}
+
+                                <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                    data-bs-toggle="popover" title="Data incompleta"
+                                    data-bs-content="Se debe completar los datos del candidato, "><i
+                                        class="bx bx-block font-size-16 align-middle"></i></button>
+
+                                {% endif %}
+
+                                Datos del candidato
+
+                            </h3>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>Nombres:</strong>
+                                    {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>NSS:</strong>
+                                    {{ investigacion.candidato.nss }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Teléfono móvil:</strong>
+                                    {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>CURP:</strong>
+                                    {{ investigacion.candidato.curp }}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row" id="asignacion_coordinadores">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Registro de pago de factura</h3>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <br />
+                                    <p>
+                                        Para registrar el pago recomendamos que realice el pago en la siguiente cuenta bancaria: <br>
+                                        XXXXXXXXX<br><br>
+
+                                        Guardar el comprobane de pago en formato pdf o JPG. y luego proceda a registrarlo al sistema.
+                                    </p>
+                                    <strong>Datos del comprobante:</strong><br>
+                                    {% if cliente_factura %}
+                                    
+
+                                    <strong>Notas:</strong>
+                                    {{ cliente_factura.notas }}<br>
+
+                                    <strong>Fecha:</strong>
+                                    {{ cliente_factura.fecha }}<br>
+
+                                    <strong>Fecha de registro:</strong>
+                                    {{ cliente_factura.created }}<br><br>   
+
+                                    {% if cliente_factura.comprobante %}
+                                            <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                    onclick="window.location.href='/media/{{cliente_factura.comprobante}}';">
+                                                    <i class="bx bxs-user-detail label-icon"></i>Descargar Comprobante</button>
+                                    {% endif %}
+                                   
+                                    <br>
+                                    <br>
+
+                                    
+                                   {% if  not investigacion.investigacion_factura_pago_completado %}
+                                            
+                                    <a href="{% url 'clientes:clientes_factura_update' investigacion.id cliente_factura.id  %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Editar datos del comprobante
+                                    </a>
+
+                                    <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="enviar-comprobante-pregunta">
+                                        <i class="bx bx-check label-icon"></i> Enviar comprobante a cobranzas
+                                    </button>
+
+                                    {% endif %}
+
+                                    {% else %}
+                                    <span class="text-danger">No Registrada</span><br>
+                                    <a href="{% url 'clientes:clientes_factura_create' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Registrar comprobante
+                                    </a>
+                    
+                                    {% endif %}
+
+
+                                    {% if  not investigacion.investigacion_factura_pago_verificado  %}
+
+                                    <h5>Se espera por la verificación por parte de Cobranzas</h5>
+
+                                    {% else %}
+
+                                    
+                                        {% if inv_archivos %}
+
+                                            {% if inv_archivos.archivo_pdf %}
+                                                <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                        onclick="window.location.href='/media/{{inv_archivos.archivo_pdf}}';">
+                                                        <i class="bx bxs-user-detail label-icon"></i>Descargar PDF</button>
+                                                {% endif %}
+                                            
+
+                                                {% if inv_archivos.archivo_xml %}
+                                                <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                        onclick="window.location.href='/media/{{inv_archivos.archivo_xml}}';">
+                                                        <i class="bx bxs-user-detail label-icon"></i>Descargar XML</button>
+                                                {% endif %}
+                                                
+                                            {% endif %}
+                                            
+                                        {% endif %}
+                                        
+
+                                   
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+
+            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}"
+            class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+            Regresar al listado</a>
+
+            <br /><br />
+            
+
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    {% block footer %}
+    {% include 'partials/footer.html' %}
+    {% endblock footer %}
+</div>
+<!-- end main content-->
+<input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion_id }}">
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+        investigacion_id = $('#investigacion_id').val();
+    });
+</script>
+<script src="{% static 'js/system/sweetalert.clientes.facturas.list.init.js' %}"></script>
+
+{% endblock extra_js %}

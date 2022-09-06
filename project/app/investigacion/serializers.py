@@ -1,11 +1,13 @@
 from rest_framework import serializers
 
-from .models import Investigacion, Psicometrico
+from .models import Investigacion, Psicometrico, GestorInvestigacion, GestorInfo, GestorInvestigacionPago
 from app.persona.models import Persona, File
 from app.compania.models import Compania, Sucursales, Contacto
 from app.clientes.models import ClienteTipoInvestigacion
 
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -77,4 +79,42 @@ class InvestigacionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Investigacion
+        fields = '__all__'
+
+
+class GestorInfoSerializer(serializers.ModelSerializer):
+
+    usuario = UserSerializer(read_only=True)
+    # usuario = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = GestorInfo
+        # fields = ['usuario']
+        fields = '__all__'
+
+
+class GestorInvestigacionSerializer(serializers.ModelSerializer):
+
+    # investigacion = InvestigacionSerializer(read_only=True)
+    gestor = GestorInfoSerializer(read_only=True)
+    # gestor = serializers.ReadOnlyField(source='gestorinfo.usuario')
+    # gestor = serializers.RelatedField(many=True, read_only=True)
+    # total_inv = serializers.IntegerField()
+    gcount = serializers.IntegerField()
+    # count_investigaciones = serializers.SerializerMethodField(read_only=True)
+
+    # investigacion = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = GestorInvestigacion
+        fields = ['gestor', 'gcount']
+        # fields = '__all__'
+
+
+class GestorInvestigacionPagoSerializer(serializers.ModelSerializer):
+
+    gestor = GestorInfoSerializer(read_only=True)
+
+    class Meta:
+        model = GestorInvestigacionPago
         fields = '__all__'

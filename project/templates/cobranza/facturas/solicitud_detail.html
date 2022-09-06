@@ -100,23 +100,24 @@
                                             <a href="{% url 'cobranza_facturas_archivo_create' cliente_solicitud.pk %}"
                                             class="btn btn-primary waves-effect btn-label waves-light">
                                             <i class="bx bxs-user-detail label-icon"></i> Crear archivos fiscales</a>       
-                                             
-                                        {% endif %}
-
-                                        {% if not investigacion.investigacion_factura_completada %}
-                                                      
-                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-factura-pregunta">
-                                            <i class="bx bx-check label-icon"></i> Enviar factura al cliente
-                                        </button>
+                                            
+                                            {% endif %}
+                                            
+                                            {% if not investigacion.investigacion_factura_completada %}
+                                            
+                                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-factura-pregunta">
+                                                <i class="bx bx-check label-icon"></i> Enviar factura al cliente
+                                            </button>
+                                            
+                                            {% endif %}
+                                            
+                                            
+                                            {% if investigacion.investigacion_factura_pago_completado and investigacion.investigacion_factura_completada  %}
+                                            
+                                            <a href="{% url 'cobranza_facturas_validar_comprobante_update' investigacion.pk inv_factura_archivos.pk %}"
+                                            class="btn btn-success waves-effect btn-label waves-light">
+                                            <i class="bx bxs-user-detail label-icon"></i> Validar comprobante</a>       
                                        
-                                        {% endif %}
-
-                                        
-                                        {% if investigacion.investigacion_factura_pago_completado and investigacion.investigacion_factura_completada  %}
-
-                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" >
-                                            <i class="bx bx-check label-icon"></i> Verificar pago
-                                        </button>
 
                                         {% elif investigacion.investigacion_factura_completada %}
                                         Contacto no a realizado el pago de la factura

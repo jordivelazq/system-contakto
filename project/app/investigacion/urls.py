@@ -50,6 +50,7 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionEjecutivoLaboralViewSet,
                   InvestigacionEjecutivoLaboralCandidatoTemplateView,
                   InvestigacionCobranzasCompletarFacturaTemplateView,
+                  InvestigacionCobranzasClienteCompletaComprobanteTemplateView,
                   )
 
 from app.investigacion.new_view.edicion_entrevista_persona import EdicionEntrevistaEjecutivoVisitaTemplateView
@@ -204,5 +205,8 @@ urlpatterns = [
 
      path('investigaciones/completar_factura/<int:investigacion_id>/',
          InvestigacionCobranzasCompletarFacturaTemplateView.as_view(), name='investigaciones_completar_factura'),
+
+     path('investigaciones/completar_comprobante_factura/<int:investigacion_id>/',
+         InvestigacionCobranzasClienteCompletaComprobanteTemplateView.as_view(), name='investigaciones_completar_comprobante'),
 
 ]

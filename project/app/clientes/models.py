@@ -148,4 +148,3 @@ class ClienteSolicitudCandidato(models.Model):
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
-        

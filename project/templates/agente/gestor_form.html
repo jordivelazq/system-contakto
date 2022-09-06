@@ -62,11 +62,15 @@
 
                 <button type="submit" class="btn btn-primary waves-effect btn-label waves-light"> <i
                     class="bx bx-check label-icon"></i>
-                  Guardar gestor</button>
+                  Guardar pago</button>
 
-                <a href="{% url 'gestor_info_list' %}"
-                  class="btn btn-warning waves-effect btn-label waves-light"> <i class="bx bx-user-x label-icon"></i>
-                  Cancelar</a>
+               
+               {% comment %}
+               <a href="{% url 'gestor_info_list' %}"
+               class="btn btn-warning waves-effect btn-label waves-light"> <i class="bx bx-user-x label-icon"></i>
+               Cancelar</a>
+               {% endcomment %}
+                
 
             </div>
             </form>

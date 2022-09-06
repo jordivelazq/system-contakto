@@ -9,7 +9,7 @@ from app.core.models import Estado, Municipio, UserMessage
 from app.entrevista.entrevista_persona import EntrevistaPersonaService
 from app.investigacion.models import (Investigacion, InvestigacionFactura,
                                       InvestigacionFacturaArchivos,
-                                      Psicometrico)
+                                      Psicometrico, InvestigacionFacturaClienteArchivo)
 from app.investigacion.serializers import InvestigacionSerializer
 from app.clientes.models import ClienteSolicitudCandidato
 from app.persona.models import Persona, Telefono
@@ -88,8 +88,14 @@ class InvestigacionFacturalDetailView(GroupRequiredMixin, DetailView):
             inv_factura_archivos = InvestigacionFacturaArchivos.objects.get(investigacion=self.object)
         except InvestigacionFacturaArchivos.DoesNotExist:
             print('archivos no existe')
+        
+        try:
+            inv_cliente_factura_archivos = InvestigacionFacturaClienteArchivo.objects.get(investigacion=self.object)
+        except InvestigacionFacturaArchivos.DoesNotExist:
+            inv_cliente_factura_archivos = None
 
         context['inv_factura_archivos'] = inv_factura_archivos
+        context['inv_cliente_factura_archivos'] = inv_cliente_factura_archivos
         
         return context
 
@@ -196,4 +202,37 @@ class InvestigacionFacturaDireccionFiscalUpdateView(GroupRequiredMixin, UpdateVi
 
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS, 'La dirección fiscal ha sido actualizada')
+        return reverse('cobranza_facturas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+
+
+
+class InvestigacionFacturaClienteArchivoUpdateView(GroupRequiredMixin, UpdateView):
+
+    # required
+    group_required = [u"Admin", u"SuperAdmin"]
+    raise_exception = True
+
+    model = Investigacion
+    template_name = 'cobranza/facturas/aprobacion_comprobante_form.html'
+    fields = ['investigacion_factura_pago_verificado']
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionFacturaClienteArchivoUpdateView, self).get_context_data(**kwargs)
+
+        inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+
+        try:
+            inv_archivos = InvestigacionFacturaArchivos.objects.get(investigacion=inv)
+        except InvestigacionFacturaClienteArchivo.DoesNotExist:
+            inv_archivos = None
+
+        context['investigacion_id'] = self.kwargs['investigacion_id']
+        context['inv_archivos'] = inv_archivos
+        
+        return context
+
+    # send the user back to their own page after a successful update
+    def get_success_url(self, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             'El comprobante de pago ha sido actualizado correctamente')
         return reverse('cobranza_facturas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
