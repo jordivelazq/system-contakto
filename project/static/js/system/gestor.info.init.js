@@ -36,7 +36,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
-                    a += '<a class="btn btn-primary" onclick="getorUpdate(\'' + row.id + '\')"><i class="bx bx-edit-alt font-size-16 align-middle"></i></a>';
+                    a += '<a class="btn btn-primary" onclick="gestorUpdate(\'' + row.id + '\')"><i class="bx bx-edit-alt font-size-16 align-middle"></i></a>';
                     a += '<a class="btn btn-danger" onclick="gestorDelete(\'' + row.id + '\')"><i class="bx bx bx-trash font-size-16 align-middle"></i></a>';
 
 

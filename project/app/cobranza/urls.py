@@ -1,9 +1,10 @@
 from app.cobranza.new_views.cobranzas_investigaciones import (
     InvestigacionFacturaArchivosCreateView,
-    InvestigacionFacturaArchivosUpdateView, InvestigacionFacturalDetailView,
-    InvestigacionFacturaTemplateView, InvestigacionFacturaUpdateView, InvestigacionFacturaDireccionFiscalUpdateView
-    )
-
+    InvestigacionFacturaArchivosUpdateView,
+    InvestigacionFacturaClienteArchivoUpdateView,
+    InvestigacionFacturaDireccionFiscalUpdateView,
+    InvestigacionFacturalDetailView, InvestigacionFacturaTemplateView,
+    InvestigacionFacturaUpdateView)
 from app.cobranza.views import (cobranza_facturas, cobranza_investigacion,
                                 eliminar_cobranza_investigacion,
                                 generar_reporte, panel, reset_filtros,
@@ -29,6 +30,11 @@ urlpatterns = [
     # actualizar direccion fiscal
     path('facturas/direccion-dical/update/<int:investigacion_id>/<int:pk>/', 
          InvestigacionFacturaDireccionFiscalUpdateView.as_view(), name='cobranza_facturas_direccion_fiscal_update'),
+
+     # Verificar pago
+     path('facturas/aprobar_pago/update/<int:investigacion_id>/<int:pk>/', 
+         InvestigacionFacturaClienteArchivoUpdateView.as_view(), name='cobranza_facturas_validar_comprobante_update'),
+
 
 	url(r'^$', panel, name='panel_cobranza'),
 	url(r'^exito/$', panel, name='panel_cobranza'),

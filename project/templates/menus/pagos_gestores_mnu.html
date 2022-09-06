@@ -1,0 +1,12 @@
+{% load core_extras %}{% if request.user|has_group:"Cobranzas" %}
+<li>
+    <a href="javascript: void(0);" class="has-arrow">
+        <i data-feather="users"></i>
+        <span data-key="t-contacts">Pago a gestores</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li><a href="{% url 'pagos_gestores:pagos_gestores_list' %}" data-key="t-user-grid">Pagos pendientes</a></li>
+        <li><a href="{% url 'pagos_gestores:pagados_list' %}" data-key="t-user-list">Pagos ejecutados</a></li>
+    </ul>
+</li>
+{% endif %}

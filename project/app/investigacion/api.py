@@ -1987,3 +1987,21 @@ class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, Tem
         inv.save()
 
         return redirect('cobranza_facturas_detail', self.kwargs['investigacion_id'])
+
+
+class InvestigacionCobranzasClienteCompletaComprobanteTemplateView(LoginRequiredMixin, TemplateView):
+
+    # # required
+    # group_required = [u"Client", ]
+    # raise_exception = True
+
+    template_name = ''
+
+    def get(self, request, **kwargs):
+        investigacion_id = self.kwargs['investigacion_id']
+        inv = Investigacion.objects.get(id=investigacion_id)
+        
+        inv.investigacion_factura_pago_completado = True
+        inv.save()
+
+        return redirect('clientes:clientes_factura_detail', self.kwargs['investigacion_id'])

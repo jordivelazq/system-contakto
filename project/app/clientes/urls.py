@@ -1,18 +1,19 @@
 from app.clientes.api import ClienteTemplateView, ClienteUserViewSet
-from app.clientes.views.solicitudes import (ClienteSolicitudCandidatoCreateView,
-                                ClienteSolicitudCandidatoDeleteView,
-                                ClienteSolicitudCandidatoUpdateView,
-                                ClienteSolicitudCreateTemplateView,
-                                ClienteSolicitudDeleteView,
-                                ClienteSolicitudDetailView,
-                                ClienteSolicitudEnviarTemplateView,
-                                ClienteSolicitudListView, InitialClient,
-                                MunicipiosView)
 from app.clientes.views.clientes_users import (ClienteUserCreateView,
                                                ClienteUserDetailView,
                                                ClienteUserUpdatePasswdView,
                                                ClienteUserUpdateView)
-from app.clientes.views.pagos import ClientesFacturaTemplateView, InvestigacionClienteFacturaViewSet
+from app.clientes.views.pagos import (ClientesFacturaDetailView,
+                                      ClientesFacturaTemplateView,
+                                      InvestigacionClienteFacturaViewSet, 
+                                      InvestigacionFacturaClienteArchivoCreateView,
+                                      InvestigacionFacturaClienteArchivoUpdateView)
+from app.clientes.views.solicitudes import (
+    ClienteSolicitudCandidatoCreateView, ClienteSolicitudCandidatoDeleteView,
+    ClienteSolicitudCandidatoUpdateView, ClienteSolicitudCreateTemplateView,
+    ClienteSolicitudDeleteView, ClienteSolicitudDetailView,
+    ClienteSolicitudEnviarTemplateView, ClienteSolicitudListView,
+    InitialClient, MunicipiosView)
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -46,7 +47,13 @@ urlpatterns = [
     path('solicitudes/candidato/delete/<int:solicitud_id>/<int:pk>', ClienteSolicitudCandidatoDeleteView.as_view(), name='clientes_solicitud_candidato_delete'),
     
     # facturas
-    path("faturas/list/", ClientesFacturaTemplateView.as_view(), name="clientes_facturas_list"),
+    path("facturas/list/", ClientesFacturaTemplateView.as_view(), name="clientes_facturas_list"),
+    path('facturas/detail/<int:pk>/',
+         ClientesFacturaDetailView.as_view(), name='clientes_factura_detail'),
+    path('facturas/create/<int:investigacion_id>/',
+         InvestigacionFacturaClienteArchivoCreateView.as_view(), name='clientes_factura_create'),
+    path('facturas/create/<int:investigacion_id>/<int:pk>/',
+         InvestigacionFacturaClienteArchivoUpdateView.as_view(), name='clientes_factura_update'),
 
     path('municipios/<str:efe_key>/', MunicipiosView.as_view(), name='clientes_municipios'),
 ]

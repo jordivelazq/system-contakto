@@ -35,7 +35,7 @@ class InitialClient(LoginRequiredMixin, TemplateView):
         return context
 
 
-class ClienteSolicitudListView(GroupRequiredMixin, ListView):
+class ClienteSolicitudListView(LoginRequiredMixin, ListView):
 
     # required
     group_required = u"Cliente"
@@ -70,7 +70,7 @@ class ClienteSolicitudListView(GroupRequiredMixin, ListView):
         return context
 
 
-class ClienteSolicitudCreateTemplateView(GroupRequiredMixin, TemplateView):
+class ClienteSolicitudCreateTemplateView(LoginRequiredMixin, TemplateView):
 
     # required
     group_required = u"Cliente"
@@ -92,7 +92,7 @@ class ClienteSolicitudCreateTemplateView(GroupRequiredMixin, TemplateView):
         return redirect('clientes:clientes_solicitud_detail', pk=solicitud.pk, **kwargs)
 
 
-class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
+class ClienteSolicitudDetailView(LoginRequiredMixin, DetailView):
 
     # required
     group_required = [u"Client", u"SuperAdmin"]
@@ -115,7 +115,7 @@ class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
         return context
 
 
-class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
+class ClienteSolicitudEnviarTemplateView(LoginRequiredMixin, TemplateView):
 
     # required
     group_required = u"Cliente"
@@ -351,7 +351,7 @@ class ClienteSolicitudEnviarTemplateView(GroupRequiredMixin, TemplateView):
         return redirect('clientes:clientes_solicitud_detail', pk=solicitud.pk,)
 
 
-class ClienteSolicitudDeleteView(GroupRequiredMixin, DeleteView):
+class ClienteSolicitudDeleteView(LoginRequiredMixin, DeleteView):
 
     # required
     group_required = u"Cliente"
@@ -374,7 +374,7 @@ class ClienteSolicitudDeleteView(GroupRequiredMixin, DeleteView):
         return context
 
 
-class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
+class ClienteSolicitudCandidatoCreateView(LoginRequiredMixin, CreateView):
 
     # required
     group_required = u"Cliente"
@@ -413,7 +413,7 @@ class ClienteSolicitudCandidatoCreateView(GroupRequiredMixin, CreateView):
         return reverse('clientes:clientes_solicitud_detail', kwargs={"pk": self.kwargs['solicitud_id']})
 
 
-class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
+class ClienteSolicitudCandidatoUpdateView(LoginRequiredMixin, UpdateView):
 
     # required
     group_required = u"Cliente"
@@ -442,7 +442,7 @@ class ClienteSolicitudCandidatoUpdateView(GroupRequiredMixin, UpdateView):
         return reverse('clientes:clientes_solicitud_detail', kwargs={"pk": self.kwargs['solicitud_id']})
 
 
-class ClienteSolicitudCandidatoDeleteView(GroupRequiredMixin, DeleteView):
+class ClienteSolicitudCandidatoDeleteView(LoginRequiredMixin, DeleteView):
 
     # required
     group_required = u"Cliente"

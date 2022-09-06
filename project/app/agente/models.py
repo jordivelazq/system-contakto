@@ -1,6 +1,8 @@
 from pyexpat import model
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class AgenteInfo(models.Model):
@@ -55,6 +57,8 @@ class GestorInfo(models.Model):
 	fecha_registro = models.DateTimeField(auto_now_add=True)
 	estatus = models.PositiveSmallIntegerField(choices=ESTATUS, default=1)
 	tipo_pago = models.PositiveSmallIntegerField(choices=TIPO_PAGO, default=1)
+	clabe_interbancaraia = models.CharField(max_length=20, null=True, blank=True)
+	banco = models.CharField(max_length=100, null=True, blank=True)
 
 	def __str__(self):
 		return '{} {} Tel:{} Ciudad:{} Estado:{} Zona: {} Tipo:{}'.format(self.usuario.first_name, self.usuario.last_name , self.telefono, self.ciudad, self.estado, self.zona, self.get_tipo_pago_display())
