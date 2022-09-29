@@ -407,6 +407,10 @@ class EntrevistaPersonaSerializer(serializers.ModelSerializer):
         model = EntrevistaPersona
         fields = '__all__'
 
+class EntrevistaPersonaDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EntrevistaPersona
+        fields = '__all__'
 
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:

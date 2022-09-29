@@ -59,7 +59,7 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaLicenciaSerializer,
                          EntrevistaMiembroMarcoFamiliarSerializer,
                          EntrevistaOrigenSerializer,
-                         EntrevistaOtroIdiomaSerializer,
+                         EntrevistaOtroIdiomaSerializer, EntrevistaPersonaDataSerializer,
                          EntrevistaPersonaSerializer,
                          EntrevistaPrestacionViviendaSerializer,
                          EntrevistaPropietarioViviendaSerializer,
@@ -364,6 +364,12 @@ class EntrevistaPersonaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         qs = self.queryset.filter(investigacion_id=investigacion_id)
         return qs
 
+class EntrevistaPersonaDataViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaPersona.objects.all()
+    serializer_class = EntrevistaPersonaDataSerializer
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 class EntrevistaAcademicaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaAcademica.objects.all()
