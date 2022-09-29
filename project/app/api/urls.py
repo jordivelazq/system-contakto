@@ -10,6 +10,7 @@ from app.api.views_mobile import *
 
 router = DefaultRouter()
 router.register(r'entrevista_persona/(?P<investigacion_id>\d+)', EntrevistaPersonaViewSet)
+router.register(r'entrevista_persona/(?P<investigacion>\d+)', EntrevistaPersonaDataViewSet)
 router.register(r'entrevista_academica', EntrevistaAcademicaViewSet)
 router.register(r'entrevista_actividaddes_habitos', EntrevistaActividadesHabitosViewSet)
 router.register(r'entrevista_aspecto_hogar', EntrevistaAspectoHogarViewSet)
