@@ -87,6 +87,7 @@ class Investigacion(models.Model):
 	status_active = models.BooleanField(default=True) # revisar si es necesario, si no borrarlo
 	status_general = models.CharField(max_length=140, choices=STATUS_GRAL_OPCIONES, null=True, blank=True, default='0')
 	observaciones_generales = models.TextField(max_length=160000, blank=True, null=True)
+	fecha_laboral=models.DateField(blank=True, null=True)
 	
 	tipo_investigacion_status = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
 	tipo_investigacion_texto = models.TextField(max_length=16000, blank=True, null=True)

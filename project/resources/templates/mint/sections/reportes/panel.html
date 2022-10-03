@@ -54,7 +54,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/static/img/ajax-loader.gif
 						{% endif %}
 						
 						<th class="col-gray" colspan="4">Datos de Candidato</th>
-						<th class="col-blue" colspan="5">Resultado</th>
+						<th class="col-blue" colspan="7">Resultado</th>
 						<th class="col-red" colspan="3">Datos de Entrevista</th>
 					</tr>
 					<tr>
@@ -74,9 +74,13 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/static/img/ajax-loader.gif
 
 						<th class="col-blue">Estatus</th>
 						<th class="col-blue">Investigación Laboral</th>
+						<th class="col-blue">Fecha fin laboral</th>
 						<th class="col-blue">Calificación Final</th>
 						<th class="col-blue">Observaciones Generales</th>
 						<th class="col-blue">Observaciones Laboral</th>
+						<th class="col-blue">Observaciones Entrevista</th>
+						
+
 
 						<th class="col-red">Gestor</th>
 						<th class="col-red">Día Cita</th>
@@ -179,13 +183,17 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/static/img/ajax-loader.gif
 								{% endif %}
 							{% endfor %}
 						</td>
+						<td>{{ inv.fecha_laboral|default:"" }}</td>
 						<td>{{ inv.resultado|investigacion_resultado }}</td>
 						<td>{{ inv.tipo_investigacion_texto }}</td>
 						<td>{{ inv.observaciones_generales|safe }}</td>
+						<td>{{inv.conclusiones|default:""}}</td>
+						
 
 						<td>{{inv.entrevista.entrevistador|default:""}}</td>
 						<td>{{inv.entrevista.fecha_entrevista|default:""}}</td>
 						<td>{{inv.entrevista.hora_entrevista|default:""}}</td>
+						
 					</tr>
 					{% endfor %}
 				</tbody>
