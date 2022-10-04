@@ -187,7 +187,7 @@ var ajaxloader = $("<img class=\"ajax_loader\" src=\"/static/img/ajax-loader.gif
 						<td>{{ inv.resultado|investigacion_resultado }}</td>
 						<td>{{ inv.tipo_investigacion_texto }}</td>
 						<td>{{ inv.observaciones_generales|safe }}</td>
-						<td>{{inv.conclusiones|default:""}}</td>
+						<td>{{ inv.entrevista.observaciones|default:"" }}</td>
 						
 
 						<td>{{inv.entrevista.entrevistador|default:""}}</td>
