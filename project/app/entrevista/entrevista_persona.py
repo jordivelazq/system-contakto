@@ -92,7 +92,7 @@ class EntrevistaPersonaService():
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="*", nombre="*", telefono="*")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hermano", residencia="**", nombre="*", telefono="*")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="**", empresa="*", ocupacion="*", tipo="hermano", residencia="*", nombre="*", telefono="*")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="esposa", residencia="**", nombre="*", telefono="*")
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="pareja", residencia="**", nombre="*", telefono="*")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="**", nombre="*", telefono="*")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="*", empresa="*", ocupacion="**", tipo="hijo", residencia="*",nombre="**", telefono="*")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="*", empresa="*", ocupacion="*", tipo="hijo", residencia="*",  nombre="*", telefono="*")
