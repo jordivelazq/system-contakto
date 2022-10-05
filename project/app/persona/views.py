@@ -806,11 +806,12 @@ def observaciones(request, investigacion_id):
 		formaGestorInvestigacion = GestorInvestigacionForm(request.POST, prefix='gestor_investigacion', instance=gestor_investigacion) if gestor_investigacion else GestorInvestigacionForm(request.POST, prefix='gestor_investigacion')
 		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaGestorInvestigacion.is_valid():
 			# GESTOR INVESTIGACION
-			formaGestorInvestigacion.instance.fecha_registro = datetime.datetime.now()
-			formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+			if not formaGestorInvestigacion.instance.fecha_registro:
+				formaGestorInvestigacion.instance.fecha_registro = datetime.datetime.now()
+				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+				formaGestorInvestigacion.instance.estatus = '2'
 			formaGestorInvestigacion.instance.investigacion_id = investigacion.id
-			formaGestorInvestigacion.instance.estatus = '2'
-			if request.POST.get('gestor_investigacion-estatus') == '3':
+			if request.POST.get('gestor_investigacion-estatus') == '3' and not formaGestorInvestigacion.instance.fecha_atencion:
 				formaGestorInvestigacion.instance.fecha_atencion = datetime.datetime.now()
 			formaGestorInvestigacion.save()
 
