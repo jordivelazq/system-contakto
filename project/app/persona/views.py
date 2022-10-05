@@ -569,8 +569,14 @@ def ver_trayectoria(request, investigacion_id):
 
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
 		else:
+			is_completed = request.POST.get('laboral-completado')
+			fecha_laboral = request.POST.get('fecha_laboral')
 			formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
-			if formaInvestigacion.is_valid():			
+			if formaInvestigacion.is_valid():
+				if is_completed == 'on':
+					formaInvestigacion.instance.fecha_laboral= datetime.datetime.now()
+				if fecha_laboral:
+					formaInvestigacion.instance.fecha_laboral = fecha_laboral
 				formaInvestigacion.save()
 
 				if 'redirect' in request.POST:
@@ -801,9 +807,9 @@ def observaciones(request, investigacion_id):
 		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaGestorInvestigacion.is_valid():
 			# GESTOR INVESTIGACION
 			formaGestorInvestigacion.instance.fecha_registro = datetime.datetime.now()
+			formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
 			formaGestorInvestigacion.instance.investigacion_id = investigacion.id
-			if request.POST.get('gestor_investigacion-estatus') == '2':
-				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+			formaGestorInvestigacion.instance.estatus = '2'
 			if request.POST.get('gestor_investigacion-estatus') == '3':
 				formaGestorInvestigacion.instance.fecha_atencion = datetime.datetime.now()
 			formaGestorInvestigacion.save()

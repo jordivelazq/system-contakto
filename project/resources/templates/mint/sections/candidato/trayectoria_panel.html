@@ -135,6 +135,19 @@
 				</div>
 
 				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group form-check">
+							{% if formaInvestigacion.fecha_laboral.value %}
+							<input type="checkbox" class="form-check-input" id="laboral-completado" name="laboral-completado" checked disabled/>
+							<input type="hidden" name="fecha_laboral" value="{{formaInvestigacion.fecha_laboral.value|safe}}"/>
+							<label class="form-check-label" for="laboral-completado">Investigación completada ({{formaInvestigacion.fecha_laboral.value}})</label>
+							{% else %}
+							<input type="checkbox" class="form-check-input" id="laboral-completado" name="laboral-completado"/>
+							<label class="form-check-label" for="laboral-completado">Investigación completada</label>
+							{% endif %}
+							
+						  </div>
+					</div>
 					<br />
 					{% if request.user.is_staff or is_user_captura %}	
 						<div class="col-md-2 pull-right">

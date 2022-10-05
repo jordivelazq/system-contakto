@@ -73,7 +73,13 @@
                         <div class="col-md-4">
                             <label>Estatus de Inv. Laboral:</label>
                             {{ formaInvestigacion.status }}
+                            {% if formaInvestigacion.fecha_laboral.value %}
+                            <br/>
+                            <label>Fecha de conclusión:</label><br/>
+                            {{ formaInvestigacion.fecha_laboral.value }}
+                            {%endif%}
                         </div>
+                        
                         {% if user.is_superuser %}
                             <div class="col-md-8">
                                 <div class="panel panel-default">
@@ -148,7 +154,7 @@
                             {{ formaEntrevista.hora_entrevista }}
                         </div>
                         <div class="col-md-8">
-                            <label>Observaciones de Entrevista (uso interno, no visible):</label>
+                            <label>Observaciones de Entrevista (visible en estatus):</label>
                             {{ formaEntrevista.observaciones }}
                         </div>
                     </div>
