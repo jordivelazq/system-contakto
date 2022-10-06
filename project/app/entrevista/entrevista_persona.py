@@ -31,6 +31,7 @@ class EntrevistaPersonaService():
         EntrevistaActividadesHabitos.objects.get_or_create(persona_id=ep.pk)
         EntrevistaBienesRaices.objects.get_or_create(person_id=ep.pk) 
         EntrevistaDeudaActual.objects.get_or_create(person_id=ep.pk)
+        EntrevistaDeudaActual.objects.get_or_create(person_id=ep.pk,tipo="Otro")
         EntrevistaDireccion.objects.get_or_create(persona_id=ep.pk)
         EntrevistaDistribucionDimensiones.objects.get_or_create(person_id=ep.pk)
         EntrevistaInfoPersonal.objects.get_or_create(persona_id=ep.pk)
@@ -65,6 +66,8 @@ class EntrevistaPersonaService():
         EntrevistaAspectoCandidato.objects.get_or_create(person_id=ep.pk, tipo="colaboracion")
         EntrevistaAspectoCandidato.objects.get_or_create(person_id=ep.pk, tipo="actitud")
         
+        EntrevistaBienesRaices.objects.get_or_create(person_id=ep.pk,tipo_inmueble="Otro")
+
         EntrevistaAutomovil.objects.get_or_create(person_id=ep.pk, valor_comercial="*", marca="**", liquidacion="*", modelo_ano="*")
         EntrevistaAutomovil.objects.get_or_create(person_id=ep.pk, valor_comercial="*", marca="**", liquidacion="*", modelo_ano="**")
 
