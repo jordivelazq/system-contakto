@@ -73,10 +73,10 @@
                         <div class="col-md-4">
                             <label>Estatus de Inv. Laboral:</label>
                             {{ formaInvestigacion.status }}
-                            {% if formaInvestigacion.fecha_laboral.value %}
+                            {% if investigacion.fecha_laboral %}
                             <br/>
                             <label>Fecha de conclusión:</label><br/>
-                            {{ formaInvestigacion.fecha_laboral.value }}
+                            {{ investigacion.fecha_laboral }}
                             {%endif%}
                         </div>
                         

@@ -575,7 +575,7 @@ def ver_trayectoria(request, investigacion_id):
 			if formaInvestigacion.is_valid():
 				if is_completed == 'on':
 					formaInvestigacion.instance.fecha_laboral= datetime.datetime.now()
-				if fecha_laboral:
+				if not investigacion.fecha_laboral:
 					formaInvestigacion.instance.fecha_laboral = fecha_laboral
 				formaInvestigacion.save()
 
