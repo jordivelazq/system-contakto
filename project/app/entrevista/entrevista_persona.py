@@ -69,10 +69,10 @@ class EntrevistaPersonaService():
         EntrevistaBienesRaices.objects.get_or_create(person_id=ep.pk,tipo_inmueble="Otro")
 
         EntrevistaAutomovil.objects.get_or_create(person_id=ep.pk, valor_comercial="", marca="", liquidacion="", modelo_ano="")
-        EntrevistaAutomovil.objects.get_or_create(person_id=ep.pk, valor_comercial="", marca="", liquidacion="", modelo_ano="")
+        EntrevistaAutomovil.objects.get_or_create(person_id=ep.pk, valor_comercial="", marca="N/A", liquidacion="", modelo_ano="")
 
         EntrevistaCuentaDebito.objects.get_or_create(person_id=ep.pk,institucion="", saldo_mensual="", antiguedad="", ahorro="")
-        EntrevistaCuentaDebito.objects.get_or_create(person_id=ep.pk,institucion="", saldo_mensual="", antiguedad="", ahorro="")
+        EntrevistaCuentaDebito.objects.get_or_create(person_id=ep.pk,institucion="N/A", saldo_mensual="", antiguedad="", ahorro="")
     
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="investigado", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="conyuge", tipo="ingreso")
@@ -129,13 +129,13 @@ class EntrevistaPersonaService():
         EntrevistaPrestacionVivienda.objects.get_or_create(persona_id=ep.pk,  uso="", fecha_tramite="", categoria_viv="fonacot", activo="", numero_credito="")
             
         EntrevistaReferencia.objects.get_or_create(person_id=ep.pk, parentesco="", tiempo_conocido="", lugares_labor_evaluado="", opinion="", nombre="", ocupacion="", telefono="", domicilio="")
-        EntrevistaReferencia.objects.get_or_create(person_id=ep.pk, parentesco="", tiempo_conocido="", lugares_labor_evaluado="",  opinion="", nombre="", ocupacion="", telefono="", domicilio="")
+        EntrevistaReferencia.objects.get_or_create(person_id=ep.pk, parentesco="", tiempo_conocido="", lugares_labor_evaluado="",  opinion="", nombre="*", ocupacion="", telefono="", domicilio="")
        
         EntrevistaSeguro.objects.get_or_create(person_id=ep.pk, empresa="", vigencia="", tipo="", forma_pago="")
-        EntrevistaSeguro.objects.get_or_create(person_id=ep.pk, empresa="", vigencia="", tipo="", forma_pago="")
+        EntrevistaSeguro.objects.get_or_create(person_id=ep.pk, empresa="N/A", vigencia="", tipo="", forma_pago="")
         
         EntrevistaTarjetaCreditoComercial.objects.get_or_create(person_id=ep.pk, institucion="", saldo_actual="", pago_minimo="", limite_credito="")
-        EntrevistaTarjetaCreditoComercial.objects.get_or_create(person_id=ep.pk, institucion="", saldo_actual="", pago_minimo="", limite_credito="")
+        EntrevistaTarjetaCreditoComercial.objects.get_or_create(person_id=ep.pk, institucion="N/A", saldo_actual="", pago_minimo="", limite_credito="")
 
         EntrevistaTelefono.objects.get_or_create(persona_id=ep.pk, categoria="casa", parentesco="", numero="")
         EntrevistaTelefono.objects.get_or_create(persona_id=ep.pk, categoria="movil", parentesco="", numero="")
