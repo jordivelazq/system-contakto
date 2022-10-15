@@ -163,7 +163,10 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       cs.nombre as '21',
       ec.fecha_entrevista as '22',
       ec.hora_entrevista as '23',
-      ec.entrevistador as '24'
+      ec.entrevistador as '24',
+      gi.fecha_asignacion as '25',
+      i.fecha_laboral as '26',
+      gi.fecha_atencion as '27'
       '''
 
   query += '''
@@ -177,6 +180,7 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       INNER JOIN persona_direccion pd ON pd.persona_id = pp.id
       INNER JOIN compania_sucursales cs ON i.sucursal_id = cs.id
       LEFT JOIN entrevista_entrevistacita ec ON i.id = ec.investigacion_id
+      LEFT JOIN investigacion_gestorinvestigacion gi ON i.id = gi.investigacion_id
     WHERE i.fecha_recibido between %s AND %s
       AND i.status_active = 1
     '''

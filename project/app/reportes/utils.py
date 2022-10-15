@@ -2,6 +2,7 @@ from django.db import connection
 from reportlab.lib.units import inch
 from app.persona.models import Direccion
 from app.entrevista.models import EntrevistaCita
+from app.investigacion.models import GestorInvestigacion
 
 class TextUtility:
 
@@ -102,5 +103,17 @@ def get_entrevistacita_por_persona(investigaciones_id):
 	for cita in entrevista_citas:
 		if not cita.investigacion.id in response:
 			response[cita.investigacion.id] = cita
+	
+	return response
+
+def get_entrevistagestor_por_persona(investigaciones_id):
+	# equivalent to (less performant):
+	# i.entrevista = i.entrevistacita_set.all()[0] if i.entrevistacita_set.all().count() else None
+	
+	entrevista_gestor = GestorInvestigacion.objects.filter(investigacion__in=investigaciones_id)
+	response = {}
+	for gestor in entrevista_gestor:
+		if not gestor.investigacion.id in response:
+			response[gestor.investigacion.id] = gestor
 	
 	return response
