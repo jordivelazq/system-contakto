@@ -123,7 +123,10 @@ def get_cobranza_csv_row_2(cob):
     cob[17],
     cob[22],
     cob[23],
-    cob[24]
+    cob[24],
+    cob[26],
+    cob[27],
+    cob[27]
   ]
   return item
 
