@@ -130,7 +130,7 @@ class EntrevistaPrestacionVivienda(models.Model):
 	fecha_tramite = models.CharField(verbose_name='Fecha en que fue tramitado', max_length=140, null=True, blank=True)
 	numero_credito = models.CharField(verbose_name='No. de crédito', max_length=140, null=True, blank=True)
 	uso = models.CharField(max_length=250, null=True, blank=True)
-	motivo = models.CharField(verbose_name='Para qué se tramitó?', max_length=250, null=True, blank=True)
+	motivo = models.CharField(verbose_name='Domicilio completo del inmueble', max_length=250, null=True, blank=True)
 
 	def __str__(self):
 		return self.categoria_viv

@@ -125,7 +125,7 @@ def get_cobranza_csv_row_2(cob):
     cob[23],
     cob[24],
     cob[26],
-    cob[27],
+    cob[25],
     cob[27]
   ]
   return item
