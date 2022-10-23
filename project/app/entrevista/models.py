@@ -346,7 +346,7 @@ class EntrevistaMiembroMarcoFamiliar(models.Model):
 	residencia = models.CharField(max_length=140, null=True, blank=True)
 	telefono = models.CharField(max_length=140, null=True, blank=True)
 	parentesco = models.CharField(max_length=140, null=True, blank=True)
-	category = models.CharField(max_length=140, default=1, choices=FAMILIAR_OPCIONES)
+	category = models.CharField(max_length=140, default=1, choices=FAMILIAR_CATEGORIA)
 
 	def __str__(self):
 		return '%s' % self.tipo
