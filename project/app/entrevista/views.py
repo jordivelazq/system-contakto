@@ -395,13 +395,13 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			aspectos_hogar_formset = AspectoHogarFormset(request.POST, prefix='asp_hogar', queryset=aspectos_hogar)
 			aspectos_candidato_formset = AspectoCandidatoFormset(request.POST, prefix='asp_candidato', queryset=aspectos_candidato)
 			investigacion_form = EntrevistaInvestigacionForm(request.POST, instance=entrevista_investigacion, prefix='investigacion')
-			conclusion_form = EntrevistaPersonaForm(request.POST, instance=candidato, prefix='entrevista_persona')
-			if documentos_formset.is_valid() and aspectos_hogar_formset.is_valid() and aspectos_candidato_formset.is_valid() and investigacion_form.is_valid() and conclusion_form.is_valid():
+			#conclusion_form = EntrevistaPersonaForm(request.POST, instance=candidato, prefix='entrevista_persona')
+			if documentos_formset.is_valid() and aspectos_hogar_formset.is_valid() and aspectos_candidato_formset.is_valid() and investigacion_form.is_valid(): #and conclusion_form.is_valid():
 				documentos_formset.save()
 				aspectos_hogar_formset.save()
 				aspectos_candidato_formset.save()
 				investigacion_form.save()
-				conclusion_form.save()		
+				#conclusion_form.save()		
 
 				if 'redirect' in request.POST:
 					return HttpResponseRedirect(request.POST.get('redirect'))
