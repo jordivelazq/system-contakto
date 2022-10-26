@@ -570,13 +570,12 @@ def ver_trayectoria(request, investigacion_id):
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
 		else:
 			is_completed = request.POST.get('laboral-completado')
-			fecha_laboral = request.POST.get('fecha_laboral')
+			if is_completed == "on" and not investigacion.fecha_laboral:
+				investigacion.fecha_laboral = datetime.datetime.now()
+				investigacion.save()
+
 			formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
 			if formaInvestigacion.is_valid():
-				if is_completed == 'on':
-					formaInvestigacion.instance.fecha_laboral= datetime.datetime.now()
-				if not investigacion.fecha_laboral:
-					formaInvestigacion.instance.fecha_laboral = fecha_laboral
 				formaInvestigacion.save()
 
 				if 'redirect' in request.POST:
