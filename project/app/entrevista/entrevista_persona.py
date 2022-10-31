@@ -121,9 +121,9 @@ class EntrevistaPersonaService():
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre=" N/A", telefono="")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk,edad="", empresa="", ocupacion="", tipo="otro", residencia="",  nombre="  N/A", telefono="")
         EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco="", category="2")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco="ESPECIFICAR",  category="2")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco=" ESPECIFICAR",  category="2")
-        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco="  ESPECIFICAR",  category="2")
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco="OTRO",  category="2")
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco=" OTRO",  category="2")
+        EntrevistaMiembroMarcoFamiliar.objects.get_or_create(person_id=ep.pk, edad="", empresa="", ocupacion="", tipo="otro", residencia="", nombre="", telefono="", parentesco="  OTRO",  category="2")
 
         EntrevistaPrestacionVivienda.objects.get_or_create(persona_id=ep.pk, uso="", fecha_tramite="", categoria_viv="infonavit", activo="", numero_credito="")
         EntrevistaPrestacionVivienda.objects.get_or_create(persona_id=ep.pk,  uso="", fecha_tramite="", categoria_viv="fonacot", activo="", numero_credito="")
