@@ -805,14 +805,11 @@ def observaciones(request, investigacion_id):
 		formaGestorInvestigacion = GestorInvestigacionForm(request.POST, prefix='gestor_investigacion', instance=gestor_investigacion) if gestor_investigacion else GestorInvestigacionForm(request.POST, prefix='gestor_investigacion')
 		if formaInvestigacion.is_valid() and formaEntrevista.is_valid() and formaGestorInvestigacion.is_valid():
 			# GESTOR INVESTIGACION
-			if bool(formaGestorInvestigacion.instance.fecha_registro) == False and formaGestorInvestigacion.instance.gestor.id != '2':
-				formaGestorInvestigacion.instance.fecha_registro = datetime.datetime.now()
-				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
-				formaGestorInvestigacion.instance.estatus = '2'
-			if bool(formaGestorInvestigacion.instance.fecha_asignacion) == False and formaGestorInvestigacion.instance.gestor.id != '2':
-				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+			formaGestorInvestigacion.instance.fecha_registro = datetime.datetime.now()
 			formaGestorInvestigacion.instance.investigacion_id = investigacion.id
-			if request.POST.get('gestor_investigacion-estatus') == '3' and not gestor_investigacion.fecha_atencion:
+			if request.POST.get('gestor_investigacion-estatus') == '2':
+				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+			if request.POST.get('gestor_investigacion-estatus') == '3':
 				formaGestorInvestigacion.instance.fecha_atencion = datetime.datetime.now()
 			formaGestorInvestigacion.save()
 
