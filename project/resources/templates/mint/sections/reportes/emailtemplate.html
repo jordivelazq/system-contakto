@@ -22,8 +22,12 @@
 			<th style="background-color: dimgray; border: 1px solid black; padding: 5px; min-width: 100px;">Ciudad y Estado</th>
 
 			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 400px;">Investigación Laboral</th>
-			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 150px;">Observaciones</th>
-			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 150px;">Calificación Final</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 100px;">Fecha fin laboral</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 150px;">Observaciones generales</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 100px;">Calificación Final</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 150px;">Observaciones Laboral</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 150px;">Observaciones Entrevista</th>
+			<th style="background-color: lightsteelblue; border: 1px solid black; padding: 5px; min-width: 100px;">Fecha de entrega final</th>
 
 			{% if investigaciones|show_entrevista %}
 			<th style="background-color: indianred; border: 1px solid black; padding: 5px; min-width: 100px;">Gestor</th>
@@ -101,8 +105,12 @@
 
 				{% endfor %}
 			</td>
-			<td style="border: 1px solid black; padding: 5px;">{{ inv.observaciones_generales|safe }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.fecha_laboral|default:"" }}</td>
 			<td style="border: 1px solid black; padding: 5px;">{{ inv.resultado|investigacion_resultado }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.tipo_investigacion_texto }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.observaciones_generales|safe }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.entrevista.observaciones|default:"" }}</td>
+			<td style="border: 1px solid black; padding: 5px;">{{ inv.fecha_entrega|date:"d/M/y"}}</td>
 
 			{% if investigaciones|show_entrevista %}
 			<td style="border: 1px solid black; padding: 5px;">{{inv.entrevista.entrevistador|default:""}}</td>
