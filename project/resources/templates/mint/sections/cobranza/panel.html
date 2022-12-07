@@ -101,6 +101,7 @@
 						<th class="text-center col-red">Entrevistador (gestor)</th>
 						<th class="text-center col-red">Fecha de asignación</th>
 						<th class="text-center col-red">Fecha de conclusión</th>
+						<th class="text-center col-blue">CURP</th>
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
@@ -188,6 +189,9 @@
 								{% if investigacion.27 %}
 									{{ investigacion.27|date:'d/m/Y' }}
 								{% endif %}
+							</td>
+							<td class="text-center">
+								{{ investigacion.28|default:''}}
 							</td>
 						</tr>
 					{% endfor %}

@@ -126,7 +126,8 @@ def get_cobranza_csv_row_2(cob):
     cob[24],
     cob[26],
     cob[25],
-    cob[27]
+    cob[27],
+    cob[28],
   ]
   return item
 
@@ -169,7 +170,8 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
       ec.entrevistador as '24',
       gi.fecha_asignacion as '25',
       i.fecha_laboral as '26',
-      gi.fecha_atencion as '27'
+      gi.fecha_atencion as '27',
+      pp.curp as '28'
       '''
 
   query += '''
