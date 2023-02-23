@@ -486,6 +486,7 @@ class InvestigacionListSerializer(serializers.ModelSerializer):
     sucursal = SucursalSerializer()
     agente = AgenteSerializer()
     candidato = PersonaSerializer()
+    detalle = serializers.SerializerMethodField()
 
     def get_telefono(self, obj):
         queryset = Telefono.objects.filter(persona_id=obj.candidato_id)
@@ -495,6 +496,11 @@ class InvestigacionListSerializer(serializers.ModelSerializer):
     def get_direccion(self, obj):
         queryset = Direccion.objects.filter(persona_id=obj.candidato_id)
         serializer = DireccionSerializer(queryset, many=True)
+        return serializer.data
+
+    def get_detalle(self, obj):
+        queryset = Investigacion.objects.get(id=obj.id)
+        serializer = InvestigacionSerializer(queryset)
         return serializer.data
 
     class Meta:
