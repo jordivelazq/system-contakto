@@ -56,18 +56,12 @@
                                 
                                     <a href="{% url 'clientes:clientes_solicitud_candidato_create' cliente_solicitud.pk %}"
                                     class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-plus label-icon"></i>Agregar candidato</a>
-                                    
+
                                     
                                     {% if total_candidatos > 0  %}
                                     <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="enviar-solicitud">
                                         <i class="bx bx-check label-icon"></i> Enviar solicitud
                                     </button>
-
-                                       
-                                       {% comment %}
-                                         <a href="{% url 'clientes:clientes_solicitud_enviar' cliente_solicitud.pk %}"
-                                         class="btn btn-success waves-effect btn-label waves-light"> <i class="bx bx-check label-icon"></i>Enviar solicitud</a>  
-                                       {% endcomment %}
                                         
                                     {% endif %}
 
@@ -95,6 +89,23 @@
                             </div>
                             {% endfor %}
                             {% endif %}
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Observaciones</label>
+                                        <textarea class="form-control" id="observaciones" rows="3" disabled>{{cliente_solicitud.observaciones}}</textarea>
+                                    </div>
+                                    
+                                    <a href="{% url 'clientes:clientes_solicitud_update_observacion' solicitud_id %}"
+                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Editar observaciones</a>
+
+
+                                </div>
+                                
+                            </div>
+
+                            <hr>
 
                             <h4>Listado de candidatos</h4>
                             <div class="table-responsive">

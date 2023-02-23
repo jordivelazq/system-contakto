@@ -7,7 +7,7 @@ from django.conf import settings
 from app.front.views import panel, mint_login, mint_logout, descargar_app
 
 urlpatterns = [
-    url(r'^$', panel, name='panel'),
+    url(r'^$panel', panel, name='panel'),
 
     url(r'^descargar-app$', descargar_app, name='descargar_app'),
     

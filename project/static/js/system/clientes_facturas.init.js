@@ -89,7 +89,7 @@ $(document).ready(function () {
 
         ],
         "columns": [
-            
+
             {
                 "title": "Ver detalles",
                 "data": null,
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
-                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')">Ver detalles</a>';
+                    a += '<a class="btn btn-soft-primary waves-effect waves-light" onclick="investigacionDetail(\'' + row.id + '\')"><i class="bx bxs-search label-icon"></i></a>';
 
                     a += '</div>'
                     return a;
@@ -111,6 +111,15 @@ $(document).ready(function () {
                 "data": "id",
                 "visible": true,
             },
+            {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
+            },
+            {
+                "title": "Hora",
+                "data": "hora_recibido",
+            },
+
             {
                 "title": "Contacto",
                 "data": "compania.nombre",
@@ -150,14 +159,6 @@ $(document).ready(function () {
                 "title": "Resultado",
                 "data": "resultado",
                 "responsivePriority": 2,
-            },
-            {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
-            },
-            {
-                "title": "Hora",
-                "data": "hora_recibido",
             }
 
         ],

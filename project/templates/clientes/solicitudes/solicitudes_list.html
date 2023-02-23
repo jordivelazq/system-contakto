@@ -70,17 +70,38 @@
 
                                     <thead>
                                         <tr>
+                                            <th>Acciones</th>
                                             <th>Fecha de creación</th>
                                             <th>Enviado</th>
                                             <th>Fecha de Envio</th>
                                             <th>Nro de Candidatos</th>
                                             <th>Candidatos Completados</th>
-                                            <th>Acciones</th>
+                                            <th>Observaciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for solicitud in cliente_solicitudes %}
                                         <tr>
+                                            <td>
+
+                                                <div class="d-flex flex-wrap gap-2">
+
+                                                    <div class="btn-group" role="group">
+                                                    
+                                                    
+                                                    <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}" aria-label="Detalles"
+                                                    class="btn btn-soft-primary waves-effect waves-light"> <i class="bx bxs-search label-icon"></i></a>
+                                                    
+                                                    {% if not solicitud.enviado %}
+                                                    <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}" aria-label="Eliminar"
+                                                    class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt label-icon"></i></a>    
+                                                    {% endif %}
+
+                                                    </div>
+
+                                                </div>
+                                                   
+                                            </td>
                                             <td>{{ solicitud.fecha_solicitud }}</td>
                                             <td>
                                                 <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>
@@ -94,19 +115,8 @@
                                             </td>
                                             <td>{{ solicitud.get_candidatos_count }}</td>
                                             <td>{{ solicitud.get_candidatos_completados_count }}</td>
-                                            <td>
-
-                                                <div class="d-flex flex-wrap gap-2">
-                                                    <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}"
-                                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i>Detalles</a>
-
-                                                    {% if not solicitud.enviado %}
-                                                    <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}"
-                                                    class="btn btn-danger waves-effect btn-label waves-light"><i class="bx bx-trash-alt label-icon"></i>Eliminar</a>    
-                                                    {% endif %}
-                                                </div>
-                                                   
-                                            </td>
+                                            <td>{{ solicitud.observaciones }}</td>
+                                           
                                         </tr>
                                         {% empty %}
                                         <tr>

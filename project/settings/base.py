@@ -75,7 +75,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -118,8 +118,10 @@ TEMPLATES = [
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
             ],
-            'libraries': { # Adding this section should work around the issue.
-                'custom_tags' : 'app.core.templatetags.core_extras',#to add new tags module.
+            'libraries': {
+                # Adding this section should work around the issue.
+                # to add new tags module.
+                'custom_tags': 'app.core.templatetags.core_extras',
             },
         },
     },
@@ -227,16 +229,17 @@ INTERNAL_IPS = [
 
 OAUTH2_PROVIDER = {
     # this is the list of available scopes
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+    'SCOPES': {'read': 'Read scope',
+               'write': 'Write scope',
+               'groups': 'Access to your groups'}
 }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework.authentication.SessionAuthentication',
-       
     ),
-    
+
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'oauth2_provider.contrib.rest_framework.TokenHasReadWriteScope',
     # ),
@@ -251,18 +254,19 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework_datatables.filters.DatatablesFilterBackend',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework_datatables.pagination.DatatablesPageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework_datatables.pagination.DatatablesPageNumberPagination',
     'PAGE_SIZE': 50,
-    
 }
 
 
 # django-allauth
 LOGIN_URL = "account_login"
-ACCOUNT_SIGNUP_REDIRECT_URL='dashboard'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'dashboard'
 LOGIN_REDIRECT_URL = 'dashboard'
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION",
+                                      True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html

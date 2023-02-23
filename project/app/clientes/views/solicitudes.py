@@ -1,27 +1,25 @@
 # -*- coding: utf-8 -*-
 import json
 from datetime import date, datetime
-from operator import inv
 
-from app.clientes.models import (Cliente, ClienteSolicitud,
-                                 ClienteSolicitudCandidato, ClienteUser)
-from app.compania.models import Sucursales, DireccionFiscal
-from app.core.models import Estado, Municipio, UserMessage
-from app.entrevista.entrevista_persona import EntrevistaPersonaService
+from app.adjuntos.models import Adjuntos
+from app.clientes.models import (ClienteSolicitud, ClienteSolicitudCandidato,
+                                 ClienteUser)
+from app.compania.models import DireccionFiscal, Sucursales
+from app.core.models import Municipio, UserMessage
 from app.investigacion.models import Investigacion, Psicometrico
 from app.persona.models import Persona, Telefono
-from braces.views import GroupRequiredMixin, LoginRequiredMixin
+from braces.views import LoginRequiredMixin, GroupRequiredMixin
 from django.contrib import messages
-from django.contrib.auth.models import Group, User
-from django.db.models import Sum
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView, View)
-from utils.send_mails import send_email
-from ..forms.cliente_solicitud_candidato_forms import ClienteSolicitudCandidatoForm
-from app.adjuntos.models import Adjuntos
+
+from ..forms.cliente_solicitud_candidato_forms import \
+    ClienteSolicitudCandidatoForm
 
 
 class InitialClient(LoginRequiredMixin, TemplateView):
@@ -47,7 +45,6 @@ class ClienteSolicitudListView(LoginRequiredMixin, ListView):
     context_object_name = "cliente_solicitudes"
     template_name = 'clientes/solicitudes/solicitudes_list.html'
 
-   
     def get_queryset(self):
 
         return ClienteSolicitud.objects.filter(cliente_id=self.request.user.id).order_by('-id')
@@ -111,6 +108,7 @@ class ClienteSolicitudDetailView(LoginRequiredMixin, DetailView):
         total_candidatos = csc.count()
         context['cliente_solicitud_candidatos'] = csc
         context['total_candidatos'] = total_candidatos
+        context['solicitud_id'] = self.kwargs['pk']
 
         return context
 
@@ -271,7 +269,7 @@ class ClienteSolicitudEnviarTemplateView(LoginRequiredMixin, TemplateView):
                 # Verificar si existe registros para la entrevista
                 # No se puede generar en este momento por no tener el gestor..
                 # Crearlo en el momento de la asignacion del gestor
-                #ep = EntrevistaPersonaService(investigacion.id).verifyData()
+                # ep = EntrevistaPersonaService(investigacion.id).verifyData()
                 pass
 
             if psicometrico_3:
@@ -483,3 +481,32 @@ class MunicipiosView(View):
         response = [r for r in municipios_list]
 
         return HttpResponse(json.dumps(response))
+
+
+class ClienteSolicitudObservacionUpdateView(GroupRequiredMixin, UpdateView):
+
+    # required
+    group_required = u"Cliente"
+    raise_exception = True
+
+    model = ClienteSolicitud
+    template_name = 'clientes/solicitudes/solicitud_form.html'
+    fields = ['observaciones']
+
+    def get_context_data(self, **kwargs):
+        context = super(ClienteSolicitudObservacionUpdateView,
+                        self).get_context_data(**kwargs)
+
+        context['solicitud_id'] = self.kwargs['pk']
+        return context
+
+    # send the user back to their own page after a successful update
+    def get_success_url(self, **kwargs):
+        messages.add_message(
+            self.request, messages.SUCCESS,
+            'La solicitud ha sido actualizada satisfactoriamente.')
+
+        return reverse(
+            'clientes:clientes_solicitud_detail',
+            kwargs={"pk": self.kwargs['pk']}
+        )
