@@ -3,17 +3,17 @@ from app.clientes.views.clientes_users import (ClienteUserCreateView,
                                                ClienteUserDetailView,
                                                ClienteUserUpdatePasswdView,
                                                ClienteUserUpdateView)
-from app.clientes.views.pagos import (ClientesFacturaDetailView,
-                                      ClientesFacturaTemplateView,
-                                      InvestigacionClienteFacturaViewSet, 
-                                      InvestigacionFacturaClienteArchivoCreateView,
-                                      InvestigacionFacturaClienteArchivoUpdateView)
+from app.clientes.views.pagos import (
+    ClientesFacturaDetailView, ClientesFacturaTemplateView,
+    InvestigacionClienteFacturaViewSet,
+    InvestigacionFacturaClienteArchivoCreateView,
+    InvestigacionFacturaClienteArchivoUpdateView)
 from app.clientes.views.solicitudes import (
     ClienteSolicitudCandidatoCreateView, ClienteSolicitudCandidatoDeleteView,
     ClienteSolicitudCandidatoUpdateView, ClienteSolicitudCreateTemplateView,
     ClienteSolicitudDeleteView, ClienteSolicitudDetailView,
     ClienteSolicitudEnviarTemplateView, ClienteSolicitudListView,
-    InitialClient, MunicipiosView)
+    ClienteSolicitudObservacionUpdateView, InitialClient, MunicipiosView)
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -39,6 +39,7 @@ urlpatterns = [
     path('solicitudes/', ClienteSolicitudListView.as_view(), name='clientes_solicitudes_list'),
     path('solicitudes/create/', ClienteSolicitudCreateTemplateView.as_view(), name='clientes_solicitudes_create'),
     path('solicitudes/detail/<int:pk>/', ClienteSolicitudDetailView.as_view(), name='clientes_solicitud_detail'),
+    path('solicitudes/observacion_update/<int:pk>/', ClienteSolicitudObservacionUpdateView.as_view(), name='clientes_solicitud_update_observacion'),
     path('solicitudes/delete/<int:pk>/', ClienteSolicitudDeleteView.as_view(), name='clientes_solicitud_delete'),
     path('solicitudes/enviar/<int:solicitud_id>/', ClienteSolicitudEnviarTemplateView.as_view(), name='clientes_solicitud_enviar'),
 
