@@ -1,18 +1,27 @@
+from app.cobranza.new_views.cobranzas_investigaciones import \
+    InvestigacionFacturaViewSet
 from app.investigacion.new_view.adjuntos import (
     InvestigacionAdjuntosDetailView, InvestigacionAdjuntosFormTemplateView,
     InvestigacionAdjuntosTemplateView, InvestigacionAdjuntosViewSet)
-from app.investigacion.new_view.edicion_entrevista_persona import \
-    EdicionEntrevistaPersonaTemplateView
-from django.conf.urls import include, url
+from app.investigacion.new_view.bitacoras import \
+    InvestigacionBitacoraCreateView
+from app.investigacion.new_view.edicion_entrevista_persona import (
+    EdicionEntrevistaEjecutivoVisitaTemplateView,
+    EdicionEntrevistaPersonaTemplateView)
+from django.conf.urls import include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from app.cobranza.new_views.cobranzas_investigaciones import InvestigacionFacturaViewSet
 from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCandidatoViewSet,
+                  InvestigacionCobranzasClienteCompletaComprobanteTemplateView,
+                  InvestigacionCobranzasCompletarFacturaTemplateView,
                   InvestigacionCoodinadorVisitaDetailView,
                   InvestigacionCoodinadorVisitaViewSet,
                   InvestigacionCoordiandorVisitaTemplateView,
+                  InvestigacionCoordinadorCompletarAdjuntosTemplateView,
+                  InvestigacionCoordinadorCompletarEntrevistaTemplateView,
+                  InvestigacionCoordinadorCompletarInvLaboralTemplateView,
                   InvestigacionCoordinadorCompletarTemplateView,
                   InvestigacionCoordinadorDemandasCreateView,
                   InvestigacionCoordinadorDemandasDeleteView,
@@ -26,11 +35,18 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   InvestigacionCoordinadorVisitaUpdateView,
                   InvestigacionCoordPsicometricoUpdateView,
                   InvestigacionCoordVisitaUpdateView, InvestigacionDetailView,
+                  InvestigacionEjecutivoDeCuentaUpdateView,
+                  InvestigacionEjecutivoLaboralCandidatoTemplateView,
                   InvestigacionEjecutivoLaboralDetailView,
                   InvestigacionEjecutivoLaboralTemplateView,
+                  InvestigacionEjecutivoLaboralViewSet,
                   InvestigacionEjecutivoPsicometricoDetailView,
                   InvestigacionEjecutivoPsicometricoList,
                   InvestigacionEjecutivoPsicometricoUpdateView,
+                  InvestigacionEjecutivoVisitaDetailView,
+                  InvestigacionEjecutivoVisitaTemplateView,
+                  InvestigacionEjecutivoVisitaUpdateView,
+                  InvestigacionEjecutivoVisitaViewSet,
                   InvestigacionEntrevistaDetailView,
                   InvestigacionEntrevistaTemplateView,
                   InvestigacionEntrevistaViewSet, InvestigacionTemplateView,
@@ -38,22 +54,7 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   PersonaTrajectoriaComercialCrearTemplateView,
                   PersonaTrajectoriaComercialDeleteTemplateView,
                   PersonaTrayectoriaCrearTemplateView,
-                  PersonaTrayectoriaEditTemplateView,
-                  InvestigacionEjecutivoVisitaTemplateView,
-                  InvestigacionEjecutivoVisitaViewSet,
-                  InvestigacionEjecutivoVisitaDetailView,
-                  InvestigacionEjecutivoVisitaUpdateView,
-                  InvestigacionCoordinadorCompletarInvLaboralTemplateView,
-                  InvestigacionCoordinadorCompletarEntrevistaTemplateView,
-                  InvestigacionCoordinadorCompletarAdjuntosTemplateView,
-                  InvestigacionEjecutivoDeCuentaUpdateView,
-                  InvestigacionEjecutivoLaboralViewSet,
-                  InvestigacionEjecutivoLaboralCandidatoTemplateView,
-                  InvestigacionCobranzasCompletarFacturaTemplateView,
-                  InvestigacionCobranzasClienteCompletaComprobanteTemplateView,
-                  )
-
-from app.investigacion.new_view.edicion_entrevista_persona import EdicionEntrevistaEjecutivoVisitaTemplateView
+                  PersonaTrayectoriaEditTemplateView)
 
 router = DefaultRouter()
 router.register(r'investigaciones', InvestigacionViewSet)
@@ -118,8 +119,6 @@ urlpatterns = [
      # asignacion de ejecutivos de visitas
      path('investigaciones/ejecutivo-visitas', 
          InvestigacionEjecutivoVisitaTemplateView.as_view(), name='investigaciones_ejecutivo_visitas_list'),
-     # path('investigaciones/ejecutivo-visitas/detail/<int:pk>/',
-     #      InvestigacionEjecutivoVisitaDetailView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
      path('investigaciones/ejecutivo-visitas/detail/<str:seccion_entrevista>/<int:pk>/',
           EdicionEntrevistaEjecutivoVisitaTemplateView.as_view(), name='investigaciones_ejecutivo_visitas_detail'),
 
@@ -204,9 +203,19 @@ urlpatterns = [
          InvestigacionCoordinadorCompletarAdjuntosTemplateView.as_view(), name='investigaciones_completar_adjuntos'),
 
      path('investigaciones/completar_factura/<int:investigacion_id>/',
-         InvestigacionCobranzasCompletarFacturaTemplateView.as_view(), name='investigaciones_completar_factura'),
+          InvestigacionCobranzasCompletarFacturaTemplateView.as_view(),
+          name='investigaciones_completar_factura'
+     ),
 
      path('investigaciones/completar_comprobante_factura/<int:investigacion_id>/',
-         InvestigacionCobranzasClienteCompletaComprobanteTemplateView.as_view(), name='investigaciones_completar_comprobante'),
+          InvestigacionCobranzasClienteCompletaComprobanteTemplateView.as_view(),
+          name='investigaciones_completar_comprobante'),
+
+     # Bitacoras de investigaciones
+     path(
+         'investigaciones/bitacora/create/<int:investigacion_id>/<str:page>/',
+         InvestigacionBitacoraCreateView.as_view(),
+         name='investigaciones_bitacora_create'
+     ),
 
 ]

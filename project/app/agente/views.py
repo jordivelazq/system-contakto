@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
-import re 
-from django.shortcuts import HttpResponse, render
-from django.template import RequestContext
-from django.views.decorators import csrf
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.models import User, Group
-from django.db.models import Q
+import datetime
+import json
+import re
+
+from app.agente.models import AgenteInfo
 from app.bitacora.models import Bitacora
 from app.compania.models import Compania
 from app.investigacion.models import Investigacion
-from app.agente.models import AgenteInfo
-import json
-import datetime
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import HttpResponse, render
+from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
+
 
 def is_email_valid(email):  
 	regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'

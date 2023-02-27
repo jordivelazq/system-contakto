@@ -1,5 +1,7 @@
 from multiprocessing import context
 
+from app.adjuntos.forms import AdjuntosForm
+from app.adjuntos.models import Adjuntos
 from app.compania.forms import *
 from app.compania.models import Compania
 from app.entrevista.services import *
@@ -20,13 +22,9 @@ from rest_framework import mixins, viewsets
 from utils.general_utils import GetDataTime
 from utils.send_mails import send_email
 
-from ..models import (GestorInvestigacion, Investigacion, InvestigacionBitacora,
-                     Psicometrico)
+from ..models import (GestorInvestigacion, Investigacion,
+                      InvestigacionBitacora, Psicometrico)
 from ..serializers import InvestigacionSerializer
-
-from app.adjuntos.models import Adjuntos
-
-from app.adjuntos.forms import AdjuntosForm
 
 
 class InvestigacionAdjuntosTemplateView(LoginRequiredMixin, TemplateView):
@@ -93,11 +91,10 @@ class InvestigacionAdjuntosFormTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'investigaciones/adjuntos/investigaciones_adjuntos_form.html'
 
     def post(self, request, *args, **kwargs):
-       
+
         investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
         adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else Adjuntos(investigacion=investigacion)
 
-   
         adjuntos_form = AdjuntosForm(request.POST, request.FILES, instance=adjuntos)
         if adjuntos_form.is_valid():
             adjuntos_form.save()
@@ -106,7 +103,7 @@ class InvestigacionAdjuntosFormTemplateView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(InvestigacionAdjuntosFormTemplateView, self).get_context_data(**kwargs)
         #seccion_entrevista = self.kwargs['seccion_entrevista']
-        
+
         investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
         adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else Adjuntos(investigacion=investigacion)
 
@@ -119,4 +116,3 @@ class InvestigacionAdjuntosFormTemplateView(LoginRequiredMixin, TemplateView):
 
 
         return context
-    

@@ -23,7 +23,7 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
         seccion_entrevista = self.kwargs['seccion_entrevista']
         investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
         candidato = investigacion.candidato
-        ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+        ep = EntrevistaPersona.objects.get(investigacion=investigacion)
         
         #DATOS GENERALES
         if seccion_entrevista == 'datos_generales':
@@ -268,6 +268,8 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
         
         context['investigacion'] = investigacion
         context['seccion_entrevista'] = seccion_entrevista
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['investigacion_id'], user=self.request.user).order_by('-datetime')
+
 
         #DATOS GENERALES
         if seccion_entrevista == 'datos_generales':

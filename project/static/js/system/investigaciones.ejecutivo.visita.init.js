@@ -14,7 +14,7 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
-                targets: 4,
+                targets: 5,
                 className: 'dt-body-center', 
                 render: function (data, type, row) {
                     if (data==true){
@@ -25,7 +25,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: [8],
+                targets: [2],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
@@ -54,6 +54,10 @@ $(document).ready(function () {
                     a += '</div>'
                     return a;
                 }
+            },
+            {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
             },
             {
                 "title": "Nombres",
@@ -85,10 +89,6 @@ $(document).ready(function () {
                 "data": "ejecutivo_visitas.email",
                 "defaultContent": "No asignado",
                 "responsivePriority": 2,
-            },
-            {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
             }
 
         ],
