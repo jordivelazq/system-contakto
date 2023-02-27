@@ -253,10 +253,10 @@
                                             </tbody>
                                         </table>
 
-                                        <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
-                                            class="btn btn-primary waves-effect waves-light">
-                                            <i class="bx bx-plus font-size-16 align-middle me-2"></i>
-                                            Agregar bitácora</a>
+                                        <a href="{% url 'investigaciones:investigaciones_bitacora_create' investigacion.id 'eject_psicometrico' %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-plus label-icon"></i>
+                                        Agregar bitácora</a>
                                     </div>
                                 </div>
                             </div>

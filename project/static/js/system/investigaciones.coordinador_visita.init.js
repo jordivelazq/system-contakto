@@ -25,7 +25,7 @@ $(document).ready(function () {
             //     },
             // },
             {
-                targets: [6],
+                targets: [2],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
@@ -56,6 +56,10 @@ $(document).ready(function () {
                 }
             },
             {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
+            },
+            {
                 "title": "Nombres",
                 "data": "candidato.nombre",
                 "responsivePriority": 1,
@@ -74,11 +78,6 @@ $(document).ready(function () {
                 "title": "Ejecutivo de Visita asignado",
                 "data": "agente.email",
                 "defaultContent": "No asignado",
-            },
-
-            {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
             }
 
         ],
