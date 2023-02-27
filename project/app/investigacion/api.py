@@ -240,7 +240,7 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
     raise_exception = True
 
     model = GestorInvestigacion
-    fields = ['gestor', 'fecha_asignacion']
+    fields = ['gestor', 'fecha_asignacion', 'estatus']
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'investigaciones/coordinador_visitas/investigacion_coordinador_visita_form.html'
 
