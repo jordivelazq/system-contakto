@@ -226,11 +226,11 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
 
                 # return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/entrevista/editar/'+seccion_entrevista+'/exito') # Redirect after POST
                 return HttpResponseRedirect('/investigaciones/investigaciones/entrevistal/detail/bienes/'+str(investigacion.pk))
-            
+
         #EVALUACIÓN
         if seccion_entrevista == 'evaluacion':
             # entrevista_investigacion = candidato.entrevistainvestigacion_set.all()[0]
-            entrevista_investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+            # entrevista_investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
             documentos = EntrevistaDocumentoCotejado.objects.filter(person_id=ep.pk)
             aspectos_hogar = EntrevistaAspectoHogar.objects.filter(person_id=ep.pk)
             aspectos_candidato = EntrevistaAspectoCandidato.objects.filter(person_id=ep.pk)
@@ -239,7 +239,7 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
             AspectoHogarFormset = modelformset_factory(EntrevistaAspectoHogar, extra=0, exclude=('person', 'tipo',))
             AspectoCandidatoFormset = modelformset_factory(EntrevistaAspectoCandidato, extra=0, exclude=('person', 'tipo',))
 
-            
+
             documentos_formset = DocumentoCotejadoFormset(request.POST, prefix='docs', queryset=documentos)
             aspectos_hogar_formset = AspectoHogarFormset(request.POST, prefix='asp_hogar', queryset=aspectos_hogar)
             aspectos_candidato_formset = AspectoCandidatoFormset(request.POST, prefix='asp_candidato', queryset=aspectos_candidato)
@@ -735,7 +735,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             
             #SALUD, ACTIVIDADES Y HÁBITOS
             if seccion_entrevista == 'salud':
-                salud = EntrevistaSalud.objects.get(persona_id=ep.pk)
+                salud, create = EntrevistaSalud.objects.get_or_create(persona_id=ep.pk)
                 actividades = EntrevistaActividadesHabitos.objects.get(persona_id=ep.pk)
 
                 candidato_form = EntrevistaSaludPersonaForm(instance=candidato)
@@ -745,6 +745,9 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 context['candidato_form'] = candidato_form
                 context['salud_form'] = salud_form
                 context['actividades_form'] = actividades_form
+
+                print('salud: ', salud, "vacio")
+                print('actividades: ', actividades)
 
             
             #INFORMACIÓN ACADÉMICA
@@ -855,7 +858,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             #EVALUACIÓN
             if seccion_entrevista == 'evaluacion':
                 # entrevista_investigacion = candidato.entrevistainvestigacion_set.all()[0]
-                entrevista_investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+                entrevista_investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
                 documentos = EntrevistaDocumentoCotejado.objects.filter(person_id=ep.pk)
                 aspectos_hogar = EntrevistaAspectoHogar.objects.filter(person_id=ep.pk)
                 aspectos_candidato = EntrevistaAspectoCandidato.objects.filter(person_id=ep.pk)
