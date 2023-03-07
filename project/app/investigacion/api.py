@@ -328,7 +328,7 @@ class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
                              'El gestor ha sido actualizado')
-        return reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
+        return reverse('investigaciones:investigaciones_coordinador_visitas_detaila ', kwargs={"pk": self.kwargs['investigacion_id']})
 
 
 class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
