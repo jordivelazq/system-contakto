@@ -216,7 +216,7 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="info_personal-tab" data-bs-toggle="tab"
                                         data-bs-target="#info_personal" type="button" role="tab"
-                                        aria-controls="info_personal" aria-selected="false">inf. Personal</button>
+                                        aria-controls="info_personal" aria-selected="false">Inf. Personal</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="salud-tab" data-bs-toggle="tab"
@@ -273,7 +273,7 @@
                                     aria-labelledby="datos_generales-tab" tabindex="0">
                                     <br>
                                     {% if seccion_entrevista == 'datos_generales' %}
-                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form_no_save.html' %}
+                                    {% include 'investigaciones/edicion_enrtevista_personas/forms/datos_grales_form.html' %}
                                     {% endif %}
                                 </div>
                                 <div class="tab-pane" id="info_personal" role="tabpanel" aria-labelledby="info_personal-tab" tabindex="0">

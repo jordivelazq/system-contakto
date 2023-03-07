@@ -713,7 +713,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 
                 context['PrestacionViviendaFormSet'] = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
 
-                context['candidato_form'] = EntrevistaPersonaForm(instance=candidato)
+                context['candidato_form'] = EntrevistaPersonaForm(instance=ep)
                 context['tel_formset'] = TelefonoFormSet(queryset=telefonos, prefix='telefonos')
                 context['direccion_form'] = EntrevistaDireccionForm(instance=direccion)
                 context['origen_form'] = EntrevistaOrigenForm(instance=origen, prefix='origen')
