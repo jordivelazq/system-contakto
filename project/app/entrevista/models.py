@@ -65,6 +65,7 @@ class EntrevistaPersona(models.Model):
     activa = models.BooleanField(default=True)
     dependientes_economicos = models.TextField(
         max_length=200, blank=True, null=True)
+    conclusion = models.CharField(verbose_name='Conclusión del gestor', max_length=4000, blank=True, null=True)
 
     def __str__(self):
         return u'%s / %s' % (self.id, self.nombre)
