@@ -61,11 +61,7 @@
 					{{ form.id }}
 					<div class="row">
 						<div class="col-6">
-							{% if form.instance.concepto == "otros" %}
-							{{form.detalle|as_crispy_field}}
-							{% else %}
 							<label>{{form.instance.concepto|clean_type}}:</label>
-							{% endif %}
 						</div>
 						<div class="col-6">
 

@@ -738,7 +738,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 salud, create = EntrevistaSalud.objects.get_or_create(persona_id=ep.pk)
                 actividades = EntrevistaActividadesHabitos.objects.get(persona_id=ep.pk)
 
-                candidato_form = EntrevistaSaludPersonaForm(instance=candidato)
+                candidato_form = EntrevistaSaludPersonaForm(instance=ep)
                 salud_form = EntrevistaSaludForm(instance=salud, prefix='salud')
                 actividades_form = EntrevistaActividadesHabitosForm(instance=actividades, prefix='actividades')
 
