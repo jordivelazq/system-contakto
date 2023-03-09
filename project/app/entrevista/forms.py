@@ -138,7 +138,7 @@ class EntrevistaPersonaForm(ModelForm):
     class Meta:
         model = EntrevistaPersona
         fields = ('nombre', 'apellido', 'email', 'rfc', 'curp', 'ife', 'smn', 'pasaporte', 'nss', 'estado_civil',
-                  'fecha_matrimonio', 'religion', 'tiempo_radicando', 'medio_utilizado', 'referencia_vacante', 'tiempo_transporte')
+                  'fecha_matrimonio', 'religion', 'tiempo_radicando', 'medio_utilizado', 'referencia_vacante', 'tiempo_transporte', 'conclusion')
 
     def __init__(self, *args, **kwargs):
         super(EntrevistaPersonaForm, self).__init__(*args, **kwargs)

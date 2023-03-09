@@ -441,6 +441,7 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
             aspectos_candidato_formset = AspectoCandidatoFormset(queryset=aspectos_candidato, prefix='asp_candidato')
             investigacion_form = EntrevistaInvestigacionForm(instance=entrevista_investigacion, prefix='investigacion')
 
+            context['candidato_form'] = EntrevistaPersonaForm(instance=candidato)
             context['documentos_formset'] = documentos_formset
             context['aspectos_hogar_formset'] = aspectos_hogar_formset
             context['aspectos_candidato_formset'] = aspectos_candidato_formset
@@ -873,6 +874,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 aspectos_candidato_formset = AspectoCandidatoFormset(queryset=aspectos_candidato, prefix='asp_candidato')
                 investigacion_form = EntrevistaInvestigacionForm(instance=entrevista_investigacion, prefix='investigacion')
 
+                context['candidato_form'] = EntrevistaPersonaForm(instance=ep)
                 context['documentos_formset'] = documentos_formset
                 context['aspectos_hogar_formset'] = aspectos_hogar_formset
                 context['aspectos_candidato_formset'] = aspectos_candidato_formset
