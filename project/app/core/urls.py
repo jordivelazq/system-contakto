@@ -1,13 +1,19 @@
 from app.core.api import UserTemplateView, UserViewSet
-from app.core.views.users import UserCreateView, UserDetailView, UserUpdateView, UserUpdatePasswdView
-from app.core.views.user_messages import UserMessajeListView, UserMessageDeleteView
-from app.core.views.tipo_investigacion_costo import TipoInvestigacionCostoListView, TipoInvestigacionCostoCreateView,  TipoInvestigacionCostoUpdateView
-
+from app.core.api_new.v1.views import UserMessageViewSet, UserTotalMessageViewSet
+from app.core.views.tipo_investigacion_costo import (
+    TipoInvestigacionCostoCreateView, TipoInvestigacionCostoListView,
+    TipoInvestigacionCostoUpdateView)
+from app.core.views.user_messages import (UserMessageDeleteView,
+                                          UserMessajeListView,)
+from app.core.views.users import (UserCreateView, UserDetailView,
+                                  UserUpdatePasswdView, UserUpdateView)
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'user_messages', UserMessageViewSet)
+router.register(r'user_total_messages', UserTotalMessageViewSet)
 
 app_name = "core"
 
