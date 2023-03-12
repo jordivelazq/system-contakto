@@ -1,13 +1,9 @@
 
 # -*- coding: utf-8 -*-
-from braces.views import GroupRequiredMixin, LoginRequiredMixin
+from braces.views import GroupRequiredMixin
 from django.contrib import messages
-from django.contrib.auth.models import Group
-from django.db.models import Sum
-from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView, UpdateView)
+from django.views.generic import CreateView, ListView, UpdateView
 
 from ..models import TipoInvestigacionCosto
 
