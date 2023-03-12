@@ -19,17 +19,18 @@ class Municipio(models.Model):
 
 
 class TipoInvestigacionCosto(models.Model):
-    
-    TIPO_INVESTIGACION_OPCIONES = (		
-		(1, 'Laboral'),
-		(2, 'Socioeconómico'),
-		(4, 'Psicometrías'),
-		(5, 'Visita Domiciliaria'),
-		(7, 'Visita Domiciliaria con demandas'),
-		(6, 'Validación de Demandas'),
-	)
 
-    tipo_investigacion = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
+    TIPO_INVESTIGACION_OPCIONES = (
+        (1, 'Laboral'),
+        (2, 'Socioeconómico'),
+        (4, 'Psicometrías'),
+        (5, 'Visita Domiciliaria'),
+        (7, 'Visita Domiciliaria con demandas'),
+        (6, 'Validación de Demandas'),
+    )
+
+    tipo_investigacion = models.IntegerField(
+        choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
     costo = models.FloatField(default=0)
 
     # def __str__(self):
@@ -37,12 +38,20 @@ class TipoInvestigacionCosto(models.Model):
 
 
 class UserMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_messajes')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='user_messajes')
     title = models.CharField('Title', max_length=200)
     message = models.TextField('Message')
-    link = models.CharField('Link', max_length=200, default='', blank=True, null=True)
+    link = models.CharField('Link', max_length=200,
+                            default='', blank=True, null=True)
     unread = models.BooleanField(default=True)
     trash = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['-created_at']

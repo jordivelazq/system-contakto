@@ -34,28 +34,28 @@
 
                 <div class="d-flex">
 
-                    
-
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i data-feather="bell" class="icon-lg"></i>
-                            <span class="badge bg-danger rounded-pill">5</span>
+                            <span class="badge bg-danger rounded-pill"><div id="total_nessage_tool_bar">0</div></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                             aria-labelledby="page-header-notifications-dropdown">
                             <div class="p-3">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h6 class="m-0"> Notifications </h6>
+                                        <h6 class="m-0"> Notificaciones </h6>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="#!" class="small text-reset text-decoration-underline"> Unread (3)</a>
+                                        <a href="#!" class="small text-reset text-decoration-underline"> Sin leer <div id='total_nessage_unread'></div></a>
                                     </div>
                                 </div>
                             </div>
                             <div data-simplebar style="max-height: 230px;">
-                                <a href="#!" class="text-reset notification-item">
+                                <div id="notification-container"></div>
+                                {% comment %}
+                                 <a href="#!" class="text-reset notification-item">
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                             <img src="{% static 'images/users/avatar-3.jpg'%}" class="rounded-circle avatar-sm" alt="user-pic">
@@ -115,11 +115,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </a> {% endcomment %}
                             </div>
                             <div class="p-2 border-top d-grid">
-                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span> 
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="{% url 'core:user_messages_list' %}">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span>Ver mas</span> 
                                 </a>
                             </div>
                         </div>

@@ -495,6 +495,31 @@
                                 </button>
                                 {% else %}
                                 <h5>La investigación ha sido completada</h5>
+
+                                <br>
+                                <br>
+                                <h5>Resultados</h5>
+                                {{investigacion.get_resultado_display}}<br>
+                                <h5>Conclusiones</h5>
+                                {{investigacion.conclusiones}}<br>
+                                <h5>Observaciones</h5>
+                                {{investigacion.observaciones}}<br>
+
+                                
+                
+                                <a href="{% url 'investigaciones:investigacion_cerrar' investigacion.pk %}"
+                                class="btn btn-success waves-effect waves-light">
+                                <i class="bx bx-check font-size-16 align-middle me-2"></i>
+                                Cerrar Investigación
+                                </a>
+
+                                <a href="{% url 'print_reporte_socioeconomico' investigacion.pk %}"
+                                target="_blank"
+                                class="btn btn-success waves-effect waves-light">
+                                <i class="bx bx-check font-size-16 align-middle me-2"></i>
+                                Descargar Excel
+                                </a>
+
                                 {% endif %}
                             {% endif %}
 
