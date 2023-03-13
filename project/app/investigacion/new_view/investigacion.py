@@ -1,6 +1,6 @@
 
 # -*- coding: utf-8 -*-
-from braces.views import GroupRequiredMixin
+from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
@@ -13,7 +13,7 @@ from django.views.generic import (
 from app.investigacion.models import Investigacion
 
 
-class InvestigacionCerrarUpdateView(GroupRequiredMixin, UpdateView):
+class InvestigacionCerrarUpdateView(LoginRequiredMixin, UpdateView):
 
     # required
     group_required = [u"Coord. de Atención a Clientes", u"Coordinador de visitas domiciliarias"]
