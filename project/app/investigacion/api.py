@@ -1892,7 +1892,7 @@ class InvestigacionCoordinadorDemandasDeleteView(GroupRequiredMixin, DeleteView)
 class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, TemplateView):
 
     # required
-    group_required = [u"Client", ]
+    group_required = [u"Coord. de Atención a Clientes", u"Coordinador de visitas domiciliarias"]
     raise_exception = True
 
     template_name = ''
