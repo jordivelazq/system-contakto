@@ -3,6 +3,11 @@
 
 {% block title %}{{ title }}{% endblock title %}
 
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
 
 {% block content %}
 
@@ -223,11 +228,20 @@
                                 </div>
                             </div>
 
+                            
+
+                            {% if not investigacion.laboral_completado %}                            
                             <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
                                 class="btn btn-primary waves-effect btn-label waves-light">
                                 <i class="bx bx-plus label-icon"></i>
                                 Agregar datos de investigación laboral
                             </a>
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-laboral-pregunta">
+                                <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
+                            </button>
+                            {% else %}
+                             La investigación está completada
+                            {% endif %}
 
                             <br /><br />
 
@@ -431,6 +445,10 @@
             {% endif %}
 
 
+
+
+
+
             <div class="row" id="bitacoras">
                 <div class="col-md-12">
                     <div class="card">
@@ -499,13 +517,22 @@
     {% endblock footer %}
 </div>
 <!-- end main content-->
+<input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion.pk }}">
 {% endblock content %}
 
 
 {% block extra_js %}
 
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+<!-- Sweet alert init js-->
+<script src="{% static 'js/system/sweetalert.inv.lab.detail.init.js' %}"></script>
+
+
 <script>
     $(document).ready(function () {
+        investigacion_id = $('#investigacion_id').val();
         $('[data-toggle="popover"]').popover();
     });
 </script>
