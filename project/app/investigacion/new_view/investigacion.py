@@ -16,7 +16,7 @@ from app.investigacion.models import Investigacion
 class InvestigacionCerrarUpdateView(GroupRequiredMixin, UpdateView):
 
     # required
-    group_required = u"Cliente"
+    group_required = [u"Coord. de Atención a Clientes", u"Coordinador de visitas domiciliarias"]
     raise_exception = True
 
     model = Investigacion
