@@ -1937,7 +1937,7 @@ class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin
         inv.laboral_completado = True
         inv.save()
 
-        return redirect('investigaciones:investigacion_detail', self.kwargs['investigacion_id'])
+        return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', self.kwargs['investigacion_id'])
 
 
 class InvestigacionCoordinadorCompletarEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
