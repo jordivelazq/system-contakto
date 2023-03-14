@@ -14,7 +14,7 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
-                targets: 4,
+                targets: 5,
                 className: 'dt-body-center', 
                 render: function (data, type, row) {
                     if (data==true){
@@ -25,7 +25,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: 7,
+                targets: 8,
                 render: function (data, type, full, meta) {
                     var status = {
                         0: {
@@ -63,7 +63,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: [8],
+                targets: [2],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
@@ -94,6 +94,10 @@ $(document).ready(function () {
                 }
             },
             {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
+            },
+            {
                 "title": "Nombres",
                 "data": "candidato.nombre",
                 "responsivePriority": 1,
@@ -122,10 +126,6 @@ $(document).ready(function () {
                 "title": "Resultado",
                 "data": "resultado",
                 "responsivePriority": 2,
-            },
-            {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
             },
             {
                 "title": "Hora",

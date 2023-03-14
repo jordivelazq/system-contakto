@@ -131,7 +131,17 @@
                             </div>
 
                             <br>
-
+                            
+                            {% if investigacion.archivo %}
+                            <a href="{{ investigacion.archivo.url }}" target="_blank" class="btn btn-primary waves-effect btn-label waves-light">
+                                <i class="bx bx-download label-icon"></i>
+                                Descargar archivo
+                            </a>
+                            {% else %}
+                            Solicitud no tiene archivo adjunto
+                            {% endif %}
+                                
+                            <br><br>
 
                             <a href="{% url 'investigaciones:investigacion_edv_candidato_edit' investigacion.id %}"
                                 class="btn btn-primary waves-effect btn-label waves-light">
@@ -226,9 +236,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-
-                            
+                            </div>         
 
                             {% if not investigacion.laboral_completado %}                            
                             <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
@@ -240,7 +248,15 @@
                                 <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
                             </button>
                             {% else %}
-                             La investigación está completada
+                            <h5>La investigación está completada</h5>
+                            <br>
+                            <h5>Resultados</h5>
+                            {{investigacion.get_resultado_display}}<br><br>
+                            <h5>Conclusiones</h5>
+                            {{investigacion.conclusiones}}<br><br>
+                            <h5>Observaciones</h5>
+                            {{investigacion.observaciones}}<br><br>
+
                             {% endif %}
 
                             <br /><br />
@@ -300,6 +316,8 @@
                 </div><!-- end col -->
 
             </div>
+
+            
 
 
             <div class="row" id="demandas_laborales">
@@ -371,10 +389,7 @@
                     </div>
                 </div><!-- end col -->
 
-            
-
             </div>
-
 
             {% if psicometrico %}
             <div class="row" id="investigacion_psicometric">
@@ -443,9 +458,6 @@
 
             </div>
             {% endif %}
-
-
-
 
 
 
