@@ -172,7 +172,7 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
             EgresosFormset = modelformset_factory(EntrevistaEconomica, extra=0, exclude=('person', 'tipo', 'concepto',), form=MoneyFormatEntrevistaEconomicaForm)
             PrestacionViviendaFormSet = modelformset_factory(EntrevistaPrestacionVivienda, extra=0, exclude=('persona', 'categoria_viv'), formfield_callback=EntrevistaService.datefields_callback)
 
-            candidato.dependientes_economicos = request.POST.get('dependientes_economicos')
+            candidato = EntrevistaPersonaForm(request.POST, instance=candidato)
             ingresos_formset = IngresosFormset(request.POST, prefix='ingresos', queryset=ingresos)
             egresos_formset = EgresosFormset(request.POST, prefix='egresos', queryset=egresos)
             pv_formset = PrestacionViviendaFormSet(request.POST, prefix='prestaciones', queryset=prestaciones_vivienda)
