@@ -155,6 +155,41 @@
 
             </div>
 
+
+            <div class="row" id="detalle_investigacions">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Estatus de Inv. Laboral:</h3>
+
+                            <div class="row">
+
+                                <form action="#" method="post" id="trayectoria_status_form">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="text-danger">{{formaInvestigacion.observaciones_generales.errors}}</div>
+                                            {{formaInvestigacion.observaciones_generales|safe}}
+                                            <br />
+                                            
+                                            <div class="col-md-2 pull-right">
+                                                <button type="submit" class="btn btn-primary form-control" name="guardar">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                </form>
+
+                               
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
             <div class="row" id="demanadas_laborales">
                 <div class="col-md-12">
                     <div class="card">
@@ -198,6 +233,11 @@
                                                     <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_edit' investigacion.id tl.pk %}"
                                                         class="btn btn-soft-primary waves-effect waves-light"><i
                                                             class="bx bx-edit font-size-16 align-middle"></i>
+                                                    </a>
+                                                    <a href="{% url 'investigaciones:investigaciones_persona_trayectoria_laboral_delete' investigacion.id tl.pk %}"
+                                                        onclick="confirmation(event)"
+                                                        class="btn btn-soft-danger waves-effect waves-light"><i
+                                                            class="bx bx-trash font-size-16 align-middle"></i>
                                                     </a>
                                                 </td>
                                                 <td>
@@ -248,6 +288,7 @@
                                 <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
                             </button>
                             {% else %}
+                            <input type="hidden" id="completar-inv-laboral-pregunta" value="1">
                             <h5>La investigación está completada</h5>
                             <br>
                             <h5>Resultados</h5>
@@ -256,6 +297,14 @@
                             {{investigacion.conclusiones}}<br><br>
                             <h5>Observaciones</h5>
                             {{investigacion.observaciones}}<br><br>
+
+
+                            <a href="/candidato/investigacion/exportar/reporte-laboral/{{investigacion.id}}"
+                                target="_blank"
+                                class="btn btn-primary waves-effect btn-label waves-light">
+                                <i class="bx bx-plus label-icon"></i>
+                                Reporte de investigación Laboral
+                            </a> 
 
                             {% endif %}
 
@@ -539,6 +588,7 @@
 <script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
 
 <!-- Sweet alert init js-->
+<script src="{% static 'js/system/sweetalert.inv.lab.detail.delete_empresa.init.js' %}"></script>
 <script src="{% static 'js/system/sweetalert.inv.lab.detail.init.js' %}"></script>
 
 

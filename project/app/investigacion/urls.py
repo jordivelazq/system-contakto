@@ -53,6 +53,7 @@ from .api import (CandidatoTemplateView, InvestigacionCandidatoTemplateView,
                   PersonaTrajectoriaComercialDeleteTemplateView,
                   PersonaTrayectoriaCrearTemplateView,
                   PersonaTrayectoriaEditTemplateView,
+                  InvestigacionPersonaTrayectoriaLaboralDeleteTemplateView,
                   )
 
 from .new_view.investigacion import InvestigacionCerrarUpdateView
@@ -216,6 +217,11 @@ urlpatterns = [
     path('investigaciones/completar_comprobante_factura/<int:investigacion_id>/',
          InvestigacionCobranzasClienteCompletaComprobanteTemplateView.as_view(),
          name='investigaciones_completar_comprobante'),
+
+     path('investigaciones/persona/trayectoria-laboral/delete/<int:investigacion_id>/<int:pk>', 
+          InvestigacionPersonaTrayectoriaLaboralDeleteTemplateView.as_view(),
+          name='investigaciones_persona_trayectoria_laboral_delete'),
+
 
     # Bitacoras de investigaciones
     path(
