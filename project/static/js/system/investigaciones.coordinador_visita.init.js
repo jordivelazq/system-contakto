@@ -12,6 +12,7 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 50,
         columnDefs: [
             // {
             //     targets: 5,
@@ -75,13 +76,18 @@ $(document).ready(function () {
                 "responsivePriority": 1,
             },
             {
-                "title": "Ejecutivo de Visita asignado",
+                "title": "Ejecutivo",
+                "data": "ejecutivo_visitas.email",
+                "responsivePriority": 1,
+            },
+            {
+                "title": "Gestor",
                 "data": "agente.email",
                 "defaultContent": "No asignado",
             }
 
         ],
-        "order": [[6, "desc"]],
+        "order": [[2, "desc"]],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

@@ -12,6 +12,7 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 50,
         columnDefs: [
             {
                 targets: 5,
@@ -129,7 +130,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[8, "desc"]],
+        "order": [[2, "desc"]],
         // dom: 'Blfrtip',
         // buttons: [{
         //     extend: 'copyHtml5',

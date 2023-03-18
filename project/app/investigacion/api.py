@@ -1568,6 +1568,26 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
     context_object_name = 'investigacion'
     template_name = 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_detail.html'
 
+    def post(self, request, *args, **kwargs):
+
+        inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+        form = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=inv)
+
+        if form.is_valid():
+            form.save()
+
+            messages.add_message(self.request, messages.SUCCESS,
+                                 'El status de trayectoria ha sido actualizado')
+
+            return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
+
+        else:
+            messages.add_message(self.request, messages.ERROR,
+                                 'El status de trayectoria no ha sido actualizado')
+
+            return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
+
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoLaboralDetailView, self).get_context_data(**kwargs)
 
@@ -1580,6 +1600,8 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
 
         context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
+
+        context['formaInvestigacion'] = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=inv)
 
         context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
 
@@ -1865,11 +1887,11 @@ class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
         return reverse('investigaciones:investigacion_ejecutivo_laboral_detail', kwargs={"pk": self.kwargs['investigacion_id']})
 
 
-class InvestigacionCoordinadorDemandasDeleteView(GroupRequiredMixin, DeleteView):
+class InvestigacionCoordinadorDemandasDeleteView(LoginRequiredMixin, DeleteView):
 
     # required
-    group_required = [u"Admin", u"Coord. de Atención a Clientes"]
-    raise_exception = True
+    # group_required = [u"Admin", u"Coord. de Atención a Clientes"]
+    # raise_exception = True
 
     model = Demanda
     template_name = 'investigaciones/demandas/demandas_confirm_delete.html'
@@ -2006,3 +2028,21 @@ class InvestigacionCobranzasClienteCompletaComprobanteTemplateView(LoginRequired
         inv.save()
 
         return redirect('clientes:clientes_factura_detail', self.kwargs['investigacion_id'])
+
+
+
+class InvestigacionPersonaTrayectoriaLaboralDeleteTemplateView(LoginRequiredMixin, TemplateView):
+
+    # # required
+    # group_required = [u"Client", ]
+    # raise_exception = True
+
+    template_name = ''
+
+    def get(self, request, **kwargs):
+        trayectoria_laboral_id = self.kwargs['pk']
+        
+        trayectoria_laboral = TrayectoriaLaboral.objects.get(id=trayectoria_laboral_id)
+        trayectoria_laboral.delete()
+
+        return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', self.kwargs['investigacion_id'])

@@ -460,7 +460,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
         seccion_entrevista = self.kwargs['seccion_entrevista']
         investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
         candidato = investigacion.candidato
-        ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+        ep = EntrevistaPersona.objects.get(investigacion=investigacion)
         
         #DATOS GENERALES
         if seccion_entrevista == 'datos_generales':
@@ -548,7 +548,6 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             tipo_inmueble_vivienda = EntrevistaTipoInmueble.objects.get(person_id=ep.pk)
             distribucion_vivienda = EntrevistaDistribucionDimensiones.objects.get(person_id=ep.pk)
 
-        
             situacion_vivienda_form = EntrevistaSituacionViviendaForm(request.POST, instance=situacion_vivienda)
             propietario_vivienda_form = EntrevistaPropietarioViviendaForm(request.POST, instance=propietario_vivienda)
             caracteristicas_vivienda_form = EntrevistaCaractaristicasViviendaForm(request.POST, instance=caracteristicas_vivienda)
@@ -648,7 +647,6 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             DocumentoCotejadoFormset = modelformset_factory(EntrevistaDocumentoCotejado, extra=0, exclude=('person', 'tipo',), form=EntrevistaDocumentoCotejadoForm)
             AspectoHogarFormset = modelformset_factory(EntrevistaAspectoHogar, extra=0, exclude=('person', 'tipo',))
             AspectoCandidatoFormset = modelformset_factory(EntrevistaAspectoCandidato, extra=0, exclude=('person', 'tipo',))
-
             
             documentos_formset = DocumentoCotejadoFormset(request.POST, prefix='docs', queryset=documentos)
             aspectos_hogar_formset = AspectoHogarFormset(request.POST, prefix='asp_hogar', queryset=aspectos_hogar)
@@ -696,9 +694,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
         except GestorInvestigacion.DoesNotExist:
             gInv = None
 
-
         context['gestor'] = gInv
-
 
         if entrevista:
             #DATOS GENERALES

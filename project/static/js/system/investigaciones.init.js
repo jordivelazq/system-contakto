@@ -12,9 +12,10 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 50,
         columnDefs: [
             {
-                targets: 5,
+                targets: 6,
                 className: 'dt-body-center', 
                 render: function (data, type, row) {
                     if (data==true){
@@ -25,7 +26,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: 8,
+                targets: 9,
                 render: function (data, type, full, meta) {
                     var status = {
                         0: {
@@ -98,6 +99,10 @@ $(document).ready(function () {
                 "data": "fecha_registro",
             },
             {
+                "title": "Hora",
+                "data": "hora_recibido",
+            },
+            {
                 "title": "Nombres",
                 "data": "candidato.nombre",
                 "responsivePriority": 1,
@@ -127,13 +132,10 @@ $(document).ready(function () {
                 "data": "resultado",
                 "responsivePriority": 2,
             },
-            {
-                "title": "Hora",
-                "data": "hora_recibido",
-            }
+            
 
         ],
-        "order": [[8, "desc"]],
+        "order": [[2, "desc"]],
         // dom: 'Blfrtip',
         // buttons: [{
         //     extend: 'copyHtml5',
