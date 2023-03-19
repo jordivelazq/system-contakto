@@ -458,7 +458,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
     def post(self, request, *args, **kwargs):
 
         seccion_entrevista = self.kwargs['seccion_entrevista']
-        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+        investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
         candidato = investigacion.candidato
         ep = EntrevistaPersona.objects.get(investigacion=investigacion)
         
@@ -483,7 +483,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 origen_form.save()
                 licencia_form.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/datos_generales/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))
                
         #INFO PERSONAL
         if seccion_entrevista == 'info_personal':
@@ -499,7 +499,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 infopersonal_form.save()
                 historialempresa_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/info_personal/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+str(investigacion.pk))
 
         #SALUD, ACTIVIDADES Y HÁBITOS
         if seccion_entrevista == 'salud':
@@ -514,7 +514,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 salud_form.save()
                 actividades_form.save()
    
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/salud/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/salud/'+str(investigacion.pk))
         
         #INFORMACIÓN ACADÉMICA
         if seccion_entrevista == 'academica':
@@ -534,7 +534,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 otro_idioma_form.save()
                 gradosescolaridad_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/academica/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/academica/'+str(investigacion.pk))
     
 
         #SITUACIÓN VIVIENDA
@@ -563,7 +563,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 distribucion_vivienda.save()
                 marcofamiliar_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/vivienda/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/vivienda/'+str(investigacion.pk))
         
         #MARCO FAMILIAR    
         if seccion_entrevista == 'familia':
@@ -575,7 +575,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             if marcofamiliar_formset.is_valid():
                 marcofamiliar_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/familia/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/familia/'+str(investigacion.pk))
         
         #INFORMACIÓN ECONÓMICA
         if seccion_entrevista == 'inf_economica':
@@ -600,7 +600,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                     lambda: pv_formset.save(),
                 ])
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/inf_economica/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/inf_economica/'+str(investigacion.pk))
         
         #BIENES
         if seccion_entrevista == 'bienes':
@@ -634,12 +634,12 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 seguros_formset.save()
                 deudas_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/bienes/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/bienes/'+str(investigacion.pk))
             
         #EVALUACIÓN
         if seccion_entrevista == 'evaluacion':
             # entrevista_investigacion = candidato.entrevistainvestigacion_set.all()[0]
-            entrevista_investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+            entrevista_investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
             documentos = EntrevistaDocumentoCotejado.objects.filter(person_id=ep.pk)
             aspectos_hogar = EntrevistaAspectoHogar.objects.filter(person_id=ep.pk)
             aspectos_candidato = EntrevistaAspectoCandidato.objects.filter(person_id=ep.pk)
@@ -658,7 +658,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 aspectos_candidato_formset.save()
                 investigacion_form.save()
                 
-                return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/evaluacion/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/evaluacion/'+str(investigacion.pk))
 
     def get_context_data(self, **kwargs):
         context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
