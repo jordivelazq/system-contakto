@@ -97,6 +97,7 @@ $(document).ready(function () {
             {
                 "title": "Fecha de Registro",
                 "data": "fecha_registro",
+                "responsivePriority": 1,
             },
             {
                 "title": "Nombres",
