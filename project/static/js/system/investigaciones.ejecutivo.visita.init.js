@@ -12,6 +12,7 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 50,
         columnDefs: [
             {
                 targets: 5,
@@ -58,6 +59,7 @@ $(document).ready(function () {
             {
                 "title": "Fecha de Registro",
                 "data": "fecha_registro",
+                "responsivePriority": 1,
             },
             {
                 "title": "Nombres",
@@ -82,13 +84,11 @@ $(document).ready(function () {
             {
                 "title": "Tipo de Investigación",
                 "data": "tipo_investigacion",
-                "responsivePriority": 2,
             },
             {
                 "title": "Ejecutivo de Visita",
                 "data": "ejecutivo_visitas.email",
                 "defaultContent": "No asignado",
-                "responsivePriority": 2,
             }
 
         ],

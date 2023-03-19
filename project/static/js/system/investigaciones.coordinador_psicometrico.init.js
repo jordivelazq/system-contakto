@@ -12,18 +12,8 @@ $(document).ready(function () {
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 50,
         columnDefs: [
-            {
-                targets: 5,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
             {
                 targets: 6,
                 className: 'dt-body-center', 
@@ -47,7 +37,18 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: [8],
+                targets: 8,
+                className: 'dt-body-center', 
+                render: function (data, type, row) {
+                    if (data==true){
+                        return '<i class="fa fa-check"></i>';
+                    }else{
+                        return '<i class="fa fa-times"></i>';
+                    }
+                },
+            },
+            {
+                targets: [2],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
@@ -77,6 +78,11 @@ $(document).ready(function () {
                 }
             },
             {
+                "title": "Fecha de Registro",
+                "data": "fecha_registro",
+                "responsivePriority": 1,
+            },
+            {
                 "title": "Nombres",
                 "data": "candidato.nombre",
                 "responsivePriority": 1,
@@ -103,10 +109,6 @@ $(document).ready(function () {
                 "title": "Datos Psicometricos completados",
                 "data": "psicometrico_ejecutivo_asignado",
             },
-            {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
-            }
 
         ],
         "order": [[7, "desc"]],

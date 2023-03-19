@@ -97,10 +97,12 @@ $(document).ready(function () {
             {
                 "title": "Fecha de Registro",
                 "data": "fecha_registro",
+                "responsivePriority": 1,
             },
             {
                 "title": "Hora",
                 "data": "hora_recibido",
+                "responsivePriority": 1,
             },
             {
                 "title": "Nombres",
@@ -115,12 +117,12 @@ $(document).ready(function () {
             {
                 "title": "Datos verificados",
                 "data": "candidato.datos_validados",
-                "responsivePriority": 1,
+                "responsivePriority": 2,
             },
             {
                 "title": "Cliente",
                 "data": "compania.nombre",
-                "responsivePriority": 1,
+                "responsivePriority": 2,
             },
             {
                 "title": "Tipo de Investigación",
@@ -136,30 +138,30 @@ $(document).ready(function () {
 
         ],
         "order": [[2, "desc"]],
-        // dom: 'Blfrtip',
-        // buttons: [{
-        //     extend: 'copyHtml5',
-        //     text: '<i class="fa fa-copy"></i> Copiar',
-        //     titleAttr: 'Copiar'
-        //   },
-        //   {
-        //     extend: 'excelHtml5',
-        //     text: '<i class="fa fa-file-excel"></i> Excel',
-        //     titleAttr: 'Exportar a excel'
-        //   },
-        //   {
-        //     extend: 'csvHtml5',
-        //     text: '<i class="fa fa-file-contract"></i> CSV',
-        //     titleAttr: 'CSV'
-        //   },
-        //   {
-        //     extend: 'pdfHtml5',
-        //     text: '<i class="fa fa-file-pdf"></i> PDF',
-        //     titleAttr: 'Exportar a PDF'
-        //   }
-        // ],
-        // lengthChange: !1,
-        // buttons: ["copy", "excel", "pdf", "colvis"],
+        dom: 'Blfrtip',
+        buttons: [{
+            extend: 'copyHtml5',
+            text: '<i class="fa fa-copy"></i> Copiar',
+            titleAttr: 'Copiar'
+          },
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel"></i> Excel',
+            titleAttr: 'Exportar a excel'
+          },
+          {
+            extend: 'csvHtml5',
+            text: '<i class="fa fa-file-contract"></i> CSV',
+            titleAttr: 'CSV'
+          },
+          {
+            extend: 'pdfHtml5',
+            text: '<i class="fa fa-file-pdf"></i> PDF',
+            titleAttr: 'Exportar a PDF'
+          }
+        ],
+        lengthChange: !1,
+        buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },
