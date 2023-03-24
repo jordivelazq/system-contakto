@@ -15,7 +15,7 @@ $(document).ready(function () {
         columnDefs: [
             
             {
-                targets: 5,
+                targets: [7, 8, 9],
                 className: 'dt-body-center', 
                 render: function (data, type, row) {
                     if (data==true){
@@ -25,30 +25,9 @@ $(document).ready(function () {
                     }
                 },
             },
+            
             {
-                targets: 6,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-            {
-                targets: 7,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-            {
-                targets: 8,
+                targets: 11,
                 render: function (data, type, full, meta) {
                     var status = {
                         0: {

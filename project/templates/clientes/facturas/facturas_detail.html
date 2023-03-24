@@ -202,13 +202,15 @@
 
                                             {% if inv_archivos.archivo_pdf %}
                                                 <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                        target="_blank"
                                                         onclick="window.location.href='/media/{{inv_archivos.archivo_pdf}}';">
                                                         <i class="bx bxs-user-detail label-icon"></i>Descargar PDF</button>
                                                 {% endif %}
                                             
 
                                                 {% if inv_archivos.archivo_xml %}
-                                                <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                <button class="btn btn-primary waves-effect btn-label waves-light"
+                                                        target="_blank"
                                                         onclick="window.location.href='/media/{{inv_archivos.archivo_xml}}';">
                                                         <i class="bx bxs-user-detail label-icon"></i>Descargar XML</button>
                                                 {% endif %}
@@ -231,7 +233,7 @@
             </div>
 
 
-            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}"
+            <a href="{% url 'clientes:clientes_facturas_list' %}"
             class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
             Regresar al listado</a>
 

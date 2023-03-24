@@ -88,7 +88,8 @@ $(document).ready(function () {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
-                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')" alt="Editar investigación">Ver detalles</a>';
+                    // a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')" alt="Editar investigación">Ver detalles</a>';
+                    a += '<a class="btn btn-soft-primary waves-effect waves-light" onclick="investigacionDetail(\'' + row.id + '\')"><i class="bx bxs-search label-icon"></i></a>';
 
                     a += '</div>'
                     return a;
@@ -132,6 +133,11 @@ $(document).ready(function () {
             {
                 "title": "Resultado",
                 "data": "resultado",
+                "responsivePriority": 2,
+            },
+            {
+                "title": "Estatus",
+                "data": "status",
                 "responsivePriority": 2,
             },
             

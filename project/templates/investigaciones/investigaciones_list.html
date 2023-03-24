@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{title}}{% endblock title %}
 
@@ -48,6 +49,45 @@
                         <div class="card-header">
                             <h4 class="card-title">Coordinador de atención al cliente</h4>
                         </div>
+
+                        <div class="card-header">
+
+                            <h4 class="card-title">{% trans "Resúmen" %} </h4>
+                            <div class="row">
+                                <div class="col-md-12">
+    
+                                    <h3 class="card-title">{% trans "Nro. total de investigaciones: " %} <strong> {{ total_investigaciones }} </strong></h3>
+                                    <hr>
+                                    <a href="#"
+                                        class="btn btn-primary waves-light waves-effect status-btn">
+                                        <strong class="status-numbers"> {{ en_investigacion }} </strong>
+                                        <img class="status_icon" src="{% static 'images/complaints_to_check.png' %}">
+                                        <br><p class="status_title">{% trans "En investigación" %}</p>
+                                    </a>
+
+                                    <a href="#"
+                                    class="btn btn-warning waves-light waves-effect status-btn">
+                                    <strong class="status-numbers"> {{ pte_por_el_cliente }} </strong>
+                                    <img class="status_icon" src="{% static 'images/complaints_finished.png' %}">
+                                    <br><p class="status_title">{% trans "Pte. por el cliente" %}</p>
+                                    </a>
+    
+    
+                                    <a href="#"
+                                        class="btn btn-success waves-light waves-effect status-btn">
+                                        <strong class="status-numbers"> {{ inv_terminada }} </strong>
+                                        <img class="status_icon" src="{% static 'images/complaints_finished.png' %}">
+                                        <br><p class="status_title">{% trans "Inv. Terminada" %}</p>
+                                    </a>
+
+                                   
+
+    
+                                </div>
+                            </div>
+
+                    </div>
+
                         <div class="card-body">
 
                             <table id="datatable-investigaciones"
