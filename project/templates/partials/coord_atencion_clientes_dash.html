@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h5>Dashboard del cliente</h5>
+        <h5>Dashboard del Coord. de Atención a Clientes</h5>
     </div>
 </div>
 
@@ -12,12 +12,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Solicitudes</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Nro. total de investigaciones</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="{{cliente_solicitudes_total}}">0</span>
+                            <span class="counter-value" data-target="{{total_investigaciones}}">0</span>
                         </h4>
                         <div class="text-nowrap">
-                            <a href="{% url 'clientes:clientes_solicitudes_list' %}" class="btn btn-primary btn-sm">Ir al listado de solicitudes</a>
+                            <a href="{% url 'investigaciones:investigaciones_list' %}" class="btn btn-primary btn-sm">Ir al listado de investigaciones</a>
                         </div>
                     </div>
 
@@ -36,12 +36,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Solicitudes pendientes</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">En investigación</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="{{cliente_solicitudes_pendientes}}">0</span>
+                            <span class="counter-value" data-target="{{en_investigacion}}">0</span>
                         </h4>
                         <div class="text-nowrap">
-                            <a href="{% url 'clientes:clientes_solicitudes_list' %}" class="btn btn-primary btn-sm">Ir al listado de solicitudes</a>
+                            <a href="{% url 'investigaciones:investigaciones_list' %}" class="btn btn-primary btn-sm">Ir al listado de investigaciones</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 text-end dash-widget">
@@ -59,12 +59,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Solicitudes enviadas</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Pte. por el cliente</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="{{cliente_solicitudes_enviadas}}">0</span>
+                            <span class="counter-value" data-target="{{pte_por_el_cliente}}">0</span>
                         </h4>
                         <div class="text-nowrap">
-                            <a href="{% url 'clientes:clientes_solicitudes_list' %}" class="btn btn-primary btn-sm">Ir al listado de solicitudes</a>
+                            <a href="{% url 'investigaciones:investigaciones_list' %}" class="btn btn-primary btn-sm">Ir al listado de investigaciones</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 text-end dash-widget">
@@ -83,12 +83,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Facturas Pendientes</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Inv. Terminada</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="{{inv_terminada}}">0</span>
+                            <span class="counter-value" data-target="{{cliente_solicitudes_enviadas}}">0</span>
                         </h4>
                         <div class="text-nowrap">
-                            <a href="{% url 'clientes:clientes_facturas_list' %}" class="btn btn-primary btn-sm">Ir al listado de facturas</a>
+                            <a href="{% url 'investigaciones:investigaciones_list' %}" class="btn btn-primary btn-sm">Ir al listado de investigaciones</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 text-end dash-widget">

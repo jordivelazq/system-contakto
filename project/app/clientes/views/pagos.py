@@ -1,28 +1,16 @@
 
 # -*- coding: utf-8 -*-
-import json
-from datetime import date, datetime
-from operator import inv
 
-from app.adjuntos.models import Adjuntos
-from app.compania.models import DireccionFiscal, Sucursales
-from app.core.models import Estado, Municipio, UserMessage
-from app.entrevista.entrevista_persona import EntrevistaPersonaService
+from app.investigacion.models import (Investigacion,
+                                      InvestigacionFacturaArchivos,
+                                      InvestigacionFacturaClienteArchivo)
 from app.investigacion.serializers import InvestigacionSerializer
-from app.clientes.models import ClienteSolicitudCandidato
-from app.persona.models import Persona, Telefono
 from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.contrib import messages
-from django.contrib.auth.models import Group, User
-from django.db.models import Sum
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView, UpdateView, View)
+from django.urls import reverse
+from django.views.generic import (CreateView, DetailView, TemplateView,
+                                  UpdateView)
 from rest_framework import mixins, viewsets
-from utils.send_mails import send_email
-from app.investigacion.models import Investigacion, InvestigacionFacturaClienteArchivo, InvestigacionFacturaArchivos
 
 
 class ClientesFacturaTemplateView(LoginRequiredMixin, TemplateView):
@@ -55,7 +43,6 @@ class ClientesFacturaDetailView(LoginRequiredMixin, DetailView):
             cliente_factura = InvestigacionFacturaClienteArchivo.objects.get(investigacion=inv)
         except InvestigacionFacturaClienteArchivo.DoesNotExist:
             cliente_factura = None
-        
 
         try:
             inv_archivos = InvestigacionFacturaArchivos.objects.get(investigacion=inv)
@@ -76,19 +63,18 @@ class InvestigacionClienteFacturaViewSet(mixins.ListModelMixin, viewsets.Generic
 
     def get_queryset(self):
 
-        # Buscar Cliente, 
+        # Buscar Cliente,
         # filtar invistigaciones del cliente solicitudes del cliente
         qs = self.queryset.filter(
                  cliente_solicitud__isnull=False, investigacion_factura_completada=True).order_by("last_modified")
 
         return qs
-    
+
 
 class InvestigacionFacturaClienteArchivoCreateView(LoginRequiredMixin, CreateView):
 
-
     model = InvestigacionFacturaClienteArchivo
-    fields = ['notas', 'fecha', 'comprobante'] 
+    fields = ['notas', 'fecha', 'comprobante']
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'clientes/facturas/facturas_form.html'
 
@@ -118,9 +104,8 @@ class InvestigacionFacturaClienteArchivoCreateView(LoginRequiredMixin, CreateVie
 
 class InvestigacionFacturaClienteArchivoUpdateView(LoginRequiredMixin, UpdateView):
 
-
     model = InvestigacionFacturaClienteArchivo
-    fields = ['notas', 'fecha', 'comprobante'] 
+    fields = ['notas', 'fecha', 'comprobante']
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = 'clientes/facturas/facturas_form.html'
 

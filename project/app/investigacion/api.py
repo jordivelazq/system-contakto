@@ -36,9 +36,39 @@ class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'investigaciones/investigaciones_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionTemplateView,
-                        self).get_context_data(**kwargs)
-        context['title'] = 'Investigaciones /  Coordinador de atención al cliente'
+        context = super().get_context_data(**kwargs)
+
+        user = self.request.user
+        companias_pk = Compania.objects.filter(
+            coordinador_ejecutivos_id=user.pk).values_list('pk', flat=True)
+
+        total_investigaciones = Investigacion.objects.filter(
+                cliente_solicitud__isnull=False,
+                compania__in=companias_pk
+        ).count()
+
+        en_investigacion = Investigacion.objects.filter(
+                cliente_solicitud__isnull=False,
+                compania__in=companias_pk, status=0
+        ).count()
+
+        pte_por_el_cliente = Investigacion.objects.filter(
+                cliente_solicitud__isnull=False,
+                compania__in=companias_pk, status=1
+        ).count()
+
+        inv_terminada = Investigacion.objects.filter(
+                cliente_solicitud__isnull=False,
+                compania__in=companias_pk, status=2
+        ).count()
+
+        context = {
+            'title': 'Investigaciones /  Coordinador de atención al cliente',
+            'total_investigaciones': total_investigaciones,
+            'en_investigacion': en_investigacion,
+            'pte_por_el_cliente': pte_por_el_cliente,
+            'inv_terminada': inv_terminada,
+        }
 
         return context
 
@@ -58,9 +88,6 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                 cliente_solicitud__isnull=False, compania__in=companias_pk).order_by("last_modified")
         except Compania.DoesNotExist:
             return self.queryset.none()
-
-        # qs = self.queryset.filter(
-        #          cliente_solicitud__isnull=False ).order_by("last_modified")
 
         return qs
 

@@ -1,11 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import (DeleteView, DetailView, ListView,
-                                  RedirectView, UpdateView)
+from django.urls import reverse
+from django.views.generic import DeleteView, ListView
+
 from ..models import UserMessage
 
 

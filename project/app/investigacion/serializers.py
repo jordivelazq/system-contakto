@@ -73,13 +73,16 @@ class InvestigacionSerializer(serializers.ModelSerializer):
     compania = CompaniaSerializer(read_only=True)
     sucursal = SucursalesSerializer(read_only=True)
     contacto = ContactoSerializer(read_only=True)
-    # tipo_investigacion = ClienteTipoInvestigacionSerializer(read_only=True)
     tipo_investigacion = serializers.StringRelatedField(many=True)
     file = FileSerializer(read_only=True)
+    status = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Investigacion
         fields = '__all__'
+
+    def get_status(self, obj):
+        return obj.get_status_display()
 
 
 class GestorInfoSerializer(serializers.ModelSerializer):
