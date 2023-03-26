@@ -189,7 +189,7 @@
                                             {% if not investigacion.investigacion_factura_enviada_al_cliente %}
                                             <td>
                                                 <div class="d-flex flex-wrap gap-2">
-                                                    <a href=""
+                                                    <a href="{% url 'cobranza_facturas_update' investigacion.pk candidato.id %}"
                                                     class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Editar</a>       
                                                 </div>
                                                         

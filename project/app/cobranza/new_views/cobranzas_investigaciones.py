@@ -242,7 +242,7 @@ class InvestigacionFacturaDireccionFiscalUpdateView(GroupRequiredMixin, UpdateVi
 class InvestigacionFacturaClienteArchivoUpdateView(GroupRequiredMixin, UpdateView):
 
     # required
-    group_required = ["Admin", "SuperAdmin", "Cobranzas"]
+    group_required = ["Admin", "SuperAdmin"]
     raise_exception = True
 
     model = Investigacion
