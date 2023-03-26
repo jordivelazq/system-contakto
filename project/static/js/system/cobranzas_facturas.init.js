@@ -100,7 +100,8 @@ $(document).ready(function () {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
-                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')">Ver detalles</a>';
+                    // a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')">Ver detalles</a>';
+                    a += '<a class="btn btn-soft-primary waves-effect waves-light" onclick="investigacionDetail(\'' + row.id + '\')"><i class="bx bxs-search label-icon"></i></a>';
 
                     a += '</div>'
                     return a;
@@ -161,7 +162,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[8, "desc"]],
+        "order": [2, "desc"],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',

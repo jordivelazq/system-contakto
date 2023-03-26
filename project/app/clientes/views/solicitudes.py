@@ -7,7 +7,7 @@ from app.clientes.models import (ClienteSolicitud, ClienteSolicitudCandidato,
                                  ClienteUser)
 from app.compania.models import DireccionFiscal, Sucursales
 from app.core.models import Municipio, UserMessage
-from app.investigacion.models import Investigacion, Psicometrico
+from app.investigacion.models import Investigacion, InvestigacionFactura, Psicometrico
 from app.persona.models import Persona, Telefono
 from braces.views import LoginRequiredMixin, GroupRequiredMixin
 from django.contrib import messages
@@ -20,6 +20,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 
 from ..forms.cliente_solicitud_candidato_forms import \
     ClienteSolicitudCandidatoForm
+from utils.general_utils import CreateGroupMessaje
 
 
 class InitialClient(LoginRequiredMixin, TemplateView):
@@ -297,49 +298,18 @@ class ClienteSolicitudEnviarTemplateView(LoginRequiredMixin, TemplateView):
             }
             # send_email('notificacion_coordinador_ejecutivo', mail_data)
 
-            # registrar los mensajes
-            msj = UserMessage()
-            msj.user = self.request.user
+            # Genera las facturas al cliente
+            for csc in candidato.tipo_investigacion.all():
+                factura = InvestigacionFactura()
+                factura.investigacion_id = investigacion.pk
+                factura.cantidad = 1
+                factura.descripcion = csc
+                factura.monto = csc.costo
+                factura.save()
 
-            msj.title = "Se ha generado una nueva solicitud de investigación"
-            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
-            msj.link = "/investigaciones/investigaciones/detail/" + \
-                str(investigacion.pk)+"/"
-            msj.save()
-
-            # Coordinador de ejecutivos puede listar las solicitudes para asignarlas
-            # Ejecutivo puede asignar una solicitud a un ejecutivo
-            # Ejecutivo puede ver las solicitudes asignadas
-            # Ejecutivo puede ejectuta solicitud
-            # Ejecutivo termina solicitud
-            # Colocar el costo al tipo de investigacion (Referencia)
-
-            # adicionales
-            # Puede editar la informacion del candidato el coordinador y ejecutivo de inv. laboral
-            # hasta DOMICILIO ACTUAL (Trabajo del ejecutivo, a traves de llamada con el candidato)
-            # Guardar la bitacora de llamadas
-            # Al estar lleno los datos se activa la investigacion.
-            #
-            # Demandas laborales el coordinador las llena. Toda investigacion lleva demana
-
-            # Quien auoriza la Entrevista
-            # Enviado a entrevistador eliminar y colocar el gestor con popup de usuarios gestores
-            # Colocar bitacora
-            # Estatus: Atención y concluida
-
-            # Calificación Final cuando todos los procesos estan concluido
-
-            # Investigacion laboral la ejeuta el ejecutivo de inv. laboral
-
-        # Para ir eliminando
-        # Persona creada 26014
-        #
-        # Crear solicitud para candidato
-        # ##############################
-        # Investigacion creada con el id: 25991
-        # Crear solicitud para candidato
-        # ##############################
-        # Investigacion creada con el id: 25992
+            # Notificar a los Coord. de Atención a Clientes y a Cobranzas
+            CreateGroupMessaje().create_group_message("Cobranzas", investigacion.pk)
+            CreateGroupMessaje().create_group_message("Coord. de Atención a Clientes", investigacion.pk)
 
         # cambiar la solicitud a enviada
         solicitud.enviado = True

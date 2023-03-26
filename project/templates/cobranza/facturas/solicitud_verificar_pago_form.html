@@ -58,6 +58,37 @@
                         </div>
                         <div class="card-body">
 
+                            <ol class="list-group">
+                               
+                                <li class="list-group-item d-flex justify-content-between align-items-start" >
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Fecha:</div>
+                                    {{ object.fecha|date:"d/m/Y" }}
+                                </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start" >
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">Notas:</div>
+                                        {{ object.notas }}
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-start" >
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">Ver comprobante:</div>
+                                       
+                                        <button type="button" class="btn btn-info waves-effect btn-label waves-light openDetail"
+                                        data-title="{{object.fecha}}" data-content="{{ object.comprobante}}"><i
+                                          class="bx bx-info-circle label-icon"></i> Detalle</button>
+
+                                    </div>
+                                </li>
+                                
+                            </ol>
+ 
+                            <br>
+
 
 
                             <form role="form" method="post" action="" enctype="multipart/form-data">
@@ -90,6 +121,35 @@
     </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+  <!--begin::Modal-->
+<div id="documentModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalFullscreenLabel">Detalle del comprobante</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div id='modal_title' name="modal_title"></div>
+          <br>
+          <div id='modal_content'>
+
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <!--end::Modal-->
+
+
 {% block footer %}
 {% include 'partials/footer.html' %}
 {% endblock footer %}
@@ -98,17 +158,21 @@
 {% endblock content %}
 
 {% block extra_js %}
-<script src="{% static 'js/system/estado_municipio.js'%}"></script>
-<script src="{% static 'libs/select2/dist/js/select2.min.js'%}"></script>
 
 <script>
-  $(document).ready(function () {
-    $('#id_tipo_investigacion').select2();
-    $('#id_estado').select2();
-    $('#id_municipio').select2();
-    $('#id_sucursal').select2();
-    $('[data-toggle="popover"]').popover();
+  $(".openDetail").click(function () {
+    var title = $(this).attr('data-title');
+    var content = $(this).attr('data-content');
+
+    let img = '<img src="/media/'+ content + '" class="img-fluid" alt="..." />';
+
+    $('.modal-body #modal_titleg').empty().append(title);
+    $('.modal-body #modal_content').empty().append(img);
+
+    $('#documentModal').modal('show');
 
   });
+
 </script>
+
 {% endblock extra_js %}

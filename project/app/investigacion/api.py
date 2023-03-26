@@ -51,6 +51,14 @@ class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
                 cliente_solicitud__isnull=False,
                 compania__in=companias_pk, status=0
         ).count()
+        en_investigacion = Investigacion.objects.filter(
+                cliente_solicitud__isnull=False,
+                compania__in=companias_pk, status=0
+        ).count()
+        en_investigacion = Investigacion.objects.filter(
+                cliente_solicitud__isnull=False,
+                compania__in=companias_pk, status=0
+        ).count()
 
         pte_por_el_cliente = Investigacion.objects.filter(
                 cliente_solicitud__isnull=False,
@@ -2033,7 +2041,7 @@ class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, Tem
         investigacion_id = self.kwargs['investigacion_id']
         inv = Investigacion.objects.get(id=investigacion_id)
         
-        inv.investigacion_factura_completada = True
+        inv.investigacion_factura_enviada_al_cliente = True
         inv.save()
 
         return redirect('cobranza_facturas_detail', self.kwargs['investigacion_id'])
