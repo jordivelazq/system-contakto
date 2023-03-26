@@ -2044,6 +2044,16 @@ class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, Tem
         inv.investigacion_factura_enviada_al_cliente = True
         inv.save()
 
+        # enviar mensaje al cliente
+        msj = UserMessage()
+        msj.user = inv.cliente_solicitud.cliente
+
+        msj.title = "Se ha generado los datos de la factura"
+        msj.message = "Estimado usuario. Se ha generado los datos de la factura para su pago."
+        msj.link = "/clientes/facturas/detail/" + str(self.kwargs['investigacion_id']) +"/"
+        msj.save()
+
+
         return redirect('cobranza_facturas_detail', self.kwargs['investigacion_id'])
 
 

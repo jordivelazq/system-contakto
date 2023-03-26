@@ -224,16 +224,22 @@ class Investigacion(models.Model):
 
     @property
     def get_total_pagado(self):
+        total = 0
         cliente_solicitud_facturas = InvestigacionFacturaClienteArchivo.objects.filter(
             investigacion_id=self.pk
         ).aggregate(total=Sum("monto"))
 
         if cliente_solicitud_facturas["total"]:
-            return cliente_solicitud_facturas["total"]
+            total = cliente_solicitud_facturas["total"]
+        
+        return total
 
     @property
     def get_total_pendiente(self):
-        return self.get_total_facturado - self.get_total_pagado
+        total = 0
+        if self.get_total_facturado and self.get_total_pagado:
+            total = self.get_total_facturado - self.get_total_pagado
+        return total
 
 
 class InvestigacionExtra(models.Model):

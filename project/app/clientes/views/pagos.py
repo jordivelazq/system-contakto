@@ -13,6 +13,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 from rest_framework import mixins, viewsets
+from utils.general_utils import CreateGroupMessajeInd
 
 
 class ClientesFacturaTemplateView(LoginRequiredMixin, TemplateView):
@@ -109,6 +110,17 @@ class InvestigacionFacturaClienteArchivoCreateView(LoginRequiredMixin, CreateVie
         self.object = form.save(commit=False)
         self.object.investigacion = inv
         self.object.save()
+
+        # Enviar mensaje a cobranzas
+        group_name = "Cobranzas"
+        investigacion_id = inv.id
+        title = "Cliente ha generado un nuevo comprobante de pago"
+        message = "El cliente ha generado un nuevo comprobante de pago para la investigación: {}".format(
+            inv.id
+        )
+        link = "/cobranza/facturas/detail/{}/".format(inv.id)
+
+        CreateGroupMessajeInd().create_group_message(group_name, investigacion_id, title, message, link)
 
         return super(InvestigacionFacturaClienteArchivoCreateView, self).form_valid(
             form

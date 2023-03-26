@@ -60,23 +60,23 @@ options = {
 };
 (chart = new ApexCharts(document.querySelector("#coord01-chart1"), options)).render();
 
-// options = {
-//     series: [30, 5, 20],
-//     labels: ["En Investigación", "Pdt. por Cliente", "Inv. Terminada"],
+options = {
+    series: [30, 5, 20],
+    labels: ["En Investigación", "Pdt. por Cliente", "Inv. Terminada"],
 
-//     chart: {
-//         type: "donut",
-//         height: 110
-//     },
-//     colors: barchartColors = getChartColorsArray("coord01-chart2"),
-//     legend: {
-//         show: !1
-//     },
-//     dataLabels: {
-//         enabled: !1
-//     }
-// };
-// (chart = new ApexCharts(document.querySelector("#coord01-chart2"), options)).render();
+    chart: {
+        type: "donut",
+        height: 110
+    },
+    colors: barchartColors = getChartColorsArray("coord01-chart2"),
+    legend: {
+        show: !1
+    },
+    dataLabels: {
+        enabled: !1
+    }
+};
+(chart = new ApexCharts(document.querySelector("#coord01-chart2"), options)).render();
 
 
 var user_login = document.getElementById("login-msg"),
