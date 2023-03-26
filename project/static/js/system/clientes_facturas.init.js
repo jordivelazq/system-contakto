@@ -140,7 +140,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[8, "desc"]],
+        "order": [[2, "desc"]],
         // dom: 'Blfrtip',
         // buttons: [{
         //     extend: 'copyHtml5',
