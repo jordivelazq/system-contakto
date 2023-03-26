@@ -71,7 +71,8 @@ $(document).ready(function () {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
-                    a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionCoordinadoVisitaDetail(\'' + row.id + '\')" alt="Ver detalle">Ver detalles</a>';
+                    // a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionCoordinadoVisitaDetail(\'' + row.id + '\')" alt="Ver detalle">Ver detalles</a>';
+                    a += '<a class="btn btn-soft-primary waves-effect waves-light" onclick="investigacionCoordinadoVisitaDetail(\'' + row.id + '\')"><i class="bx bxs-search label-icon"></i></a>';
 
                     a += '</div>'
                     return a;
@@ -111,7 +112,31 @@ $(document).ready(function () {
             },
 
         ],
-        "order": [[7, "desc"]],
+        "order": [[2, "desc"]],
+        dom: 'Blfrtip',
+        buttons: [{
+            extend: 'copyHtml5',
+            text: '<i class="fa fa-copy"></i> Copiar',
+            titleAttr: 'Copiar'
+          },
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel"></i> Excel',
+            titleAttr: 'Exportar a excel'
+          },
+          {
+            extend: 'csvHtml5',
+            text: '<i class="fa fa-file-contract"></i> CSV',
+            titleAttr: 'CSV'
+          },
+          {
+            extend: 'pdfHtml5',
+            text: '<i class="fa fa-file-pdf"></i> PDF',
+            titleAttr: 'Exportar a PDF'
+          }
+        ],
+        lengthChange: !1,
+        buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

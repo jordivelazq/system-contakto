@@ -95,12 +95,32 @@ class CreateGroupMessaje():
 
         if group_name == "Coord. de Atención a Clientes":
             title = 'Se ha creado la investigación con el id: {}'.format(investigacion_id)
-            message = 'Le invitamos a que revise la investigación con el id: {},y empezar el proceso'.format(investigacion_id)
+            message = 'Le invitamos a que revise la investigación con el id: {}, y empezar el proceso'.format(investigacion_id)
             link = '/investigaciones/investigaciones/detail/{}/'.format(investigacion_id)
         elif group_name == "Cobranzas":
             title = 'Se ha creado la investigación con el id: {}'.format(investigacion_id)
-            message = 'Le invitamos a realizar el pago investigación con el id: {},y enviar cobro al cliente'.format(investigacion_id)
+            message = 'Le invitamos a realizar el pago investigación con el id: {}, y enviar cobro al cliente'.format(investigacion_id)
             link = '/cobranza/facturas/detail/{}/'.format(investigacion_id)
+
+        for user in users:
+            UserMessage.objects.create(message=message, user=user, title=title, link=link)
+
+
+class CreateGroupMessajeInd():
+    """
+    This class is used to create a group message.
+    """
+    def create_group_message(self, group_name, investigacion_id, title, message, link):
+        """
+        This method is used to create a group message.
+        :param group_name: name of the group
+        :param message: message to be sent
+        :return: group message
+        """
+        from django.contrib.auth.models import Group
+        from app.core.models import UserMessage
+        group = Group.objects.get(name=group_name)
+        users = group.user_set.all()
 
         for user in users:
             UserMessage.objects.create(message=message, user=user, title=title, link=link)

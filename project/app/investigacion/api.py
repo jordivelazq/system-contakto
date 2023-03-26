@@ -548,8 +548,8 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
 
         self.object = form.save(commit=False)
 
-        if self.object.coordinador_visitas:
-            self.object.coord_visitas_asignado = True
+        if self.object.ejecutivo_de_cuentas:
+            self.object.ejecutivo_de_cuentas_asignado = True
             # Genera bitácora
             bitacora = InvestigacionBitacora()
             bitacora.user_id = self.request.user.pk
@@ -559,28 +559,30 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
             bitacora.save()
 
             # Genera email
-            mail_data = {
-                'mensaje': 'Se ha asignado como coordinador de visitas',
-                'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
-                'compania': self.object.cliente_solicitud.cliente.compania.nombre,
-                'tipo_de_solicitud': self.object.tipo_investigacion.all(),
-                'fecha_solicitud': hoy,
-                'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
-                'texto_url_detalles': 'Detalles de la solicitud',
-                'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
-            }
+            # mail_data = {
+            #     'mensaje': 'Se ha asignado como coordinador de visitas',
+            #     'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+            #     'compania': self.object.cliente_solicitud.cliente.compania.nombre,
+            #     'tipo_de_solicitud': self.object.tipo_investigacion.all(),
+            #     'fecha_solicitud': hoy,
+            #     'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
+            #     'texto_url_detalles': 'Detalles de la solicitud',
+            #     'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
+            # }
             # send_email('notificacion_coordinador_visita', mail_data)
 
-            # Genera menaaje a usuario
+            # Genera mensaje a usuario
             msj = UserMessage()
-            msj.user = self.request.user
+            msj.user = self.object.ejecutivo_de_cuentas
 
             msj.title = "Se ha asignado como ejecutivo de cuentas"
-            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
-            msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/" +  str(self.object.pk)+"/"
+            msj.message = "Estimado usuario. Se le ha asignado como ejecutivo de cuentas para la investigación de " \
+                + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
+                + self.object.cliente_solicitud.cliente.compania.nombre
+            msj.link = "/investigaciones/investigaciones/ejecutivo-de-cuenta/detail/" + str(self.object.pk)+"/"
             msj.save()
         else:
-            self.object.coord_visitas_asignado = False
+            self.object.ejecutivo_de_cuentas_asignado = False
 
         self.object.save()
 
@@ -631,24 +633,27 @@ class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
             bitacora.save()
 
             # Genera email
-            mail_data = {
-                'mensaje': 'Se ha asignado como coordinador de visitas',
-                'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
-                'compania': self.object.cliente_solicitud.cliente.compania.nombre,
-                'tipo_de_solicitud': self.object.tipo_investigacion.all(),
-                'fecha_solicitud': hoy,
-                'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
-                'texto_url_detalles': 'Detalles de la solicitud',
-                'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
-            }
+            # mail_data = {
+            #     'mensaje': 'Se ha asignado como coordinador de visitas',
+            #     'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+            #     'compania': self.object.cliente_solicitud.cliente.compania.nombre,
+            #     'tipo_de_solicitud': self.object.tipo_investigacion.all(),
+            #     'fecha_solicitud': hoy,
+            #     'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-visitas/detail/' + str(self.object.pk) + '/',
+            #     'texto_url_detalles': 'Detalles de la solicitud',
+            #     'email_coordinadores_de_visita': [self.object.coordinador_visitas.email, ],
+            # }
             # send_email('notificacion_coordinador_visita', mail_data)
 
             # Genera menaaje a usuario
             msj = UserMessage()
-            msj.user = self.request.user
+            msj.user = self.object.coordinador_visitas
 
             msj.title = "Se ha asignado como coordinador de visita"
-            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
+            msj.message = "Estimado usuario. Se le ha asignado como coordinador de visita para la investigación de " \
+                + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
+                + self.object.cliente_solicitud.cliente.compania.nombre
+
             msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/" + \
                 str(self.object.pk)+"/"
             msj.save()
@@ -705,24 +710,26 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
             bitacora.save()
 
             # Genera email
-            mail_data = {
-                'mensaje': 'Se ha asignado como coordinador de visitas',
-                'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
-                'compania': self.object.cliente_solicitud.cliente.compania.nombre,
-                'tipo_de_solicitud': self.object.tipo_investigacion.all(),
-                'fecha_solicitud': hoy,
-                'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-psicometrico/detail/' + str(self.object.pk) + '/',
-                'texto_url_detalles': 'Detalles de la solicitud',
-                'email_coordinadores_de_visita': [self.object.coordinador_psicometrico.email, ],
-            }
+            # mail_data = {
+            #     'mensaje': 'Se ha asignado como coordinador de visitas',
+            #     'candidato': self.object.candidato.nombre + ' ' + self.object.candidato.apellido,
+            #     'compania': self.object.cliente_solicitud.cliente.compania.nombre,
+            #     'tipo_de_solicitud': self.object.tipo_investigacion.all(),
+            #     'fecha_solicitud': hoy,
+            #     'url_detalles': 'http://127.0.0.1:8000/investigaciones/investigaciones/coordinador-psicometrico/detail/' + str(self.object.pk) + '/',
+            #     'texto_url_detalles': 'Detalles de la solicitud',
+            #     'email_coordinadores_de_visita': [self.object.coordinador_psicometrico.email, ],
+            # }
             # send_email('notificacion_coordinador_visita', mail_data)
 
             # Genera menaaje a usuario
             msj = UserMessage()
-            msj.user = self.request.user
+            msj.user = self.object.coordinador_psicometrico
 
             msj.title = "Asignacion de coordinador de psicométrico"
-            msj.message = "Estimado usuario. Se ha generado una nueva solicitud, le invitamos a revisarla"
+            msj.message = "Estimado usuario. Se le ha asignado como coordinador de psicométrico para la investigación de " \
+                + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
+                + self.object.cliente_solicitud.cliente.compania.nombre
             msj.link = "/investigaciones/investigaciones/coordinador-psicometrico/detail/" + \
                 str(self.object.pk)+"/"
             msj.save()
@@ -2043,6 +2050,16 @@ class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, Tem
         
         inv.investigacion_factura_enviada_al_cliente = True
         inv.save()
+
+        # enviar mensaje al cliente
+        msj = UserMessage()
+        msj.user = inv.cliente_solicitud.cliente
+
+        msj.title = "Se ha generado los datos de la factura"
+        msj.message = "Estimado usuario. Se ha generado los datos de la factura para su pago."
+        msj.link = "/clientes/facturas/detail/" + str(self.kwargs['investigacion_id']) +"/"
+        msj.save()
+
 
         return redirect('cobranza_facturas_detail', self.kwargs['investigacion_id'])
 

@@ -85,12 +85,13 @@ class InvestigacionFacturalDetailView(GroupRequiredMixin, DetailView):
 
         inv_factura_archivos = None
         try:
-            inv_factura_archivos = InvestigacionFacturaArchivos.objects.filter(
+            inv_factura_archivos = InvestigacionFacturaArchivos.objects.get(
                 investigacion=self.object
             )
         except InvestigacionFacturaArchivos.DoesNotExist:
             print("archivos no existe")
 
+        # DEvuelve los datos de pagos del cliente
         inv_cliente_factura_archivos = (
             InvestigacionFacturaClienteArchivo.objects.filter(
                 investigacion=self.object

@@ -1,42 +1,24 @@
 # -*- coding: utf-8 -*-
-import json
-from datetime import date, datetime
-from operator import inv
-
-from app.adjuntos.models import Adjuntos
 from app.clientes.models import (
-    Cliente,
     ClienteSolicitud,
-    ClienteSolicitudCandidato,
-    ClienteTipoInvestigacion,
-    ClienteUser,
 )
-from app.compania.models import DireccionFiscal, Sucursales
-from app.core.models import Estado, Municipio, UserMessage
-from app.entrevista.entrevista_persona import EntrevistaPersonaService
+
 from app.investigacion.models import (
     Investigacion,
-    Psicometrico,
     InvestigacionFacturaClienteArchivo,
 )
-from app.persona.models import Persona, Telefono
+
 from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.contrib import messages
-from django.contrib.auth.models import Group, User
-from django.db.models import Sum
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
+from django.contrib.auth.models import User
+
+
+from django.urls import reverse
 from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
     ListView,
-    TemplateView,
     UpdateView,
-    View,
 )
-from utils.send_mails import send_email
+from app.core.models import UserMessage
 
 
 class ClienteSolicitudesCanditatosFacturasListView(GroupRequiredMixin, ListView):
@@ -127,6 +109,24 @@ class InvestigacionFacturaClienteArchivopdateView(LoginRequiredMixin, UpdateView
     fields = ["verificado_por_cobranzas"]
     # success_url = reverse_lazy('investigaciones:investigaciones_list')
     template_name = "cobranza/facturas/solicitud_verificar_pago_form.html"
+
+    def form_valid(self, form):
+
+        inv = Investigacion.objects.get(id=self.kwargs["investigacion_id"])
+
+        self.object = form.save(commit=False)
+        self.object.investigacion = inv
+        self.object.save()
+
+        msj = UserMessage()
+        msj.user = inv.cliente_solicitud.cliente
+
+        msj.title = "Su pago ha sido verificado por cobranza"
+        msj.message = "Su pago ha sido verificado por cobranza, le invitamos a revisar su estado de cuenta"
+        msj.link = "/clientes/facturas/detail/" + str(inv.pk) + "/"
+        msj.save()
+
+        return super(InvestigacionFacturaClienteArchivopdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(

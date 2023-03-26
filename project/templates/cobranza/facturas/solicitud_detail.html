@@ -76,6 +76,8 @@
                                       
                                         {% if inv_factura_archivos %}
 
+                                           <h4>Archivos fiscales</h4>
+
                                             {% if inv_factura_archivos.archivo_pdf %}
                                             <button class="btn btn-primary waves-effect btn-label waves-light" 
                                                     onclick="window.location.href='/media/{{inv_factura_archivos.archivo_pdf}}';">
@@ -91,7 +93,7 @@
                                             
                                             <br><br>
 
-                                            <a href="#"
+                                            <a href="{% url 'cobranza_facturas_archivo_update' investigacion.id inv_factura_archivos.id %}"
                                                 class="btn btn-primary waves-effect btn-label waves-light">
                                                 <i class="bx bxs-user-detail label-icon"></i> Actualizar archivos fiscales</a>    
                                                 
