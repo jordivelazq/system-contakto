@@ -33,7 +33,11 @@
                     {% if request.user|has_group:"Coord. de Atención a Clientes" %}
                     {% include 'partials/coord_atencion_clientes_dash.html' %}
                     {% endif %}
-
+                    
+                    {% if request.user|has_group:"Cobranzas" %}
+                    {% include 'partials/cobranzas_dash.html' %}
+                    {% endif %}
+                    
                 </div>
                 <!-- container-fluid -->
             </div>

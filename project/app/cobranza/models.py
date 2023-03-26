@@ -1,28 +1,33 @@
 # -*- coding: utf-8 -*-
 
-from django.db import models
-from django.forms import ModelForm
-from django.contrib.auth.models import User
 from app.investigacion.models import Investigacion
+from django.db import models
 
 
 class Cobranza(models.Model):
     STATUS_OPCIONES_COBRANZA = (
-        ('0', 'Status 1'),
-        ('1', 'Status 2'),
-        ('2', 'Pagada'),
+        ("0", "Status 1"),
+        ("1", "Status 2"),
+        ("2", "Pagada"),
     )
     investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
-    monto = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+    monto = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     # No. de factura
-    folio = models.CharField(max_length=50, blank=True, null=True, default='')
+    folio = models.CharField(max_length=50, blank=True, null=True, default="")
     status_cobranza = models.CharField(
-        max_length=140, choices=STATUS_OPCIONES_COBRANZA, null=True, blank=True, default='0')
+        max_length=140,
+        choices=STATUS_OPCIONES_COBRANZA,
+        null=True,
+        blank=True,
+        default="0",
+    )
     last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return u'%s / %s' % (self.investigacion.candidato.nombre, self.investigacion.compania.nombre)
+        return "%s / %s" % (
+            self.investigacion.candidato.nombre,
+            self.investigacion.compania.nombre,
+        )
 
 
 class Factura(models.Model):
@@ -32,6 +37,5 @@ class Factura(models.Model):
     subtotal = models.FloatField(default=0)
     total = models.FloatField(default=0)
     fecha = models.DateField(blank=True, null=True)
-    rfc = models.CharField(max_length=50, blank=True, null=True, default='')
-    nombre = models.CharField(
-        max_length=240, blank=True, null=True, default='')
+    rfc = models.CharField(max_length=50, blank=True, null=True, default="")
+    nombre = models.CharField(max_length=240, blank=True, null=True, default="")

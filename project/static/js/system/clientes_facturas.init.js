@@ -64,7 +64,6 @@ $(document).ready(function () {
 
                 },
             },
-           
 
         ],
         "columns": [
@@ -115,8 +114,8 @@ $(document).ready(function () {
                 "responsivePriority": 1,
             },
             {
-                "title": "Enviada",
-                "data": "investigacion_factura_completada",
+                "title": "Recibida",
+                "data": "investigacion_factura_enviada_al_cliente",
                 "responsivePriority": 1,
             },
             {

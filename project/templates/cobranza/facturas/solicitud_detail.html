@@ -91,37 +91,40 @@
                                             
                                             <br><br>
 
-                                            <a href="{% url 'cobranza_facturas_archivo_update' cliente_solicitud.pk inv_factura_archivos.pk %}"
+                                            <a href="#"
                                                 class="btn btn-primary waves-effect btn-label waves-light">
-                                                <i class="bx bxs-user-detail label-icon"></i> Actualizar archivos fiscales</a>       
+                                                <i class="bx bxs-user-detail label-icon"></i> Actualizar archivos fiscales</a>    
                                                 
-                                        
+                                                {% if not investigacion.investigacion_factura_enviada_al_cliente %}
+                                            
+                                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-factura-pregunta">
+                                                    <i class="bx bx-check label-icon"></i> Enviar factura al cliente
+                                                </button>
+
+                                                {% else %}
+                                                La factura ha sido enviada al cliente
+                                                {% endif %}
+                                                
+
                                         {% else %}
                                             <a href="{% url 'cobranza_facturas_archivo_create' cliente_solicitud.pk %}"
                                             class="btn btn-primary waves-effect btn-label waves-light">
                                             <i class="bx bxs-user-detail label-icon"></i> Crear archivos fiscales</a>       
+
+                                        {% endif %}
                                             
-                                            {% endif %}
-                                            
-                                            {% if not investigacion.investigacion_factura_completada %}
-                                            
-                                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-factura-pregunta">
-                                                <i class="bx bx-check label-icon"></i> Enviar factura al cliente
-                                            </button>
-                                            
-                                            {% endif %}
-                                            
-                                            
-                                            {% if investigacion.investigacion_factura_pago_completado and investigacion.investigacion_factura_completada  %}
-                                            
-                                            <a href="{% url 'cobranza_facturas_validar_comprobante_update' investigacion.pk inv_factura_archivos.pk %}"
-                                            class="btn btn-success waves-effect btn-label waves-light">
-                                            <i class="bx bxs-user-detail label-icon"></i> Validar comprobante</a>       
+                                        
+                                        {% if investigacion.investigacion_factura_pago_completado and investigacion.investigacion_factura_completada  %}
+                                        
+                                        <a href="{% url 'cobranza_facturas_validar_comprobante_update' investigacion.pk inv_factura_archivos.pk %}"
+                                        class="btn btn-success waves-effect btn-label waves-light">
+                                        <i class="bx bxs-user-detail label-icon"></i> Validar comprobante</a>       
                                        
 
                                         {% elif investigacion.investigacion_factura_completada %}
-                                        Contacto no a realizado el pago de la factura
+                                        Pago ha sido completado
                                         {% endif %}
+                                      
                                        
                                             
                                     </p>
@@ -129,6 +132,7 @@
                                
                             </div>
                         </div>
+                        
                         <div class="card-body">
 
                             {% if messages %}
@@ -150,7 +154,7 @@
                             {% endfor %}
                             {% endif %}
 
-                            <h4>Listado de servicios completados de la solicitud</h4>
+                            <h4>Listado de servicios cotizados del cliente</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
 
@@ -162,9 +166,10 @@
                                             <th>Descuento</th>
                                             <th>Sub total</th>
 
-                                            {% if not investigacion.investigacion_factura_completada %}
+                                            {% if not investigacion.investigacion_factura_enviada_al_cliente %}
                                             <th>Acciones</th>
                                             {% endif %}
+                                            
 
                                         </tr>
                                     </thead>
@@ -179,10 +184,10 @@
                                            
                              
                                             
-                                            {% if not investigacion.investigacion_factura_completada %}
+                                            {% if not investigacion.investigacion_factura_enviada_al_cliente %}
                                             <td>
                                                 <div class="d-flex flex-wrap gap-2">
-                                                    <a href="{% url 'cobranza_facturas_update' object.pk candidato.pk %}"
+                                                    <a href=""
                                                     class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Editar</a>       
                                                 </div>
                                                         
@@ -192,13 +197,13 @@
                                     
                                         {% empty %}
                                         <tr>
-                                            <td colspan="4">Solicitud no tiene candidatos registrados</td>
+                                            <td colspan="4">Solicitud no tiene registrados</td>
                                         </tr>
                                         {% endfor %}
 
                                         <tr>
                                             <td colspan="4"><div class="float-end"> <strong>Total</strong></div> </td>
-                                            <td>{{cliente_solicitud.get_total_facturado}}</td>
+                                            <td class="float-end">{{cliente_solicitud.get_total_facturado}}</td>
                                         </tr>
 
                                     </tbody>
@@ -208,6 +213,85 @@
                                 <br><br>
 
                                 
+
+                                <a href="{% url 'cobranza_facturas_list' %}"
+                                class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
+                               
+
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Listado de pagos realizados </h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Notas</th>
+                                            <th>Verificado</th>
+                                            <th>Monto</th>
+                                            <th>Acciones</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for pagos_cliente in inv_cliente_factura_archivos %}
+                                        <tr>
+                                            <td>{{ pagos_cliente.fecha }}</td>
+                                            <td>{{ pagos_cliente.notas }}</td>
+                                            <td class="text-center">
+                                                <i class="fa fa-{% if pagos_cliente.verificado_por_cobranzas %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                            <td class="float-end"><div class="float-end">{{ pagos_cliente.monto }}</div></td>
+                             
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <a href="{% url 'cobranza_facturas_validar_comprobante_update' investigacion.pk pagos_cliente.pk %}"
+                                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Verificar</a>       
+                                                </div>
+                                                        
+                                            </td>
+                                           
+                                        </tr>
+                                    
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="5">El cliente no ha realizado pagos</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="3"><div class="float-end"> <strong>Total Pagado</strong></div> </td>
+                                            <td class="float-end">{{cliente_solicitud.get_total_facturado}}</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><div class="float-end"> <strong>Saldo pendiente</strong></div> </td>
+                                            <td class="float-end">{{cliente_solicitud.get_total_facturado}}</td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                
+                                <br><br>
 
                                 <a href="{% url 'cobranza_facturas_list' %}"
                                 class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
