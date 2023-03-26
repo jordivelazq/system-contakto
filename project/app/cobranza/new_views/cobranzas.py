@@ -24,7 +24,7 @@ from app.core.models import UserMessage
 class ClienteSolicitudesCanditatosFacturasListView(GroupRequiredMixin, ListView):
 
     # required
-    group_required = ["Admin", "SuperAdmin"]
+    group_required = ["Admin", "SuperAdmin", "Cobranzas"]
     raise_exception = True
 
     model = ClienteSolicitud
