@@ -1,6 +1,6 @@
 
 # -*- coding: utf-8 -*-
-from braces.views import GroupRequiredMixin
+from braces.views import GroupRequiredMixin, LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
@@ -12,11 +12,11 @@ from django.views.generic import (
 from app.investigacion.models import InvestigacionBitacora
 
 
-class InvestigacionBitacoraCreateView(GroupRequiredMixin, CreateView):
+class InvestigacionBitacoraCreateView(LoginRequiredMixin, CreateView):
 
     # required
-    group_required = u"Cliente"
-    raise_exception = True
+    # group_required = u"Cliente"
+    # raise_exception = True
 
     model = InvestigacionBitacora
     fields = ['observaciones']
