@@ -80,8 +80,10 @@ class InvestigacionAdjuntosDetailView(DetailView):
         adjuntos = Adjuntos.objects.filter(investigacion=inv)[0]
         context['adjuntos'] = adjuntos
        
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+            investigacion=inv).order_by('-datetime')
 
         return context
 
@@ -111,8 +113,11 @@ class InvestigacionAdjuntosFormTemplateView(LoginRequiredMixin, TemplateView):
 
         context['adjuntos_form'] = adjuntos_form
 
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
+    
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
+            investigacion=investigacion).order_by('-datetime')
 
 
         return context

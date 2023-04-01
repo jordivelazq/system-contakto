@@ -173,8 +173,11 @@ class InvestigacionEjecutivoVisitaDetailView(DetailView):
 
         context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
 
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+        
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+            investigacion=inv).order_by('-datetime')
 
         try:
             gInv = GestorInvestigacion.objects.get(
@@ -260,8 +263,11 @@ class InvestigacionCoodinadorVisitaDetailView(DetailView):
 
         context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
 
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+            investigacion=inv).order_by('-datetime')
 
         context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
 
@@ -1566,8 +1572,11 @@ class InvestigacionEjecutivoPsicometricoDetailView(LoginRequiredMixin, DetailVie
 
         investigacion = Investigacion.objects.get(
             pk=self.kwargs['investigacion_id'])
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
+
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
+            investigacion=investigacion).order_by('-datetime')
 
         context['investigacion'] = investigacion
 
@@ -1637,7 +1646,8 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
 
         context['title'] = "Inveatigaciones / Ejecutivo de cuenta / Detalle de solicitud "
 
-        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk'], user=self.request.user).order_by('-datetime')
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk'], user=self.request.user).order_by('-datetime')
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk']).order_by('-datetime')
 
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
 

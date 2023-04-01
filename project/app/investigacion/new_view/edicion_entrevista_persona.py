@@ -268,7 +268,8 @@ class EdicionEntrevistaPersonaTemplateView(LoginRequiredMixin, TemplateView):
         
         context['investigacion'] = investigacion
         context['seccion_entrevista'] = seccion_entrevista
-        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['investigacion_id'], user=self.request.user).order_by('-datetime')
+        # context÷['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['investigacion_id'], user=self.request.user).order_by('-datetime')
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['investigacion_id']).order_by('-datetime')
 
 
         #DATOS GENERALES
@@ -685,8 +686,10 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
 
         context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
 
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
-            investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+            investigacion=inv).order_by('-datetime')
 
         try:
             gInv = GestorInvestigacion.objects.get(
