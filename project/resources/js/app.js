@@ -269,9 +269,10 @@ contacktoApp.controller('formaConEmpresaCTRL', function($scope) {
     $scope.compania = '';
     $scope.compania_nombre_trayectoria = '';
     $scope.empresas_select_modal = [];
-    if (empresas_select_forma !== '') {
+    $scope.empresas_select_modal = empresas_select_forma;
+    /*if (empresas_select_forma !== '') {
         $scope.empresas_select_modal = empresas_select_forma;
-    }
+    }*/
 
     $scope.open_empresa_modal = function() {
         $('#selectEmpresaFormaModal').modal().on('shown.bs.modal', function() {
