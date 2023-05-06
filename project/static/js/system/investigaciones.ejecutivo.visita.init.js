@@ -7,9 +7,10 @@ function investigacionDetail(id) {
 $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones_ejecutivo_visita/?format=datatables",
-        "language": {
+        processing: true,
+        serverSide: true,
+        ajax: "/investigaciones/api/investigaciones_ejecutivo_visita/?format=datatables",
+        language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
         pageLength: 50,
@@ -36,17 +37,17 @@ $(document).ready(function () {
         ],
         "columns": [
             {
-                "title": "Id",
-                "data": "id",
+                title: "Id",
+                data: "id",
                 "visible": false,
             },
             {
-                "title": "Ver detalles",
-                "data": null,
-                "orderable": false,
-                "searchable": false,
-                "width": "65px",
-                "render": function (data, type, row, meta) {
+                title: "Ver detalles",
+                data: null,
+                orderable: false,
+                searchable: false,
+                width: "65px",
+                render: function (data, type, row, meta) {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
@@ -57,38 +58,39 @@ $(document).ready(function () {
                 }
             },
             {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
-                "responsivePriority": 1,
+                title: "Fecha de Registro",
+                data: "fecha_registro",
+                responsivePriority: 1,
             },
             {
-                "title": "Nombres",
-                "data": "candidato.nombre",
-                "responsivePriority": 1,
+                title: "Nombres",
+                data: "candidato.nombre",
+                responsivePriority: 1,
             },
             {
-                "title": "Apellidos",
-                "data": "candidato.apellido",
-                "responsivePriority": 1,
+                title: "Apellidos",
+                data: "candidato.apellido",
+                responsivePriority: 1,
             },
             {
-                "title": "Datos verificados",
-                "data": "candidato.datos_validados",
-                "responsivePriority": 1,
+                title: "Datos verificados",
+                data: "candidato.datos_validados",
+                responsivePriority: 1,
             },
             {
-                "title": "Cliente",
-                "data": "compania.nombre",
-                "responsivePriority": 1,
+                title: "Cliente",
+                data: "compania.nombre",
+                responsivePriority: 1,
             },
             {
-                "title": "Tipo de Investigación",
-                "data": "tipo_investigacion",
+                title: "Tipo de Investigación",
+                data: "tipo_investigacion",
+                searchable: false,
             },
             {
-                "title": "Ejecutivo de Visita",
-                "data": "ejecutivo_visitas.email",
-                "defaultContent": "No asignado",
+                title: "Ejecutivo de Visita",
+                data: "ejecutivo_visitas.email",
+                defaultContent: "No asignado",
             }
 
         ],
