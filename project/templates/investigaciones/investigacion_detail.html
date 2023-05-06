@@ -147,7 +147,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="card-title">Asignación de coordinadores</h3>
-
                             <div class="row">
 
                                 <div class="col-md-12">
@@ -175,6 +174,7 @@
 
                                     <br>
 
+                                    {% if investigacion.psicometrico %}
                                     <br />
                                     <strong>Coordinador de Visitas:</strong><br>
                                     {% if investigacion.coordinador_visitas %}
@@ -198,6 +198,7 @@
 
                                     <br>
                                     <br>
+                                    {% endif %}
 
                                     {% if investigacion.psicometrico %}
 
@@ -223,10 +224,7 @@
                                         {% endif %}
                                     {% endif %}
 
-
                                      <br>
-                                     
-                                   
                                 </div>
 
                             </div>
@@ -407,6 +405,8 @@
 
                                     <strong>Asignación de Coordinadores:</strong><br>
 
+                                    {% if investigacion.psicometrico %}
+
                                     Coordinador de psicométrico
                                     {% if investigacion.coord_psicometrico_asignadado %}
                                     <i class="fa fa-check"></i>
@@ -414,6 +414,9 @@
                                     <i class="fa fa-times"></i>
                                     {% endif %}
 
+                                    {% endif %}
+
+                                    {% if investigacion.entrevista %}
                                     Coordinador de visitas
                                     {% if investigacion.coord_visitas_asignado %}
                                     <i class="fa fa-check"></i>
@@ -423,6 +426,8 @@
 
                                     <br>
                                     <br>
+
+                                    {% endif %}
 
                                     {% if investigacion.entrevista %}
                                     <strong>Entrevista:</strong><br>
