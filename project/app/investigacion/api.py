@@ -144,7 +144,7 @@ class InvestigacionEjecutivoVisitaViewSet(mixins.ListModelMixin, viewsets.Generi
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False,
             candidato_validado=True,
-            tipo_investigacion_status=2,
+            #tipo_investigacion_status=2,
             # agente__isnull=True,
             # coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")

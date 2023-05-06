@@ -88,6 +88,7 @@ class EntrevistaPersonaService():
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="padres", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="hermanos", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="otros", tipo="ingreso")
+        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="total", tipo="ingreso")
 
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="impuestos", tipo="egreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="vestimenta", tipo="egreso")
