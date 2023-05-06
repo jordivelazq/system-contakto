@@ -7,12 +7,17 @@ function investigacionDetail(id) {
 $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/investigaciones/api/ejecutivo_de_cuentas/?format=datatables",
-        "language": {
+        processing: true,
+        serverSide: true,
+        ajax: "/investigaciones/api/ejecutivo_de_cuentas/?format=datatables",
+        language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
         pageLength: 50,
+        lengthMenu: [
+          [25, 50, 100, -1],
+          [25, 50, 100, "All"]
+        ],
         columnDefs: [
             {
                 targets: 5,
@@ -74,13 +79,13 @@ $(document).ready(function () {
         ],
         "columns": [
             {
-                "title": "Id",
-                "data": "id",
+                title: "Id",
+                data: "id",
                 "visible": false,
             },
             {
-                "title": "Ver detalles",
-                "data": null,
+                title: "Ver detalles",
+                data: null,
                 "orderable": false,
                 "searchable": false,
                 "width": "65px",
@@ -96,43 +101,45 @@ $(document).ready(function () {
                 }
             },
             {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
-                "responsivePriority": 1,
+                title: "Fecha de Registro",
+                data: "fecha_registro",
+                responsivePriority: 1,
             },
             {
-                "title": "Nombres",
-                "data": "candidato.nombre",
-                "responsivePriority": 1,
+                title: "Nombres",
+                data: "candidato.nombre",
+                responsivePriority: 1,
             },
             {
-                "title": "Apellidos",
-                "data": "candidato.apellido",
-                "responsivePriority": 1,
+                title: "Apellidos",
+                data: "candidato.apellido",
+                responsivePriority: 1,
             },
             {
-                "title": "Datos verificados",
-                "data": "candidato.datos_validados",
-                "responsivePriority": 1,
+                title: "Datos verificados",
+                data: "candidato.datos_validados",
+                responsivePriority: 1,
             },
             {
-                "title": "Cliente",
-                "data": "compania.nombre",
-                "responsivePriority": 1,
+                title: "Cliente",
+                data: "compania.nombre",
+                responsivePriority: 1,
             },
             {
-                "title": "Tipo de Investigación",
-                "data": "tipo_investigacion",
-                "responsivePriority": 2,
+                title: "Tipo de Investigación",
+                data: "tipo_investigacion",
+                responsivePriority: 2,
+                "searchable": false,
             },
             {
-                "title": "Resultado",
-                "data": "resultado",
-                "responsivePriority": 2,
+                title: "Resultado",
+                data: "resultado",
+                responsivePriority: 2,
+                "searchable": false,
             }
 
         ],
-        "order": [[2, "desc"]],
+        order: [[2, "desc"]],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',
