@@ -3,7 +3,7 @@ from re import L
 
 from rest_framework.generics import ListAPIView
 
-from app.clientes.models import ClienteSolicitudCandidato, ClienteSolicitud, Cliente, ClienteTipoInvestigacion
+from app.clientes.models import ClienteSolicitudCandidato, ClienteSolicitud, Cliente, ClienteTipoInvestigacion, ClienteUser
 from app.compania.forms import *
 from app.compania.models import Compania
 from app.core.models import Estado, Municipio, UserMessage
@@ -145,6 +145,8 @@ class InvestigacionEjecutivoVisitaViewSet(mixins.ListModelMixin, viewsets.Generi
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False,
             candidato_validado=True,
+            entrevista = True,
+            #tipo_investigacion_status=2,
             # agente__isnull=True,
             # coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")
@@ -370,7 +372,7 @@ class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
                              'El gestor ha sido actualizado')
-        return reverse('investigaciones:investigaciones_coordinador_visitas_detaila ', kwargs={"pk": self.kwargs['investigacion_id']})
+        return reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']})
 
 
 class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -381,6 +383,7 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False,
             candidato_validado=True,
+            entrevista=True,
             # agente__isnull=True,
             # coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")

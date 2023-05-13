@@ -86,11 +86,9 @@ class InvestigacionSerializer(serializers.ModelSerializer):
         return obj.get_status_display()
 
     def get_tipo_investigacion(self, obj):
-        print(obj.tipo_investigacion)
-        return obj.tipo_investigacion if obj.tipo_investigacion else 'N/A'
+        return obj.tipo_investigacion.last().tipo_investigacion if obj.tipo_investigacion.last() else 'N/A'
 
     def get_agente_name(self, obj):
-        print(obj.agente)
         return obj.agente.username if obj.agente else 'No asignado'
 
 

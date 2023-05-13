@@ -7,12 +7,17 @@ function investigacionDetail(id) {
 $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones/?format=datatables",
-        "language": {
+        processing: true,
+        serverSide: true,
+        ajax: "/investigaciones/api/investigaciones/?format=datatables",
+        language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
         pageLength: 50,
+        lengthMenu: [
+          [25, 50, 100, -1],
+          [25, 50, 100, "All"]
+        ],
         columnDefs: [
             {
                 targets: 6,
@@ -28,7 +33,6 @@ $(document).ready(function () {
             {
                 targets: 9,
                 render: function (data, type, full, meta) {
-                    console.log(data)
                     var status = {
                         0: {
                             'title': 'Por evaluar',
@@ -56,7 +60,6 @@ $(document).ready(function () {
                     }
 
                     if (typeof status[data] === 'undefined') {
-                        // console.log(data);
                         return data;
                     }
 
@@ -80,16 +83,15 @@ $(document).ready(function () {
                 "visible": false,
             },
             {
-                "title": "Ver detalles",
-                "data": null,
-                "orderable": false,
-                "searchable": false,
-                "width": "65px",
-                "render": function (data, type, row, meta) {
+                title: "Ver detalles",
+                data: null,
+                orderable: false,
+                searchable: false,
+                width: "65px",
+                render: function (data, type, row, meta) {
 
                     var a = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
 
-                    // a += '<a class="btn btn-primary btn-sm btn-rounded" onclick="investigacionDetail(\'' + row.id + '\')" alt="Editar investigación">Ver detalles</a>';
                     a += '<a class="btn btn-soft-primary waves-effect waves-light" onclick="investigacionDetail(\'' + row.id + '\')"><i class="bx bxs-search label-icon"></i></a>';
 
                     a += '</div>'
@@ -97,68 +99,67 @@ $(document).ready(function () {
                 }
             },
             {
-                "title": "Fecha de Registro",
-                "data": "fecha_registro",
-                "responsivePriority": 1,
+                title: "Fecha de Registro",
+                data: "fecha_registro",
+                responsivePriority: 1,
             },
             {
-                "title": "Hora",
-                "data": "hora_recibido",
-                "responsivePriority": 1,
+                title: "Hora",
+                data: "hora_recibido",
+                responsivePriority: 1,
             },
             {
-                "title": "Nombres",
-                "data": "candidato.nombre",
-                "responsivePriority": 1,
+                title: "Nombres",
+                data: "candidato.nombre",
+                responsivePriority: 1,
             },
             {
-                "title": "Apellidos",
-                "data": "candidato.apellido",
-                "responsivePriority": 1,
+                title: "Apellidos",
+                data: "candidato.apellido",
+                responsivePriority: 1,
             },
             {
-                "title": "Datos verificados",
-                "data": "candidato.datos_validados",
-                "responsivePriority": 2,
+                title: "Datos verificados",
+                data: "candidato.datos_validados",
+                responsivePriority: 2,
             },
             {
-                "title": "Cliente",
-                "data": "compania.nombre",
-                "responsivePriority": 2,
+                title: "Cliente",
+                data: "compania.nombre",
+                responsivePriority: 2,
             },
             {
-                "title": "Tipo de Investigación",
-                "data": null,
-                "responsivePriority": 2,
-                 "render": function (data, type, row, meta) {
-                    console.log(row)
+                title: "Tipo de Investigación",
+                data: 'tipo_investigacion',
+                searchable: false,
+                responsivePriority: 2,
+                 render: function (data, type, row, meta) {
                     if(row.tipo_investigacion != undefined)
                         return row.tipo_investigacion;
                     return 'N/A';
                 }
             },
             {
-                "title": "Resultado",
-                "data": "resultado",
-                "responsivePriority": 2,
+                title: "Resultado",
+                data: "resultado",
+                responsivePriority: 2,
+                searchable: false,
             },
             {
                 "title": "Estatus",
-                "data": "status",
-                "responsivePriority": 2,
+                data: "status",
+                responsivePriority: 2,
             },
             {
                 "title": "Asignado",
-                "data": null,
+                "data": "agente_name",
                 "responsivePriority": 2,
-
                 "render": function (data, type, row, meta) {
                     if (row.agente_name != undefined)
-                        return row.agente_name;
-                    return "No asignado";
+                        return '<i class="fa fa-check text-success"></i>';
+                    return '<i class="fa fa-times text-danger"></i>';
                 }
             },
-            
 
         ],
         "order": [[2, "desc"]],
