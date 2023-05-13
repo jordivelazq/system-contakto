@@ -28,6 +28,7 @@ $(document).ready(function () {
             {
                 targets: 9,
                 render: function (data, type, full, meta) {
+                    console.log(data)
                     var status = {
                         0: {
                             'title': 'Por evaluar',
@@ -127,8 +128,14 @@ $(document).ready(function () {
             },
             {
                 "title": "Tipo de Investigación",
-                "data": "tipo_investigacion",
+                "data": null,
                 "responsivePriority": 2,
+                 "render": function (data, type, row, meta) {
+                    console.log(row)
+                    if(row.tipo_investigacion != undefined)
+                        return row.tipo_investigacion;
+                    return 'N/A';
+                }
             },
             {
                 "title": "Resultado",
@@ -139,6 +146,17 @@ $(document).ready(function () {
                 "title": "Estatus",
                 "data": "status",
                 "responsivePriority": 2,
+            },
+            {
+                "title": "Asignado",
+                "data": null,
+                "responsivePriority": 2,
+
+                "render": function (data, type, row, meta) {
+                    if (row.agente_name != undefined)
+                        return row.agente_name;
+                    return "No asignado";
+                }
             },
             
 

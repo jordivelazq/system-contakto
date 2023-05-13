@@ -1,6 +1,8 @@
 from multiprocessing import context
 from re import L
 
+from rest_framework.generics import ListAPIView
+
 from app.clientes.models import ClienteSolicitudCandidato, ClienteSolicitud, Cliente, ClienteTipoInvestigacion
 from app.compania.forms import *
 from app.compania.models import Compania
@@ -96,7 +98,6 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                 cliente_solicitud__isnull=False, compania__in=companias_pk).order_by("last_modified")
         except Compania.DoesNotExist:
             return self.queryset.none()
-
         return qs
 
 

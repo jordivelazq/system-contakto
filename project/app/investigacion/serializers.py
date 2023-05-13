@@ -73,9 +73,10 @@ class InvestigacionSerializer(serializers.ModelSerializer):
     compania = CompaniaSerializer(read_only=True)
     sucursal = SucursalesSerializer(read_only=True)
     contacto = ContactoSerializer(read_only=True)
-    tipo_investigacion = serializers.StringRelatedField(many=True)
+    tipo_investigacion = serializers.SerializerMethodField()
     file = FileSerializer(read_only=True)
     status = serializers.SerializerMethodField(read_only=True)
+    agente_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Investigacion
@@ -83,6 +84,14 @@ class InvestigacionSerializer(serializers.ModelSerializer):
 
     def get_status(self, obj):
         return obj.get_status_display()
+
+    def get_tipo_investigacion(self, obj):
+        print(obj.tipo_investigacion)
+        return obj.tipo_investigacion if obj.tipo_investigacion else 'N/A'
+
+    def get_agente_name(self, obj):
+        print(obj.agente)
+        return obj.agente.username if obj.agente else 'No asignado'
 
 
 class GestorInfoSerializer(serializers.ModelSerializer):
