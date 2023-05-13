@@ -186,6 +186,11 @@ urlpatterns = [
         name="investigaciones_coordinador_visitas_detail",
     ),
     path(
+        "investigaciones/coordinador-visitas/detail/<str:seccion_entrevista>/<int:pk>/",
+        InvestigacionCoodinadorVisitaDetailView.as_view(),
+        name="investigaciones_coordinador_visitas_detail",
+    ),
+    path(
         "investigaciones/coordinador-visitas/create/<int:investigacion_id>/",
         InvestigacionCoordinadorVisitaCreateView.as_view(),
         name="investigaciones_coordinador_visitas_create",

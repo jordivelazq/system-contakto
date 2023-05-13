@@ -8,7 +8,7 @@ from app.compania.forms import *
 from app.compania.models import Compania
 from app.core.models import Estado, Municipio, UserMessage
 from app.entrevista.entrevista_persona import EntrevistaPersonaService
-from app.entrevista.models import EntrevistaPersona
+from app.entrevista.models import EntrevistaPersona, EntrevistaCita
 from app.entrevista.services import *
 from app.investigacion.forms import *
 from app.persona.form_functions import *
@@ -31,10 +31,10 @@ from .models import (GestorInvestigacion, Investigacion, InvestigacionBitacora,
                      Psicometrico)
 from .serializers import InvestigacionSerializer
 from app.persona.models import Demanda
+from ..entrevista.forms import EntrevistaObservacionesForm
 
 
 class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/investigaciones_list.html'
 
     def get_context_data(self, **kwargs):
@@ -45,31 +45,31 @@ class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
             coordinador_ejecutivos_id=user.pk).values_list('pk', flat=True)
 
         total_investigaciones = Investigacion.objects.filter(
-                cliente_solicitud__isnull=False,
-                compania__in=companias_pk
+            cliente_solicitud__isnull=False,
+            compania__in=companias_pk
         ).count()
 
         en_investigacion = Investigacion.objects.filter(
-                cliente_solicitud__isnull=False,
-                compania__in=companias_pk, status=0
+            cliente_solicitud__isnull=False,
+            compania__in=companias_pk, status=0
         ).count()
         en_investigacion = Investigacion.objects.filter(
-                cliente_solicitud__isnull=False,
-                compania__in=companias_pk, status=0
+            cliente_solicitud__isnull=False,
+            compania__in=companias_pk, status=0
         ).count()
         en_investigacion = Investigacion.objects.filter(
-                cliente_solicitud__isnull=False,
-                compania__in=companias_pk, status=0
+            cliente_solicitud__isnull=False,
+            compania__in=companias_pk, status=0
         ).count()
 
         pte_por_el_cliente = Investigacion.objects.filter(
-                cliente_solicitud__isnull=False,
-                compania__in=companias_pk, status=1
+            cliente_solicitud__isnull=False,
+            compania__in=companias_pk, status=1
         ).count()
 
         inv_terminada = Investigacion.objects.filter(
-                cliente_solicitud__isnull=False,
-                compania__in=companias_pk, status=2
+            cliente_solicitud__isnull=False,
+            compania__in=companias_pk, status=2
         ).count()
 
         context = {
@@ -102,7 +102,6 @@ class InvestigacionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 
 class InvestigacionCandidatoTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/investigaciones_candidatos_list.html'
 
     def get_context_data(self, **kwargs):
@@ -126,7 +125,6 @@ class InvestigacionCandidatoViewSet(mixins.ListModelMixin, viewsets.GenericViewS
 
 # Ejecutivo de visitas domiciliarias
 class InvestigacionEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visitas_list.html'
 
     def get_context_data(self, **kwargs):
@@ -145,8 +143,8 @@ class InvestigacionEjecutivoVisitaViewSet(mixins.ListModelMixin, viewsets.Generi
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False,
             candidato_validado=True,
-            entrevista = True,
-            #tipo_investigacion_status=2,
+            entrevista=True,
+            # tipo_investigacion_status=2,
             # agente__isnull=True,
             # coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")
@@ -155,7 +153,6 @@ class InvestigacionEjecutivoVisitaViewSet(mixins.ListModelMixin, viewsets.Generi
 
 
 class InvestigacionEjecutivoVisitaDetailView(DetailView):
-
     '''Detalle general para el Coorsinador de visitas'''
 
     # required
@@ -178,7 +175,7 @@ class InvestigacionEjecutivoVisitaDetailView(DetailView):
 
         # context['bitacoras'] = InvestigacionBitacora.objects.filter(
         #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
-        
+
         context['bitacoras'] = InvestigacionBitacora.objects.filter(
             investigacion=inv).order_by('-datetime')
 
@@ -194,7 +191,6 @@ class InvestigacionEjecutivoVisitaDetailView(DetailView):
 
 
 class InvestigacionEjecutivoVisitaUpdateView(UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -212,7 +208,6 @@ class InvestigacionEjecutivoVisitaUpdateView(UpdateView):
         return context
 
     def form_valid(self, form):
-
         self.object = form.save(commit=False)
         self.object.save()
 
@@ -234,7 +229,6 @@ class InvestigacionEjecutivoVisitaUpdateView(UpdateView):
 # --------------------------------------------------------------
 # Cambiar coordinador de visita por ejecutivo
 class InvestigacionCoordiandorVisitaTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/coordinador_visitas/investigaciones_coordinador_visitas_list.html'
 
     def get_context_data(self, **kwargs):
@@ -245,9 +239,7 @@ class InvestigacionCoordiandorVisitaTemplateView(LoginRequiredMixin, TemplateVie
         return context
 
 
-
 class InvestigacionCoodinadorVisitaDetailView(DetailView):
-
     '''Detalle general para el Coorsinador de visitas'''
 
     # required
@@ -273,12 +265,27 @@ class InvestigacionCoodinadorVisitaDetailView(DetailView):
             investigacion=inv).order_by('-datetime')
 
         context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
+        # DATOS DE LA CITA
+        entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+        context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        seccion_entrevista = self.kwargs['seccion_entrevista']
+        investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+        candidato = investigacion.candidato
+        ep = EntrevistaPersona.objects.get(investigacion=investigacion)
+        # CITA
+        if seccion_entrevista == 'cita':
+            inv = Investigacion.objects.get(id=self.kwargs['pk'])
+            entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+            formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
+            formaEntrevista.save()
+            return HttpResponseRedirect('/investigaciones/investigaciones/coordinador-visitas/detail/datos_generales/{}/'.format(investigacion.pk))
+
 
 class InvestigacionCoordinadorVisitaCreateView(CreateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -297,7 +304,6 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
 
         self.object = form.save(commit=False)
@@ -328,7 +334,6 @@ class InvestigacionCoordinadorVisitaCreateView(CreateView):
 
 
 class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -347,7 +352,6 @@ class InvestigacionCoordinadorVisitaUpdateView(UpdateView):
         return context
 
     def form_valid(self, form):
-
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
 
         self.object = form.save(commit=False)
@@ -392,7 +396,6 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
 
 
 class InvestigacionEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/edicion_enrtevista_personas/investigaciones_entrevistas_list.html'
 
     def get_context_data(self, **kwargs):
@@ -415,7 +418,6 @@ class InvestigacionEntrevistaViewSet(mixins.ListModelMixin, viewsets.GenericView
 
 
 class InvestigacionDetailView(DetailView):
-
     '''Detalle general para el Coorsinador de Ejecutivos'''
 
     # required
@@ -449,7 +451,6 @@ class InvestigacionDetailView(DetailView):
 
 
 class InvestigacionEntrevistaDetailView(DetailView):
-
     '''Detalle general para el Coorsinador de Ejecutivos'''
 
     # required
@@ -499,7 +500,6 @@ class InvestigacionEntrevistaDetailView(DetailView):
 
 
 class InvestigacionUpdateView(LoginRequiredMixin, UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -516,7 +516,6 @@ class InvestigacionUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def form_valid(self, form):
-
         self.object = form.save(commit=False)
         self.object.resultado = 0
         self.object.status = 0
@@ -531,7 +530,6 @@ class InvestigacionUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -541,7 +539,7 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'investigaciones/ejecutivo_de_cuenta/asignacion/asignacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionEjecutivoDeCuentaUpdateView,  self).get_context_data(**kwargs)
+        context = super(InvestigacionEjecutivoDeCuentaUpdateView, self).get_context_data(**kwargs)
 
         context['title'] = 'Investigaciones - actualización de ejecutivo de cuenta'
 
@@ -587,9 +585,9 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
 
             msj.title = "Se ha asignado como ejecutivo de cuentas"
             msj.message = "Estimado usuario. Se le ha asignado como ejecutivo de cuentas para la investigación de " \
-                + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
-                + self.object.cliente_solicitud.cliente.compania.nombre
-            msj.link = "/investigaciones/investigaciones/ejecutivo-de-cuenta/detail/" + str(self.object.pk)+"/"
+                          + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
+                          + self.object.cliente_solicitud.cliente.compania.nombre
+            msj.link = "/investigaciones/investigaciones/ejecutivo-de-cuenta/detail/" + str(self.object.pk) + "/"
             msj.save()
         else:
             self.object.ejecutivo_de_cuentas_asignado = False
@@ -605,7 +603,6 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -615,7 +612,7 @@ class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'investigaciones/coordinador_ejectutivo_asignaciones/asignacion_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InvestigacionCoordVisitaUpdateView,  self).get_context_data(**kwargs)
+        context = super(InvestigacionCoordVisitaUpdateView, self).get_context_data(**kwargs)
 
         context['title'] = 'Investigaciones - actualización de coordinador de visita'
 
@@ -661,11 +658,11 @@ class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
 
             msj.title = "Se ha asignado como coordinador de visita"
             msj.message = "Estimado usuario. Se le ha asignado como coordinador de visita para la investigación de " \
-                + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
-                + self.object.cliente_solicitud.cliente.compania.nombre
+                          + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
+                          + self.object.cliente_solicitud.cliente.compania.nombre
 
             msj.link = "/investigaciones/investigaciones/coordinador-visitas/detail/" + \
-                str(self.object.pk)+"/"
+                       str(self.object.pk) + "/"
             msj.save()
         else:
             self.object.coord_visitas_asignado = False
@@ -681,7 +678,6 @@ class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class InvestigacionCoordPsicometricoUpdateView(UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -738,10 +734,10 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
 
             msj.title = "Asignacion de coordinador de psicométrico"
             msj.message = "Estimado usuario. Se le ha asignado como coordinador de psicométrico para la investigación de " \
-                + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
-                + self.object.cliente_solicitud.cliente.compania.nombre
+                          + self.object.candidato.nombre + " " + self.object.candidato.apellido + " para la compañía " \
+                          + self.object.cliente_solicitud.cliente.compania.nombre
             msj.link = "/investigaciones/investigaciones/coordinador-psicometrico/detail/" + \
-                str(self.object.pk)+"/"
+                       str(self.object.pk) + "/"
             msj.save()
         else:
             self.object.coord_psicometrico_asignadado = False
@@ -757,7 +753,6 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
 
 
 class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/investigacion_candidato_edit.html'
 
     def post(self, request, *args, **kwargs):
@@ -792,7 +787,7 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
                 except:
                     pass
             investigacion.save()
-            InvestigacionBitacora(investigacion_id=investigacion.id, user_id=request.user.pk,servicio='Candidato', observaciones='Candidato actualizado').save()
+            InvestigacionBitacora(investigacion_id=investigacion.id, user_id=request.user.pk, servicio='Candidato', observaciones='Candidato actualizado').save()
         else:
             msg_param = ''
         ####################### Origen #######################
@@ -885,7 +880,6 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
 
         return redirect(reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
 
-
     def get_context_data(self, **kwargs):
         context = super(CandidatoTemplateView, self).get_context_data(**kwargs)
 
@@ -919,7 +913,7 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
         context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={'compania': investigacion.compania.id})
         context['formOrigen'] = OrigenAltaForma(prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')
         context['formDireccion'] = DireccionForm(prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
-        context['formTelefono1'] = TelefonoForm( prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
+        context['formTelefono1'] = TelefonoForm(prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
         context['formTelefono2'] = TelefonoForm(prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(prefix='telefono2')
         context['formTelefono3'] = TelefonoForm(prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(prefix='telefono3')
         context['formPrestacionViviendaInfonavit'] = PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
@@ -933,7 +927,6 @@ class CandidatoTemplateView(LoginRequiredMixin, TemplateView):
 
 
 class ClienteSolicitudCreateTemplateView(GroupRequiredMixin, TemplateView):
-
     # required
     group_required = [u"Client", ]
     raise_exception = True
@@ -955,7 +948,6 @@ class ClienteSolicitudCreateTemplateView(GroupRequiredMixin, TemplateView):
 
 
 class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
-
     # required
     group_required = [u"Client", u"Coord. de Atención a Clientes"]
     raise_exception = True
@@ -980,7 +972,6 @@ class ClienteSolicitudDetailView(GroupRequiredMixin, DetailView):
 
 
 class PersonaTrayectoriaCrearTemplateView(LoginRequiredMixin, TemplateView):
-
     # required
     group_required = [u"Client", ]
     raise_exception = True
@@ -992,7 +983,6 @@ class PersonaTrayectoriaCrearTemplateView(LoginRequiredMixin, TemplateView):
     }
 
     def get(self, request, **kwargs):
-
         # Tomar investigacion
         investigacion = Investigacion.objects.get(
             id=self.kwargs['investigacion_id'])
@@ -1011,7 +1001,6 @@ class PersonaTrayectoriaCrearTemplateView(LoginRequiredMixin, TemplateView):
 
 
 class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/personas/trayectoria_laboral_form.html'
 
     # def post(self, request, *args, **kwargs):
@@ -1152,7 +1141,7 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
         if exito:
             return redirect(reverse('investigaciones:investigacion_ejecutivo_laboral_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
-            
+
     def get_context_data(self, **kwargs):
         context = super(PersonaTrayectoriaEditTemplateView,
                         self).get_context_data(**kwargs)
@@ -1234,7 +1223,6 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
 
 class PersonaTrajectoriaComercialCrearTemplateView(LoginRequiredMixin, TemplateView):
-
     # required
     group_required = [u"Client", ]
     raise_exception = True
@@ -1306,13 +1294,11 @@ class PersonaTrajectoriaComercialCrearTemplateView(LoginRequiredMixin, TemplateV
 
 
 class PersonaTrajectoriaComercialDeleteTemplateView(LoginRequiredMixin, TemplateView):
-
     # required
     group_required = [u"Client", ]
     raise_exception = True
 
     def get(self, request, *args, **kwargs):
-
         investigacion = Investigacion.objects.get(
             id=self.kwargs['investigacion_id'])
 
@@ -1330,7 +1316,7 @@ class PersonaTrajectoriaComercialDeleteTemplateView(LoginRequiredMixin, Template
         bitacora.observaciones = "Eliminacion de referencia de trayectoria comercial"
         bitacora.save()
 
-        return HttpResponseRedirect('/investigaciones/investigaciones/persona/trayectoria-comercial/create/'+investigacion_id+'/'+trayectoria_id+'/')
+        return HttpResponseRedirect('/investigaciones/investigaciones/persona/trayectoria-comercial/create/' + investigacion_id + '/' + trayectoria_id + '/')
 
 
 class InvestigacionCoordinadorPsicometricoViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -1349,7 +1335,6 @@ class InvestigacionCoordinadorPsicometricoViewSet(mixins.ListModelMixin, viewset
 
 
 class InvestigacionCoordinadorPsicometricoTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/coordinador_psicometrico/investigaciones_coordinador_psicometrico_list.html'
 
     def get_context_data(self, **kwargs):
@@ -1362,7 +1347,6 @@ class InvestigacionCoordinadorPsicometricoTemplateView(LoginRequiredMixin, Templ
 
 
 class InvestigacionCoordinadorPsicometricoDetailView(LoginRequiredMixin, DetailView):
-
     '''Detalle general para el Coorsinador de visitas'''
 
     # required
@@ -1394,7 +1378,6 @@ class InvestigacionCoordinadorPsicometricoDetailView(LoginRequiredMixin, DetailV
 
 
 class InvestigacionCoordinadorPsicometricoCreateView(LoginRequiredMixin, CreateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -1413,7 +1396,6 @@ class InvestigacionCoordinadorPsicometricoCreateView(LoginRequiredMixin, CreateV
         return context
 
     def form_valid(self, form):
-
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
 
         self.object = form.save(commit=False)
@@ -1439,7 +1421,6 @@ class InvestigacionCoordinadorPsicometricoCreateView(LoginRequiredMixin, CreateV
 
 
 class InvestigacionCoordinadorPsicometricoUpdateView(LoginRequiredMixin, UpdateView):
-
     # required
     group_required = [u"Administrator", ]
     raise_exception = True
@@ -1456,7 +1437,6 @@ class InvestigacionCoordinadorPsicometricoUpdateView(LoginRequiredMixin, UpdateV
         return context
 
     def form_valid(self, form):
-
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
 
         self.object = form.save(commit=False)
@@ -1482,7 +1462,6 @@ class InvestigacionCoordinadorPsicometricoUpdateView(LoginRequiredMixin, UpdateV
 
 
 class InvestigacionEjecutivoPsicometricoList(LoginRequiredMixin, ListView):
-
     # required
     group_required = [u"Creator", ]
     raise_exception = True
@@ -1508,7 +1487,6 @@ class InvestigacionEjecutivoPsicometricoList(LoginRequiredMixin, ListView):
 
 
 class InvestigacionEjecutivoPsicometricoUpdateView(LoginRequiredMixin, UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -1561,7 +1539,6 @@ class InvestigacionEjecutivoPsicometricoUpdateView(LoginRequiredMixin, UpdateVie
 
 
 class InvestigacionEjecutivoPsicometricoDetailView(LoginRequiredMixin, DetailView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -1586,9 +1563,9 @@ class InvestigacionEjecutivoPsicometricoDetailView(LoginRequiredMixin, DetailVie
 
         return context
 
+
 # se cambia el nombre de ejecutivo laboral por ejecutivo de cuenta en la interfaz
 class InvestigacionEjecutivoLaboralTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_list.html'
 
     def get_context_data(self, **kwargs):
@@ -1604,15 +1581,13 @@ class InvestigacionEjecutivoLaboralViewSet(mixins.ListModelMixin, viewsets.Gener
     serializer_class = InvestigacionSerializer
 
     def get_queryset(self):
-
         qs = self.queryset.filter(
-                 cliente_solicitud__isnull=False, ejecutivo_de_cuentas=self.request.user).order_by("last_modified")
+            cliente_solicitud__isnull=False, ejecutivo_de_cuentas=self.request.user).order_by("last_modified")
 
         return qs
 
 
 class InvestigacionEjecutivoLaboralDetailView(DetailView):
-
     '''Detalle general para el Coorsinador de Ejecutivos'''
 
     # required
@@ -1665,7 +1640,6 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
 
 
 class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = 'investigaciones/investigacion_edv_candidato_edit.html'
 
     def post(self, request, *args, **kwargs):
@@ -1799,7 +1773,6 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
 
         return redirect(reverse('investigaciones:investigacion_ejecutivo_laboral_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
 
-
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoLaboralCandidatoTemplateView, self).get_context_data(**kwargs)
 
@@ -1832,7 +1805,7 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
         # context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
         #                                                        'compania': investigacion.compania.id}, agt_id=agente_id)
         context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
-                                                               'compania': investigacion.compania.id})
+            'compania': investigacion.compania.id})
         context['formOrigen'] = OrigenAltaForma(
             prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')
         context['formDireccion'] = DireccionForm(
@@ -1860,7 +1833,6 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
 
 
 class InvestigacionCoordinadorDemandasCreateView(CreateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -1879,7 +1851,6 @@ class InvestigacionCoordinadorDemandasCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
 
         self.object = form.save(commit=False)
@@ -1902,7 +1873,6 @@ class InvestigacionCoordinadorDemandasCreateView(CreateView):
 
 
 class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
-
     # required
     group_required = u"Coord. de Atención a Clientes"
     raise_exception = True
@@ -1922,7 +1892,6 @@ class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
         return context
 
     def form_valid(self, form):
-
         inv = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
 
         self.object = form.save(commit=False)
@@ -1944,7 +1913,6 @@ class InvestigacionCoordinadorDemandasUpdateView(UpdateView):
 
 
 class InvestigacionCoordinadorDemandasDeleteView(LoginRequiredMixin, DeleteView):
-
     # required
     # group_required = [u"Admin", u"Coord. de Atención a Clientes"]
     # raise_exception = True
@@ -1960,7 +1928,7 @@ class InvestigacionCoordinadorDemandasDeleteView(LoginRequiredMixin, DeleteView)
 
         return context
 
-     # send the user back to their own page after a successful update
+    # send the user back to their own page after a successful update
     def get_success_url(self, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
                              'La demanda ha sido eliminado satisfactoriamente.')
@@ -1968,7 +1936,6 @@ class InvestigacionCoordinadorDemandasDeleteView(LoginRequiredMixin, DeleteView)
 
 
 class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, TemplateView):
-
     # required
     group_required = [u"Coord. de Atención a Clientes", u"Coordinador de visitas domiciliarias"]
     raise_exception = True
@@ -1984,7 +1951,7 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         for csc in cliente_solicitud_candidato.tipo_investigacion.all():
             factura = InvestigacionFactura()
             factura.investigacion_id = investigacion_id
-            #factura.cliente_solicitud_candidato_id = inv.cliente_solicitud_candidato_id
+            # factura.cliente_solicitud_candidato_id = inv.cliente_solicitud_candidato_id
             factura.cantidad = 1
             factura.descripcion = csc
             factura.monto = csc.costo
@@ -1993,7 +1960,7 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         cliente_solicitud_candidato.completado = True
         cliente_solicitud_candidato.factura_creada = True
         cliente_solicitud_candidato.save()
-        
+
         inv.investigacion_completada = True
         inv.save()
 
@@ -2001,7 +1968,6 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
 
 
 class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin, TemplateView):
-
     # # required
     # group_required = [u"Client", ]
     # raise_exception = True
@@ -2011,7 +1977,7 @@ class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin
     def get(self, request, **kwargs):
         investigacion_id = self.kwargs['investigacion_id']
         inv = Investigacion.objects.get(id=investigacion_id)
-        
+
         inv.laboral_completado = True
         inv.save()
 
@@ -2019,21 +1985,19 @@ class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin
 
 
 class InvestigacionCoordinadorCompletarEntrevistaTemplateView(LoginRequiredMixin, TemplateView):
-
     template_name = ''
 
     def get(self, request, **kwargs):
         investigacion_id = self.kwargs['investigacion_id']
         inv = Investigacion.objects.get(id=investigacion_id)
-        
+
         inv.entrevista_from_completado = True
         inv.save()
 
         return redirect('investigaciones:investigaciones_entrevista_detail', seccion_entrevista='info_personal', investigacion_id=self.kwargs['investigacion_id'])
-    
+
 
 class InvestigacionCoordinadorCompletarAdjuntosTemplateView(LoginRequiredMixin, TemplateView):
-
     # # required
     # group_required = [u"Client", ]
     # raise_exception = True
@@ -2043,7 +2007,7 @@ class InvestigacionCoordinadorCompletarAdjuntosTemplateView(LoginRequiredMixin, 
     def get(self, request, **kwargs):
         investigacion_id = self.kwargs['investigacion_id']
         inv = Investigacion.objects.get(id=investigacion_id)
-        
+
         inv.entrevista_app_completado = True
         inv.save()
 
@@ -2051,7 +2015,6 @@ class InvestigacionCoordinadorCompletarAdjuntosTemplateView(LoginRequiredMixin, 
 
 
 class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, TemplateView):
-
     # # required
     # group_required = [u"Client", ]
     # raise_exception = True
@@ -2061,7 +2024,7 @@ class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, Tem
     def get(self, request, **kwargs):
         investigacion_id = self.kwargs['investigacion_id']
         inv = Investigacion.objects.get(id=investigacion_id)
-        
+
         inv.investigacion_factura_enviada_al_cliente = True
         inv.save()
 
@@ -2071,15 +2034,13 @@ class InvestigacionCobranzasCompletarFacturaTemplateView(LoginRequiredMixin, Tem
 
         msj.title = "Se ha generado los datos de la factura"
         msj.message = "Estimado usuario. Se ha generado los datos de la factura para su pago."
-        msj.link = "/clientes/facturas/detail/" + str(self.kwargs['investigacion_id']) +"/"
+        msj.link = "/clientes/facturas/detail/" + str(self.kwargs['investigacion_id']) + "/"
         msj.save()
-
 
         return redirect('cobranza_facturas_detail', self.kwargs['investigacion_id'])
 
 
 class InvestigacionCobranzasClienteCompletaComprobanteTemplateView(LoginRequiredMixin, TemplateView):
-
     # # required
     # group_required = [u"Client", ]
     # raise_exception = True
@@ -2089,16 +2050,14 @@ class InvestigacionCobranzasClienteCompletaComprobanteTemplateView(LoginRequired
     def get(self, request, **kwargs):
         investigacion_id = self.kwargs['investigacion_id']
         inv = Investigacion.objects.get(id=investigacion_id)
-        
+
         inv.investigacion_factura_pago_completado = True
         inv.save()
 
         return redirect('clientes:clientes_factura_detail', self.kwargs['investigacion_id'])
 
 
-
 class InvestigacionPersonaTrayectoriaLaboralDeleteTemplateView(LoginRequiredMixin, TemplateView):
-
     # # required
     # group_required = [u"Client", ]
     # raise_exception = True
@@ -2107,7 +2066,7 @@ class InvestigacionPersonaTrayectoriaLaboralDeleteTemplateView(LoginRequiredMixi
 
     def get(self, request, **kwargs):
         trayectoria_laboral_id = self.kwargs['pk']
-        
+
         trayectoria_laboral = TrayectoriaLaboral.objects.get(id=trayectoria_laboral_id)
         trayectoria_laboral.delete()
 

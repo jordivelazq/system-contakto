@@ -6,239 +6,336 @@
 
 {% block content %}
 
-<!-- ============================================================== -->
-<!-- Start right Content here -->
-<!-- ============================================================== -->
-<div class="main-content">
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
 
-    <div class="page-content">
-        <div class="container-fluid">
+        <div class="page-content">
+            <div class="container-fluid">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Investigaciones - Coordinador de Visitas Domiciliarias</h4>
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Investigaciones - Coordinador de Visitas Domiciliarias</h4>
 
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Listado de investigacines</li>
-                                <li class="breadcrumb-item active">Detalle de investigación</li>
-                            </ol>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Listado de investigacines</li>
+                                    <li class="breadcrumb-item active">Detalle de investigación</li>
+                                </ol>
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-            </div>
-            <!-- end page title -->
+                <!-- end page title -->
 
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Detalle de investigación</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Detalle de investigación</h3>
 
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="col-md-3">
-                                    <strong>Tipo de investigación:</strong>
-                                    {% for ti in investigacion.tipo_investigacion.all  %}    
-                                    {{ ti }}
-                                    {% endfor %}
+                                    <div class="col-md-3">
+                                        <strong>Tipo de investigación:</strong>
+                                        {% for ti in investigacion.tipo_investigacion.all %}
+                                            {{ ti }}
+                                        {% endfor %}
 
-                                </div>
+                                    </div>
 
-                                <div class="col-md-3">
-                                    <strong>Cliente:</strong>
-                                    {{ investigacion.compania }}
-                                </div>
+                                    <div class="col-md-3">
+                                        <strong>Cliente:</strong>
+                                        {{ investigacion.compania }}
+                                    </div>
 
-                                <div class="col-md-3">
-                                    <strong>Sucursal:</strong>
-                                    {{ investigacion.sucursal }}
-                                </div>
+                                    <div class="col-md-3">
+                                        <strong>Sucursal:</strong>
+                                        {{ investigacion.sucursal }}
+                                    </div>
 
-                                <div class="col-md-3">
-                                    <strong>Contacto:</strong>
-                                    {{ investigacion.cliente_solicitud }}
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div><!-- end col -->
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">
-
-                                {% if investigacion.candidato_validado %}
-
-                                <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
-                                        class="bx bx-check-double font-size-16 align-middle"></i></button>
-
-                                {% else %}
-
-                                <button type="button" class="btn btn-soft-danger waves-effect waves-light"
-                                    data-bs-toggle="popover" title="Data incompleta"
-                                    data-bs-content="Se debe completar los datos del candidato, "><i
-                                        class="bx bx-block font-size-16 align-middle"></i></button>
-
-                                {% endif %}
-
-                                Datos del candidato
-
-                            </h3>
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <strong>Nombres:</strong>
-                                    {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
-                                </div>
-                                <div class="col-md-3">
-                                    <strong>NSS:</strong>
-                                    {{ investigacion.candidato.nss }}
-                                </div>
-                                <div class="col-md-3">
-                                    <strong>Teléfono móvil:</strong>
-                                    {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
-                                </div>
-                                <div class="col-md-3">
-                                    <strong>CURP:</strong>
-                                    {{ investigacion.candidato.curp }}
+                                    <div class="col-md-3">
+                                        <strong>Contacto:</strong>
+                                        {{ investigacion.cliente_solicitud }}
+                                    </div>
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                </div><!-- end col -->
+                    </div><!-- end col -->
 
-            </div>
+                </div>
 
-            <div class="row" id="asignacion_coordinadores">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Asignación de ejecutivo de visita</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
 
-                            <div class="row">
+                                    {% if investigacion.candidato_validado %}
 
-                                <div class="col-md-12">
-                                    <br />
-                                    <strong>Ejecutivo de Visitas:</strong><br>
-                                    {% if investigacion.ejecutivo_visitas %}
-                                    {{ investigacion.ejecutivo_visitas }}
-                                    <br>
-
-                                    <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
-                                        class="btn btn-primary waves-effect btn-label waves-light">
-                                        <i class="bx bx-edit label-icon"></i>
-                                        Editar ejecutivo de visita
-                                    </a>
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                                class="bx bx-check-double font-size-16 align-middle"></i></button>
 
                                     {% else %}
-                                    <span class="text-danger">No asignado</span><br>
-                                    <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
-                                        class="btn btn-primary waves-effect btn-label waves-light">
-                                        <i class="bx bx-edit label-icon"></i>
-                                        Asignar ejecutivo de visita
-                                    </a>
+
+                                        <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                                data-bs-toggle="popover" title="Data incompleta"
+                                                data-bs-content="Se debe completar los datos del candidato, "><i
+                                                class="bx bx-block font-size-16 align-middle"></i></button>
+
                                     {% endif %}
+
+                                    Datos del candidato
+
+                                </h3>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <strong>Nombres:</strong>
+                                        {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>NSS:</strong>
+                                        {{ investigacion.candidato.nss }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Teléfono móvil:</strong>
+                                        {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>CURP:</strong>
+                                        {{ investigacion.candidato.curp }}
+                                    </div>
 
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                </div><!-- end col -->
+                    </div><!-- end col -->
 
-            </div>
+                </div>
 
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Bitácora</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {% if   investigacion.entrevistacita_set.first and investigacion.entrevistacita_set.first.autorizada == 1 %}
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                                class="bx bx-check-double font-size-16 align-middle"></i></button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                                data-bs-toggle="popover" title="No autorizada"
+                                                data-bs-content="Entrevista no autorizada, "><i class="bx bx-block font-size-16 align-middle"></i></button>
+                                    {% endif %}
+                                    Datos de la cita
+                                </h3>
 
-                            <div class="row">
+                                <div class="row">
+                                    {% if  investigacion.entrevistacita_set.first %}
+                                        <div class="col-md-3">
+                                            <strong>Envia a entrevistador:</strong>
+                                            {{ investigacion.entrevistacita_set.first.entrevistador | default_if_none:'' }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <strong>Fecha / Hora:</strong>
+                                            {{ investigacion.entrevistacita_set.first.fecha_entrevista | default_if_none:'' }}
+                                            {{ investigacion.entrevistacita_set.first.hora_entrevista | default_if_none:'' }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>observaciones</strong>
+                                            {{ investigacion.entrevistacita_set.first.observaciones | default_if_none:'' }}
+                                        </div>
+                                    {% endif %}
+                                </div>
 
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="datatable">
-                                            <thead>
+                                <br>
+                                <a href="javascript:void(0)" onclick="openModalCitas()"
+                                   class="btn btn-primary waves-effect waves-light">
+                                    <i class="bx bx-edit font-size-16 align-middle me-2"></i>
+                                    Editar citas
+                                </a>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+
+
+                <div class="row" id="asignacion_coordinadores">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Asignación de ejecutivo de visita</h3>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <strong>Ejecutivo de Visitas:</strong><br>
+                                        {% if investigacion.ejecutivo_visitas %}
+                                            {{ investigacion.ejecutivo_visitas }}
+                                            <br>
+
+                                            <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
+                                               class="btn btn-primary waves-effect btn-label waves-light">
+                                                <i class="bx bx-edit label-icon"></i>
+                                                Editar ejecutivo de visita
+                                            </a>
+
+                                        {% else %}
+                                            <span class="text-danger">No asignado</span><br>
+                                            <a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_update' investigacion.id %}"
+                                               class="btn btn-primary waves-effect btn-label waves-light">
+                                                <i class="bx bx-edit label-icon"></i>
+                                                Asignar ejecutivo de visita
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Bitácora</h3>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="datatable">
+                                                <thead>
                                                 <tr>
                                                     <th>Fecha</th>
                                                     <th>Usuario</th>
                                                     <th>Servicio</th>
                                                     <th>Observaciones</th>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
+                                                </thead>
+                                                <tbody>
                                                 {% for bitacora in bitacoras %}
-                                                <tr>
-                                                    <td>{{ bitacora.datetime }}</td>
-                                                    <td>{{ bitacora.user }}</td>
-                                                    <td>{{ bitacora.servicio }}</td>
-                                                    <td>{{ bitacora.observaciones }}</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td>{{ bitacora.datetime }}</td>
+                                                        <td>{{ bitacora.user }}</td>
+                                                        <td>{{ bitacora.servicio }}</td>
+                                                        <td>{{ bitacora.observaciones }}</td>
+                                                    </tr>
 
                                                 {% empty %}
-                                                <tr>
-                                                    <td colspan="4">No hay bitacoras para esta investigación</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td colspan="4">No hay bitacoras para esta investigación</td>
+                                                    </tr>
                                                 {% endfor %}
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
 
-                                        <a href="{% url 'investigaciones:investigaciones_bitacora_create' investigacion.id 'coord_visita_domiciliaria' %}"
-                                            class="btn btn-primary waves-effect btn-label waves-light">
-                                            <i class="bx bx-plus label-icon"></i>
-                                            Agregar bitácora</a>
+                                            <a href="{% url 'investigaciones:investigaciones_bitacora_create' investigacion.id 'coord_visita_domiciliaria' %}"
+                                               class="btn btn-primary waves-effect btn-label waves-light">
+                                                <i class="bx bx-plus label-icon"></i>
+                                                Agregar bitácora</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+
+                <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}"
+                   class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+                    Regresar al listado</a>
+
+                <br/><br/>
+
+
+            </div> <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+        <!--begin::Modal-->
+        <div id="modalCitas" class="modal fade" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalFullscreenLabel">Datos de la cita</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/investigaciones/investigaciones/coordinador-visitas/detail/cita/{{ investigacion.pk }}/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div id='modal_title' name="modal_title"></div>
+                            <br>
+                            <div id='modal_content'>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Entrevista autorizada:</label>
+                                        {{ formaEntrevista.autorizada }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Enviado a entrevistador:</label>
+                                        {{ formaEntrevista.entrevistador }}
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-1">
+                                        <label>Fecha / Hora:</label>
+                                        {{ formaEntrevista.fecha_entrevista }}
+                                        {{ formaEntrevista.hora_entrevista }}
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Observaciones de Entrevista (uso interno, no visible):</label>
+                                        {{ formaEntrevista.observaciones }}
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
-                </div><!-- end col -->
-
-            </div>
-
-            <a href="{% url 'investigaciones:investigaciones_coordinador_visitas_list' %}"
-            class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
-            Regresar al listado</a>
-
-            <br /><br />
-            
-
-
-        </div> <!-- container-fluid -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success waves-effect">Guardar</button>
+                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--end::Modal-->
+        {% block footer %}
+            {% include 'partials/footer.html' %}
+        {% endblock footer %}
     </div>
-    <!-- End Page-content -->
-
-    {% block footer %}
-    {% include 'partials/footer.html' %}
-    {% endblock footer %}
-</div>
-<!-- end main content-->
+    <!-- end main content-->
 
 {% endblock content %}
 
 {% block extra_js %}
 
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-</script>
+    <script>
+        var openModalCitas = () => {
+            $('#modalCitas').modal('show');
+        }
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+            $("#id_entrevista-fecha_entrevista").prop('type', 'date');
+            $("#id_entrevista-hora_entrevista").prop('type', 'time');
+        });
+
+    </script>
 
 {% endblock extra_js %}
