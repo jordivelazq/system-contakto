@@ -658,8 +658,15 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 aspectos_hogar_formset.save()
                 aspectos_candidato_formset.save()
                 investigacion_form.save()
-                
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/evaluacion/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/evaluacion/'+str(investigacion.pk))
+
+        #CITA
+        if seccion_entrevista == 'cita':
+            inv = Investigacion.objects.get(id=self.kwargs['pk'])
+            entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+            formaEntrevista = EntrevistaObservacionesForm(request.POST, prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(request.POST, prefix='entrevista')
+            formaEntrevista.save()
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/{}/'.format(investigacion.pk))
 
     def get_context_data(self, **kwargs):
         context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
@@ -718,8 +725,6 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 context['direccion_form'] = EntrevistaDireccionForm(instance=direccion)
                 context['origen_form'] = EntrevistaOrigenForm(instance=origen, prefix='origen')
                 context['licencia_form'] = EntrevistaLicenciaForm(instance=licencia)
-
-                
 
             #INFO PERSONAL
             if seccion_entrevista == 'info_personal':
@@ -878,5 +883,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 context['aspectos_hogar_formset'] = aspectos_hogar_formset
                 context['aspectos_candidato_formset'] = aspectos_candidato_formset
                 context['investigacion_form'] = investigacion_form
-		
+        # DATOS DE LA CITA
+        entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+        context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
         return context
