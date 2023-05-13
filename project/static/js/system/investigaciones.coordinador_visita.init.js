@@ -79,11 +79,17 @@ $(document).ready(function () {
             {
                 "title": "Ejecutivo",
                 "data": "ejecutivo_visitas.email",
+                "defaultContent": "No asignado",
                 "responsivePriority": 1,
             },
             {
                 "title": "Gestor",
                 "data": "agente.email",
+                "defaultContent": "No asignado",
+            },
+            {
+                "title": "Cita",
+                "data": "cita",
                 "defaultContent": "No asignado",
             }
 
