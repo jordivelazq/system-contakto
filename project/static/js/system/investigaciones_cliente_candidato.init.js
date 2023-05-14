@@ -68,7 +68,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: [2],
+                targets: [1],
                 render: function (data) {
                     return moment(data).format('DD/MM/YYYY');
                 },
