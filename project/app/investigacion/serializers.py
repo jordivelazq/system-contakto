@@ -71,6 +71,7 @@ class InvestigacionSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField(read_only=True)
     agente_name = serializers.SerializerMethodField()
     cita = serializers.SerializerMethodField()
+    resultado_des = serializers.SerializerMethodField()
 
     class Meta:
         model = Investigacion
@@ -90,6 +91,9 @@ class InvestigacionSerializer(serializers.ModelSerializer):
         if cita and cita.fecha_entrevista and cita.hora_entrevista:
             return '{} {} / {}'.format(cita.fecha_entrevista, cita.hora_entrevista, cita.entrevistador)
         return 'No asignado'
+
+    def get_resultado_des(self, obj):
+        return obj.get_resultado_display()
 
 
 class GestorInfoSerializer(serializers.ModelSerializer):

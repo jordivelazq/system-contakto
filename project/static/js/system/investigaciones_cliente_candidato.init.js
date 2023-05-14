@@ -120,7 +120,7 @@ $(document).ready(function () {
             },
             {
                 title: "Resultado",
-                data: "resultado",
+                data: "resultado_des",
                 responsivePriority: 2,
                 searchable: false,
             },
