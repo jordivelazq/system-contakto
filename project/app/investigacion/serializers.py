@@ -87,7 +87,7 @@ class InvestigacionSerializer(serializers.ModelSerializer):
 
     def get_cita(self, obj):
         cita = obj.entrevistacita_set.first()
-        if cita.fecha_entrevista and cita.hora_entrevista:
+        if cita and cita.fecha_entrevista and cita.hora_entrevista:
             return '{} {} / {}'.format(cita.fecha_entrevista, cita.hora_entrevista, cita.entrevistador)
         return 'No asignado'
 

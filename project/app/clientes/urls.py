@@ -1,4 +1,4 @@
-from app.clientes.api import ClienteTemplateView, ClienteUserViewSet
+from app.clientes.api import ClienteTemplateView, ClienteUserViewSet, InvestigacionClienteViewSet, CandidatosTemplateView
 from app.clientes.views.clientes_users import (
     ClienteUserCreateView,
     ClienteUserDetailView,
@@ -31,7 +31,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r"clientes", ClienteUserViewSet)
 router.register(r"clientes_facturas", InvestigacionClienteFacturaViewSet)
-
+router.register(r"candidatos", InvestigacionClienteViewSet)
 
 app_name = "clientes"
 
@@ -125,5 +125,11 @@ urlpatterns = [
         "municipios/<str:efe_key>/",
         MunicipiosView.as_view(),
         name="clientes_municipios",
+    ),
+    # CANDIDATOS
+    path(
+        "candidatos/",
+        CandidatosTemplateView.as_view(),
+        name="candidatos_investigacion_list",
     ),
 ]

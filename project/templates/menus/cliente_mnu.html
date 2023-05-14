@@ -1,12 +1,13 @@
 {% load core_extras %}{% if request.user|has_group:"Cliente" %}
-<li>
-    <a href="javascript: void(0);" class="has-arrow">
-        <i data-feather="plus-circle"></i>
-        <span data-key="clientes">Cliente</span>
-    </a>
-    <ul class="sub-menu" aria-expanded="false">
-        <li><a href="{% url 'clientes:clientes_solicitudes_list' %}" data-key="t-inbox">Solicitudes</a></li>
-        <li><a href="{% url 'clientes:clientes_facturas_list' %}" data-key="t-read-email">Facturas</a></li>
-    </ul>
-</li>
+    <li>
+        <a href="javascript: void(0);" class="has-arrow">
+            <i data-feather="plus-circle"></i>
+            <span data-key="clientes">Cliente</span>
+        </a>
+        <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{% url 'clientes:clientes_solicitudes_list' %}" data-key="t-inbox">Solicitudes</a></li>
+            <li><a href="{% url 'clientes:clientes_facturas_list' %}" data-key="t-read-email">Facturas</a></li>
+            <li><a href="{% url 'clientes:candidatos_investigacion_list' %}" data-key="t-read-email">Candidatos</a></li>
+        </ul>
+    </li>
 {% endif %}
