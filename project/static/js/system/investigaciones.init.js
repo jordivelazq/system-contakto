@@ -15,17 +15,17 @@ $(document).ready(function () {
         },
         pageLength: 50,
         lengthMenu: [
-          [25, 50, 100, -1],
-          [25, 50, 100, "All"]
+            [25, 50, 100, -1],
+            [25, 50, 100, "All"]
         ],
         columnDefs: [
             {
                 targets: 6,
-                className: 'dt-body-center', 
+                className: 'dt-body-center',
                 render: function (data, type, row) {
-                    if (data==true){
+                    if (data == true) {
                         return '<i class="fa fa-check"></i>';
-                    }else{
+                    } else {
                         return '<i class="fa fa-times"></i>';
                     }
                 },
@@ -133,8 +133,8 @@ $(document).ready(function () {
                 data: 'tipo_investigacion',
                 searchable: false,
                 responsivePriority: 2,
-                 render: function (data, type, row, meta) {
-                    if(row.tipo_investigacion != undefined)
+                render: function (data, type, row, meta) {
+                    if (row.tipo_investigacion != undefined)
                         return row.tipo_investigacion;
                     return 'N/A';
                 }
@@ -155,7 +155,7 @@ $(document).ready(function () {
                 "data": "agente_name",
                 "responsivePriority": 2,
                 "render": function (data, type, row, meta) {
-                    if (row.agente_name != undefined)
+                    if (row.agente_name != undefined && row.agente_name != 'No asignado')
                         return '<i class="fa fa-check text-success"></i>';
                     return '<i class="fa fa-times text-danger"></i>';
                 }
@@ -168,22 +168,22 @@ $(document).ready(function () {
             extend: 'copyHtml5',
             text: '<i class="fa fa-copy"></i> Copiar',
             titleAttr: 'Copiar'
-          },
-          {
-            extend: 'excelHtml5',
-            text: '<i class="fa fa-file-excel"></i> Excel',
-            titleAttr: 'Exportar a excel'
-          },
-          {
-            extend: 'csvHtml5',
-            text: '<i class="fa fa-file-contract"></i> CSV',
-            titleAttr: 'CSV'
-          },
-          {
-            extend: 'pdfHtml5',
-            text: '<i class="fa fa-file-pdf"></i> PDF',
-            titleAttr: 'Exportar a PDF'
-          }
+        },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Excel',
+                titleAttr: 'Exportar a excel'
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fa fa-file-contract"></i> CSV',
+                titleAttr: 'CSV'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
+                titleAttr: 'Exportar a PDF'
+            }
         ],
         lengthChange: !1,
         buttons: ["copy", "excel", "pdf", "colvis"],

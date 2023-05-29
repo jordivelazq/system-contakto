@@ -84,7 +84,7 @@ class InvestigacionSerializer(serializers.ModelSerializer):
         return obj.tipo_investigacion.last().tipo_investigacion if obj.tipo_investigacion.last() else 'N/A'
 
     def get_agente_name(self, obj):
-        return obj.agente.username if obj.agente else 'No asignado'
+        return obj.ejecutivo_de_cuentas.username if obj.ejecutivo_de_cuentas else 'No asignado'
 
     def get_cita(self, obj):
         cita = obj.entrevistacita_set.first()
