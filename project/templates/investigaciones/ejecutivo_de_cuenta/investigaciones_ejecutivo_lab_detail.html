@@ -14,6 +14,9 @@
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
+    <!-- BEGIG MODAL INCLUDE -->
+    {% include 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_modal.html' %}
+    <!-- END MODAL INCLUDE -->
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
@@ -250,15 +253,20 @@
                                 {% else %}
                                     <input type="hidden" id="completar-inv-laboral-pregunta" value="1">
                                     <h5>La investigación está completada</h5>
-                                    <br>
+                                    <hr>
                                     <h5>Resultados</h5>
                                     {{ investigacion.get_resultado_display }}<br><br>
                                     <h5>Conclusiones</h5>
-                                    {{ investigacion.conclusiones }}<br><br>
+                                    {{ investigacion.conclusiones | default_if_none:'' }}<br><br>
                                     <h5>Observaciones</h5>
-                                    {{ investigacion.observaciones }}<br><br>
-
-
+                                    {{ investigacion.observaciones | default_if_none:'' }}<br><br>
+                                    <a href="javascript:void(0);"
+                                       onclick="openModalResultados()"
+                                       class="btn btn-success waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Resultados, conclusiones y observaciones
+                                    </a>
+                                    <hr>
                                     <a href="/candidato/investigacion/exportar/reporte-laboral/{{ investigacion.id }}"
                                        target="_blank"
                                        class="btn btn-primary waves-effect btn-label waves-light">
@@ -583,6 +591,7 @@
 
             {% endif %}
         });
+
     </script>
 
 {% endblock extra_js %}

@@ -1603,39 +1603,38 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
 
         form = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=inv)
-
+        if self.request.POST.get('action') and self.request.POST.get('action') == 'form-resultado':
+            formResultados = InvestigacionResultadosForm(request.POST, prefix='investigacion', instance=inv)
+            if formResultados.is_valid():
+                formResultados.save()
+                messages.add_message(self.request, messages.SUCCESS,
+                                     'Los resultados, conclusiones y observaciones han sido actualizado')
+                return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
+            else:
+                messages.add_message(self.request, messages.ERROR,
+                                     'Los resultados, conclusiones y observaciones no ha sido actualizado')
+                return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
         if form.is_valid():
             form.save()
-
             messages.add_message(self.request, messages.SUCCESS,
                                  'El status de trayectoria ha sido actualizado')
-
             return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
-
         else:
             messages.add_message(self.request, messages.ERROR,
                                  'El status de trayectoria no ha sido actualizado')
-
             return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoLaboralDetailView, self).get_context_data(**kwargs)
-
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
-
-        context['title'] = "Inveatigaciones / Ejecutivo de cuenta / Detalle de solicitud "
-
+        context['title'] = "Investigaciones / Ejecutivo de cuenta / Detalle de solicitud "
         # context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk'], user=self.request.user).order_by('-datetime')
         context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk']).order_by('-datetime')
-
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
-
         context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
-
         context['formaInvestigacion'] = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=inv)
-
         context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
-
+        context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
         return context
 
 
