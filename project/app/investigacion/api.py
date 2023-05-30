@@ -446,8 +446,24 @@ class InvestigacionDetailView(DetailView):
             entrevista_persona = None
 
         context['entrevista_persona'] = entrevista_persona
-
+        context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
+        context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
         return context
+
+    def post(self, request, *args, **kwargs):
+        inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+        if self.request.POST.get('action') and self.request.POST.get('action') == 'form-resultado':
+            formResultados = InvestigacionResultadosForm(request.POST, prefix='investigacion', instance=inv)
+            if formResultados.is_valid():
+                formResultados.save()
+                messages.add_message(self.request, messages.SUCCESS,
+                                     'Los resultados, conclusiones y observaciones han sido actualizado')
+                return redirect('investigaciones:investigacion_detail', pk=self.kwargs['pk'])
+            else:
+                messages.add_message(self.request, messages.ERROR,
+                                     'Los resultados, conclusiones y observaciones no ha sido actualizado')
+                return redirect('investigaciones:investigacion_detail', pk=self.kwargs['pk'])
+        return redirect('investigaciones:investigacion_detail', pk=self.kwargs['pk'])
 
 
 class InvestigacionEntrevistaDetailView(DetailView):
