@@ -143,6 +143,39 @@ $(document).ready(function () {
                 "title": "Cita",
                 "data": "cita",
                 "defaultContent": "No asignado",
+            },
+            {
+                "title": "Cita",
+                "data": "cita",
+                "defaultContent": "No asignado",
+            },
+            {
+                "title": "Documento",
+                "data": "tipo_investigacion",
+                searchable: false,
+                responsivePriority: 2,
+                render: function (data, type, row, meta) {
+                    /**
+                     *  Laboral
+                     *  Psicométrico
+                     *  Socioeconómico
+                     *  Validación de demandas
+                     *  Visita domiciliaria
+                     */
+
+                    if (row.tipo_investigacion != undefined)
+                        if (row.tipo_investigacion === 'Laboral')
+                            return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                        else if (row.tipo_investigacion === 'Socioeconómico')
+                            return `<a href="/personas/investigacion/exportar/reporte-socioeconomico/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                        else if (row.tipo_investigacion === 'Validación de demandas')
+                            return `<a href="/personas/investigacion/exportar/reporte-demandas/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                        else if (row.tipo_investigacion === 'Visita domiciliaria')
+                            return `<a href="/personas/investigacion/exportar/reporte-visita-domiciliaria/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                        else
+                            return '';
+                    return 'N/A';
+                }
             }
 
         ],
