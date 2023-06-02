@@ -163,15 +163,20 @@
                                                     Validación de demandas
                                                     Visita domiciliaria
                                                  {% endcomment %}
+
                                                     {% for inv in candidato.investigacion_set.all %}
-                                                        {% if candidato.tipo_investigacion.first.tipo_investigacion == 'Laboral' %}
-                                                            <a href="{% url 'print_reporte_laboral' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
-                                                        {% elif candidato.tipo_investigacion.first.tipo_investigacion == 'Socioeconómico' %}
-                                                            <a href="{% url 'print_reporte_socioeconomico' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
-                                                        {% elif candidato.tipo_investigacion.first.tipo_investigacion == 'Visita domiciliaria' %}
-                                                            <a href="{% url 'print_reporte_visita_domiciliaria' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
-                                                        {% elif candidato.tipo_investigacion.first.tipo_investigacion == 'Validación de demandas' %}
-                                                            <a href="{% url 'print_reporte_validacion_demandas' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
+                                                        {% if inv.status == '2' %}
+                                                            {% if candidato.tipo_investigacion.first.tipo_investigacion == 'Laboral' %}
+                                                                <a href="{% url 'print_reporte_laboral' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
+                                                            {% elif candidato.tipo_investigacion.first.tipo_investigacion == 'Socioeconómico' %}
+                                                                <a href="{% url 'print_reporte_socioeconomico' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
+                                                            {% elif candidato.tipo_investigacion.first.tipo_investigacion == 'Visita domiciliaria' %}
+                                                                <a href="{% url 'print_reporte_visita_domiciliaria' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
+                                                            {% elif candidato.tipo_investigacion.first.tipo_investigacion == 'Validación de demandas' %}
+                                                                <a href="{% url 'print_reporte_validacion_demandas' inv.pk %}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> {{ candidato.tipo_investigacion.first.tipo_investigacion }}</a>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            {{ inv.get_status_display }}
                                                         {% endif %}
                                                     {% endfor %}
                                                 </td>

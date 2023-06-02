@@ -163,18 +163,21 @@ $(document).ready(function () {
                      *  Visita domiciliaria
                      */
 
-                    if (row.tipo_investigacion != undefined)
-                        if (row.tipo_investigacion === 'Laboral')
-                            return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                        else if (row.tipo_investigacion === 'Socioeconómico')
-                            return `<a href="/personas/investigacion/exportar/reporte-socioeconomico/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                        else if (row.tipo_investigacion === 'Validación de demandas')
-                            return `<a href="/personas/investigacion/exportar/reporte-demandas/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                        else if (row.tipo_investigacion === 'Visita domiciliaria')
-                            return `<a href="/personas/investigacion/exportar/reporte-visita-domiciliaria/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                        else
-                            return '';
-                    return 'N/A';
+                    if (row.tipo_investigacion != undefined) {
+                        if (row.status === 'Inv. Terminada') {
+                            if (row.tipo_investigacion === 'Laboral')
+                                return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                            else if (row.tipo_investigacion === 'Socioeconómico')
+                                return `<a href="/personas/investigacion/exportar/reporte-socioeconomico/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                            else if (row.tipo_investigacion === 'Validación de demandas')
+                                return `<a href="/personas/investigacion/exportar/reporte-demandas/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                            else if (row.tipo_investigacion === 'Visita domiciliaria')
+                                return `<a href="/personas/investigacion/exportar/reporte-visita-domiciliaria/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                            else
+                                return '';
+                        }
+                    }
+                    return 'No terminada';
                 }
             }
 
