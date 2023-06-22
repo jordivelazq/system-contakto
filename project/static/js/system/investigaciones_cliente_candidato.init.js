@@ -145,11 +145,6 @@ $(document).ready(function () {
                 "defaultContent": "No asignado",
             },
             {
-                "title": "Cita",
-                "data": "cita",
-                "defaultContent": "No asignado",
-            },
-            {
                 "title": "Documento",
                 "data": "tipo_investigacion",
                 searchable: false,

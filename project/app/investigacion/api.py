@@ -578,8 +578,8 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
             bitacora = InvestigacionBitacora()
             bitacora.user_id = self.request.user.pk
             bitacora.investigacion = self.object
-            bitacora.servicio = "Coordinaron visitas"
-            bitacora.observaciones = "Asignacion de ejecutivo de cuentas"
+            bitacora.servicio = "Coord. de Atención a Clientes"
+            bitacora.observaciones = "Asignacion de ejecutivo laboral"
             bitacora.save()
 
             # Genera email
@@ -651,8 +651,8 @@ class InvestigacionCoordVisitaUpdateView(LoginRequiredMixin, UpdateView):
             bitacora = InvestigacionBitacora()
             bitacora.user_id = self.request.user.pk
             bitacora.investigacion = self.object
-            bitacora.servicio = "Coordinador de ejecutivos"
-            bitacora.observaciones = "Asignacion de coordinador de visitas"
+            bitacora.servicio = "Coord. de Atención a Clientes"
+            bitacora.observaciones = "Asignación de coordinador de visitas"
             bitacora.save()
 
             # Genera email
@@ -727,7 +727,7 @@ class InvestigacionCoordPsicometricoUpdateView(UpdateView):
             bitacora = InvestigacionBitacora()
             bitacora.user_id = self.request.user.pk
             bitacora.investigacion = self.object
-            bitacora.servicio = "Coordinador de ejecutivos"
+            bitacora.servicio = "Coord. de Atención a Clientes"
             bitacora.observaciones = "Asignacion de coordinador de psicométrico"
             bitacora.save()
 

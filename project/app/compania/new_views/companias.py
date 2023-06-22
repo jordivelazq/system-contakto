@@ -34,7 +34,7 @@ class CompaniaCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear cliente'
-        context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coordinador de Ejecutivos')
+        context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coord. de Atención a Clientes')
         return context
 
     def form_valid(self, form):
@@ -58,7 +58,7 @@ class CompaniaUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar cliente'
         context['compania_id'] = self.kwargs['pk']
-        context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coordinador de Ejecutivos')
+        context['form'].fields['coordinador_ejecutivos'].queryset = User.objects.filter(groups__name='Coord. de Atención a Clientes')
         return context
 
     def get_success_url(self, **kwargs):
@@ -88,7 +88,7 @@ class CompaniaSucursalCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear sucursal'
-        context['compania_id'] = self.kwargs['compania_id']
+        context['compania_id'].queryset = Compania.objects.filter(es_cliente=True)
         return context
 
     def form_valid(self, form, **kwargs):
