@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
         processing: true,
-        serverSide: true,
+        serverSide: false,
         ajax: "/clientes/api/candidatos/?format=datatables",
         language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
@@ -20,7 +20,7 @@ $(document).ready(function () {
         ],
         columnDefs: [
             {
-                targets: 6,
+                targets: 5,
                 className: 'dt-body-center',
                 render: function (data, type, row) {
                     if (data == true) {
