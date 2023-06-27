@@ -121,3 +121,37 @@ class InvestigacionAdjuntosFormTemplateView(LoginRequiredMixin, TemplateView):
 
 
         return context
+
+class InvestigacionAdjuntoLaboralFormTemplateView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'investigaciones/adjuntos/investigaciones_adjuntos_form_laboral.html'
+
+    def post(self, request, *args, **kwargs):
+
+        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+        adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else Adjuntos(investigacion=investigacion)
+
+        adjuntos_form = AdjuntosForm(request.POST, request.FILES, instance=adjuntos)
+        if adjuntos_form.is_valid():
+            adjuntos_form.save()
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-de-cuenta/detail/' + str(self.kwargs['investigacion_id']))
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionAdjuntoLaboralFormTemplateView, self).get_context_data(**kwargs)
+        #seccion_entrevista = self.kwargs['seccion_entrevista']
+
+        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+        adjuntos = investigacion.adjuntos_set.all()[0] if investigacion.adjuntos_set.all().count() else Adjuntos(investigacion=investigacion)
+
+        adjuntos_form = AdjuntosForm(instance=adjuntos)
+
+        context['adjuntos_form'] = adjuntos_form
+
+        # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+        #     investigacion=investigacion, user_id=self.request.user.pk).order_by('-datetime')
+    
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(
+            investigacion=investigacion).order_by('-datetime')
+
+
+        return context

@@ -14,6 +14,8 @@ from django.conf.urls import include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
+from app.investigacion.new_view.adjuntos import InvestigacionAdjuntoLaboralFormTemplateView
+
 from .api import (
     CandidatoTemplateView,
     InvestigacionCandidatoTemplateView,
@@ -280,6 +282,11 @@ urlpatterns = [
         "investigaciones/adjuntos/detail/update/<int:investigacion_id>/",
         InvestigacionAdjuntosFormTemplateView.as_view(),
         name="investigaciones_adjuntos_update",
+    ),
+    path(
+        "investigaciones/adjuntos/laboral/detail/update/<int:investigacion_id>/",
+        InvestigacionAdjuntoLaboralFormTemplateView.as_view(),
+        name="investigaciones_adjuntos_update_laboral",
     ),
     # Demandas laborales
     path(

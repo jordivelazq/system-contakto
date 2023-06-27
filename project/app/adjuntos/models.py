@@ -56,6 +56,8 @@ class Adjuntos(models.Model):
     adj34 = models.FileField(verbose_name='Adicionales I', upload_to='adj', blank=True, null=True)
 
     adj35 = models.FileField(verbose_name='Extra A', upload_to='adj', blank=True, null=True)
+    adj40 = models.FileField(verbose_name='Currículum Vitae', upload_to='adj', blank=True, null=True)
+    adj41 = models.FileField(verbose_name='Solicitud de empleo', upload_to='adj', blank=True, null=True)
 
     def filename(self):
         return os.path.basename(self.file.name)

@@ -1,0 +1,19 @@
+{% load app_filters %}
+<section class="laboral-study-page">
+  <div class="background-2">
+    {% include 'sections/reportes/seccion/header.html' %}
+
+    <div class="work-reference">
+      <h3>SOLICITUD DE EMPLEO</h3>
+      {% if adjuntos.adj41 %}
+      <img src="{{adjuntos_baseurl}}{{adjuntos.adj41}}" />
+      {% endif %}
+    </div>
+
+    <div class="footer">
+      <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+      <i>{{trayectoria|length|print_page_number:3}}</i>
+    </div>
+  </div>
+</section>
+<div class="page-break"></div>

@@ -1643,6 +1643,8 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(InvestigacionEjecutivoLaboralDetailView, self).get_context_data(**kwargs)
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+        adjuntos = Adjuntos.objects.filter(investigacion=inv)[0]
+        context['adjuntos'] = adjuntos
         context['title'] = "Investigaciones / Ejecutivo de cuenta / Detalle de solicitud "
         # context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk'], user=self.request.user).order_by('-datetime')
         context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion_id=self.kwargs['pk']).order_by('-datetime')

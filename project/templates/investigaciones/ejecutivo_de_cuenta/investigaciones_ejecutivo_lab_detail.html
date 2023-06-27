@@ -470,6 +470,310 @@
                     </div>
                 {% endif %}
 
+                <div class="row" id="bitacora">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Adjuntos</h3>
+    
+    
+                                <div class="row">
+                                    <div class="col-md-8">
+    
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <a href="{% url 'investigaciones:investigaciones_adjuntos_update_laboral' object.pk %}"
+                                            class="btn btn-primary">Editar adjuntos
+                                            <span class="glyphicon glyphicon-edit"></span></a>
+                                    </div>
+                                </div>
+
+                                <h6>Semanas Cotizadas</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.a Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj8 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" class="image-popup" data-title="10.a Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.b Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj25 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj25.name }}" class="image-popup" data-title="10.b Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj25.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.c Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj26 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj26.name }}" class="image-popup" data-title="10.c Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj26.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.d Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj27 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj27.name }}" class="image-popup" data-title="10.e Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj27.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.e Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj28 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj28.name }}" class="image-popup" data-title="10.e Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj28.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr class="thin-separator" />
+    
+    
+                                <h6>Validaciones</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>11.a Demandas Laborales</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj7 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}" class="image-popup" data-title="11.a Demandas Laborales">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>11.b Web</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj36 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}" class="image-popup" data-title="11.b Web">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <hr class="thin-separator" />
+    
+                                <h6> 12. Carta Laboral</h6>
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>12.a Principal</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj18 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" class="image-popup" data-title="12.a Principal">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>12.b Extra</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj37 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}" class="image-popup" data-title="12.b Extra">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <!--<hr class="thin-separator" />
+    
+    
+                                <h6> 13. Adicionales</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Adicionales A</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj19 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}" class="image-popup" data-title="Adicionales A">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Adicionales B</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj20 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}" class="image-popup" data-title="Adicionales B">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>-->
+
+                                <hr class="thin-separator" />
+    
+    
+                                <h6>Currículum y solicitud de empleo</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Currículum Vitae</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj40 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj40.name }}" class="image-popup" data-title="Currículum Vitae">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj40.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Solicitud de empleo</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj41 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj41.name }}" class="image-popup" data-title="Solicitud de empleo">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj41.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <!--
+                                {% if not investigacion.entrevista_app_completado %}                            
+                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-adjuntos-pregunta">
+                                    <i class="bx bx-check label-icon"></i> Completar Adjuntos
+                                </button>
+                                {% else %}
+                                <h5>Los archivos adjuntos han sido completados</h5>
+                                {% endif %}-->
+    
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+    
+    
+    
+    
+                    <div class="row" id="bitacora">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Bitácora</h3>
+    
+                                    <div class="row">
+    
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover"
+                                                    id="datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fecha</th>
+                                                            <th>Usuario</th>
+                                                            <th>Servicio</th>
+                                                            <th>Observaciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for bitacora in bitacoras %}
+                                                        <tr>
+                                                            <td>{{ bitacora.datetime }}</td>
+                                                            <td>{{ bitacora.user }}</td>
+                                                            <td>{{ bitacora.servicio }}</td>
+                                                            <td>{{ bitacora.observaciones }}</td>
+                                                        </tr>
+    
+                                                        {% empty %}
+                                                        <tr>
+                                                            <td colspan="4">No hay bitacoras para esta investigación</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+    
+                                                <a href="{% url 'investigaciones:investigacion_candidato_edit' investigacion.id %}"
+                                                    class="btn btn-primary waves-effect btn-label waves-light">
+                                                    <i class="bx bx-plus label-icon"></i>
+                                                    Agregar bitácora</a>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+    
+                    </div>
+                </div>
 
                 <div class="row" id="detalle_investigacions">
                     <div class="col-md-12">
