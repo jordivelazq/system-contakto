@@ -173,6 +173,13 @@ class TrayectoriaLaboral(models.Model):
     persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
     compania = models.ForeignKey(Compania, on_delete=models.CASCADE)
     sucursal = models.ForeignKey(Sucursales, null=True, blank=True, on_delete=models.CASCADE)
+    #cambio para nuevos datos de empresas NO catalógicos
+    nombre_empresa = models.CharField(max_length=500, null=True, blank=True)
+    nombre_sucursal = models.CharField(max_length=500, null=True, blank=True)
+    direccion = models.CharField(max_length=1000, null=True, blank=True)
+    telefono = models.CharField(max_length=100, null=True, blank=True)
+    email_contacto = models.CharField(max_length=250, null=True, blank=True)
+    #fin cambios
     aparece_nss = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)
 
     reporta_candidato = models.IntegerField(default=0, choices=ACTIVO_OPCIONES)

@@ -49,6 +49,32 @@
 						<h3 class="card-title"></h3>
 
 						<div class="row">
+							<div class="col-md-8">
+								{{ formTrayectoria.nombre_empresa.errors }}
+								<label for="id_trayectoria1-nombre-empresa">Empresa</label>
+								{{ formTrayectoria.nombre_empresa}}
+							</div>
+							<div class="col-md-4">
+								{{ formTrayectoria.nombre_sucursal.errors }}
+								<label for="id_trayectoria1-nombre-sucursal">Sucursal</label>
+								{{ formTrayectoria.nombre_sucursal}}
+							</div>
+							<div class="col-md-12">
+								{{ formTrayectoria.direccion.errors }}
+								<label for="id_trayectoria1-direccion">Dirección</label>
+								{{ formTrayectoria.direccion}}
+							</div>
+							<div class="col-md-6">
+								{{ formTrayectoria.telefono.errors }}
+								<label for="id_trayectoria1-telefono">Teléfono</label>
+								{{ formTrayectoria.telefono}}
+							</div>
+							<div class="col-md-6">
+								{{ formTrayectoria.email_contacto.errors }}
+								<label for="id_trayectoria1-email_contacto">Correo electrónico</label>
+								{{ formTrayectoria.email_contacto}}
+							</div>
+							{% comment %}
 							<div {% if request.user.is_staff %}ng-click="open_empresa_modal()" {% endif %}
 								class="col-md-4">
 								<div class="row">
@@ -56,10 +82,9 @@
 								</div>
 								<label>Empresa</label>
 								<div class="input-group">
-
+									
 									{{formTrayectoria.compania}}
 									
-									{% comment %}
 									<input id="id_trayectoria-compania" name="trayectoria-compania" type="hidden"
 										value="{[{compania_trayectoria}]}">
 
@@ -67,25 +92,22 @@
 										readonly="readonly" ng-model="compania_nombre_trayectoria" type="text"
 										class="form-control">
 									<span class="input-group-addon glyphicon glyphicon-search"></span>
-									{% endcomment %}
+									
 
 								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="row">
-									<div class="col-md-12"><label><br /></label></div>
+								{% endcomment %}
+								<div class="col-md-3">
+									{{ formTrayectoria.aparece_nss.errors }}
+									<label for="id_trayectoria1-aparece_nss">Aparece en NSS</label>
+									{% include 'share/radiobutton.html' with value=formTrayectoria.instance.aparece_nss name=formTrayectoria.aparece_nss.html_name %}
 								</div>
-								{{ formTrayectoria.aparece_nss.errors }}
-								<label for="id_trayectoria1-aparece_nss">Aparece en NSS</label>
-								{% include 'share/radiobutton.html' with value=formTrayectoria.instance.aparece_nss name=formTrayectoria.aparece_nss.html_name %}
+								<div class="col-md-3">
+									{{ formTrayectoria.reporta_candidato.errors }}
+									<label for="id_trayectoria1-reporta_candidato">Reporta candidato</label>
+									{% include 'share/radiobutton.html' with value=formTrayectoria.instance.reporta_candidato name=formTrayectoria.reporta_candidato.html_name %}
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								{{ formTrayectoria.reporta_candidato.errors }}
-								<label for="id_trayectoria1-reporta_candidato">Reporta candidato</label>
-								{% include 'share/radiobutton.html' with value=formTrayectoria.instance.reporta_candidato name=formTrayectoria.reporta_candidato.html_name %}
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -119,6 +141,8 @@
 				</div>
 
 
+
+				{% comment %}
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
@@ -192,6 +216,7 @@
 						</div>
 					</div>
 				</div>
+				{% endcomment %}
 
 				<div class="card">
 					<div class="card-body">

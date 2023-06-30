@@ -51,14 +51,14 @@ class TrayectoriaForm(ModelForm):
 
 	class Meta:  
 		model = TrayectoriaLaboral
-		exclude = ['agente', 'persona', 'status']
+		exclude = ['agente', 'persona', 'status', 'compania', 'sucursal']
 
 	def __init__(self, *args, **kwargs):
 		super(TrayectoriaForm, self).__init__(*args, **kwargs)
 		self.fields['funciones'].widget.attrs.update({'rows': '2'})
 		self.fields['observaciones_generales'].widget.attrs.update({'rows': '2'})
 		self.fields['cumplio_objetivos'].widget.attrs.update({'rows': '1'})
-		self.fields['compania'].widget.attrs.update({'ng-model':'compania'})
+		#self.fields['compania'].widget.attrs.update({'ng-model':'compania'})
 
 		# se agrego clase 'money_format' a los campos que requieren este formato, pensando 
 		# en usar JS para dar el formato

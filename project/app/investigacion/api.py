@@ -1055,6 +1055,7 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
         formTrayectoria = TrayectoriaForm(
             request.POST, prefix='trayectoria', instance=trayectoria_empresa)
+        #formTrayectoria.compania= Compania.objects.get(id=-1)
 
         if formTrayectoria.is_valid():
             trayectoria_empresa = formTrayectoria.save()
@@ -1185,8 +1186,8 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
         datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
 
-        formSucursal = CompaniaSucursalForm(
-            trayectoria_empresa.compania.id, trayectoria_empresa.sucursal.id if trayectoria_empresa.sucursal else None, prefix='trayectoria')
+        #formSucursal = CompaniaSucursalForm(
+        #    trayectoria_empresa.compania.id, trayectoria_empresa.sucursal.id if trayectoria_empresa.sucursal else None, prefix='trayectoria')
 
         formTrayectoria = TrayectoriaForm(
             prefix='trayectoria', instance=trayectoria_empresa)
@@ -1225,7 +1226,7 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
         context['informante1'] = informante1
         context['informante2'] = informante2
         context['datos_entrevista'] = datos_entrevista
-        context['formSucursal'] = formSucursal
+        #context['formSucursal'] = formSucursal
         context['formTrayectoria'] = formTrayectoria
         context['formCartaLaboral'] = formCartaLaboral
         context['formDatosGenerales'] = formDatosGenerales
