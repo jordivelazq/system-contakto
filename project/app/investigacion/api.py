@@ -32,7 +32,7 @@ from .models import (GestorInvestigacion, Investigacion, InvestigacionBitacora,
 from .serializers import InvestigacionSerializer
 from app.persona.models import Demanda
 from ..entrevista.forms import EntrevistaObservacionesForm
-
+from datetime import datetime
 
 class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'investigaciones/investigaciones_list.html'
@@ -574,6 +574,7 @@ class InvestigacionEjecutivoDeCuentaUpdateView(LoginRequiredMixin, UpdateView):
 
         if self.object.ejecutivo_de_cuentas:
             self.object.ejecutivo_de_cuentas_asignado = True
+            self.object.fecha_asignacion = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
             # Genera bitácora
             bitacora = InvestigacionBitacora()
             bitacora.user_id = self.request.user.pk

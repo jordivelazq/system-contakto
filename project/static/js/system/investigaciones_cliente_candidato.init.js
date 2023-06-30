@@ -140,6 +140,10 @@ $(document).ready(function () {
                 }
             },
             {
+                "title": "Fecha de asignación",
+                "data": "fecha_asignacion",
+            },
+            {
                 "title": "Cita",
                 "data": "cita",
                 "defaultContent": "No asignado",
