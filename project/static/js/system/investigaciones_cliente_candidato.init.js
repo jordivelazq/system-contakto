@@ -7,16 +7,18 @@ function investigacionDetail(id) {
 $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
-        processing: true,
         serverSide: false,
-        ajax: "/clientes/api/candidatos/?format=datatables",
+        ajax: {
+            url : "/clientes/api/candidatos/",
+            dataSrc: "results",
+        },
         language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
         pageLength: 100,
         lengthMenu: [
             [25, 50, 100, -1],
-            [25, 50, 100, "All"]
+            [25, 50, 100, "Todos"]
         ],
         columnDefs: [
             {
@@ -131,10 +133,10 @@ $(document).ready(function () {
             },
             {
                 "title": "Asignado",
-                "data": "agente_name",
+                "data": "agente",
                 "responsivePriority": 2,
                 "render": function (data, type, row, meta) {
-                    if (row.agente_name != undefined && row.agente_name != 'No asignado')
+                    if (row.agente != undefined && row.agente != 'No asignado')
                         return '<i class="fa fa-check text-success"></i>';
                     return '<i class="fa fa-times text-danger"></i>';
                 }
@@ -181,7 +183,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[1, "desc"]],
+        "order": [[1, "asc"],[2,"desc"]],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',
@@ -204,7 +206,6 @@ $(document).ready(function () {
                 titleAttr: 'Exportar a PDF'
             }
         ],
-        lengthChange: !1,
         buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
