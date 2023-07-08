@@ -6,6 +6,9 @@ function investigacionDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+    $.fn.dataTable.moment( 'HH:mm' );
+
     $("#datatable-investigaciones").DataTable({
         serverSide: false,
         ajax: {
@@ -183,7 +186,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[1, "asc"],[2,"desc"]],
+        "order": [[1, "desc"],[2,"desc"]],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',
