@@ -7,16 +7,18 @@ function investigacionDetail(id) {
 $(document).ready(function () {
 
     $("#datatable-investigaciones").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "/investigaciones/api/ejecutivo_de_cuentas/?format=datatables",
+        serverSide: false,
+        ajax: {
+            url : "/investigaciones/api/ejecutivo_de_cuentas/",
+            dataSrc: "results",
+        },
         language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        pageLength: 50,
+        pageLength: 100,
         lengthMenu: [
           [25, 50, 100, -1],
-          [25, 50, 100, "All"]
+          [25, 50, 100, "Todos"]
         ],
         columnDefs: [
             {

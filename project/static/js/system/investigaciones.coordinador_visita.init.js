@@ -6,13 +6,22 @@ function investigacionCoordinadoVisitaDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones_coordinador_visita/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/investigaciones/api/investigaciones_coordinador_visita/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        pageLength: 50,
+        pageLength: 100,
+        lengthMenu: [
+            [25, 50, 100, -1],
+            [25, 50, 100, "Todos"]
+        ],
         columnDefs: [
             // {
             //     targets: 5,
@@ -95,6 +104,29 @@ $(document).ready(function () {
 
         ],
         "order": [[2, "desc"]],
+        dom: 'Blfrtip',
+        buttons: [{
+            extend: 'copyHtml5',
+            text: '<i class="fa fa-copy"></i> Copiar',
+            titleAttr: 'Copiar'
+        },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Excel',
+                titleAttr: 'Exportar a excel'
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fa fa-file-contract"></i> CSV',
+                titleAttr: 'CSV'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
+                titleAttr: 'Exportar a PDF'
+            }
+        ],
+        buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

@@ -14,11 +14,19 @@ function gestorDelete(id) {
 $(document).ready(function () {
 
     $("#datatable-gestor-info").DataTable({
-        "serverSide": true,
-        "ajax": "/agente/api/gestores/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/agente/api/gestores/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 100,
+        lengthMenu: [
+            [25, 50, 100, -1],
+            [25, 50, 100, "Todos"]
+        ],
         "columns": [
 
             {
@@ -87,7 +95,29 @@ $(document).ready(function () {
 
         ],
         lengthChange: !1,
-        // buttons: ["copy", "excel", "pdf", "colvis"],
+        dom: 'Blfrtip',
+        buttons: [{
+            extend: 'copyHtml5',
+            text: '<i class="fa fa-copy"></i> Copiar',
+            titleAttr: 'Copiar'
+        },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Excel',
+                titleAttr: 'Exportar a excel'
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fa fa-file-contract"></i> CSV',
+                titleAttr: 'CSV'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
+                titleAttr: 'Exportar a PDF'
+            }
+        ],
+        buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

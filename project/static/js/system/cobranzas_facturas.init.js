@@ -6,12 +6,22 @@ function investigacionDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones_facturas/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/investigaciones/api/investigaciones_facturas/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 100,
+        lengthMenu: [
+            [25, 50, 100, -1],
+            [25, 50, 100, "Todos"]
+        ],
         columnDefs: [
             
             {
@@ -162,7 +172,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [2, "desc"],
+        "order": [10, "desc"],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',

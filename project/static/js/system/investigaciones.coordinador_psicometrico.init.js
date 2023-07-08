@@ -6,13 +6,22 @@ function investigacionCoordinadoVisitaDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/investigaciones/api/investigaciones_psicometrico/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/investigaciones/api/investigaciones_psicometrico/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        pageLength: 50,
+        pageLength: 100,
+        lengthMenu: [
+            [25, 50, 100, -1],
+            [25, 50, 100, "Todos"]
+        ],
         columnDefs: [
             {
                 targets: 6,
@@ -112,7 +121,6 @@ $(document).ready(function () {
             },
 
         ],
-        "order": [[2, "desc"]],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',
@@ -137,6 +145,7 @@ $(document).ready(function () {
         ],
         lengthChange: !1,
         buttons: ["copy", "excel", "pdf", "colvis"],
+        "order": [[2, "desc"]],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },

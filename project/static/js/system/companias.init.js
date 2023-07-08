@@ -6,11 +6,19 @@ function companiaDetail(id) {
 
 $(document).ready(function () {
     $("#datatable-companias").DataTable({
-        "serverSide": true,
-        "ajax": "/empresa/api/companias/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/empresa/api/companias/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 100,
+        lengthMenu: [
+            [25, 50, 100, -1],
+            [25, 50, 100, "Todos"]
+        ],
         columnDefs: [
         //     {
         //     targets: 3,
@@ -70,7 +78,29 @@ $(document).ready(function () {
             {"data": "referencia_correo", "title": "Referencia por correo"},
         ],
         lengthChange: !1,
-        // buttons: ["copy", "excel", "pdf", "colvis"],
+        dom: 'Blfrtip',
+        buttons: [{
+            extend: 'copyHtml5',
+            text: '<i class="fa fa-copy"></i> Copiar',
+            titleAttr: 'Copiar'
+        },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel"></i> Excel',
+                titleAttr: 'Exportar a excel'
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fa fa-file-contract"></i> CSV',
+                titleAttr: 'CSV'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
+                titleAttr: 'Exportar a PDF'
+            }
+        ],
+        buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
           },

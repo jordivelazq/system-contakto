@@ -15,8 +15,11 @@ function clienteUserUpdatePassword(id) {
 
 $(document).ready(function () {
     $("#datatable-clientes").DataTable({
-        "serverSide": true,
-        "ajax": "/clientes/api/clientes/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/clientes/api/clientes/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },

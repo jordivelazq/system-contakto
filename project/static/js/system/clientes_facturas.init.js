@@ -6,9 +6,14 @@ function investigacionDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+
     $("#datatable-investigaciones").DataTable({
-        "serverSide": true,
-        "ajax": "/clientes/api/clientes_facturas/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/clientes/api/clientes_facturas/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
@@ -56,7 +61,7 @@ $(document).ready(function () {
                     }
 
                     if (typeof status[data] === 'undefined') {
-                        // console.log(data);
+                         console.log(data);
                         return data;
                     }
 
@@ -141,30 +146,30 @@ $(document).ready(function () {
 
         ],
         "order": [[2, "desc"]],
-        // dom: 'Blfrtip',
-        // buttons: [{
-        //     extend: 'copyHtml5',
-        //     text: '<i class="fa fa-copy"></i> Copiar',
-        //     titleAttr: 'Copiar'
-        //   },
-        //   {
-        //     extend: 'excelHtml5',
-        //     text: '<i class="fa fa-file-excel"></i> Excel',
-        //     titleAttr: 'Exportar a excel'
-        //   },
-        //   {
-        //     extend: 'csvHtml5',
-        //     text: '<i class="fa fa-file-contract"></i> CSV',
-        //     titleAttr: 'CSV'
-        //   },
-        //   {
-        //     extend: 'pdfHtml5',
-        //     text: '<i class="fa fa-file-pdf"></i> PDF',
-        //     titleAttr: 'Exportar a PDF'
-        //   }
-        // ],
-        // lengthChange: !1,
-        // buttons: ["copy", "excel", "pdf", "colvis"],
+         dom: 'Blfrtip',
+         buttons: [{
+             extend: 'copyHtml5',
+             text: '<i class="fa fa-copy"></i> Copiar',
+             titleAttr: 'Copiar'
+           },
+           {
+             extend: 'excelHtml5',
+             text: '<i class="fa fa-file-excel"></i> Excel',
+             titleAttr: 'Exportar a excel'
+           },
+           {
+             extend: 'csvHtml5',
+             text: '<i class="fa fa-file-contract"></i> CSV',
+             titleAttr: 'CSV'
+           },
+           {
+             extend: 'pdfHtml5',
+             text: '<i class="fa fa-file-pdf"></i> PDF',
+             titleAttr: 'Exportar a PDF'
+           }
+         ],
+         lengthChange: !1,
+         buttons: ["copy", "excel", "pdf", "colvis"],
         "initComplete": function (settings, json) {
             $('div.loading-table-data').hide()
         },
