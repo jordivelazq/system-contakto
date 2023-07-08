@@ -13,7 +13,7 @@ $(document).ready(function () {
         language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        pageLength: 50,
+        pageLength: 100,
         lengthMenu: [
             [25, 50, 100, -1],
             [25, 50, 100, "All"]
@@ -181,7 +181,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[2, "desc"]],
+        "order": [[1, "desc"]],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',
