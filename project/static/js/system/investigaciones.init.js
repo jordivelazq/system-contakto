@@ -6,17 +6,22 @@ function investigacionDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+    $.fn.dataTable.moment( 'HH:mm' );
+
     $("#datatable-investigaciones").DataTable({
-        processing: true,
         serverSide: false,
-        ajax: "/investigaciones/api/investigaciones/?format=datatables",
+        ajax: {
+            url : "/investigaciones/api/investigaciones/",
+            dataSrc: "results",
+        },
         language: {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
-        pageLength: 50,
+        pageLength: 100,
         lengthMenu: [
             [25, 50, 100, -1],
-            [25, 50, 100, "All"]
+            [25, 50, 100, "Todos"]
         ],
         columnDefs: [
             {
@@ -162,7 +167,7 @@ $(document).ready(function () {
             },
 
         ],
-        "order": [[2, "desc"]],
+        "order": [[2, "desc"],[3,"desc"]],
         dom: 'Blfrtip',
         buttons: [{
             extend: 'copyHtml5',
