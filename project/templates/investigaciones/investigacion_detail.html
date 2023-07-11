@@ -673,8 +673,9 @@
                                     </div>
                                 </div>
                                 <br>
-
+                                {% comment %}
                                 {% if investigacion.entrevista_from_completado %}
+                                {% endcomment %}
                                     {% if not investigacion.investigacion_completada %}
                                         <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-pregunta">
                                             <i class="bx bx-check label-icon"></i> Completar Investigación
@@ -707,7 +708,9 @@
                                         </a>
 
                                     {% endif %}
+                                    {% comment %}
                                 {% endif %}
+                                    {% endcomment %}
 
                             </div>
                         </div>

@@ -1981,6 +1981,7 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         cliente_solicitud_candidato.save()
 
         inv.investigacion_completada = True
+        inv.status = 2
         inv.save()
 
         return redirect('investigaciones:investigacion_detail', self.kwargs['investigacion_id'])

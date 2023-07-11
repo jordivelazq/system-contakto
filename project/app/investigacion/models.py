@@ -110,7 +110,7 @@ class Investigacion(models.Model):
     fecha_entrega = models.DateField(blank=True, null=True)
     puesto = models.CharField(max_length=140)
     #Fecha en que se asigna el ejecutivo laboral
-    fecha_asignacion = models.DateField(blank=True, null=True)
+    fecha_asignacion = models.DateTimeField(blank=True, null=True)
 
     observaciones = models.TextField(max_length=200, blank=True, null=True)
     entrevista = models.DateTimeField(blank=True, null=True)

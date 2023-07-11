@@ -139,7 +139,7 @@ $(document).ready(function () {
                 "data": "agente",
                 "responsivePriority": 2,
                 "render": function (data, type, row, meta) {
-                    if (row.agente != undefined && row.agente != 'No asignado')
+                    if (row.agente_name != undefined && row.agente_name != 'No asignado')
                         return '<i class="fa fa-check text-success"></i>';
                     return '<i class="fa fa-times text-danger"></i>';
                 }
@@ -147,6 +147,9 @@ $(document).ready(function () {
             {
                 "title": "Fecha de asignación",
                 "data": "fecha_asignacion",
+                "render": function (data, type, row, meta) {
+                    return moment(data).format('DD/MM/YYYY HH:mm');
+                }
             },
             {
                 "title": "Cita",
