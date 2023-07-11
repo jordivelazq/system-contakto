@@ -25,7 +25,7 @@ $(document).ready(function () {
         ],
         columnDefs: [
             {
-                targets: 5,
+                targets: 7,
                 className: 'dt-body-center',
                 render: function (data, type, row) {
                     if (data == true) {
@@ -36,7 +36,7 @@ $(document).ready(function () {
                 },
             },
             {
-                targets: 9,
+                targets: 6,
                 render: function (data, type, full, meta) {
                     var status = {
                         0: {
@@ -108,11 +108,6 @@ $(document).ready(function () {
                 responsivePriority: 1,
             },
             {
-                title: "Datos verificados",
-                data: "candidato.datos_validados",
-                responsivePriority: 2,
-            },
-            {
                 title: "Tipo de Investigación",
                 data: 'tipo_investigacion',
                 searchable: false,
@@ -129,15 +124,18 @@ $(document).ready(function () {
                 responsivePriority: 2,
                 searchable: false,
             },
-            {
+            /*{
                 "title": "Estatus",
                 data: "status",
                 responsivePriority: 2,
+            },*/
+            {
+                title: "Datos verificados",
+                data: "candidato.datos_validados",
             },
             {
                 "title": "Asignado",
                 "data": "agente",
-                "responsivePriority": 2,
                 "render": function (data, type, row, meta) {
                     if (row.agente_name != undefined && row.agente_name != 'No asignado')
                         return '<i class="fa fa-check text-success"></i>';
@@ -148,7 +146,10 @@ $(document).ready(function () {
                 "title": "Fecha de asignación",
                 "data": "fecha_asignacion",
                 "render": function (data, type, row, meta) {
-                    return moment(data).format('DD/MM/YYYY HH:mm');
+                    if (moment(data).isValid()){
+                        return moment(data).format('DD/MM/YYYY HH:mm');
+                    }
+                    return "Pendiente";
                 }
             },
             {
@@ -171,18 +172,18 @@ $(document).ready(function () {
                      */
 
                     if (row.tipo_investigacion != undefined) {
-                        if (row.status === 'Inv. Terminada') {
-                            if (row.tipo_investigacion === 'Laboral')
+                        if (row.tipo_investigacion === 'Laboral' && row.laboral_terminado)
                                 return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                            else if (row.tipo_investigacion === 'Socioeconómico')
-                                return `<a href="/personas/investigacion/exportar/reporte-socioeconomico/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                            else if (row.tipo_investigacion === 'Validación de demandas')
+                            else if (row.tipo_investigacion === 'Socioeconómico'){
+                                if (row.laboral_terminado && row.entrevista_from_completado)
+                                    return `<a href="/personas/investigacion/exportar/reporte-socioeconomico/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
+                                return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i>Laboral</a>`;
+                            }else if (row.tipo_investigacion === 'Validación de demandas' && row.laboral_terminado)
                                 return `<a href="/personas/investigacion/exportar/reporte-demandas/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
-                            else if (row.tipo_investigacion === 'Visita domiciliaria')
+                            else if (row.tipo_investigacion === 'Visita domiciliaria' && row.entrevista_from_completado)
                                 return `<a href="/personas/investigacion/exportar/reporte-visita-domiciliaria/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
                             else
-                                return '';
-                        }
+                                return 'En proceso';
                     }
                     return 'No terminada';
                 }
