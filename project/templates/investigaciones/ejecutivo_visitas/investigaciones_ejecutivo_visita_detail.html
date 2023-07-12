@@ -126,6 +126,17 @@
 
                             <br>
 
+                            {% if archivo_adjunto %}
+                            <a href="../../../../media/{{ archivo_adjunto }}" target="_blank" class="btn btn-warning waves-effect btn-label waves-light">
+                                <i class="bx bx-download label-icon"></i>
+                                Descargar archivo
+                            </a>
+                            {% else %}
+                                Sin archivo adjunto
+                            {% endif %}
+
+                            <br><br>
+
                         </div>
                     </div>
                 </div><!-- end col -->

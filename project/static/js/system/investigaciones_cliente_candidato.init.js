@@ -172,13 +172,13 @@ $(document).ready(function () {
                      */
 
                     if (row.tipo_investigacion != undefined) {
-                        if (row.tipo_investigacion === 'Laboral' && row.laboral_terminado)
+                        if (row.tipo_investigacion === 'Laboral' && row.laboral_completado)
                                 return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
                             else if (row.tipo_investigacion === 'Socioeconómico'){
-                                if (row.laboral_terminado && row.entrevista_from_completado)
+                                if (row.laboral_completado && row.entrevista_from_completado)
                                     return `<a href="/personas/investigacion/exportar/reporte-socioeconomico/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
                                 return `<a href="/personas/investigacion/exportar/reporte-laboral/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i>Laboral</a>`;
-                            }else if (row.tipo_investigacion === 'Validación de demandas' && row.laboral_terminado)
+                            }else if (row.tipo_investigacion === 'Validación de demandas' && row.laboral_completado)
                                 return `<a href="/personas/investigacion/exportar/reporte-demandas/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;
                             else if (row.tipo_investigacion === 'Visita domiciliaria' && row.entrevista_from_completado)
                                 return `<a href="/personas/investigacion/exportar/reporte-visita-domiciliaria/${row.id}" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> ${row.tipo_investigacion}</a>`;

@@ -186,6 +186,7 @@ class InvestigacionEjecutivoVisitaDetailView(DetailView):
             gInv = None
 
         context['gestor'] = gInv
+        context['archivo_adjunto'] = inv.cliente_solicitud_candidato.archivo_solicitud
 
         return context
 
@@ -268,6 +269,7 @@ class InvestigacionCoodinadorVisitaDetailView(DetailView):
         # DATOS DE LA CITA
         entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
         context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+        context['archivo_adjunto'] = inv.cliente_solicitud_candidato.archivo_solicitud
 
         return context
 
@@ -448,6 +450,7 @@ class InvestigacionDetailView(DetailView):
         context['entrevista_persona'] = entrevista_persona
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
         context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
+        context['archivo_adjunto'] = inv.cliente_solicitud_candidato.archivo_solicitud
         return context
 
     def post(self, request, *args, **kwargs):
@@ -1655,6 +1658,7 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
         context['formaInvestigacion'] = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=inv)
         context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
         context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
+        context['archivo_adjunto'] = inv.cliente_solicitud_candidato.archivo_solicitud
         return context
 
 
