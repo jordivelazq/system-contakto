@@ -39,6 +39,7 @@ from .api import (
     InvestigacionCoordinadorPsicometricoViewSet,
     InvestigacionCoordinadorVisitaCreateView,
     InvestigacionCoordinadorVisitaUpdateView,
+    InvestigacionCoordinadorVisitasCandidatoTemplateView,
     InvestigacionCoordPsicometricoUpdateView,
     InvestigacionCoordVisitaUpdateView,
     InvestigacionDetailView,
@@ -53,6 +54,7 @@ from .api import (
     InvestigacionEjecutivoVisitaTemplateView,
     InvestigacionEjecutivoVisitaUpdateView,
     InvestigacionEjecutivoVisitaViewSet,
+    InvestigacionEjecutivoVisitasCandidatoTemplateView,
     InvestigacionEntrevistaTemplateView,
     InvestigacionEntrevistaViewSet,
     InvestigacionTemplateView,
@@ -124,6 +126,16 @@ urlpatterns = [
         "investigaciones/ejecutivo-de-ventas/candidatos/<int:investigacion_id>/",
         InvestigacionEjecutivoLaboralCandidatoTemplateView.as_view(),
         name="investigacion_edv_candidato_edit",
+    ),
+    path(
+        "investigaciones/ejecutivo-visitas/candidatos/<int:investigacion_id>/",
+        InvestigacionEjecutivoVisitasCandidatoTemplateView.as_view(),
+        name="investigacion_evis_candidato_edit",
+    ),
+    path(
+        "investigaciones/coordinador-visitas/candidatos/<int:investigacion_id>/",
+        InvestigacionCoordinadorVisitasCandidatoTemplateView.as_view(),
+        name="investigacion_coordvis_candidato_edit",
     ),
     # Trayectoria laboral
     path(

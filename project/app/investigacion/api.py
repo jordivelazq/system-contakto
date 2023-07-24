@@ -1854,6 +1854,394 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
 
         return context
 
+class InvestigacionEjecutivoVisitasCandidatoTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'investigaciones/investigacion_visitas_candidato_edit.html'
+
+    def post(self, request, *args, **kwargs):
+
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+        # agente_id = investigacion.agente.id
+        origen = investigacion.candidato.origen_set.all()
+        direccion = investigacion.candidato.direccion_set.all()
+        tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
+        tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
+        tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
+        legalidad = investigacion.candidato.legalidad_set.all()
+        demanda = investigacion.candidato.demanda_set.all()
+        seguro = investigacion.candidato.seguro_set.all()
+
+        formCandidato = CandidatoAltaForm(
+            request.POST, prefix='candidato', instance=investigacion.candidato)
+
+        if formCandidato.is_valid():
+            messages.add_message(request, messages.SUCCESS,
+                                 'El candidato ha sido guardado')
+            formCandidato.save()
+            investigacion.candidato_validado = formCandidato.cleaned_data['datos_validados']
+            if investigacion.candidato_validado:
+                try:
+                    csc = ClienteSolicitudCandidato.objects.get(
+                        pk=investigacion.cliente_solicitud_candidato_id)
+                    if not csc.fecha_inicio:
+                        csc.fecha_inicio = datetime.datetime.now()
+                        csc.save()
+                except:
+                    pass
+            investigacion.save()
+            InvestigacionBitacora(investigacion_id=investigacion.id, user_id=request.user.pk,
+                                  servicio='Candidato', observaciones='Candidato actualizado').save()
+        else:
+            msg_param = ''
+        ####################### Origen #######################
+        formOrigen = OrigenAltaForma(request.POST, prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(
+            request.POST, prefix='origen')
+        if has_info(request.POST, prefix='origen', investigacion=investigacion):
+            if formOrigen.is_valid():
+                origen = formOrigen.save(commit=False)
+                origen.persona = investigacion.candidato
+                origen.save()
+            else:
+                msg_param = ''
+        ####################### Dirección #######################
+        formDireccion = DireccionForm(request.POST, prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(
+            request.POST, prefix='direccion')
+        if has_info(request.POST, prefix='direccion', investigacion=investigacion):
+            if formDireccion.is_valid():
+                direccion = formDireccion.save(commit=False)
+                direccion.persona = investigacion.candidato
+                direccion.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono1 (casa)  #######################
+        formTelefono1 = TelefonoForm(request.POST, prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(
+            request.POST, prefix='telefono1')
+        if has_info(request.POST, prefix='telefono1', investigacion=investigacion):
+            if formTelefono1.is_valid():
+                tel1 = formTelefono1.save(commit=False)
+                tel1.persona = investigacion.candidato
+                tel1.categoria = 'casa'
+                tel1.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono2 (movil)  #######################
+        formTelefono2 = TelefonoForm(request.POST, prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(
+            request.POST, prefix='telefono2')
+        if has_info(request.POST, prefix='telefono2', investigacion=investigacion):
+            if formTelefono2.is_valid():
+                tel2 = formTelefono2.save(commit=False)
+                tel2.persona = investigacion.candidato
+                tel2.categoria = 'movil'
+                tel2.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono3 (recado)  #######################
+        formTelefono3 = TelefonoForm(request.POST, prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(
+            request.POST, prefix='telefono3')
+        if has_info(request.POST, prefix='telefono3', investigacion=investigacion):
+            if formTelefono3.is_valid():
+                tel3 = formTelefono3.save(commit=False)
+                tel3.persona = investigacion.candidato
+                tel3.categoria = 'recado'
+                tel3.save()
+            else:
+                msg_param = ''
+        ####################### PrestacionVivienda Infonavit #######################
+        formPrestacionViviendaInfonavit = PrestacionViviendaForma(
+            request.POST, prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_infonavit')
+        if has_info(request.POST, prefix='prestacion_vivienda_infonavit', investigacion=investigacion):
+            if formPrestacionViviendaInfonavit.is_valid():
+                prestacionViviendaInfonavit = formPrestacionViviendaInfonavit.save(
+                    commit=False)
+                prestacionViviendaInfonavit.persona = investigacion.candidato
+                prestacionViviendaInfonavit.categoria_viv = 'infonavit'
+                prestacionViviendaInfonavit.save()
+            else:
+                msg_param = ''
+        ####################### PrestacionVivienda Fonacot #######################
+        formPrestacionViviendaFonacot = PrestacionViviendaForma(
+            request.POST, prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_fonacot')
+        if has_info(request.POST, prefix='prestacion_vivienda_fonacot', investigacion=investigacion):
+            if formPrestacionViviendaFonacot.is_valid():
+                prestacionViviendaFonacot = formPrestacionViviendaFonacot.save(
+                    commit=False)
+                prestacionViviendaFonacot.persona = investigacion.candidato
+                prestacionViviendaFonacot.categoria_viv = 'fonacot'
+                prestacionViviendaFonacot.save()
+            else:
+                msg_param = ''
+        ####################### Legalidad #######################
+        formLegalidad = LegalidadAltaForma(
+            request.POST, prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(request.POST, prefix='legalidad')
+        if has_info(request.POST, prefix='legalidad', investigacion=investigacion):
+            if formLegalidad.is_valid():
+                legalidad = formLegalidad.save(commit=False)
+                legalidad.persona = investigacion.candidato
+                legalidad.save()
+            else:
+                msg_param = ''
+
+        return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))
+               
+
+        #return redirect(reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionEjecutivoVisitasCandidatoTemplateView, self).get_context_data(**kwargs)
+
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+        # agente_id = investigacion.agente.id
+        origen = investigacion.candidato.origen_set.all()
+        direccion = investigacion.candidato.direccion_set.all()
+        tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
+        tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
+        tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
+        legalidad = investigacion.candidato.legalidad_set.all()
+        demanda = investigacion.candidato.demanda_set.all()
+        seguro = investigacion.candidato.seguro_set.all()
+
+        DemandaFormSet = modelformset_factory(
+            Demanda, form=DemandaAltaForma, max_num=1, extra=1)
+
+        context['title'] = "Investigaciones / Actualizacion datos del candidato"
+
+        context['investigacion'] = investigacion
+
+        context['formCandidato'] = CandidatoAltaForm(
+            prefix='candidato', instance=investigacion.candidato)
+        # context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
+        #                                                        'compania': investigacion.compania.id}, agt_id=agente_id)
+        context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
+            'compania': investigacion.compania.id})
+        context['formOrigen'] = OrigenAltaForma(
+            prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')
+        context['formDireccion'] = DireccionForm(
+            prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
+        context['formTelefono1'] = TelefonoForm(
+            prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
+        context['formTelefono2'] = TelefonoForm(
+            prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(prefix='telefono2')
+        context['formTelefono3'] = TelefonoForm(
+            prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(prefix='telefono3')
+        context['formPrestacionViviendaInfonavit'] = PrestacionViviendaForma(
+            prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
+        context['formPrestacionViviendaFonacot'] = PrestacionViviendaForma(
+            prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
+        context['formLegalidad'] = LegalidadAltaForma(
+            prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
+        context['formDemanda'] = DemandaFormSet(
+            queryset=Demanda.objects.filter(persona=investigacion.candidato))
+        context['formSeguro'] = SeguroAltaForma(
+            prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
+        context['formSucursal'] = CompaniaSucursalForm(
+            investigacion.compania.id, investigacion.sucursal.id if investigacion.sucursal else None, prefix='investigacion')
+
+        return context
+
+class InvestigacionCoordinadorVisitasCandidatoTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'investigaciones/investigacion_coordinador_visitas_candidato_edit.html'
+
+    def post(self, request, *args, **kwargs):
+
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+        # agente_id = investigacion.agente.id
+        origen = investigacion.candidato.origen_set.all()
+        direccion = investigacion.candidato.direccion_set.all()
+        tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
+        tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
+        tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
+        legalidad = investigacion.candidato.legalidad_set.all()
+        demanda = investigacion.candidato.demanda_set.all()
+        seguro = investigacion.candidato.seguro_set.all()
+
+        formCandidato = CandidatoAltaForm(
+            request.POST, prefix='candidato', instance=investigacion.candidato)
+
+        if formCandidato.is_valid():
+            messages.add_message(request, messages.SUCCESS,
+                                 'El candidato ha sido guardado')
+            formCandidato.save()
+            investigacion.candidato_validado = formCandidato.cleaned_data['datos_validados']
+            if investigacion.candidato_validado:
+                try:
+                    csc = ClienteSolicitudCandidato.objects.get(
+                        pk=investigacion.cliente_solicitud_candidato_id)
+                    if not csc.fecha_inicio:
+                        csc.fecha_inicio = datetime.datetime.now()
+                        csc.save()
+                except:
+                    pass
+            investigacion.save()
+            InvestigacionBitacora(investigacion_id=investigacion.id, user_id=request.user.pk,
+                                  servicio='Candidato', observaciones='Candidato actualizado').save()
+        else:
+            msg_param = ''
+        ####################### Origen #######################
+        formOrigen = OrigenAltaForma(request.POST, prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(
+            request.POST, prefix='origen')
+        if has_info(request.POST, prefix='origen', investigacion=investigacion):
+            if formOrigen.is_valid():
+                origen = formOrigen.save(commit=False)
+                origen.persona = investigacion.candidato
+                origen.save()
+            else:
+                msg_param = ''
+        ####################### Dirección #######################
+        formDireccion = DireccionForm(request.POST, prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(
+            request.POST, prefix='direccion')
+        if has_info(request.POST, prefix='direccion', investigacion=investigacion):
+            if formDireccion.is_valid():
+                direccion = formDireccion.save(commit=False)
+                direccion.persona = investigacion.candidato
+                direccion.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono1 (casa)  #######################
+        formTelefono1 = TelefonoForm(request.POST, prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(
+            request.POST, prefix='telefono1')
+        if has_info(request.POST, prefix='telefono1', investigacion=investigacion):
+            if formTelefono1.is_valid():
+                tel1 = formTelefono1.save(commit=False)
+                tel1.persona = investigacion.candidato
+                tel1.categoria = 'casa'
+                tel1.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono2 (movil)  #######################
+        formTelefono2 = TelefonoForm(request.POST, prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(
+            request.POST, prefix='telefono2')
+        if has_info(request.POST, prefix='telefono2', investigacion=investigacion):
+            if formTelefono2.is_valid():
+                tel2 = formTelefono2.save(commit=False)
+                tel2.persona = investigacion.candidato
+                tel2.categoria = 'movil'
+                tel2.save()
+            else:
+                msg_param = ''
+        ####################### Teléfono3 (recado)  #######################
+        formTelefono3 = TelefonoForm(request.POST, prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(
+            request.POST, prefix='telefono3')
+        if has_info(request.POST, prefix='telefono3', investigacion=investigacion):
+            if formTelefono3.is_valid():
+                tel3 = formTelefono3.save(commit=False)
+                tel3.persona = investigacion.candidato
+                tel3.categoria = 'recado'
+                tel3.save()
+            else:
+                msg_param = ''
+        ####################### PrestacionVivienda Infonavit #######################
+        formPrestacionViviendaInfonavit = PrestacionViviendaForma(
+            request.POST, prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_infonavit')
+        if has_info(request.POST, prefix='prestacion_vivienda_infonavit', investigacion=investigacion):
+            if formPrestacionViviendaInfonavit.is_valid():
+                prestacionViviendaInfonavit = formPrestacionViviendaInfonavit.save(
+                    commit=False)
+                prestacionViviendaInfonavit.persona = investigacion.candidato
+                prestacionViviendaInfonavit.categoria_viv = 'infonavit'
+                prestacionViviendaInfonavit.save()
+            else:
+                msg_param = ''
+        ####################### PrestacionVivienda Fonacot #######################
+        formPrestacionViviendaFonacot = PrestacionViviendaForma(
+            request.POST, prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(request.POST, prefix='prestacion_vivienda_fonacot')
+        if has_info(request.POST, prefix='prestacion_vivienda_fonacot', investigacion=investigacion):
+            if formPrestacionViviendaFonacot.is_valid():
+                prestacionViviendaFonacot = formPrestacionViviendaFonacot.save(
+                    commit=False)
+                prestacionViviendaFonacot.persona = investigacion.candidato
+                prestacionViviendaFonacot.categoria_viv = 'fonacot'
+                prestacionViviendaFonacot.save()
+            else:
+                msg_param = ''
+        ####################### Legalidad #######################
+        formLegalidad = LegalidadAltaForma(
+            request.POST, prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(request.POST, prefix='legalidad')
+        if has_info(request.POST, prefix='legalidad', investigacion=investigacion):
+            if formLegalidad.is_valid():
+                legalidad = formLegalidad.save(commit=False)
+                legalidad.persona = investigacion.candidato
+                legalidad.save()
+            else:
+                msg_param = ''
+
+        return redirect(reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionCoordinadorVisitasCandidatoTemplateView, self).get_context_data(**kwargs)
+
+        investigacion = Investigacion.objects.select_related(
+            'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+        # agente_id = investigacion.agente.id
+        origen = investigacion.candidato.origen_set.all()
+        direccion = investigacion.candidato.direccion_set.all()
+        tel1 = investigacion.candidato.telefono_set.filter(categoria='casa')
+        tel2 = investigacion.candidato.telefono_set.filter(categoria='movil')
+        tel3 = investigacion.candidato.telefono_set.filter(categoria='recado')
+        infonavit = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='infonavit')
+        fonacot = investigacion.candidato.prestacionvivienda_set.filter(
+            categoria_viv='fonacot')
+        legalidad = investigacion.candidato.legalidad_set.all()
+        demanda = investigacion.candidato.demanda_set.all()
+        seguro = investigacion.candidato.seguro_set.all()
+
+        DemandaFormSet = modelformset_factory(
+            Demanda, form=DemandaAltaForma, max_num=1, extra=1)
+
+        context['title'] = "Investigaciones / Actualizacion datos del candidato"
+
+        context['investigacion'] = investigacion
+
+        context['formCandidato'] = CandidatoAltaForm(
+            prefix='candidato', instance=investigacion.candidato)
+        # context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
+        #                                                        'compania': investigacion.compania.id}, agt_id=agente_id)
+        context['formInvestigacion'] = InvestigacionEditarForm(prefix='investigacion', instance=investigacion, initial={
+            'compania': investigacion.compania.id})
+        context['formOrigen'] = OrigenAltaForma(
+            prefix='origen', instance=origen[0]) if origen else OrigenAltaForma(prefix='origen')
+        context['formDireccion'] = DireccionForm(
+            prefix='direccion', instance=direccion[0]) if direccion else DireccionForm(prefix='direccion')
+        context['formTelefono1'] = TelefonoForm(
+            prefix='telefono1', instance=tel1[0]) if tel1 else TelefonoForm(prefix='telefono1')
+        context['formTelefono2'] = TelefonoForm(
+            prefix='telefono2', instance=tel2[0]) if tel2 else TelefonoForm(prefix='telefono2')
+        context['formTelefono3'] = TelefonoForm(
+            prefix='telefono3', instance=tel3[0]) if tel3 else TelefonoForm(prefix='telefono3')
+        context['formPrestacionViviendaInfonavit'] = PrestacionViviendaForma(
+            prefix='prestacion_vivienda_infonavit', instance=infonavit[0]) if infonavit else PrestacionViviendaForma(prefix='prestacion_vivienda_infonavit')
+        context['formPrestacionViviendaFonacot'] = PrestacionViviendaForma(
+            prefix='prestacion_vivienda_fonacot', instance=fonacot[0]) if fonacot else PrestacionViviendaForma(prefix='prestacion_vivienda_fonacot')
+        context['formLegalidad'] = LegalidadAltaForma(
+            prefix='legalidad', instance=legalidad[0]) if legalidad else LegalidadAltaForma(prefix='legalidad')
+        context['formDemanda'] = DemandaFormSet(
+            queryset=Demanda.objects.filter(persona=investigacion.candidato))
+        context['formSeguro'] = SeguroAltaForma(
+            prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
+        context['formSucursal'] = CompaniaSucursalForm(
+            investigacion.compania.id, investigacion.sucursal.id if investigacion.sucursal else None, prefix='investigacion')
+
+        return context
+
+
 
 class InvestigacionCoordinadorDemandasCreateView(CreateView):
     # required
