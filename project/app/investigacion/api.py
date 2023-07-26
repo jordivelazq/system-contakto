@@ -391,7 +391,7 @@ class InvestigacionCoodinadorVisitaViewSet(mixins.ListModelMixin, viewsets.Gener
             candidato_validado=True,
             entrevista=True,
             # agente__isnull=True,
-            # coordinador_visitas_id=self.request.user.pk
+            coordinador_visitas_id=self.request.user.pk
         ).order_by("cliente_solicitud")
 
         return qs
