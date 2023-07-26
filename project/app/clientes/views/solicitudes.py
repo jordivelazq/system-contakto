@@ -235,6 +235,8 @@ class ClienteSolicitudEnviarTemplateView(LoginRequiredMixin, TemplateView):
                     investigacion_laboral_2 = True
                 if tInv.pk == 5:
                     entrevista_1 = True
+                if tInv.pk == 4:
+                    entrevista_1 = True
 
             print('Crear solicitud para candidato')
 

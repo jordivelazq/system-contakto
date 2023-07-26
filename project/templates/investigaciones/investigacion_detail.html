@@ -341,26 +341,28 @@
                                 <div class="row">
 
                                     <div class="col-md-12">
+                                        
+                                        {% if investigacion.laboral %}
+                                            <br/>
+                                            <strong>Ejecutivo de cuentas:</strong><br>
+                                            {% if investigacion.ejecutivo_de_cuentas %}
+                                                {{ investigacion.ejecutivo_de_cuentas }}
+                                                <br>
 
-                                        <br/>
-                                        <strong>Ejecutivo de cuentas:</strong><br>
-                                        {% if investigacion.ejecutivo_de_cuentas %}
-                                            {{ investigacion.ejecutivo_de_cuentas }}
-                                            <br>
+                                                <a href="{% url 'investigaciones:investigaciones_coord_de_visitas_eject_venta_update' investigacion.id %}"
+                                                class="btn btn-primary waves-effect btn-label waves-light">
+                                                    <i class="bx bx-edit label-icon"></i>
+                                                    Editar ejecutivo de cuentas
+                                                </a>
 
-                                            <a href="{% url 'investigaciones:investigaciones_coord_de_visitas_eject_venta_update' investigacion.id %}"
-                                               class="btn btn-primary waves-effect btn-label waves-light">
-                                                <i class="bx bx-edit label-icon"></i>
-                                                Editar ejecutivo de cuentas
-                                            </a>
-
-                                        {% else %}
-                                            <span class="text-danger">No asignado</span><br>
-                                            <a href="{% url 'investigaciones:investigaciones_coord_de_visitas_eject_venta_update' investigacion.id %}"
-                                               class="btn btn-primary waves-effect btn-label waves-light">
-                                                <i class="bx bx-edit label-icon"></i>
-                                                Asignar ejecutivo de cuenta
-                                            </a>
+                                            {% else %}
+                                                <span class="text-danger">No asignado</span><br>
+                                                <a href="{% url 'investigaciones:investigaciones_coord_de_visitas_eject_venta_update' investigacion.id %}"
+                                                class="btn btn-primary waves-effect btn-label waves-light">
+                                                    <i class="bx bx-edit label-icon"></i>
+                                                    Asignar ejecutivo de cuenta
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
 
                                         <br>
