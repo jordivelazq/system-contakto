@@ -713,6 +713,18 @@
                                         <small>(Sin archivo)</small>
                                         {% endif %}
                                     </div>
+                                    <div class="col-3 col-offset-1">
+                                        <label>Currículum Vitae 2</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj42 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj42.name }}" class="image-popup" data-title="Currículum Vitae 2">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj42.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -723,6 +735,18 @@
                                         {% if adjuntos.adj41 %}
                                         <a href="{{ MEDIA_URL }}{{ adjuntos.adj41.name }}" class="image-popup" data-title="Solicitud de empleo">
                                             <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj41.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-3 col-offset-1">
+                                        <label>Solicitud de empleo 2</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj43 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj43.name }}" class="image-popup" data-title="Solicitud de empleo 2">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj43.name }}">
                                         </a> 
                                         {% else %}
                                         <small>(Sin archivo)</small>
