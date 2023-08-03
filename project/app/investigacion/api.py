@@ -142,7 +142,7 @@ class InvestigacionEjecutivoVisitaViewSet(mixins.ListModelMixin, viewsets.Generi
     def get_queryset(self):
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False,
-            candidato_validado=True,
+            # candidato_validado=True,
             entrevista=True,
             # tipo_investigacion_status=2,
             # agente__isnull=True,
@@ -1347,7 +1347,7 @@ class InvestigacionCoordinadorPsicometricoViewSet(mixins.ListModelMixin, viewset
     def get_queryset(self):
         qs = self.queryset.filter(
             cliente_solicitud__isnull=False,
-            candidato_validado=True,
+            #candidato_validado=True,
             psicometrico=True,
             coordinador_psicometrico_id=self.request.user.pk
         ).order_by("cliente_solicitud")

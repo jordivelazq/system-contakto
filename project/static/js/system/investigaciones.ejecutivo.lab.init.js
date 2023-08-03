@@ -6,6 +6,8 @@ function investigacionDetail(id) {
 
 $(document).ready(function () {
 
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+
     $("#datatable-investigaciones").DataTable({
         serverSide: false,
         ajax: {
@@ -100,7 +102,8 @@ $(document).ready(function () {
 
                     a += '</div>'
                     return a;
-                }
+                },
+                responsivePriority: 1,
             },
             {
                 title: "Fecha de Registro",
