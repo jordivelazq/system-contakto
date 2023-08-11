@@ -16,13 +16,13 @@ function confirmation(ev) {
         buttonsStyling: !1
     }).then(function (e) {
         e.value ? Swal.fire({
-            title: "Completarda!",
-            text: "El proceso para completar la investigación laboral ha sido completado",
+            title: "Completado",
+            text: "Se eliminó la empresa con éxito",
             icon: "success",
             confirmButtonColor: "#1c84ee"
         }) : e.dismiss === Swal.DismissReason.cancel && Swal.fire({
             title: "Cancelada",
-            text: "El proceso para completar la investigación laboral ha sido cancelado",
+            text: "Se canceló el proceso para eliminar la empresa",
             icon: "error",
             confirmButtonColor: "#1c84ee"
         })

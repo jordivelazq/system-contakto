@@ -46,44 +46,6 @@
   </div>
   <!-- end col -->
 
-  <div class="col-xl-3 col-md-6">
-    <!-- card -->
-    <div class="card card-h-100">
-      <!-- card body -->
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div class="flex-grow-1">
-            <span class="text-muted mb-3 lh-1 d-block text-truncate"
-              >Total facturas</span
-            >
-            <h4 class="mb-3">
-              <span
-                class="counter-value"
-                data-target="{{total_facturas_por_pagar}}"
-                >0</span
-              >
-            </h4>
-            <div class="text-nowrap">
-              <a
-                href="{% url 'clientes:clientes_facturas_list' %}"
-                class="btn btn-primary btn-sm"
-                >Ir al listado de facturas</a
-              >
-            </div>
-          </div>
-          <div class="flex-shrink-0 text-end dash-widget">
-            <div
-              id="client-chart2"
-              data-colors='["#1c84ee", "#33c38e"]'
-              class="apex-charts"
-            ></div>
-          </div>
-        </div>
-      </div>
-      <!-- end card body -->
-    </div>
-    <!-- end card -->
-  </div>
   <!-- end col-->
 </div>
 
@@ -150,6 +112,7 @@
                   >
                 </td>
               </tr>
+              <!--
               <tr>
                 <th scope="row">3</th>
                 <td>Facturas por pagar</td>
@@ -193,6 +156,7 @@
                   >
                 </td>
               </tr>
+              -->
             </tbody>
           </table>
         </div>

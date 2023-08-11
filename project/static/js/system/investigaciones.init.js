@@ -101,10 +101,11 @@ $(document).ready(function () {
 
                     a += '</div>'
                     return a;
-                }
+                },
+                responsivePriority: 1,
             },
             {
-                title: "Fecha de Registro",
+                title: "Fecha",
                 data: "fecha_registro",
                 responsivePriority: 1,
             },
@@ -114,19 +115,23 @@ $(document).ready(function () {
                 responsivePriority: 1,
             },
             {
-                title: "Nombres",
-                data: "candidato.nombre",
+                title: "Nombre completo",
+                data: null,
+                "render" : function (data, type, row, meta) { 
+                    return data.candidato.nombre + " " + data.candidato.apellido
+                },
                 responsivePriority: 1,
+                searchable : true
             },
             {
                 title: "Apellidos",
                 data: "candidato.apellido",
-                responsivePriority: 1,
+                visible : false,
+                searchable: false
             },
             {
                 title: "Datos verificados",
                 data: "candidato.datos_validados",
-                responsivePriority: 2,
             },
             {
                 title: "Cliente",
@@ -137,7 +142,7 @@ $(document).ready(function () {
                 title: "Tipo de Investigación",
                 data: 'tipo_investigacion',
                 searchable: false,
-                responsivePriority: 2,
+                responsivePriority: 1,
                 render: function (data, type, row, meta) {
                     if (row.tipo_investigacion != undefined)
                         return row.tipo_investigacion;
@@ -147,22 +152,21 @@ $(document).ready(function () {
             {
                 title: "Resultado",
                 data: "resultado",
-                responsivePriority: 2,
+                responsivePriority: 1,
                 searchable: false,
             },
             {
                 "title": "Estatus",
                 data: "status",
-                responsivePriority: 2,
             },
             {
                 "title": "Asignado",
                 "data": "agente_name",
-                "responsivePriority": 2,
+                "responsivePriority": 1,
                 "render": function (data, type, row, meta) {
                     if (row.agente_name != undefined && row.agente_name != 'No asignado')
-                        return '<i class="fa fa-check text-success"></i>';
-                    return '<i class="fa fa-times text-danger"></i>';
+                        return '<center><i class="fa fa-check text-success"></i></center>';
+                    return '<center><i class="fa fa-times text-danger"></i></center>';
                 }
             },
 

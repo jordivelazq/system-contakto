@@ -42,7 +42,7 @@ document.getElementById("completar-inv-laboral-pregunta").addEventListener("clic
         buttonsStyling: !1
     }).then(function (e) {
         e.value ? Swal.fire({
-            title: "Completarda!",
+            title: "Completado",
             text: "El proceso para completar la investigación laboral ha sido completado",
             icon: "success",
             confirmButtonColor: "#1c84ee"

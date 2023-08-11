@@ -451,6 +451,9 @@ class InvestigacionDetailView(DetailView):
         context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
         context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
         context['archivo_adjunto'] = inv.cliente_solicitud_candidato.archivo_solicitud
+        context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
+        context['formaInvestigacion'] = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=inv)
+        context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -1242,6 +1245,256 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
         return context
 
+#Trayectoria laboral coordinador
+class PersonaTrayectoriaCoordinadorCrearTemplateView(LoginRequiredMixin, TemplateView):
+    # required
+    group_required = [u"Coord", ]
+    raise_exception = True
+
+    template_name = ''
+
+    page = {
+        'title': 'Trayectoria Laboral',
+    }
+
+    def get(self, request, **kwargs):
+        # Tomar investigacion
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+
+        nva_trayectoria = TrayectoriaLaboral()
+        nva_trayectoria.persona = investigacion.candidato
+        nva_trayectoria.compania = investigacion.compania
+        nva_trayectoria.save()
+
+        Evaluacion(trayectoriaLaboral=nva_trayectoria).save()
+
+        messages.add_message(self.request, messages.SUCCESS,
+                             'La trayectoria se ha guardado satisfactoriamente.')
+        return redirect(reverse('investigaciones:investigacion_coordinador_persona_trayectoria_laboral_edit',
+                                kwargs={"investigacion_id": self.kwargs['investigacion_id'], "pk": nva_trayectoria.pk, }))
+
+class PersonaTrayectoriaCoordinadorEditTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'investigaciones/trayectoria_laboral_form_coordinador.html'
+
+    # def post(self, request, *args, **kwargs):
+
+    #     investigacion = Investigacion.objects.select_related(
+    #         'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
+
+    #     return redirect(reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
+
+    def post(self, request, *args, **kwargs):
+
+        exito = True
+
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+        trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(
+            pk=self.kwargs['pk'])
+        evaluacion = trayectoria_empresa.evaluacion_set.all()
+        opinion_jefe = trayectoria_empresa.opinion_set.filter(
+            categoria=1) if evaluacion else None
+        opinion_rh = trayectoria_empresa.opinion_set.filter(
+            categoria=2) if evaluacion else None
+
+        carta_laboral = trayectoria_empresa.cartalaboral if hasattr(
+            trayectoria_empresa, 'cartalaboral') else None
+        datos_generales = trayectoria_empresa.datosgenerales if hasattr(
+            trayectoria_empresa, 'datosgenerales') else None
+
+        informantes = evaluacion[0].informante_set.all(
+        ) if evaluacion else None
+
+        informante1 = informantes[0] if informantes else None
+
+        informante2 = (informantes[1] if informantes.count(
+        ) > 1 else None) if informantes else None
+
+        formTrayectoria = TrayectoriaForm(
+            request.POST, prefix='trayectoria', instance=trayectoria_empresa)
+        #formTrayectoria.compania= Compania.objects.get(id=-1)
+
+        if formTrayectoria.is_valid():
+            trayectoria_empresa = formTrayectoria.save()
+        else:
+            # logger.info('formTrayectoria invalid')
+            print("####### 01 #######")
+            print(formTrayectoria.errors.as_data())
+            exito = False
+
+        # Carta Laboral
+        formCartaLaboral = CartaLaboralForma(
+            request.POST, instance=carta_laboral)
+        if formCartaLaboral.is_valid():
+            carta_laboral = formCartaLaboral.save(commit=False)
+            carta_laboral.trayectoriaLaboral = trayectoria_empresa
+            carta_laboral.save()
+        else:
+            # logger.info('formCartaLaboral invalid')
+            print("####### 02 #######")
+            exito = False
+
+        # Datos Generales
+        formDatosGenerales = DatosGeneralesForma(
+            request.POST, instance=datos_generales)
+        if formDatosGenerales.is_valid():
+            datos_generales = formDatosGenerales.save(commit=False)
+            datos_generales.trayectoriaLaboral = trayectoria_empresa
+            datos_generales.save()
+        else:
+            # logger.info('formDatosGenerales invalid')
+            print("####### 03 #######")
+            exito = False
+
+        ############## Evaluación ##############
+        formEvaluacion = EvaluacionForm(request.POST, prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(
+            request.POST, prefix='evaluacion')
+
+        if has_info_trayectoria(request.POST, prefix='evaluacion', trayectoria=trayectoria_empresa):
+            if formEvaluacion.is_valid():
+                evaluacion = formEvaluacion.save(commit=False)
+                evaluacion.trayectoriaLaboral = trayectoria_empresa
+                evaluacion.save()
+            else:
+                print("####### 05 #######")
+                # logger.info('formEvaluacion invalid')
+                exito = False
+
+        ############## Opinion (Jefe) ##############
+        formOpinionJefe = OpinionAltaForma(request.POST, prefix='opinion_jefe', instance=opinion_jefe[0]) if opinion_jefe else OpinionAltaForma(
+            request.POST, prefix='opinion_jefe')
+
+        if has_info_trayectoria(request.POST, prefix='opinion_jefe', trayectoria=trayectoria_empresa):
+            if formOpinionJefe.is_valid():
+                opinion_jefe = formOpinionJefe.save(commit=False)
+                opinion_jefe.trayectoriaLaboral = trayectoria_empresa
+                opinion_jefe.categoria = 1
+                opinion_jefe.save()
+            else:
+                print("####### 05 #######")
+                # logger.info('opinion_jefe invalid')
+                exito = False
+
+        ############## Opinion (RH) ##############
+        formOpinionRH = OpinionAltaForma(request.POST, prefix='opinion_rh', instance=opinion_rh[0]) if opinion_rh else OpinionAltaForma(
+            request.POST, prefix='opinion_rh')
+        if has_info_trayectoria(request.POST, prefix='opinion_rh', trayectoria=trayectoria_empresa):
+            if formOpinionRH.is_valid():
+                opinion_rh = formOpinionRH.save(commit=False)
+                opinion_rh.trayectoriaLaboral = trayectoria_empresa
+                opinion_rh.categoria = 2
+                try:
+                    opinion_rh.save()
+                except Exception as error:
+                    # logger.info('opinion_rh error')
+                    # msg.append({
+                    #     "text": "Opinion RH: " + str(error),
+                    #     "status": "danger"
+                    # })
+                    print("####### 06 #######")
+                    exito = False
+            else:
+                pass
+                # logger.info('formOpinionRH invalid')
+                exito = False
+
+        ############## Informantes  ##############
+        formInformante1 = InformanteAltaForma(
+            request.POST, prefix='informante1', instance=informante1) if informante1 else InformanteAltaForma(request.POST, prefix='informante1')
+        if has_info_trayectoria(request.POST, prefix='informante1', trayectoria=trayectoria_empresa):
+            informante1 = formInformante1.save(commit=False)
+            informante1.evaluacion = evaluacion
+            informante1.save()
+
+        formInformante2 = InformanteAltaForma(
+            request.POST, prefix='informante2', instance=informante2) if informante2 else InformanteAltaForma(request.POST, prefix='informante2')
+        if has_info_trayectoria(request.POST, prefix='informante2', trayectoria=trayectoria_empresa):
+            informante2 = formInformante2.save(commit=False)
+            informante2.evaluacion = evaluacion
+            informante2.save()
+
+        if exito:
+            return redirect(reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
+
+    def get_context_data(self, **kwargs):
+        context = super(PersonaTrayectoriaCoordinadorEditTemplateView,
+                        self).get_context_data(**kwargs)
+
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+
+        trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(
+            pk=self.kwargs['pk'])
+        evaluacion = trayectoria_empresa.evaluacion_set.all()
+        opinion_jefe = trayectoria_empresa.opinion_set.filter(
+            categoria=1) if evaluacion else None
+        opinion_rh = trayectoria_empresa.opinion_set.filter(
+            categoria=2) if evaluacion else None
+        carta_laboral = trayectoria_empresa.cartalaboral if hasattr(
+            trayectoria_empresa, 'cartalaboral') else None
+        datos_generales = trayectoria_empresa.datosgenerales if hasattr(
+            trayectoria_empresa, 'datosgenerales') else None
+
+        informantes = evaluacion[0].informante_set.all(
+        ) if evaluacion else None
+        informante1 = informantes[0] if informantes else None
+        informante2 = (informantes[1] if informantes.count(
+        ) > 1 else None) if informantes else None
+
+        datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion)
+
+        #formSucursal = CompaniaSucursalForm(
+        #    trayectoria_empresa.compania.id, trayectoria_empresa.sucursal.id if trayectoria_empresa.sucursal else None, prefix='trayectoria')
+
+        formTrayectoria = TrayectoriaForm(
+            prefix='trayectoria', instance=trayectoria_empresa)
+
+        formCartaLaboral = CartaLaboralForma(
+            instance=carta_laboral) if carta_laboral else CartaLaboralForma()
+
+        formDatosGenerales = DatosGeneralesForma(
+            instance=datos_generales) if datos_generales else DatosGeneralesForma()
+
+        formEvaluacion = EvaluacionForm(
+            prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
+
+        formEvaluacion = EvaluacionForm(
+            prefix='evaluacion', instance=evaluacion[0]) if evaluacion else EvaluacionForm(prefix='evaluacion')
+
+        formOpinionJefe = OpinionAltaForma(
+            prefix='opinion_jefe', instance=opinion_jefe[0]) if opinion_jefe else OpinionAltaForma(prefix='opinion_jefe')
+
+        formOpinionRH = OpinionAltaForma(
+            prefix='opinion_rh', instance=opinion_rh[0]) if opinion_rh else OpinionAltaForma(prefix='opinion_rh')
+
+        formInformante1 = InformanteAltaForma(
+            prefix='informante1', instance=informante1) if informante1 else InformanteAltaForma(prefix='informante1')
+
+        formInformante2 = InformanteAltaForma(
+            prefix='informante2', instance=informante2) if informante2 else InformanteAltaForma(prefix='informante2')
+
+        context['investigacion'] = investigacion
+        context['trayectoria_empresa'] = trayectoria_empresa
+        context['evaluacion'] = evaluacion[0] if evaluacion else None
+        context['opinion_jefe'] = opinion_jefe[0] if opinion_jefe else None
+        context['opinion_rh'] = opinion_rh[0] if opinion_rh else None
+        context['carta_laboral'] = carta_laboral
+        context['datos_generales'] = datos_generales
+        context['informante1'] = informante1
+        context['informante2'] = informante2
+        context['datos_entrevista'] = datos_entrevista
+        #context['formSucursal'] = formSucursal
+        context['formTrayectoria'] = formTrayectoria
+        context['formCartaLaboral'] = formCartaLaboral
+        context['formDatosGenerales'] = formDatosGenerales
+        context['formEvaluacion'] = formEvaluacion
+        context['formOpinionJefe'] = formOpinionJefe
+        context['formOpinionRH'] = formOpinionRH
+        context['formInformante1'] = formInformante1
+        context['formInformante2'] = formInformante2
+
+        return context
 
 class PersonaTrajectoriaComercialCrearTemplateView(LoginRequiredMixin, TemplateView):
     # required
@@ -1335,6 +1588,102 @@ class PersonaTrajectoriaComercialDeleteTemplateView(LoginRequiredMixin, Template
         bitacora.investigacion = investigacion
         bitacora.servicio = "Coord. Ejecutivo"
         bitacora.observaciones = "Eliminacion de referencia de trayectoria comercial"
+        bitacora.save()
+
+        return HttpResponseRedirect('/investigaciones/investigaciones/persona/trayectoria-comercial/create/' + investigacion_id + '/' + trayectoria_id + '/')
+
+class PersonaTrajectoriaComercialCoordinadorCrearTemplateView(LoginRequiredMixin, TemplateView):
+    # required
+    group_required = [u"Client", ]
+    raise_exception = True
+
+    template_name = 'investigaciones/trayectoria_comercial_form_coordinador.html'
+
+    def post(self, request, *args, **kwargs):
+
+        investigacion = Investigacion.objects.get(id=self.kwargs['investigacion_id'])
+        trayectoria_instance = TrayectoriaComercial.objects.get(id=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else None
+
+        referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(trayectoria_comercial=self.kwargs['trayectoria_id']).count() if self.kwargs['trayectoria_id'] else 3
+        referencia_formset = modelformset_factory(TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
+
+        trayectoria_comercial_form = TrayectoriaComercialForm(request.POST, instance=trayectoria_instance)
+        trayectoria_comercial_referencia_formset = referencia_formset(request.POST)
+
+        if trayectoria_comercial_form.is_valid():
+            trayectoria_comercial = trayectoria_comercial_form.save(
+                commit=False)
+            trayectoria_comercial.persona = investigacion.candidato
+            trayectoria_comercial.save()
+
+            if trayectoria_comercial_referencia_formset.is_valid():
+                trayectoria_comercial_referencia = trayectoria_comercial_referencia_formset.save(
+                    commit=False)
+                for referencia in trayectoria_comercial_referencia:
+                    referencia.trayectoria_comercial = trayectoria_comercial
+                    referencia.save()
+
+                bitacora = InvestigacionBitacora()
+                bitacora.user_id = self.request.user.pk
+                bitacora.investigacion = investigacion
+                bitacora.servicio = "Coord. Ejecutivo"
+                bitacora.observaciones = "Creación de trayectoria comercial"
+                bitacora.save()
+
+                return redirect(reverse('investigaciones:investigacion_detail', kwargs={"pk": self.kwargs['investigacion_id'], }))
+
+    def get_context_data(self, **kwargs):
+
+        context = super(PersonaTrajectoriaComercialCoordinadorCrearTemplateView,
+                        self).get_context_data(**kwargs)
+
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+        trayectoria_instance = TrayectoriaComercial.objects.get(
+            id=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else None
+
+        referencia_extra = 3 - TrayectoriaComercialReferencia.objects.filter(
+            trayectoria_comercial_id=self.kwargs['trayectoria_id']).count() if self.kwargs['trayectoria_id'] else 3
+        referencia_formset = modelformset_factory(
+            TrayectoriaComercialReferencia, form=TrayectoriaComercialReferenciaForm, extra=referencia_extra)
+
+        trayectoria_comercial_form = TrayectoriaComercialForm(
+            instance=trayectoria_instance)
+
+        # referencial_queryset = TrayectoriaComercialReferencia.objects.none()
+        referencial_queryset = TrayectoriaComercialReferencia.objects.filter(
+            trayectoria_comercial=self.kwargs['trayectoria_id']) if self.kwargs['trayectoria_id'] else TrayectoriaComercialReferencia.objects.none()
+        trayectoria_comercial_referencia_formset = referencia_formset(
+            queryset=referencial_queryset)
+
+        context['investigacion'] = investigacion
+        context['trayectoria_comercial_form'] = trayectoria_comercial_form
+        context['trayectoria_comercial_referencia_formset'] = trayectoria_comercial_referencia_formset
+
+        return context
+
+
+class PersonaTrajectoriaComercialCoordinadorDeleteTemplateView(LoginRequiredMixin, TemplateView):
+    # required
+    group_required = [u"Client", ]
+    raise_exception = True
+
+    def get(self, request, *args, **kwargs):
+        investigacion = Investigacion.objects.get(
+            id=self.kwargs['investigacion_id'])
+
+        trayectoria_id = str(self.kwargs['trayectoria_id'])
+        investigacion_id = str(self.kwargs['investigacion_id'])
+
+        trayectoria_comercial_referencia = TrayectoriaComercialReferencia.objects.get(
+            id=self.kwargs['pk'])
+        trayectoria_comercial_referencia.delete()
+
+        bitacora = InvestigacionBitacora()
+        bitacora.user_id = self.request.user.pk
+        bitacora.investigacion = investigacion
+        bitacora.servicio = "Coord. Ejecutivo"
+        bitacora.observaciones = "Eliminación de referencia de trayectoria comercial"
         bitacora.save()
 
         return HttpResponseRedirect('/investigaciones/investigaciones/persona/trayectoria-comercial/create/' + investigacion_id + '/' + trayectoria_id + '/')

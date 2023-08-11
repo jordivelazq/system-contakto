@@ -250,48 +250,11 @@
                                     <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
                                        class="btn btn-primary waves-effect btn-label waves-light">
                                         <i class="bx bx-plus label-icon"></i>
-                                        Agregar datos de investigación laboral
+                                        Agregar empresa
                                     </a>
-                                    <hr>
-                                    <h5>Resultados</h5>
-                                    {{ investigacion.get_resultado_display }}<br><br>
-                                    <h5>Conclusiones</h5>
-                                    {{ investigacion.conclusiones | default_if_none:'' }}<br><br>
-                                    <h5>Observaciones</h5>
-                                    {{ investigacion.observaciones | default_if_none:'' }}<br><br>
-                                    <a href="javascript:void(0);"
-                                       onclick="openModalResultados()"
-                                       class="btn btn-success waves-effect btn-label waves-light">
-                                        <i class="bx bx-edit label-icon"></i>
-                                        Editar Resultados, conclusiones y observaciones
-                                    </a>
-                                    <hr>
-                                    <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-laboral-pregunta">
-                                        <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
-                                    </button>
                                 {% else %}
                                     <input type="hidden" id="completar-inv-laboral-pregunta" value="1">
                                     <h5>La investigación está completada</h5>
-                                    <hr>
-                                    <h5>Resultados</h5>
-                                    {{ investigacion.get_resultado_display }}<br><br>
-                                    <h5>Conclusiones</h5>
-                                    {{ investigacion.conclusiones | default_if_none:'' }}<br><br>
-                                    <h5>Observaciones</h5>
-                                    {{ investigacion.observaciones | default_if_none:'' }}<br><br>
-                                    <a href="javascript:void(0);"
-                                       onclick="openModalResultados()"
-                                       class="btn btn-success waves-effect btn-label waves-light">
-                                        <i class="bx bx-edit label-icon"></i>
-                                        Resultados, conclusiones y observaciones
-                                    </a>
-                                    <hr>
-                                    <a href="/candidato/investigacion/exportar/reporte-laboral/{{ investigacion.id }}"
-                                       target="_blank"
-                                       class="btn btn-primary waves-effect btn-label waves-light">
-                                        <i class="bx bx-plus label-icon"></i>
-                                        Reporte de investigación Laboral
-                                    </a>
 
                                 {% endif %}
 
@@ -330,7 +293,7 @@
                                 <a href="{% url 'investigaciones:investigacion_persona_trayectoria_comercial_create' investigacion.id 0 %}"
                                    class="btn btn-primary waves-effect btn-label waves-light can-hide">
                                     <i class="bx bx-plus label-icon"></i>
-                                    Agregar referencia Laboral</a>
+                                    Agregar referencia comercial</a>
 
 
                                 {% comment %}
@@ -359,6 +322,32 @@
                                         </div>
                                     </form>
                                 </div>
+                                <br/>
+                                    <h5>Resultados</h5>
+                                    {{ investigacion.get_resultado_display }}<br><br>
+                                    <h5>Conclusiones</h5>
+                                    {{ investigacion.conclusiones | default_if_none:'' }}<br><br>
+                                    <h5>Observaciones</h5>
+                                    {{ investigacion.observaciones | default_if_none:'' }}<br><br>
+                                    <a href="javascript:void(0);"
+                                       onclick="openModalResultados()"
+                                       class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Editar Resultados, conclusiones y observaciones
+                                    </a>
+                                <br/><br/>
+                                {% if not investigacion.laboral_completado %}
+                                    <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-laboral-pregunta">
+                                        <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
+                                    </button>
+                                {% else %}
+                                    <a href="/candidato/investigacion/exportar/reporte-laboral/{{ investigacion.id }}"
+                                    target="_blank"
+                                    class="btn btn-primary waves-effect btn-label waves-light">
+                                    <i class="bx bx-plus label-icon"></i>
+                                    Reporte de investigación Laboral
+                                    </a>
+                                {% endif %}
                                 <!-- <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
                                 class="btn btn-primary waves-effect waves-light">
                                 <i class="bx bx-plus font-size-16 align-middle me-2"></i>
@@ -642,10 +631,10 @@
     
                                 <hr class="thin-separator" />
     
-                                <h6> 12. Carta Laboral</h6>
+                                <h6> Carta Laboral</h6>
                                 <div class="row">
                                     <div class="col-3 col-offset-1">
-                                        <label>12.a Principal</label>
+                                        <label>Principal</label>
                                     </div>
                                     <div class="col-2">
                                         {% if adjuntos.adj18 %}
@@ -660,7 +649,7 @@
     
                                 <div class="row">
                                     <div class="col-3 col-offset-1">
-                                        <label>12.b Extra</label>
+                                        <label>Extra</label>
                                     </div>
                                     <div class="col-2">
                                         {% if adjuntos.adj37 %}

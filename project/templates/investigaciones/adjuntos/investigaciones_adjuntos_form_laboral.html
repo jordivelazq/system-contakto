@@ -167,33 +167,26 @@
 
                             <form enctype="multipart/form-data" role="form" method="post" action="" id="form_attachments">
                                 {% csrf_token %}
-                                <div class="row">
-                                    <div class="col-md-8">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button type="submit"
-                                                    class="btn btn-primary form-control">Guardar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
 
                                 <div class="row">
                                     <div class="text-danger">{{ adjuntos_form.non_field_errors }}</div>
                                     <div class="col-xs-4 col-xs-offset-1">
                                         {% for f in adjuntos_form %}
-                                        <div class="text-danger">{{ f.errors }}</div>
-                                        {{ f.label_tag }}<br />
-                                        {{ f }}
-                                        <hr />
+                                            {% if f.name == "adj8" or f.name == "adj25" or f.name == "adj26" or f.name == "adj27" or f.name == "adj28" or f.name == "adj7" or f.name == "adj36" or f.name == "adj18" or f.name == "adj37" or f.name == "adj40" or f.name == "adj41" or f.name == "adj42" or f.name == "adj43" %}
+                                                <div class="text-danger">{{ f.errors }}</div>
+                                                {{ f.label_tag }}<br />
+                                                {{ f }}
+                                                <hr />
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
-
+                                    <div class="col-md-4">
+                                        <button type="submit"
+                                                    class="btn btn-primary form-control">Guardar</button>
+                                    </div>
                                 </div>
+
                             </form>
 
                         </div>

@@ -60,8 +60,12 @@ from .api import (
     InvestigacionTemplateView,
     InvestigacionUpdateView,
     InvestigacionViewSet,
+    PersonaTrajectoriaComercialCoordinadorCrearTemplateView,
+    PersonaTrajectoriaComercialCoordinadorDeleteTemplateView,
     PersonaTrajectoriaComercialCrearTemplateView,
     PersonaTrajectoriaComercialDeleteTemplateView,
+    PersonaTrayectoriaCoordinadorCrearTemplateView,
+    PersonaTrayectoriaCoordinadorEditTemplateView,
     PersonaTrayectoriaCrearTemplateView,
     PersonaTrayectoriaEditTemplateView,
     InvestigacionPersonaTrayectoriaLaboralDeleteTemplateView,
@@ -148,6 +152,17 @@ urlpatterns = [
         PersonaTrayectoriaEditTemplateView.as_view(),
         name="investigacion_persona_trayectoria_laboral_edit",
     ),
+    # Trayectoria laboral Coordinador
+    path(
+        "investigaciones/coordinador/persona/trayectoria-laboral/create/<int:investigacion_id>/",
+        PersonaTrayectoriaCoordinadorCrearTemplateView.as_view(),
+        name="investigacion_coordinador_persona_trayectoria_laboral_create",
+    ),
+    path(
+        "investigaciones/coordinador/persona/trayectoria-laboral/edit/<int:investigacion_id>/<int:pk>/",
+        PersonaTrayectoriaCoordinadorEditTemplateView.as_view(),
+        name="investigacion_coordinador_persona_trayectoria_laboral_edit",
+    ),
     # Trayectoria comercial
     path(
         "investigaciones/persona/trayectoria-comercial/create/<int:investigacion_id>/<int:trayectoria_id>/",
@@ -158,6 +173,17 @@ urlpatterns = [
         "investigaciones/persona/trayectoria-comercial/delete/<int:investigacion_id>/<int:trayectoria_id>/<int:pk>/",
         PersonaTrajectoriaComercialDeleteTemplateView.as_view(),
         name="investigacion_persona_trayectoria_comercial_delete",
+    ),
+    # Trayectoria comercial Coordinador
+    path(
+        "investigaciones/coordinador/persona/trayectoria-comercial/create/<int:investigacion_id>/<int:trayectoria_id>/",
+        PersonaTrajectoriaComercialCoordinadorCrearTemplateView.as_view(),
+        name="investigacion_coordinador_persona_trayectoria_comercial_create",
+    ),
+    path(
+        "investigaciones/coordinador/persona/trayectoria-comercial/delete/<int:investigacion_id>/<int:trayectoria_id>/<int:pk>/",
+        PersonaTrajectoriaComercialCoordinadorDeleteTemplateView.as_view(),
+        name="investigacion_coordinador_persona_trayectoria_comercial_delete",
     ),
     # Coordinador de Ejecutivo Asignaciones Coordinador de visitas
     path(
