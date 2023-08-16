@@ -3,6 +3,7 @@ from app.entrevista.forms import *
 from app.entrevista.models import *
 from app.entrevista.services import EntrevistaService
 from app.util.parallel import run_io_tasks_in_parallel
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelformset_factory
 from django.shortcuts import HttpResponseRedirect, redirect
@@ -483,8 +484,14 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 direccion_form.save()
                 origen_form.save()
                 licencia_form.save()
-
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))
+                messages.add_message(self.request, messages.SUCCESS,
+                                     'Datos generales guardados')
+            else:
+                messages.add_message(self.request, messages.ERROR,
+                                     'Formulario incorrecto')
+                
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))    
+                
                
         #INFO PERSONAL
         if seccion_entrevista == 'info_personal':
@@ -500,7 +507,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 infopersonal_form.save()
                 historialempresa_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+str(investigacion.pk))
 
         #SALUD, ACTIVIDADES Y HÁBITOS
         if seccion_entrevista == 'salud':
@@ -515,7 +522,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 salud_form.save()
                 actividades_form.save()
    
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/salud/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/salud/'+str(investigacion.pk))
         
         #INFORMACIÓN ACADÉMICA
         if seccion_entrevista == 'academica':
@@ -535,7 +542,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 otro_idioma_form.save()
                 gradosescolaridad_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/academica/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/academica/'+str(investigacion.pk))
     
 
         #SITUACIÓN VIVIENDA
@@ -564,7 +571,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 distribucion_vivienda.save()
                 marcofamiliar_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/vivienda/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/vivienda/'+str(investigacion.pk))
         
         #MARCO FAMILIAR    
         if seccion_entrevista == 'familia':
@@ -576,7 +583,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             if marcofamiliar_formset.is_valid():
                 marcofamiliar_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/familia/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/familia/'+str(investigacion.pk))
         
         #INFORMACIÓN ECONÓMICA
         if seccion_entrevista == 'inf_economica':
@@ -601,7 +608,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                     lambda: pv_formset.save(),
                 ])
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/inf_economica/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/inf_economica/'+str(investigacion.pk))
         
         #BIENES
         if seccion_entrevista == 'bienes':
@@ -635,7 +642,7 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 seguros_formset.save()
                 deudas_formset.save()
 
-                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/bienes/'+str(investigacion.pk))
+            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/bienes/'+str(investigacion.pk))
             
         #EVALUACIÓN
         if seccion_entrevista == 'evaluacion':
