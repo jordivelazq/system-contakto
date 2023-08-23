@@ -126,6 +126,25 @@ class InvestigacionDetailApiView(ListAPIView):
     def get_queryset(self):
         return Investigacion.objects.filter(pk=self.kwargs.get('pk'))
 
+    def put(self, request, pk):
+        investigacion_id = self.kwargs.get('pk')
+        concl = request.data['conclusiones']
+        if investigacion_id:
+            try:
+                investigacion = Investigacion.objects.filter(pk=investigacion_id)
+                investigacion.conclusiones = concl
+                investigacion.save()
+                
+                return Response(data={'error': 1, 'message': 'Conclusión ha sido guardada correctamente', }, status=200)
+            except Exception as e:
+                return Response(data={'error': 2,
+                                      'message': 'No se ha encontrado la investigación, inténtelo nuevamente. {}'.format(
+                                          str(e))},
+                                status=404)
+        return Response(data={'error': 3, 'message': 'No se ha completado el proceso. Inténtelo nuevamente.'},
+                        status=401)
+
+
 
 class InvestigacionUploadImageApiView(APIView):
     parser_class = (FileUploadParser,)
@@ -419,12 +438,6 @@ class EntrevistaBienesRaicesViewSet(viewsets.ModelViewSet):
     authentication_classes = [OAuth2Authentication]
     permission_classes = [TokenHasReadWriteScope,]
 
-class EntrevistaCaracteristicasViviendaViewSet(viewsets.ModelViewSet):
-    queryset = EntrevistaCaractaristicasVivienda.objects.all()
-    serializer_class = EntrevistaCaracteristicasViviendaSerializer
-    # permission_classes = [IsAuthenticated]
-    authentication_classes = [OAuth2Authentication]
-    permission_classes = [TokenHasReadWriteScope,]
 
 class EntrevistaCuentaDebitoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaCuentaDebito.objects.all()

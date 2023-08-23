@@ -28,44 +28,28 @@ class EntrevistaFile(models.Model):
 
 
 class EntrevistaPersona(models.Model):
-    investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=140, blank=True, null=True)
-    apellido = models.CharField(max_length=140, blank=True, null=True)
-    email = models.CharField(max_length=140, blank=True, null=True)
-    nss = models.CharField(verbose_name='NSS (IMSS)',
-                           max_length=30, blank=True, null=True)
-    edad = models.CharField(max_length=140, blank=True, null=True)
-    curp = models.CharField(verbose_name='CURP',
-                            max_length=30, blank=True, null=True)
-    rfc = models.CharField(
-        verbose_name='RFC', max_length=30, blank=True, null=True)
-    ife = models.CharField(verbose_name='Folio credencial IFE',
-                           max_length=30, blank=True, null=True)
-    pasaporte = models.CharField(
-        verbose_name='No. de pasaporte o visa', max_length=30, blank=True, null=True)
-    smn = models.CharField(verbose_name='Cartilla SMN',
-                           max_length=30, blank=True, null=True)
-    estado_civil = models.CharField(
-        max_length=100, verbose_name='Estado civil', blank=True, null=True)
-    fecha_matrimonio = models.CharField(
-        verbose_name='Fecha de matrimonio', max_length=100, blank=True, null=True)
-    religion = models.CharField(
-        verbose_name='Religión', max_length=140, blank=True, null=True)
-    religion_tiempo = models.CharField(
-        verbose_name='Cada cuánto tiempo la practica', max_length=140, blank=True, null=True)
-    tiempo_radicando = models.CharField(
-        verbose_name='Tiempo radicando en la ciudad', max_length=140, blank=True, null=True)
-    medio_utilizado = models.CharField(
-        verbose_name='Medio que utiliza para transporte', max_length=140, blank=True, null=True)
-    referencia_vacante = models.CharField(
-        verbose_name='Medio por el qué se enteró de la vacante', max_length=140, blank=True, null=True)
-    tiempo_transporte = models.CharField(
-        verbose_name='Tiempo de trayecto al lugar de trabajo', max_length=140, blank=True, null=True)
-    fecha_registro = models.DateField(auto_now=True)
-    activa = models.BooleanField(default=True)
-    dependientes_economicos = models.TextField(
-        max_length=200, blank=True, null=True)
-    conclusion = models.CharField(verbose_name='Conclusión del gestor', max_length=4000, blank=True, null=True)
+	investigacion = models.ForeignKey(Investigacion, on_delete=models.CASCADE)
+	nombre = models.CharField(max_length=140, blank=True, null=True)
+	apellido = models.CharField(max_length=140, blank=True, null=True)
+	email = models.CharField(max_length=140, blank=True, null=True)
+	nss = models.CharField(verbose_name='NSS (IMSS)', max_length=30, blank=True, null=True)
+	edad = models.CharField(max_length=140, blank=True, null=True)
+	curp = models.CharField(verbose_name='CURP', max_length=30, blank=True, null=True)
+	rfc = models.CharField(verbose_name='RFC', max_length=30, blank=True, null=True)
+	ife = models.CharField(verbose_name='Folio credencial IFE', max_length=30, blank=True, null=True)
+	pasaporte = models.CharField(verbose_name='No. de pasaporte o visa', max_length=30, blank=True, null=True)
+	smn = models.CharField(verbose_name='Cartilla SMN', max_length=30, blank=True, null=True)
+	estado_civil = models.CharField( max_length=100, verbose_name='Estado civil', blank=True, null=True)
+	fecha_matrimonio = models.CharField(verbose_name='Fecha de matrimonio', max_length=100, blank=True, null=True)
+	religion = models.CharField(verbose_name='Religión', max_length=140, blank=True, null=True)
+	religion_tiempo = models.CharField(verbose_name='Cada cuánto tiempo la practica', max_length=140, blank=True, null=True)
+	tiempo_radicando = models.CharField(verbose_name='Tiempo radicando en la ciudad', max_length=140, blank=True, null=True)
+	medio_utilizado = models.CharField(verbose_name='Medio que utiliza para transporte', max_length=140, blank=True, null=True)
+	referencia_vacante = models.CharField(verbose_name='Medio por el qué se enteró de la vacante', max_length=140, blank=True, null=True)
+	tiempo_transporte = models.CharField(verbose_name='Tiempo de trayecto al lugar de trabajo', max_length=140, blank=True, null=True)
+	fecha_registro = models.DateField(auto_now=True)
+	activa = models.BooleanField(default=True)
+	dependientes_economicos = models.TextField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return u'%s / %s' % (self.id, self.nombre)
@@ -159,21 +143,17 @@ class EntrevistaDireccion(models.Model):
 
 
 class EntrevistaPrestacionVivienda(models.Model):
-    VIVIENDA_OPCIONES = (
-        ('infonavit', 'infonavit'),
-        ('fonacot', 'fonacot'),
-    )
-    persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
-    categoria_viv = models.CharField(max_length=20, choices=VIVIENDA_OPCIONES)
-    activo = models.CharField(
-        verbose_name='Tiene crédito activo', max_length=140, null=True, blank=True)
-    fecha_tramite = models.CharField(
-        verbose_name='Fecha en que fue tramitado', max_length=140, null=True, blank=True)
-    numero_credito = models.CharField(
-        verbose_name='No. de crédito', max_length=140, null=True, blank=True)
-    uso = models.CharField(max_length=250, null=True, blank=True)
-    motivo = models.CharField(
-        verbose_name='Para qué se tramitó?', max_length=250, null=True, blank=True)
+	VIVIENDA_OPCIONES = (
+		('infonavit', 'infonavit'),
+		('fonacot', 'fonacot'),
+	)
+	persona = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
+	categoria_viv = models.CharField(max_length=20, choices=VIVIENDA_OPCIONES)
+	activo = models.CharField(verbose_name='Tiene crédito activo', max_length=140, null=True, blank=True)
+	fecha_tramite = models.CharField(verbose_name='Fecha en que fue tramitado', max_length=140, null=True, blank=True)
+	numero_credito = models.CharField(verbose_name='No. de crédito', max_length=140, null=True, blank=True)
+	uso = models.CharField(max_length=250, null=True, blank=True)
+	motivo = models.CharField(verbose_name='Para qué se tramitó?', max_length=250, null=True, blank=True)
 
     def __str__(self):
         return self.categoria_viv
@@ -418,29 +398,28 @@ class EntrevistaDistribucionDimensiones(models.Model):
 
 
 class EntrevistaMiembroMarcoFamiliar(models.Model):
-    FAMILIAR_OPCIONES = (
-        ('padre', 'padre'),
-        ('madre', 'madre'),
-        ('hermano', 'hermano'),
-        ('pareja', 'pareja'),
-        ('hijo', 'hijo'),
-        ('otro', 'otro')
-    )
-    FAMILIAR_CATEGORIA = (
-        (1, 'Marco Familiar'),
-        (2, 'Vivienda'),
-    )
-    person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
-    tipo = models.CharField(max_length=20, choices=FAMILIAR_OPCIONES)
-    nombre = models.CharField(max_length=140, null=True, blank=True)
-    edad = models.CharField(max_length=140, null=True, blank=True)
-    ocupacion = models.CharField(max_length=140, null=True, blank=True)
-    empresa = models.CharField(max_length=140, null=True, blank=True)
-    residencia = models.CharField(max_length=140, null=True, blank=True)
-    telefono = models.CharField(max_length=140, null=True, blank=True)
-    parentesco = models.CharField(max_length=140, null=True, blank=True)
-    category = models.CharField(
-        max_length=140, default=1, choices=FAMILIAR_CATEGORIA)
+	FAMILIAR_OPCIONES = (
+		('padre', 'padre'),
+		('madre', 'madre'),
+		('hermano', 'hermano'),
+		('pareja', 'pareja'),
+		('hijo', 'hijo'),
+		('otro', 'otro')
+	)
+	FAMILIAR_CATEGORIA = (
+	    (1, 'Marco Familiar'),
+	    (2, 'Vivienda'),
+	)
+	person = models.ForeignKey(EntrevistaPersona, on_delete=models.CASCADE)
+	tipo = models.CharField(max_length=20, choices=FAMILIAR_OPCIONES)
+	nombre = models.CharField(max_length=140, null=True, blank=True)
+	edad = models.CharField(max_length=140, null=True, blank=True)
+	ocupacion = models.CharField(max_length=140, null=True, blank=True)
+	empresa = models.CharField(max_length=140, null=True, blank=True)
+	residencia = models.CharField(max_length=140, null=True, blank=True)
+	telefono = models.CharField(max_length=140, null=True, blank=True)
+	parentesco = models.CharField(max_length=140, null=True, blank=True)
+	category = models.CharField(max_length=140, default=1, choices=FAMILIAR_OPCIONES)
 
     def __str__(self):
         return '%s' % self.tipo

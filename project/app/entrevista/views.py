@@ -383,21 +383,25 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 		documentos = EntrevistaDocumentoCotejado.objects.filter(person=candidato)
 		aspectos_hogar = EntrevistaAspectoHogar.objects.filter(person=candidato)
 		aspectos_candidato = EntrevistaAspectoCandidato.objects.filter(person=candidato)
+		conclusion = candidato.conclusion
 
 		DocumentoCotejadoFormset = modelformset_factory(EntrevistaDocumentoCotejado, extra=0, exclude=('person', 'tipo',), form=EntrevistaDocumentoCotejadoForm)
 		AspectoHogarFormset = modelformset_factory(EntrevistaAspectoHogar, extra=0, exclude=('person', 'tipo',))
 		AspectoCandidatoFormset = modelformset_factory(EntrevistaAspectoCandidato, extra=0, exclude=('person', 'tipo',))
+		
 
 		if request.method == 'POST' and not is_usuario_contacto:
 			documentos_formset = DocumentoCotejadoFormset(request.POST, prefix='docs', queryset=documentos)
 			aspectos_hogar_formset = AspectoHogarFormset(request.POST, prefix='asp_hogar', queryset=aspectos_hogar)
 			aspectos_candidato_formset = AspectoCandidatoFormset(request.POST, prefix='asp_candidato', queryset=aspectos_candidato)
 			investigacion_form = EntrevistaInvestigacionForm(request.POST, instance=entrevista_investigacion, prefix='investigacion')
-			if documentos_formset.is_valid() and aspectos_hogar_formset.is_valid() and aspectos_candidato_formset.is_valid() and investigacion_form.is_valid():
+			#conclusion_form = EntrevistaPersonaForm(request.POST, instance=candidato, prefix='entrevista_persona')
+			if documentos_formset.is_valid() and aspectos_hogar_formset.is_valid() and aspectos_candidato_formset.is_valid() and investigacion_form.is_valid(): #and conclusion_form.is_valid():
 				documentos_formset.save()
 				aspectos_hogar_formset.save()
 				aspectos_candidato_formset.save()
-				investigacion_form.save()		
+				investigacion_form.save()
+				#conclusion_form.save()		
 
 				if 'redirect' in request.POST:
 					return HttpResponseRedirect(request.POST.get('redirect'))
@@ -408,6 +412,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			aspectos_hogar_formset = AspectoHogarFormset(queryset=aspectos_hogar, prefix='asp_hogar')
 			aspectos_candidato_formset = AspectoCandidatoFormset(queryset=aspectos_candidato, prefix='asp_candidato')
 			investigacion_form = EntrevistaInvestigacionForm(instance=entrevista_investigacion, prefix='investigacion')
+			conclusion_form = EntrevistaPersonaForm(instance=candidato, prefix='entrevista_persona')
 
 	elif seccion_entrevista == 'cita':
 		entrevista_cita = investigacion.entrevistacita_set.all().order_by('-id')[0]

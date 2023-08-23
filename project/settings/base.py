@@ -220,13 +220,7 @@ INTERNAL_IPS = [
 
 OAUTH2_PROVIDER = {
     # this is the list of available scopes
-    "SCOPES": {
-        "read": "Read scope",
-        "write": "Write scope",
-        "groups": "Access to your groups",
-    },
-    'OAUTH_DELETE_EXPIRED': True,
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 3000000
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
 }
 
 REST_FRAMEWORK = {

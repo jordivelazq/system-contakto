@@ -95,11 +95,11 @@ class InvestigacionForm(ModelForm):
 
 
 class InvestigacionStatusForm(ModelForm):
-    fecha_entrega = forms.DateField(widget=forms.DateInput(format='%d/%m/%Y'), input_formats=['%d/%m/%Y', ], required=False)
-
-    class Meta:
-        model = Investigacion
-        fields = ('status', 'resultado', 'conclusiones', 'status_general', 'tipo_investigacion_status', 'tipo_investigacion_texto', 'fecha_entrega', 'label')
+	fecha_entrega = forms.DateField(widget=forms.DateInput(format = '%d/%m/%Y'),input_formats=['%d/%m/%Y',],required=False)
+	
+	class Meta:
+		model = Investigacion
+		fields = ('status', 'resultado', 'conclusiones', 'status_general', 'tipo_investigacion_status', 'tipo_investigacion_texto', 'fecha_entrega', 'label')
 
     def __init__(self, *args, **kwargs):
         super(InvestigacionStatusForm, self).__init__(*args, **kwargs)

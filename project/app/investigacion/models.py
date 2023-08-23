@@ -117,29 +117,19 @@ class Investigacion(models.Model):
     fecha_registro = models.DateField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-    conclusiones = models.TextField(max_length=16000, blank=True, null=True)
-    resultado = models.CharField(
-        max_length=30, choices=RESULTADO_OPCIONES, blank=True, null=True, default="0"
-    )
-    archivo = models.ForeignKey(File, blank=True, null=True, on_delete=models.CASCADE)
-    folio = models.CharField(max_length=50, blank=True, null=True)
-    presupuesto = models.CharField(max_length=50, blank=True, null=True)
-
-    status = models.CharField(
-        max_length=140, choices=STATUS_OPCIONES, null=True, blank=True, default="0"
-    )  # En template: "Estatus de Inv. Laboral"
-    # revisar si es necesario, si no borrarlo
-    status_active = models.BooleanField(default=True)
-    status_general = models.CharField(
-        max_length=140, choices=STATUS_GRAL_OPCIONES, null=True, blank=True, default="0"
-    )
-    observaciones_generales = models.TextField(max_length=160000, blank=True, null=True)
-
-    tipo_investigacion_status = models.IntegerField(
-        choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True
-    )
-    tipo_investigacion_texto = models.TextField(max_length=16000, blank=True, null=True)
-    tipo_investigacion = models.ManyToManyField(ClienteTipoInvestigacion)
+	conclusiones = models.TextField(max_length=16000, blank=True, null=True)
+	resultado = models.CharField(max_length=30, choices=RESULTADO_OPCIONES, blank=True, null=True, default='0')
+	archivo = models.ForeignKey(File, blank=True, null=True, on_delete=models.CASCADE)
+	folio = models.CharField(max_length=50, blank=True, null=True)
+	presupuesto = models.CharField(max_length=50, blank=True, null=True)
+	
+	status = models.CharField(max_length=140, choices=STATUS_OPCIONES, null=True, blank=True, default='0') #En template: "Estatus de Inv. Laboral"
+	status_active = models.BooleanField(default=True) # revisar si es necesario, si no borrarlo
+	status_general = models.CharField(max_length=140, choices=STATUS_GRAL_OPCIONES, null=True, blank=True, default='0')
+	observaciones_generales = models.TextField(max_length=160000, blank=True, null=True)
+	
+	tipo_investigacion_status = models.IntegerField(choices=TIPO_INVESTIGACION_OPCIONES, null=True, blank=True)
+	tipo_investigacion_texto = models.TextField(max_length=16000, blank=True, null=True)
 
     # Historia en empresa
     laboro_anteriormente = models.IntegerField(
