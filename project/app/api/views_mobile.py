@@ -1,4 +1,3 @@
-import json
 import uuid
 
 from app.adjuntos.models import Adjuntos
@@ -12,6 +11,7 @@ from app.entrevista.models import (EntrevistaAcademica,
                                    EntrevistaAspectoCandidato,
                                    EntrevistaAspectoHogar, EntrevistaAutomovil,
                                    EntrevistaBienesRaices,
+                                   EntrevistaCaractaristicasVivienda,
                                    EntrevistaCuentaDebito,
                                    EntrevistaDeudaActual, EntrevistaDireccion,
                                    EntrevistaDistribucionDimensiones,
@@ -33,10 +33,12 @@ from app.entrevista.models import (EntrevistaAcademica,
 from app.investigacion.models import Investigacion
 from app.persona.models import DatosGenerales
 from django.conf import settings
-from rest_framework import generics, mixins, viewsets
+from oauth2_provider.contrib.rest_framework import (OAuth2Authentication,
+                                                    TokenHasReadWriteScope,
+                                                    )
+from rest_framework import mixins, viewsets
 from rest_framework.generics import ListAPIView
 from rest_framework.parsers import FileUploadParser
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -46,6 +48,7 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaAspectoHogarSerializer,
                          EntrevistaAutomovilSerializer,
                          EntrevistaBienesRaicesSerializer,
+                         EntrevistaCaracteristicasViviendaSerializer,
                          EntrevistaCuentaDebitoSerializer,
                          EntrevistaDeudaActualSerializer,
                          EntrevistaDireccionSerializer,
@@ -58,7 +61,7 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaLicenciaSerializer,
                          EntrevistaMiembroMarcoFamiliarSerializer,
                          EntrevistaOrigenSerializer,
-                         EntrevistaOtroIdiomaSerializer,
+                         EntrevistaOtroIdiomaSerializer, EntrevistaPersonaDataSerializer,
                          EntrevistaPersonaSerializer,
                          EntrevistaPrestacionViviendaSerializer,
                          EntrevistaPropietarioViviendaSerializer,
@@ -69,14 +72,12 @@ from .serializer import (EntrevistaAcademicaSerializer,
                          EntrevistaTelefonoSerializer,
                          EntrevistaTipoInmuebleSerializer)
 
-# from oauth2_provider.contrib.rest_framework import IsAuthenticatedOrTokenHasScope, TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
 
 class AsignacionInvestigacionApiView(APIView):
     model = Investigacion
     serializer_class = InvestigacionSerializer
     authentication_classes = [OAuth2Authentication]
-    permission_classes = [TokenHasReadWriteScope,]
+    permission_classes = [TokenHasReadWriteScope]
 
     # def get_queryset(self):
     #     # return Investigacion.objects.filter(pk=self.kwargs.get('pk'))
@@ -363,6 +364,12 @@ class EntrevistaPersonaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         qs = self.queryset.filter(investigacion_id=investigacion_id)
         return qs
 
+class EntrevistaPersonaDataViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaPersona.objects.all()
+    serializer_class = EntrevistaPersonaDataSerializer
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 class EntrevistaAcademicaViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaAcademica.objects.all()
@@ -412,6 +419,12 @@ class EntrevistaBienesRaicesViewSet(viewsets.ModelViewSet):
     authentication_classes = [OAuth2Authentication]
     permission_classes = [TokenHasReadWriteScope,]
 
+class EntrevistaCaracteristicasViviendaViewSet(viewsets.ModelViewSet):
+    queryset = EntrevistaCaractaristicasVivienda.objects.all()
+    serializer_class = EntrevistaCaracteristicasViviendaSerializer
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasReadWriteScope,]
 
 class EntrevistaCuentaDebitoViewSet(viewsets.ModelViewSet):
     queryset = EntrevistaCuentaDebito.objects.all()

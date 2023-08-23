@@ -1,0 +1,132 @@
+{% extends 'partials/base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Gestores del sistema</h4>
+
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item "><a href="{% url 'gestor_info_list' %}">Listado de gestores</a></li>
+                <li class="breadcrumb-item active">Eliminar gestor</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="card-title">Eliminar agente</h4>
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body">
+
+              <form action="" method="post">{% csrf_token %}
+               
+                <div class="table-responsive">
+                  <table class="table table-striped mb-0">
+                    <tbody>
+                      <tr>
+                        <td>Usuario:</td>
+                        <td>{{ gestor_info.usuario }} </td>
+                      </tr>
+      
+                      <tr>
+                        <td>Nombre completo:</td>
+                        <td>{{ gestor_info.usuario.first_name }} {{ gestor_info.usuario.last_name }}</td>
+                      </tr>
+      
+                      <tr>
+                        <td>Teléfono:</td>
+                        <td>{{ gestor_info.telefono }}</td>
+                      </tr>
+      
+                      <tr>
+                        <td>Ciudad:</td>
+                        <td>{{ gestor_info.ciudad }}</td>
+                      </tr>
+      
+                      <tr>
+                        <td>Estado:</td>
+                        <td>{{ gestor_info.estado }}</td>
+                      </tr>
+      
+                      
+                      <tr>
+                        <td>Fecha de ingreso:</td>
+                        <td>{{ gestor_info.fecha_ingreso }}</td>
+                      </tr>
+      
+                      <tr>
+                        <td>Fecha de registro:</td>
+                        <td>{{ gestor_info.fecha_registro }}</td>
+                      </tr>
+      
+                      <tr>
+                        <td>Estatus:</td>
+                        <td>{{ gestor_info.get_estatus_display }}</td>
+                      </tr>
+      
+                      <tr>
+                        <td>Tipo pago:</td>
+                        <td>{{ gestor_info.get_tipo_pago_display }}</td>
+                      </tr>
+      
+                     
+                    </tbody>
+                  </table>
+                </div><!-- end div responsive -->
+      
+
+                 <br>
+
+                  <p>¿Estas seguro de eliminar este gestor?</p>
+
+                  <a href="{% url 'gestor_info_list' %}" 
+                  class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i>Cancelar</a>
+                  
+                  <a href="" onclick="document.forms[0].submit();return false;"
+                  class="btn btn-danger waves-effect btn-label waves-light"><i class="bx bx-trash label-icon"></i>Eliminar</a>
+
+              </form>
+
+            </div>
+            </form>
+
+          </div>
+        </div> <!-- end col -->
+      </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+  </div>
+  <!-- End Page-content -->
+
+  {% block footer %}
+  {% include 'partials/footer.html' %}
+  {% endblock footer %}
+</div>
+<!-- end main content-->
+{% endblock content %}

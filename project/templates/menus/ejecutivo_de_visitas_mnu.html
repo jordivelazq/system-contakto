@@ -1,0 +1,11 @@
+{% load core_extras %}{% if request.user|has_group:"Ejecutivo de Visitas" %}
+<li>
+    <a href="javascript: void(0);" class="has-arrow">
+        <i data-feather="users"></i>
+        <span data-key="ejecutivo-visita">Ejecutivo de visita domiciliaria</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li><a href="{% url 'investigaciones:investigaciones_ejecutivo_visitas_list' %}" data-key="t-user-grid">Asignar gestor</a></li>
+    </ul>
+</li>
+{% endif %}

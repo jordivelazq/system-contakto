@@ -1,0 +1,109 @@
+{% load fe_extras %}
+<form action="#" method="post">{% csrf_token %}
+	
+	
+	<div class="row">
+		<div class="col-6">
+			{{ documentos_formset.management_form }}
+			<h5>Documentos evaluados</h5>
+
+			{% for form in documentos_formset %}
+				{{ form.id }}
+				{% if form.instance.tipo == 'motivos_falta_docs' %}
+				<br />
+				{% endif %}
+				<div class="row">
+					
+						{% if form.instance.tipo == 'motivos_falta_docs' %}
+						<div class="col-12" >
+							<label>{{form.instance.tipo|clean_type}}:</label>
+							<div class="text-danger">{{ form.observaciones.errors }}</div>
+							{{form.observaciones}}
+						</div>
+						{% else %}
+						<div class="col-8">
+							<label>{{form.instance.tipo|clean_type}}:</label>
+						</div>
+						<div class="col-4">
+							<div class="text-danger">{{ form.estatus.errors }}</div>
+							{{form.estatus}}
+						</div>
+							
+						{% endif %}
+				</div>
+				{% if not forloop.last %}
+					<hr  class="thin-separator" />
+				{% endif %}
+			{% endfor %}
+		</div>
+		<div class="col-5 col-offset-1">
+			{{ aspectos_hogar_formset.management_form }}
+			<h5>Calificación de 1% a 100%</h5>
+			<h6>Aspecto del hogar:</h6>
+			{% for form in aspectos_hogar_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-7" >
+						<label>{{form.instance.tipo|clean_type}}:</label>
+					</div>
+					<div class="col-5">
+						<div class="text-danger">{{ form.estatus.errors }}</div>
+						{{form.estatus}}
+					</div>
+				</div>
+				<hr  class="thin-separator" />	
+			{% endfor %}
+			<br />
+			{{ aspectos_candidato_formset.management_form }}
+			<h5>Aspecto del candidato:</h5>
+			{% for form in aspectos_candidato_formset %}
+				{{ form.id }}
+				<div class="row">
+					<div class="col-7" >
+						<label>{{form.instance.tipo|clean_type}}:</label>
+					</div>
+					<div class="col-5">
+						<div class="text-danger">{{ form.estatus.errors }}</div>
+						{{form.estatus}}
+					</div>
+				</div>
+				<hr  class="thin-separator" />	
+			{% endfor %}
+		</div>
+	</div>
+	<br />
+	<hr />
+	{{investigacion_form.errors}}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<div class="text-danger">{{investigacion_form.resultado.errors}}</div>
+				<label>Resultado de la entrevista:</label>
+				{{investigacion_form.resultado}}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<div class="text-danger">{{investigacion_form.conclusiones.errors}}</div>
+				<label>Conclusiones de la entrevista (visible en conclusión pdf):</label>
+				{{investigacion_form.conclusiones}}
+			</div>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<div class="text-danger">{{candidato_form.conclusion.errors}}</div>
+				<label>Conclusión del gestor (capturada en APP no visible en PDF):</label>
+				{{candidato_form.conclusion}}
+			</div>
+		</div>
+		
+	</div>
+
+	<br>
+
+</form>

@@ -1,0 +1,899 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block extra_css %}
+    <!-- Sweet Alert-->
+    <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock extra_css %}
+
+
+{% block content %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <!-- BEGIG MODAL INCLUDE -->
+    {% include 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_modal.html' %}
+    <!-- END MODAL INCLUDE -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Investigaciones - Ejecutivo de cuentas</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item ">
+                                        <a href="{% url 'investigaciones:investigaciones_ejecutivo_laboral_list' %}">
+                                            Ejecutivo de cuenta
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Detalle de investigación</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <div class="row" id="detalle_investigacions">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Detalle de investigación</h3>
+
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <strong>Tipo de investigación(es):</strong>
+
+
+                                        {% for ti in investigacion.tipo_investigacion.all %}
+                                            {{ ti }}
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <strong>Cliente:</strong>
+                                        {{ investigacion.compania }}
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <strong>Sucursal:</strong>
+                                        {{ investigacion.sucursal }}
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <strong>Contacto:</strong>
+                                        {{ investigacion.cliente_solicitud }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+
+                <div class="row" id="candidato">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+
+
+                                    {% if investigacion.candidato_validado %}
+
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                                class="bx bx-check-double font-size-16 align-middle"></i></button>
+
+                                    {% else %}
+
+                                        <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                                data-bs-toggle="popover" title="Data incompleta"
+                                                data-bs-content="Se debe completar los datos del candidato, "><i
+                                                class="bx bx-block font-size-16 align-middle"></i></button>
+
+                                    {% endif %}
+
+                                    Datos del candidato
+
+                                </h3>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <strong>Nombres:</strong>
+                                        {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>NSS:</strong>
+                                        {{ investigacion.candidato.nss }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Teléfono móvil:</strong>
+                                        {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>CURP:</strong>
+                                        {{ investigacion.candidato.curp }}
+                                    </div>
+
+                                </div>
+
+                                <br>
+
+                                {% if archivo_adjunto %}
+                                <a href="../../../../../media/{{ archivo_adjunto }}" target="_blank" class="btn btn-warning waves-effect btn-label waves-light">
+                                    <i class="bx bx-download label-icon"></i>
+                                    Descargar archivo
+                                </a>
+                                {% else %}
+                                    Sin archivo adjunto
+                                {% endif %}
+
+                                <br><br>
+
+                                <a href="{% url 'investigaciones:investigacion_edv_candidato_edit' investigacion.id %}"
+                                   class="btn btn-primary waves-effect btn-label waves-light can-hide">
+                                    <i class="bx bx-edit label-icon"></i>
+                                    Editar datos del candidato
+                                </a>
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+
+                <div class="row" id="demanadas_laborales">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+
+                                    <!-- <button type="button" class="btn btn-soft-success waves-effect waves-light"><i class="bx bx-check-double font-size-16 align-middle"></i></button> -->
+                                    <button type="button" class="btn {% if investigacion.laboral_completado %}btn-soft-success {% else %}btn-soft-danger  {% endif %} waves-effect waves-light"
+                                            data-bs-toggle="popover" title="Data incompleta"
+                                            data-bs-content="Se debe agragar al menos una investigacion laboral "><i
+                                            class="bx {% if investigacion.laboral_completado %}bx-check-double {% else %}bx-block {% endif %} font-size-16 align-middle"></i></button>
+                                    Investigación Laboral
+
+                                </h3>
+
+                                <br/>
+
+                                <h5>Empresas investigadas</h5>
+
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+
+                                        <table class="table table-striped table-bordered table-hover table-sm">
+
+                                            <thead>
+                                            <tr>
+                                                <th>Acciones</th>
+                                                <th>Empresa</th>
+                                                <th>Fecha de Ingreso</th>
+                                                <th>Fecha de Egreso</th>
+                                                <th>Puesto</th>
+                                                <th>Motivo de baja</th>
+                                                <th>Terminada</th>
+                                                <th>Visible en Estatus</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for tl in tajectorias_laborales %}
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_edit' investigacion.id tl.pk %}"
+                                                           class="btn btn-soft-primary waves-effect waves-light can-hide"><i
+                                                                class="bx bx-edit font-size-16 align-middle"></i>
+                                                        </a>
+                                                        <a href="{% url 'investigaciones:investigaciones_persona_trayectoria_laboral_delete' investigacion.id tl.pk %}"
+                                                           onclick="confirmation(event)"
+                                                           class="btn btn-soft-danger waves-effect waves-light can-hide"><i
+                                                                class="bx bx-trash font-size-16 align-middle"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        {% if not tl.nombre_empresa %}
+                                                            {{ tl.compania.nombre }}
+                                                        {% else %}
+                                                            {{ tl.nombre_empresa }}
+                                                        {% endif %}
+                                                        <br/>
+                                                        <small>{{ tl.observaciones_generales|lower }}</small>
+                                                    </td>
+                                                    <td class="{% if not tl.periodo_alta %}text-danger{% endif %}">
+                                                        {% if tl.periodo_alta %}
+                                                            {{ tl.periodo_alta }}
+                                                        {% else %}
+                                                            <b>Sin Dato</b>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="{% if not tl.periodo_baja %}text-danger{% endif %}">
+                                                        {% if tl.periodo_baja %}
+                                                            {{ tl.periodo_baja }}
+                                                        {% else %}
+                                                            <b>Sin Dato</b>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ tl.puesto_final }}</td>
+                                                    <td>{{ tl.datosgenerales.motivo_salida|default:'' }}</td>
+
+
+                                                    <td class="text-center">
+                                                        <i
+                                                                class="fa fa-{% if tl.terminada %}check{% else %}times{% endif %}"></i>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i
+                                                                class="fa fa-{% if tl.visible_en_status %}check{% else %}times{% endif %}"></i>
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                {% if not investigacion.laboral_completado %}
+                                    <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
+                                       class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-plus label-icon"></i>
+                                        Agregar empresa
+                                    </a>
+                                {% else %}
+                                    <input type="hidden" id="completar-inv-laboral-pregunta" value="1">
+                                    <h5>La investigación está completada</h5>
+
+                                {% endif %}
+
+                                <br/><br/>
+
+                                <h5>Referencias Comerciales</h5>
+
+                                <table class="table table-striped table-bordered table-hover table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th>Tipo de Negocio</th>
+
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for referencia in tajectorias_comerciales %}
+                                        <tr>
+                                            <td>{{ referencia.tipo_negocio }}</td>
+                                            <td>
+                                                <a href="{% url 'investigaciones:investigacion_persona_trayectoria_comercial_create' investigacion.id referencia.id %}"
+                                                   class="btn btn-primary waves-effect btn-label waves-light can-hide">
+                                                    <i class="bx bx-edit label-icon"></i>
+                                                    Editar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="2">No hay registros</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <a href="{% url 'investigaciones:investigacion_persona_trayectoria_comercial_create' investigacion.id 0 %}"
+                                   class="btn btn-primary waves-effect btn-label waves-light can-hide">
+                                    <i class="bx bx-plus label-icon"></i>
+                                    Agregar referencia comercial</a>
+
+
+                                {% comment %}
+                            <br />
+                            <br />
+                            Observaciones de Estatus de Inv. Laboral (visible en conclusión pdf)
+                            {% endcomment %}
+
+                                <br/><br/>
+
+                                <h5>Estatus de Investigación Laboral</h5>
+
+                                <div class="row">
+                                    <form action="#" method="post" id="trayectoria_status_form">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="text-danger">{{ formaInvestigacion.observaciones_generales.errors }}</div>
+                                                {{ formaInvestigacion.observaciones_generales|safe }}
+                                                <br/>
+
+                                                <div class="col-md-2 pull-right">
+                                                    <button type="submit" class="btn btn-primary form-control can-hide" name="guardar">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <br/>
+                                    <h5>Resultados</h5>
+                                    {{ investigacion.get_resultado_display }}<br><br>
+                                    <h5>Conclusiones</h5>
+                                    {{ investigacion.conclusiones | default_if_none:'' }}<br><br>
+                                    <h5>Observaciones</h5>
+                                    {{ investigacion.observaciones | default_if_none:'' }}<br><br>
+                                    <a href="javascript:void(0);"
+                                       onclick="openModalResultados()"
+                                       class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Editar Resultados, conclusiones y observaciones
+                                    </a>
+                                <br/><br/>
+                                {% if not investigacion.laboral_completado %}
+                                    <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-laboral-pregunta">
+                                        <i class="bx bx-check label-icon"></i> Completar Investigación Laboral
+                                    </button>
+                                {% else %}
+                                    <a href="/candidato/investigacion/exportar/reporte-laboral/{{ investigacion.id }}"
+                                    target="_blank"
+                                    class="btn btn-primary waves-effect btn-label waves-light">
+                                    <i class="bx bx-plus label-icon"></i>
+                                    Reporte de investigación Laboral
+                                    </a>
+                                {% endif %}
+                                <!-- <a href="{% url 'investigaciones:investigacion_persona_trayectoria_laboral_create' investigacion.id %}"
+                                class="btn btn-primary waves-effect waves-light">
+                                <i class="bx bx-plus font-size-16 align-middle me-2"></i>
+                                Completar la investigación laboral
+                            </a> -->
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                </div>
+
+
+                <div class="row" id="demandas_laborales">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Demandas laborales</h3>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="datatable">
+                                                <thead>
+                                                <tr>
+                                                    <th>Demanda Laboral</th>
+                                                    <th>Empresa</th>
+                                                    <th>Motivo</th>
+                                                    <th>Ubicacion</th>
+                                                    <th>Fecha</th>
+                                                    <th>Audencia</th>
+                                                    <th>Conclusión</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for demanda in demandas %}
+                                                    <tr>
+                                                        <td>
+
+                                                            {% if demanda.tiene_demanda == 0 %}
+                                                                No
+                                                            {% elif demanda.tiene_demanda == 1 %}
+                                                                Si
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ demanda.empresa }}</td>
+                                                        <td>{{ demanda.motivo }}</td>
+                                                        <td>{{ demanda.ubicacion }}</td>
+                                                        <td>{{ demanda.fecha }}</td>
+                                                        <td>{{ demanda.audiencias }}</td>
+                                                        <td>{{ demanda.conclusion }}</td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'
+                                                                <a class="btn btn-primary can-hide" href="{% url 'investigaciones:investigaciones_demanada_update' investigacion.id demanda.pk %}"><i class="bx bx-edit-alt font-size-16 align-middle"></i></a>
+                                                                <a class="btn btn-danger can-hide" href="{% url 'investigaciones:investigaciones_demanada_delete' investigacion.id demanda.pk %}"><i class="bx bx bx-trash font-size-16 align-middle"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="4">No existen demandas laborales para esta investigación</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                            <a href="{% url 'investigaciones:investigaciones_demanada_create' investigacion.id %}"
+                                               class="btn btn-primary waves-effect btn-label waves-light can-hide">
+                                                <i class="bx bx-plus label-icon"></i>
+                                                Agregar demanda laboral</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                </div>
+
+                {% if psicometrico %}
+                    <div class="row" id="investigacion_psicometric">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">
+
+                                        Investigación psicométrica
+
+                                    </h3>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <strong>Ejecutivo psicometrico:</strong>
+                                            {{ psicometrico_data.user }}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <strong>Fecha de asignación:</strong>
+                                            {{ psicometrico_data.created }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <strong>Última modificación:</strong>
+                                            {{ psicometrico_data.modificated }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <strong>Completado:</strong>
+                                            <i
+                                                    class="fa fa-{% if psicometrico_data.completado %}check{% else %}times{% endif %}"></i>
+                                        </div>
+                                    </div>
+
+                                    {% if psicometrico_data.completado %}
+
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <strong>Observaciones:</strong>
+                                                {{ psicometrico_data.observaciones }}
+                                            </div>
+                                            <div class="col-md-12">
+                                                <br>
+                                                <strong>Archivo:</strong>
+                                                <br>
+
+                                                {% if  psicometrico_data.archivo %}
+                                                    <a href="/media/{{ psicometrico_data.archivo }}"
+                                                       class="btn btn-primary waves-effect waves-light">
+                                                        <i class="bx bx-download font-size-16 align-middle me-2"></i>
+                                                        Descargar
+                                                    </a>
+                                                {% else %}
+                                                    Informe no contiene archivo
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+
+                    </div>
+                {% endif %}
+
+                <div class="row" id="bitacora">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Adjuntos</h3>
+    
+    
+                                <div class="row">
+                                    <div class="col-md-8">
+    
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <a href="{% url 'investigaciones:investigaciones_adjuntos_update_laboral' object.pk %}"
+                                            class="btn btn-primary">Editar adjuntos
+                                            <span class="glyphicon glyphicon-edit"></span></a>
+                                    </div>
+                                </div>
+
+                                <h6>Semanas Cotizadas</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.a Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj8 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" class="image-popup" data-title="10.a Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.b Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj25 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj25.name }}" class="image-popup" data-title="10.b Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj25.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.c Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj26 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj26.name }}" class="image-popup" data-title="10.c Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj26.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.d Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj27 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj27.name }}" class="image-popup" data-title="10.e Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj27.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>10.e Semanas Cotizadas</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj28 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj28.name }}" class="image-popup" data-title="10.e Semanas Cotizadas">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj28.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr class="thin-separator" />
+    
+    
+                                <h6>Validaciones</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>11.a Demandas Laborales</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj7 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}" class="image-popup" data-title="11.a Demandas Laborales">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>11.b Web</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj36 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}" class="image-popup" data-title="11.b Web">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <hr class="thin-separator" />
+    
+                                <h6> Carta Laboral</h6>
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Principal</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj18 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" class="image-popup" data-title="12.a Principal">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Extra</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj37 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}" class="image-popup" data-title="12.b Extra">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <!--<hr class="thin-separator" />
+    
+    
+                                <h6> 13. Adicionales</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Adicionales A</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj19 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}" class="image-popup" data-title="Adicionales A">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Adicionales B</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj20 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}" class="image-popup" data-title="Adicionales B">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}">
+                                        </a>
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>-->
+
+                                <hr class="thin-separator" />
+    
+    
+                                <h6>Currículum y solicitud de empleo</h6>
+    
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Currículum Vitae</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj40 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj40.name }}" class="image-popup" data-title="Currículum Vitae">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj40.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-3 col-offset-1">
+                                        <label>Currículum Vitae 2</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj42 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj42.name }}" class="image-popup" data-title="Currículum Vitae 2">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj42.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-3 col-offset-1">
+                                        <label>Solicitud de empleo</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj41 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj41.name }}" class="image-popup" data-title="Solicitud de empleo">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj41.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-3 col-offset-1">
+                                        <label>Solicitud de empleo 2</label>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if adjuntos.adj43 %}
+                                        <a href="{{ MEDIA_URL }}{{ adjuntos.adj43.name }}" class="image-popup" data-title="Solicitud de empleo 2">
+                                            <img  class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj43.name }}">
+                                        </a> 
+                                        {% else %}
+                                        <small>(Sin archivo)</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+    
+                                <!--
+                                {% if not investigacion.entrevista_app_completado %}                            
+                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-adjuntos-pregunta">
+                                    <i class="bx bx-check label-icon"></i> Completar Adjuntos
+                                </button>
+                                {% else %}
+                                <h5>Los archivos adjuntos han sido completados</h5>
+                                {% endif %}-->
+    
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+    
+                    {% comment %}
+                <div class="row" id="detalle_investigacions">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Estatus de Inv. Laboral:</h3>
+                                <div class="row">
+                                    <form action="#" method="post" id="trayectoria_status_form">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="text-danger">{{ formaInvestigacion.observaciones_generales.errors }}</div>
+                                                {{ formaInvestigacion.observaciones_generales|safe }}
+                                                <br/>
+
+                                                <div class="col-md-2 pull-right">
+                                                    <button type="submit" class="btn btn-primary form-control can-hide" name="guardar">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                </div>
+                {% endcomment %}
+
+                <div class="row" id="bitacoras">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Bitácora</h3>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="datatable">
+                                                <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Usuario</th>
+                                                    <th>Servicio</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for bitacora in bitacoras %}
+                                                    <tr>
+                                                        <td>{{ bitacora.datetime }}</td>
+                                                        <td>{{ bitacora.user }}</td>
+                                                        <td>{{ bitacora.servicio }}</td>
+                                                        <td>{{ bitacora.observaciones }}</td>
+                                                    </tr>
+
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="4">No hay bitacoras para esta investigación</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                            <a href="{% url 'investigaciones:investigaciones_bitacora_create' investigacion.id 'coord_eject_cuenta' %}"
+                                               class="btn btn-primary waves-effect btn-label waves-light can-hide">
+                                                <i class="bx bx-plus label-icon"></i>
+                                                Agregar bitácora</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+
+
+                <a href="{% url 'investigaciones:investigaciones_ejecutivo_laboral_list' %}"
+                   class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+                    Regresar al listado</a>
+
+                <br/><br/>
+
+
+            </div> <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+
+        {% block footer %}
+            {% include 'partials/footer.html' %}
+        {% endblock footer %}
+    </div>
+    <!-- end main content-->
+    <input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion.pk }}">
+{% endblock content %}
+
+
+{% block extra_js %}
+
+    <!-- Sweet Alerts js -->
+    <script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="{% static 'js/system/sweetalert.inv.lab.detail.delete_empresa.init.js' %}"></script>
+    <script src="{% static 'js/system/sweetalert.inv.lab.detail.init.js' %}"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            investigacion_id = $('#investigacion_id').val();
+            $('[data-toggle="popover"]').popover();
+            {% if investigacion.laboral_completado %}
+                setTimeout(function () {
+                    $('.can-hide').map(function (i, v) {
+                        $(v).attr('disabled', true);
+                        $(v).hide();
+                    });
+                }, 1000)
+
+            {% endif %}
+        });
+
+    </script>
+
+{% endblock extra_js %}

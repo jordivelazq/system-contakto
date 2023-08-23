@@ -5,6 +5,7 @@ from app.entrevista.models import (EntrevistaAcademica,
                                    EntrevistaAspectoCandidato,
                                    EntrevistaAspectoHogar, EntrevistaAutomovil,
                                    EntrevistaBienesRaices,
+                                   EntrevistaCaractaristicasVivienda,
                                    EntrevistaCuentaDebito,
                                    EntrevistaDeudaActual, EntrevistaDireccion,
                                    EntrevistaDistribucionDimensiones,
@@ -70,6 +71,10 @@ class EntrevistaBienesRaicesSerializer(serializers.ModelSerializer):
         model = EntrevistaBienesRaices
         fields = '__all__'
 
+class EntrevistaCaracteristicasViviendaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EntrevistaCaractaristicasVivienda
+        fields = '__all__'
 
 class EntrevistaCuentaDebitoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -212,6 +217,7 @@ class EntrevistaPersonaSerializer(serializers.ModelSerializer):
     entrevista_aspecto_hogar = serializers.SerializerMethodField()
     entrevista_automovil = serializers.SerializerMethodField()
     entrevista_bienes_raices = serializers.SerializerMethodField()
+    entrevista_caracteristicas_vivienda = serializers.SerializerMethodField()
     entrevista_cuenta_debito = serializers.SerializerMethodField()
     entrevista_deuda_actual = serializers.SerializerMethodField()
     entrevista_direccion = serializers.SerializerMethodField()
@@ -266,6 +272,11 @@ class EntrevistaPersonaSerializer(serializers.ModelSerializer):
     def get_entrevista_bienes_raices(self, obj):
         queryset = EntrevistaBienesRaices.objects.filter(person_id=obj.pk)
         serializer = EntrevistaBienesRaicesSerializer(queryset, many=True)
+        return serializer.data
+
+    def get_entrevista_caracteristicas_vivienda(self, obj):
+        queryset = EntrevistaCaractaristicasVivienda.objects.filter(person_id=obj.pk)
+        serializer = EntrevistaCaracteristicasViviendaSerializer(queryset, many=True)
         return serializer.data
 
     def get_entrevista_cuenta_debito(self, obj):
@@ -396,6 +407,10 @@ class EntrevistaPersonaSerializer(serializers.ModelSerializer):
         model = EntrevistaPersona
         fields = '__all__'
 
+class EntrevistaPersonaDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EntrevistaPersona
+        fields = '__all__'
 
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -471,6 +486,7 @@ class InvestigacionListSerializer(serializers.ModelSerializer):
     sucursal = SucursalSerializer()
     agente = AgenteSerializer()
     candidato = PersonaSerializer()
+    detalle = serializers.SerializerMethodField()
 
     def get_telefono(self, obj):
         queryset = Telefono.objects.filter(persona_id=obj.candidato_id)
@@ -480,6 +496,11 @@ class InvestigacionListSerializer(serializers.ModelSerializer):
     def get_direccion(self, obj):
         queryset = Direccion.objects.filter(persona_id=obj.candidato_id)
         serializer = DireccionSerializer(queryset, many=True)
+        return serializer.data
+
+    def get_detalle(self, obj):
+        queryset = Investigacion.objects.get(id=obj.id)
+        serializer = InvestigacionSerializer(queryset)
         return serializer.data
 
     class Meta:

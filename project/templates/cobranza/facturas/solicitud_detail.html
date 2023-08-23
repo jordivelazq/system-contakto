@@ -1,0 +1,344 @@
+{% extends 'partials/base.html' %}
+{% load static  %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Detalle de solicitud</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Listado de solicitudes</li>
+                                <li class="breadcrumb-item active">Detalle</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Solicitud # {{cliente_solicitud.pk}}</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="card-title-desc">
+                                        <strong>Contacto: </strong> {{cliente_solicitud.compania.nombre}} <br>
+                                        <strong>Teléfono: </strong> {{cliente_solicitud.compania.telefono}}<br>
+                                        <strong>Correo electrónico: </strong> {{cliente_solicitud.compania.email}}<br><br>
+
+                                       <strong>Fecha de solicitud:</strong> {{ cliente_solicitud.fecha_recibido }} <br>
+                                       <strong>Finalizado:</strong> {{ cliente_solicitud.last_modified }}<br>
+                                    </p>
+
+                                    <p class="card-title-desc">
+                                   <strong> Dirección fiscal:</strong>
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.direccion}}<br>
+                                   <strong> Regimen fiscal:</strong>
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.regimen_fiscal}}<br>
+                                    <strong>RFC:</strong>
+                                    {{cliente_solicitud.cliente_solicitud_candidato.direccion_fiscal.rfc}}<br><br>
+
+                                    
+                                     <a href="{% url 'cobranza_facturas_direccion_fiscal_update' investigacion.pk cliente_solicitud.cliente_solicitud_candidato.pk %}"
+                                             class="btn btn-primary waves-effect btn-label waves-light">
+                                             <i class="bx bxs-user-detail label-icon"></i> Cambiar dirección fiscal</a>
+                                 
+                                
+                                    </p>
+
+                                    <p class="card-title-desc">
+
+                                       <br>
+                                      
+                                        {% if inv_factura_archivos %}
+
+                                           <h4>Archivos fiscales</h4>
+
+                                            {% if inv_factura_archivos.archivo_pdf %}
+                                            <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                    onclick="window.location.href='/media/{{inv_factura_archivos.archivo_pdf}}';">
+                                                    <i class="bx bxs-user-detail label-icon"></i>Descargar PDF</button>
+                                            {% endif %}
+                                        
+
+                                            {% if inv_factura_archivos.archivo_xml %}
+                                            <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                    onclick="window.location.href='/media/{{inv_factura_archivos.archivo_xml}}';">
+                                                    <i class="bx bxs-user-detail label-icon"></i>Descargar XML</button>
+                                            {% endif %}
+                                            
+                                            <br><br>
+
+                                            <a href="{% url 'cobranza_facturas_archivo_update' investigacion.id inv_factura_archivos.id %}"
+                                                class="btn btn-primary waves-effect btn-label waves-light">
+                                                <i class="bx bxs-user-detail label-icon"></i> Actualizar archivos fiscales</a>    
+                                                
+                                                {% if not investigacion.investigacion_factura_enviada_al_cliente %}
+                                            
+                                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-factura-pregunta">
+                                                    <i class="bx bx-check label-icon"></i> Enviar factura al cliente
+                                                </button>
+
+                                                {% else %}
+                                                La factura ha sido enviada al cliente
+                                                {% endif %}
+                                                
+
+                                        {% else %}
+                                            <a href="{% url 'cobranza_facturas_archivo_create' cliente_solicitud.pk %}"
+                                            class="btn btn-primary waves-effect btn-label waves-light">
+                                            <i class="bx bxs-user-detail label-icon"></i> Crear archivos fiscales</a>       
+
+                                        {% endif %}
+                                            
+                                        
+                                        {% if investigacion.investigacion_factura_pago_completado and investigacion.investigacion_factura_completada  %}
+                                        
+                                        <a href="{% url 'cobranza_facturas_validar_comprobante_update' investigacion.pk inv_factura_archivos.pk %}"
+                                        class="btn btn-success waves-effect btn-label waves-light">
+                                        <i class="bx bxs-user-detail label-icon"></i> Validar comprobante</a>       
+                                       
+
+                                        {% elif investigacion.investigacion_factura_completada %}
+                                        Pago ha sido completado
+                                        {% endif %}
+                                      
+                                       
+                                            
+                                    </p>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        
+                        <div class="card-body">
+
+                            {% if messages %}
+                            {% for message in messages %}
+                            <input type="hidden" id="login-msg" value="{{message}}">
+                            <button type="button" class="btn btn-primary" id="borderedToast1Btn" hidden>Primary toast</button>
+                            <div style="z-index: 11">
+                                <div id="borderedToast1" class="toast overflow-hidden mt-3 position-absolute top-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div class="align-items-center text-white bg-primary border-0">
+                                        <div class="d-flex">
+                                            <div class="toast-body">
+                                                {{message}}
+                                            </div>
+                                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                            <h4>Listado de servicios cotizados del cliente</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Cantidad</th>
+                                            <th>Descripción</th>
+                                            <th>Monto</th>
+                                            <th>Descuento</th>
+                                            <th>Sub total</th>
+
+                                            {% if not investigacion.investigacion_factura_enviada_al_cliente %}
+                                            <th>Acciones</th>
+                                            {% endif %}
+                                            
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for candidato in cliente_solicitud_candidatos_facturas %}
+                                        <tr>
+                                            <td>{{ candidato.cantidad }}</td>
+                                            <td>{{ candidato.descripcion }} / ( Candidato: {{candidato.investigacion.candidato.nombre}} {{candidato.investigacion.candidato.apellido}})</td>
+                                            <td><div class="float-end">{{ candidato.monto }}</div></td>
+                                            <td><div class="float-end">{{ candidato.descuento }}</div></td>
+                                            <td><div class="float-end">{{ candidato.get_subtotal }}</div></td>
+                                           
+                             
+                                            
+                                            {% if not investigacion.investigacion_factura_enviada_al_cliente %}
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <a href="{% url 'cobranza_facturas_update' investigacion.pk candidato.id %}"
+                                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Editar</a>       
+                                                </div>
+                                                        
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                    
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="4">Solicitud no tiene registrados</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="4"><div class="float-end"> <strong>Total</strong></div> </td>
+                                            <td class="float-end">{{cliente_solicitud.get_total_facturado}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                
+                                <br><br>
+
+                                
+
+                                <a href="{% url 'cobranza_facturas_list' %}"
+                                class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
+                               
+
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Listado de pagos realizados </h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Notas</th>
+                                            <th>Verificado</th>
+                                            <th>Monto</th>
+                                            <th>Acciones</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for pagos_cliente in inv_cliente_factura_archivos %}
+                                        <tr>
+                                            <td>{{ pagos_cliente.fecha }}</td>
+                                            <td>{{ pagos_cliente.notas }}</td>
+                                            <td class="text-center">
+                                                <i class="fa fa-{% if pagos_cliente.verificado_por_cobranzas %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                            <td class="float-end"><div class="float-end">{{ pagos_cliente.monto }}</div></td>
+                             
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <a href="{% url 'cobranza_facturas_validar_comprobante_update' investigacion.pk pagos_cliente.pk %}"
+                                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i> Verificar</a>       
+                                                </div>
+                                                        
+                                            </td>
+                                           
+                                        </tr>
+                                    
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="5">El cliente no ha realizado pagos</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="3"><div class="float-end"> <strong>Total Pagado</strong></div> </td>
+                                            <td class="float-end">{{cliente_solicitud.get_total_facturado}}</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><div class="float-end"> <strong>Saldo pendiente</strong></div> </td>
+                                            <td class="float-end">{{cliente_solicitud.get_total_facturado}}</td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                
+                                <br><br>
+
+                                <a href="{% url 'cobranza_facturas_list' %}"
+                                class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
+                               
+
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+    {% block footer %}
+    {% include 'partials/footer.html' %}
+    {% endblock footer %}
+</div>
+<!-- end main content-->
+
+<input type="hidden" id="cliente_solicitud_id" name="cliente_solicitud_id" value="{{ cliente_solicitud.pk }}">
+<input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion.pk }}">
+{% endblock content %}
+
+
+{% block extra_js %}
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+            investigacion_id = $('#investigacion_id').val();
+    });
+
+    var user_login = document.getElementById("login-msg"),
+    toastTrigger = document.getElementById("borderedToast1Btn"),
+    toastLive = document.getElementById("borderedToast1");
+    user_login && (toastTrigger.addEventListener("click", function () {
+        new bootstrap.Toast(toastLive).show()
+    }), toastTrigger.click());
+</script>
+<script src="{% static 'js/system/sweetalert.cobranzas.list.init.js' %}"></script>
+{% endblock extra_js %}
+    

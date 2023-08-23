@@ -1,6 +1,13 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-{% block title %}Lisado de solicitudes | Contakcto{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
+
+
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+    
 
 {% block content %}
 <!-- ============================================================== -->
@@ -35,17 +42,25 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Solicitudes de: {{user.first_name}} {{user.last_name}} / Compañia: {{uc.get_compania}} </h4>
+                            <h4 class="card-title">Solicitudes de: {{user.first_name}} {{user.last_name}} / Cliente: {{uc.get_compania}} </h4>
                             <div class="row">
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <p class="card-title-desc">
                                         Total de solicitudes enviadas / Total de solicitudes en proceso / Total de solicitudes finalizadas
                                     </p>
-                                </div>
+                                </div> -->
 
-                                <div class="col-md-6 text-end">
-                                    <a href="{% url 'clientes:clientes_solicitudes_create' %}"
-                                        class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-plus label-icon"></i>Crear solicitud</a>
+                                <div class="col-md-12 text-end">
+                                    <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="sa-params">
+                                        <i class="bx bx-plus label-icon"></i>Crear solicitud
+                                    </button>
+
+                                  
+                                  {% comment %}
+                                      <a href="{% url 'clientes:clientes_solicitudes_create' %}"
+                                          class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-plus label-icon"></i>Crear solicitud</a>
+                                  {% endcomment %}
+                                    
                                 </div>
                             </div>
                         </div>
@@ -55,38 +70,53 @@
 
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Fecha de solicitud</th>
-                                            <th>Enviado</th>
-                                            <th>Nro de Candidatos</th>
                                             <th>Acciones</th>
+                                            <th>Fecha de creación</th>
+                                            <th>Enviado</th>
+                                            <th>Fecha de Envio</th>
+                                            <th>Nro de Candidatos</th>
+                                            <th>Candidatos Completados</th>
+                                            <th>Observaciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for solicitud in cliente_solicitudes %}
                                         <tr>
-                                            <td>{{ solicitud.id }}</td>
-                                            <td>{{ solicitud.fecha_solicitud }}</td>
-                                            <td>{{ solicitud.enviado }}</td>
-                                            <td>{{ solicitud.numero_candidatos }}</td>
                                             <td>
 
-
                                                 <div class="d-flex flex-wrap gap-2">
-                                                    <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}"
-                                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bxs-user-detail label-icon"></i>Detalles</a>
 
+                                                    <div class="btn-group" role="group">
+                                                    
+                                                    
+                                                    <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}" aria-label="Detalles"
+                                                    class="btn btn-soft-primary waves-effect waves-light"> <i class="bx bxs-search label-icon"></i></a>
+                                                    
                                                     {% if not solicitud.enviado %}
-                                                    <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}"
-                                                    class="btn btn-danger waves-effect btn-label waves-light"><i class="bx bx-trash-alt label-icon"></i>Eliminar</a>    
+                                                    <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}" aria-label="Eliminar"
+                                                    class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt label-icon"></i></a>    
                                                     {% endif %}
+
+                                                    </div>
+
                                                 </div>
-
-
-                                                
-
                                                    
                                             </td>
+                                            <td>{{ solicitud.fecha_solicitud }}</td>
+                                            <td>
+                                                <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                            <td>
+                                                {% if solicitud.enviado %}
+                                                {{ solicitud.fecha_actualizacion }}
+                                                {% else %}
+                                                -
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ solicitud.get_candidatos_count }}</td>
+                                            <td>{{ solicitud.get_candidatos_completados_count }}</td>
+                                            <td>{{ solicitud.observaciones }}</td>
+                                           
                                         </tr>
                                         {% empty %}
                                         <tr>
@@ -115,3 +145,15 @@
 </div>
 <!-- end main content-->
 {% endblock content %}
+
+
+{% block extra_js %}
+
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+<!-- Sweet alert init js-->
+<script src="{% static 'js/system/sweetalert.solicitudes.list.init.js' %}"></script>
+    
+{% endblock extra_js %}
+    

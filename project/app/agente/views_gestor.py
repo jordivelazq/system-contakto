@@ -1,17 +1,16 @@
 from datetime import datetime
 
+from app.agente.models import GestorInfo
+from app.agente.views import is_email_valid
+from app.bitacora.models import Bitacora
+from app.compania.models import Compania
+from app.investigacion.models import Investigacion
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import RequestContext
-
-from app.agente.models import GestorInfo, AgenteInfo
-from app.agente.views import is_email_valid
-from app.bitacora.models import Bitacora
-from app.compania.models import Compania
-from app.investigacion.models import Investigacion
 
 
 @login_required(login_url='/login', redirect_field_name=None)

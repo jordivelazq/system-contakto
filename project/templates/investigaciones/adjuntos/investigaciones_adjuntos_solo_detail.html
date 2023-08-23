@@ -1,0 +1,578 @@
+
+<div class="row">
+    <div class="col-md-3 col-offset-1">
+        1. Foto de perfil del candidato
+    </div>
+    <div class="col-md-2">
+        {{adjuntos.}}
+        {% if adjuntos.adj2 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj2.name }}" class="image-popup"
+            data-title=" Foto de perfil del candidato">
+            <img class="img-thumbnail" alt="200x200" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj2.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+
+<h6>2. Fotografias del domicilio </h6>
+<br>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        2a. Interior derecho</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj3 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj3.name }}" class="image-popup" data-title="2a. Interior derecho">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj3.name }}"></a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>2b. Interior izquierdo</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj4 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj4.name }}" class="image-popup" data-title="2b. Interior izquierdo">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj4.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>2c. Exterior derecho</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj5 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj5s.name }}" class="image-popup" data-title="2c. Exterior derecho">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj5.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>2d. Exterior izquierdo</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj6 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj6.name }}" class="image-popup" data-title="2d. Exterior izquierdo">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj6.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>2e. Frente</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj9 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj9.name }}" class="image-popup" data-title="2e. Frente">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj9.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="thin-separator" />
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>3. Gestor Entrevistador</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj10 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj10.name }}" class="image-popup" data-title="Gestor Entrevistador">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj10.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>4. Croquis</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj13 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj13.name }}" class="image-popup" data-title="Croquis">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj13.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>5. Aviso Privacidad</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj11 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj11.name }}" class="image-popup" data-title="Aviso Privacidad">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj11.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>6. Constancia</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj12 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj12.name }}" class="image-popup" data-title="Constancia">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj12.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+
+<h6>7. Fotografias de la Identificación</h6>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>7.a Identificación con fotografia</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj14 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj14.name }}" class="image-popup"
+            data-title="7.a Identificación con fotografia">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj14.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>7.b Identificación con fotografia</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj22 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj22.name }}" class="image-popup"
+            data-title="7.b Identificación con fotografia">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj22.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>7.c Identificación con fotografia</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj23 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj23.name }}" class="image-popup"
+            data-title="7.c Identificación con fotografia">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj23.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>7.d Identificación con fotografia</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj24 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj24.name }}" class="image-popup"
+            data-title="7.d Identificación con fotografia">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj24.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>8. Acta de nacimiento</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj17 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj17.name }}" class="image-popup" data-title="8. Acta de nacimiento">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj17.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>9. Comprobante de domicilio</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj16 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj16.name }}" class="image-popup" data-title="9. Comprobante de domicilio">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj16.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+
+10. Semanas Cotizadas
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>10.a Semanas Cotizadas</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj8 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" class="image-popup" data-title="10.a Semanas Cotizadas">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>10.b Semanas Cotizadas</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj25 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj25.name }}" class="image-popup" data-title="10.b Semanas Cotizadas">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj25.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>10.c Semanas Cotizadas</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj26 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj26.name }}" class="image-popup" data-title="10.c Semanas Cotizadas">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj26.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>10.d Semanas Cotizadas</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj27 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj27.name }}" class="image-popup" data-title="10.e Semanas Cotizadas">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj27.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>10.e Semanas Cotizadas</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj28 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj28.name }}" class="image-popup" data-title="10.e Semanas Cotizadas">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj28.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+<hr class="thin-separator" />
+
+
+<h6>11. Validaciones</h6>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>11.a Demandas Laborales</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj7 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}" class="image-popup" data-title="11.a Demandas Laborales">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj7.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>11.b Web</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj36 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}" class="image-popup" data-title="11.b Web">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj36.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<hr class="thin-separator" />
+
+<h6> 12. Carta Laboral</h6>
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>12.a Principal</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj18 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}" class="image-popup" data-title="12.a Principal">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj18.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>12.b Extra</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj37 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}" class="image-popup" data-title="12.b Extra">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj37.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<hr class="thin-separator" />
+
+
+<h6> 13. Adicionales</h6>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales A</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj19 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}" class="image-popup" data-title="Adicionales A">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj19.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales B</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj20 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}" class="image-popup" data-title="Adicionales B">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj20.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales C</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj21 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj21.name }}" class="image-popup" data-title="Adicionales c">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj21.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales D</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj29 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.ad29.name }}" class="image-popup" data-title="Adicionales D">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj4.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales E</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj30 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj30.name }}" class="image-popup" data-title="Adicionales E">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj30.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales F</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj31 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj31.name }}" class="image-popup" data-title="Adicionales F">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj31.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales G</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj32 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj32.name }}" class="image-popup" data-title="Adicionales G">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj32.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales H</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj33 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj33.name }}" class="image-popup" data-title="Adicionales H">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj33.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3 col-offset-1">
+        <label>Adicionales I</label>
+    </div>
+    <div class="col-2">
+        {% if adjuntos.adj34 %}
+        <a href="{{ MEDIA_URL }}{{ adjuntos.adj34.name }}" class="image-popup" data-title="Adicionales I">
+            <img class="img-thumbnail" alt="100x100" width="100" src="{{ MEDIA_URL }}{{ adjuntos.adj34.name }}">
+        </a>
+        {% else %}
+        <small>(Sin archivo)</small>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="thin-separator" />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-3 col-offset-1">
+                <label>Extra A</label>
+            </div>
+            <div class="col-2">
+                {% if adjuntos.adj35 %}
+                <a href="{{ MEDIA_URL }}{{ adjuntos.adj35s.name }}" class="btn btn-default"
+                    target="_blank">Descargar</a>
+                {% else %}
+                <small>(Sin archivo)</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

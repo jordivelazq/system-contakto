@@ -1,0 +1,388 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Investigaciones - Registro de pago de factura </h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Listado de investigacines</li>
+                                <li class="breadcrumb-item active">Detalle de investigación</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Detalle de investigación</h3>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <strong>Tipo de investigación:</strong>
+                                    {% for ti in investigacion.tipo_investigacion.all  %}    
+                                    {{ ti }}
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Cliente:</strong>
+                                    {{ investigacion.compania }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Sucursal:</strong>
+                                    {{ investigacion.sucursal }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <strong>Contacto:</strong>
+                                    {{ investigacion.cliente_solicitud }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+            <div class="row" id="Datos del candidato">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+
+                                {% if investigacion.candidato_validado %}
+
+                                <button type="button" class="btn btn-soft-success waves-effect waves-light"><i
+                                        class="bx bx-check-double font-size-16 align-middle"></i></button>
+
+                                {% else %}
+
+                                <button type="button" class="btn btn-soft-danger waves-effect waves-light"
+                                    data-bs-toggle="popover" title="Data incompleta"
+                                    data-bs-content="Se debe completar los datos del candidato, "><i
+                                        class="bx bx-block font-size-16 align-middle"></i></button>
+
+                                {% endif %}
+
+                                Datos del candidato
+
+                            </h3>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>Nombres:</strong>
+                                    {{ investigacion.candidato.nombre }} {{ investigacion.candidato.apellido }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>NSS:</strong>
+                                    {{ investigacion.candidato.nss }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>Teléfono móvil:</strong>
+                                    {{ investigacion.cliente_solicitud_candidato.telefono_movil }}
+                                </div>
+                                <div class="col-md-3">
+                                    <strong>CURP:</strong>
+                                    {{ investigacion.candidato.curp }}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+
+
+            <div class="row" id="Datos del candidato">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+            
+
+                             <h4>Listado de servicios solicitados a pagar</h4>
+
+
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Cantidad</th>
+                                            <th>Descripción</th>
+                                            <th>Monto</th>
+                                            <th>Descuento</th>
+                                            <th>Sub total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for candidato in cliente_solicitud_candidatos_facturas %}
+                                        <tr>
+                                            <td>{{ candidato.cantidad }}</td>
+                                            <td>{{ candidato.descripcion }} / ( Candidato: {{candidato.investigacion.candidato.nombre}} {{candidato.investigacion.candidato.apellido}})</td>
+                                            <td><div class="float-end">{{ candidato.monto }}</div></td>
+                                            <td><div class="float-end">{{ candidato.descuento }}</div></td>
+                                            <td><div class="float-end">{{ candidato.get_subtotal }}</div></td>
+                                        </tr>
+                                    
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="4">Solicitud no tiene candidatos registrados</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="4"><div class="float-end"> <strong>Total</strong></div> </td>
+                                            <td>{{investigacion.get_total_facturado}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                
+                                <br><br>
+                             
+
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>        
+            </div>            
+
+
+
+
+
+
+
+            <div class="row" id="asignacion_coordinadores">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Notas sobre pago de facturas</h3>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <br />
+                                    <p>
+                                        Para registrar el pago recomendamos que realice el pago en la siguiente cuenta bancaria: <br>
+                                        XXXXXXXXX<br><br>
+
+                                        Guardar el comprobane de pago en formato pdf o JPG. y luego proceda a registrarlo al sistema.
+                                    </p>
+                                   
+                                    <br>
+                                    <br>
+
+
+
+                                    {% if  investigacion.investigacion_factura_pago_verificado  %}
+
+                                    
+                                        {% if inv_archivos %}
+
+                                            {% if inv_archivos.archivo_pdf %}
+                                                <button class="btn btn-primary waves-effect btn-label waves-light" 
+                                                        target="_blank"
+                                                        onclick="window.location.href='/media/{{inv_archivos.archivo_pdf}}';">
+                                                        <i class="bx bxs-user-detail label-icon"></i>Descargar PDF</button>
+                                                {% endif %}
+                                            
+
+                                                {% if inv_archivos.archivo_xml %}
+                                                <button class="btn btn-primary waves-effect btn-label waves-light"
+                                                        target="_blank"
+                                                        onclick="window.location.href='/media/{{inv_archivos.archivo_xml}}';">
+                                                        <i class="bx bxs-user-detail label-icon"></i>Descargar XML</button>
+                                                {% endif %}
+                                                
+                                            {% endif %}
+                                            
+                                        {% endif %}
+                                        
+
+                                   
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <h3 class="card-title">Listado de pagos registrados</h3>
+                                   
+                                </div>
+
+                                <div class="col-lg-6 text-end">
+
+                                    <a href="{% url 'clientes:clientes_factura_create' investigacion.id %}"
+                                        class="btn btn-primary waves-effect btn-label waves-light">
+                                        <i class="bx bx-edit label-icon"></i>
+                                        Registrar comprobante
+                                    </a>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Notas</th>
+                                            <th>Verificado</th>
+                                            <th>Monto</th>
+                                            <th>Acciones</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for pagos_cliente in inv_cliente_factura_archivos %}
+                                        <tr>
+                                            <td>{{ pagos_cliente.fecha }}</td>
+                                            <td>{{ pagos_cliente.notas }}</td>
+                                            <td class="float-center">
+                                                <i class="fa fa-{% if pagos_cliente.verificado_por_cobranzas %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                            <td class="float-end">{{ pagos_cliente.monto }}</td>
+                             
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <a href="{% url 'clientes:clientes_factura_update' investigacion_id pagos_cliente.id %}"
+                                                    class="btn btn-primary waves-effect btn-label waves-light">
+                                                    <i class="bx bxs-edit label-icon"></i> Editar
+                                                    </a>
+                                                    {% comment %} <a href="#"
+                                                    class="btn btn-danger waves-effect btn-label waves-light">
+                                                    <i class="bx bxs-trash label-icon"></i> Eliminar
+                                                    </a>        {% endcomment %}
+                                                </div>         
+                                            </td>
+                                        </tr>
+                                    
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="5">El cliente no ha realizado pagos</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="3"><div class="float-end"> <strong>Total Pagado</strong></div> </td>
+                                            <td class="float-end">{{investigacion.get_total_pagado}}</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><div class="float-end"> <strong>Saldo pendiente</strong> </td>
+                                            <td class="float-end">{{investigacion.get_total_pendiente}}</td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                
+                                <br><br>
+
+                                <a href="{% url 'cobranza_facturas_list' %}"
+                                class="btn btn-primary waves-effect btn-label waves-light"><i class="bx bx-arrow-back label-icon"></i> Regresar al listado</a>    
+                               
+
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+
+            <a href="{% url 'clientes:clientes_facturas_list' %}"
+            class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-arrow-back label-icon"></i>
+            Regresar al listado</a>
+
+            <br /><br />
+            
+
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    {% block footer %}
+    {% include 'partials/footer.html' %}
+    {% endblock footer %}
+</div>
+<!-- end main content-->
+<input type="hidden" id="investigacion_id" name="investigacion_id" value="{{ investigacion_id }}">
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+        investigacion_id = $('#investigacion_id').val();
+    });
+</script>
+<script src="{% static 'js/system/sweetalert.clientes.facturas.list.init.js' %}"></script>
+
+{% endblock extra_js %}

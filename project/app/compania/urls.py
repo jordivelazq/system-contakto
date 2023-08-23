@@ -1,18 +1,51 @@
 from django.conf.urls import include, url
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+
 from .api import CompaniaTemplateView, CompaniaViewSet
+from .new_views.companias import (CompaniaContactoCreateView,
+                                  CompaniaContactoDeleteView,
+                                  CompaniaContactoUpdateView,
+                                  CompaniaCreateView, CompaniaDeleteView,
+                                  CompaniaDetailView,
+                                  CompaniaSucursalCreateView,
+                                  CompaniaSucursalDeleteView,
+                                  CompaniaSucursalUpdateView,
+                                  CompaniaUpdateView,
+                                  DireccionFiscalCreateView,
+                                  DireccionFiscalDeleteView,
+                                  DireccionFiscalUpdateView)
 
 router = DefaultRouter()
 router.register(r'companias', CompaniaViewSet)
 
 
-from app.compania.views import panel, nueva, editar, borrar, sucursal_main, sucursal_new, sucursal_edit, sucursal_delete, contactos, contacto_nuevo, contacto_editar, contacto_borrar, get_contactos, search_empresas, reset_filtros
+from app.compania.views import (borrar, contacto_borrar, contacto_editar,
+                                contacto_nuevo, contactos, editar,
+                                get_contactos, nueva, panel, reset_filtros,
+                                search_empresas, sucursal_delete,
+                                sucursal_edit, sucursal_main, sucursal_new)
 
 urlpatterns = [
 
     path("api/", include(router.urls)),
     path("list/", CompaniaTemplateView.as_view(), name="companias_list"),
+    path("detail/<int:pk>/", CompaniaDetailView.as_view(), name="companias_detail"),
+    path("create/", CompaniaCreateView.as_view(), name="companias_create"),
+    path("update/<int:pk>/", CompaniaUpdateView.as_view(), name="companias_update"),
+    path("delete/<int:pk>/", CompaniaDeleteView.as_view(), name="companias_delete"),
+
+    path("sucursal/create/<int:compania_id>/", CompaniaSucursalCreateView.as_view(), name="companias_sucursal_create"),
+    path("sucursal/update/<int:compania_id>/<int:pk>/", CompaniaSucursalUpdateView.as_view(), name="companias_sucursal_update"),
+    path("sucursal/delete/<int:compania_id>/<int:pk>/", CompaniaSucursalDeleteView.as_view(), name="companias_sucursal_delete"),
+   
+    path("direccion_fiscal/create/<int:compania_id>/", DireccionFiscalCreateView.as_view(), name="companias_direccion_fiscal_create"),
+    path("direccion_fiscal/update/<int:compania_id>/<int:pk>/", DireccionFiscalUpdateView.as_view(), name="companias_direccion_fiscal_update"),
+    path("direccion_fiscal/delete/<int:compania_id>/<int:pk>/", DireccionFiscalDeleteView.as_view(), name="companias_direccion_fiscal_delete"),
+
+	path("contacto/create/<int:compania_id>/", CompaniaContactoCreateView.as_view(), name="companias_contacto_create"),
+    path("contacto/update/<int:compania_id>/<int:pk>/", CompaniaContactoUpdateView.as_view(), name="companias_contacto_update"),
+    path("contacto/delete/<int:compania_id>/<int:pk>/", CompaniaContactoDeleteView.as_view(), name="companias_contacto_delete"),
 
 
 	url(r'^$', panel, name='compania_panel'),

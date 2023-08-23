@@ -1,0 +1,11 @@
+{% load core_extras %}{% if request.user|has_group:"Coordinador de Reclutamiento" %}
+<li>
+    <a href="javascript: void(0);" class="has-arrow">
+        <i data-feather="trello"></i>
+        <span data-key="t-tasks">Coord. Reclutamiento</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li><a href="{% url 'gestor_info_list' %}" data-key="t-inbox">Catalogo de gestores</a></li>
+    </ul>
+</li>
+{% endif %}

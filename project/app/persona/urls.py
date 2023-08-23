@@ -9,6 +9,7 @@ from app.adjuntos.views import panel_adjuntos, editar_adjuntos
 from app.cobranza.views import cobranza_investigacion
 
 from .api import PersonasTemplateView, PersonaViewSet
+from .new_views.personas import (PersonaDetailView)
 
 router = DefaultRouter()
 router.register(r'personas', PersonaViewSet)
@@ -16,6 +17,10 @@ router.register(r'personas', PersonaViewSet)
 
 urlpatterns = [
 	path("api/", include(router.urls)),
+
+	# Nuevo sistema
+	path('personas/', PersonasTemplateView.as_view(), name='personas_list'),
+	path('personas/detail/<int:pk>/', PersonaDetailView.as_view(), name='personas_detail'),
 
 	url(r'^$', panel, name='panel_persona'),
 	url(r'^nuevo$', crear, name='crear_persona'),
@@ -80,6 +85,5 @@ urlpatterns = [
 	#Demanda
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/demanda/(?P<demanda_id>[^/]+)$', borrar_demanda, name='nueva_trayectoria'),
 
-	# Nuevo sistema
-	path('personas/', PersonasTemplateView.as_view(), name='personas_list'),
+	
 ]

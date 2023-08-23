@@ -10,12 +10,14 @@ from app.api.views_mobile import *
 
 router = DefaultRouter()
 router.register(r'entrevista_persona/(?P<investigacion_id>\d+)', EntrevistaPersonaViewSet)
+router.register(r'entrevista_persona/(?P<investigacion>\d+)', EntrevistaPersonaDataViewSet)
 router.register(r'entrevista_academica', EntrevistaAcademicaViewSet)
 router.register(r'entrevista_actividaddes_habitos', EntrevistaActividadesHabitosViewSet)
 router.register(r'entrevista_aspecto_hogar', EntrevistaAspectoHogarViewSet)
 router.register(r'entrevista_aspecto_automovil', EntrevistaAutomovilViewSet)
 router.register(r'entrevista_aspecto_candidato', EntrevistaAspectoCandidatoViewSet)
 router.register(r'entrevista_bienes_raices', EntrevistaBienesRaicesViewSet)
+router.register(r'entrevista_caracteristicas_vivienda', EntrevistaCaracteristicasViviendaViewSet)
 router.register(r'entrevista_cuenta_debito', EntrevistaCuentaDebitoViewSet)
 router.register(r'entrevista_deuda_actual', EntrevistaDeudaActualViewSet)
 router.register(r'entrevista_direccion', EntrevistaDireccionViewSet)
@@ -38,8 +40,6 @@ router.register(r'entrevista_prestacion_vivienda', EntrevistaPrestacionViviendaV
 router.register(r'entrevista_tarjeta_credito_comercial', EntrevistaTarjetaCreditoComercialViewSet)
 router.register(r'entrevista_telefono', EntrevistaTelefonoViewSet)
 router.register(r'entrevista_tipo_inmueble', EntrevistaTipoInmuebleViewSet)
-
-
 
 
 urlpatterns = [

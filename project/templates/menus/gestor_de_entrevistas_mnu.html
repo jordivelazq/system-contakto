@@ -1,0 +1,12 @@
+{% load core_extras %}{% if request.user|has_group:"Gestor de entrevistas" %}
+<li>
+    <a href="javascript: void(0);" class="has-arrow">
+        <i data-feather="users"></i>
+        <span data-key="t-contacts">Gestor de Entrevista</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li><a href="{% url 'investigaciones:investigaciones_adjuntos_list' %}" data-key="t-user-grid">Entrevistas (Foto/app)</a></li>
+        <li><a href="#" data-key="t-user-list">Mis Pagos</a></li>
+    </ul>
+</li>
+{% endif %}

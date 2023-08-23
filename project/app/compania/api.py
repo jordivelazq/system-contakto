@@ -20,3 +20,10 @@ class CompaniaTemplateView(LoginRequiredMixin, TemplateView):
 class CompaniaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Compania.objects.all()
     serializer_class = CompaniaSerializer
+
+    def get_queryset(self):
+
+        qs = self.queryset.filter(
+                 es_cliente=True).order_by("nombre")
+
+        return qs

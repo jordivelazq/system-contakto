@@ -9,7 +9,7 @@
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5 text-center">
                                     <a href="{% url 'dashboard' %}" class="d-block auth-logo">
-                                        <img src="{% static 'images/logo-nuevo.png' %}" alt="" height="28">
+                                        <img src="{% static 'images/logo-nuevo-blanco.png' %}" alt="" height="28">
                                     </a>
                                 </div>
                                 <div class="auth-content my-auto">
@@ -24,7 +24,7 @@
                                             {% if confirmation %}
                                             {% user_display confirmation.email_address.user as user_display %}
                                             <p class="text-muted">{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user <strong>{{ user_display }}</strong>.{% endblocktrans %}</p>
-                                            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                                            <form action="{% url 'account_confirm_email' confirmation.key %}">
                                                 {% csrf_token %}
                                                 <div class="mt-4">
                                                     <button type="submit" class="btn btn-primary w-100">{% trans 'Confirm' %}</button>

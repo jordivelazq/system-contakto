@@ -1,9 +1,8 @@
-from app.clientes.forms import UserChangeForm, UserCreationForm
-from app.clientes.models import (ClienteSolicitud,
-                                 ClienteSolicitudCandidato)
+from app.clientes.forms.user_forms import UserChangeForm, UserCreationForm
+from app.clientes.models import (ClienteSolicitud, ClienteSolicitudCandidato,
+                                 ClienteTipoInvestigacion, ClienteUser)
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from app.clientes.models import ClienteUser
 
 
 @admin.register(ClienteUser)
@@ -18,20 +17,21 @@ class ClienteUserAdmin(auth_admin.UserAdmin):
     search_fields = ["username"]
 
 
-# @admin.register(Cliente)
-# class ClienteAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'telefono', 'compania')
-#     #inlines = [ServicioCostoAdicionalInline]
+@admin.register(ClienteTipoInvestigacion)
+class ClienteTipoInvestigacionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tipo_investigacion', 'costo')
 
 
 @admin.register(ClienteSolicitud)
 class ClienteSolicitudAdmin(admin.ModelAdmin):
-    pass
-    # list_display = ('catalog_key', 'efe_key', 'municipio')
-    #inlines = [ServicioCostoAdicionalInline]
+    list_display = ('id', 'cliente', 'enviado', 'fecha_solicitud',
+                    'fecha_actualizacion', 'get_candidatos_count',
+                    'get_candidatos_completados_count', 'observaciones')
+    list_filter = ('enviado', 'fecha_solicitud', 'fecha_actualizacion')
+    search_fields = ('cliente__user__username', 'cliente__user__first_name',
+                     'cliente__user__last_name', 'cliente__user__email')
 
 
 @admin.register(ClienteSolicitudCandidato)
 class ClienteSolicitudCandidatoAdmin(admin.ModelAdmin):
     pass
-    # list_display = ('catalog_key', 'efe_key', 'municipio')

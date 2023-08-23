@@ -63,7 +63,13 @@
       <table>
         <tr>
           <th>RAZÓN SOCIAL:</th>
-          <td>{{ref.compania.razon_social}}</td>
+          <td>
+            {% if ref.nombre_empresa %}
+              {{ref.nombre_empresa}}
+            {% else %}
+              {{ref.compania.razon_social}}
+            {% endif %}
+          </td>
           <th>SUCURSAL Y/O UBICACIÓN</th>
           <td>
             {% if ref.sucursal %}
@@ -72,14 +78,28 @@
               {% if ref.sucursal.ciudad %}
                 / {{ref.sucursal.ciudad}}
               {% endif %}
+            {% else %}
+              {{ref.direccion|default:"&nbsp;"}}
             {% endif %}
           </td>
         </tr>
         <tr>
           <th>NOMBRE COMERCIAL:</th>
-          <td>{{ref.compania}}</td>
+          <td>
+            {% if ref.nombre_empresa %}
+              {{ref.nombre_empresa}}
+            {% else %}
+              {{ref.compania}}
+            {% endif %}
+          </td>
           <th>GIRO</th>
-          <td>{{ref.compania.role|default:"&nbsp;"}}</td>
+          <td>
+            {% if ref.nombre_empresa %}
+              &nbsp;
+            {% else %}
+              {{ref.compania.role|default:"&nbsp;"}}
+            {% endif %}
+          </td>
         </tr>
       </table>
     </div>

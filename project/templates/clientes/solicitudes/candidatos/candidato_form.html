@@ -1,6 +1,23 @@
 {% extends 'partials/base.html' %}
 {% load static crispy_forms_tags %}
-{% block title %}Lisado de solicitudes | Contakcto{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
+
+
+{% block extra_css %}
+<!-- select2 css -->
+<link href="{% static 'libs/select2/dist/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+<style>
+  .popover-inner {
+   width: 500px !important;
+   max-width:500px !important;
+}
+.popover {
+   width: 500px !important;
+   max-width:500px !important;
+}
+</style>
+{% endblock extra_css %}
+
 
 {% block content %}
 <!-- ============================================================== -->
@@ -20,8 +37,8 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Listado de solicitudes</li>
-                                <li class="breadcrumb-item active">Detalle</li>
+                                <li class="breadcrumb-item">Listado de solicitudes</li>
+                                <li class="breadcrumb-item">Detalle</li>
                                 <li class="breadcrumb-item active">Formulario candidato</li>
                             </ol>
                         </div>
@@ -37,7 +54,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Formulario de canditado</h4>
+                            <h4>Formulario de candidato</h4>
                         </div>
                         <div class="card-body">
 
@@ -73,12 +90,28 @@
 
                                 <div class="row">
                                     <div class="col-6">
+                                        {{ form.telefono_movil|as_crispy_field }}
+                                    </div>
+                                    <div class="col-6">
+                                        {{ form.telefono_casa|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
                                         {{ form.curp|as_crispy_field }}
                                     </div>
                                     <div class="col-6">
                                         {{ form.puesto|as_crispy_field }}
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>¿Dónde vive?</strong>
+                                    </div>
+                                </div>
+                                <br>
 
 
                                 <div class="row">
@@ -91,20 +124,56 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-10">
                                         {{ form.tipo_investigacion|as_crispy_field }}
                                     </div>
-                                  
+                                    <div class="col-2 align-self-center">
+                                        <br>
+                                    
+                                    <button type="button" 
+                                    id="btn_popover"
+                                    class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="popover" 
+                                    title="Tipos de Investigación"
+                                    data-bs-html="true"
+                                    data-bs-content="
+                                    <strong>Laboral:</strong> Demandas laborales + Investigación laboral. <br> 
+                                    <strong>Psicometrico:</strong> Demandas laborales + psicometrico. <br> 
+                                    <strong>Socioeconomico:</strong> Demandas laborales + investigación laboral + visita domiciliaria (entrevista). <br> 
+                                    <strong>Visita domiciliaria:</strong> Demandas laborales + visita domiciliaria (entrevista). <br> 
+                                    <strong>Demandas laborales:</strong> Solo demandas laborales. <br>
+                                    "><i
+                                        class="bx bx-help-circle font-size-16 align-middle"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ form.sucursal|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ form.direccion_fiscal|as_crispy_field }}
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ form.archivo_solicitud|as_crispy_field }}
+                                    </div>
                                 </div>
 
                                 <br><br>
 
-                                <button type="submit" 
-                                    class="btn btn-primary waves-effect btn-label waves-light"> <i class="bx bx-user-check label-icon"></i> 
+                                <button type="submit" class="btn btn-primary waves-effect btn-label waves-light"> <i
+                                        class="bx bx-user-check label-icon"></i>
                                     Guardar candidato</button>
 
                                 <a href="{% url 'clientes:clientes_solicitud_detail' solicitud_id %}"
-                                    class="btn btn-warning waves-effect btn-label waves-light"> <i class="bx bx-user-x label-icon"></i>
+                                    class="btn btn-warning waves-effect btn-label waves-light"> <i
+                                        class="bx bx-user-x label-icon"></i>
                                     Cancelar</a>
 
                             </form>
@@ -132,5 +201,16 @@
 
 {% block extra_js %}
 <script src="{% static 'js/system/estado_municipio.js'%}"></script>
-{% endblock extra_js %}
+<script src="{% static 'libs/select2/dist/js/select2.min.js'%}"></script>
 
+<script>
+  $(document).ready(function () {
+    $('#id_tipo_investigacion').select2();
+    $('#id_estado').select2();
+    $('#id_municipio').select2();
+    $('#id_sucursal').select2();
+    $('[data-toggle="popover"]').popover();
+
+  });
+</script>
+{% endblock extra_js %}
