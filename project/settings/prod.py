@@ -17,7 +17,7 @@ DATABASES = {
         'PASSWORD': os.environ['CONTAKTO_DB_PASSWORD'],                  # Not used with sqlite3.
         'HOST': os.environ['CONTAKTO_DB_HOST'],  
         'PORT': os.environ['CONTAKTO_DB_PORT'], 
-    }
+    }   
 }
 
 SHOW_DJANGO_TOOLBAR = False
