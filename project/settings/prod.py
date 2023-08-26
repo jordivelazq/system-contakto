@@ -1,6 +1,8 @@
-from .base import *
 import os
+
 import environ
+
+from .base import *
 
 env = environ.Env()
 
@@ -10,14 +12,14 @@ DEBUG = False
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.environ['CONTAKTO_DB_NAME_DEV'],
-        'USER': os.environ['CONTAKTO_DB_USER'],                      # Not used with sqlite3.
-        'PASSWORD': os.environ['CONTAKTO_DB_PASSWORD'],                  # Not used with sqlite3.
-        'HOST': os.environ['CONTAKTO_DB_HOST'],  
-        'PORT': os.environ['CONTAKTO_DB_PORT'], 
-    }   
+    "default": {
+        "ENGINE": "django.db.backends.mysql",  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        "NAME": os.environ["CONTAKTO_DB_NAME_PROD"],
+        "USER": os.environ["CONTAKTO_DB_USER"],  # Not used with sqlite3.
+        "PASSWORD": os.environ["CONTAKTO_DB_PASSWORD"],  # Not used with sqlite3.
+        "HOST": os.environ["CONTAKTO_DB_HOST"],
+        "PORT": os.environ["CONTAKTO_DB_PORT"],
+    }
 }
 
 SHOW_DJANGO_TOOLBAR = False
@@ -76,12 +78,12 @@ EMAIL_SUBJECT_PREFIX = env(
 EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
 
 ANYMAIL = {
-    'AMAZON_SES_CLIENT_PARAMS': {
-        'aws_access_key_id': os.environ['AWS_ACCESS_KEY_FOR_ANYMAIL_SES'],
-        'aws_secret_access_key': os.environ['AWS_SECRET_KEY_FOR_ANYMAIL_SES'],
-        'region_name': os.environ['API_AWS_REGION_NAME'],
+    "AMAZON_SES_CLIENT_PARAMS": {
+        "aws_access_key_id": os.environ["AWS_ACCESS_KEY_FOR_ANYMAIL_SES"],
+        "aws_secret_access_key": os.environ["AWS_SECRET_KEY_FOR_ANYMAIL_SES"],
+        "region_name": os.environ["API_AWS_REGION_NAME"],
     }
 }
 
-FILE_UPLOAD_DIRECTORY_PERMISSIONS=0o755
-FILE_UPLOAD_PERMISSIONS=0o755
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
+FILE_UPLOAD_PERMISSIONS = 0o755
