@@ -6,12 +6,22 @@ function personaDetail(id) {
 
 
 $(document).ready(function () {
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+    
     $("#datatable-personas").DataTable({
-        "serverSide": true,
-        "ajax": "/personas/api/personas/?format=datatables",
+        "serverSide": false,
+        ajax: {
+            url : "/personas/api/personas/",
+            dataSrc: "results",
+        },
         "language": {
             "url": "/static/libs/datatables.net/lang/es-ES.json"
         },
+        pageLength: 100,
+        lengthMenu: [
+            [25, 50, 100, -1],
+            [25, 50, 100, "Todos"]
+        ],
         columnDefs: [
             {
                 targets: 17,
