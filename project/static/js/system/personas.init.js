@@ -6,8 +6,8 @@ function personaDetail(id) {
 
 
 $(document).ready(function () {
-    $.fn.dataTable.moment( 'DD/MM/YYYY' );
-    
+    //$.fn.dataTable.moment( 'DD/MM/YYYY' );
+
     $("#datatable-personas").DataTable({
         "serverSide": false,
         ajax: {
