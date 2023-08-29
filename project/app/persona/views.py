@@ -41,6 +41,8 @@ from django.db.models import Q
 from reportlab.pdfgen import canvas
 
 import logging
+
+from project.app.entrevista.entrevista_persona import EntrevistaPersonaService
 logger = logging.getLogger(__name__)
 
 ### USUARIO CONTACTO TIENE ACCESO
@@ -799,6 +801,7 @@ def observaciones(request, investigacion_id):
 			formaGestorInvestigacion.instance.investigacion_id = investigacion.id
 			if request.POST.get('gestor_investigacion-estatus') == '2':
 				formaGestorInvestigacion.instance.fecha_asignacion = datetime.datetime.now()
+				EntrevistaPersonaService(investigacion_id).verifyData()
 			if request.POST.get('gestor_investigacion-estatus') == '3':
 				formaGestorInvestigacion.instance.fecha_atencion = datetime.datetime.now()
 			formaGestorInvestigacion.save()
