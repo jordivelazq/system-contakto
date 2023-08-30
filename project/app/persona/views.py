@@ -42,7 +42,7 @@ from reportlab.pdfgen import canvas
 
 import logging
 
-from project.app.entrevista.entrevista_persona import EntrevistaPersonaService
+from app.entrevista.entrevista_persona import EntrevistaPersonaService
 logger = logging.getLogger(__name__)
 
 ### USUARIO CONTACTO TIENE ACCESO
