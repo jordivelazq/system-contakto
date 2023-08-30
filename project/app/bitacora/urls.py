@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 from app.bitacora.views import panel, search_bitacora, reset_filtros
 

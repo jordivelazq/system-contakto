@@ -20,45 +20,12 @@ $(document).ready(function () {
     $("#datatable-users").DataTable({
         "serverSide": true,
         "ajax": "/core/api/users/?format=datatables",
-        "language": {
-            "url": "/static/libs/datatables.net/lang/es-ES.json"
-        },
-        columnDefs: [
-            {
-                targets: 5,
-                render: function (data) {
-                    let grupos = "";
-                    for (i = 0; i < data.length; i++) {
-                        grupos += data[i].name + '<br>';
-                    } 
-                    return grupos;
-                },
-
-            },
-            {
-                targets: 6,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-            {
-                targets: 7,
-                className: 'dt-body-center', 
-                render: function (data, type, row) {
-                    if (data==true){
-                        return '<i class="fa fa-check"></i>';
-                    }else{
-                        return '<i class="fa fa-times"></i>';
-                    }
-                },
-            },
-        ],
         "columns": [
+            {"data": "id", "title": "Id", "searchable": false},
+            {"data": "first_name", "title": "Nombres"},
+            {"data": "last_name", "title": "Apellidos"}, 
+            {"data": "email", "title": "Email"},
+            {"data": "is_active", "title": "Activo", "searchable": false},
             { "data": null,
                 "orderable": false,
                 "searchable": false,
@@ -75,13 +42,6 @@ $(document).ready(function () {
                   return a;
                 }
             },
-            {"data": "id", "title": "Id", "searchable": false, "visible": false},
-            {"data": "first_name", "title": "Nombres", "responsivePriority": 0,},
-            {"data": "last_name", "title": "Apellidos", "responsivePriority": 0,}, 
-            {"data": "email", "title": "Email"},
-            {"data": "groups", "title": "Grupos", "searchable": false}, 
-            {"data": "is_active", "title": "Activo", "searchable": false},
-            {"data": "is_staff", "title": "Administrador", "searchable": false},
         ],
         lengthChange: !1,
         // buttons: ["copy", "excel", "pdf", "colvis"],

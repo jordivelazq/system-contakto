@@ -42,6 +42,8 @@ router.register(r'entrevista_telefono', EntrevistaTelefonoViewSet)
 router.register(r'entrevista_tipo_inmueble', EntrevistaTipoInmuebleViewSet)
 
 
+
+
 urlpatterns = [
     path("entrevistas/", include(router.urls)),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),

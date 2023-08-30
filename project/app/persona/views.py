@@ -296,7 +296,7 @@ def editar(request, investigacion_id):
 	seccion = ''
 	status = ''
 	msg = []
-	# sucursales = investigacion.compania.sucursales_set.all()
+	sucursales = investigacion.compania.sucursales_set.all()
 	agente_id = investigacion.agente.id
 	origen = investigacion.candidato.origen_set.all()
 	direccion = investigacion.candidato.direccion_set.all()
@@ -309,7 +309,7 @@ def editar(request, investigacion_id):
 	demanda = investigacion.candidato.demanda_set.all()
 	seguro = investigacion.candidato.seguro_set.all()
 	datos_entrevista = EntrevistaService.getDatosEntrevista(investigacion) # NOTA: Pasar esto a PersonaService.get_status_list
-	#contact_id = investigacion.contacto.id
+	contact_id = investigacion.contacto.id
 
 	is_user_captura = request.user.groups.filter(name="captura").count()
 	DemandaFormSet = modelformset_factory(Demanda, form=DemandaAltaForma, max_num=1, extra=1)

@@ -15,7 +15,7 @@ class EntrevistaPersonaService():
         print('verifyData')
         try:
             investigacion = Investigacion.objects.get(pk=self.investigacion_id)
-            ep, create = EntrevistaPersona.objects.get_or_create(investigacion=investigacion)
+            ep, create = EntrevistaPersona.objects.get_or_create(investigacion_id=self.investigacion_id)
 
             if not create:
                 print('EntrevistaPersona existente')
@@ -26,15 +26,6 @@ class EntrevistaPersonaService():
             return False
         
         print(ep, "Persona: " , "Se creo", create)
-
-        ep.nombre = investigacion.candidato.nombre
-        ep.apellido = investigacion.candidato.apellido
-        ep.nss = investigacion.candidato.nss
-        ep.email = investigacion.candidato.email
-        ep.edad = investigacion.candidato.edad
-        ep.curp = investigacion.candidato.curp
-        ep.save()
-
         EntrevistaDireccion.objects.get_or_create(investigacion_id=self.investigacion_id, persona_id=ep.pk)
         EntrevistaAcademica.objects.get_or_create(person_id=ep.pk)
         EntrevistaActividadesHabitos.objects.get_or_create(persona_id=ep.pk)
@@ -88,7 +79,6 @@ class EntrevistaPersonaService():
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="padres", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="hermanos", tipo="ingreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="otros", tipo="ingreso")
-        EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="total", tipo="ingreso")
 
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="impuestos", tipo="egreso")
         EntrevistaEconomica.objects.get_or_create(person_id=ep.pk, monto="", concepto="vestimenta", tipo="egreso")
