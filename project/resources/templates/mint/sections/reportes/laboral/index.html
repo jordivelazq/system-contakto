@@ -58,6 +58,13 @@
   {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 file=adjuntos.adj37 title=adjuntos|verbose_name:'adj37' %}
 {% endif %}
 
+{% if adjuntos.adj41 %}
+  {% include 'sections/reportes/laboral/attachments-job-application.html' %}
+{% endif %}
+
+{% if adjuntos.adj40 %}
+  {% include 'sections/reportes/laboral/attachments-resume.html' %}
+{% endif %}
 {% if adjuntos.adj19 %}
   {% include 'sections/reportes/socioeconomico/adjunto-anexo-documentos.html' with tipo=1 file=adjuntos.adj19 title=adjuntos|verbose_name:'adj19' %}
 {% endif %}
