@@ -26,12 +26,12 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Investigaciones</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Clientes</h4>
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
                                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                            <li class="breadcrumb-item active">Listado de investigacines</li>
+                                            <li class="breadcrumb-item active">Listado de clientes</li>
                                         </ol>
                                     </div>
 
@@ -44,15 +44,15 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Investigaciones</h4>
+                                        <h4 class="card-title">Listado de clientes</h4>
                                     </div>
                                     <div class="card-body">
 
-                                        <table id="datatable-investigaciones" class="table table-bordered dt-responsive  nowrap w-100">
+                                        <table id="datatable-clientes" class="table table-bordered dt-responsive  nowrap w-100">
                                             <div class="loading-table-data">
                                               <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                                              <span class="sr-only">Descargando...</span>
-                                              <p>Descargando...</p> 
+                                              <span class="sr-only">Download...</span>
+                                              <p>Download...</p> 
                                             </div>
 
                                         </table>
@@ -66,7 +66,6 @@
                 </div>
                 <!-- End Page-content -->
 
-                
                 {% block footer %}
                 {% include 'partials/footer.html' %}
                 {% endblock footer %}
@@ -76,15 +75,12 @@
 
 {% block extra_js %}
 <!-- Required datatable js -->
-<script src="{% static 'libs/moment/moment.js'%}"></script>
 <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js'%}"></script>
 <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
 <!-- Buttons examples -->
 <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js'%}"></script>
 <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js'%}"></script>
 
-
-project/static/libs/moment/moment.js
 {% comment %}
     <script src="{% static 'libs/jszip/jszip.min.js'%}"></script>
 {% endcomment %}
@@ -100,5 +96,5 @@ project/static/libs/moment/moment.js
 <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js'%}"></script>
 
 <!-- Datatable init js -->
-<script src="{% static 'js/system/investigaciones.init.js'%}"></script>    
+<script src="{% static 'js/system/clientes.init.js'%}"></script>    
 {% endblock extra_js %}

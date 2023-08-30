@@ -28,17 +28,15 @@ class CandidatoAltaForm(ModelForm):
 
 	class Meta:  
 		model = Persona
-		fields = ['nombre', 'apellido', 'nss', 'rfc', 'email', 'edad', 'curp', 'estado_civil', 'datos_validados']
+		fields = ['nombre', 'apellido', 'nss', 'rfc', 'email', 'edad', 'curp', 'estado_civil']
 
 	def __init__(self, *args, **kwargs):
 		super(CandidatoAltaForm, self).__init__(*args, **kwargs)
 		self.fields['nss'].widget.attrs.update({'maxlength': '11'})
 		self.fields['curp'].widget.attrs.update({'maxlength': '18'})
 		for field_name, field in self.fields.items():
-			if field_name in ('datos_validados'):
-				continue
-
 			field.widget.attrs['class'] = 'form-control'
+			
 			
 			if field_name in ('nss', 'curp'):
 				field.widget.attrs['ng-change'] = 'validate_candidate()'
@@ -51,14 +49,14 @@ class TrayectoriaForm(ModelForm):
 
 	class Meta:  
 		model = TrayectoriaLaboral
-		exclude = ['agente', 'persona', 'status', 'compania', 'sucursal']
+		exclude = ['agente', 'persona', 'status']
 
 	def __init__(self, *args, **kwargs):
 		super(TrayectoriaForm, self).__init__(*args, **kwargs)
 		self.fields['funciones'].widget.attrs.update({'rows': '2'})
 		self.fields['observaciones_generales'].widget.attrs.update({'rows': '2'})
 		self.fields['cumplio_objetivos'].widget.attrs.update({'rows': '1'})
-		#self.fields['compania'].widget.attrs.update({'ng-model':'compania'})
+		self.fields['compania'].widget.attrs.update({'ng-model':'compania'})
 
 		# se agrego clase 'money_format' a los campos que requieren este formato, pensando 
 		# en usar JS para dar el formato

@@ -14,65 +14,143 @@
                         <li>
                             <a href="{% url 'dashboard' %}">
                                 <i data-feather="home"></i>
+                                <span class="badge rounded-pill bg-soft-success text-success float-end">9+</span>
                                 <span data-key="t-dashboard">Dashboard</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{% url 'core:user_messages_list' %}">
-                                <i data-feather="mail"></i>
-                                <span class="badge rounded-pill bg-soft-success text-success float-end"><div id="total_nessage_menu">0</div></span>
+                            <a href="">
+                                <i data-feather="home"></i>
+                                <span class="badge rounded-pill bg-soft-success text-success float-end">9+</span>
                                 <span data-key="notificaciones">Notificaciones</span>
                             </a>
                         </li>
                         
-                        {% include "menus/catalogo_mnu.html" %}
 
-                        {% include "menus/coordinador_reclutamiento_mnu.html" %}
-                        
+                        <li class="menu-title" data-key="t-apps">Administradores</li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="settings"></i>
+                                <span data-key="configuraciones">Configuraciones</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'core:users_list' %}" data-key="t-inbox">Usuarios</a></li>
+                                <li><a href="{% url 'clientes:clientes_list' %}" data-key="t-inbox">Clientes</a></li>
+                                <li><a href="{% url 'companias_list' %}" data-key="t-inbox">Compañias</a></li>
+                                <li><a href="{% url 'personas_list' %}" data-key="t-inbox">Personas</a></li>
+                            </ul>
+                        </li>
+
                         <li class="menu-title" data-key="t-apps">Aplicaciones</li>
-                        
-                        {% include "menus/cliente_mnu.html" %}
 
-                        {% include "menus/coord_atencion_cliente_mnu.html" %}
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="plus-circle"></i>
+                                <span data-key="clientes">Clientes</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'clientes:clientes_solicitudes_list' %}" data-key="t-inbox">Solicitudes</a></li>
+                                <li><a href="#" data-key="t-read-email">Pagos</a></li>
+                            </ul>
+                        </li>
 
-                        {% include "menus/ejecutivo_de_cuentas_mnu.html" %}
-                        
-                        {% include "menus/ejecutivo_de_visitas_mnu.html" %}
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="check-circle"></i>
+                                <span data-key="coord-ejecutivos">Coord. de Ejecutivos</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{% url 'investigaciones:investigaciones_list' %}" data-key="gestion-solicitudes">Gestión de solicitudes</a></li>
+                            </ul>
+                        </li>
 
-                        {% include "menus/coord_visitas_domiciliarias_mnu.html" %}
+                        <li>
+                            <a href="#">
+                                <i data-feather="calendar"></i>
+                                <span data-key="t-calendar">Inv. Laboral</span>
+                            </a>
+                        </li>
                         
-                        {% include "menus/gestor_visitas_domiciliarias_mnu.html" %}
-                        
-                        {% include "menus/gestor_de_entrevistas_mnu.html" %}
-                        
-                        {% include "menus/coord_psicometrico_mnu.html" %}
-                        
-                        {% include "menus/ejecutivo_psicometrico_mnu.html" %}
-                        
-                        {% include "menus/cobranzas_mnu.html" %}
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="users"></i>
+                                <span data-key="t-contacts">Ejecutivo de visitas</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#" data-key="t-user-grid">Entrevistas</a></li>
+                            </ul>
+                        </li>
 
-                        {% include "menus/pagos_gestores_mnu.html" %}
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="users"></i>
+                                <span data-key="t-contacts">Gestor de Entrevista</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#" data-key="t-user-grid">Entrevistas</a></li>
+                                <li><a href="#" data-key="t-user-list">Mi bancos</a></li>
+                                <li><a href="#" data-key="t-user-list">Mis Pagos</a></li>
+                            </ul>
+                        </li>
 
-                           
-                        {% comment %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="trello"></i>
-                                    <span data-key="t-tasks">Pago de gestores</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="#" key="t-task-list">Sube el archivo y bitacora</a></li>
-                                </ul>
-                            </li>
-                        {% endcomment %}
-                            
+                        
 
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="trello"></i>
+                                <span data-key="t-tasks">Coord. Reclutamiento</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#" key="t-task-list">Task List</a></li>
+                                <li><a href="#" key="t-kanban-board">Kanban Board</a></li>
+                                <li><a href="#" key="t-create-task">Create Task</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="trello"></i>
+                                <span data-key="t-tasks">Ejecutivo</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#" key="t-task-list">Task List</a></li>
+                                <li><a href="#" key="t-kanban-board">Kanban Board</a></li>
+                                <li><a href="#" key="t-create-task">Create Task</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="share-2"></i>
+                                <span data-key="t-multi-level">Multi Level</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2">Level 1.2</a>
+                                    <ul class="sub-menu" aria-expanded="true">
+                                        <li><a href="javascript: void(0);" data-key="t-level-2-1">Level 2.1</a></li>
+                                        <li><a href="javascript: void(0);" data-key="t-level-2-2">Level 2.2</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
 
-
-                   
+                    <div class="card sidebar-alert shadow-none text-center mx-4 mb-0 mt-5">
+                        <div class="card-body">
+                            <img src="{% static 'images/giftbox.png'%}" alt="">
+                            <div class="mt-4">
+                                <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
+                                <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
+                                <a href="#!" class="btn btn-primary mt-2">Upgrade Now</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Sidebar -->
             </div>
