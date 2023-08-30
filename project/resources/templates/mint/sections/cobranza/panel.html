@@ -95,9 +95,13 @@
 						<th class="text-center col-red">Estatus</th>
 						<th class="text-center col-red">Resultado</th>
 						<th class="text-center col-red">Obs .Investigacion</th>
+						<th class="text-center col-red">Fecha fin laboral</th>
 						<th class="text-center col-red">Fecha de entrevista</th>
 						<th class="text-center col-red">Hora</th>
 						<th class="text-center col-red">Entrevistador (gestor)</th>
+						<th class="text-center col-red">Fecha de asignación</th>
+						<th class="text-center col-red">Fecha de conclusión</th>
+						<th class="text-center col-blue">CURP</th>
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
@@ -157,6 +161,11 @@
 								{{ investigacion.17 }}
 							</td>
 							<td class="text-center">
+								{% if investigacion.26 %}
+									{{ investigacion.26 |date:'d/m/Y'}}
+								{% endif %}
+							</td>
+							<td class="text-center">
 								{% if investigacion.22 %}
 									{{ investigacion.22}}
 								{% endif %}
@@ -170,6 +179,19 @@
 								{% if investigacion.24 %}
 									{{ investigacion.24}}
 								{% endif %}
+							</td>
+							<td class="text-center">
+								{% if investigacion.25 %}
+									{{ investigacion.25|date:'d/m/Y' }}
+								{% endif %}
+							</td>
+							<td class="text-center">
+								{% if investigacion.27 %}
+									{{ investigacion.27|date:'d/m/Y' }}
+								{% endif %}
+							</td>
+							<td class="text-center">
+								{{ investigacion.28|default:''}}
 							</td>
 						</tr>
 					{% endfor %}

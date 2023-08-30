@@ -25,6 +25,8 @@ from app.reportes.services import ServiceReporte
 from app.reportes.utils import get_trayectorias_por_persona, get_direccion_por_persona, get_entrevistacita_por_persona
 from reportlab.pdfgen import canvas
 
+from app.reportes.utils import get_entrevistagestor_por_persona
+
 @login_required(login_url='/login', redirect_field_name=None)
 def panel(request):
 	page = 'reportes'	# use for main_menu.active
@@ -180,6 +182,7 @@ def get_investigaciones_extended(request, contacto_id):
 	trayectorias_por_persona = get_trayectorias_por_persona(personas_id)
 	direccion_por_persona = get_direccion_por_persona(personas_id)
 	entrevistacita_por_persona = get_entrevistacita_por_persona(investigaciones_id)
+	entrevistagestor_por_persona = get_entrevistagestor_por_persona(investigaciones_id)
 
 	for i in investigaciones:
 		if i.candidato.id in trayectorias_por_persona:
@@ -191,5 +194,8 @@ def get_investigaciones_extended(request, contacto_id):
 		
 		if i.id in entrevistacita_por_persona:
 			i.entrevista = entrevistacita_por_persona[i.id]
+		
+		if i.id in entrevistagestor_por_persona:
+			i.gestor = entrevistagestor_por_persona[i.id]
 
 	return investigaciones

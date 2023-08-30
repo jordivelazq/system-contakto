@@ -105,7 +105,7 @@
 
 <script type="text/javascript">
 	var empresas_select_forma = {% if empresas_select_todas %}[{% for e in empresas_select_todas %} {id:'{{ e.id }}'  , nombre: '{{ e.nombre }}' }, {% endfor %} ]{% elif empresas_select %} [ {% for e in empresas_select %} {id:'{{ e.id }}'  , nombre: '{{ e.nombre }}' }, {% endfor %} ]
-							{% else %}''{% endif %};
+							{% else %}'nada'{% endif %};
 	var compania_instancia_nombre = {% if formInvestigacion.instance.compania.nombre %}'{{formInvestigacion.instance.compania.nombre}}'{% else %}''{% endif %}
 	var compania_instancia_id = {% if formInvestigacion.instance.compania.id %}'{{formInvestigacion.instance.compania.id}}'{% else %}''{% endif %}
 

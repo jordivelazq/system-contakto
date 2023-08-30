@@ -143,7 +143,7 @@
 			</div>
 			<div class="col-md-3">
 				<label for="id_investigacion-fecha_recibido">Fecha recibido *</label>
-				{% if view != 'edit' or request.user.is_superuser %}
+				{% if view != 'edit' or request.user.is_superuser and request.user.get_username != "servicioaclientes1@contakto.mx" and request.user.get_username != "servicioaclientes2@contakto.mx" and request.user.get_username != "psicometricos@contakto.mx" and request.user.get_username != "auxiliar.rh@contakto.mx" and request.user.get_username != "entrevistastj@contakto.mx" and request.user.get_username != "mariana@contakto.mx" and request.user.get_username != "Reclutamiento.rh@contakto.mx" and request.user.get_username != "Visitas2@contakto.mx" and request.user.get_username != "Visitas3@contakto.mx" and request.user.get_username != "Visitas4@contakto.mx" and request.user.get_username != "Visitas5@contakto.mx" %}
 					{{ formInvestigacion.fecha_recibido }}
 					{{ formInvestigacion.fecha_recibido.errors }}
 				{% else %}
@@ -153,7 +153,7 @@
 			</div>
 			<div class="col-md-3">
 				<label for="id_investigacion-hora_recibido">Hora recibido *</label>
-				{% if view != 'edit' or investigacion.hora_recibido is None or request.user.is_superuser %}
+				{% if view != 'edit' or investigacion.hora_recibido is None or request.user.is_superuser and request.user.get_username != "servicioaclientes1@contakto.mx" and request.user.get_username != "servicioaclientes2@contakto.mx" and request.user.get_username != "psicometricos@contakto.mx" and request.user.get_username != "auxiliar.rh@contakto.mx" and request.user.get_username != "entrevistastj@contakto.mx" and request.user.get_username != "mariana@contakto.mx" and request.user.get_username != "Reclutamiento.rh@contakto.mx" and request.user.get_username != "Visitas2@contakto.mx" and request.user.get_username != "Visitas3@contakto.mx" and request.user.get_username != "Visitas4@contakto.mx" and request.user.get_username != "Visitas5@contakto.mx" %}
 					{{ formInvestigacion.hora_recibido }}
 					{{ formInvestigacion.hora_recibido.errors }}
 				{% else %}

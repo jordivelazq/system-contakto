@@ -42,7 +42,7 @@ from reportlab.pdfgen import canvas
 
 import logging
 
-from app.entrevista.entrevista_persona import EntrevistaPersonaService
+from app.adjuntos.models import Adjuntos
 logger = logging.getLogger(__name__)
 
 ### USUARIO CONTACTO TIENE ACCESO
@@ -236,6 +236,9 @@ def crear(request):
 
 			b = Bitacora(action='candidato-creado: ' + str(investigacion.candidato), user=request.user)
 			b.save()
+
+			#Se crea en Adjuntos
+			Adjuntos(investigacion = investigacion).save()
 
 			if 'guardar_crear_otro' in request.POST:
 				return HttpResponseRedirect('/candidato/nuevo/exito')
@@ -566,8 +569,13 @@ def ver_trayectoria(request, investigacion_id):
 
 			return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/trayectoria/exito')
 		else:
+			is_completed = request.POST.get('laboral-completado')
+			if is_completed == "on" and not investigacion.fecha_laboral:
+				investigacion.fecha_laboral = datetime.datetime.now()
+				investigacion.save()
+
 			formaInvestigacion = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=investigacion)
-			if formaInvestigacion.is_valid():			
+			if formaInvestigacion.is_valid():
 				formaInvestigacion.save()
 
 				if 'redirect' in request.POST:
