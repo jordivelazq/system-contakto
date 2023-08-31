@@ -30,6 +30,7 @@ from django.views.decorators.csrf import csrf_exempt
 from app.entrevista.controllerpersona import ControllerPersona
 from app.persona.form_functions import *
 from app.persona.services import PersonaService, get_observacion_automatica
+from app.entrevista.entrevista_persona import EntrevistaPersonaService
 
 from django.conf import settings
 import datetime
