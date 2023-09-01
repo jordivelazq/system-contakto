@@ -572,3 +572,22 @@ def comprimido_entrevista(request, investigacion_id):
 		
 
 	return render(request, 'sections/entrevista/comprimido.html', locals())
+
+@login_required(login_url='/login', redirect_field_name=None)
+def eliminar_entrevista(request, investigacion_id):
+	data = {'message': 'Petición no procesada', 'error': 1}
+	try:
+		ep = EntrevistaPersona.objects.filter(
+			investigacion_id=investigacion_id).delete()
+
+		data = {'message': 'Datos eliminados',
+				'error': 0, 'data': []}
+		b = Bitacora(action='entrevista-eliminada: ' + str(i), user=request.user)
+		b.save()
+	except Exception as e:
+		data = {'message': 'Ha ocurrido un error interno. {}'.format(
+			e.args), 'error': 2}
+	return HttpResponseRedirect('/candidato/investigacion/'+investigacion_id+'/observaciones/exito')
+
+	
+	

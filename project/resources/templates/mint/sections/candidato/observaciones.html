@@ -157,6 +157,12 @@
                             <label>Observaciones de Entrevista (uso interno, no visible):</label>
                             {{ formaEntrevista.observaciones }}
                         </div>
+                        {% if request.user.is_superuser %}	
+                        <div class="col-md-8">
+                            <a href="/candidato/investigacion/{{investigacion.id}}/entrevista/eliminar" class="btn btn-danger btn_eliminar">Eliminar entrevista</a>
+                        <div>
+                            
+                        {% endif %}
                     </div>
 
                     <div class="row">

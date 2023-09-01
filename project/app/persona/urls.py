@@ -3,7 +3,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from app.persona.views import panel, crear, eliminar, editar, nueva_trayectoria, ver_trayectoria, editar_trayectoria_empresa, borrar_trayectoria_empresa, trayectoria_comercial, trayectoria_comercial_borrar, trayectoria_comercial_referencia_borrar, observaciones, ver_reporte, existencia, search_candidatos, reset_filtros, borrar_demanda
-from app.entrevista.views import editar_entrevista, cargar_entrevista, comprimido_entrevista
+from app.entrevista.views import editar_entrevista, cargar_entrevista, comprimido_entrevista, eliminar_entrevista
 from app.investigacion.views import print_reporte_laboral, print_reporte_socioeconomico, print_reporte_visita_domiciliaria, print_reporte_validacion_demandas
 from app.adjuntos.views import panel_adjuntos, editar_adjuntos
 from app.cobranza.views import cobranza_investigacion
@@ -52,6 +52,7 @@ urlpatterns = [
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/ver/(?P<seccion_entrevista>[-\w]+)/$', editar_entrevista, name='editar_entrevista'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/editar/(?P<seccion_entrevista>[-\w]+)/$', editar_entrevista, name='editar_entrevista'),
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/editar/(?P<seccion_entrevista>[-\w]+)/exito$', editar_entrevista, name='editar_entrevista'),
+	url(r'^investigacion/(?P<investigacion_id>[^/]+)/entrevista/eliminar$', eliminar_entrevista, name='eliminar_entrevista'),
 
 	#Observaciones
 	url(r'^investigacion/(?P<investigacion_id>[^/]+)/observaciones$', observaciones, name='ver_observaciones'),
