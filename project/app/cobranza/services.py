@@ -244,7 +244,6 @@ def get_investigaciones_query(count, start_date, end_date, compania_id, contacto
   if not count:
     query += '''
       ORDER BY i.fecha_recibido, cf.folio
-      LIMIT 1000
       '''
 
   return (query, values)
