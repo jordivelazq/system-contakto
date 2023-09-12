@@ -834,6 +834,7 @@ def observaciones(request, investigacion_id):
 			inv_new_instance.save()
 
 			formaEntrevista.save()
+			formaInvestigacion.save()
 			if 'redirect' in request.POST:
 				return HttpResponseRedirect(request.POST.get('redirect'))
 
