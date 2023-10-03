@@ -88,7 +88,7 @@ class CompaniaSucursalCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear sucursal'
-        context['compania_id'].queryset = Compania.objects.filter(es_cliente=True)
+        context['compania_id'] = self.kwargs['compania_id']
         return context
 
     def form_valid(self, form, **kwargs):
