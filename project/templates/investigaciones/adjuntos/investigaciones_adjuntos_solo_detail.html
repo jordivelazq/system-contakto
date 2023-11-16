@@ -2,13 +2,11 @@
     <div class="col-md-8">
 
     </div>
-    {% if request.user.is_staff or is_user_captura %}
     <div class="col-md-4 text-right">
         <a href="{% url 'investigaciones:investigaciones_adjuntos_update' object.pk %}"
             class="btn btn-primary">Editar adjuntos
             <span class="glyphicon glyphicon-edit"></span></a>
     </div>
-    {% endif %}
 </div>
 
 <div class="row">
