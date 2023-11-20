@@ -36,7 +36,7 @@ $(document).ready(function () {
                 "orderable": false,
                 "visible": false,    
             },
-            {
+            /*{
                 "data": null,
                 "orderable": false,
                 "searchable": false,
@@ -91,7 +91,7 @@ $(document).ready(function () {
             {
                 "data": "tipo_pago",
                 "title": "Tipo de pago"
-            },
+            },*/
 
         ],
         lengthChange: !1,
