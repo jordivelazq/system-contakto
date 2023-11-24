@@ -102,6 +102,7 @@
 						<th class="text-center col-red">Fecha de asignación</th>
 						<th class="text-center col-red">Fecha de conclusión</th>
 						<th class="text-center col-blue">CURP</th>
+						<th class="text-center col-blue">RFC</th>
 					</tr>
 				</thead>
 				<tbody id="cobranza-table">
@@ -192,6 +193,9 @@
 							</td>
 							<td class="text-center">
 								{{ investigacion.28|default:''}}
+							</td>
+							<td class="text-center">
+								{{ investigacion.29|default:''}}
 							</td>
 						</tr>
 					{% endfor %}

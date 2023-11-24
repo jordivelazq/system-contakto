@@ -202,7 +202,7 @@ def generar_reporte(request):
 	(start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio) = get_cobranza_filters(request, filtros_json)
 
 	rows = get_investigaciones(False, start_date, end_date, compania_id, contacto_id, agente_id, factura_filter, status, folio)
-	header = ('ID', 'FECHA DE RECIBIDO', 'CLIENTE', 'NOMBRE', 'APELLIDO', 'PUESTO', 'ESTADO', 'MONTO', 'FOLIO', 'CORREO', 'SOLICITANTE', 'SOCIAL', 'EJECUTIVO', 'OBS. COBRANZA', 'TIPO INV.', 'ESTATUS', 'RESULTADO', 'OBS .INVESTIGACION', '', '','','SUCURSAL','FECHA ENTREVISTA','HORA ENTREVISTA','ENTREVISTADOR (GESTOR)', 'FECHA ASIGNACION ENTREVISTA', 'FECHA LABORAL', 'FECHA FIN ENTREVISTA','CURP')
+	header = ('ID', 'FECHA DE RECIBIDO', 'CLIENTE', 'NOMBRE', 'APELLIDO', 'PUESTO', 'ESTADO', 'MONTO', 'FOLIO', 'CORREO', 'SOLICITANTE', 'SOCIAL', 'EJECUTIVO', 'OBS. COBRANZA', 'TIPO INV.', 'ESTATUS', 'RESULTADO', 'OBS .INVESTIGACION', '', '','','SUCURSAL','FECHA ENTREVISTA','HORA ENTREVISTA','ENTREVISTADOR (GESTOR)', 'FECHA ASIGNACION ENTREVISTA', 'FECHA LABORAL', 'FECHA FIN ENTREVISTA','CURP','RFC')
 	rows = (header,) + rows
 
 	pseudo_buffer = Echo()
