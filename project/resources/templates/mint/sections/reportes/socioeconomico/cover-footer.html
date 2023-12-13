@@ -1,0 +1,12 @@
+{% load app_filters %}
+
+<div class="footer">
+  <p>
+    Fecha de entrega: <strong>{{ investigacion.fecha_entrega|date:"d/M/Y"|localize_month }}</strong>
+  </p>
+  <div class="agent">
+    Ejecutivo RRHH Contakto: <strong>{{ investigacion.ejecutivo_visitas.first_name}} {{ investigacion.ejecutivo_visitas.last_name }} /</strong> {{ investigacion.ejecutivo_visitas.email }}
+  </div>
+  <hr />
+  <span>EL PRESENTE FORMATO ES PARA USO EXCLUSIVO DE CONTAKTO-UNO S.C. / {{ investigacion.compania }}</span>
+</div>

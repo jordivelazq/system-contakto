@@ -35,7 +35,7 @@
               <th></th>
               <th class="smaller">FECHA DE <br /> ENTREVISTA</th>
               <td>
-                {{entrevista_cita.fecha_entrevista|parse_date:'%d/%m/%Y'|date:"d/M/Y"|localize_month}}
+                {{entrevista_cita.fecha_entrevista}}
               </td>
             </tr>
             <tr>
@@ -54,7 +54,7 @@
         {% include 'sections/reportes/compartido/results.html' %}
       </div>
 
-      {% include 'sections/reportes/compartido/cover-footer.html' %}
+      {% include 'sections/reportes/socioeconomico/cover-footer.html' %}
     </div>
   </div>
 </section>
