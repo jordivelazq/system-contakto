@@ -3,6 +3,10 @@
 
 {% block title %}{{ title }}{% endblock title %}
 
+{% block extra_css %}
+ <!-- Sweet Alert-->
+ <link href="{% static 'libs/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
 
 {% block content %}
 
@@ -420,7 +424,7 @@
                                     <br>
 
 
-                                    {% comment %}
+                                    
                                   {% if not investigacion.entrevista_from_completado %}
                                   <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="completar-inv-entrevista-pregunta">
                                       <i class="bx bx-check label-icon"></i> Completar entrevista
@@ -428,7 +432,6 @@
                                   {% else %}
                                   <h5>La entrevista ha sido completada</h5>
                                   {% endif %}
-                              {% endcomment %}
 
 
                                 </div>
@@ -573,6 +576,9 @@
 
 
 {% block extra_js %}
+<!-- Sweet Alerts js -->
+<script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
@@ -718,5 +724,8 @@
             $('#modalCitas').modal('show');
         }
     </script>
+
+    <!-- Sweet alert init js-->
+    <script src="{% static 'js/system/sweetalert.entrevistas.list.init.js' %}"></script>
 
 {% endblock extra_js %}
