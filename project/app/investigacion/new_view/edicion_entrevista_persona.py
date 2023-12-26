@@ -9,6 +9,8 @@ from django.forms.models import modelformset_factory
 from django.shortcuts import HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView
+from django.shortcuts import render
+from django.template import RequestContext
 
 from ..models import Investigacion
 from app.investigacion.models import Investigacion, InvestigacionBitacora, GestorInvestigacion
@@ -479,18 +481,74 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             licencia_form = EntrevistaLicenciaForm(request.POST, instance=licencia)
 
             if candidato_form.is_valid() and tel_formset.is_valid() and direccion_form.is_valid() and origen_form.is_valid() and licencia_form.is_valid():
-                # candidato_form.save()
+                candidato_form.save()
                 tel_formset.save()
                 direccion_form.save()
                 origen_form.save()
                 licencia_form.save()
                 messages.add_message(self.request, messages.SUCCESS,
                                      'Datos generales guardados')
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))
             else:
-                messages.add_message(self.request, messages.ERROR,
-                                     'Formulario incorrecto')
+                form_errors = []
+                if not candidato_form.is_valid():
+                    form_errors.append(candidato_form.errors)
+                if not tel_formset.is_valid():
+                    form_errors.append(tel_formset.errors)
+                if not direccion_form.is_valid():
+                    form_errors.append(direccion_form.errors)
+                if not origen_form.is_valid():
+                    form_errors.append(origen_form.errors)
+                if not licencia_form.is_valid():
+                    form_errors.append(licencia_form.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
                 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))    
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
+
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['candidato_form'] = candidato_form
+                context['tel_formset'] = tel_formset
+                context['direccion_form'] = direccion_form
+                context['origen_form'] = origen_form
+                context['licencia_form'] = licencia_form
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))    
+            #return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/datos_generales/'+str(investigacion.pk))    
                 
                
         #INFO PERSONAL
@@ -506,8 +564,59 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
             if infopersonal_form.is_valid() and historialempresa_formset.is_valid():
                 infopersonal_form.save()
                 historialempresa_formset.save()
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not infopersonal_form.is_valid():
+                    form_errors.append(infopersonal_form.errors)
+                if not historialempresa_formset.is_valid():
+                    form_errors.append(historialempresa_formset.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+str(investigacion.pk))
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['infopersonal_form'] = infopersonal_form
+                context['historialempresa_formset'] = historialempresa_formset
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
+            #return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/info_personal/'+str(investigacion.pk))
 
         #SALUD, ACTIVIDADES Y HÁBITOS
         if seccion_entrevista == 'salud':
@@ -521,9 +630,63 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 candidato_form.save()
                 salud_form.save()
                 actividades_form.save()
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/salud/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not candidato_form.is_valid():
+                    form_errors.append(candidato_form.errors)
+                if not salud_form.is_valid():
+                    form_errors.append(salud_form.errors)
+                if not actividades_form.is_valid():
+                    form_errors.append(actividades_form.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
+
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['candidato_form'] = candidato_form
+                context['salud_form'] = salud_form
+                context['actividades_form'] = salud_form
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
    
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/salud/'+str(investigacion.pk))
-        
+            
         #INFORMACIÓN ACADÉMICA
         if seccion_entrevista == 'academica':
             academica = EntrevistaAcademica.objects.get(person_id=ep.pk)
@@ -541,9 +704,62 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 academica_form.save()
                 otro_idioma_form.save()
                 gradosescolaridad_formset.save()
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/academica/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not academica_form.is_valid():
+                    form_errors.append(academica_form.errors)
+                if not otro_idioma_form.is_valid():
+                    form_errors.append(otro_idioma_form.errors)
+                if not gradosescolaridad_formset.is_valid():
+                    form_errors.append(gradosescolaridad_formset.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/academica/'+str(investigacion.pk))
-    
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['academica_form'] = academica_form
+                context['otro_idioma_form'] = otro_idioma_form
+                context['gradosescolaridad_formset'] = gradosescolaridad_formset
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
+            
 
         #SITUACIÓN VIVIENDA
         if seccion_entrevista == 'vivienda':
@@ -570,9 +786,72 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 tipo_inmueble_vivienda_form.save()
                 distribucion_vivienda.save()
                 marcofamiliar_formset.save()
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/vivienda/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not situacion_vivienda_form.is_valid():
+                    form_errors.append(situacion_vivienda_form.errors)
+                if not propietario_vivienda_form.is_valid():
+                    form_errors.append(propietario_vivienda_form.errors)
+                if not caracteristicas_vivienda_form.is_valid():
+                    form_errors.append(caracteristicas_vivienda_form.errors)
+                if not tipo_inmueble_vivienda_form.is_valid():
+                    form_errors.append(tipo_inmueble_vivienda_form.errors)
+                if not distribucion_vivienda.is_valid():
+                    form_errors.append(distribucion_vivienda.errors)
+                if not marcofamiliar_formset.is_valid():
+                    form_errors.append(marcofamiliar_formset.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/vivienda/'+str(investigacion.pk))
-        
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['situacion_vivienda_form'] = situacion_vivienda_form
+                context['propietario_vivienda_form'] = propietario_vivienda_form
+                context['caracteristicas_vivienda_form'] = caracteristicas_vivienda_form
+                context['tipo_inmueble_vivienda_form'] = tipo_inmueble_vivienda_form
+                context['distribucion_vivienda'] = distribucion_vivienda
+                context['marcofamiliar_formset'] = marcofamiliar_formset
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
+
+            
         #MARCO FAMILIAR    
         if seccion_entrevista == 'familia':
             marco_familiar = EntrevistaMiembroMarcoFamiliar.objects.filter(person_id=ep.pk, category=1)
@@ -582,9 +861,56 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
 
             if marcofamiliar_formset.is_valid():
                 marcofamiliar_formset.save()
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/familia/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not marcofamiliar_formset.is_valid():
+                    form_errors.append(marcofamiliar_formset.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/familia/'+str(investigacion.pk))
-        
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['marcofamiliar_formset'] = marcofamiliar_formset
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
+            
         #INFORMACIÓN ECONÓMICA
         if seccion_entrevista == 'inf_economica':
             ingresos = EntrevistaEconomica.objects.filter(person_id=ep.pk, tipo='ingreso')
@@ -607,9 +933,63 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                     lambda: egresos_formset.save(),
                     lambda: pv_formset.save(),
                 ])
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/inf_economica/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not ingresos_formset.is_valid():
+                    form_errors.append(ingresos_formset.errors)
+                if not egresos_formset.is_valid():
+                    form_errors.append(egresos_formset.errors)
+                if not pv_formset.is_valid():
+                    form_errors.append(pv_formset.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/inf_economica/'+str(investigacion.pk))
-        
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['ingresos_formset'] = ingresos_formset
+                context['egresos_formset'] = egresos_formset
+                context['pv_formset'] = pv_formset
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
+
+            
         #BIENES
         if seccion_entrevista == 'bienes':
             tarjetas = EntrevistaTarjetaCreditoComercial.objects.filter(person_id=ep.pk)
@@ -641,8 +1021,70 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 bienesraices_formset.save()
                 seguros_formset.save()
                 deudas_formset.save()
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/bienes/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not tarjetas_formset.is_valid():
+                    form_errors.append(tarjetas_formset.errors)
+                if not cuentas_deb_formset.is_valid():
+                    form_errors.append(cuentas_deb_formset.errors)
+                if not autos_formset.is_valid():
+                    form_errors.append(autos_formset.errors)
+                if not bienesraices_formset.is_valid():
+                    form_errors.append(bienesraices_formset.errors)
+                if not seguros_formset.is_valid():
+                    form_errors.append(seguros_formset.errors)
+                if not deudas_formset.is_valid():
+                    form_errors.append(deudas_formset.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
 
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/bienes/'+str(investigacion.pk))
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['tarjetas_formset'] = tarjetas_formset
+                context['cuentas_deb_formset'] = cuentas_deb_formset
+                context['autos_formset'] = autos_formset
+                context['bienesraices_formset'] = bienesraices_formset
+                context['seguros_formset'] = seguros_formset
+                context['deudas_formset'] = deudas_formset
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
+
             
         #EVALUACIÓN
         if seccion_entrevista == 'evaluacion':
@@ -665,7 +1107,63 @@ class EdicionEntrevistaEjecutivoVisitaTemplateView(LoginRequiredMixin, TemplateV
                 aspectos_hogar_formset.save()
                 aspectos_candidato_formset.save()
                 investigacion_form.save()
-            return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/evaluacion/'+str(investigacion.pk))
+                return HttpResponseRedirect('/investigaciones/investigaciones/ejecutivo-visitas/detail/evaluacion/'+str(investigacion.pk))
+            else:
+                form_errors = []
+                if not documentos_formset.is_valid():
+                    form_errors.append(documentos_formset.errors)
+                if not aspectos_hogar_formset.is_valid():
+                    form_errors.append(aspectos_hogar_formset.errors)
+                if not aspectos_candidato_formset.is_valid():
+                    form_errors.append(aspectos_candidato_formset.errors)
+                if not investigacion_form.is_valid():
+                    form_errors.append(investigacion_form.errors)
+                messages.add_message(self.request, messages.ERROR, f'Formulario incorrecto: {form_errors}')
+                context = super(EdicionEntrevistaEjecutivoVisitaTemplateView, self).get_context_data(**kwargs)
+                seccion_entrevista = self.kwargs['seccion_entrevista']
+                
+                investigacion = Investigacion.objects.get(id=self.kwargs['pk'])
+                candidato = investigacion.candidato
+
+                adjuntos = Adjuntos.objects.filter(investigacion=investigacion)[0]
+
+                context['adjuntos'] = adjuntos
+
+                entrevista = True
+                try:
+                    ep =  EntrevistaPersona.objects.get(investigacion=investigacion)
+                except EntrevistaPersona.DoesNotExist:
+                    entrevista = False
+
+                context['entrevista'] = entrevista
+                context['investigacion'] = investigacion
+                context['seccion_entrevista'] = seccion_entrevista
+
+                inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+                context['title'] = 'Investigaciones / Coordinador de visitas domiciliarias / Detalles'
+
+                # context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                #     investigacion=inv, user_id=self.request.user.pk).order_by('-datetime')
+                context['bitacoras'] = InvestigacionBitacora.objects.filter(
+                    investigacion=inv).order_by('-datetime')
+
+                try:
+                    gInv = GestorInvestigacion.objects.get(
+                        investigacion=inv)
+                except GestorInvestigacion.DoesNotExist:
+                    gInv = None
+
+                # DATOS DE LA CITA
+                entrevista = EntrevistaCita.objects.filter(investigacion=inv).order_by('-id')[0] if EntrevistaCita.objects.filter(investigacion=inv).count() else None
+                context['formaEntrevista'] = EntrevistaObservacionesForm(prefix='entrevista', instance=entrevista) if entrevista else EntrevistaObservacionesForm(prefix='entrevista')
+                context['gestor'] = gInv
+                context['documentos_formset'] = documentos_formset
+                context['aspectos_hogar_formset'] = aspectos_hogar_formset
+                context['aspectos_candidato_formset'] = aspectos_candidato_formset
+                context['investigacion_form'] = investigacion_form
+                
+                return render(self.request, 'investigaciones/ejecutivo_visitas/investigaciones_ejecutivo_visita_detail.html', locals(),RequestContext(context))   
 
         #CITA
         if seccion_entrevista == 'cita':

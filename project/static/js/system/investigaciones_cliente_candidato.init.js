@@ -187,6 +187,18 @@ $(document).ready(function () {
                     }
                     return 'No terminada';
                 }
+            },
+            {
+                "title": "Empresas y demandas",
+                "data": "candidato.id",
+                searchable: false,
+                render: function (data, type, row, meta) {
+
+                    if (row.candidato.id != undefined) {
+                        return `<a href="/investigaciones/investigaciones/cliente/detail/${row.id}" target="_blank" data-id="${row.candidato.id}" class="btn btn-secondary btn-demandas"><i class="fa fa-link"></i></a>`;
+                    }
+                    return 'Sin información';
+                }
             }
 
         ],
@@ -218,4 +230,10 @@ $(document).ready(function () {
             $('div.loading-table-data').hide()
         },
     });
+
+    /*$(document).on("click",".btn-demandas",function(event){
+        event.preventDefault();
+        var id = $(this).data("id");
+        alert("clicked "+id );
+    })*/
 });

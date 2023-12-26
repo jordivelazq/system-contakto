@@ -43,6 +43,7 @@ from .api import (
     InvestigacionCoordPsicometricoUpdateView,
     InvestigacionCoordVisitaUpdateView,
     InvestigacionDetailView,
+    InvestigacionClienteDetailView,
     InvestigacionEjecutivoDeCuentaUpdateView,
     InvestigacionEjecutivoLaboralCandidatoTemplateView,
     InvestigacionEjecutivoLaboralDetailView,
@@ -104,6 +105,11 @@ urlpatterns = [
         "investigaciones/detail/<int:pk>/",
         InvestigacionDetailView.as_view(),
         name="investigacion_detail",
+    ),
+    path(
+        "investigaciones/cliente/detail/<int:pk>/",
+        InvestigacionClienteDetailView.as_view(),
+        name="investigacion_cliente_detail",
     ),
     path(
         "investigaciones/update/<int:pk>/",

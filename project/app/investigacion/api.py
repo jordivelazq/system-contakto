@@ -471,6 +471,43 @@ class InvestigacionDetailView(DetailView):
                 return redirect('investigaciones:investigacion_detail', pk=self.kwargs['pk'])
         return redirect('investigaciones:investigacion_detail', pk=self.kwargs['pk'])
 
+class InvestigacionClienteDetailView(DetailView):
+    '''Detalle general para el Cliente'''
+
+    # required
+    group_required = u"Cliente"
+    raise_exception = True
+
+    model = Investigacion
+    context_object_name = 'investigacion'
+    template_name = 'investigaciones/investigaciones_cliente_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InvestigacionClienteDetailView,
+                        self).get_context_data(**kwargs)
+
+        context['title'] = 'Investigaciones / Detalle de solicitud'
+
+        inv = Investigacion.objects.get(pk=self.kwargs['pk'])
+
+        context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
+        context['bitacoras'] = InvestigacionBitacora.objects.filter(investigacion=inv)
+
+        try:
+            entrevista_persona = EntrevistaPersona.objects.get(
+                investigacion=inv)
+        except EntrevistaPersona.DoesNotExist:
+            entrevista_persona = None
+
+        context['entrevista_persona'] = entrevista_persona
+        context['tajectorias_laborales'] = TrayectoriaLaboral.objects.filter(persona=inv.candidato)
+        context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
+        context['archivo_adjunto'] = inv.cliente_solicitud_candidato.archivo_solicitud
+        context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
+        context['formaInvestigacion'] = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=inv)
+        context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
+        return context
+
 
 class InvestigacionEntrevistaDetailView(DetailView):
     '''Detalle general para el Coorsinador de Ejecutivos'''
@@ -2205,6 +2242,7 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
 
 class InvestigacionEjecutivoVisitasCandidatoTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'investigaciones/investigacion_visitas_candidato_edit.html'
+    print("entroooooo")
 
     def post(self, request, *args, **kwargs):
 
@@ -2341,6 +2379,7 @@ class InvestigacionEjecutivoVisitasCandidatoTemplateView(LoginRequiredMixin, Tem
         #return redirect(reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
 
     def get_context_data(self, **kwargs):
+        print("entro al get")
         context = super(InvestigacionEjecutivoVisitasCandidatoTemplateView, self).get_context_data(**kwargs)
 
         investigacion = Investigacion.objects.select_related(
