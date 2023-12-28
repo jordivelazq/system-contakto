@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.entrevista.models import *
 from django import forms
-from django.forms import HiddenInput, ModelForm
+from django.forms import HiddenInput, ModelForm, Textarea
 
 
 class EntrevistaFileForm(ModelForm):
@@ -141,6 +141,9 @@ class EntrevistaPersonaForm(ModelForm):
                   'fecha_matrimonio', 'religion', 'tiempo_radicando', 'medio_utilizado', 'referencia_vacante', 'tiempo_transporte', 'conclusion')
         # fields = ('nombre', 'apellido', 'email', 'rfc', 'curp', 'ife', 'smn', 'pasaporte', 'nss', 'estado_civil',
         #           'fecha_matrimonio', 'religion', 'tiempo_radicando', 'medio_utilizado', 'referencia_vacante', 'tiempo_transporte', 'conclusion')
+        widgets = {
+            'conclusion': Textarea(attrs={'rows': 20, 'class': 'form-control normal'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(EntrevistaPersonaForm, self).__init__(*args, **kwargs)
