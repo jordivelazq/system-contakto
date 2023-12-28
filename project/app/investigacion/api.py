@@ -2379,7 +2379,6 @@ class InvestigacionEjecutivoVisitasCandidatoTemplateView(LoginRequiredMixin, Tem
         #return redirect(reverse('investigaciones:investigaciones_coordinador_visitas_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
 
     def get_context_data(self, **kwargs):
-        print("entro al get")
         context = super(InvestigacionEjecutivoVisitasCandidatoTemplateView, self).get_context_data(**kwargs)
 
         investigacion = Investigacion.objects.select_related(
@@ -2779,7 +2778,7 @@ class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin
         inv = Investigacion.objects.get(id=investigacion_id)
 
         inv.laboral_completado = True
-        inv.fecha_entrega = datetime.datetime.now()
+        inv.fecha_entrega = datetime.date.today()
         inv.save()
 
         return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', self.kwargs['investigacion_id'])
