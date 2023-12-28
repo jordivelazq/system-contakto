@@ -14,7 +14,7 @@ class ImgOpt(object):
 			with Image.open(file_path) as img:
 				wpercent = (basewidth/float(img.size[0]))
 				hsize = int((float(img.size[1])*float(wpercent)))
-				img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+				img = img.resize((basewidth,hsize), Image.Resampling.LANCZOS)
 				img = img.convert('RGB')
 				img.save(file_path, "JPEG")
 		except Exception as e:
