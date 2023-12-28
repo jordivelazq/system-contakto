@@ -15,7 +15,9 @@
 
 {% include 'sections/reportes/laboral/attachments-validacion-web.html' %}
 
-{% include 'sections/reportes/laboral/attachments-semanas.html' %}
+{% if adjuntos.adj8 %}
+  {% include 'sections/reportes/laboral/attachments-semanas.html' %}
+{% endif %}
 
 {% if adjuntos.adj11 %}
   {% include 'sections/reportes/socioeconomico/adjunto-privacidad.html' with tipo=1 %}
