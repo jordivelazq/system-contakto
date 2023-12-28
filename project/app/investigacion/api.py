@@ -2778,7 +2778,7 @@ class InvestigacionCoordinadorCompletarInvLaboralTemplateView(LoginRequiredMixin
         inv = Investigacion.objects.get(id=investigacion_id)
 
         inv.laboral_completado = True
-        inv.fecha_entrega = datetime.date.today()
+        inv.fecha_entrega = datetime.now()
         inv.save()
 
         return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', self.kwargs['investigacion_id'])
@@ -2792,7 +2792,7 @@ class InvestigacionCoordinadorCompletarEntrevistaTemplateView(LoginRequiredMixin
         inv = Investigacion.objects.get(id=investigacion_id)
 
         inv.entrevista_from_completado = True
-        inv.fecha_entrega = datetime.date.today()
+        inv.fecha_entrega = datetime.now()
         inv.save()
 
         return redirect('investigaciones:investigaciones_entrevista_detail', seccion_entrevista='info_personal', investigacion_id=self.kwargs['investigacion_id'])
