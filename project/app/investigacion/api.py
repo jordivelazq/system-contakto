@@ -454,6 +454,7 @@ class InvestigacionDetailView(DetailView):
         context['tajectorias_comerciales'] = TrayectoriaComercial.objects.filter(persona=inv.candidato)
         context['formaInvestigacion'] = InvestigacionStatusTrayectoriaForm(prefix='investigacion', instance=inv)
         context['formInvestigacionResultado'] = InvestigacionResultadosForm(prefix='investigacion', instance=inv)
+        context['demandas'] = Demanda.objects.filter(persona=inv.candidato)
         return context
 
     def post(self, request, *args, **kwargs):
