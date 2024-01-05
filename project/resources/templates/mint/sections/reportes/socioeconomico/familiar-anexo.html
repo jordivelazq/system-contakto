@@ -132,11 +132,7 @@
         {%if familiar.nombre %}
         <tr>
           <th>
-            {% if familiar.parentesco %}
-              {{familiar.parentesco}}
-            {% else %}
-              {{familiar.tipo}}
-            {% endif %}
+            {{familiar.parentesco|default:""}}
           </th>
           <td>{{familiar.nombre}}</td>
           <td>{{familiar.edad}}</td>

@@ -7,11 +7,7 @@
 	{% for form in marcofamiliar_formset %}
 		{{ form.id }}
 		<div class="col-2">
-			{% if form.instance.tipo != "otro" %}
-			<h5>{{ form.instance.tipo|title }}:</h5>
-			{% else %}
 			{{form.parentesco|as_crispy_field}}
-			{% endif %}
 		</div>
 		<div class="row">
 			
