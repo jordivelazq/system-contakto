@@ -412,7 +412,7 @@ def editar_entrevista(request, investigacion_id, seccion_entrevista='datos-gener
 			aspectos_hogar_formset = AspectoHogarFormset(queryset=aspectos_hogar, prefix='asp_hogar')
 			aspectos_candidato_formset = AspectoCandidatoFormset(queryset=aspectos_candidato, prefix='asp_candidato')
 			investigacion_form = EntrevistaInvestigacionForm(instance=entrevista_investigacion, prefix='investigacion')
-			conclusion_form = EntrevistaPersonaForm(instance=candidato, prefix='entrevista_persona')
+			candidato_form = EntrevistaPersonaForm(instance=candidato)
 
 	elif seccion_entrevista == 'cita':
 		entrevista_cita = investigacion.entrevistacita_set.all().order_by('-id')[0]
