@@ -12,7 +12,7 @@ $(document).ready(function () {
     $("#datatable-investigaciones").DataTable({
         serverSide: false,
         ajax: {
-            url : "/clientes/api/candidatos/",
+            url : "/clientes/api/candidatos_empresa/",
             dataSrc: "results",
         },
         language: {

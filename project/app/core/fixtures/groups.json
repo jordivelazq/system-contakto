@@ -68,4 +68,11 @@
         "name": "Coordinador de Reclutamiento",
         "permissions": []
     }
+}, {
+    "model": "auth.group",
+    "pk": 11,
+    "fields": {
+        "name": "Empresa",
+        "permissions": []
+    }
 }]

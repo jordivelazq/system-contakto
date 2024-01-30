@@ -46,7 +46,17 @@ class InvestigacionClienteViewSet(mixins.ListModelMixin, viewsets.GenericViewSet
         except ClienteSolicitud.DoesNotExist:
             return self.queryset.none()
         return qs
+class InvestigacionClienteEmpresaViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Investigacion.objects.all()
+    serializer_class = InvestigacionSerializer
 
+    def get_queryset(self):
+        cliente_solicitud = ClienteSolicitud.objects.filter(cliente__compania=self.request.user.clienteuser.compania)
+        try:
+            qs = self.queryset.filter(cliente_solicitud__in=cliente_solicitud).order_by("last_modified")
+        except ClienteSolicitud.DoesNotExist:
+            return self.queryset.none()
+        return qs
 
 class CandidatosTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'clientes/candidato/candidato_investigacion_list.html'
@@ -75,3 +85,32 @@ class CandidatosTemplateView(LoginRequiredMixin, TemplateView):
         context['pte_por_el_cliente'] =pte_por_el_cliente
         context['inv_terminada'] = inv_terminada
         return context
+
+class CandidatosEmpresaTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'clientes/candidato/candidato_investigacion_empresa_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CandidatosEmpresaTemplateView, self).get_context_data(**kwargs)
+        cliente_solicitud = ClienteSolicitud.objects.filter(cliente__compania=self.request.user.clienteuser.compania)
+        total_investigaciones = Investigacion.objects.filter(
+            cliente_solicitud__in=cliente_solicitud
+        ).count()
+
+        en_investigacion = Investigacion.objects.filter(
+            cliente_solicitud__in=cliente_solicitud, status=0
+        ).count()
+
+        pte_por_el_cliente = Investigacion.objects.filter(
+            cliente_solicitud__in=cliente_solicitud, status=1
+        ).count()
+
+        inv_terminada = Investigacion.objects.filter(
+            cliente_solicitud__in=cliente_solicitud, status=2
+        ).count()
+        context['title'] = 'Candidatos'
+        context['total_investigaciones'] =total_investigaciones
+        context['en_investigacion'] = en_investigacion
+        context['pte_por_el_cliente'] =pte_por_el_cliente
+        context['inv_terminada'] = inv_terminada
+        return context
+

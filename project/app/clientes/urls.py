@@ -1,4 +1,4 @@
-from app.clientes.api import ClienteTemplateView, ClienteUserViewSet, InvestigacionClienteViewSet, CandidatosTemplateView
+from app.clientes.api import CandidatosEmpresaTemplateView, ClienteTemplateView, ClienteUserViewSet, InvestigacionClienteEmpresaViewSet, InvestigacionClienteViewSet, CandidatosTemplateView
 from app.clientes.views.clientes_users import (
     ClienteUserCreateView,
     ClienteUserDetailView,
@@ -19,6 +19,7 @@ from app.clientes.views.solicitudes import (
     ClienteSolicitudCreateTemplateView,
     ClienteSolicitudDeleteView,
     ClienteSolicitudDetailView,
+    ClienteSolicitudEmpresaListView,
     ClienteSolicitudEnviarTemplateView,
     ClienteSolicitudListView,
     ClienteSolicitudObservacionUpdateView,
@@ -32,6 +33,7 @@ router = DefaultRouter()
 router.register(r"clientes", ClienteUserViewSet)
 router.register(r"clientes_facturas", InvestigacionClienteFacturaViewSet)
 router.register(r"candidatos", InvestigacionClienteViewSet)
+router.register(r"candidatos_empresa", InvestigacionClienteEmpresaViewSet)
 
 app_name = "clientes"
 
@@ -59,6 +61,11 @@ urlpatterns = [
         "solicitudes/",
         ClienteSolicitudListView.as_view(),
         name="clientes_solicitudes_list",
+    ),
+    path(
+        "solicitudes/empresa",
+        ClienteSolicitudEmpresaListView.as_view(),
+        name="clientes_solicitudes_empresa_list",
     ),
     path(
         "solicitudes/create/",
@@ -130,6 +137,11 @@ urlpatterns = [
     path(
         "candidatos/",
         CandidatosTemplateView.as_view(),
+        name="candidatos_investigacion_list",
+    ),
+    path(
+        "candidatos/empresa",
+        CandidatosEmpresaTemplateView.as_view(),
         name="candidatos_investigacion_list",
     ),
 ]

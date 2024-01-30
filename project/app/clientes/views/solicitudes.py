@@ -66,6 +66,39 @@ class ClienteSolicitudListView(LoginRequiredMixin, ListView):
         context['uc'] = cliente_user
 
         return context
+    
+class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
+
+    # required
+    group_required = u"Empresa"
+    raise_exception = True
+
+    model = ClienteSolicitud
+    paginate_by = 25
+
+    context_object_name = "cliente_solicitudes"
+    template_name = 'clientes/solicitudes/solicitudes_list.html'
+
+    def get_queryset(self):
+
+        return ClienteSolicitud.objects.filter(cliente__compania=self.request.user.clienteuser.compania).order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super(ClienteSolicitudEmpresaListView,
+                        self).get_context_data(**kwargs)
+
+        context['title'] = "Empresa / Listado de solicitudes"
+        u = User.objects.get(id=self.request.user.pk)
+
+        cliente_user = None
+        try:
+            cliente_user = ClienteUser.objects.get(username=u.username)
+        except ClienteUser.DoesNotExist:
+            print('Error en cliente_user')
+
+        context['uc'] = cliente_user
+
+        return context
 
 
 class ClienteSolicitudCreateTemplateView(LoginRequiredMixin, TemplateView):
