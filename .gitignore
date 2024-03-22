@@ -21,3 +21,4 @@ newrelic.ini
 project/resources/media/zip/
 project/resources/static/
 project/media
+project-main/*
