@@ -1,6 +1,8 @@
 const defaultLimit = 100;
 
 $(document).ready(function(){
+
+
 	$('#fecha_inicio, #fecha_final, #id_date_from, #id_date_to').datepicker({
 		format: 'dd/mm/yy'
 	}).on('changeDate', function(ev) {
@@ -65,8 +67,13 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
     };
 
     $scope.search = async function(){
-    	$scope.fecha_inicio = getDate('fecha_inicio')
-		$scope.fecha_final = getDate('fecha_final')
+        
+        var fechaIni = '01/01/24';
+        var fechaFin = '31/12/24';
+
+        $scope.fecha_inicio = fechaIni;
+        $scope.fecha_final = fechaFin;
+
 
     	var data = $scope.get_filtros();
         $('#lista-candidatos-sidebar').hide();
@@ -83,7 +90,33 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
         } else {
             $('#search-msg').addClass('alert alert-warning').html('0 resultados, favor de intentar con otros filtros');    
         }
-    };        
+    };      
+    
+    //Esta se carga al inicio
+    $scope.search_init = async function(){
+
+        var fechaInicio = '01/01/24';
+        var fechaFinal = '31/12/24';
+
+        $scope.fecha_inicio = fechaInicio;
+        $scope.fecha_final = fechaFinal;
+
+    	var data = $scope.get_filtros();
+        $('#lista-candidatos-sidebar').hide();
+        $('#search-msg').html('').removeClass();
+        $('#search-status').addClass('loading-ajax');
+
+        const candidatos = await getCandidatos(data)
+        $('#search-status').removeClass('loading-ajax');
+
+        if (candidatos.length) {
+            $scope.candidatos = candidatos;                                                
+            $scope.$apply();
+            $('#lista-candidatos-sidebar').show();                        
+        } else {
+            $('#search-msg').addClass('alert alert-warning').html('0 resultados, favor de intentar con otros filtros');    
+        }
+    };   
 
     $scope.load_candidato = function(id_cand){
         var url_op = '/editar'
@@ -97,7 +130,8 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
 
     $scope.init = function(){
         $scope.set_filtros(filtros_json);
-		$scope.search();
+		//$scope.search();
+        $scope.search_init();
     };
 
     $scope.limpiar_filtros = function(){
@@ -176,6 +210,7 @@ contacktoApp.controller('SearchAgenteCTRL', function($scope){
     };
 
     $scope.search = function(){
+        
         $scope.fecha_inicio = getDate('fecha_inicio')
         $scope.fecha_final = getDate('fecha_final')
 

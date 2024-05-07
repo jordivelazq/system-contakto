@@ -49,9 +49,17 @@
 						{% endfor %}
 					</select>
 				</div>
-				<div id="daterange-inputs-sidebar" class="form-group">
-					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio"><span class="float-left daterange-separator">&nbsp;a&nbsp;</span><input class="form-control sidebar-date-input " type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
+
+			
+
+				<div id="daterange-inputs-sidebar" class="form-group" style="display: none;">
+					<input class="form-control sidebar-date-input float-left" type="text" class="form-control" id="fecha_inicio" placeholder="dd/mm/yy" ng-model="fecha_inicio">
+					<span class="float-left daterange-separator">&nbsp;a&nbsp;</span>
+					<input class="form-control sidebar-date-input" type="text" class="form-control" id="fecha_final" placeholder="dd/mm/yy" ng-model="fecha_final">
 				</div>
+			
+
+				
 				<div class="form-group">		
 					<select class="form-control" id="limit_select" name="limit_select" ng-model="limit_select">
 						<option value="100">100</option>
@@ -105,4 +113,6 @@
 										'fecha_final':'{{filtros_json.fecha_final|safe}}' 	}
 								{% else %}''{% endif %} ;
 			var candidato_seleccionado_id = {% if investigacion %}'{{investigacion.id}}'{% else %}''{% endif %}
+
+
 </script>

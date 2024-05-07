@@ -19,6 +19,7 @@ ESTADOSMEXICO_OPCIONES = (
 	("Chihuahua", "Chihuahua"),
 	("Coahuila", "Coahuila"),
 	("Colima", "Colima"),
+	("CDMX", "CDMX"),
 	("Distrito Federal", "Distrito Federal"),
 	("Durango", "Durango"),
 	("Estado de Mexico", "Estado de México"),
