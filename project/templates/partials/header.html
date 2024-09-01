@@ -35,11 +35,31 @@
                 <div class="d-flex">
 
                     <div class="dropdown d-inline-block">
+                        {% if manager_active %}
+                            <a href="{% url 'core:user-manager-del' user_manager.pk %}" class="btn header-item">
+                                <i data-feather="user" class="icon-lg"></i>
+                                <span class="badge bg-success rounded-pill"> 
+
+
+                        Regresar a <i class="fa fa-arrow-right text-danger"></i>{{ user_manager.main.username }}
+                                </span>
+                            </a>
+
+                        {% else %}
+                            {% if request.user.is_superuser %}
+                            <a href="{% url 'core:user-manager-add' %}" class="btn header-item">
+                                <i data-feather="user" class="icon-lg"></i>
+                                <span class="badge bg-danger rounded-pill">Copiar Usuario</span>
+                            </a>
+                            {% endif %}
+                        {% endif %}
+
                         <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i data-feather="bell" class="icon-lg"></i>
                             <span class="badge bg-danger rounded-pill"><div id="total_nessage_tool_bar">0</div></span>
                         </button>
+
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                             aria-labelledby="page-header-notifications-dropdown">
                             <div class="p-3">

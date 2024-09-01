@@ -7,6 +7,7 @@ from app.core.views.user_messages import (UserMessageDeleteView,
                                           UserMessajeListView,)
 from app.core.views.users import (UserCreateView, UserDetailView,
                                   UserUpdatePasswdView, UserUpdateView)
+from app.core.views.user_manager import UserManagerView, UserManagerDeleteView
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -25,7 +26,9 @@ urlpatterns = [
     path("user/create/", UserCreateView.as_view(), name="users_create"),
     path("user/detail/<int:pk>/", UserDetailView.as_view(), name="users_detail"),
     path("user/update/<int:pk>/", UserUpdateView.as_view(), name="users_update"),
-    path("user/password/update/<int:pk>/", UserUpdatePasswdView.as_view(), name="users_password_update"),
+
+    path('user/manager/add/', UserManagerView.as_view(), name="user-manager-add"),
+    path('user/manager/<int:pk>/del/', UserManagerDeleteView.as_view(), name="user-manager-del"),
 
     path("tipo_investigacion_costo/", TipoInvestigacionCostoListView.as_view(), name="tipo_investigaciones_costo_list"),
     path("tipo_investigacion_costo/create/", TipoInvestigacionCostoCreateView.as_view(), name="tipo_investigacion_costo_create"),

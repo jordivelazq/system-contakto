@@ -55,3 +55,13 @@ class UserMessage(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+
+
+class UserManager(models.Model):
+    main = models.ForeignKey(User, related_name="user_manager_main", on_delete=models.CASCADE)
+    copy = models.ForeignKey(User, related_name="user_manager_copy", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{} > {}".format(self.main.username, self.copy.username)

@@ -1,0 +1,103 @@
+{% extends 'partials/base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block extra_css %}
+<!-- DataTables -->
+<link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css'%}" rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css'%}" rel="stylesheet"
+  type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css'%}" rel="stylesheet"
+  type="text/css" />
+{% endblock extra_css %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+    <div class="main-content">
+    
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Usuario - Formulario Usuario Manager</h4>
+    
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Regresar usuario</li>
+                                </ol>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+    
+    
+                <div class="row">
+    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Formulario de gestor</h4>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form-manager" action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Usuario principal</th>
+                                                <th>{{ usermanager.main }}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Usuario copiado</th>
+                                                <th>{{ usermanager.copy }}</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                        <a href="{% url 'dashboard' %}" class="btn btn-danger"><i class="fa fa-arrow-left"></i> Cancelar</a>
+                                        
+                                        <button id="btnRemoveUser" type="button" onclick="deleteUser(this);" style="margin-bottom: 1%; float: right;margin-left: 1%;" class="btn btn-danger btn-rounded">
+                                            <i style="margin-top: 3%" class="fa fa-copy"></i>Regresar a <i class="fa fa-arrow-right"></i> {{ object.main.username }}
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>                    
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+    
+    
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+    {% block footer %}
+    {% include 'partials/footer.html' %}
+    {% endblock footer %}
+
+    {% endblock %}
+
+{% block extra_js %}
+    <script>
+        var deleteUser = (e) => {
+            $(e).attr('disabled', true);
+            $(e).html(` <i style="margin-top: 3%" class="fa fa-spinner fa-spin"></i> Regresando`);
+            $("#form-manager").submit()
+        }
+    </script>
+{% endblock %}
