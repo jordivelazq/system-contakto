@@ -44,12 +44,6 @@
                         <div class="card-header">
                             <h4 class="card-title">Solicitudes de: {{user.first_name}} {{user.last_name}} / Cliente: {{uc.get_compania}} </h4>
                             <div class="row">
-                                <!-- <div class="col-md-6">
-                                    <p class="card-title-desc">
-                                        Total de solicitudes enviadas / Total de solicitudes en proceso / Total de solicitudes finalizadas
-                                    </p>
-                                </div> -->
-
                                 <div class="col-md-12 text-end">
                                     <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="sa-params">
                                         <i class="bx bx-plus label-icon"></i>Crear solicitud
@@ -130,6 +124,77 @@
                         <!-- end card body -->
                     </div>
                     <!-- end card -->
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Solicitudes del Cliente <b>{{uc.get_compania}}</b></h4>
+
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>Fecha de creación</th>
+                                            <th>Enviado</th>
+                                            <th>Fecha de Envio</th>
+                                            <th>Nro de Candidatos</th>
+                                            <th>Candidatos Completados</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for solicitud in solicitudes_list %}
+                                        <tr>
+                                            <td>
+
+                                                <div class="d-flex flex-wrap gap-2">
+
+                                                    <div class="btn-group" role="group">
+                                                    
+                                                    
+                                                    <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}" aria-label="Detalles"
+                                                    class="btn btn-soft-primary waves-effect waves-light"> <i class="bx bxs-search label-icon"></i></a>
+                                                    
+                                                    {% if not solicitud.enviado %}
+                                                    <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}" aria-label="Eliminar"
+                                                    class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt label-icon"></i></a>    
+                                                    {% endif %}
+
+                                                    </div>
+
+                                                </div>
+                                                   
+                                            </td>
+                                            <td>{{ solicitud.fecha_solicitud }}</td>
+                                            <td>
+                                                <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>
+                                            </td>
+                                            <td>
+                                                {% if solicitud.enviado %}
+                                                {{ solicitud.fecha_actualizacion }}
+                                                {% else %}
+                                                -
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ solicitud.get_candidatos_count }}</td>
+                                            <td>{{ solicitud.get_candidatos_completados_count }}</td>
+                                            <td>{{ solicitud.observaciones }}</td>
+                                           
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="4">No hay solicitudes</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- end col -->
             </div>

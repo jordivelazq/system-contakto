@@ -33,6 +33,7 @@ from .serializers import InvestigacionSerializer
 from app.persona.models import Demanda
 from ..entrevista.forms import EntrevistaObservacionesForm
 from datetime import datetime
+from ..util.email import send_email
 
 class InvestigacionTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'investigaciones/investigaciones_list.html'
@@ -2763,7 +2764,11 @@ class InvestigacionCoordinadorCompletarTemplateView(GroupRequiredMixin, Template
         inv.investigacion_completada = True
         inv.status = 2
         inv.save()
-
+        try:
+            send_email(inv)
+        except Exception as e:
+            print("ERROR AL ENVIAR EL CORREO ##########################")
+            print(e)
         return redirect('investigaciones:investigacion_detail', self.kwargs['investigacion_id'])
 
 

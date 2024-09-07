@@ -65,8 +65,16 @@ class ClienteSolicitudListView(LoginRequiredMixin, ListView):
 
         context['uc'] = cliente_user
 
+        context['solicitudes_list'] = self.get_solicitudes_list()
+
         return context
     
+    def get_solicitudes_list(self):
+        cliente_user = ClienteUser.objects.get(username=self.request.user.username)
+        queryset = ClienteSolicitud.objects.filter(cliente__compania_id=cliente_user.compania)
+        print(queryset, 'query set by compania')
+        return queryset
+
 class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
 
     # required

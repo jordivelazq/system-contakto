@@ -13,6 +13,14 @@ EMAIL_BACKEND = env(
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = '[%s] ' % 'Contakto.Me'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.1and1.mx"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "estudios@contakto.mx"
+EMAIL_HOST_PASSWORD = "Estudios-ckt1"
+EMAIL_USE_TLS = False
+
+HOST_SERVER = "http://127.0.0.1:8000"
 
 DATABASES = {
     'default': {
