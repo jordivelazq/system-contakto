@@ -52,30 +52,22 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 
 # EMAIL
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL",
-    default="Estudios Contakto <estudios@contakto.mx>",
-)
-# https://docs.djangoproject.com/en/dev/ref/settings/#server-email
-SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
-# https://docs.djangoproject.   com/en/dev/ref/settings/#email-subject-prefix
-EMAIL_SUBJECT_PREFIX = env(
-    "DJANGO_EMAIL_SUBJECT_PREFIX",
-    default="[Contakto APP]",
-)
-
-# EMAIL_BACKEND = 'django_ses.SESBackend'
-
-# Anymail
-# ------------------------------------------------------------------------------
-# https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
-
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-# https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
-# https://anymail.readthedocs.io/en/stable/esps/amazon_ses/
+EMAIL_BACKEND = env(
+    "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
 
-EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = '[%s] ' % 'Contakto.Me'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.1and1.mx"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "estudios@contakto.mx"
+EMAIL_HOST_PASSWORD = "Estudios-ckt1"
+EMAIL_USE_TLS = False
+
+HOST_SERVER = "https://web.contakto.mx"
 
 ANYMAIL = {
     "AMAZON_SES_CLIENT_PARAMS": {

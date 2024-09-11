@@ -29,7 +29,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 cliente=self.request.user, enviado=False
             ).count()
 
-            cliente = ClienteUser.objects.get(pk=self.request.user.pk)
+            cliente = ClienteUser.objects.filter(pk=self.request.user.pk)
+            if cliente:
+                cliente = cliente.first()
 
             cliente_solicitud = ClienteSolicitud.objects.filter(
                 cliente=cliente
