@@ -72,7 +72,6 @@ class ClienteSolicitudListView(LoginRequiredMixin, ListView):
     def get_solicitudes_list(self):
         cliente_user = ClienteUser.objects.get(username=self.request.user.username)
         queryset = ClienteSolicitud.objects.filter(cliente__compania_id=cliente_user.compania)
-        print(queryset, 'query set by compania')
         return queryset
 
 class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
@@ -91,6 +90,11 @@ class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
 
         return ClienteSolicitud.objects.filter(cliente__compania=self.request.user.clienteuser.compania).order_by('-id')
 
+    def get_solicitudes_list(self):
+        cliente_user = ClienteUser.objects.get(username=self.request.user.username)
+        queryset = ClienteSolicitud.objects.filter(cliente__compania_id=cliente_user.compania)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudEmpresaListView,
                         self).get_context_data(**kwargs)
@@ -105,6 +109,7 @@ class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
             print('Error en cliente_user')
 
         context['uc'] = cliente_user
+        context['solicitudes_list'] = self.get_solicitudes_list()
 
         return context
 
