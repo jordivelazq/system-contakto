@@ -25,6 +25,7 @@ from app.clientes.views.solicitudes import (
     ClienteSolicitudObservacionUpdateView,
     InitialClient,
     MunicipiosView,
+    SendEmailApiView,
 )
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
@@ -106,6 +107,11 @@ urlpatterns = [
         "solicitudes/candidato/delete/<int:solicitud_id>/<int:pk>",
         ClienteSolicitudCandidatoDeleteView.as_view(),
         name="clientes_solicitud_candidato_delete",
+    ),
+    path(
+        "solicitudes/solicitud/enviar/email/",
+        SendEmailApiView.as_view(),
+        name="clientes_solicitud_enviar_email",
     ),
     # facturas
     path(

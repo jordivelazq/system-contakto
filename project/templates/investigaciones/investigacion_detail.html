@@ -49,6 +49,19 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
+                                <!-- 
+                                #Valor de 'resultado'
+                                resultado = '0'#'por evaluar'
+                                if data_investigacion['viable']:
+                                    resultado = '1'#'viable' 
+                                elif data_investigacion['no_viable']:
+                                    resultado = '3' #'no viable'
+                                elif data_investigacion['reservas']:
+                                    resultado = '2'#'con reservas'
+                                -->
+                                {% if investigacion.resultado == '1' or investigacion.resultdo == '2' or investigacion.resultasdo == '3' %}
+                                <a href="javascript:void(0)" onclick="send_email('{{ investigacion.id }}')" class="btn btn-primary" style="float: right;"><i class="fa fa-envelope"></i> Enviar investigación</a>
+                                {% endif %}
                                 <h3 class="card-title">Coordinación de atención al cliente - Detalle</h3>
                                 <br>
 
@@ -916,7 +929,80 @@
         $(document).ready(function () {
             investigacion_id = $('#investigacion_id').val();
             $('[data-toggle="popover"]').popover();
+
         });
+
+        var send_email = (investigacion) =>{
+
+            let email = '{{ investigacion.cliente_solicitud }}'
+            email = email.replace('(', '').replace(')', '').split('  ')[1]
+
+            if (investigacion){
+                Swal.fire({
+                    title: "Envío de investigación por correo electrónico",
+                    text: "Desea enviar la investigación",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "Si, enviar",
+                    cancelButtonText: "No, cancelar",
+                    confirmButtonClass: "btn btn-success mt-2",
+                    cancelButtonClass: "btn btn-danger ms-2 mt-2",
+                    buttonsStyling: ! 1,
+                    html:'<label for="swal-input1">Para</label><input type="email" id="swal-input1" class="swal2-input" value="'+ email +'">'
+                    +'<br><label for="swal-input2">Cc</label><input type="email" id="swal-input2" class="swal2-input" value=""><br><small>Separar por comas (,) si desea enviar más de una copia</small>',
+                    preConfirm: () => {
+                    if (document.getElementById('swal-input1').value) {
+                        return [{'to':
+                            document.getElementById('swal-input1').value,
+                            },
+                        {'cc':document.getElementById('swal-input2').value},
+                    ]      
+                    } else {
+                        Swal.showValidationMessage('Ingrese el correo electrónico')   
+                    }
+                }
+                }).then(function (e) {
+                  
+                    if (e.dismissm === Swal.DismissReason.cancel){
+                        Swal.fire({
+                            title: "Cancelada",
+                            text: "El envío de la investigación ha sido cancelado",
+                            icon: "error",
+                            confirmButtonColor: "#1c84ee"
+                        });
+                        return
+                    }                    
+                   
+                    if (e.value) {
+                        console.log(e.value[0])
+                        console.log(e.value.to)
+                        $.ajax({
+                            url:"{% url 'clientes:clientes_solicitud_enviar_email' %}",
+                            type:'POST', data:{'email': e.value[0].to,'cc':e.value[1].cc, 'inv': investigacion, 'csrfmiddlewaretoken':"{{ csrf_token }}"},
+                            success: function(response){
+                                if (response.error == 0){
+                                    Swal.fire({
+                                        title: "Enviado",
+                                        text: "La solicitud ha sido enviada con éxito",
+                                        icon: "success",
+                                        confirmButtonColor: "#1c84ee"
+                                    })
+                                 }else{
+                                    Swal.fire({
+                                        title: "Proceso no completado",
+                                        text: response.messages,
+                                        icon: "warning",
+                                        confirmButtonColor: "#1c84ee"
+                                    })
+                                 }
+                                
+                            }
+                            
+                        })
+                    }
+                })
+            }
+        }
     </script>
 
 {% endblock extra_js %}

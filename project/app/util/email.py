@@ -67,16 +67,24 @@ message.send()
 
 ''' New method to send email'''
 
-def send_email(inv:Investigacion):
+def send_email(inv:Investigacion, to=None, cc=None):
+    
     from_address = settings.EMAIL_HOST_USER
     to_address = 'tabasco.dev@gmail.com'
 
     if inv.cliente_solicitud_candidato.cliente_solicitud.cliente.email:
        to_address = inv.cliente_solicitud_candidato.cliente_solicitud.cliente.email
-    
+
+    if to:
+       to_address = to
+
     mime_message = MIMEMultipart('alternative')
     mime_message["From"] = from_address
     mime_message["To"] = to_address
+
+    if cc:
+        mime_message['Cc'] = cc
+
     mime_message["Subject"] = "CONTAKTO"
     url = ""
     if inv.tipo_investigacion.first().tipo_investigacion == 'Laboral':
