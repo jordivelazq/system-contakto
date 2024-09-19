@@ -134,7 +134,6 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
-
                                     <thead>
                                         <tr>
                                             <th>Acciones</th>
@@ -147,48 +146,55 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for solicitud in solicitudes_list %}
+                                        {% for solicitud_user in solicitudes_list %}
                                         <tr>
-                                            <td>
+                                            <th colspan="7">
+                                                <h4>{{ solicitud_user.responsable}} / {{ solicitud_user.responsable.username }}  <small class="text-danger"> / Total {{ solicitud_user.solicitud_list.count }}</small></h4>
+                                            </th>
+                                        </tr>
+                                            {% for solicitud in solicitud_user.solicitud_list%}
+                                            <tr>
+                                                <td>
 
-                                                <div class="d-flex flex-wrap gap-2">
+                                                    <div class="d-flex flex-wrap gap-2">
 
-                                                    <div class="btn-group" role="group">
-                                                    
-                                                    
-                                                    <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}" aria-label="Detalles"
-                                                    class="btn btn-soft-primary waves-effect waves-light"> <i class="bx bxs-search label-icon"></i></a>
-                                                    
-                                                    {% if not solicitud.enviado %}
-                                                    <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}" aria-label="Eliminar"
-                                                    class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt label-icon"></i></a>    
-                                                    {% endif %}
+                                                        <div class="btn-group" role="group">
+                                                        
+                                                        
+                                                        <a href="{% url 'clientes:clientes_solicitud_detail' solicitud.id %}" aria-label="Detalles"
+                                                        class="btn btn-soft-primary waves-effect waves-light"> <i class="bx bxs-search label-icon"></i></a>
+                                                        
+                                                        {% if not solicitud.enviado %}
+                                                        <a href="{% url 'clientes:clientes_solicitud_delete' solicitud.id %}" aria-label="Eliminar"
+                                                        class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt label-icon"></i></a>    
+                                                        {% endif %}
+
+                                                        </div>
 
                                                     </div>
-
-                                                </div>
-                                                   
-                                            </td>
-                                            <td>{{ solicitud.fecha_solicitud }}</td>
-                                            <td>
-                                                <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>
-                                            </td>
-                                            <td>
-                                                {% if solicitud.enviado %}
-                                                {{ solicitud.fecha_actualizacion }}
-                                                {% else %}
-                                                -
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ solicitud.get_candidatos_count }}</td>
-                                            <td>{{ solicitud.get_candidatos_completados_count }}</td>
-                                            <td>{{ solicitud.observaciones }}</td>
-                                           
-                                        </tr>
-                                        {% empty %}
-                                        <tr>
-                                            <td colspan="4">No hay solicitudes</td>
-                                        </tr>
+                                                    
+                                                </td>
+                                                <td>{{ solicitud.fecha_solicitud }}</td>
+                                                <td>
+                                                    <i class="fa fa-{% if solicitud.enviado %}check{% else %}times{%endif%}"></i>
+                                                </td>
+                                                <td>
+                                                    {% if solicitud.enviado %}
+                                                    {{ solicitud.fecha_actualizacion }}
+                                                    {% else %}
+                                                    -
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ solicitud.get_candidatos_count }}</td>
+                                                <td>{{ solicitud.get_candidatos_completados_count }}</td>
+                                                <td>{{ solicitud.observaciones }}</td>
+                                            
+                                            </tr>
+                                            {% empty %}
+                                            <tr>
+                                                <td colspan="4">No hay solicitudes</td>
+                                            </tr>
+                                            {% endfor %}
                                         {% endfor %}
                                     </tbody>
                                 </table>

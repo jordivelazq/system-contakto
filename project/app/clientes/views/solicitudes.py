@@ -21,7 +21,9 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 from ..forms.cliente_solicitud_candidato_forms import \
     ClienteSolicitudCandidatoForm
 from utils.general_utils import CreateGroupMessaje
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from app.util.email import send_email
 
 class InitialClient(LoginRequiredMixin, TemplateView):
 
@@ -72,7 +74,12 @@ class ClienteSolicitudListView(LoginRequiredMixin, ListView):
     def get_solicitudes_list(self):
         cliente_user = ClienteUser.objects.get(username=self.request.user.username)
         queryset = ClienteSolicitud.objects.filter(cliente__compania_id=cliente_user.compania)
-        return queryset
+        usuarios = set(queryset.values_list('cliente', flat=True))
+        data = []
+        for cu in usuarios:
+            q = ClienteSolicitud.objects.filter(cliente__id=cu)
+            data.append({'responsable': q.first().cliente, 'solicitud_list': q })
+        return data       
 
 class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
 
@@ -87,13 +94,20 @@ class ClienteSolicitudEmpresaListView(LoginRequiredMixin, ListView):
     template_name = 'clientes/solicitudes/solicitudes_list.html'
 
     def get_queryset(self):
-
+        if not self.request.user.clienteuser:
+            return None
         return ClienteSolicitud.objects.filter(cliente__compania=self.request.user.clienteuser.compania).order_by('-id')
 
     def get_solicitudes_list(self):
         cliente_user = ClienteUser.objects.get(username=self.request.user.username)
         queryset = ClienteSolicitud.objects.filter(cliente__compania_id=cliente_user.compania)
-        return queryset
+        usuarios = set(queryset.values_list('cliente', flat=True))
+        data = []
+        for cu in usuarios:
+            q = ClienteSolicitud.objects.filter(cliente__id=cu)
+            data.append({'responsable': q.first().cliente, 'solicitud_list': q })
+        
+        return data
 
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudEmpresaListView,
@@ -528,3 +542,19 @@ class ClienteSolicitudObservacionUpdateView(GroupRequiredMixin, UpdateView):
             'clientes:clientes_solicitud_detail',
             kwargs={"pk": self.kwargs['pk']}
         )
+
+
+class SendEmailApiView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        if self.request.POST.get('email') and self.request.POST.get('inv'):
+            inv = Investigacion.objects.filter(id=int(self.request.POST.get('inv')))
+            to_address = self.request.POST.get('email')
+            cc_address = self.request.POST.get('cc').replace(' ', '')
+            if inv:
+                send_email(inv=inv.first(), to=to_address, cc=cc_address)
+                return Response(data={'error':0, 'messages':'Solicitud envíada con éxito'})    
+            return Response(data={'error':1, "messages":"La investigación no existe"})
+                
+        return Response(data={'error':2, 'messages':'Le hace falta el correo para completar el proceso'}, status=200)
+
