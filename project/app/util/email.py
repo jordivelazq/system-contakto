@@ -83,7 +83,8 @@ def send_email(inv:Investigacion, to=None, cc=None):
     mime_message["To"] = to_address
 
     if cc:
-        mime_message['Cc'] = cc
+        mime_message['Cc'] = cc # "email1, email2" <-- format
+        to_address = [to_address] + cc.split(',') # [main] + [email1, email2] <-- format
 
     mime_message["Subject"] = "CONTAKTO"
     url = ""

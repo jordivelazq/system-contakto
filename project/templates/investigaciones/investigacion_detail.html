@@ -974,8 +974,7 @@
                     }                    
                    
                     if (e.value) {
-                        console.log(e.value[0])
-                        console.log(e.value.to)
+                        
                         $.ajax({
                             url:"{% url 'clientes:clientes_solicitud_enviar_email' %}",
                             type:'POST', data:{'email': e.value[0].to,'cc':e.value[1].cc, 'inv': investigacion, 'csrfmiddlewaretoken':"{{ csrf_token }}"},
