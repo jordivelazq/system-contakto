@@ -258,7 +258,7 @@
     $('#id_sucursal').select2();
     $('[data-toggle="popover"]').popover();
     const inputElement = document.getElementById("id_archivo_otros");
-
+    inputElement.classList.add('form-control');
     inputElement.addEventListener("change", handleFiles, false);
 
   });

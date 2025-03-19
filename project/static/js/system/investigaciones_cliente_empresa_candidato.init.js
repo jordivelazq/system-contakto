@@ -138,7 +138,7 @@ $(document).ready(function () {
                 "data": "agente",
                 "render": function (data, type, row, meta) {
                     if (row.agente_name != undefined && row.agente_name != 'No asignado')
-                        return '<i class="fa fa-check text-success"></i>';
+                        return '<i class="fa fa-check text-success"></i> ' + row.agente_name;
                     return '<i class="fa fa-times text-danger"></i>';
                 }
             },
