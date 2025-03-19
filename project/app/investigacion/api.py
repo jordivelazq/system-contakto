@@ -2006,11 +2006,18 @@ class InvestigacionEjecutivoLaboralDetailView(DetailView):
     model = Investigacion
     context_object_name = 'investigacion'
     template_name = 'investigaciones/ejecutivo_de_cuenta/investigaciones_ejecutivo_lab_detail.html'
-
+    
+ 
     def post(self, request, *args, **kwargs):
 
         inv = Investigacion.objects.get(pk=self.kwargs['pk'])
-
+        if self.request.POST.get('action') and self.request.POST.get('action') == 'has_demanda_laboral':
+            inv.has_demanda = True if 'true' in self.request.POST.get('has_demanda_laboral') else False
+            inv.has_demanda_created_at = datetime.now()
+            inv.has_demanda_register_by = self.request.user.pk
+            inv.save()
+            messages.add_message(self.request, messages.SUCCESS, 'La investigación ha sido actualizado con respecto a su demanda laboral')
+            return redirect('investigaciones:investigacion_ejecutivo_laboral_detail', pk=self.kwargs['pk'])
         form = InvestigacionStatusTrayectoriaForm(request.POST, prefix='investigacion', instance=inv)
         if self.request.POST.get('action') and self.request.POST.get('action') == 'form-resultado':
             formResultados = InvestigacionResultadosForm(request.POST, prefix='investigacion', instance=inv)

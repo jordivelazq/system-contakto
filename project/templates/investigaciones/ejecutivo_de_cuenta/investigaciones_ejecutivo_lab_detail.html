@@ -361,6 +361,13 @@
 
 
                 <div class="row" id="demandas_laborales">
+                    <div class="row">
+                        <form action="" method="post" id="form-demanda-laboral">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="has_demanda_laboral">
+                            <input type="hidden" id="has_demanda_laboral" name="has_demanda_laboral" value="{{ investigacion.has_demanda_laboral}}">
+                        </form>
+                    </div>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
@@ -415,11 +422,38 @@
                                                 {% endfor %}
                                                 </tbody>
                                             </table>
-
+                                            
                                             <a href="{% url 'investigaciones:investigaciones_demanada_create' investigacion.id %}"
                                                class="btn btn-primary waves-effect btn-label waves-light can-hide">
                                                 <i class="bx bx-plus label-icon"></i>
                                                 Agregar demanda laboral</a>
+                                            ¿Existe demanda laboral?
+
+                                            {% if investigacion.has_demanda %}
+                                            <a href="javascript:void(0)" onclick="checkDemandaLaboral(true);" 
+                                                class="btn btn-success waves-effect btn-label">
+                                                <i class="bx bx-check label-icon"></i>
+                                                Sí
+                                            </a>
+                                            {% else %}
+                                            <a href="javascript:void(0)" onclick="checkDemandaLaboral(true);" 
+                                                class="btn btn-secondary waves-effect btn-label">
+                                                Sí
+                                            </a>
+                                            {% endif %}
+                                            
+
+                                            {% if not investigacion.has_demanda %}
+                                            <a href="javascript:void(0)" onclick="checkDemandaLaboral(false);" 
+                                            class="btn btn-success waves-effect btn-label">
+                                            <i class="bx bx-check label-icon"></i>
+                                            No</a>
+                                        {% else %}
+                                   
+                                        <a href="javascript:void(0)" onclick="checkDemandaLaboral(false);" 
+                                        class="btn btn-secondary waves-effect btn-label"> No</a>
+                                        {% endif %}
+                                        
                                         </div>
                                     </div>
                                 </div>
@@ -894,6 +928,27 @@
             {% endif %}
         });
 
+        function checkDemandaLaboral(result) {
+            Swal.fire({
+        title: result? "¿Tiene demanda laboral": "¿No tiene demanda laboral?",
+        text: result ? "¿Desea marcar que SÍ tiene demanda laboral?":"¿Desea marcar que No tiene demanda laboral?",
+        icon: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Si, aceptar!",
+        cancelButtonText: "No, cancelar!",
+        confirmButtonClass: "btn btn-success mt-2",
+        cancelButtonClass: "btn btn-danger ms-2 mt-2",
+        buttonsStyling: !1
+    }).then(function (e) {
+        $("#has_demanda_laboral").val(result)
+        setTimeout(()=>{
+
+            $("#form-demanda-laboral").submit()
+        }, 1000)
+
+    })
+
+        }
     </script>
 
 {% endblock extra_js %}

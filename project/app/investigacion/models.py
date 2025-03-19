@@ -174,6 +174,10 @@ class Investigacion(models.Model):
     investigacion_factura_pago_completado = models.BooleanField(default=False)
     investigacion_factura_pago_verificado = models.BooleanField(default=False)
 
+    has_demanda = models.BooleanField(null=True, blank=True)
+    has_demanda_created_at = models.DateTimeField(null=True, blank=True)
+    has_demanda_register_by = models.IntegerField(null=True, blank=True)
+
     def __str__(self):
         return "%s / %s" % (self.candidato, self.compania)
 
