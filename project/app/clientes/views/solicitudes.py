@@ -3,7 +3,7 @@ import json
 from datetime import date, datetime
 
 from app.adjuntos.models import Adjuntos
-from app.clientes.models import (ClienteSolicitud, ClienteSolicitudCandidato,
+from app.clientes.models import (ClienteSolicitud, ClienteSolicitudCandidato, ClienteSolicitudCandidatoArchivos,
                                  ClienteUser)
 from app.compania.models import DireccionFiscal, Sucursales
 from app.core.models import Municipio, UserMessage
@@ -430,9 +430,11 @@ class ClienteSolicitudCandidatoCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
+        solicitud = self.object = form.save(commit=False)
         self.object.cliente_solicitud_id = self.kwargs['solicitud_id']
         self.object.save()
+        for f in self.request.FILES.getlist('archivo_otros'):
+            ClienteSolicitudCandidatoArchivos.objects.create(archivo=f, cliente_solicitud_candidato_id=solicitud.id, register_by=self.request.user.pk)
 
         return super(ClienteSolicitudCandidatoCreateView, self).form_valid(form)
 
@@ -448,12 +450,25 @@ class ClienteSolicitudCandidatoUpdateView(LoginRequiredMixin, UpdateView):
     # required
     group_required = u"Cliente"
     raise_exception = True
-
     model = ClienteSolicitudCandidato
     template_name = 'clientes/solicitudes/candidatos/candidato_form.html'
     fields = ['nombre', 'apellido', 'nss', 'email', 'edad', 'curp', 'puesto', 'sucursal',
               'estado', 'municipio', 'tipo_investigacion', 'archivo_solicitud', 'telefono_casa', 'telefono_movil', 'direccion_fiscal']
 
+    def form_valid(self, form):
+        solicitud = self.object = form.save(commit=False)
+        self.object.save()
+        for f in ClienteSolicitudCandidatoArchivos.objects.filter(cliente_solicitud_candidato_id=solicitud.id):
+            if self.request.POST.get('archivo_otros-{}'.format(f.id)) == 'on':
+                f.delete()
+            
+                
+        for f in self.request.FILES.getlist('archivo_otros'):
+            ClienteSolicitudCandidatoArchivos.objects.create(archivo=f, cliente_solicitud_candidato_id=solicitud.id, register_by=self.request.user.pk)
+
+
+        return super(ClienteSolicitudCandidatoUpdateView, self).form_valid(form)
+    
     def get_context_data(self, **kwargs):
         context = super(ClienteSolicitudCandidatoUpdateView,
                         self).get_context_data(**kwargs)
@@ -461,8 +476,9 @@ class ClienteSolicitudCandidatoUpdateView(LoginRequiredMixin, UpdateView):
         solicitud = ClienteSolicitud.objects.get(pk=self.kwargs['solicitud_id'])
         context['form'].fields['sucursal'].queryset = Sucursales.objects.filter(compania_id=solicitud.cliente.compania_id)
         context['form'].fields['direccion_fiscal'].queryset = DireccionFiscal.objects.filter(compania_id=solicitud.cliente.compania_id)
-
+        context['archivo_otros'] = ClienteSolicitudCandidatoArchivos.objects.filter(cliente_solicitud_candidato_id=self.kwargs['pk'])
         context['solicitud_id'] = self.kwargs['solicitud_id']
+        context['edit'] = True
         return context
 
     # send the user back to their own page after a successful update

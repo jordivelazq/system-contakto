@@ -164,7 +164,46 @@
                                         {{ form.archivo_solicitud|as_crispy_field }}
                                     </div>
                                 </div>
+                                
+                                <div class="row">
+                                    {% if edit %}
+                                    <div class=" mb-2">
 
+                                            <label for="id_archivo_otros">Archivo otros</label>
+                                            <input type="file" name="archivo_otros" class="form-control" id="id_archivo_otros" multiple>
+
+                                            <div id="list_archivo_otros" class="col-12">
+                                            </div>
+                                    </div>
+                                    {% for o in archivo_otros %}
+                                        <div class=" mb-2">
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text">Actualmente</span>
+                                                <div class="form-control d-flex h-auto">
+                                                    <span class="text-break" style="flex-grow:1;min-width:0">
+                                                        <a href="{{o.archivo}}">{{o.archivo}}</a>
+                                                    </span>
+                                                    
+                                                    <span class="align-self-center ml-2">
+                                                        <span class="form-check">
+                                                            <input type="checkbox" name="archivo_otros-{{o.id}}" id="archivo_otros-{{o.id}}" class="form-check-input">
+                                                            <label class="form-check-label mb-0" for="archivo_otros-{{o.id}}">Borrar</label>
+                                                        </span>
+                                                    </span>
+                                                    
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <div class="col-12">
+                                        {{ form.archivo_otros  }}
+                                    </div>
+                                    <div id="list_archivo_otros" class="col-12"></div>
+                                    {% endif %}
+                                </div>
                                 <br><br>
 
                                 <button type="submit" class="btn btn-primary waves-effect btn-label waves-light"> <i
@@ -204,12 +243,23 @@
 <script src="{% static 'libs/select2/dist/js/select2.min.js'%}"></script>
 
 <script>
+     function handleFiles(){
+        const fileList = this.files;
+        $("#list_archivo_otros").empty()
+        fileList.forEach(element => {
+            $("#list_archivo_otros").append('<span style="margin-right:10px"><i class="fa fa-file text-success"></i> '+ element.name +'</span>')
+
+        });
+    }
   $(document).ready(function () {
     $('#id_tipo_investigacion').select2();
     $('#id_estado').select2();
     $('#id_municipio').select2();
     $('#id_sucursal').select2();
     $('[data-toggle="popover"]').popover();
+    const inputElement = document.getElementById("id_archivo_otros");
+
+    inputElement.addEventListener("change", handleFiles, false);
 
   });
 </script>

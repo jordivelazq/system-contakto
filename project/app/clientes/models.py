@@ -163,3 +163,11 @@ class ClienteSolicitudCandidato(models.Model):
 
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+
+class ClienteSolicitudCandidatoArchivos(models.Model):
+    cliente_solicitud_candidato = models.ForeignKey(ClienteSolicitudCandidato, on_delete=models.PROTECT)
+    archivo = models.FileField(upload_to='cliente_solicitudes')
+    created_at = models.DateTimeField(auto_now_add=True)
+    register_by = models.IntegerField(null=True, blank=True)
+
