@@ -107,6 +107,7 @@ class CandidatosEmpresaTemplateView(LoginRequiredMixin, TemplateView):
         inv_terminada = Investigacion.objects.filter(
             cliente_solicitud__in=cliente_solicitud, status=2
         ).count()
+
         context['title'] = 'Candidatos'
         context['total_investigaciones'] =total_investigaciones
         context['en_investigacion'] = en_investigacion

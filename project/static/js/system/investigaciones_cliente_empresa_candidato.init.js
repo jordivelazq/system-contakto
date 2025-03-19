@@ -203,6 +203,37 @@ $(document).ready(function () {
                     }
                     return 'Sin información';
                 }
+            },
+            {
+                "title": "Bitacora",
+                "data": "bitacora",
+                searchable: false,
+                render: function (data, type, row, meta) {
+                    if (row.bitacora != undefined) {
+                        let tr = "";
+                        row.bitacora.forEach(elm => {
+                            tr += (`<tr>
+                                <td>${elm.datetime}</td>
+                                <td>${elm.observaciones}</td>
+                                <td>${elm.servicio}</td>
+                                </tr>`);
+                        });
+                        let modal =  `
+                                       <table class="table">
+                                        <thead>
+                                            <th>Fecha</th>
+                                            <th width="200">Observación</th>
+                                            <th>Servicio</th>
+                                        </thead>
+                                        <tbody>
+                                            ${tr}
+                                        </tbody>
+                                       </table>`
+                    
+                    return `${modal}`;
+                    }
+                    return 'Sin información';
+                }
             }
 
         ],

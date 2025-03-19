@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Investigacion, Psicometrico, GestorInvestigacion, GestorInfo, GestorInvestigacionPago
+from .models import Investigacion, Psicometrico, GestorInvestigacion, GestorInfo, GestorInvestigacionPago, InvestigacionBitacora
 from app.persona.models import Persona, File
 from app.compania.models import Compania, Sucursales, Contacto
 from app.clientes.models import ClienteTipoInvestigacion
@@ -58,6 +58,10 @@ class PsicometricoSerializer(serializers.ModelSerializer):
         model = Psicometrico
         fields = '__all__'
 
+class InvestigacionBitacoraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvestigacionBitacora
+        fields = '__all__'
 
 class InvestigacionSerializer(serializers.ModelSerializer):
     agente = UserSerializer(read_only=True)
@@ -72,6 +76,7 @@ class InvestigacionSerializer(serializers.ModelSerializer):
     agente_name = serializers.SerializerMethodField()
     cita = serializers.SerializerMethodField()
     resultado_des = serializers.SerializerMethodField()
+    bitacora = serializers.SerializerMethodField()
 
     class Meta:
         model = Investigacion
@@ -95,6 +100,9 @@ class InvestigacionSerializer(serializers.ModelSerializer):
     def get_resultado_des(self, obj):
         return obj.get_resultado_display()
 
+    def get_bitacora(self, obj):
+        queryset = InvestigacionBitacora.objects.filter(investigacion=obj.id)
+        return InvestigacionBitacoraSerializer(queryset, many=True).data
 
 class GestorInfoSerializer(serializers.ModelSerializer):
     usuario = UserSerializer(read_only=True)
