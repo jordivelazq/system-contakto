@@ -1214,6 +1214,7 @@ class PersonaTrayectoriaEditTemplateView(LoginRequiredMixin, TemplateView):
 
         trayectoria_empresa = investigacion.candidato.trayectorialaboral_set.get(
             pk=self.kwargs['pk'])
+        print(trayectoria_empresa)
         evaluacion = trayectoria_empresa.evaluacion_set.all()
         opinion_jefe = trayectoria_empresa.opinion_set.filter(
             categoria=1) if evaluacion else None

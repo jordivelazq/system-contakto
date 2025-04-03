@@ -175,6 +175,7 @@ class TrayectoriaLaboral(models.Model):
     sucursal = models.ForeignKey(Sucursales, null=True, blank=True, on_delete=models.CASCADE)
     #cambio para nuevos datos de empresas NO catalógicos
     nombre_empresa = models.CharField(max_length=500, null=True, blank=True)
+    razon_social = models.CharField(max_length=500, null=True, blank=True)
     nombre_sucursal = models.CharField(max_length=500, null=True, blank=True)
     direccion = models.CharField(max_length=1000, null=True, blank=True)
     telefono = models.CharField(max_length=100, null=True, blank=True)

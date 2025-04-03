@@ -49,10 +49,15 @@
 						<h3 class="card-title"></h3>
 
 						<div class="row">
-							<div class="col-md-8">
+							<div class="col-md-4">
 								{{ formTrayectoria.nombre_empresa.errors }}
 								<label for="id_trayectoria1-nombre-empresa">Empresa</label>
 								{{ formTrayectoria.nombre_empresa}}
+							</div>
+							<div class="col-md-4">
+								{{ formTrayectoria.razon_social.errors }}
+								<label for="id_trayectoria1-nombre-empresa">Razón Social</label>
+								{{ formTrayectoria.razon_social}}
 							</div>
 							<div class="col-md-4">
 								{{ formTrayectoria.nombre_sucursal.errors }}
