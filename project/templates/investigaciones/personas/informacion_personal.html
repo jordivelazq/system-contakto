@@ -210,19 +210,19 @@
 			<hr class="thin-separator" />
 			<div class="row">
 				<div class="col-md-4">
-					<label for="id_seguro-verificado_enburo">Verificado en Buro laboral</label>
+					<label for="id_seguro-verificado_enburo">Verificado en Buro laboral 3</label>
 					{% include 'share/radiobutton.html' with value=formSeguro.instance.verificado_enburo name=formSeguro.verificado_enburo.html_name %}
 					{{ formSeguro.verificado_enburo.errors }}
 				</div>
 				<div class="col-md-4">
 					<label for="id_investigacion-laboro_anteriormente">Laboró anteriormente en la empresa</label>
-					{% include 'share/radiobutton.html' with value=formInvestigacion.instance.laboro_anteriormente name=formInvestigacion.laboro_anteriormente.html_name %}
-					{{ formInvestigacion.laboro_anteriormente.errors }}
+					{% include 'share/radiobutton.html' with value=formLaboro.instance.laboro_anteriormente name=formLaboro.laboro_anteriormente.html_name %}
+					{{ formLaboro.laboro_anteriormente.errors }}
 				</div>
 				<div class="col-md-4">
 					<label for="id_investigacion-laboro_anteriormente">Familiar laborando en la empresa</label>
-					{% include 'share/radiobutton.html' with value=formInvestigacion.instance.familiar_laborando name=formInvestigacion.familiar_laborando.html_name %}
-					{{ formInvestigacion.familiar_laborando.errors }}
+					{% include 'share/radiobutton.html' with value=formLaboro.instance.familiar_laborando name=formLaboro.familiar_laborando.html_name %}
+					{{ formLaboro.familiar_laborando.errors }}
 				</div>
 			</div>
 

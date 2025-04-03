@@ -2061,7 +2061,7 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
     template_name = 'investigaciones/investigacion_edv_candidato_edit.html'
 
     def post(self, request, *args, **kwargs):
-
+        
         investigacion = Investigacion.objects.select_related(
             'compania', 'candidato').get(id=self.kwargs['investigacion_id'])
 
@@ -2188,7 +2188,26 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
                 legalidad.save()
             else:
                 msg_param = ''
-
+	    
+        ####################### Seguro #######################
+        formSeguro = SeguroAltaForma(request.POST, prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(request.POST, prefix='seguro')
+        if has_info(request.POST, prefix='seguro', investigacion=investigacion):
+            if formSeguro.is_valid():
+                seguro = formSeguro.save(commit=False)
+                seguro.persona = investigacion.candidato
+                seguro.save()
+            else:
+                msg_param = ''
+        ####################### Laboro #######################
+        formLaboroAndFamiliar = InvestigacionLaboroAndFamiliarForm(request.POST, prefix='investigacion', instance=investigacion)
+        if has_info(request.POST, prefix='investigacion', investigacion=investigacion):
+            if formLaboroAndFamiliar.is_valid():
+                investigacion.familiar_laborando = formLaboroAndFamiliar.cleaned_data['familiar_laborando']
+                investigacion.laboro_anteriormente = formLaboroAndFamiliar.cleaned_data['laboro_anteriormente']
+                investigacion.save()
+            else:
+                msg_param = ''
+                
         return redirect(reverse('investigaciones:investigacion_ejecutivo_laboral_detail', kwargs={"pk": self.kwargs['investigacion_id']}))
 
     def get_context_data(self, **kwargs):
@@ -2246,7 +2265,8 @@ class InvestigacionEjecutivoLaboralCandidatoTemplateView(LoginRequiredMixin, Tem
             prefix='seguro', instance=seguro[0]) if seguro else SeguroAltaForma(prefix='seguro')
         context['formSucursal'] = CompaniaSucursalForm(
             investigacion.compania.id, investigacion.sucursal.id if investigacion.sucursal else None, prefix='investigacion')
-
+        context['formLaboro'] = InvestigacionLaboroAndFamiliarForm(prefix='investigacion', instance=investigacion)
+       
         return context
 
 class InvestigacionEjecutivoVisitasCandidatoTemplateView(LoginRequiredMixin, TemplateView):

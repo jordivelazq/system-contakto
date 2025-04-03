@@ -146,3 +146,15 @@ class InvestigacionResultadosForm(ModelForm):
         self.fields['observaciones'].widget.attrs.update({'rows': '3'})
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
+
+class InvestigacionLaboroAndFamiliarForm(ModelForm):
+
+    class Meta:
+        model = Investigacion
+        fields = ['familiar_laborando', 'laboro_anteriormente']
+
+    def __init__(self, *args, **kwargs):
+        super(InvestigacionLaboroAndFamiliarForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
