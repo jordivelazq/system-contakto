@@ -11,6 +11,7 @@ html, body {
   text-transform: uppercase;
   -webkit-print-color-adjust: exact !important;
   display: none;
+  padding-bottom: 100px;
 }
 
 @media print {
@@ -100,12 +101,12 @@ table {
 
 /* line 80, ../sass/print.sass */
 .footer {
-  position: relative;
+  position: fixed;
+  bottom: 0px;
+  right: 20px;
   font-size: 0.9em;
   text-align: right;
   width: calc(100% - 40px);
-  margin-top: 20px;
-  right: 20px;
 }
 /* line 88, ../sass/print.sass */
 .footer p {
