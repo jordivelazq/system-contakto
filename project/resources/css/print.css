@@ -100,12 +100,12 @@ table {
 
 /* line 80, ../sass/print.sass */
 .footer {
-  position: absolute;
-  bottom: 0px;
-  right: 20px;
+  position: relative;
   font-size: 0.9em;
   text-align: right;
   width: calc(100% - 40px);
+  margin-top: 20px;
+  right: 20px;
 }
 /* line 88, ../sass/print.sass */
 .footer p {
