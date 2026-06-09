@@ -69,7 +69,7 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
     $scope.search = async function(){
         
         var fechaIni = '01/01/24';
-        var fechaFin = '31/12/24';
+        var fechaFin = '31/12/26';
 
         $scope.fecha_inicio = fechaIni;
         $scope.fecha_final = fechaFin;
@@ -96,7 +96,7 @@ contacktoApp.controller('SearchCandidatoCTRL', function($scope){
     $scope.search_init = async function(){
 
         var fechaInicio = '01/01/24';
-        var fechaFinal = '31/12/24';
+        var fechaFinal = '31/12/26';
 
         $scope.fecha_inicio = fechaInicio;
         $scope.fecha_final = fechaFinal;
